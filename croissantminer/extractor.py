@@ -6,8 +6,8 @@ import re
 import json
 import time
 from pathlib import Path
-from models.factory import create_model
-from config import METADATA_SCHEMA, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
+from .models.factory import create_model
+from .config import METADATA_SCHEMA, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
 
 
 def create_metadata_extraction_prompt(section_content, section_name):

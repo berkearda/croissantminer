@@ -3,7 +3,7 @@ from collections import Counter
 from pathlib import Path
 import re
 from copy import deepcopy
-from config import METADATA_SCHEMA
+from .config import METADATA_SCHEMA
 
 
 def is_valid_value(val):
