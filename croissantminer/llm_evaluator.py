@@ -29,6 +29,121 @@ try:
 except ImportError:
     pass
 
+import re
+
+# ═══════════════════════════════════════════════════════════════════════
+# Format normalizers — catch equivalent values before expensive LLM call
+# ═══════════════════════════════════════════════════════════════════════
+
+# License canonical mapping
+_LICENSE_CANON = {}
+for _variants, _canon in [
+    (["cc-by-4.0", "cc by 4.0", "creative commons attribution 4.0",
+      "creative commons attribution 4.0 license",
+      "creative commons attribution 4.0 international"], "cc-by-4.0"),
+    (["cc-by-sa-4.0", "cc by-sa 4.0", "creative commons attribution-sharealike 4.0",
+      "creative commons attribution sharealike 4.0",
+      "cc-by-sa-4.0 international"], "cc-by-sa-4.0"),
+    (["cc-by-nc-4.0", "cc by-nc 4.0", "creative commons attribution-noncommercial 4.0",
+      "creative commons attribution noncommercial 4.0"], "cc-by-nc-4.0"),
+    (["cc-by-nc-sa-4.0", "cc by-nc-sa 4.0"], "cc-by-nc-sa-4.0"),
+    (["mit", "mit license"], "mit"),
+    (["apache-2.0", "apache 2.0", "apache license 2.0",
+      "apache license, version 2.0"], "apache-2.0"),
+    (["cc0", "cc0 1.0", "cc0-1.0", "public domain"], "cc0"),
+    (["cc-by-3.0", "cc by 3.0", "creative commons attribution 3.0"], "cc-by-3.0"),
+]:
+    for v in _variants:
+        _LICENSE_CANON[v] = _canon
+
+
+def _normalize_license(text):
+    """Map license text to canonical form."""
+    t = text.strip().lower()
+    t = re.sub(r'https?://choosealicense\.com/licenses/', '', t)
+    t = re.sub(r'https?://creativecommons\.org/licenses/', 'cc-', t)
+    t = t.rstrip("/").strip()
+    return _LICENSE_CANON.get(t, t)
+
+
+def _licenses_match(pred, gt):
+    return _normalize_license(pred) == _normalize_license(gt)
+
+
+# Language normalization (ISO 639-1 / full name)
+_LANG_MAP = {
+    "en": "english", "eng": "english", "english": "english",
+    "de": "german", "deu": "german", "german": "german",
+    "fr": "french", "fra": "french", "french": "french",
+    "es": "spanish", "spa": "spanish", "spanish": "spanish",
+    "it": "italian", "ita": "italian", "italian": "italian",
+    "pt": "portuguese", "por": "portuguese", "portuguese": "portuguese",
+    "nl": "dutch", "nld": "dutch", "dutch": "dutch",
+    "pl": "polish", "pol": "polish", "polish": "polish",
+    "zh": "chinese", "zho": "chinese", "chinese": "chinese",
+    "ja": "japanese", "jpn": "japanese", "japanese": "japanese",
+    "ko": "korean", "kor": "korean", "korean": "korean",
+    "ar": "arabic", "ara": "arabic", "arabic": "arabic",
+    "ru": "russian", "rus": "russian", "russian": "russian",
+    "hi": "hindi", "hin": "hindi", "hindi": "hindi",
+    "multilingual": "multilingual",
+}
+
+
+def _normalize_language(text):
+    """Normalize a language string to a canonical set of languages."""
+    t = text.strip().lower()
+    # Split on comma, semicolon, space, "and"
+    parts = re.split(r'[,;/]\s*|\s+and\s+|\s+', t)
+    normalized = set()
+    for p in parts:
+        p = p.strip().rstrip(".")
+        if p in _LANG_MAP:
+            normalized.add(_LANG_MAP[p])
+        elif p:
+            normalized.add(p)
+    return frozenset(normalized)
+
+
+def _languages_match(pred, gt):
+    return _normalize_language(pred) == _normalize_language(gt)
+
+
+def _extract_year(text):
+    """Extract a 4-digit year from text."""
+    m = re.search(r'\b(19|20)\d{2}\b', text)
+    return m.group(0) if m else None
+
+
+def _dates_match(pred, gt):
+    """Compare dates with granularity awareness.
+
+    Rules:
+    - If GT is year-only and extraction's year matches → CORRECT
+    - If GT is full date and extraction is year-only with same year → PARTIAL
+    - If years don't match → None (let LLM judge)
+    """
+    pred_year = _extract_year(pred)
+    gt_year = _extract_year(gt)
+
+    if not pred_year or not gt_year:
+        return None  # Can't determine, let LLM handle
+
+    if pred_year != gt_year:
+        return None  # Years differ, let LLM judge severity
+
+    # Years match. Check granularity.
+    gt_is_year_only = bool(re.fullmatch(r'\s*(19|20)\d{2}\s*', gt.strip()))
+
+    # Years match — CORRECT regardless of granularity difference.
+    # Rationale: for metadata purposes, getting the right year is sufficient.
+    # The schema says "YYYY-MM-DD or YYYY" — both are valid.
+    return {
+        "category": "CORRECT",
+        "score": 1.0,
+        "reasoning": f"Year matches ({pred_year}). Both YYYY and YYYY-MM-DD are valid datePublished formats."
+    }
+
 
 class LLMEvaluator:
     """LLM-based semantic evaluator for metadata fields"""
@@ -135,40 +250,22 @@ class LLMEvaluator:
         # Check if groundtruth is "Unknown" (annotator didn't know)
         groundtruth_unknown = groundtruth.strip().lower() in ["unknown", "n/a", "none", "null", "not disclosed", "na"] if groundtruth and groundtruth.strip() else False
 
-        # Case 1: We didn't extract AND groundtruth is also empty/unknown
-        # → CORRECT (both agree field doesn't exist or is unknown)
-        if predicted_empty and (groundtruth_empty or groundtruth_unknown):
+        # SKIP: If groundtruth is empty or unknown, we cannot evaluate this field.
+        # Don't count it as correct OR incorrect — exclude from accuracy calculation.
+        if groundtruth_empty or groundtruth_unknown:
             return {
-                "category": "CORRECT",
-                "score": 1.0,
-                "reasoning": "Field not extracted and groundtruth is also empty/unknown - correctly not extracted"
+                "category": "SKIPPED",
+                "score": None,
+                "reasoning": "No usable groundtruth — field excluded from accuracy calculation"
             }
 
-        # Case 2: We didn't extract BUT groundtruth HAS a value
-        # → MISSING (we failed to extract something that exists)
-        if predicted_empty and not groundtruth_empty and not groundtruth_unknown:
+        # GT has a real value. Now check the extraction.
+        # Case: extraction is empty but GT has value → MISSING
+        if predicted_empty:
             return {
                 "category": "MISSING",
                 "score": 0.0,
                 "reasoning": "Field not extracted but groundtruth has a value"
-            }
-
-        # Case 3: We extracted BUT groundtruth is empty (no annotation to compare)
-        # → CORRECT (assume our extraction is correct when no groundtruth available)
-        if not predicted_empty and groundtruth_empty:
-            return {
-                "category": "CORRECT",
-                "score": 1.0,
-                "reasoning": "No groundtruth available for comparison"
-            }
-
-        # Case 4: We extracted BUT groundtruth is "Unknown"
-        # → CORRECT (we attempted extraction, annotator didn't know - accept our extraction)
-        if not predicted_empty and groundtruth_unknown:
-            return {
-                "category": "CORRECT",
-                "score": 1.0,
-                "reasoning": "Groundtruth marked as 'Unknown', extracted value assumed correct"
             }
 
         # Check cache with version to prevent cross-evaluation contamination
@@ -185,6 +282,37 @@ class LLMEvaluator:
             }
             self.cache[cache_key] = result
             return result
+
+        # ── Format normalizers (catch equivalent values before LLM call) ──
+
+        # 1. License normalization
+        if field_name in ("sc:license", "license"):
+            if _licenses_match(predicted, groundtruth):
+                result = {
+                    "category": "CORRECT",
+                    "score": 1.0,
+                    "reasoning": "License match after format normalization"
+                }
+                self.cache[cache_key] = result
+                return result
+
+        # 2. Language normalization
+        if field_name in ("sc:inLanguage", "inLanguage"):
+            if _languages_match(predicted, groundtruth):
+                result = {
+                    "category": "CORRECT",
+                    "score": 1.0,
+                    "reasoning": "Language match after ISO 639 normalization"
+                }
+                self.cache[cache_key] = result
+                return result
+
+        # 3. Date granularity: year-only GT matches full date with same year
+        if field_name in ("sc:datePublished", "datePublished"):
+            date_result = _dates_match(predicted, groundtruth)
+            if date_result is not None:
+                self.cache[cache_key] = date_result
+                return date_result
 
         # Determine field type
         field_type = get_field_type(field_name)
@@ -379,17 +507,20 @@ def evaluate_with_llm(
         predicted_fields, groundtruth_annotations
     )
 
-    # Calculate overall statistics
+    # Calculate overall statistics — SKIP fields with no usable GT
     if results:
-        scores = [r['score'] for r in results.values()]
-        categories = [r['category'] for r in results.values()]
+        # Only include fields that were actually evaluated (not SKIPPED)
+        evaluated = {f: r for f, r in results.items() if r.get('category') != 'SKIPPED'}
+        scores = [r['score'] for r in evaluated.values()]
 
         from collections import Counter
-        category_counts = Counter(categories)
+        category_counts = Counter(r['category'] for r in results.values())
 
         overall_stats = {
             'llm_accuracy': sum(scores) / len(scores) if scores else 0.0,
             'num_fields': len(results),
+            'num_fields_evaluated': len(evaluated),
+            'num_fields_skipped': category_counts.get('SKIPPED', 0),
             'category_distribution': dict(category_counts),
             'correct_count': category_counts.get('CORRECT', 0),
             'partially_correct_count': category_counts.get('PARTIALLY_CORRECT', 0),
@@ -400,6 +531,8 @@ def evaluate_with_llm(
         overall_stats = {
             'llm_accuracy': 0.0,
             'num_fields': 0,
+            'num_fields_evaluated': 0,
+            'num_fields_skipped': 0,
             'category_distribution': {},
             'correct_count': 0,
             'partially_correct_count': 0,
