@@ -1,0 +1,294 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The Hugging Face git repository.",
+      "contentUrl": "https://huggingface.co/datasets/detection-datasets/coco/tree/refs%2Fconvert%2Fparquet",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "parquet-files-for-config-default",
+      "name": "parquet-files-for-config-default",
+      "description": "The underlying Parquet files as converted by Hugging Face (see: https://huggingface.co/docs/dataset-viewer/parquet).",
+      "containedIn": {
+        "@id": "repo"
+      },
+      "encodingFormat": "application/x-parquet",
+      "includes": "default/*/*.parquet"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "dataType": "cr:Split",
+      "key": {
+        "@id": "default_splits/split_name"
+      },
+      "@id": "default_splits",
+      "name": "default_splits",
+      "description": "Splits for the default config.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "default_splits/split_name",
+          "name": "split_name",
+          "description": "The name of the split.",
+          "dataType": "sc:Text"
+        }
+      ],
+      "data": [
+        {
+          "default_splits/split_name": "train"
+        },
+        {
+          "default_splits/split_name": "val"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "default",
+      "name": "default",
+      "description": "detection-datasets/coco - 'default' subset\n\nAdditional information:\n- 2 splits: train, val",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "default/split",
+          "name": "default/split",
+          "description": "Split to which the example belongs to.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            },
+            "transform": {
+              "regex": "default/(?:partial-)?(train|val)/.+parquet$"
+            }
+          },
+          "references": {
+            "field": {
+              "@id": "default_splits/split_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/image_id",
+          "name": "default/image_id",
+          "description": "Column 'image_id' from the Hugging Face parquet file.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "image_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/image",
+          "name": "default/image",
+          "description": "Image column 'image' from the Hugging Face parquet file.",
+          "dataType": "sc:ImageObject",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "image"
+            },
+            "transform": {
+              "jsonPath": "bytes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/width",
+          "name": "default/width",
+          "description": "Column 'width' from the Hugging Face parquet file.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "width"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/height",
+          "name": "default/height",
+          "description": "Column 'height' from the Hugging Face parquet file.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "height"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/objects",
+          "name": "default/objects",
+          "description": "Column 'objects' from the Hugging Face parquet file.",
+          "subField": [
+            {
+              "@type": "cr:Field",
+              "@id": "default/objects/bbox_id",
+              "name": "default/objects/bbox_id",
+              "description": "Column 'objects' from the Hugging Face parquet file.",
+              "dataType": "sc:Integer",
+              "source": {
+                "fileSet": {
+                  "@id": "parquet-files-for-config-default"
+                },
+                "extract": {
+                  "column": "objects"
+                },
+                "transform": {
+                  "jsonPath": "bbox_id"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/objects/category",
+              "name": "default/objects/category",
+              "description": "ClassLabel column 'objects' from the Hugging Face parquet file.\nLabels:\nperson (0), bicycle (1), car (2), motorcycle (3), airplane (4), bus (5), train (6), truck (7), boat (8), traffic light (9), fire hydrant (10), stop sign (11), parking meter (12), bench (13), bird (14), cat (15), dog (16), horse (17), sheep (18), cow (19), elephant (20), bear (21), zebra (22), giraffe (23), backpack (24), umbrella (25), handbag (26), tie (27), suitcase (28), frisbee (29), skis (30), snowboard (31), sports ball (32), kite (33), baseball bat (34), baseball glove (35), skateboard (36), surfboard (37), tennis racket (38), bottle (39), wine glass (40), cup (41), fork (42), knife (43), spoon (44), bowl (45), banana (46), apple (47), sandwich (48), orange (49), broccoli (50), carrot (51), hot dog (52), pizza (53), donut (54), cake (55), chair (56), couch (57), potted plant (58), bed (59), dining table (60), toilet (61), tv (62), laptop (63), mouse (64), remote (65), keyboard (66), cell phone (67), microwave (68), oven (69), toaster (70), sink (71), refrigerator (72), book (73), clock (74), vase (75), scissors (76), teddy bear (77), hair drier (78), toothbrush (79)",
+              "dataType": "sc:Integer",
+              "source": {
+                "fileSet": {
+                  "@id": "parquet-files-for-config-default"
+                },
+                "extract": {
+                  "column": "objects"
+                },
+                "transform": {
+                  "jsonPath": "category"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/objects/bbox",
+              "name": "default/objects/bbox",
+              "description": "Column 'objects' from the Hugging Face parquet file.",
+              "dataType": "sc:Float",
+              "source": {
+                "fileSet": {
+                  "@id": "parquet-files-for-config-default"
+                },
+                "extract": {
+                  "column": "objects"
+                }
+              },
+              "repeated": true
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/objects/area",
+              "name": "default/objects/area",
+              "description": "Column 'objects' from the Hugging Face parquet file.",
+              "dataType": "sc:Float",
+              "source": {
+                "fileSet": {
+                  "@id": "parquet-files-for-config-default"
+                },
+                "extract": {
+                  "column": "objects"
+                },
+                "transform": {
+                  "jsonPath": "area"
+                }
+              }
+            }
+          ],
+          "repeated": true
+        }
+      ]
+    }
+  ],
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "coco",
+  "description": "detection-datasets/coco dataset hosted on Hugging Face and contributed by the HF Datasets community",
+  "alternateName": [
+    "detection-datasets/coco"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Detection datasets",
+    "url": "https://huggingface.co/detection-datasets"
+  },
+  "keywords": [
+    "object-detection",
+    "English",
+    "100K - 1M",
+    "parquet",
+    "Image",
+    "Datasets",
+    "Dask",
+    "Polars",
+    "Croissant",
+    "🇺🇸 Region: US"
+  ],
+  "url": "https://huggingface.co/datasets/detection-datasets/coco"
+}
