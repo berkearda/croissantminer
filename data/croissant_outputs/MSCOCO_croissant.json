@@ -1,0 +1,93 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileProperty": "cr:fileProperty",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "Microsoft COCO: Common Objects in Context",
+  "url": "http://mscoco.org/",
+  "description": "A large-scale dataset for object detection and segmentation containing images of complex everyday scenes with common objects in their natural context. The dataset contains 91 object categories with 2.5 million labeled instances in 328k images. Objects are labeled using per-instance segmentations to aid in precise object localization.",
+  "creator": {
+    "@type": "Organization",
+    "name": "Tsung-Yi Lin, Michael Maire, Serge Belongie, Lubomir Bourdev, Ross Girshick, James Hays, Pietro Perona, Deva Ramanan, C. Lawrence Zitnick, Piotr Dollár"
+  },
+  "datePublished": "2014",
+  "inLanguage": "en",
+  "citeAs": "T. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollár, and C. L. Zitnick,",
+  "isLiveDataset": false,
+  "dataCollection": "Images were collected from Flickr using a novel pipeline that queries for pairs of objects in conjunction with scene-based queries to gather non-iconic images containing contextual relationships. The dataset harvested images containing multiple objects in natural environments rather than iconic, centered object views. Searches were performed for pairwise combinations of object categories (e.g., 'dog + car') and scene/object category pairs. At most 5 photos from a single photographer within a short time window were downloaded. For categories where sufficient images could not be found, single category searches were performed with explicit filtering to remove iconic images.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The dataset repository.",
+      "contentUrl": "http://mscoco.org/",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "microsoft-coco:-common-objects-in-context-records",
+      "name": "microsoft-coco:-common-objects-in-context-records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "microsoft-coco:-common-objects-in-context-records/data",
+          "name": "data",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "repo"
+            },
+            "extract": {
+              "column": "data"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

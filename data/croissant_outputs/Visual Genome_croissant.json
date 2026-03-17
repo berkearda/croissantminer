@@ -1,0 +1,100 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileProperty": "cr:fileProperty",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "Visual Genome",
+  "url": "https://homes.cs.washington.edu/~ranjay/visualgenome/",
+  "description": "Visual Genome is a dataset, a knowledge base, an ongoing effort to connect structured image concepts to language. It contains over 108K images where each image has an average of 35 objects, 26 attributes, and 21 pairwise relationships between objects. The dataset includes 5.4 Million Region Descriptions, 1.7 Million Visual Question Answers, 3.8 Million Object Instances, 2.8 Million Attributes, and 2.3 Million Relationships. Objects, attributes, relationships, and noun phrases in region descriptions and question answer pairs are canonicalized to WordNet synsets.",
+  "license": "CC-BY-4.0",
+  "creator": {
+    "@type": "Organization",
+    "name": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei"
+  },
+  "datePublished": "2016",
+  "inLanguage": "en",
+  "citeAs": "@article{Krishna2016VisualGC, title={Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations}, author={Ranjay Krishna and Yuke Zhu and Oliver Groth and Justin Johnson and Kenji Hata and Joshua Kravitz and Stephanie Chen and Yannis Kalantidis and Li-Jia Li and David A. Shamma and Michael S. Bernstein and Li Fei-Fei}, journal={International Journal of Computer Vision}, year={2017}, volume={123}, pages={32-73}, url={https://doi.org/10.1007/s11263-016-0981-7}, doi={10.1007/s11263-016-0981-7}}",
+  "isLiveDataset": false,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stanford University"
+  },
+  "dataCollection": "Visual Genome was collected entirely by crowd workers from Amazon Mechanical Turk. The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation. Workers were asked to draw bounding boxes and write descriptions for regions, extract objects from descriptions, add attributes to objects, connect pairs of objects with relationships, and write question-answer pairs about images. Each HIT was designed such that workers manage to earn anywhere between $6-$8 per hour if they work continuously. Visual Genome HITs achieved a 94.1% retention rate.",
+  "dataBiases": "The dataset is somewhat biased towards images of people, as the top synsets show that people playing sports are common. The images range from as small as 72 pixels wide to as large as 1280 pixels wide, with an average width of 500 pixels. Visual Genome images cover 972 synsets. The dataset uses images from the intersection of MS-COCO and YFCC100M, which may introduce biases from those source datasets. Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in the images.",
+  "personalSensitiveInformation": "The dataset contains images of people with various attributes including gender, age, and activities. Annotator demographics were collected including age, gender, and geographic location.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The dataset repository.",
+      "contentUrl": "https://homes.cs.washington.edu/~ranjay/visualgenome/",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "visual-genome-records",
+      "name": "visual-genome-records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "visual-genome-records/data",
+          "name": "data",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "repo"
+            },
+            "extract": {
+              "column": "data"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

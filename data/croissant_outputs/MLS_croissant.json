@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileProperty": "cr:fileProperty",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "Multilingual LibriSpeech (MLS)",
+  "url": "http://www.openslr.org/94",
+  "description": "Multilingual LibriSpeech (MLS) dataset is a large multilingual corpus suitable for speech research. The dataset is derived from read audiobooks from LibriVox and consists of 8 languages - English, German, Dutch, Spanish, French, Italian, Portuguese, Polish. It includes about 44.5K hours of English and a total of about 6K hours for other languages.",
+  "license": "CC-BY-4.0",
+  "creator": {
+    "@type": "Organization",
+    "name": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert (Facebook AI Research)"
+  },
+  "datePublished": "2020",
+  "inLanguage": "en, de, nl, es, fr, it, pt, pl",
+  "citeAs": "@article{Pratap2020MLSAL, title={MLS: A Large-Scale Multilingual Dataset for Speech Research}, author={Vineel Pratap and Qiantong Xu and Anuroop Sriram and Gabriel Synnaeve and Ronan Collobert}, journal={ArXiv}, year={2020}, volume={abs/2012.03411}}",
+  "isLiveDataset": false,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Facebook AI Research"
+  },
+  "dataCollection": "The dataset is derived from read audiobooks from LibriVox. Audio files were downloaded using LibriVox APIs and data preparation tools from the LibriLight open source library. All audio data was downsampled from 48kHz to 16kHz for further processing.",
+  "personalSensitiveInformation": "The dataset consists of people who have donated their voice online. Gender information is included for speakers.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The dataset repository.",
+      "contentUrl": "http://www.openslr.org/94",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "multilingual-librispeech-(mls)-records",
+      "name": "multilingual-librispeech-(mls)-records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "multilingual-librispeech-(mls)-records/data",
+          "name": "data",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "repo"
+            },
+            "extract": {
+              "column": "data"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
