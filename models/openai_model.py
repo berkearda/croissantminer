@@ -17,8 +17,8 @@ class OpenAIModel(BaseModel):
     def __init__(self, model_id="gpt-4o-mini", **kwargs):
         super().__init__(model_id, **kwargs)
         self.client = None
-        self.temperature = kwargs.get('temperature', 0.3)
-        self.max_tokens = kwargs.get('max_tokens', 1024)
+        self.temperature = kwargs.get('temperature', 0.0)
+        self.max_tokens = kwargs.get('max_tokens', 4096)
 
     def setup(self) -> bool:
         try:
@@ -35,22 +35,24 @@ class OpenAIModel(BaseModel):
             print(f"❌ OpenAI setup failed: {e}")
             return False
     
-    def generate(self, prompt: str) -> str:
-        # GPT-5 models use max_completion_tokens instead of max_tokens
-        # and only support temperature=1.0 (default)
+    def generate(self, prompt: str, system_prompt: str = None) -> str:
         token_param = {}
         temp_param = {}
 
         if self.model_id.startswith('gpt-5'):
             token_param = {"max_completion_tokens": self.max_tokens}
-            # GPT-5 only supports default temperature (1.0), so don't pass it
         else:
             token_param = {"max_tokens": self.max_tokens}
             temp_param = {"temperature": self.temperature}
 
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
+
         response = self.client.chat.completions.create(
             model=self.model_id,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             **temp_param,
             **token_param
         )
