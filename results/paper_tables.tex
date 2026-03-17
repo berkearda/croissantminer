@@ -1,0 +1,202 @@
+% CroissantMiner — Paper Tables
+% NeurIPS 2026 Datasets & Benchmarks Track
+% Generated: March 2026
+% Requires: \usepackage{booktabs, multirow}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 1: Multi-Model Comparison (FINAL pending Phase 2 GT update)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Multi-model comparison on 30-field metadata extraction (8 benchmark datasets, 162 evaluated field-dataset pairs). Constrained fields use exact match after normalization, short-text fields use token-level F1, and RAI fields use LLM-as-judge scoring (1--5 scale). Bootstrap 95\% CIs computed over 10,000 resamples of field-dataset pairs.}
+\label{tab:multi-model}
+\begin{tabular}{lcccc}
+\toprule
+Method & Constrained (EM) & Short-text (F1) & RAI (Judge) & Composite [95\% CI] \\
+\midrule
+Claude Sonnet 4.5 & \textbf{54.9\%} & \textbf{0.502} & \textbf{2.59}/5 & \textbf{49.4\%} [43.4, 55.1] \\
+GPT-4o-mini & 39.2\% & 0.328 & 1.67/5 & 31.3\% [25.7, 36.9] \\
+HF Auto-Croissant & 21.6\% & 0.137 & 0.00/5 & 8.8\% [4.9, 13.3] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 2: Source Ablation (FINAL)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Source ablation: paper-only vs.\ card-only vs.\ combined extraction using Claude Sonnet 4.5. Papers provide RAI methodology; cards provide license, citation, and technical metadata. Combined input yields the highest composite score.}
+\label{tab:source-ablation}
+\begin{tabular}{lcccc}
+\toprule
+Source & Constrained (EM) & Short-text (F1) & RAI (Judge) & Composite [95\% CI] \\
+\midrule
+Combined & \textbf{58.8\%} & \textbf{0.646} & 2.37/5 & \textbf{50.3\%} [44.0, 56.4] \\
+Paper only & 54.9\% & 0.502 & \textbf{2.59}/5 & 49.4\% [43.4, 55.1] \\
+Card only & 49.0\% & 0.623 & 0.99/5 & 33.0\% [26.4, 39.4] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 3: Croissant JSON-LD Validation (FINAL)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Croissant JSON-LD validation using the official \texttt{mlcroissant} validator (v1.0). CroissantMiner produces 100\% valid files with richer metadata content.}
+\label{tab:validation}
+\begin{tabular}{lcccc}
+\toprule
+Method & Valid files & Errors & Warnings & Avg fields populated \\
+\midrule
+CroissantMiner & \textbf{8/8 (100\%)} & \textbf{0} & 9 & \textbf{18.2}/30 \\
+HF Auto-Croissant & 6/8 (75\%) & 2 & 19 & 4.9/30 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 4: Error Taxonomy (WILL BE UPDATED with Phase 2 annotations)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Error taxonomy for Claude Sonnet 4.5 extraction failures (92 errors across 162 evaluated field-dataset pairs). Incomplete extraction dominates for RAI fields; hallucination dominates for constrained fields.}
+\label{tab:error-taxonomy}
+\begin{tabular}{lccp{5.5cm}}
+\toprule
+Error Type & Count & \% & Dominant Field Category \\
+\midrule
+Incomplete & 33 & 36\% & RAI fields (45\% of RAI errors) \\
+Absent in Source & 29 & 32\% & RAI fields (42\% of RAI errors) \\
+Hallucination & 25 & 27\% & Constrained fields (67\% of constrained errors) \\
+Granularity Mismatch & 4 & 4\% & Short-text fields \\
+Wrong Section & 1 & 1\% & --- \\
+Format Error & 0 & 0\% & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 5: Cost Analysis (FINAL)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Cost and efficiency analysis. CroissantMiner can process 1,000 datasets for \$129 with Claude or \$5.65 with GPT-4o-mini --- a fraction of manual annotation cost (\$4,500+ estimated at 150 hours $\times$ \$30/h).}
+\label{tab:cost}
+\begin{tabular}{lcccc}
+\toprule
+Method & Composite & \$/dataset & Time/dataset & \$/1000 datasets \\
+\midrule
+Claude Sonnet 4.5 & \textbf{49.4\%} & \$0.129 & 42s & \$129 \\
+GPT-4o-mini & 31.3\% & \$0.006 & 25s & \$5.65 \\
+HF Auto-Croissant & 8.8\% & \$0.00 & 0s & \$0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 6: Self-Consistency Confidence Scoring (FINAL)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Self-consistency confidence scoring (3 runs at temperature 0.3). High inter-run agreement correlates with higher accuracy, but fails to detect confident hallucinations where the model consistently generates incorrect output.}
+\label{tab:confidence}
+\begin{tabular}{lcccc}
+\toprule
+Agreement & Count & \% of fields & Mean accuracy & \% correct ($\geq$0.8) \\
+\midrule
+High (3/3 agree) & 94 & 58\% & 0.454 & 35\% \\
+Low (0/3 agree) & 68 & 42\% & 0.560 & 6\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 7: Pilot Annotation Study (PLACEHOLDER — Phase 2 update pending)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[t]
+\centering
+\caption{Pilot annotation study results (17 annotators, 252 annotations, TRUE/FALSE verdicts). Phase~2 will use 5-point Likert scale with 23 annotators and 2,490 annotations.}
+\label{tab:annotation-study}
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Annotators & 17 \\
+Total annotations & 252 \\
+AI extraction accuracy & 80.6\% \\
+Fleiss' $\kappa$ & 0.005 (slight agreement) \\
+Fields with $\geq$2 annotators & 21/30 \\
+\midrule
+\multicolumn{2}{l}{\textit{Phase 2 (planned):}} \\
+Annotators & 23 \\
+Total annotations & 2,490 \\
+Scale & 5-point Likert + failure modes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ═══════════════════════════════════════════════════════════════════════════
+% TABLE 8: Per-Field Breakdown (APPENDIX)
+% ═══════════════════════════════════════════════════════════════════════════
+
+\begin{table}[h]
+\centering
+\caption{Per-field extraction performance for Claude Sonnet 4.5 across 8 benchmark datasets. Fields are grouped by evaluation metric: constrained (exact match), short-text (token F1), and RAI (LLM judge 1--5 scale, normalized to 0--1). $n$ = number of datasets with non-null ground truth for that field.}
+\label{tab:per-field}
+\small
+\begin{tabular}{llccc}
+\toprule
+Field & Metric & Score & $n$ & Best Source \\
+\midrule
+\multicolumn{5}{l}{\textit{Constrained fields (exact match after normalization)}} \\
+\quad sc:name & EM & 1.000 & 8 & Tie \\
+\quad sc:inLanguage & EM & 0.833 & 6 & Paper \\
+\quad sc:datePublished & EM & 0.750 & 8 & Tie \\
+\quad cr:isLiveDataset & EM & 0.500 & 6 & Tie \\
+\quad sc:url & EM & 0.500 & 8 & Tie \\
+\quad sc:publisher & EM & 0.250 & 8 & Paper \\
+\quad sc:license & EM & 0.000 & 7 & Card \\
+\midrule
+\multicolumn{5}{l}{\textit{Short-text fields (token-level F1)}} \\
+\quad cr:citeAs & F1 & 0.530 & 8 & Combined \\
+\quad sc:description & F1 & 0.494 & 8 & Combined \\
+\quad sc:creator & F1 & 0.482 & 8 & Combined \\
+\midrule
+\multicolumn{5}{l}{\textit{RAI fields (LLM-as-judge, normalized 0--1)}} \\
+\quad rai:dataSocialImpact & Judge & 0.750 & 3 & Paper \\
+\quad rai:dataPreprocessingProtocol & Judge & 0.688 & 8 & Paper \\
+\quad rai:dataAnnotationProtocol & Judge & 0.667 & 6 & Paper \\
+\quad rai:machineAnnotationTools & Judge & 0.583 & 3 & Paper \\
+\quad rai:dataLimitations & Judge & 0.571 & 7 & Paper \\
+\quad rai:dataCollectionRawData & Judge & 0.562 & 8 & Paper \\
+\quad rai:dataAnnotationAnalysis & Judge & 0.550 & 5 & Paper \\
+\quad rai:dataUseCases & Judge & 0.550 & 5 & Tie \\
+\quad rai:dataCollectionType & Judge & 0.531 & 8 & Tie \\
+\quad rai:dataBiases & Judge & 0.500 & 3 & Paper \\
+\quad rai:annotationsPerItem & Judge & 0.438 & 4 & Combined \\
+\quad rai:dataCollection & Judge & 0.357 & 7 & Combined \\
+\quad rai:annotatorDemographics & Judge & 0.300 & 5 & Paper \\
+\quad rai:dataReleaseMaintenancePlan & Judge & 0.188 & 4 & Tie \\
+\quad rai:dataAnnotationPlatform & Judge & 0.083 & 3 & Paper \\
+\quad rai:dataCollectionTimeframe & Judge & 0.000 & 2 & Tie \\
+\quad rai:dataManipulationProtocol & Judge & 0.000 & 4 & Combined \\
+\quad rai:personalSensitiveInformation & Judge & 0.000 & 2 & Tie \\
+\bottomrule
+\end{tabular}
+\end{table}
