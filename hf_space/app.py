@@ -6,6 +6,7 @@ HuggingFace Space Demo (Gradio)
 import json
 import re
 import gradio as gr
+import fitz  # PyMuPDF
 
 # ---------------------------------------------------------------------------
 # Prompts (copied from croissantminer/config.py for self-contained deployment)
@@ -194,6 +195,16 @@ def _parse_json_response(text: str) -> dict:
     return json.loads(text)
 
 
+def _extract_text_from_pdf(file_path: str) -> str:
+    """Extract text from a PDF file using PyMuPDF."""
+    doc = fitz.open(file_path)
+    pages = []
+    for page in doc:
+        pages.append(page.get_text())
+    doc.close()
+    return "\n".join(pages)
+
+
 def _build_croissant(metadata: dict) -> dict:
     """Convert extracted metadata dict into Croissant JSON-LD."""
     name = metadata.get("name") or "unknown"
@@ -273,11 +284,20 @@ def _format_grouped(metadata: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def extract_metadata(paper_text: str, card_text: str, model_name: str, api_key: str):
+def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str, api_key: str):
     """Run extraction pipeline and return results for all output tabs."""
 
+    # Resolve paper text from PDF upload or pasted text
+    if pdf_file is not None:
+        try:
+            # gr.File returns a filepath string in Gradio 5+
+            file_path = pdf_file if isinstance(pdf_file, str) else pdf_file.name
+            paper_text = _extract_text_from_pdf(file_path)
+        except Exception as e:
+            raise gr.Error(f"Failed to read PDF: {e}")
+
     if not paper_text or not paper_text.strip():
-        raise gr.Error("Please paste paper text before extracting.")
+        raise gr.Error("Please upload a PDF or paste paper text before extracting.")
     if not api_key or not api_key.strip():
         raise gr.Error("Please provide your API key.")
 
@@ -363,7 +383,7 @@ ABOUT_MD = """
 CroissantMiner uses Large Language Models to extract structured metadata from academic papers describing ML datasets, following the [MLCommons Croissant RAI schema](https://github.com/mlcommons/croissant).
 
 ### How it works
-1. Paste the text of a dataset paper (and optionally a dataset card).
+1. Upload a PDF or paste the text of a dataset paper (and optionally a dataset card).
 2. Select a model and provide your API key.
 3. CroissantMiner extracts 30 metadata fields (10 General + 20 Responsible AI).
 4. Download the result as a valid Croissant JSON-LD file.
@@ -394,11 +414,18 @@ with gr.Blocks(
 
     with gr.Row():
         with gr.Column(scale=1):
-            paper_input = gr.Textbox(
-                label="Paste paper text",
-                placeholder="Paste the full text of a dataset paper here...",
-                lines=14,
-            )
+            with gr.Tabs():
+                with gr.Tab("Upload PDF"):
+                    pdf_input = gr.File(
+                        file_types=[".pdf"],
+                        label="Upload dataset paper PDF",
+                    )
+                with gr.Tab("Paste Text"):
+                    paper_input = gr.Textbox(
+                        label="Paste paper text",
+                        placeholder="Paste the full text of a dataset paper here...",
+                        lines=14,
+                    )
             card_input = gr.Textbox(
                 label="Paste dataset card text (optional)",
                 placeholder="Optional: paste HuggingFace dataset card or README...",
@@ -440,7 +467,7 @@ with gr.Blocks(
     # Wire up extraction
     extract_btn.click(
         fn=extract_metadata,
-        inputs=[paper_input, card_input, model_selector, api_key_input],
+        inputs=[pdf_input, paper_input, card_input, model_selector, api_key_input],
         outputs=[metadata_output, croissant_output],
     )
 
@@ -470,4 +497,8 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    import inspect
+    launch_kwargs = {}
+    if "ssr_mode" in inspect.signature(demo.launch).parameters:
+        launch_kwargs["ssr_mode"] = False
+    demo.launch(**launch_kwargs)

@@ -1,0 +1,55 @@
+%% ============================================================
+\section{CroissantMiner}
+\label{sec:croissantminer}
+%% ============================================================
+
+CroissantMiner takes a dataset paper PDF as input and produces a validated Croissant 1.1 \cite{akhtar2024croissant} JSON-LD record covering all 30 metadata fields defined by the format and its Responsible AI extension \cite{akhtar2024croissantrai}: 10 core fields drawn from Schema.org \cite{guha2016schema} (\texttt{name}, \texttt{description}, \texttt{url}, \texttt{license}, \texttt{creator}, \texttt{publisher}, \texttt{datePublished}, \texttt{inLanguage}, \texttt{citeAs}, \texttt{isLiveDataset}) and 20 RAI fields covering data collection, annotation, and broader impact. The system uses a single LLM call per paper, with no fine-tuning, retrieval augmentation, or multi-agent orchestration. This section describes the task formulation, the prompt design that drives extraction quality, and the implementation details that make the pipeline reproducible and inexpensive.
+
+\subsection{Task Definition and Pipeline}
+\label{sec:task-pipeline}
+
+We frame metadata extraction as a single-shot structured generation task: given the full text of a dataset paper, the model must emit a JSON object that conforms exactly to the Croissant schema. The 30 fields span three categories with very different evaluation profiles. \emph{Constrained} fields (e.g., \texttt{license}, \texttt{inLanguage}, \texttt{isLiveDataset}, \texttt{datePublished}) draw from small, controlled vocabularies and admit exact-match evaluation. \emph{Short-text} fields (\texttt{name}, \texttt{creator}, \texttt{citeAs}) accept short free-form strings that can be compared with token-level similarity. \emph{Long-text RAI} fields (e.g., \texttt{rai:dataBiases}, \texttt{rai:dataSocialImpact}, \texttt{rai:dataCollection}) contain multi-sentence descriptions that require either an LLM judge or human evaluation. Table~\ref{tab:field-overview} lists all 30 fields with their categories, definitions, and observed coverage in our corpus.
+
+The pipeline runs in three stages, illustrated in Figure~\ref{fig:pipeline}. (1)~\textbf{Text extraction} converts the input PDF to plain text using PyMuPDF \cite{pymupdf}, then strips the references and appendices via regular expression matching applied to the final 40\% of the document. This removes citation noise and supplementary material that we found to distract the model from the dataset description proper. (2)~\textbf{LLM extraction} sends the cleaned text to a single Claude Sonnet 4.5 call along with a structured system prompt and a schema-shaped user prompt (described in Section~\ref{sec:prompt-design}). (3)~\textbf{Validation} parses the model's JSON response (handling occasional Markdown code-fence wrapping) and checks it against a frozen set of 30 canonical field names. Fields that violate the schema are flagged for inspection, but the extraction is preserved so that downstream evaluation can quantify how often the model deviates from the requested format. In our 603-paper corpus, schema violations occurred in fewer than 1\% of extractions.
+
+\subsection{Prompt Design}
+\label{sec:prompt-design}
+
+The prompt is the central design artifact of CroissantMiner. We use a long, structured system prompt ($\sim$2{,}100 words, $\sim$13{,}000 tokens) that combines four components: (i) a role framing that casts the model as a metadata extraction expert specializing in Responsible AI documentation; (ii) accuracy-first guidelines that explicitly forbid filling fields from background knowledge; (iii) per-field instructions for all 30 fields, with the schema definition adapted from the Croissant 1.1 specification; and (iv) targeted \emph{extraction guides} for the fields that we observed to be most commonly hallucinated during pilot studies. The user prompt repeats the schema and appends the paper text, yielding a total context of 13--16K tokens depending on paper length.
+
+The extraction guides are the single most important element of the prompt. Without them, models tend to confabulate plausible-sounding but unsupported answers for fields like \texttt{rai:dataReleaseMaintenancePlan} and \texttt{rai:dataBiases}, where most academic papers genuinely do not provide the information that the schema asks for. Each guide names the field, restates its definition, gives a positive and a negative example, and (where appropriate) tells the model that \texttt{null} is the most likely correct answer. Listing~\ref{lst:prompt-excerpt} shows the guide for \texttt{rai:dataReleaseMaintenancePlan}, which is representative of the pattern.
+
+\begin{lstlisting}[caption={Excerpt from the system prompt: extraction guide for the most-hallucinated RAI field. The pattern (definition, positive example, negative example, default-to-null hint) is repeated for each field where pilot studies revealed systematic confabulation.},label={lst:prompt-excerpt},basicstyle=\small\ttfamily,breaklines=true,frame=single]
+- rai:dataReleaseMaintenancePlan: Versioning information
+  in terms of the updating timeframe, the maintainers,
+  and the deprecation policies.
+
+  [EXTRACTION GUIDE] Most academic papers do NOT discuss
+  maintenance plans, versioning schedules, or deprecation
+  policies. Return null unless the paper EXPLICITLY
+  mentions: version numbering, planned updates, a
+  maintenance team, or deprecation timelines. Do not
+  infer or fabricate maintenance information. A statement
+  like "the dataset is publicly available" is NOT a
+  maintenance plan. This is one of the most commonly
+  hallucinated fields.
+
+  GOOD: "The dataset is maintained by the LMSYS team with
+  quarterly updates. Version 2.0 was released in March
+  2024 with expanded language coverage."
+
+  BAD: "The dataset is maintained by the authors and
+  updated regularly." (Fabricated, paper says nothing
+  about maintenance.)
+
+  MOST LIKELY CORRECT ANSWER: null
+\end{lstlisting}
+
+To make extractions deterministic and reproducible, we set \texttt{temperature=0} for all calls, fix a single \texttt{max\_tokens=4096} budget that comfortably accommodates the largest 30-field JSON we observed, and pin the model version. The schema we send to the model uses the prefixed Croissant vocabulary (\texttt{sc:}, \texttt{cr:}, \texttt{rai:}) so that the JSON-LD output is directly consumable by Croissant validators \cite{akhtar2024croissant}; we strip these prefixes in a lightweight post-processing step before storing the canonical 30-field record.
+
+\subsection{Implementation}
+\label{sec:implementation}
+
+The default model is Claude Sonnet 4.5 (\texttt{claude-sonnet-4-5-20250929}), which we selected after pilot comparisons against GPT-4o-mini and Gemini 2.5 Pro on the gold corpus (full results in Section~\ref{sec:experiments}). The pipeline is model-agnostic: switching to another provider requires only changing the API client, since the prompt is plain text. For large-scale corpus processing we use the Anthropic Message Batches API, which delivers a 50\% cost discount and processes up to 10{,}000 requests per batch within 24 hours. End-to-end cost is approximately \$0.04 per paper for sequential extraction and \$0.02 per paper in batch mode; the entire 500-paper silver corpus described in Section~\ref{sec:annotation} was extracted for under \$22.
+
+We release the pipeline as an open-source Python package, together with a public HuggingFace Space that lets users upload a paper PDF and inspect the extracted metadata interactively.\footnote{\url{https://huggingface.co/spaces/bearda/croissantminer}} Beyond the API-based default, we also describe a fine-tuned open-weights variant (Qwen 2.5-7B distilled from Claude Sonnet 4.5 on the silver corpus) in Section~\ref{sec:experiments}, which trades a small accuracy drop for self-hosted inference at one tenth the marginal cost.
