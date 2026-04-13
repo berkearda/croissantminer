@@ -44,7 +44,7 @@ from validation.validate_extraction import CANONICAL_FIELDS
 PAPER_LINKS = ROOT / "data" / "paper_links.json"
 RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
-DEFAULT_ANNOTATION_DIR = Path("~/Downloads/CroissantMiner Annotations Phase 3")
+DEFAULT_ANNOTATION_DIR = Path(os.environ.get("ANNOTATION_SHEETS_DIR", "data/annotations/phase2"))
 OUTPUT_DIR = ROOT / "finetuning" / "data"
 
 DROPOUTS = {"annotator", "annotator", "annotator"}

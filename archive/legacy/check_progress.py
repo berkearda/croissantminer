@@ -92,5 +92,5 @@ def check_progress():
     print('=' * 60)
 
 if __name__ == '__main__':
-    os.chdir('croissantminer')
+    os.chdir('str(Path(__file__).resolve().parent.parent)')
     check_progress()

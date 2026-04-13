@@ -21,7 +21,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent))
 from style import setup_style, save_fig, COLORS, DOUBLE_COL
 
-SHEET_DIR = Path("~/Downloads/CroissantMiner Annotations Phase 5")
+SHEET_DIR = Path(os.environ.get("ANNOTATION_SHEETS_DIR", "data/annotations/phase2"))
 
 # Field groupings
 CONSTRAINED = ["name", "license", "inLanguage", "isLiveDataset", "datePublished", "publisher", "url", "citeAs"]

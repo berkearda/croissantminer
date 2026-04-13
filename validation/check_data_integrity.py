@@ -18,7 +18,7 @@ RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
 PAPER_LINKS = ROOT / "data" / "paper_links.json"
 PAGE_COUNTS = ROOT / "data" / "paper_lengths.csv"
-ANNOTATION_DIR = Path("~/Downloads/CroissantMiner Annotations Phase 3")
+ANNOTATION_DIR = Path(os.environ.get("ANNOTATION_SHEETS_DIR", "data/annotations/phase2"))
 
 # Canonical 30 field names (unprefixed general + rai:-prefixed RAI)
 EXPECTED_FIELDS = {

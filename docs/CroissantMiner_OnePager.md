@@ -49,4 +49,4 @@ Built on the Croissant metadata format (Akhtar et al., NeurIPS 2024 Spotlight).
 
 ---
 
-**Contact:** bearda@student.ethz.ch | GitHub: [berkearda/croissantminer](https://github.com/berkearda/croissantminer)
+**Contact:** See README.md | GitHub: [croissantminer](https://github.com/berkearda/croissantminer)
