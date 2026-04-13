@@ -295,7 +295,21 @@ def process_paper(ds_id, is_dev=False):
     for f in EASY_FIELDS:
         ef.setdefault(f, None)
 
-    triage = result.setdefault("triage", {})
+    # Repair: Gemini sometimes returns triage as a list instead of dict
+    triage = result.get("triage", {})
+    if isinstance(triage, list):
+        group_names = list(GROUPS.keys())  # G3, G4, G5, G6
+        repaired = {}
+        for i, item in enumerate(triage):
+            if i < len(group_names):
+                repaired[group_names[i]] = item
+        result["triage"] = repaired
+        triage = repaired
+
+    if not isinstance(triage, dict):
+        result["triage"] = {}
+        triage = result["triage"]
+
     for g in GROUPS:
         triage.setdefault(g, {"presence": "unknown", "sections": [], "confidence": 0.5, "reasoning": ""})
 
