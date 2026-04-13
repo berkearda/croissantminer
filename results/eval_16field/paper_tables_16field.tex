@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\caption{16-field evaluation results on 8 benchmark datasets. Constrained fields use exact match after normalization, short-text fields use token F1, and RAI fields use LLM-as-judge (1--5 scale). Composite is the mean of all normalized scores.}
+\label{tab:main-results}
+\begin{tabular}{lcccc}
+\toprule
+Method & Constrained (EM) & Short-text (F1) & RAI (Judge) & Composite \\
+\midrule
+Claude Sonnet 4.5 & 54.9\% & 0.502 & 2.65/5 & \textbf{51.8\%} [43.4, 59.4] \\
+GPT-4o-mini & 39.2\% & 0.328 & 2.54/5 & 38.2\% [30.4, 46.0] \\
+HF Auto-Croissant & 21.6\% & 0.137 & 0.00/5 & 14.2\% [7.8, 21.0] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Source ablation: effect of input source on composite score (16 fields).}
+\label{tab:source-ablation}
+\begin{tabular}{lcc}
+\toprule
+Source & Composite & 95\% CI \\
+\midrule
+Paper Only & 51.8\% & [43.4, 59.4] \\
+Card Only & 47.0\% & [37.9, 56.1] \\
+Combined & 57.2\% & [48.9, 65.8] \\
+\bottomrule
+\end{tabular}
+\end{table}
