@@ -55,8 +55,17 @@ PAPER TEXT:
 Return ONLY valid JSON matching the schema above. Do not include any markdown formatting or explanations."""
 
 
-def extract_paper_text(pdf_path, max_chars=200000):
-    """Extract and clean text from PDF."""
+def smart_truncate(text, max_chars):
+    """Keep 60% from start + 20% from end. Matches models/claude_model.py."""
+    if len(text) <= max_chars:
+        return text
+    keep_start = int(max_chars * 0.6)
+    keep_end = int(max_chars * 0.2)
+    return text[:keep_start] + "\n\n[... MIDDLE CONTENT TRUNCATED ...]\n\n" + text[-keep_end:]
+
+
+def extract_paper_text(pdf_path, max_chars=240000):
+    """Extract and clean text from PDF. Matches Claude baseline strategy."""
     doc = fitz.open(str(pdf_path))
     text = "\n".join(page.get_text() for page in doc)
     doc.close()
@@ -68,8 +77,7 @@ def extract_paper_text(pdf_path, max_chars=200000):
             text = text[:match.start()]
             break
 
-    if len(text) > max_chars:
-        text = text[:max_chars]
+    text = smart_truncate(text, max_chars)
     return text.strip()
 
 

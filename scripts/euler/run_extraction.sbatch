@@ -35,7 +35,7 @@ python scripts/euler/extract_openmodels.py \
     --model Qwen/Qwen3-32B-FP8 \
     --model-name qwen3_32b \
     --quantization fp8 \
-    --max-model-len 32768 \
+    --max-model-len 65536 \
     --batch-size 4 \
     --gpu-memory-utilization 0.90
 
