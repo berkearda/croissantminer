@@ -8,7 +8,8 @@
 #SBATCH --account=<euler_account>
 #SBATCH --output=logs/test_%j.out
 #SBATCH --error=logs/test_%j.err
-#SBATCH --gpus=nvidia_a100_80gb_pcie:1
+#SBATCH --partition=cuda13pr.4h
+#SBATCH --gpus=nvidia_rtx_pro_6000:1
 #SBATCH --mem-per-cpu=16G
 #SBATCH --cpus-per-task=8
 #SBATCH --time=01:00:00
