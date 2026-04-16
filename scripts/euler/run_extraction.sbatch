@@ -14,7 +14,7 @@
 #SBATCH --time=08:00:00
 
 # ── Environment ──
-module load python/3.11.6_cuda
+module load stack/2024-05 gcc/13.2.0 python/3.11.6_cuda
 module load eth_proxy
 
 source $SCRATCH/croissantminer_venv/bin/activate
