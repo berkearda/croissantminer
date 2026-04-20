@@ -112,16 +112,16 @@ USER_PROMPT_TEMPLATE = '''Extract metadata from the following academic paper by 
 
 SCHEMA:
 {
-  "name": "string",
-  "description": "string",
-  "url": "string",
-  "license": "string",
-  "creator": "object or string",
-  "publisher": "string",
-  "datePublished": "string (YYYY-MM-DD or YYYY)",
-  "inLanguage": "string (ISO codes)",
-  "citeAs": "string",
-  "isLiveDataset": "string (Yes/No)",
+  "sc:name": "string",
+  "sc:description": "string",
+  "sc:url": "string",
+  "sc:license": "string",
+  "sc:creator": "string",
+  "sc:publisher": "string",
+  "sc:datePublished": "string",
+  "sc:inLanguage": "string",
+  "cr:citeAs": "string",
+  "cr:isLiveDataset": "string",
 
   "rai:dataCollection": "string",
   "rai:dataCollectionType": "string (Select from recommended values)",
