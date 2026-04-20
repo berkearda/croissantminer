@@ -38,7 +38,6 @@ from validation.validate_extraction import validate_extraction, CANONICAL_FIELDS
 # Config
 # ═══════════════════════════════════════════════════════════════════════
 
-PAPER_LINKS = ROOT / "data" / "paper_links.json"
 RAW_DIR = ROOT / "data" / "raw"
 OUTPUT_BASE = ROOT / "data" / "extractions"
 
