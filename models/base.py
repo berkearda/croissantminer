@@ -1,18 +1,11 @@
-from abc import ABC, abstractmethod
+"""Backward-compatibility shim. Canonical source: croissantminer.models.base
 
-class BaseModel(ABC):
-    def __init__(self, model_id: str, **kwargs):
-        self.model_id = model_id
-        self.config = kwargs
-    
-    @abstractmethod
-    def setup(self) -> bool:
-        pass
-    
-    @abstractmethod
-    def generate(self, prompt: str) -> str:
-        pass
-    
-    @abstractmethod
-    def cleanup(self):
-        pass
+This file re-exports from the croissantminer package so existing scripts
+that do `from config import X` or `from models.claude_model import Y`
+keep working while the actual code lives in croissantminer/.
+
+DO NOT add logic here. Edit the canonical file at:
+  croissantminer/models/base.py
+"""
+
+from croissantminer.models.base import *  # noqa: F401, F403
