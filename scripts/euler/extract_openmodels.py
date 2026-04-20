@@ -55,26 +55,22 @@ PAPER TEXT:
 Return ONLY valid JSON matching the schema above. Do not include any markdown formatting or explanations."""
 
 
-def smart_truncate(text, max_chars):
-    """Keep 60% from start + 20% from end. Matches models/claude_model.py."""
-    if len(text) <= max_chars:
-        return text
-    keep_start = int(max_chars * 0.6)
-    keep_end = int(max_chars * 0.2)
-    return text[:keep_start] + "\n\n[... MIDDLE CONTENT TRUNCATED ...]\n\n" + text[-keep_end:]
+def extract_paper_text(pdf_path):
+    """Extract and clean text from PDF via the canonical PyPDF2 + clean_text pipeline.
 
-
-def extract_paper_text(pdf_path, max_chars=140000):
-    """Extract and clean text from PDF. Matches Claude baseline strategy."""
+    Per 2026-04-20 decision (decisions.md): the benchmark drops SuperGPQA
+    (344K tokens) and drops Qwen3-32B from the model lineup. Every retained
+    open-weight model has context >= 128K tokens; every retained paper fits
+    in <= 102K tokens. No truncation should occur in any pipeline — if it
+    does, that is a silent deviation from the protocol and must be flagged.
+    """
     text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
-    # Strip references
+    # Strip references (appendix is retained — see command.txt Paul reply)
     for pattern in [r'\n\s*References\s*\n', r'\n\s*REFERENCES\s*\n', r'\n\s*Bibliography\s*\n']:
         match = re.search(pattern, text)
         if match and match.start() > len(text) * 0.5:
             text = text[:match.start()]
             break
-
-    text = smart_truncate(text, max_chars)
     return text.strip()
 
 
