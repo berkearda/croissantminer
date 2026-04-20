@@ -64,6 +64,7 @@ STRATEGY_DIRS = {
     "self_consistency_k5":   EXTRACTION_BASE / "self_consistency" / "k5" / "merged",
     "tool_augmented":        EXTRACTION_BASE / "tool_augmented",
     "finetuned_qwen7b":      EXTRACTION_BASE / "finetuned_qwen7b",
+    "react_agent":           EXTRACTION_BASE / "react_agent",
 }
 
 # Field name mapping: extraction JSONs use unprefixed general fields,
