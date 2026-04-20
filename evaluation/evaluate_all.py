@@ -64,6 +64,13 @@ STRATEGY_DIRS = {
     "self_consistency_k5":   EXTRACTION_BASE / "self_consistency" / "k5" / "merged",
     "tool_augmented":        EXTRACTION_BASE / "tool_augmented",
     "finetuned_qwen7b":      EXTRACTION_BASE / "finetuned_qwen7b",
+    "agentic_v2":            ROOT / "data" / "agentic" / "v2",
+    "agentic_lev":           ROOT / "data" / "agentic" / "lev",
+    # Open-weight model runs written by scripts/euler/extract_openmodels.py
+    "qwen3_next_80b":        EXTRACTION_BASE / "qwen3_next_80b",
+    "llama3_3_70b":          EXTRACTION_BASE / "llama3_3_70b",
+    "llama4_scout":          EXTRACTION_BASE / "llama4_scout",
+    "gemma3_27b":            EXTRACTION_BASE / "gemma3_27b",
 }
 
 # Field name mapping: extraction JSONs use unprefixed general fields,
@@ -126,19 +133,26 @@ def load_gt(gt_dir: Path) -> dict:
 
 
 def load_extraction(strategy_dir: Path, ds_id: str) -> dict:
-    """Load extraction for a dataset, trying multiple naming patterns."""
-    # Try {ds_id}.json
-    for name in [f"{ds_id}.json", f"{ds_id}_extraction.json"]:
-        p = strategy_dir / name
+    """Load extraction for a dataset, trying multiple naming patterns.
+
+    Supported layouts (in priority order):
+      1. {strategy_dir}/{ds_id}.json                              (flat, e.g. Gemini runs)
+      2. {strategy_dir}/{ds_id}_extraction.json                   (legacy flat variant)
+      3. {strategy_dir}/{ds_id}/extraction.json                   (agentic V2, LEV)
+      4. {strategy_dir}/{ds_id}/full_result.json                  (agentic V2 full output)
+      5. {strategy_dir}/{ds_id}/full_pdf_metadata_result.json     (Claude single-pass gold)
+    """
+    candidates = [
+        strategy_dir / f"{ds_id}.json",
+        strategy_dir / f"{ds_id}_extraction.json",
+        strategy_dir / ds_id / "extraction.json",
+        strategy_dir / ds_id / "full_result.json",
+        strategy_dir / ds_id / "full_pdf_metadata_result.json",
+    ]
+    for p in candidates:
         if p.exists():
             with open(p) as f:
                 return json.load(f)
-
-    # Try {ds_id}/full_pdf_metadata_result.json (processed dir format)
-    p = strategy_dir / ds_id / "full_pdf_metadata_result.json"
-    if p.exists():
-        with open(p) as f:
-            return json.load(f)
 
     return None
 
