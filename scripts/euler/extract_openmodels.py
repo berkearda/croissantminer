@@ -22,8 +22,8 @@ import sys
 import time
 from pathlib import Path
 
-import fitz  # PyMuPDF
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 # Add project root to path
 ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(ROOT))
@@ -64,12 +64,9 @@ def smart_truncate(text, max_chars):
     return text[:keep_start] + "\n\n[... MIDDLE CONTENT TRUNCATED ...]\n\n" + text[-keep_end:]
 
 
-def extract_paper_text(pdf_path, max_chars=240000):
+def extract_paper_text(pdf_path, max_chars=140000):
     """Extract and clean text from PDF. Matches Claude baseline strategy."""
-    doc = fitz.open(str(pdf_path))
-    text = "\n".join(page.get_text() for page in doc)
-    doc.close()
-
+    text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
     # Strip references
     for pattern in [r'\n\s*References\s*\n', r'\n\s*REFERENCES\s*\n', r'\n\s*Bibliography\s*\n']:
         match = re.search(pattern, text)

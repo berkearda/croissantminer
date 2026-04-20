@@ -208,8 +208,8 @@ def call_correction(prompt: str) -> dict:
 
 def load_paper_text(ds_id: str) -> str:
     """Load paper text for a dataset (for correction prompt context)."""
-    import fitz
-
+    from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+    from croissantminer.pdf.processor import clean_text as _canonical_clean_text
     RAW_DIR = ROOT / "data" / "raw"
     BENCHMARK_MAP = {
         "CIFAR_30field": "2404.00498v2", "FLORES_30field": "2106.03193v1",
@@ -229,9 +229,7 @@ def load_paper_text(ds_id: str) -> str:
     if not pdf_path.exists():
         return ""
 
-    doc = fitz.open(pdf_path)
-    text = "\n".join(page.get_text() for page in doc)
-    doc.close()
+    text = _canonical_clean_text(_canonical_extract_text(pdf_path))
     return text
 
 

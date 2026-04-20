@@ -32,7 +32,7 @@ python scripts/euler/extract_openmodels.py \
     --model Qwen/Qwen3-32B-FP8 \
     --model-name qwen3_32b \
     --quantization fp8 \
-    --max-model-len 65536 \
+    --max-model-len 40960 \
     --batch-size 1 \
     --paper AI4Math_MathVista
 

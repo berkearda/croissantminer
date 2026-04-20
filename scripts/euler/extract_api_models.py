@@ -45,7 +45,8 @@ import sys
 import time
 from pathlib import Path
 
-import fitz
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -110,10 +111,7 @@ def extract_paper_text(ds_id, max_chars=200000):
     if not pdf_path.exists():
         return None
 
-    doc = fitz.open(str(pdf_path))
-    text = "\n".join(page.get_text() for page in doc)
-    doc.close()
-
+    text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
     for pattern in [r'\n\s*References\s*\n', r'\n\s*REFERENCES\s*\n']:
         match = re.search(pattern, text)
         if match and match.start() > len(text) * 0.5:

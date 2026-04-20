@@ -14,7 +14,6 @@ import logging
 import re
 from pathlib import Path
 
-import fitz  # PyMuPDF — same as gold pipeline
 from tqdm import tqdm
 
 SILVER = Path(__file__).parent
@@ -57,9 +56,7 @@ def strip_appendices(text: str) -> str:
 
 def extract_text_from_pdf(pdf_path: Path) -> str:
     """Extract text using PyMuPDF — matches gold pipeline method."""
-    doc = fitz.open(pdf_path)
-    pages = [page.get_text() for page in doc]
-    doc.close()
+    text = _canonical_clean_text(_canonical_extract_text(pdf_path))
     text = "\n".join(pages)
 
     # Clean up

@@ -92,7 +92,8 @@ def get_paper_text(ds_id):
     # We need the paper TEXT, not the extraction. Check if we stored it.
     # The gold pipeline read PDFs from data/raw/ via PyMuPDF.
     # For model comparison, let's reconstruct from the PDF.
-    import fitz
+    from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+    from croissantminer.pdf.processor import clean_text as _canonical_clean_text
     # Try multiple PDF naming patterns
     raw_dir = ROOT / "data" / "raw"
     pdf_candidates = [
@@ -113,9 +114,7 @@ def get_paper_text(ds_id):
 
     for pdf_path in pdf_candidates:
         if pdf_path.exists():
-            doc = fitz.open(str(pdf_path))
-            pages = [page.get_text() for page in doc]
-            doc.close()
+            text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
             return "\n".join(pages)
 
     return None

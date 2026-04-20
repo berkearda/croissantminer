@@ -28,7 +28,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-import fitz  # PyMuPDF
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 import openpyxl
 
 ROOT = Path(__file__).parent.parent
@@ -78,9 +79,7 @@ def find_pdf(ds_id: str) -> Path:
 
 
 def extract_text(pdf_path: Path, max_chars: int = 200000) -> str:
-    doc = fitz.open(pdf_path)
-    pages = [page.get_text() for page in doc]
-    doc.close()
+    text = _canonical_clean_text(_canonical_extract_text(pdf_path))
     text = "\n".join(pages)
     return text[:max_chars]
 

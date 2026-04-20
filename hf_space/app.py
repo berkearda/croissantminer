@@ -6,8 +6,8 @@ HuggingFace Space Demo (Gradio)
 import json
 import re
 import gradio as gr
-import fitz  # PyMuPDF
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 # ---------------------------------------------------------------------------
 # Prompts (copied from croissantminer/config.py for self-contained deployment)
 # ---------------------------------------------------------------------------

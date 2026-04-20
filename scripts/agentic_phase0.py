@@ -15,8 +15,8 @@ import re
 from pathlib import Path
 from collections import defaultdict
 
-import fitz
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 ROOT = Path(__file__).parent.parent
 RAW = ROOT / "data" / "raw"
 PROCESSED = ROOT / "data" / "processed"
@@ -389,9 +389,7 @@ def get_paper_text(ds_id):
     for name in [f"{ds_id}.pdf"]:
         p = RAW / name
         if p.exists():
-            doc = fitz.open(str(p))
-            text = "\n".join(page.get_text() for page in doc)
-            doc.close()
+            text = _canonical_clean_text(_canonical_extract_text(str(p)))
             return text
 
     # Try arxiv ID from paper_links
@@ -402,9 +400,7 @@ def get_paper_text(ds_id):
         for suffix in ["", "v1", "v2", "v3", "v4", "v5"]:
             p = RAW / f"{arxiv}{suffix}.pdf"
             if p.exists():
-                doc = fitz.open(str(p))
-                text = "\n".join(page.get_text() for page in doc)
-                doc.close()
+                text = _canonical_clean_text(_canonical_extract_text(str(p)))
                 return text
 
     return None

@@ -29,8 +29,8 @@ import sys
 import time
 from pathlib import Path
 
-import fitz  # PyMuPDF
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
@@ -187,9 +187,7 @@ def build_fewshot_prompt(paper_text: str, examples: list) -> str:
 
 
 def extract_text_from_pdf(pdf_path: Path) -> str:
-    doc = fitz.open(pdf_path)
-    pages = [page.get_text() for page in doc]
-    doc.close()
+    text = _canonical_clean_text(_canonical_extract_text(pdf_path))
     return "\n".join(pages)
 
 

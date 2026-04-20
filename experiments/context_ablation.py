@@ -25,8 +25,8 @@ import time
 from pathlib import Path
 from datetime import datetime
 
-import fitz  # PyMuPDF
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 

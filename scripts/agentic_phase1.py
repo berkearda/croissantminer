@@ -236,21 +236,22 @@ def parse_json(text):
 
 
 def get_paper_text(ds_id):
-    import fitz
+    from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+    from croissantminer.pdf.processor import clean_text as _canonical_clean_text
     raw = ROOT / "data" / "raw"
     with open(ROOT / "data" / "paper_links.json") as f:
         pl = json.load(f)
     for name in [f"{ds_id}.pdf"]:
         p = raw / name
         if p.exists():
-            doc = fitz.open(str(p)); text = "\n".join(pg.get_text() for pg in doc); doc.close(); return text
+            return _canonical_clean_text(_canonical_extract_text(str(p)))
     url = pl.get(ds_id, "")
     m = re.search(r'(\d{4}\.\d{4,5})', url)
     if m:
         for sfx in ["", "v1", "v2", "v3", "v4", "v5"]:
             p = raw / f"{m.group(1)}{sfx}.pdf"
             if p.exists():
-                doc = fitz.open(str(p)); text = "\n".join(pg.get_text() for pg in doc); doc.close(); return text
+                return _canonical_clean_text(_canonical_extract_text(str(p)))
     return None
 
 
