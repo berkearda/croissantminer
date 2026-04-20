@@ -76,8 +76,7 @@ log = logging.getLogger("gemini_extraction")
 
 
 def extract_text_from_pdf(pdf_path: Path) -> str:
-    text = _canonical_clean_text(_canonical_extract_text(pdf_path))
-    return "\n".join(pages)
+    return _canonical_clean_text(_canonical_extract_text(pdf_path))
 
 
 def find_pdf(ds_id: str) -> Path:
@@ -172,8 +171,10 @@ def main():
     out_dir = OUTPUT_BASE / model_name_safe
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(PAPER_LINKS) as f:
-        dataset_ids = sorted(json.load(f).keys())
+    # Use the canonical 102-paper split (excludes SuperGPQA outlier per 2026-04-20 decision)
+    with open(ROOT / "data" / "agentic" / "dev_test_split.json") as f:
+        split = json.load(f)
+    dataset_ids = sorted(split["dev"] + split["test"])
     subset = dataset_ids[args.start:args.end]
 
     log.info(f"Model: {args.model} ({model_config['model_id']})")
