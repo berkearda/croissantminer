@@ -25,13 +25,7 @@ Extract structured metadata from the provided academic paper according to the ML
    - Use null for missing fields.
    - No markdown formatting.
 
-4. **General Field-Specific Information:**
-   *For standard schema.org / Croissant fields:*
-
-   - **creator**: The creator/author of this dataset (schema.org/creator). Prefer the most specific attribution available. If the paper names individual authors, list them. If only an organization is named, use the organization. When both are available, use the format: "Name1, Name2 (Organization)". Do not list all paper authors if they are not explicitly identified as dataset creators — some papers distinguish between paper authors and dataset creators.
-   - **datePublished**: Date the DATASET was first published or released (not the paper's arxiv submission date). Use the dataset's release date if explicitly stated. If only a year is mentioned (e.g., "released in 2021"), use "YYYY" format. If an exact date is given, use "YYYY-MM-DD". If the paper does not distinguish between paper and dataset publication dates, use the paper's publication year.
-
-5. **RAI Field-Specific Information:**
+4. **RAI Field-Specific Information:**
    *Use the following official definitions to guide your extraction. Use them as matching criteria when scanning the text:*
 
    - **rai:dataCollection**: Description of the data collection process.
@@ -43,17 +37,14 @@ Extract structured metadata from the provided academic paper according to the ML
    - **rai:dataManipulationProtocol**: Description of data manipulation process if applicable.
    - **rai:dataPreprocessingProtocol**: Description of the steps that were required to bring collected data to a state that can be processed by an ML model/algorithm (e.g., filtering out incomplete entries).
    - **rai:dataAnnotationProtocol**: Description of annotations (labels, ratings), and how these were created or authored.
-     [EXTRACTION GUIDE] This field is ONLY about the labeling/annotation process — how labels, ratings, or tags were assigned to data items. Do NOT include data collection methodology (→ rai:dataCollection), cleaning/filtering steps (→ rai:dataPreprocessingProtocol), or post-processing modifications like augmentation or balancing (→ rai:dataManipulationProtocol). Include: annotation task description, annotator instructions, workforce type (crowdworkers, experts, authors), quality control steps (e.g., majority voting, adjudication), and annotation format. If the dataset has no human or machine annotation step (e.g., questions sourced from existing exams), return null.
    - **rai:dataAnnotationPlatform**: Platform, tool, or library used to collect annotations by human annotators.
    - **rai:dataAnnotationAnalysis**: Considerations related to the process of converting the "raw" annotations into the final labels (e.g., uncertainty, disagreement analysis).
    - **rai:dataReleaseMaintenancePlan**: Versioning information in terms of the updating timeframe, the maintainers, and the deprecation policies.
-     [EXTRACTION GUIDE] Most academic papers do NOT discuss maintenance plans, versioning schedules, or deprecation policies. Return null unless the paper EXPLICITLY mentions: version numbering, planned updates, a maintenance team, or deprecation timelines. Do not infer or fabricate maintenance information — a statement like "the dataset is publicly available" is NOT a maintenance plan. This is one of the most commonly hallucinated fields.
    - **rai:personalSensitiveInformation**: Any sensitive human attribute(s) collected as part of this dataset (e.g., gender, socio-economic status, geography, language, age, culture, experience).
    - **rai:dataSocialImpact**: Discussion of social implications, if applicable.
    - **rai:dataBiases**: Description of biases in the dataset, if applicable.
-     [EXTRACTION GUIDE] Look specifically in the paper's Limitations, Ethics Statement, Discussion, or Broader Impact sections. Only extract biases the authors EXPLICITLY discuss — do not add generic bias warnings.
    - **rai:dataLimitations**: Known limitations (e.g., data generalization limits, quality issues) and non-recommended uses.
-   - **rai:dataUseCases**: Dataset use(s) (e.g., Training, Testing, Validation, Fine Tuning) and Usage Guidelines.
+   - **rai:dataUseCases**: Dataset use case(s) (e.g., Training, Testing, Validation, Fine Tuning) and Usage Guidelines.
    - **rai:annotationsPerItem**: Number of human labels per dataset item.
    - **rai:annotatorDemographics**: List of demographics specifications about the annotators.
    - **rai:machineAnnotationTools**: List of software used for data annotation (e.g., NER tools, automated labelers).'''
