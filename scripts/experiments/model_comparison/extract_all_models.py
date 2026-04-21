@@ -29,6 +29,19 @@ sys.path.insert(0, str(ROOT))
 
 from config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
 from validation.validate_extraction import validate_extraction
+import hashlib
+import subprocess
+from datetime import datetime
+
+# Provenance for _meta block (computed once at module load)
+_PROMPT_HASH = hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()[:16]
+try:
+    _GIT_COMMIT = subprocess.check_output(
+        ["git", "rev-parse", "--short", "HEAD"],
+        stderr=subprocess.DEVNULL,
+    ).decode().strip()
+except Exception:
+    _GIT_COMMIT = "unknown"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
 log = logging.getLogger("model_comparison")
@@ -38,12 +51,25 @@ EXTRACTIONS = ROOT / "data" / "extractions"
 
 # ── Model configurations ──
 MODELS = {
-    "gpt": {
+    "claude-sonnet-4-6": {
+        "name": "Claude Sonnet 4.6",
+        "model_id": "claude-sonnet-4-6",
+        "provider": "anthropic",
+        "output_dir": "claude_sonnet_4_6",
+    },
+    "gpt-5.4": {
+        "name": "GPT-5.4 full",
+        "model_id": "gpt-5.4-2026-03-05",
+        "provider": "openai",
+        "output_dir": "gpt5.4_full",
+        "max_tokens_param": "max_completion_tokens",
+    },
+    "gpt-5.4-mini": {
         "name": "GPT-5.4 Mini",
-        "model_id": "gpt-5.4-mini",
+        "model_id": "gpt-5.4-mini-2026-03-17",
         "provider": "openai",
         "output_dir": "gpt5.4_mini",
-        "max_tokens_param": "max_completion_tokens",  # GPT-5.x uses this
+        "max_tokens_param": "max_completion_tokens",
     },
     "gemini-flash": {
         "name": "Gemini 2.5 Flash",
@@ -114,10 +140,28 @@ def get_paper_text(ds_id):
 
     for pdf_path in pdf_candidates:
         if pdf_path.exists():
-            text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
-            return "\n".join(pages)
+            return _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
 
     return None
+
+
+def call_anthropic(model_id, system_prompt, user_prompt):
+    """Call Anthropic API for Claude models."""
+    import anthropic
+    client = anthropic.Anthropic()
+    response = client.messages.create(
+        model=model_id,
+        max_tokens=4096,
+        temperature=0.0,
+        system=system_prompt,
+        messages=[{"role": "user", "content": user_prompt}],
+    )
+    text = response.content[0].text
+    usage = {
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+    }
+    return text, usage
 
 
 def call_openai(model_id, system_prompt, user_prompt, max_tokens_param="max_completion_tokens"):
@@ -190,7 +234,9 @@ def extract_one(model_key, ds_id, paper_text):
     cfg = MODELS[model_key]
     user_prompt = USER_PROMPT_TEMPLATE % paper_text
 
-    if cfg["provider"] == "openai":
+    if cfg["provider"] == "anthropic":
+        raw, usage = call_anthropic(cfg["model_id"], SYSTEM_PROMPT, user_prompt)
+    elif cfg["provider"] == "openai":
         raw, usage = call_openai(
             cfg["model_id"], SYSTEM_PROMPT, user_prompt,
             cfg.get("max_tokens_param", "max_completion_tokens"),
@@ -261,7 +307,7 @@ def run_model(model_key, ds_ids, test_mode=False):
                 total_input += usage.get("input_tokens", 0)
                 total_output += usage.get("output_tokens", 0)
 
-                # Save
+                # Save with provenance _meta block (2026-04-21 standardization)
                 output = {
                     "dataset_id": ds_id,
                     "model": cfg["model_id"],
@@ -269,6 +315,19 @@ def run_model(model_key, ds_ids, test_mode=False):
                     "usage": usage,
                     "time_seconds": round(elapsed, 1),
                     "valid": is_valid,
+                    "_meta": {
+                        "parser": "pypdf2",
+                        "parser_version": "3.0.1",
+                        "prompt_sha256_prefix": _PROMPT_HASH,
+                        "prompt_chars": len(SYSTEM_PROMPT),
+                        "model_id": cfg["model_id"],
+                        "provider": cfg["provider"],
+                        "temperature": 0.0,
+                        "timestamp": datetime.utcnow().isoformat() + "Z",
+                        "git_commit": _GIT_COMMIT,
+                        "paper_set": "102_dev_test_split",
+                        "script": "scripts/experiments/model_comparison/extract_all_models.py",
+                    },
                 }
                 if not is_valid:
                     output["validation_errors"] = errors
@@ -438,11 +497,12 @@ def main():
     parser.add_argument("--verify", action="store_true", help="Run verification only")
     args = parser.parse_args()
 
-    # Get all gold paper IDs
-    all_ds_ids = sorted(
-        p.parent.name for p in PROCESSED.glob("*/full_pdf_metadata_result.json")
-    )
-    log.info(f"Gold papers available: {len(all_ds_ids)}")
+    # Load 102-paper canonical split (SuperGPQA excluded per 2026-04-20 decision)
+    split_path = ROOT / "data" / "agentic" / "dev_test_split.json"
+    with open(split_path) as f:
+        split = json.load(f)
+    all_ds_ids = sorted(split["dev"] + split["test"])
+    log.info(f"Canonical paper set: {len(all_ds_ids)} (14 dev + 88 test, SuperGPQA excluded)")
 
     ds_ids = TEST_PAPERS if args.test else all_ds_ids
     model_keys = list(MODELS.keys()) if args.model == "all" else [args.model]
