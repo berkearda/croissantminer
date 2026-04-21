@@ -71,6 +71,12 @@ STRATEGY_DIRS = {
     "llama3_3_70b":          EXTRACTION_BASE / "llama3_3_70b",
     "llama4_scout":          EXTRACTION_BASE / "llama4_scout",
     "gemma3_27b":            EXTRACTION_BASE / "gemma3_27b",
+    # Proprietary single-pass runs (2026-04-21 standardization)
+    "claude_sonnet_4_6":     EXTRACTION_BASE / "claude_sonnet_4_6",
+    "gpt5_4_full":           EXTRACTION_BASE / "gpt5.4_full",
+    "gpt5_4_mini":           EXTRACTION_BASE / "gpt5.4_mini",
+    "gemini_2_5_flash":      EXTRACTION_BASE / "gemini_2.5_flash",
+    "gemini_3_1_pro":        EXTRACTION_BASE / "gemini_3.1_pro",
 }
 
 # Field name mapping: extraction JSONs use unprefixed general fields,
