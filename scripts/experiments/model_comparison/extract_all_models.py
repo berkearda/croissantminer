@@ -51,6 +51,12 @@ EXTRACTIONS = ROOT / "data" / "extractions"
 
 # ── Model configurations ──
 MODELS = {
+    "claude-opus-4-7": {
+        "name": "Claude Opus 4.7",
+        "model_id": "claude-opus-4-7",
+        "provider": "anthropic",
+        "output_dir": "claude_opus_4_7",
+    },
     "claude-sonnet-4-6": {
         "name": "Claude Sonnet 4.6",
         "model_id": "claude-sonnet-4-6",
@@ -140,7 +146,8 @@ def get_paper_text(ds_id):
 
     for pdf_path in pdf_candidates:
         if pdf_path.exists():
-            return _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
+            text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
+            return text.encode("utf-8", errors="replace").decode("utf-8")
 
     return None
 
