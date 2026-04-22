@@ -1,31 +1,23 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# CroissantMiner — Euler Extraction Job
-# Qwen3-Next-80B-A3B on 2× RTX Pro 6000 (96GB each, 192GB total)
-#
-# Model choice rationale (decisions.md 2026-04-20):
-#   Qwen3-Next-80B-A3B is the largest open-weight model we can run
-#   on Euler with native 262K context. Since SuperGPQA is excluded
-#   (344K), every paper fits without truncation or chunking.
-#
-# Submit: sbatch scripts/euler/run_extraction.sbatch
+# Gemma 4 31B-IT INT4/AWQ on 1× RTX 4090 — FALLBACK sbatch.
+#   Use only if Pro 6000 queue is too long.
+# Tradeoff: INT4 (~8GB) is measurably less accurate than FP8.
+# Submit: sbatch scripts/euler/run_gemma4_31b_4090.sbatch
 # ═══════════════════════════════════════════════════════════════
 
-#SBATCH --job-name=cm_qwen3_next
+#SBATCH --job-name=cm_gemma4_31b_4090
 #SBATCH --account=<euler_account>
-#SBATCH --output=logs/euler_%j.out
-#SBATCH --error=logs/euler_%j.err
-#SBATCH --partition=cuda13pr.4h
-#SBATCH --gpus=nvidia_rtx_pro_6000:2
+#SBATCH --output=logs/gemma4_4090_%j.out
+#SBATCH --error=logs/gemma4_4090_%j.err
+#SBATCH --gpus=nvidia_geforce_rtx_4090:1
 #SBATCH --mem-per-cpu=16G
 #SBATCH --cpus-per-task=16
 #SBATCH --time=08:00:00
 
-# ── Environment ──
 source /etc/profile
 module load stack/2024-05 gcc/13.2.0 python/3.11.6_cuda
 module load eth_proxy
-
 source $SCRATCH/croissantminer_venv/bin/activate
 
 export HF_HOME=$SCRATCH/.huggingface
@@ -33,19 +25,18 @@ export TRANSFORMERS_CACHE=$SCRATCH/.huggingface
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 export PYTHONUNBUFFERED=1
 
-# ── Create log dir ──
 mkdir -p logs
-
-# ── Run ──
 cd $SCRATCH/croissantminer
 
+# NVIDIA publishes an NVFP4 (near-INT4) variant; vllm 0.11.1+ supports it.
 python scripts/euler/extract_openmodels.py \
-    --model Qwen/Qwen3-Next-80B-A3B-Instruct \
-    --model-name qwen3_next_80b \
-    --quantization fp8 \
-    --max-model-len 262144 \
-    --tensor-parallel-size 2 \
+    --model nvidia/Gemma-4-31B-IT-NVFP4 \
+    --model-name gemma4_31b_nvfp4 \
+    --quantization nvfp4 \
+    --max-model-len 65536 \
+    --tensor-parallel-size 1 \
     --batch-size 2 \
-    --gpu-memory-utilization 0.90
+    --gpu-memory-utilization 0.92 \
+    --temperature 0.0
 
-echo "Job complete."
+echo "Gemma 4 31B-IT NVFP4 (4090 fallback) extraction complete."

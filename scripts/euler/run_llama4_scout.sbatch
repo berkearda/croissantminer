@@ -1,21 +1,20 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# Smoke test — 1 paper on Gemma 4 31B (smallest, fastest-loading).
-# Verifies venv + vLLM 0.11.1 + HF cache + PDF pipeline end-to-end
-# before committing to full 102-paper runs.
-#
-# Submit: sbatch scripts/euler/run_test.sbatch
+# Llama 4 Scout 17B-16E-Instruct on 2× RTX Pro 6000
+#   109B total, 17B active, 10M context, Llama 4 license.
+#   Released 2025-04. MoE — uses expert-parallel for throughput.
+# Submit: sbatch scripts/euler/run_llama4_scout.sbatch
 # ═══════════════════════════════════════════════════════════════
 
-#SBATCH --job-name=cm_smoke_gemma4
+#SBATCH --job-name=cm_llama4_scout
 #SBATCH --account=<euler_account>
-#SBATCH --output=logs/test_%j.out
-#SBATCH --error=logs/test_%j.err
+#SBATCH --output=logs/llama4_scout_%j.out
+#SBATCH --error=logs/llama4_scout_%j.err
 #SBATCH --partition=cuda13pr.4h
-#SBATCH --gpus=nvidia_rtx_pro_6000:1
+#SBATCH --gpus=nvidia_rtx_pro_6000:2
 #SBATCH --mem-per-cpu=16G
 #SBATCH --cpus-per-task=16
-#SBATCH --time=01:00:00
+#SBATCH --time=08:00:00
 
 source /etc/profile
 module load stack/2024-05 gcc/13.2.0 python/3.11.6_cuda
@@ -30,17 +29,17 @@ export PYTHONUNBUFFERED=1
 mkdir -p logs
 cd $SCRATCH/croissantminer
 
+# Llama 4 Scout at FP8 fits 2× 96GB. Expert-parallel distributes experts
+# across GPUs rather than sharding them (vLLM recommendation for MoE).
 python scripts/euler/extract_openmodels.py \
-    --model google/gemma-4-31B-it \
-    --model-name gemma4_31b_smoke \
+    --model meta-llama/Llama-4-Scout-17B-16E-Instruct \
+    --model-name llama4_scout \
+    --quantization fp8 \
     --max-model-len 131072 \
-    --tensor-parallel-size 1 \
-    --batch-size 1 \
+    --tensor-parallel-size 2 \
+    --enable-expert-parallel \
+    --batch-size 2 \
     --gpu-memory-utilization 0.90 \
-    --temperature 0.0 \
-    --paper AI4Math_MathVista
+    --temperature 0.0
 
-echo "Smoke test complete. If successful, next:"
-echo "  sbatch scripts/euler/run_qwen36_35b.sbatch"
-echo "  sbatch scripts/euler/run_gemma4_31b.sbatch"
-echo "  sbatch scripts/euler/run_llama4_scout.sbatch"
+echo "Llama 4 Scout extraction complete."

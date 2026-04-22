@@ -1,21 +1,20 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# Smoke test — 1 paper on Gemma 4 31B (smallest, fastest-loading).
-# Verifies venv + vLLM 0.11.1 + HF cache + PDF pipeline end-to-end
-# before committing to full 102-paper runs.
-#
-# Submit: sbatch scripts/euler/run_test.sbatch
+# Gemma 4 31B-IT Dense on 1× RTX Pro 6000 (Apache 2.0, 256K ctx)
+#   Released 2026-04-02. Beats Llama 4 on AIME/GPQA/LiveCodeBench.
+# Submit:    sbatch scripts/euler/run_gemma4_31b.sbatch
+# Fallback:  sbatch scripts/euler/run_gemma4_31b_4090.sbatch (if Pro 6000 queue too long)
 # ═══════════════════════════════════════════════════════════════
 
-#SBATCH --job-name=cm_smoke_gemma4
+#SBATCH --job-name=cm_gemma4_31b
 #SBATCH --account=<euler_account>
-#SBATCH --output=logs/test_%j.out
-#SBATCH --error=logs/test_%j.err
+#SBATCH --output=logs/gemma4_%j.out
+#SBATCH --error=logs/gemma4_%j.err
 #SBATCH --partition=cuda13pr.4h
 #SBATCH --gpus=nvidia_rtx_pro_6000:1
 #SBATCH --mem-per-cpu=16G
 #SBATCH --cpus-per-task=16
-#SBATCH --time=01:00:00
+#SBATCH --time=06:00:00
 
 source /etc/profile
 module load stack/2024-05 gcc/13.2.0 python/3.11.6_cuda
@@ -32,15 +31,11 @@ cd $SCRATCH/croissantminer
 
 python scripts/euler/extract_openmodels.py \
     --model google/gemma-4-31B-it \
-    --model-name gemma4_31b_smoke \
+    --model-name gemma4_31b \
     --max-model-len 131072 \
     --tensor-parallel-size 1 \
-    --batch-size 1 \
+    --batch-size 4 \
     --gpu-memory-utilization 0.90 \
-    --temperature 0.0 \
-    --paper AI4Math_MathVista
+    --temperature 0.0
 
-echo "Smoke test complete. If successful, next:"
-echo "  sbatch scripts/euler/run_qwen36_35b.sbatch"
-echo "  sbatch scripts/euler/run_gemma4_31b.sbatch"
-echo "  sbatch scripts/euler/run_llama4_scout.sbatch"
+echo "Gemma 4 31B extraction complete."
