@@ -56,6 +56,7 @@ MODELS = {
         "model_id": "claude-opus-4-7",
         "provider": "anthropic",
         "output_dir": "claude_opus_4_7",
+        "skip_temperature": True,  # Opus 4.7 rejects temperature (extended-thinking model)
     },
     "claude-sonnet-4-6": {
         "name": "Claude Sonnet 4.6",
@@ -152,17 +153,23 @@ def get_paper_text(ds_id):
     return None
 
 
-def call_anthropic(model_id, system_prompt, user_prompt):
-    """Call Anthropic API for Claude models."""
+def call_anthropic(model_id, system_prompt, user_prompt, skip_temperature=False):
+    """Call Anthropic API for Claude models.
+
+    skip_temperature=True for extended-thinking models (Opus 4.7+) that
+    reject the temperature parameter.
+    """
     import anthropic
     client = anthropic.Anthropic()
-    response = client.messages.create(
-        model=model_id,
-        max_tokens=4096,
-        temperature=0.0,
-        system=system_prompt,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
+    kwargs = {
+        "model": model_id,
+        "max_tokens": 4096,
+        "system": system_prompt,
+        "messages": [{"role": "user", "content": user_prompt}],
+    }
+    if not skip_temperature:
+        kwargs["temperature"] = 0.0
+    response = client.messages.create(**kwargs)
     text = response.content[0].text
     usage = {
         "input_tokens": response.usage.input_tokens,
@@ -242,7 +249,8 @@ def extract_one(model_key, ds_id, paper_text):
     user_prompt = USER_PROMPT_TEMPLATE % paper_text
 
     if cfg["provider"] == "anthropic":
-        raw, usage = call_anthropic(cfg["model_id"], SYSTEM_PROMPT, user_prompt)
+        raw, usage = call_anthropic(cfg["model_id"], SYSTEM_PROMPT, user_prompt,
+                                    skip_temperature=cfg.get("skip_temperature", False))
     elif cfg["provider"] == "openai":
         raw, usage = call_openai(
             cfg["model_id"], SYSTEM_PROMPT, user_prompt,
