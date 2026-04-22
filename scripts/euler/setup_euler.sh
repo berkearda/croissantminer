@@ -34,15 +34,31 @@ source "$VENV_DIR/bin/activate"
 # 3. Install dependencies
 echo ""
 echo "Installing Python packages..."
-pip install --upgrade pip wheel
 
-# vllm 0.11.1 is needed for Gemma 4 support; also covers Qwen 3.5 and Llama 4 Scout.
-pip install "vllm==0.11.1"
-pip install "transformers>=4.50"
-pip install pypdf2==3.0.1
-pip install python-dotenv huggingface_hub tqdm openai anthropic
-# sklearn is required by croissantminer/pdf/processor.py (TfidfVectorizer for clean_text)
-pip install scikit-learn
+# Skip pip installs if the venv is already provisioned — avoids downgrading
+# a working setup. Check for vllm >=0.19 as the canary; if present, assume
+# fresh-enough venv and skip install steps.
+_VLLM_VERSION=$(pip show vllm 2>/dev/null | awk '/^Version:/ {print $2}')
+_FRESH_VENV="true"
+if [ -n "$_VLLM_VERSION" ]; then
+    # Compare major.minor; if vllm >= 0.19, don't reinstall
+    if python -c "import sys; v='$_VLLM_VERSION'.split('.'); sys.exit(0 if (int(v[0]),int(v[1])) >= (0,19) else 1)" 2>/dev/null; then
+        echo "  vllm $_VLLM_VERSION already installed; skipping pip install steps."
+        _FRESH_VENV="false"
+    fi
+fi
+
+if [ "$_FRESH_VENV" = "true" ]; then
+    pip install --upgrade pip wheel
+    # Gemma 4 (Apr 2026) and Qwen 3.6 (Apr 2026) require vllm 0.19+ and
+    # transformers 5.5+. Older pins will downgrade a working venv.
+    pip install "vllm>=0.19.1"
+    pip install "transformers>=5.5.0"
+    pip install pypdf2==3.0.1
+    pip install python-dotenv huggingface_hub tqdm openai anthropic
+    # sklearn is required by croissantminer/pdf/processor.py (TfidfVectorizer for clean_text)
+    pip install scikit-learn
+fi
 
 # 4. Pre-cache models
 export HF_HOME="$SCRATCH/.huggingface"
