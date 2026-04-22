@@ -40,7 +40,9 @@ pip install --upgrade pip wheel
 pip install "vllm==0.11.1"
 pip install "transformers>=4.50"
 pip install pypdf2==3.0.1
-pip install python-dotenv huggingface_hub tqdm openai
+pip install python-dotenv huggingface_hub tqdm openai anthropic
+# sklearn is required by croissantminer/pdf/processor.py (TfidfVectorizer for clean_text)
+pip install scikit-learn
 
 # 4. Pre-cache models
 export HF_HOME="$SCRATCH/.huggingface"
