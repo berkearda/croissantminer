@@ -12,8 +12,8 @@
 #SBATCH --output=logs/llama4_scout_4090_%j.out
 #SBATCH --error=logs/llama4_scout_4090_%j.err
 #SBATCH --gpus=nvidia_geforce_rtx_4090:4
-#SBATCH --mem-per-cpu=16G
-#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=12G
+#SBATCH --cpus-per-task=8
 #SBATCH --time=10:00:00
 
 source /etc/profile

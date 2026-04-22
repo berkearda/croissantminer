@@ -13,8 +13,8 @@
 #SBATCH --error=logs/test_%j.err
 #SBATCH --partition=cuda13pr.4h
 #SBATCH --gpus=nvidia_rtx_pro_6000:1
-#SBATCH --mem-per-cpu=16G
-#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=8
 #SBATCH --time=01:00:00
 
 source /etc/profile

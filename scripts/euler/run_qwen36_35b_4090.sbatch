@@ -13,8 +13,8 @@
 #SBATCH --output=logs/qwen36_4090_%j.out
 #SBATCH --error=logs/qwen36_4090_%j.err
 #SBATCH --gpus=nvidia_geforce_rtx_4090:1
-#SBATCH --mem-per-cpu=16G
-#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=8
 #SBATCH --time=08:00:00
 
 source /etc/profile

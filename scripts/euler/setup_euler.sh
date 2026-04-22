@@ -47,6 +47,20 @@ export HF_HOME="$SCRATCH/.huggingface"
 export TRANSFORMERS_CACHE="$SCRATCH/.huggingface"
 mkdir -p "$HF_HOME"
 
+# Llama 4 Scout and Gemma 4 are gated on HuggingFace. Login with a read-only
+# token before this script runs, OR export HF_TOKEN in the environment.
+# If neither is present, gated downloads will 401 and we note the model as
+# "not cached" — the sbatch will still try to download at job time.
+if [ -z "$HF_TOKEN" ] && [ ! -f "$HOME/.cache/huggingface/token" ]; then
+    echo "WARNING: no HF_TOKEN in env and no huggingface-cli login found."
+    echo "  Gated models (Llama 4 Scout, Gemma 4) may fail to download."
+    echo "  Fix:  huggingface-cli login  (or  export HF_TOKEN=hf_...)"
+    echo "  Continuing anyway — non-gated models will cache fine."
+fi
+if [ -n "$HF_TOKEN" ]; then
+    export HUGGING_FACE_HUB_TOKEN="$HF_TOKEN"
+fi
+
 echo ""
 echo "Pre-caching open-weight models to $HF_HOME..."
 echo "  (Skipped if already cached. Llama 4 Scout requires gated-access approval on HuggingFace.)"
