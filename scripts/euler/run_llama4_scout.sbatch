@@ -23,6 +23,9 @@ source $SCRATCH/croissantminer_venv/bin/activate
 
 export HF_HOME=$SCRATCH/.huggingface
 export TRANSFORMERS_CACHE=$SCRATCH/.huggingface
+# Setting HF_HOME moves HF's token lookup off $HOME/.cache — re-export so
+# vLLM can fetch gated files (e.g. chat_template.json for Llama 4).
+[ -f "$HOME/.cache/huggingface/token" ] && export HUGGING_FACE_HUB_TOKEN="$(cat $HOME/.cache/huggingface/token)"
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 export PYTHONUNBUFFERED=1
 
