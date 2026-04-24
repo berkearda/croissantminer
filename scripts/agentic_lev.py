@@ -1,232 +1,112 @@
 #!/usr/bin/env python3
-"""
-CroissantMiner LEV (Locate-Extract-Verify) Agentic Pipeline
+"""CroissantMiner LEV (Locate-Extract-Verify) pipeline.
 
-Architecture:
-  LOCATE:  Reuse Phase 1 triage (Gemini Flash already identified sections per field group)
-           + Phase 0 chunks (section-level text with boundaries)
-           → Extract targeted section text per field group
+LOCATE  Reuse Phase 1 Gemini-Flash triage (section names per field group) +
+        Phase 0 section chunks; build a targeted text buffer per group with
+        fallback keyword matching if triage is empty.
+EXTRACT Five independent LLM calls (one per field group) with specialist
+        system prompts and a {value, evidence} schema.
+VERIFY  Cross-document enrichment (HuggingFace + Semantic Scholar), schema
+        validation, confidence scoring.
 
-  EXTRACT: 5 independent Claude Sonnet calls, each with ONLY relevant sections:
-           Call 1: Core metadata (abstract + intro + data availability)
-           Call 2: Collection fields (data collection / methods)
-           Call 3: Annotation fields (annotation + appendix)
-           Call 4: Impact/RAI fields (ethics + limitations + discussion)
-           Call 5: Processing fields (preprocessing / methodology)
-
-  VERIFY:  Cross-field consistency + schema validation + enrichment + confidence
+Output schema (canonical):
+  {"dataset_id", "model", "extraction" (flat 30 fields), "usage", "valid",
+   "_meta": {provenance, pipeline="agentic_lev", extraction_details,
+             group_stats, paper_stats, ...}}
 
 Usage:
-  python scripts/agentic_lev.py --paper AI4Math_MathVista   # single paper
-  python scripts/agentic_lev.py --dev-only                   # 15 dev papers
-  python scripts/agentic_lev.py                              # all 103
-  python scripts/agentic_lev.py --batch                      # batch mode (50% off)
+  python scripts/agentic_lev.py --backbone sonnet-4-5 --paper AI4Math_MathVista
+  python scripts/agentic_lev.py --backbone gpt-5.4 --dev-only
+  python scripts/agentic_lev.py --backbone sonnet-4-5 --batch   # Anthropic only
 """
 
+from __future__ import annotations
+
 import argparse
+import hashlib
 import json
-import os
 import re
-import sys
 import time
+import urllib.parse
 import urllib.request
-import urllib.error
 from collections import defaultdict
 from pathlib import Path
 
-from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
-from croissantminer.pdf.processor import clean_text as _canonical_clean_text
-import anthropic
 from dotenv import load_dotenv
 
-ROOT = Path(__file__).parent.parent
+from _agentic_helpers import (
+    ROOT,
+    SYSTEM_PROMPT,
+    CANONICAL_FIELDS,
+    call_llm,
+    estimate_cost,
+    fill_canonical,
+    get_paper_text,
+    meta_block,
+    normalize_field_names,
+    output_dir_for,
+    parse_json_response,
+    resolve_backbone,
+    strip_references,
+    write_canonical_output,
+)
+
 load_dotenv(ROOT / ".env")
 
-sys.path.insert(0, str(ROOT))
-from config import SYSTEM_PROMPT
+SCRIPT_NAME = "scripts/agentic_lev.py"
+MAX_TOKENS_GROUP = 4096
+GROUP_CHAR_CAP = 60_000
+GROUP_MIN_CONTEXT = 2_000
 
-# ═══════════════════════════════════════════════════════════════
-# CONFIGURATION
-# ═══════════════════════════════════════════════════════════════
-
-MODEL = "claude-sonnet-4-5-20250929"
-TEMPERATURE = 0
-MAX_TOKENS = 4096
-
-RAW_DIR = ROOT / "data" / "raw"
 PHASE0_DIR = ROOT / "data" / "agentic" / "phase0"
 PHASE1_DIR = ROOT / "data" / "agentic" / "phase1"
-OUTPUT_DIR = ROOT / "data" / "agentic" / "lev"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(ROOT / "data" / "agentic" / "dev_test_split.json") as f:
     SPLIT = json.load(f)
 
-with open(ROOT / "data" / "paper_links.json") as f:
-    PAPER_LINKS = json.load(f)
 
-SPDX_PATH = ROOT / "experiments" / "validators" / "_spdx_cache.json"
-SPDX = {}
-if SPDX_PATH.exists():
-    with open(SPDX_PATH) as f:
-        SPDX = json.load(f)
-
-client = anthropic.Anthropic()
-
-# Field groups mapping
+# ── Field groups and prompts ──────────────────────────────────────
 FIELD_GROUPS = {
     "core": {
         "fields": ["name", "description", "url", "license", "creator",
-                    "publisher", "datePublished", "inLanguage", "citeAs", "isLiveDataset"],
-        "triage_key": None,  # always extract core fields
+                   "publisher", "datePublished", "inLanguage", "citeAs", "isLiveDataset"],
+        "triage_key": None,
         "fallback_sections": ["abstract", "introduction", "data availability"],
     },
     "collection": {
         "fields": ["rai:dataCollection", "rai:dataCollectionType",
-                    "rai:dataCollectionMissingData", "rai:dataCollectionRawData",
-                    "rai:dataCollectionTimeframe"],
+                   "rai:dataCollectionMissingData", "rai:dataCollectionRawData",
+                   "rai:dataCollectionTimeframe"],
         "triage_key": "G3_collection",
         "fallback_sections": ["method", "data collection", "dataset", "corpus"],
     },
     "annotation": {
         "fields": ["rai:dataAnnotationProtocol", "rai:dataAnnotationPlatform",
-                    "rai:dataAnnotationAnalysis", "rai:annotationsPerItem",
-                    "rai:annotatorDemographics", "rai:machineAnnotationTools"],
+                   "rai:dataAnnotationAnalysis", "rai:annotationsPerItem",
+                   "rai:annotatorDemographics", "rai:machineAnnotationTools"],
         "triage_key": "G4_annotation",
         "fallback_sections": ["annotation", "labeling", "human evaluation", "crowdsourc"],
     },
     "impact": {
         "fields": ["rai:dataBiases", "rai:dataLimitations", "rai:dataSocialImpact",
-                    "rai:personalSensitiveInformation", "rai:dataUseCases",
-                    "rai:dataReleaseMaintenancePlan"],
+                   "rai:personalSensitiveInformation", "rai:dataUseCases",
+                   "rai:dataReleaseMaintenancePlan"],
         "triage_key": "G5_rai",
         "fallback_sections": ["ethic", "limitation", "broader impact", "discussion", "bias", "social"],
     },
     "processing": {
         "fields": ["rai:dataImputationProtocol", "rai:dataManipulationProtocol",
-                    "rai:dataPreprocessingProtocol"],
+                   "rai:dataPreprocessingProtocol"],
         "triage_key": "G6_processing",
         "fallback_sections": ["preprocess", "data preparation", "filtering", "cleaning"],
     },
 }
-
-ALL_FIELDS = []
-for group in ["core", "collection", "annotation", "impact", "processing"]:
-    ALL_FIELDS.extend(FIELD_GROUPS[group]["fields"])
-
-
-# ═══════════════════════════════════════════════════════════════
-# LOCATE: Extract targeted section text per field group
-# ═══════════════════════════════════════════════════════════════
-
-def extract_paper_text(ds_id):
-    """Full paper text for fallback."""
-    pdf_path = RAW_DIR / f"{ds_id}.pdf"
-    if not pdf_path.exists():
-        url = PAPER_LINKS.get(ds_id, "")
-        m = re.search(r'(\d{4}\.\d{4,5})', url)
-        if m:
-            for sfx in ["", "v1", "v2", "v3", "v4", "v5"]:
-                p = RAW_DIR / f"{m.group(1)}{sfx}.pdf"
-                if p.exists():
-                    pdf_path = p
-                    break
-    if not pdf_path.exists():
-        return None
-    text = _canonical_clean_text(_canonical_extract_text(str(pdf_path)))
-    # Strip references
-    for pattern in [r'\n\s*References\s*\n', r'\n\s*REFERENCES\s*\n', r'\n\s*Bibliography\s*\n']:
-        match = re.search(pattern, text)
-        if match and match.start() > len(text) * 0.5:
-            text = text[:match.start()]
-            break
-    return text.strip()
+GROUP_ORDER = ["core", "collection", "annotation", "impact", "processing"]
+ALL_FIELDS: list[str] = []
+for _g in GROUP_ORDER:
+    ALL_FIELDS.extend(FIELD_GROUPS[_g]["fields"])
 
 
-def locate_sections(ds_id, full_text):
-    """LOCATE step: use Phase 1 triage + Phase 0 chunks to get targeted text per group."""
-
-    # Load triage (section names per group from Gemini)
-    triage = {}
-    triage_path = PHASE1_DIR / f"{ds_id}.json"
-    if triage_path.exists():
-        with open(triage_path) as f:
-            triage_data = json.load(f)
-        triage = triage_data.get("triage", {})
-
-    # Load Phase 0 chunks (section-level text)
-    chunks = []
-    phase0_path = PHASE0_DIR / f"{ds_id}.json"
-    if phase0_path.exists():
-        with open(phase0_path) as f:
-            phase0_data = json.load(f)
-        chunks = phase0_data.get("chunks", [])
-
-    # Build section index: section_name -> concatenated text
-    section_text = defaultdict(str)
-    for chunk in chunks:
-        section = chunk.get("section", "unknown").strip()
-        text = chunk.get("text", "")
-        if section and text:
-            section_text[section.upper()] += " " + text
-
-    # For each field group, extract targeted sections
-    group_texts = {}
-    for group_name, group_cfg in FIELD_GROUPS.items():
-        triage_key = group_cfg["triage_key"]
-        triage_info = triage.get(triage_key, {}) if triage_key else {}
-        triage_sections = [s.upper() for s in triage_info.get("sections", [])]
-        fallback_keywords = group_cfg["fallback_sections"]
-
-        # Collect matching section texts
-        matched_text = []
-
-        # Method 1: Use triage-identified sections
-        for triage_sec in triage_sections:
-            for sec_name, sec_text in section_text.items():
-                if triage_sec in sec_name or sec_name in triage_sec:
-                    matched_text.append(sec_text)
-
-        # Method 2: Fallback keyword matching if triage found nothing
-        if not matched_text:
-            for sec_name, sec_text in section_text.items():
-                sec_lower = sec_name.lower()
-                if any(kw in sec_lower for kw in fallback_keywords):
-                    matched_text.append(sec_text)
-
-        # Core fields always get abstract + intro + first 20% of paper
-        if group_name == "core":
-            # Add abstract and intro explicitly
-            for sec_name, sec_text in section_text.items():
-                if any(kw in sec_name.lower() for kw in ["abstract", "introduction", "1 intro"]):
-                    if sec_text not in matched_text:
-                        matched_text.insert(0, sec_text)
-            # Also add first 20% of full paper for things like title, authors
-            first_chunk = full_text[:len(full_text) // 5] if full_text else ""
-            if first_chunk:
-                matched_text.insert(0, first_chunk)
-
-        combined = "\n\n".join(matched_text)
-
-        # Ensure minimum context — if too short, use more of the paper
-        if len(combined) < 2000 and full_text:
-            # Fallback: use first 50% of paper for this group
-            combined = full_text[:len(full_text) // 2]
-
-        # Cap at 60K chars (~15K tokens) per group to keep costs down
-        if len(combined) > 60000:
-            combined = combined[:60000]
-
-        group_texts[group_name] = combined
-
-    return group_texts, triage
-
-
-# ═══════════════════════════════════════════════════════════════
-# EXTRACT: Targeted Claude calls per field group
-# ═══════════════════════════════════════════════════════════════
-
-# Per-group system prompts (focused instructions)
 GROUP_SYSTEM_PROMPTS = {
     "core": """You are an expert at extracting general metadata from ML dataset papers.
 Extract ONLY the fields listed below. Use null for any field not explicitly stated in the paper.
@@ -237,11 +117,11 @@ Field definitions:
 - description: Brief description (1-3 sentences)
 - url: URL where the dataset can be accessed
 - license: Distribution license (e.g., MIT, CC-BY-4.0). Return null if not stated.
-- creator: Dataset creator(s). Format: "Name1, Name2 (Organization)"
-- publisher: Organization that published/funded the dataset. NOT the conference venue.
-- datePublished: Dataset release date (YYYY or YYYY-MM-DD). Not the arxiv submission date.
+- creator: Dataset authors or creating team
+- publisher: The organization that funded or released the dataset; this may be a conference or shared task in some cases
+- datePublished: The date the dataset was released to users (YYYY or YYYY-MM-DD); may differ from the arxiv submission date
 - inLanguage: Content language(s), ISO codes (e.g., "en")
-- citeAs: Recommended citation format
+- citeAs: Recommended citation format if provided in the paper. If absent, return null — the pipeline fills this from external sources downstream.
 - isLiveDataset: "Yes" if actively updated, "No" if static, null if unknown""",
 
     "collection": """You are an expert at extracting data collection metadata from ML dataset papers.
@@ -249,7 +129,8 @@ Extract ONLY the fields listed below. Use null for any field not explicitly disc
 
 Field definitions (from the Croissant RAI specification):
 - rai:dataCollection: Description of the data collection process
-- rai:dataCollectionType: Choose from: Surveys, Secondary Data analysis, Physical data collection, Direct measurement, Document analysis, Manual Human Curator, Software Collection, Experiments, Web Scraping, Web API, Focus groups, Self-reporting, Customer feedback data, User-generated content data, Passive Data Collection, Others
+- rai:dataCollectionType: Choose from: Surveys, Secondary Data analysis, Physical data collection, Direct measurement, Document analysis, Manual Human Curator, Software Collection, Experiments, Web Scraping, Web API, Focus groups, Self-reporting, Customer feedback data, User-generated content data, Passive Data Collection, Others.
+  Prefer "Web Scraping" over "Web API" when data was harvested without authenticated endpoints. Prefer "Secondary Data analysis" when data was reused from an existing corpus rather than freshly gathered.
 - rai:dataCollectionMissingData: How missing data was handled. Only if explicitly discussed.
 - rai:dataCollectionRawData: Description of the raw/source data
 - rai:dataCollectionTimeframe: When data was collected (start/end dates)""",
@@ -270,17 +151,13 @@ Field definitions (from the Croissant RAI specification):
 Extract ONLY the fields listed below. Use null for any field not explicitly discussed.
 Look in Ethics, Limitations, Broader Impact, and Discussion sections.
 
-IMPORTANT: rai:dataReleaseMaintenancePlan is the most commonly hallucinated field.
-Return null unless the paper EXPLICITLY mentions versioning, update schedules, or maintenance plans.
-For rai:dataBiases, only extract biases the authors explicitly discuss. No generic bias warnings.
-
 Field definitions (from the Croissant RAI specification):
-- rai:dataBiases: Known biases explicitly discussed by the authors
-- rai:dataLimitations: Known limitations and non-recommended uses
-- rai:dataSocialImpact: Social impact considerations
-- rai:personalSensitiveInformation: Sensitive attributes collected (gender, age, geography, etc.)
-- rai:dataUseCases: Intended use cases (Training, Testing, Fine-tuning, etc.)
-- rai:dataReleaseMaintenancePlan: Versioning, update plans, deprecation. Most likely: null""",
+- rai:dataBiases: Description of biases in the dataset, if applicable
+- rai:dataLimitations: Known limitations (e.g., data generalization limits, quality issues) and non-recommended uses
+- rai:dataSocialImpact: Discussion of social implications, if applicable
+- rai:personalSensitiveInformation: Any sensitive human attribute(s) collected as part of this dataset (e.g., gender, socio-economic status, geography, language, age, culture, experience)
+- rai:dataUseCases: Dataset use case(s) (e.g., Training, Testing, Validation, Fine-tuning) and usage guidelines
+- rai:dataReleaseMaintenancePlan: Versioning information in terms of the updating timeframe, the maintainers, and the deprecation policies""",
 
     "processing": """You are an expert at extracting data processing metadata from ML dataset papers.
 Extract ONLY the fields listed below. Use null for any field not discussed.
@@ -292,7 +169,6 @@ Field definitions (from the Croissant RAI specification):
 - rai:dataPreprocessingProtocol: Steps to make data ML-ready: filtering, cleaning, normalization""",
 }
 
-# User prompt template per group
 GROUP_USER_PROMPT = """Extract the following fields from the paper section below.
 For each field, provide "value" and "evidence" (a brief quote from the text supporting your extraction).
 For null fields: {{"value": null, "evidence": null}}
@@ -302,90 +178,18 @@ Return ONLY valid JSON with these keys: %s
 PAPER SECTION:
 %s"""
 
+# LEV's specialist prompts differ from the canonical SYSTEM_PROMPT. Hash the
+# actual strings the LLM sees so _meta.specialist_prompts_sha256_prefix is an
+# honest provenance record (PROMPT_HASH from helpers tracks the canonical
+# definitions source, unchanged across LEV-prompt revisions).
+SPECIALIST_PROMPTS_HASH = hashlib.sha256(
+    json.dumps(
+        {"group_system_prompts": GROUP_SYSTEM_PROMPTS,
+         "group_user_prompt": GROUP_USER_PROMPT},
+        sort_keys=True,
+    ).encode()
+).hexdigest()[:16]
 
-def parse_json_response(raw_text):
-    """Parse JSON from Claude's response."""
-    raw = raw_text.strip()
-    if raw.startswith("```json"):
-        raw = raw[7:]
-    elif raw.startswith("```"):
-        raw = raw[3:]
-    if raw.endswith("```"):
-        raw = raw[:-3]
-    first = raw.find("{")
-    last = raw.rfind("}")
-    if first != -1 and last != -1:
-        raw = raw[first:last + 1]
-    return json.loads(raw.strip())
-
-
-def call_claude(system_prompt, user_prompt, max_tokens=MAX_TOKENS):
-    """Call Claude with retry logic."""
-    backoff = [5, 15, 45]
-    for attempt in range(3):
-        try:
-            response = client.messages.create(
-                model=MODEL,
-                max_tokens=max_tokens,
-                temperature=TEMPERATURE,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_prompt}]
-            )
-            result = parse_json_response(response.content[0].text)
-            usage = {"input": response.usage.input_tokens, "output": response.usage.output_tokens}
-            return result, usage
-        except anthropic.RateLimitError:
-            wait = backoff[attempt] if attempt < len(backoff) else 60
-            print(f"      Rate limited. Waiting {wait}s... (attempt {attempt + 1}/3)")
-            time.sleep(wait)
-        except anthropic.APIStatusError as e:
-            if e.status_code >= 500:
-                wait = backoff[attempt] if attempt < len(backoff) else 60
-                print(f"      Server error ({e.status_code}). Waiting {wait}s... (attempt {attempt + 1}/3)")
-                time.sleep(wait)
-            else:
-                raise
-        except json.JSONDecodeError:
-            if attempt < 2:
-                print(f"      JSON parse failed. Retrying... (attempt {attempt + 1}/3)")
-                time.sleep(backoff[attempt])
-            else:
-                raise
-    raise Exception("All 3 retry attempts failed")
-
-
-def extract_group(group_name, section_text, fields):
-    """EXTRACT step: one Claude call for one field group."""
-    system = GROUP_SYSTEM_PROMPTS[group_name]
-
-    # Build field schema for the prompt
-    field_schema_parts = []
-    for f in fields:
-        field_schema_parts.append(f'"{f}": {{"value": "string or null", "evidence": "quote or null"}}')
-    schema_str = "{\n  " + ",\n  ".join(field_schema_parts) + "\n}"
-
-    user = GROUP_USER_PROMPT % (schema_str, section_text)
-
-    result, usage = call_claude(system, user)
-
-    # Parse value/evidence structure
-    extraction = {}
-    evidence = {}
-    for field in fields:
-        entry = result.get(field, {})
-        if isinstance(entry, dict):
-            extraction[field] = entry.get("value")
-            evidence[field] = entry.get("evidence")
-        else:
-            extraction[field] = entry
-            evidence[field] = None
-
-    return extraction, evidence, usage
-
-
-# ═══════════════════════════════════════════════════════════════
-# VERIFY: Validation + enrichment + confidence
-# ═══════════════════════════════════════════════════════════════
 
 LICENSE_MAP = {
     "cc-by-4.0": "CC-BY-4.0", "cc by 4.0": "CC-BY-4.0",
@@ -398,465 +202,540 @@ LICENSE_MAP = {
 }
 
 
-def enrich(ds_id, extraction):
-    """Cross-document enrichment from HuggingFace and Semantic Scholar."""
-    enrichments = {}
-    hf_id = ds_id.replace("_", "/", 1)
+# ── Phase 0 / Phase 1 loaders ─────────────────────────────────────
+def load_paper_text(ds_id: str) -> str | None:
+    text = get_paper_text(ds_id)
+    if text is None:
+        return None
+    return strip_references(text).strip()
 
-    # HuggingFace
+
+def load_triage(ds_id: str) -> dict:
+    path = PHASE1_DIR / f"{ds_id}.json"
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        return json.load(f).get("triage", {})
+
+
+def load_section_text(ds_id: str) -> dict[str, str]:
+    path = PHASE0_DIR / f"{ds_id}.json"
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        data = json.load(f)
+    sections: defaultdict[str, str] = defaultdict(str)
+    for chunk in data.get("chunks", []):
+        name = str(chunk.get("section", "unknown")).strip().upper()
+        text = chunk.get("text", "")
+        if name and text:
+            sections[name] += " " + text
+    return dict(sections)
+
+
+# ── LOCATE ────────────────────────────────────────────────────────
+def locate_sections(ds_id: str, full_text: str) -> tuple[dict[str, str], dict]:
+    triage = load_triage(ds_id)
+    sections = load_section_text(ds_id)
+
+    group_texts: dict[str, str] = {}
+    for group_name, cfg in FIELD_GROUPS.items():
+        triage_key = cfg["triage_key"]
+        triage_info = triage.get(triage_key, {}) if triage_key else {}
+        triage_sections = [s.upper() for s in triage_info.get("sections", [])]
+        fallback = cfg["fallback_sections"]
+
+        matched: list[str] = []
+        for target in triage_sections:
+            for name, text in sections.items():
+                if target in name or name in target:
+                    matched.append(text)
+        if not matched:
+            for name, text in sections.items():
+                low = name.lower()
+                if any(kw in low for kw in fallback):
+                    matched.append(text)
+
+        if group_name == "core":
+            for name, text in sections.items():
+                if any(kw in name.lower() for kw in ("abstract", "introduction", "1 intro")):
+                    if text not in matched:
+                        matched.insert(0, text)
+            if full_text:
+                matched.insert(0, full_text[: len(full_text) // 5])
+
+        combined = "\n\n".join(matched).strip()
+        if len(combined) < GROUP_MIN_CONTEXT and full_text:
+            combined = full_text[: len(full_text) // 2]
+        if len(combined) > GROUP_CHAR_CAP:
+            combined = combined[:GROUP_CHAR_CAP]
+        group_texts[group_name] = combined
+
+    return group_texts, triage
+
+
+# ── EXTRACT ───────────────────────────────────────────────────────
+def _schema_for_group(fields: list[str]) -> str:
+    parts = [f'"{f}": {{"value": "string or null", "evidence": "quote or null"}}'
+             for f in fields]
+    return "{\n  " + ",\n  ".join(parts) + "\n}"
+
+
+def extract_group(cfg, group_name: str, section_text: str, fields: list[str]):
+    system = GROUP_SYSTEM_PROMPTS[group_name]
+    schema = _schema_for_group(fields)
+    user = GROUP_USER_PROMPT % (schema, section_text)
+    raw, usage = call_llm(cfg, system, user, MAX_TOKENS_GROUP)
+    parsed = parse_json_response(raw)
+
+    extraction: dict = {}
+    evidence: dict = {}
+    for field in fields:
+        entry = parsed.get(field, {})
+        if isinstance(entry, dict):
+            extraction[field] = entry.get("value")
+            evidence[field] = entry.get("evidence")
+        else:
+            extraction[field] = entry
+            evidence[field] = None
+    return extraction, evidence, usage
+
+
+# ── VERIFY: enrichment + validation ───────────────────────────────
+def _is_null(val) -> bool:
+    if val is None:
+        return True
+    if isinstance(val, str) and val.strip().lower() in ("", "null", "none"):
+        return True
+    return False
+
+
+def enrich(ds_id: str, extraction: dict) -> tuple[dict, dict]:
+    enrichments: dict = {}
+    hf_id = ds_id.replace("_", "/", 1)
     try:
         url = f"https://huggingface.co/api/datasets/{hf_id}"
-        req = urllib.request.Request(url)
-        req.add_header("User-Agent", "CroissantMiner/2.0")
+        req = urllib.request.Request(url, headers={"User-Agent": "CroissantMiner/2.0"})
         resp = urllib.request.urlopen(req, timeout=10)
-        hf_data = json.loads(resp.read())
+        data = json.loads(resp.read())
+        card = data.get("cardData", {}) or {}
 
-        for field, hf_key in [("license", "license"), ("inLanguage", "language")]:
-            current = extraction.get(field)
-            if not current or str(current).strip().lower() in ("null", "none", ""):
-                val = hf_data.get("cardData", {}).get(hf_key)
-                if val:
-                    enrichments[field] = ", ".join(val) if isinstance(val, list) else str(val)
-
-        if not extraction.get("url") or str(extraction.get("url")).strip().lower() in ("null", "none", ""):
+        if _is_null(extraction.get("license")):
+            lic = card.get("license")
+            if lic:
+                enrichments["license"] = lic
+        if _is_null(extraction.get("inLanguage")):
+            lang = card.get("language")
+            if lang:
+                enrichments["inLanguage"] = ", ".join(lang) if isinstance(lang, list) else str(lang)
+        if _is_null(extraction.get("url")):
             enrichments["url"] = f"https://huggingface.co/datasets/{hf_id}"
     except Exception:
         pass
 
-    # Semantic Scholar for citeAs
-    if not extraction.get("citeAs") or str(extraction.get("citeAs")).strip().lower() in ("null", "none", ""):
-        name = extraction.get("name", ds_id)
-        if name:
-            try:
-                query = urllib.parse.quote(str(name))
-                url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={query}&limit=1&fields=title,citationStyles"
-                req = urllib.request.Request(url)
-                req.add_header("User-Agent", "CroissantMiner/2.0")
-                resp = urllib.request.urlopen(req, timeout=10)
-                data = json.loads(resp.read())
-                papers = data.get("data", [])
-                if papers:
-                    bibtex = papers[0].get("citationStyles", {}).get("bibtex", "")
-                    if bibtex:
-                        enrichments["citeAs"] = bibtex
-            except Exception:
-                pass
+    if _is_null(extraction.get("citeAs")):
+        name = extraction.get("name") or ds_id
+        try:
+            q = urllib.parse.quote(str(name))
+            url = (f"https://api.semanticscholar.org/graph/v1/paper/search"
+                   f"?query={q}&limit=1&fields=title,citationStyles")
+            req = urllib.request.Request(url, headers={"User-Agent": "CroissantMiner/2.0"})
+            resp = urllib.request.urlopen(req, timeout=10)
+            data = json.loads(resp.read())
+            papers = data.get("data", [])
+            if papers:
+                bibtex = papers[0].get("citationStyles", {}).get("bibtex", "")
+                if bibtex:
+                    enrichments["citeAs"] = bibtex
+        except Exception:
+            pass
 
     for field, val in enrichments.items():
         extraction[field] = val
     return extraction, enrichments
 
 
-def validate_and_score(extraction, evidence, enrichments, triage):
-    """VERIFY step: schema validation + confidence scoring."""
-    fields = {}
+def validate_and_score(extraction, evidence, enrichments, triage) -> dict:
+    details: dict = {}
     for field in ALL_FIELDS:
         val = extraction.get(field)
-
-        # Normalize nulls
-        if val is not None and isinstance(val, str) and val.strip().lower() in ("", "null", "none", "n/a", "not applicable", "[null]", "[null - not found in paper]"):
+        if isinstance(val, str) and val.strip().lower() in (
+            "", "null", "none", "n/a", "not applicable",
+            "[null]", "[null - not found in paper]",
+        ):
             val = None
         if isinstance(val, list):
             val = ", ".join(str(x) for x in val)
         if field == "license" and val:
-            normalized = LICENSE_MAP.get(str(val).strip().lower())
-            if normalized:
-                val = normalized
-        if field == "url" and val and not re.match(r'https?://', str(val)):
+            norm = LICENSE_MAP.get(str(val).strip().lower())
+            if norm:
+                val = norm
+        if field == "url" and val and not re.match(r"https?://", str(val)):
             val = f"https://{val}"
+        extraction[field] = val
 
         if val is None:
-            fields[field] = {"value": None, "confidence": 0.0, "status": "NULL", "source": "absent"}
+            details[field] = {"confidence": 0.0, "status": "NULL", "source": "absent", "evidence": None}
             continue
 
         confidence = 0.8
         source = "extraction"
-
-        # Evidence boost
         field_ev = evidence.get(field)
         has_ev = field_ev is not None and str(field_ev).strip() not in ("", "null", "None")
         if has_ev:
             confidence = min(confidence + 0.15, 1.0)
-
-        # Enrichment source
         if field in enrichments:
             source = "enrichment"
             confidence = 0.7
 
-        # Triage alignment penalty
-        for group_name, group_cfg in FIELD_GROUPS.items():
-            if field in group_cfg["fields"]:
-                triage_key = group_cfg["triage_key"]
-                if triage_key:
-                    triage_info = triage.get(triage_key, {})
-                    if triage_info.get("presence") == "unlikely":
-                        confidence = min(confidence, 0.5)
+        for group_name, gcfg in FIELD_GROUPS.items():
+            if field in gcfg["fields"]:
+                tk = gcfg["triage_key"]
+                if tk and triage.get(tk, {}).get("presence") == "unlikely":
+                    confidence = min(confidence, 0.5)
                 break
 
-        status = "VERIFIED" if confidence >= 0.7 else ("UNCERTAIN" if confidence >= 0.4 else "LOW_CONFIDENCE")
+        status = ("VERIFIED" if confidence >= 0.7
+                  else "UNCERTAIN" if confidence >= 0.4
+                  else "LOW_CONFIDENCE")
+        details[field] = {
+            "confidence": round(confidence, 2),
+            "status": status,
+            "source": source,
+            "evidence": field_ev if has_ev else None,
+        }
+    return details
 
-        entry = {"value": val, "confidence": round(confidence, 2), "status": status, "source": source}
-        if has_ev:
-            entry["evidence"] = field_ev
-        fields[field] = entry
 
-    return fields
+# ── Save canonical output ─────────────────────────────────────────
+def _paper_stats(details: dict) -> dict:
+    extracted = sum(1 for d in details.values() if d["status"] != "NULL")
+    verified = sum(1 for d in details.values() if d["status"] == "VERIFIED")
+    ev = sum(1 for d in details.values() if d.get("evidence"))
+    confs = [d["confidence"] for d in details.values() if d["status"] != "NULL"]
+    avg = sum(confs) / len(confs) if confs else 0.0
+    return {
+        "fields_extracted": extracted,
+        "fields_null": 30 - extracted,
+        "fields_verified": verified,
+        "evidence_count": ev,
+        "evidence_coverage": round(ev / max(extracted, 1) * 100, 1),
+        "avg_confidence": round(avg, 3),
+    }
 
 
-# ═══════════════════════════════════════════════════════════════
-# MAIN PIPELINE
-# ═══════════════════════════════════════════════════════════════
+def save_paper(out_dir: Path, ds_id: str, cfg, extraction, details, usage,
+               mode: str, extra_meta: dict):
+    stats = _paper_stats(details)
+    extra = {
+        "pipeline": "agentic_lev",
+        "specialist_prompts_sha256_prefix": SPECIALIST_PROMPTS_HASH,
+        "extraction_details": details,
+        "paper_stats": stats,
+        "cost_usd": estimate_cost(cfg, usage, batch_discount=(mode == "batch")),
+        "split": "dev" if ds_id in SPLIT["dev"] else "test",
+    }
+    extra.update(extra_meta)
+    meta = meta_block(cfg, SCRIPT_NAME, mode, extra=extra)
+    write_canonical_output(out_dir, ds_id, extraction, usage, cfg, meta)
+    return stats
 
-def process_paper(ds_id):
-    """Run full LEV pipeline on one paper."""
+
+# ── Sequential processing ─────────────────────────────────────────
+def process_paper(cfg, ds_id: str, out_dir: Path) -> dict | None:
     t0 = time.time()
-    total_usage = {"input": 0, "output": 0}
-
-    # Get full paper text (for fallback)
-    full_text = extract_paper_text(ds_id)
+    full_text = load_paper_text(ds_id)
     if not full_text:
-        print(f"  SKIP: no PDF for {ds_id}")
+        print(f"  SKIP {ds_id}: no PDF")
         return None
 
-    # LOCATE: get targeted section text per group
     group_texts, triage = locate_sections(ds_id, full_text)
 
-    # EXTRACT: 5 independent Claude calls
-    all_extraction = {}
-    all_evidence = {}
-    group_stats = {}
+    extraction: dict = {}
+    evidence: dict = {}
+    group_stats: dict = {}
+    total_usage = {"input_tokens": 0, "output_tokens": 0}
 
-    for group_name in ["core", "collection", "annotation", "impact", "processing"]:
+    for group_name in GROUP_ORDER:
         section_text = group_texts.get(group_name, "")
         fields = FIELD_GROUPS[group_name]["fields"]
 
         if not section_text.strip():
-            # No relevant sections found — set all fields to null
             for f in fields:
-                all_extraction[f] = None
-                all_evidence[f] = None
-            group_stats[group_name] = {"tokens_in": 0, "tokens_out": 0, "section_chars": 0}
+                extraction[f] = None
+                evidence[f] = None
+            group_stats[group_name] = {"section_chars": 0, "skipped": True}
             continue
 
         try:
-            extraction, evidence, usage = extract_group(group_name, section_text, fields)
-            all_extraction.update(extraction)
-            all_evidence.update(evidence)
-            total_usage["input"] += usage["input"]
-            total_usage["output"] += usage["output"]
-            group_stats[group_name] = {
-                "tokens_in": usage["input"],
-                "tokens_out": usage["output"],
-                "section_chars": len(section_text),
-            }
+            ext, ev, usage = extract_group(cfg, group_name, section_text, fields)
         except Exception as e:
-            print(f"    {group_name} FAILED: {str(e)[:50]}")
+            print(f"    {ds_id}/{group_name} FAILED: {str(e)[:60]}")
             for f in fields:
-                all_extraction[f] = None
-                all_evidence[f] = None
+                extraction[f] = None
+                evidence[f] = None
             group_stats[group_name] = {"error": str(e)[:80]}
-
-        time.sleep(0.3)  # rate limit between calls
-
-    # VERIFY: enrichment + validation + confidence
-    all_extraction, enrichments = enrich(ds_id, all_extraction)
-    fields = validate_and_score(all_extraction, all_evidence, enrichments, triage)
-
-    # Stats
-    elapsed = time.time() - t0
-    extracted = sum(1 for f in fields.values() if f["status"] != "NULL")
-    verified = sum(1 for f in fields.values() if f["status"] == "VERIFIED")
-    with_ev = sum(1 for f in fields.values() if f.get("evidence") is not None)
-    cost = total_usage["input"] / 1e6 * 3.0 + total_usage["output"] / 1e6 * 15.0
-
-    # Save
-    out_dir = OUTPUT_DIR / ds_id
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    output = {
-        "paper_id": ds_id,
-        "split": "dev" if ds_id in SPLIT["dev"] else "test",
-        "fields": fields,
-        "paper_stats": {
-            "fields_extracted": extracted,
-            "fields_null": 30 - extracted,
-            "fields_verified": verified,
-            "avg_confidence": round(sum(f["confidence"] for f in fields.values() if f["status"] != "NULL") / max(extracted, 1), 3),
-        },
-        "_meta": {
-            "model": MODEL,
-            "temperature": TEMPERATURE,
-            "pipeline": "lev",
-            "usage": total_usage,
-            "cost_usd": round(cost, 4),
-            "enrichments": list(enrichments.keys()),
-            "evidence_count": with_ev,
-            "evidence_coverage": round(with_ev / max(extracted, 1) * 100, 1),
-            "group_stats": group_stats,
-            "elapsed_seconds": round(elapsed, 1),
-        }
-    }
-
-    with open(out_dir / "full_result.json", "w") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-
-    # Flat extraction for evaluation
-    flat = {field: fields[field]["value"] for field in ALL_FIELDS}
-    with open(out_dir / "extraction.json", "w") as f:
-        json.dump(flat, f, indent=2, ensure_ascii=False)
-
-    return output
-
-
-
-# ═══════════════════════════════════════════════════════════════
-# BATCH MODE
-# ═══════════════════════════════════════════════════════════════
-
-def run_batch(papers):
-    """Run LEV pipeline using batch API for all extraction calls."""
-    import urllib.parse
-
-    print(f"  Step 1: LOCATE — extracting section text for {len(papers)} papers...")
-    paper_data = {}  # ds_id -> (group_texts, triage, full_text)
-    for ds_id in papers:
-        if (OUTPUT_DIR / ds_id / "full_result.json").exists():
             continue
-        full_text = extract_paper_text(ds_id)
+
+        extraction.update(ext)
+        evidence.update(ev)
+        total_usage["input_tokens"] += usage["input_tokens"]
+        total_usage["output_tokens"] += usage["output_tokens"]
+        group_stats[group_name] = {
+            "section_chars": len(section_text),
+            "tokens_in": usage["input_tokens"],
+            "tokens_out": usage["output_tokens"],
+        }
+        time.sleep(0.3)
+
+    extraction, enrichments = enrich(ds_id, extraction)
+    details = validate_and_score(extraction, evidence, enrichments, triage)
+
+    extra_meta = {
+        "group_stats": group_stats,
+        "enrichments": list(enrichments.keys()),
+        "elapsed_seconds": round(time.time() - t0, 1),
+    }
+    return save_paper(out_dir, ds_id, cfg, extraction, details, total_usage, "realtime", extra_meta)
+
+
+def run_sequential(cfg, papers, args, out_dir):
+    ok = fail = total_extracted = total_verified = 0
+    total_usage = {"input_tokens": 0, "output_tokens": 0}
+
+    for i, ds_id in enumerate(papers):
+        safe = ds_id.replace("/", "__")
+        out_path = out_dir / f"{safe}.json"
+        if out_path.exists() and not args.paper:
+            ok += 1
+            if (i + 1) % 25 == 0:
+                print(f"  [{i+1}/{len(papers)}] {ok} done (skipping existing)")
+            continue
+
+        try:
+            stats = process_paper(cfg, ds_id, out_dir)
+            if stats is None:
+                fail += 1
+                continue
+            ok += 1
+            total_extracted += stats["fields_extracted"]
+            total_verified += stats["fields_verified"]
+            with open(out_path) as f:
+                saved = json.load(f)
+            total_usage["input_tokens"] += saved["usage"]["input_tokens"]
+            total_usage["output_tokens"] += saved["usage"]["output_tokens"]
+            print(f"  [{i+1}/{len(papers)}] {ds_id}: "
+                  f"{stats['fields_extracted']}/30, "
+                  f"${saved['_meta']['cost_usd']:.3f}, "
+                  f"ev={stats['evidence_coverage']:.0f}%, "
+                  f"{saved['_meta']['elapsed_seconds']:.0f}s")
+        except Exception as e:
+            print(f"  [{i+1}/{len(papers)}] {ds_id}: FAILED ({str(e)[:80]})")
+            fail += 1
+        time.sleep(0.3)
+
+    total_cost = estimate_cost(cfg, total_usage, batch_discount=False)
+    total_fields = ok * 30
+    print(f"\n{'=' * 70}")
+    print(f"SUMMARY — LEV sequential ({cfg['name']})")
+    print(f"{'=' * 70}")
+    print(f"Papers: {ok} OK, {fail} failed")
+    print(f"Fields: {total_extracted}/{total_fields} "
+          f"({total_extracted / max(total_fields, 1) * 100:.1f}%)")
+    print(f"Verified: {total_verified}/{total_fields}")
+    print(f"Tokens: {total_usage['input_tokens']:,} in, "
+          f"{total_usage['output_tokens']:,} out")
+    print(f"Cost: ${total_cost:.2f}")
+    print(f"Output: {out_dir}/")
+
+    summary = {
+        "backbone": cfg["model_id"],
+        "papers_ok": ok, "papers_failed": fail,
+        "total_extracted": total_extracted,
+        "total_verified": total_verified,
+        "fill_rate": round(total_extracted / max(total_fields, 1) * 100, 1),
+        "usage": total_usage, "cost_usd": total_cost,
+    }
+    with open(out_dir / "_summary.json", "w") as f:
+        json.dump(summary, f, indent=2)
+
+
+# ── Anthropic-only batch mode ─────────────────────────────────────
+def _require_anthropic(cfg):
+    if cfg["provider"] != "anthropic":
+        raise SystemExit(
+            f"Batch mode currently supports provider=anthropic only "
+            f"(backbone '{cfg['model_id']}' uses provider={cfg['provider']}). "
+            f"Run without --batch for sequential execution."
+        )
+
+
+def _sanitize_custom_id(text: str, limit: int = 64) -> str:
+    return re.sub(r"[^a-zA-Z0-9_-]", "_", text.replace("/", "__"))[:limit]
+
+
+def run_batch(cfg, papers, out_dir):
+    _require_anthropic(cfg)
+    import anthropic
+    from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
+    from anthropic.types.messages.batch_create_params import Request
+
+    client = anthropic.Anthropic()
+    wave_dir = out_dir / "_batch"
+    wave_dir.mkdir(parents=True, exist_ok=True)
+    batch_meta_path = wave_dir / "batch.json"
+
+    paper_data: dict[str, tuple[dict, dict, str]] = {}
+    for ds_id in papers:
+        safe = ds_id.replace("/", "__")
+        if (out_dir / f"{safe}.json").exists():
+            continue
+        full_text = load_paper_text(ds_id)
         if not full_text:
             continue
         group_texts, triage = locate_sections(ds_id, full_text)
         paper_data[ds_id] = (group_texts, triage, full_text)
 
-    print(f"  Located sections for {len(paper_data)} papers")
-
     if not paper_data:
-        print("  No papers to process!")
+        print("  No papers pending.")
         return
 
-    # Step 2: Build batch requests (5 groups × N papers)
-    print(f"  Step 2: EXTRACT — building batch requests...")
-    requests = []
-    safe_to_ds = {}
-
-    for ds_id, (group_texts, triage, full_text) in paper_data.items():
-        safe_ds = re.sub(r'[^a-zA-Z0-9_-]', '_', ds_id)[:50]
-        safe_to_ds[safe_ds] = ds_id
-
-        for group_name in ["core", "collection", "annotation", "impact", "processing"]:
-            section_text = group_texts.get(group_name, "")
-            if not section_text.strip():
-                continue
-
-            fields = FIELD_GROUPS[group_name]["fields"]
-            system = GROUP_SYSTEM_PROMPTS[group_name]
-
-            field_schema_parts = []
-            for f in fields:
-                field_schema_parts.append(f'"{f}": {{"value": "string or null", "evidence": "quote or null"}}')
-            schema_str = "{\n  " + ",\n  ".join(field_schema_parts) + "\n}"
-            user = GROUP_USER_PROMPT % (schema_str, section_text)
-
-            custom_id = f"{safe_ds}___{group_name}"
-            if len(custom_id) > 64:
-                custom_id = custom_id[:64]
-
-            requests.append({
-                "custom_id": custom_id,
-                "params": {
-                    "model": MODEL,
-                    "max_tokens": MAX_TOKENS,
-                    "temperature": TEMPERATURE,
-                    "system": [{"type": "text", "text": system}],
-                    "messages": [{"role": "user", "content": user}]
-                }
-            })
-
-    print(f"  Submitting batch: {len(requests)} requests ({len(paper_data)} papers × 5 groups)")
-
-    batch = client.messages.batches.create(requests=requests)
-    print(f"  Batch ID: {batch.id}")
-
-    # Save metadata
-    with open(OUTPUT_DIR / "_batch.json", "w") as f:
-        json.dump({
-            "batch_id": batch.id,
-            "safe_to_ds": safe_to_ds,
-            "request_count": len(requests),
-            "submitted_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-        }, f, indent=2)
-
-    # Poll
-    print(f"  Waiting for batch to complete...")
-    while True:
-        time.sleep(30)
-        batch = client.messages.batches.retrieve(batch.id)
-        counts = batch.request_counts
-        done = counts.succeeded + counts.errored + counts.expired
-        print(f"    {batch.processing_status}: {done}/{len(requests)} done "
-              f"(ok={counts.succeeded}, err={counts.errored})")
-        if batch.processing_status == "ended":
-            break
-
-    # Step 3: Retrieve and reassemble results
-    print(f"\n  Step 3: Retrieving results...")
-    group_results = {}  # ds_id -> {group_name: (extraction, evidence, usage)}
-    total_usage = {"input": 0, "output": 0}
-
-    for result in client.messages.batches.results(batch.id):
-        cid = result.custom_id
-        parts = cid.split("___")
-        if len(parts) != 2:
-            continue
-        safe_ds, group_name = parts
-        ds_id = safe_to_ds.get(safe_ds, safe_ds)
-
-        if result.result.type == "succeeded":
-            msg = result.result.message
-            usage = {"input": msg.usage.input_tokens, "output": msg.usage.output_tokens}
-            total_usage["input"] += usage["input"]
-            total_usage["output"] += usage["output"]
-
-            try:
-                parsed = parse_json_response(msg.content[0].text)
+    if batch_meta_path.exists():
+        info = json.loads(batch_meta_path.read_text())
+        batch_id = info["batch_id"]
+        cid_map = info["cid_map"]
+    else:
+        requests: list = []
+        cid_map: dict = {}
+        for ds_id, (group_texts, _, _) in paper_data.items():
+            safe_ds = _sanitize_custom_id(ds_id, 50)
+            for group_name in GROUP_ORDER:
+                section_text = group_texts.get(group_name, "")
+                if not section_text.strip():
+                    continue
                 fields = FIELD_GROUPS[group_name]["fields"]
-                extraction = {}
-                evidence = {}
-                for field in fields:
-                    entry = parsed.get(field, {})
-                    if isinstance(entry, dict):
-                        extraction[field] = entry.get("value")
-                        evidence[field] = entry.get("evidence")
-                    else:
-                        extraction[field] = entry
-                        evidence[field] = None
+                schema = _schema_for_group(fields)
+                user = GROUP_USER_PROMPT % (schema, section_text)
+                cid = f"{safe_ds}___{group_name}"[:64]
+                cid_map[cid] = {"ds_id": ds_id, "group": group_name}
+                requests.append(Request(
+                    custom_id=cid,
+                    params=MessageCreateParamsNonStreaming(
+                        model=cfg["model_id"],
+                        max_tokens=MAX_TOKENS_GROUP,
+                        temperature=0.0,
+                        system=GROUP_SYSTEM_PROMPTS[group_name],
+                        messages=[{"role": "user", "content": user}],
+                    ),
+                ))
+        batch = client.messages.batches.create(requests=requests)
+        batch_id = batch.id
+        batch_meta_path.write_text(json.dumps(
+            {"batch_id": batch_id, "cid_map": cid_map,
+             "submitted_at": time.strftime("%Y-%m-%d %H:%M:%S")}, indent=2))
+        print(f"  Batch submitted: {batch_id} "
+              f"({len(requests)} requests, {len(paper_data)} papers × ≤5 groups)")
 
-                if ds_id not in group_results:
-                    group_results[ds_id] = {}
-                group_results[ds_id][group_name] = (extraction, evidence, usage)
-            except Exception as e:
-                print(f"    Parse failed: {ds_id}/{group_name}: {str(e)[:40]}")
-        else:
-            print(f"    Failed: {ds_id}/{group_name}")
+    while True:
+        info = client.messages.batches.retrieve(batch_id)
+        counts = info.request_counts
+        total_done = counts.succeeded + counts.errored + counts.expired
+        print(f"    {info.processing_status}: {total_done} done "
+              f"(ok={counts.succeeded}, err={counts.errored})")
+        if info.processing_status == "ended":
+            break
+        time.sleep(30)
 
-    print(f"  Retrieved results for {len(group_results)} papers")
+    group_results: dict = defaultdict(dict)
+    for result in client.messages.batches.results(batch_id):
+        meta = cid_map.get(result.custom_id)
+        if not meta:
+            continue
+        ds_id = meta["ds_id"]
+        group_name = meta["group"]
+        if result.result.type != "succeeded":
+            print(f"    FAILED {ds_id}/{group_name}")
+            continue
+        msg = result.result.message
+        raw = "".join(getattr(b, "text", "") for b in msg.content)
+        usage = {"input_tokens": msg.usage.input_tokens,
+                 "output_tokens": msg.usage.output_tokens}
+        try:
+            parsed = parse_json_response(raw)
+        except Exception:
+            print(f"    parse failed {ds_id}/{group_name}")
+            continue
+        fields = FIELD_GROUPS[group_name]["fields"]
+        extraction, evidence = {}, {}
+        for field in fields:
+            entry = parsed.get(field, {})
+            if isinstance(entry, dict):
+                extraction[field] = entry.get("value")
+                evidence[field] = entry.get("evidence")
+            else:
+                extraction[field] = entry
+                evidence[field] = None
+        group_results[ds_id][group_name] = {
+            "extraction": extraction, "evidence": evidence, "usage": usage,
+        }
 
-    # Step 4: VERIFY — merge groups, enrich, validate, save
-    print(f"\n  Step 4: VERIFY — enrichment + validation...")
-    ok = fail = total_extracted = total_verified = 0
-
-    for i, ds_id in enumerate(sorted(paper_data.keys())):
-        if (OUTPUT_DIR / ds_id / "full_result.json").exists():
+    ok = 0
+    for ds_id, (group_texts, triage, _) in paper_data.items():
+        safe = ds_id.replace("/", "__")
+        if (out_dir / f"{safe}.json").exists():
             ok += 1
             continue
+        extraction: dict = {}
+        evidence: dict = {}
+        group_stats: dict = {}
+        total_usage = {"input_tokens": 0, "output_tokens": 0}
 
         groups = group_results.get(ds_id, {})
-        group_texts, triage, full_text = paper_data[ds_id]
-
-        all_extraction = {}
-        all_evidence = {}
-        group_stats = {}
-        paper_usage = {"input": 0, "output": 0}
-
-        for group_name in ["core", "collection", "annotation", "impact", "processing"]:
+        for group_name in GROUP_ORDER:
             fields = FIELD_GROUPS[group_name]["fields"]
             if group_name in groups:
-                ext, ev, usage = groups[group_name]
-                all_extraction.update(ext)
-                all_evidence.update(ev)
-                paper_usage["input"] += usage["input"]
-                paper_usage["output"] += usage["output"]
+                rec = groups[group_name]
+                extraction.update(rec["extraction"])
+                evidence.update(rec["evidence"])
+                total_usage["input_tokens"] += rec["usage"]["input_tokens"]
+                total_usage["output_tokens"] += rec["usage"]["output_tokens"]
                 group_stats[group_name] = {
-                    "tokens_in": usage["input"], "tokens_out": usage["output"],
                     "section_chars": len(group_texts.get(group_name, "")),
+                    "tokens_in": rec["usage"]["input_tokens"],
+                    "tokens_out": rec["usage"]["output_tokens"],
                 }
             else:
                 for f in fields:
-                    all_extraction[f] = None
-                    all_evidence[f] = None
+                    extraction[f] = None
+                    evidence[f] = None
                 group_stats[group_name] = {"skipped": True}
 
-        # Enrichment
-        all_extraction, enrichments = enrich(ds_id, all_extraction)
-
-        # Validation
-        fields = validate_and_score(all_extraction, all_evidence, enrichments, triage)
-
-        # Stats
-        extracted = sum(1 for f in fields.values() if f["status"] != "NULL")
-        verified = sum(1 for f in fields.values() if f["status"] == "VERIFIED")
-        with_ev = sum(1 for f in fields.values() if f.get("evidence") is not None)
-        cost = paper_usage["input"] / 1e6 * 1.5 + paper_usage["output"] / 1e6 * 7.5
-
-        # Save
-        out_dir = OUTPUT_DIR / ds_id
-        out_dir.mkdir(parents=True, exist_ok=True)
-
-        output = {
-            "paper_id": ds_id,
-            "split": "dev" if ds_id in SPLIT["dev"] else "test",
-            "fields": fields,
-            "paper_stats": {
-                "fields_extracted": extracted, "fields_null": 30 - extracted,
-                "fields_verified": verified,
-                "avg_confidence": round(sum(f["confidence"] for f in fields.values() if f["status"] != "NULL") / max(extracted, 1), 3),
-            },
-            "_meta": {
-                "model": MODEL, "temperature": TEMPERATURE, "pipeline": "lev",
-                "usage": paper_usage, "cost_usd": round(cost, 4),
-                "enrichments": list(enrichments.keys()),
-                "evidence_count": with_ev,
-                "evidence_coverage": round(with_ev / max(extracted, 1) * 100, 1),
-                "group_stats": group_stats, "batch_mode": True,
-            }
+        extraction, enrichments = enrich(ds_id, extraction)
+        details = validate_and_score(extraction, evidence, enrichments, triage)
+        extra_meta = {
+            "group_stats": group_stats,
+            "enrichments": list(enrichments.keys()),
         }
-        with open(out_dir / "full_result.json", "w") as f:
-            json.dump(output, f, indent=2, ensure_ascii=False)
-
-        flat = {field: fields[field]["value"] for field in ALL_FIELDS}
-        with open(out_dir / "extraction.json", "w") as f:
-            json.dump(flat, f, indent=2, ensure_ascii=False)
-
+        save_paper(out_dir, ds_id, cfg, extraction, details, total_usage, "batch", extra_meta)
         ok += 1
-        total_extracted += extracted
-        total_verified += verified
 
-        if (i + 1) % 25 == 0:
-            print(f"    [{i+1}/{len(paper_data)}] {ok} processed")
-
-    # Summary
-    batch_cost = total_usage["input"] / 1e6 * 1.5 + total_usage["output"] / 1e6 * 7.5
-    total_fields = ok * 30
-
-    print(f"\n{'=' * 70}")
-    print(f"LEV BATCH PIPELINE COMPLETE")
-    print(f"{'=' * 70}")
-    print(f"Papers: {ok} OK, {fail} failed")
-    print(f"Fields: {total_extracted}/{total_fields} ({total_extracted/max(total_fields,1)*100:.1f}%)")
-    print(f"Verified: {total_verified}/{total_fields} ({total_verified/max(total_fields,1)*100:.1f}%)")
-    print(f"Tokens: {total_usage['input']:,} in, {total_usage['output']:,} out")
-    print(f"Cost: ${batch_cost:.2f} (batch pricing)")
-
-    summary = {
-        "papers_ok": ok, "papers_failed": fail,
-        "total_extracted": total_extracted, "total_verified": total_verified,
-        "fill_rate": round(total_extracted / max(total_fields, 1) * 100, 1),
-        "usage": total_usage, "cost_usd": round(batch_cost, 2),
-        "batch_mode": True,
-    }
-    with open(OUTPUT_DIR / "_summary.json", "w") as f:
-        json.dump(summary, f, indent=2)
-
-    return summary
+    print(f"  Batch pipeline done: {ok} papers written to {out_dir}")
 
 
-
+# ── CLI ───────────────────────────────────────────────────────────
 def main():
-    parser = argparse.ArgumentParser(description="CroissantMiner LEV Agentic Pipeline")
-    parser.add_argument("--dev-only", action="store_true", help="Process only 15 dev papers")
-    parser.add_argument("--paper", type=str, help="Process a single paper")
-    parser.add_argument("--batch", action="store_true", help="Use batch API (half price)")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description="CroissantMiner LEV (Locate-Extract-Verify) pipeline")
+    p.add_argument("--backbone", default="sonnet-4-5",
+                   help="Backbone key from scripts/_agentic_helpers.py::MODELS")
+    p.add_argument("--dev-only", action="store_true", help="Process only the 15 dev papers")
+    p.add_argument("--paper", type=str, help="Process a single paper by dataset_id")
+    p.add_argument("--batch", action="store_true",
+                   help="Use Anthropic batch API (sonnet-4-5 only)")
+    args = p.parse_args()
+
+    cfg = resolve_backbone(args.backbone)
+    out_dir = output_dir_for("lev", args.backbone)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.paper:
         papers = [args.paper]
@@ -865,74 +744,16 @@ def main():
     else:
         papers = sorted(SPLIT["dev"] + SPLIT["test"])
 
+    print(f"{'=' * 70}")
+    print(f"CROISSANTMINER LEV — backbone={args.backbone} ({cfg['name']})")
+    print(f"Papers: {len(papers)}  Output: {out_dir}")
+    print(f"Architecture: 5 specialist calls per paper (core/collection/annotation/impact/processing)")
+    print(f"{'=' * 70}")
+
     if args.batch:
-        print(f"{'=' * 70}")
-        print(f"LEV PIPELINE — BATCH MODE")
-        print(f"{'=' * 70}")
-        print(f"Papers: {len(papers)}")
-        print(f"{'=' * 70}")
-        run_batch(papers)
-        return
-
-    print(f"{'=' * 70}")
-    print(f"CROISSANTMINER LEV PIPELINE (Locate-Extract-Verify)")
-    print(f"{'=' * 70}")
-    print(f"Papers: {len(papers)}")
-    print(f"Architecture: 5 targeted Claude calls per paper")
-    print(f"{'=' * 70}")
-
-    total_usage = {"input": 0, "output": 0}
-    ok = fail = total_extracted = total_verified = 0
-
-    for i, ds_id in enumerate(papers):
-        out_path = OUTPUT_DIR / ds_id / "full_result.json"
-        if out_path.exists() and not args.paper:
-            ok += 1
-            if (i + 1) % 25 == 0:
-                print(f"  [{i+1}/{len(papers)}] {ok} done (skipping existing)")
-            continue
-
-        try:
-            result = process_paper(ds_id)
-            if result:
-                ok += 1
-                stats = result["paper_stats"]
-                meta = result["_meta"]
-                total_usage["input"] += meta["usage"]["input"]
-                total_usage["output"] += meta["usage"]["output"]
-                total_extracted += stats["fields_extracted"]
-                total_verified += stats["fields_verified"]
-                print(f"  [{i+1}/{len(papers)}] {ds_id}: {stats['fields_extracted']}/30, "
-                      f"${meta['cost_usd']:.3f}, ev={meta['evidence_coverage']:.0f}%, "
-                      f"{meta['elapsed_seconds']:.0f}s")
-            else:
-                fail += 1
-        except Exception as e:
-            print(f"  [{i+1}/{len(papers)}] {ds_id}: FAILED ({str(e)[:60]})")
-            fail += 1
-
-        time.sleep(0.3)
-
-    total_cost = total_usage["input"] / 1e6 * 3.0 + total_usage["output"] / 1e6 * 15.0
-    total_fields = ok * 30
-
-    print(f"\n{'=' * 70}")
-    print(f"SUMMARY")
-    print(f"{'=' * 70}")
-    print(f"Papers: {ok} OK, {fail} failed")
-    print(f"Fields: {total_extracted}/{total_fields} ({total_extracted/max(total_fields,1)*100:.1f}%)")
-    print(f"Verified: {total_verified}/{total_fields} ({total_verified/max(total_fields,1)*100:.1f}%)")
-    print(f"Cost: ${total_cost:.2f}")
-    print(f"Output: {OUTPUT_DIR}/")
-
-    summary = {
-        "papers_ok": ok, "papers_failed": fail,
-        "total_extracted": total_extracted, "total_verified": total_verified,
-        "fill_rate": round(total_extracted / max(total_fields, 1) * 100, 1),
-        "usage": total_usage, "cost_usd": round(total_cost, 2),
-    }
-    with open(OUTPUT_DIR / "_summary.json", "w") as f:
-        json.dump(summary, f, indent=2)
+        run_batch(cfg, papers, out_dir)
+    else:
+        run_sequential(cfg, papers, args, out_dir)
 
 
 if __name__ == "__main__":
