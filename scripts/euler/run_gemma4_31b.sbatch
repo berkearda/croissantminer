@@ -35,8 +35,10 @@ python scripts/euler/extract_openmodels.py \
     --model-name gemma4_31b \
     --max-model-len 200000 \
     --tensor-parallel-size 1 \
-    --batch-size 4 \
+    --batch-size 1 \
     --gpu-memory-utilization 0.95 \
-    --temperature 0.0
+    --temperature 0.0 \
+    --enforce-eager \
+    --max-num-batched-tokens 4096
 
 echo "Gemma 4 31B extraction complete."
