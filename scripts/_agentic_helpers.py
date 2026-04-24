@@ -108,6 +108,11 @@ def parse_json_response(raw_text: str) -> dict:
     last = text.rfind("}")
     if first != -1 and last != -1:
         text = text[first:last + 1]
+    # Strip unescaped ASCII control characters (JSON spec disallows them
+    # inside strings). Models occasionally emit raw \x00-\x1f bytes,
+    # which json.loads rejects. Whitelist \t, \n, \r since those are
+    # valid JSON whitespace at structural positions.
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", text)
     return json.loads(text.strip())
 
 
