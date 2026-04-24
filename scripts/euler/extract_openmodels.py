@@ -152,6 +152,10 @@ def main():
     parser.add_argument("--paper", type=str, help="Process a single paper by ID")
     parser.add_argument("--enable-expert-parallel", action="store_true",
                         help="For MoE (Llama 4, Qwen3-Next): distribute experts instead of sharding")
+    parser.add_argument("--enforce-eager", action="store_true",
+                        help="Disable CUDA graph capture. Needed for Gemma 4 (vLLM issue #39914).")
+    parser.add_argument("--max-num-batched-tokens", type=int, default=None,
+                        help="Prefill chunk size cap. Set to 4096 for Gemma 4 to avoid prefill hang.")
     args = parser.parse_args()
 
     # ── Paper list (102-benchmark) ──
@@ -214,10 +218,12 @@ def main():
         tensor_parallel_size=args.tensor_parallel_size,
         dtype="bfloat16",
         trust_remote_code=True,
-        enforce_eager=False,
+        enforce_eager=args.enforce_eager,
     )
     if args.enable_expert_parallel:
         llm_kwargs["enable_expert_parallel"] = True
+    if args.max_num_batched_tokens is not None:
+        llm_kwargs["max_num_batched_tokens"] = args.max_num_batched_tokens
     llm = LLM(**llm_kwargs)
     tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     load_time = time.time() - t0
