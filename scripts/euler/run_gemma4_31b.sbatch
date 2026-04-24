@@ -33,7 +33,7 @@ cd $SCRATCH/croissantminer
 python scripts/euler/extract_openmodels.py \
     --model google/gemma-4-31B-it \
     --model-name gemma4_31b \
-    --max-model-len 200000 \
+    --max-model-len 131072 \
     --tensor-parallel-size 1 \
     --batch-size 1 \
     --gpu-memory-utilization 0.95 \
