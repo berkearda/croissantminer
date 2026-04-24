@@ -37,7 +37,7 @@ cd $SCRATCH/croissantminer
 python scripts/euler/extract_openmodels.py \
     --model mistralai/Mistral-Small-3.2-24B-Instruct-2506 \
     --model-name mistral_small_3_24b \
-    --max-model-len 131072 \
+    --max-model-len 140000 \
     --tensor-parallel-size 1 \
     --batch-size 4 \
     --gpu-memory-utilization 0.90 \
