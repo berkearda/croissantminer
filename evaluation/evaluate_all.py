@@ -77,6 +77,17 @@ STRATEGY_DIRS = {
     "gpt5_4_mini":           EXTRACTION_BASE / "gpt5.4_mini",
     "gemini_2_5_flash":      EXTRACTION_BASE / "gemini_2.5_flash",
     "gemini_3_1_pro":        EXTRACTION_BASE / "gemini_3.1_pro",
+    "claude_opus_4_7":       EXTRACTION_BASE / "claude_opus_4_7",
+    "qwen3_6_35b_a3b":       EXTRACTION_BASE / "qwen3_6_35b_a3b",
+    "mistral_small_4":       EXTRACTION_BASE / "mistral_small_4",
+    "glm_5_1":               EXTRACTION_BASE / "glm_5_1",
+    "deepseek_v3_2":         EXTRACTION_BASE / "deepseek_v3_2",
+    "agentic_v2_sonnet_4_5": EXTRACTION_BASE / "agentic_v2_sonnet_4_5",
+    "agentic_v2_gpt5_4_full": EXTRACTION_BASE / "agentic_v2_gpt5_4_full",
+    "agentic_v2_gemini_3_1_pro": EXTRACTION_BASE / "agentic_v2_gemini_3_1_pro",
+    "agentic_lev_sonnet_4_5": EXTRACTION_BASE / "agentic_lev_sonnet_4_5",
+    "agentic_lev_gpt5_4_full": EXTRACTION_BASE / "agentic_lev_gpt5_4_full",
+    "agentic_lev_gemini_3_1_pro": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro",
 }
 
 # Field name mapping: extraction JSONs use unprefixed general fields,
