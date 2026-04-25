@@ -1,22 +1,11 @@
-"""PDF processing module for reading and processing academic papers."""
+"""Backward-compatibility shim. Canonical source: croissantminer.pdf
 
-from .reader import download_pdf, extract_text_from_pdf
-from .processor import (
-    clean_text,
-    process_paper,
-    extract_targeted_sections,
-    process_sections,
-    chunk_for_llm,
-    save_processed_paper
-)
+This file re-exports from the croissantminer package so existing scripts
+that do `from config import X` or `from models.claude_model import Y`
+keep working while the actual code lives in croissantminer/.
 
-__all__ = [
-    'download_pdf',
-    'extract_text_from_pdf',
-    'clean_text',
-    'process_paper',
-    'extract_targeted_sections',
-    'process_sections',
-    'chunk_for_llm',
-    'save_processed_paper'
-]
+DO NOT add logic here. Edit the canonical file at:
+  croissantminer/pdf/__init__.py
+"""
+
+from croissantminer.pdf import *  # noqa: F401, F403

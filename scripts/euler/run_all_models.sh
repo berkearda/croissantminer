@@ -1,68 +1,32 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# CroissantMiner — Submit all open-source model extraction jobs
-# Run from Euler: bash scripts/euler/run_all_models.sh
+# CroissantMiner — Submit all 3 self-hosted open-model jobs.
+# Run from Euler login node: bash scripts/euler/run_all_models.sh
+#
+# Prereq: setup_euler.sh completed, sync'd repo + PDFs, smoke test passed.
+# Lineup: Qwen 3.6-35B-A3B, Gemma 4 31B, Llama 4 Scout 17B-16E (109B).
 # ═══════════════════════════════════════════════════════════════
 
 set -e
 mkdir -p logs
 
-echo "Submitting open-source model extraction jobs..."
-
-# ── Model 1: Qwen3-32B (best for structured JSON) ──
-sbatch --job-name=cm_qwen3 \
-    --gpus=nvidia_a100_80gb_pcie:1 \
-    --mem-per-cpu=16G --cpus-per-task=8 --time=08:00:00 \
-    --account=<euler_account> \
-    --output=logs/qwen3_%j.out --error=logs/qwen3_%j.err \
-    --wrap="
-module load python/3.11.6 eth_proxy
-source \$SCRATCH/croissantminer_venv/bin/activate
-export HF_HOME=\$SCRATCH/.huggingface PYTHONUNBUFFERED=1 VLLM_WORKER_MULTIPROC_METHOD=spawn
-cd \$SCRATCH/croissantminer
-python scripts/euler/extract_openmodels.py \
-    --model Qwen/Qwen3-32B-FP8 --model-name qwen3_32b \
-    --quantization fp8 --max-model-len 32768 --batch-size 4
-"
-echo "Submitted: Qwen3-32B"
-
-# ── Model 2: Gemma 4 31B (Google open model) ──
-# Note: if Gemma 4 not yet on HF, use google/gemma-3-27b-it as fallback
-sbatch --job-name=cm_gemma4 \
-    --gpus=nvidia_a100_80gb_pcie:1 \
-    --mem-per-cpu=16G --cpus-per-task=8 --time=08:00:00 \
-    --account=<euler_account> \
-    --output=logs/gemma4_%j.out --error=logs/gemma4_%j.err \
-    --wrap="
-module load python/3.11.6 eth_proxy
-source \$SCRATCH/croissantminer_venv/bin/activate
-export HF_HOME=\$SCRATCH/.huggingface PYTHONUNBUFFERED=1 VLLM_WORKER_MULTIPROC_METHOD=spawn
-cd \$SCRATCH/croissantminer
-python scripts/euler/extract_openmodels.py \
-    --model google/gemma-3-27b-it --model-name gemma3_27b \
-    --max-model-len 32768 --batch-size 4 --temperature 0.0
-"
-echo "Submitted: Gemma 3 27B"
-
-# ── Model 3: Llama 4 Scout (Meta MoE — needs more VRAM) ──
-# Scout is 109B total / 17B active. Needs ~110GB FP8 = 2x A100 80GB
-# Fallback: use Llama 3.3 70B which fits on 1x A100 80GB with INT4
-sbatch --job-name=cm_llama \
-    --gpus=nvidia_a100_80gb_pcie:1 \
-    --mem-per-cpu=16G --cpus-per-task=8 --time=08:00:00 \
-    --account=<euler_account> \
-    --output=logs/llama_%j.out --error=logs/llama_%j.err \
-    --wrap="
-module load python/3.11.6 eth_proxy
-source \$SCRATCH/croissantminer_venv/bin/activate
-export HF_HOME=\$SCRATCH/.huggingface PYTHONUNBUFFERED=1 VLLM_WORKER_MULTIPROC_METHOD=spawn
-cd \$SCRATCH/croissantminer
-python scripts/euler/extract_openmodels.py \
-    --model meta-llama/Llama-3.3-70B-Instruct --model-name llama3_70b \
-    --quantization fp8 --max-model-len 16384 --batch-size 2 --temperature 0.0
-"
-echo "Submitted: Llama 3.3 70B"
+echo "Submitting open-model extraction jobs..."
+JOB_QWEN=$(sbatch --parsable scripts/euler/run_qwen36_35b.sbatch)
+echo "  Qwen 3.6-35B-A3B   → $JOB_QWEN"
+JOB_GEMMA=$(sbatch --parsable scripts/euler/run_gemma4_31b.sbatch)
+echo "  Gemma 4 31B        → $JOB_GEMMA"
+JOB_LLAMA=$(sbatch --parsable scripts/euler/run_llama4_scout.sbatch)
+echo "  Llama 4 Scout 109B → $JOB_LLAMA"
 
 echo ""
-echo "All jobs submitted. Monitor with: squeue --me"
-echo "Results will be in data/extractions/{model_name}/"
+echo "All 3 jobs submitted. Monitor: squeue --me"
+echo "Outputs: \$SCRATCH/croissantminer/data/extractions/{qwen3_6_35b_a3b,gemma4_31b,llama4_scout}/"
+echo ""
+echo "If Pro 6000 queue drags, use the 4090 fallbacks:"
+echo "  sbatch scripts/euler/run_qwen36_35b_4090.sbatch   (INT4/AWQ)"
+echo "  sbatch scripts/euler/run_gemma4_31b_4090.sbatch   (INT4/AWQ)"
+echo "  sbatch scripts/euler/run_llama4_scout_4090.sbatch (INT4/AWQ, needs 4× 4090)"
+echo ""
+echo "Separately, API-only models run locally (not on Euler):"
+echo "  GLM-5.1:     python scripts/euler/extract_api_models.py --provider zai      --model glm-5.1       --model-name glm_5_1"
+echo "  DeepSeek V3: python scripts/euler/extract_api_models.py --provider deepseek --model deepseek-chat --model-name deepseek_v3"

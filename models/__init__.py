@@ -1,5 +1,11 @@
-"""Models package for metadata extraction"""
+"""Backward-compatibility shim. Canonical source: croissantminer.models
 
-from .factory import create_model, MODELS, MODEL_IDS
+This file re-exports from the croissantminer package so existing scripts
+that do `from config import X` or `from models.claude_model import Y`
+keep working while the actual code lives in croissantminer/.
 
-__all__ = ['create_model', 'MODELS', 'MODEL_IDS']
+DO NOT add logic here. Edit the canonical file at:
+  croissantminer/models/__init__.py
+"""
+
+from croissantminer.models import *  # noqa: F401, F403

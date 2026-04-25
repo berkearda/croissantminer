@@ -65,6 +65,30 @@ STRATEGY_DIRS = {
     "tool_augmented":        EXTRACTION_BASE / "tool_augmented",
     "finetuned_qwen7b":      EXTRACTION_BASE / "finetuned_qwen7b",
     "react_agent":           EXTRACTION_BASE / "react_agent",
+    "agentic_v2":            ROOT / "data" / "agentic" / "v2",
+    "agentic_lev":           ROOT / "data" / "agentic" / "lev",
+    # Open-weight model runs written by scripts/euler/extract_openmodels.py
+    "qwen3_next_80b":        EXTRACTION_BASE / "qwen3_next_80b",
+    "llama3_3_70b":          EXTRACTION_BASE / "llama3_3_70b",
+    "llama4_scout":          EXTRACTION_BASE / "llama4_scout",
+    "gemma3_27b":            EXTRACTION_BASE / "gemma3_27b",
+    # Proprietary single-pass runs (2026-04-21 standardization)
+    "claude_sonnet_4_6":     EXTRACTION_BASE / "claude_sonnet_4_6",
+    "gpt5_4_full":           EXTRACTION_BASE / "gpt5.4_full",
+    "gpt5_4_mini":           EXTRACTION_BASE / "gpt5.4_mini",
+    "gemini_2_5_flash":      EXTRACTION_BASE / "gemini_2.5_flash",
+    "gemini_3_1_pro":        EXTRACTION_BASE / "gemini_3.1_pro",
+    "claude_opus_4_7":       EXTRACTION_BASE / "claude_opus_4_7",
+    "qwen3_6_35b_a3b":       EXTRACTION_BASE / "qwen3_6_35b_a3b",
+    "mistral_small_4":       EXTRACTION_BASE / "mistral_small_4",
+    "glm_5_1":               EXTRACTION_BASE / "glm_5_1",
+    "deepseek_v3_2":         EXTRACTION_BASE / "deepseek_v3_2",
+    "agentic_v2_sonnet_4_5": EXTRACTION_BASE / "agentic_v2_sonnet_4_5",
+    "agentic_v2_gpt5_4_full": EXTRACTION_BASE / "agentic_v2_gpt5_4_full",
+    "agentic_v2_gemini_3_1_pro": EXTRACTION_BASE / "agentic_v2_gemini_3_1_pro",
+    "agentic_lev_sonnet_4_5": EXTRACTION_BASE / "agentic_lev_sonnet_4_5",
+    "agentic_lev_gpt5_4_full": EXTRACTION_BASE / "agentic_lev_gpt5_4_full",
+    "agentic_lev_gemini_3_1_pro": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro",
 }
 
 # Field name mapping: extraction JSONs use unprefixed general fields,
@@ -127,19 +151,26 @@ def load_gt(gt_dir: Path) -> dict:
 
 
 def load_extraction(strategy_dir: Path, ds_id: str) -> dict:
-    """Load extraction for a dataset, trying multiple naming patterns."""
-    # Try {ds_id}.json
-    for name in [f"{ds_id}.json", f"{ds_id}_extraction.json"]:
-        p = strategy_dir / name
+    """Load extraction for a dataset, trying multiple naming patterns.
+
+    Supported layouts (in priority order):
+      1. {strategy_dir}/{ds_id}.json                              (flat, e.g. Gemini runs)
+      2. {strategy_dir}/{ds_id}_extraction.json                   (legacy flat variant)
+      3. {strategy_dir}/{ds_id}/extraction.json                   (agentic V2, LEV)
+      4. {strategy_dir}/{ds_id}/full_result.json                  (agentic V2 full output)
+      5. {strategy_dir}/{ds_id}/full_pdf_metadata_result.json     (Claude single-pass gold)
+    """
+    candidates = [
+        strategy_dir / f"{ds_id}.json",
+        strategy_dir / f"{ds_id}_extraction.json",
+        strategy_dir / ds_id / "extraction.json",
+        strategy_dir / ds_id / "full_result.json",
+        strategy_dir / ds_id / "full_pdf_metadata_result.json",
+    ]
+    for p in candidates:
         if p.exists():
             with open(p) as f:
                 return json.load(f)
-
-    # Try {ds_id}/full_pdf_metadata_result.json (processed dir format)
-    p = strategy_dir / ds_id / "full_pdf_metadata_result.json"
-    if p.exists():
-        with open(p) as f:
-            return json.load(f)
 
     return None
 

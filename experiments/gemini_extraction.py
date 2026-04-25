@@ -26,8 +26,8 @@ import sys
 import time
 from pathlib import Path
 
-import fitz  # PyMuPDF
-
+from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
+from croissantminer.pdf.processor import clean_text as _canonical_clean_text
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
@@ -38,7 +38,6 @@ from validation.validate_extraction import validate_extraction, CANONICAL_FIELDS
 # Config
 # ═══════════════════════════════════════════════════════════════════════
 
-PAPER_LINKS = ROOT / "data" / "paper_links.json"
 RAW_DIR = ROOT / "data" / "raw"
 OUTPUT_BASE = ROOT / "data" / "extractions"
 
@@ -76,10 +75,7 @@ log = logging.getLogger("gemini_extraction")
 
 
 def extract_text_from_pdf(pdf_path: Path) -> str:
-    doc = fitz.open(pdf_path)
-    pages = [page.get_text() for page in doc]
-    doc.close()
-    return "\n".join(pages)
+    return _canonical_clean_text(_canonical_extract_text(pdf_path))
 
 
 def find_pdf(ds_id: str) -> Path:
@@ -174,8 +170,10 @@ def main():
     out_dir = OUTPUT_BASE / model_name_safe
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(PAPER_LINKS) as f:
-        dataset_ids = sorted(json.load(f).keys())
+    # Use the canonical 102-paper split (excludes SuperGPQA outlier per 2026-04-20 decision)
+    with open(ROOT / "data" / "agentic" / "dev_test_split.json") as f:
+        split = json.load(f)
+    dataset_ids = sorted(split["dev"] + split["test"])
     subset = dataset_ids[args.start:args.end]
 
     log.info(f"Model: {args.model} ({model_config['model_id']})")
