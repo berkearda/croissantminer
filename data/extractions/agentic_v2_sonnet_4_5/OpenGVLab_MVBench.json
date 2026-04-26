@@ -1,0 +1,260 @@
+{
+  "dataset_id": "OpenGVLab_MVBench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MVBench",
+    "description": "A comprehensive multi-modal video understanding benchmark covering 20 challenging video tasks that cannot be effectively solved with a single frame, ranging from perception to cognition tasks including action, object, position, scene, count, attribute, pose, character, and cognition understanding.",
+    "url": "https://github.com/OpenGVLab/Ask-Anything",
+    "license": "MIT",
+    "creator": "Kunchang Li, Yali Wang, Yinan He, Yizhuo Li, Yi Wang, Yi Liu, Zun Wang, Jilan Xu, Guo Chen, Ping Luo, Limin Wang, Yu Qiao from Shenzhen Institute of Advanced Technology Chinese Academy of Sciences, University of Chinese Academy of Sciences, Shanghai AI Laboratory, The University of Hong Kong, Fudan University, State Key Laboratory for Novel Software Technology Nanjing University",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Videos are selected from 11 existing public video benchmarks covering various complex domains and diverse scenes, ranging from first-person to third-person perspectives, and from indoor to outdoor environments. An automatic QA generation paradigm efficiently converts open-sourced video annotations into multiple-choice QAs.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Videos collected from 11 public datasets including STAR, PAXION, Moments in Time V1, FunQA, CLEVRER, Perception Test, Charades-STA, MoVQA, NTU RGB+D, VLN-CE and TVQA",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Videos with intermediate duration primarily ranging from 5s to 35s were selected. For STAR, challenge was enhanced by randomly shifting the start or end points of video clips. For CLEVRER, questions requiring more than 10 conditions were excluded. Answer options were randomly sampled from available candidates and shuffled.",
+    "rai:dataPreprocessingProtocol": "Videos were filtered based on temporal sensitivity (intermediate duration 5-35s), video diversity (11 datasets covering various domains and scenes), and question difficulty (balanced complexity). Short clips with minimal motion and extremely long videos with complicated contexts were eliminated.",
+    "rai:dataAnnotationProtocol": "Questions were generated using ChatGPT based on task definitions. Answer options were constructed either through template-based construction from ground truth annotations or LLM-based generation. For template-based construction, candidates were created directly from annotations (e.g., correct action, opposite action, and not-sure choice). For LLM-based generation, ChatGPT converted open-ended QAs into multiple-choice format.",
+    "rai:dataAnnotationPlatform": "ChatGPT",
+    "rai:dataAnnotationAnalysis": "LLM was used to guarantee that all answer options of a question are of similar and reasonable lengths to prevent answer leakage where longer options tend to be correct.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "ChatGPT for question generation and QA conversion, UMT-L/16 for action predictions",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Current MLLMs have difficulty generalizing to localization and counting tasks in the absence of related tuning data. Visual information alone may not be sufficient for complex egocentric navigation and episode reasoning tasks; inclusion of other modalities such as depth and audio could prove beneficial.",
+    "rai:dataUseCases": "Testing and evaluation of Multi-modal Large Language Models (MLLMs) for temporal understanding capabilities in video tasks. The benchmark produces 200 multiple-choice QA pairs for each of 20 temporal understanding tasks."
+  },
+  "usage": {
+    "input_tokens": 47577,
+    "output_tokens": 2903
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:50:50.675655Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a comprehensive Multi-modal Video understanding Bench mark, namely MVBench"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a comprehensive Multi-modal Video understanding Bench mark, namely MVBench , which covers 20challenging video tasks that cannot be effectively solved with a single frame."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All models and data are available at https://github.com/OpenGVLab/Ask-Anything"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Kunchang Li1,2,3♠Yali Wang1,3♡Yinan He3Yizhuo Li4,3♠Yi Wang3Yi Liu1,2,3♠ Zun Wang3Jilan Xu5,3♠Guo Chen6,3♠Ping Luo4,3Limin Wang6,3♡Yu Qiao3,1♡ 1Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences2University of Chinese Academy of Sciences3Shanghai AI Laboratory 4The University of Hong Kong5Fudan University6State Key Laboratory for Novel Software Technology, Nanjing University"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.17005v4 [cs.CV] 23 May 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we produce 200 multiple-choice QA pairs for each temporal understanding task"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To reduce the labor-intensive collection, we propose to select videos from existing benchmarks. (1) Video Diversity: To boost video diversity, we carefully select 11 video datasets (see Tab. 1) that cover a broad spectrum of domains and scenes, ranging from first-person to third-person perspectives, and from indoor to outdoor environments."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To reduce the labor-intensive collection, we propose to select videos from existing benchmarks... we design an automatic QA generation paradigm in Fig. 2, which efficiently converts open-sourced video annotations into multiple-choice QAs"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The videos are collected from the public datasets, including STAR [82], PAXION [79], Moments in Time V1 [57], FunQA [87], CLEVRER [95], Perception Test [61], Charades-STA [20], MoVQA [102], NTU RGB+D[48], VLN-CE [32] and TVQA [35]."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we select videos with intermediate duration, primarily ranging from 5s to 35s... For STAR, we enhance the challenge by randomly shifting the start or end points of the video clips, increasing the complexity of localizing specific events. For CLEVRER, we exclude questions that necessitate more than 10 conditions ( e.g., material, and shape) for describing specific events... we randomly sample 3 to 5 answer options from the available candidates, and shuffle the option order"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "(1) Video Diversity: To boost video diversity, we carefully select 11 video datasets (see Tab. 1) that cover a broad spectrum of domains and scenes, ranging from first-person to third-person perspectives, and from indoor to outdoor environments. (2) Temporal Sensitivity: To guarantee that each task is temporal sensitive, we eliminate short clips which generally contain negligible motions, and also delete extremely long videos which often present overly complicated contexts that are hard for evaluation. Hence, we select videos with intermediate duration, primarily ranging from 5s to 35s. (3) Question Difficulty: Overly simple or complex questions may lead to indistinguishable evaluations, due to similar responses."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we first use ChatGPT [58] to generate a question for each video, based on the task definition. Then, we create the corresponding answer options as follows. (1) Template-Based Construction: For most questions, we construct the option candidates directly from the ground truth annotations. For example, the candidates for the Action Antonym task contain the correct action, itsopposite action, and a not-sure choice... (2) LLM-Based Generation: For the Unexpected Action task in particular, we leverage ChatGPT for converting open-ended QAs into multiple-choice QA with answer options."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we first use ChatGPT [58] to generate a question for each video, based on the task definition."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Additionally, to prevent the common issue of answer leakage where longer options tend to be correct, we further use LLM to guarantee that all the answer options of a question are of similar and reasonable lengths."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we first use ChatGPT [58] to generate a question for each video, based on the task definition... A: Randomly sample 4 actions from top-6 predictions of UMT-L/16 [43]"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For counting and character-related tasks (l)(q) , our VideoChat2 performs similarly and even worse than VideoChat2 textwithout videos (as in Tab. 2). We hypothesize that current MLLMs have difficulty generalizing to localization and counting tasks in the absence of related tuning data... In cognition tasks (r)(s)(t) , our VideoChat2 encounters difficulties with complex egocentric navigation and episode reasoning. Given the results from FrozenBiLM [92], where the performance for TVQA reasoning significantly improves with the incorporation of speech subtitles, we suggest that visual information alone may not be sufficient. The inclusion of other modalities, such as depth and audio, could prove beneficial."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a comprehensive Multi-modal Video understanding Bench mark, namely MVBench , which covers 20challenging video tasks that cannot be effectively solved with a single frame... Ultimately, we produce 200 multiple-choice QA pairs for each temporal understanding task."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 89.5,
+      "avg_confidence": 0.924
+    },
+    "cost_usd": 0.1863,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ],
+    "elapsed_seconds": 68.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

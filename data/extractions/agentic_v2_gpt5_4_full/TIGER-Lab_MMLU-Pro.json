@@ -1,0 +1,257 @@
+{
+  "dataset_id": "TIGER-Lab_MMLU-Pro",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "MMLU-Pro",
+    "description": "A more robust and challenging multi-task language understanding benchmark with 14 discipline subsets and 12,032 questions, designed to extend MMLU by adding more challenging reasoning-focused questions, expanding answer choices from four to ten, and removing trivial and noisy questions.",
+    "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+    "license": "MIT",
+    "creator": "Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, Wenhu Chen",
+    "publisher": "NeurIPS",
+    "datePublished": "2024-11-06",
+    "inLanguage": "en",
+    "citeAs": "Wang, Yubo, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, and Wenhu Chen. 2024. \"MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark.\" arXiv:2406.01574.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was constructed by reviewing and filtering the original MMLU dataset, merging 57 subjects into 14 categories, removing overly easy questions using model-based filtering, incorporating questions from STEM Website, TheoremQA, and SciBench, converting some source questions into multiple-choice format, augmenting options from four to ten with GPT-4-Turbo, and conducting two rounds of expert review including LLM-assisted false-negative detection and human verification.",
+    "rai:dataCollectionType": "Secondary Data analysis, Document analysis, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Questions lacking sufficient textual information or requiring non-textual elements such as images or tables were removed; some questions had fewer than ten options after false negative options were removed.",
+    "rai:dataCollectionRawData": "Questions were sourced from the original MMLU dataset, STEM Website, TheoremQA, and SciBench.",
+    "rai:dataCollectionTimeframe": "as of May 2024",
+    "rai:dataImputationProtocol": "If both answer-extraction regexes failed to retrieve a valid response from model-generated reasoning, a fallback mechanism selected a random option from the answer choices.",
+    "rai:dataManipulationProtocol": "The dataset was restructured by merging 57 MMLU subjects into 14 broader categories, filtering out questions answered correctly by more than four of eight models as too easy, converting STEM Website and TheoremQA items into multiple-choice questions with extracted short answers and generated distractors, and augmenting four-option questions to ten-option questions using GPT-4-Turbo.",
+    "rai:dataPreprocessingProtocol": "Preprocessing included removing trivial, erroneous, incomplete, and unsuitable questions; manually checking extracted answers against solutions; discarding questions with incomplete or incorrect extracted answers; and removing false negative distractors and questions requiring images, tables, or insufficient textual information.",
+    "rai:dataAnnotationProtocol": "Expert review occurred in two phases: experts verified answer correctness and question appropriateness, while Gemini-1.5-Pro re-evaluated answer options to identify potential false negatives, which were then rigorously reviewed by human experts. Expert annotators also analyzed 120 GPT-4o error cases to determine causes of mispredictions.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The annotation process included analysis of incorrect answers, false negative options, and bad questions identified during expert review. False negative options were removed by human experts, resulting in 83% of questions having ten options and 17% having fewer, with an average of 9.47 options per question.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Experts; human experts; expert annotators",
+    "rai:machineAnnotationTools": "GPT-4-Turbo; Gemini-1.5-Pro",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The benchmark is intended to better track progress in AI language understanding and reasoning by providing a more challenging, discriminative, and robust evaluation tool.",
+    "rai:dataBiases": "The original MMLU benchmark contains mostly knowledge-driven questions, trivial and noisy questions, and some unanswerable or mistakenly annotated items; MMLU-Pro aims to reduce these issues. The multiple-choice format may also contribute to instability and overestimation of model capabilities.",
+    "rai:dataLimitations": "The dataset remains limited by the multiple-choice format, which may not capture depth of comprehension and creative response generation as well as open-ended answers, and it focuses exclusively on language models rather than multimodal models.",
+    "rai:dataUseCases": "Benchmarking and evaluating large language models on multi-discipline language understanding and reasoning, including few-shot chain-of-thought evaluation with validation examples used as demonstrations."
+  },
+  "usage": {
+    "input_tokens": 49548,
+    "output_tokens": 2906
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:47:12.157038Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces MMLU-Pro, an enhanced dataset designed to extend the mostly knowledge-driven MMLU benchmark"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces MMLU-Pro, an enhanced dataset designed to extend the mostly knowledge-driven MMLU benchmark by integrating more challenging, reasoning-focused questions and expanding the choice set from four to ten options. Additionally, MMLU-Pro eliminates the trivial and noisy questions in MMLU. ... Our dataset comprises 14 discipline subsets, totaling 12,032 questions"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Please visit our leaderboard at https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Additionally, the MMLU-Pro dataset itself is licensed under the MIT License, ensuring broad usability and distribution rights under similar conditions."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, Wenhu Chen"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2406.01574v6 [cs.CL] 6 Nov 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark"
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Full results are available on our leaderboard4. ... Please visit our leaderboard at https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro ."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As shown in Figure 2, our dataset construction begins with a comprehensive review of the original MMLU dataset, which we streamline by merging the previous 57 subject categories into 14 broader categories. ... We then expand our dataset by incorporating questions from the STEM Website2, TheoremQA [10], and SciBench [40]. ... We enhance the question options from four to ten using GPT-4-Turbo, introducing six additional choices. ... The expert review process for our dataset construction comprises two main phases to ensure its quality and reliability."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It integrates questions from several sources: (1) Original MMLU Questions ... (2) the STEM Website ... (3) TheoremQA ... and (4) SciBench ... We enhance the question options from four to ten using GPT-4-Turbo ... The expert review process for our dataset construction comprises two main phases"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Phase 1: Verification of Correctness and Appropriateness involves experts verifying the accuracy of each answer, removing questions unsuitable for a multiple-choice format, and discarding questions that lack necessary information or require non-textual elements like images or tables. ... In our dataset, 83% have ten options, 17% have fewer, and the average options count per question is 9.47."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It integrates questions from several sources: (1) Original MMLU Questions ... (2) the STEM Website ... (3) TheoremQA ... and (4) SciBench"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For closed-sourced models, we utilized the APIs of the most recent versions as of May 2024"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset construction begins with a comprehensive review of the original MMLU dataset, which we streamline by merging the previous 57 subject categories into 14 broader categories. ... questions answered correctly by more than four models are considered as “too easy” and subsequently excluded from consideration. ... we utilize GPT-4-Turbo to extract short answers from the solutions, serving as the correct answer options. We also generate three additional distractors for each question. ... We enhance the question options from four to ten using GPT-4-Turbo"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "include questions adapted from the original MMLU dataset with trivial and erroneous questions removed ... We then compare the solutions with the extracted answers manually, to remove questions where the extracted answers are incomplete or incorrect. ... removing questions unsuitable for a multiple-choice format, and discarding questions that lack necessary information or require non-textual elements like images or tables."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The expert review process for our dataset construction comprises two main phases ... Phase 1: Verification of Correctness and Appropriateness involves experts verifying the accuracy of each answer ... Phase 2: Ensuring Distractor Validity involves the Gemini-1.5-Pro model re-evaluating all answer options to identify potential false negatives. ... Subsequently, human experts rigorously review these identified options ... These errors were analyzed by expert annotators who determined the underlying causes of each misprediction using their expert judgment."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In Table 1, we present a distribution of issues identified during the expert review process. ... False Negative Options ... Human experts will remove each False Negative Option, keeping the correct answer and suitable distractors. In our dataset, 83% have ten options, 17% have fewer, and the average options count per question is 9.47."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "involves experts verifying the accuracy of each answer ... Subsequently, human experts rigorously review these identified options ... These errors were analyzed by expert annotators"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we utilize GPT-4-Turbo to extract short answers from the solutions ... We enhance the question options from four to ten using GPT-4-Turbo ... Phase 2: Ensuring Distractor Validity involves the Gemini-1.5-Pro model re-evaluating all answer options to identify potential false negatives."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our assessments confirm that MMLU-Pro is a more discriminative benchmark to better track progress in the field. ... As AI technology evolves, we hope MMLU-Pro plays a crucial role in pushing the boundaries of what language models can achieve."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The questions in MMLU are mostly knowledge-driven without requiring too much reasoning ... There is a portion of questions that are either unanswerable or mistakenly annotated. This dataset noise leads to a lower ceiling ... the typical four-option format of multiple-choice questions (MCQs) also contributes to this instability in model scoring. This format may not sufficiently challenge the models or differentiate between closely performing systems, leading to potential overestimations of their capabilities."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MMLU-Pro dataset, while enhancing the complexity of MMLU by incorporating more challenging, reasoning-focused questions, remains constrained by the limitations of the multiple-choice format. This format may not capture the depth of comprehension and creative response generation as effectively as open-ended answers ... Additionally, MMLU-Pro exclusively focuses on language models and does not include assessments for multi-modal models"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To effectively track the progress towards the goal of this expert-level intelligence, it is essential to evaluate these models on a broad range of tasks. ... we introduce MMLU-Pro: a comprehensive benchmark designed for proficient-level multi-discipline language understanding and reasoning. ... These demonstration examples are defined in the validation subset of the MMLU-Pro dataset."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "fields_uncertain": 0,
+      "evidence_count": 23,
+      "evidence_coverage": 88.5,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.091,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "elapsed_seconds": 34.8,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

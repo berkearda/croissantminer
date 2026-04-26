@@ -1,0 +1,279 @@
+{
+  "dataset_id": "DigitalLearningGmbH_MATH-lighteval",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MATH",
+    "description": "A dataset of 12,500 challenging competition mathematics problems from high school math competitions including AMC 10, AMC 12, and AIME. Each problem has a full step-by-step solution and is tagged by difficulty (1-5) and subject (Prealgebra, Algebra, Number Theory, Counting and Probability, Geometry, Intermediate Algebra, and Precalculus).",
+    "url": "https://aops.com/community/c3158_usa_contests",
+    "license": "MIT",
+    "creator": "Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric Tang, Dawn Song, Jacob Steinhardt",
+    "publisher": "NeurIPS 2021",
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The MATH dataset consists of 12,500 problems collected from mathematics competitions including the AMC 10, AMC 12, AIME, and others. Problems were collected from aops.com/community/c3158_usa_contests, spanning decades of competitions. Each problem includes a step-by-step solution and a final boxed answer. The AMPS pretraining dataset includes over 100,000 problems from Khan Academy (693 exercise types) and approximately 5 million problems generated using 100 hand-designed Mathematica scripts covering various mathematical topics.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data consists of mathematics competition problems from AMC 10, AMC 12, AIME and other competitions, Khan Academy exercises covering K-12 mathematics through multivariable calculus, and algorithmically generated problems from Mathematica scripts. Problems and solutions are formatted in LaTeX with mathematical figures encoded in the Asymptote vector graphics language.",
+    "rai:dataCollectionTimeframe": "Mathematics competitions spanning decades; Khan Academy and Mathematica data collection timeframe not specified",
+    "rai:dataAnnotationProtocol": "Problems were collected from mathematics competitions including AMC 10, AMC 12, AIME, and others from aops.com/community/c3158_usa_contests. Each problem includes a full step-by-step solution and final boxed answer. Problems are categorized by subject (7 subjects: Prealgebra, Algebra, Number Theory, Counting and Probability, Geometry, Intermediate Algebra, and Precalculus) and difficulty level (1-5, following AoPS standards). Problems and solutions are formatted using LaTeX and Asymptote vector graphics language with consistent formatting rules for answers.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human-level performance was evaluated by having university students solve 20 randomly sampled problems from the test set with 1 hour time limit and hand calculations. Results ranged from 40% (student who doesn't like mathematics) to 90% (three-time IMO gold medalist). Expert-level performance is theoretically 100% given enough time.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Mathematica scripts were used to generate approximately 5 million problems with step-by-step solutions. 100 hand-designed Mathematica scripts were created to test distinct mathematics concepts, with 37 scripts generating full step-by-step LaTeX solutions in addition to final answers. Around 50,000 exercises were generated from each script.",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset consists of competition mathematics problems that require problem-solving techniques and heuristics rather than straightforward calculations. Models show low accuracy (3.0% to 6.9%) and struggle with generating reliable step-by-step solutions. Generated solutions often contain logical mistakes despite appearing related to the question. Models are highly overconfident with confidence levels around 100% and poor error detection (AUROC of 68.8%). The dataset covers high school mathematics competitions and may not generalize to other mathematical domains.",
+    "rai:dataSocialImpact": "The dataset could have implications for academic integrity, as even 40% accuracy for a machine learning model would be impressive but have ramifications for cheating on homework. The work aims to advance mathematical problem-solving capabilities in AI, which has broad intellectual and practical significance given the domain-generality of mathematics.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The MATH dataset is designed for benchmarking mathematical problem-solving ability in machine learning models. The dataset includes 7,500 training problems and 5,000 test problems. The AMPS pretraining dataset (containing Khan Academy and Mathematica-generated problems) is used for pretraining models before fine-tuning on MATH. Models are trained to generate final answers and step-by-step solutions.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "During pretraining, Khan Academy data was upsampled by a factor of 5 and Mathematica data was downsampled by a factor of 2 to account for the large difference in dataset sizes. During fine-tuning, models were trained with an equal mix of sequences containing only final answers and sequences containing full step-by-step solutions.",
+    "rai:dataPreprocessingProtocol": "Problems and solutions were consistently formatted using LaTeX and the Asymptote vector graphics language. Final boxed answers were forced to follow consistent formatting rules including: probabilities expressed as simplified fractions, matrix entry fractions encoded with x/y while other fractions encoded with \\frac{x}{y}, coefficients encoded without multiplication symbols, expressions with multiple variables in alphabetical order, polynomials in decreasing degree order. Different equivalent encodings were treated as the same (e.g., different fraction formats, parenthesis encodings, spaces ignored, equivalent number representations). Units could be included or omitted, and different orderings of factorized polynomial factors were permitted."
+  },
+  "usage": {
+    "input_tokens": 54176,
+    "output_tokens": 3506
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:52.422392Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To measure this ability in machine learning models, we introduce MATH, a new dataset of 12,500 challenging competition mathematics problems."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MATH dataset consists of problems from mathematics competitions including the AMC 10, AMC 12, AIME, and more... The Mathematics Aptitude Test of Heuristics dataset, abbreviated MATH, has 12,500 problems (7,500 training and 5,000 test). Each problem has a step-by-step solution and a final boxed answer... The seven subjects are Prealgebra, Algebra, Number Theory, Counting and Probability, Geometry, Intermediate Algebra, and Precalculus."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Many of these problems can be collected from aops.com/community/c3158_usa_contests."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dan Hendrycks UC Berkeley, Collin Burns UC Berkeley, Saurav Kadavath UC Berkeley, Akul Arora UC Berkeley, Steven Basart UChicago, Eric Tang UC Berkeley, Dawn Song UC Berkeley, Jacob Steinhardt UC Berkeley"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our usage of LATEX allows us to flexibly encode mathematical problems while avoiding unusual symbols or cumbersome formal languages."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mathematics Aptitude Test of Heuristics dataset, abbreviated MATH, has 12,500 problems (7,500 training and 5,000 test)."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MATH dataset consists of problems from mathematics competitions including the AMC 10, AMC 12, AIME, and more. Many of these problems can be collected from aops.com/community/c3158_usa_contests... The Khan Academy subset of AMPS has 693 exercise types with over 100,000 problems and full solutions... With Mathematica, we designed 100 scripts that test distinct mathematics concepts, 37 of which include full step-by-step LATEX solutions in addition to final answers. We generated around 50,000 exercises from each of our scripts, or around 5 million problems in total."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Many of these problems can be collected from aops.com/community/c3158_usa_contests. These competitions span decades... The exercises can be regenerated using code from github.com/Khan/khan-exercises/... With Mathematica, we designed 100 scripts that test distinct mathematics concepts... We generated around 50,000 exercises from each of our scripts"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MATH dataset consists of problems from mathematics competitions including the AMC 10, AMC 12, AIME, and more... Problem types range from elementary mathematics (e.g. addition) to multivariable calculus (e.g. Stokes' theorem)... Problems and solutions are consistently formatted using LATEX and the Asymptote vector graphics language."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These competitions span decades and assess the mathematical problem-solving ability of the best young mathematical talent in the United States."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MATH dataset consists of problems from mathematics competitions including the AMC 10, AMC 12, AIME, and more. Many of these problems can be collected from aops.com/community/c3158_usa_contests... Each problem has a step-by-step solution and a final boxed answer... The seven subjects are Prealgebra, Algebra, Number Theory, Counting and Probability, Geometry, Intermediate Algebra, and Precalculus... We encode a problem's difficulty level from '1' to '5,' following AoPS."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To provide a rough but informative comparison to human-level performance, we randomly sampled 20 problems from the MATH test set and gave them to humans. We artificially require that the participants have 1 hour to work on the problems and must perform calculations by hand. All participants are university students. One participant who does not like mathematics got 8/20 = 40% correct... A three-time IMO gold medalist got 18/20 = 90%"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each problem has a step-by-step solution and a final boxed answer."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With Mathematica, we designed 100 scripts that test distinct mathematics concepts, 37 of which include full step-by-step LaTeX solutions in addition to final answers. We generated around 50,000 exercises from each of our scripts, or around 5 million problems in total."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Unlike most prior work, most problems in MATH cannot be solved with a straightforward application of standard K-12 mathematics tools... large language models achieved accuracies ranging from 3.0% to 6.9%... We find that the model can consistently generate correct LATEX and often performs steps that appear related to the question at hand, but still makes many logical mistakes... GPT-2 (1.5B) is highly overconfident, with confidences that are often around 100%. Moreover, there is substantial overlap between correct and incorrect answers... the AUROC is quite low at 68.8%"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Even 40% would accuracy for a machine learning model would be impressive but have ramifications for cheating on homework... Given the broad reach and applicability of mathematics, solving the MATH dataset with machine learning would be of profound practical and intellectual significance."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To measure the problem-solving ability of machine learning models, we introduce the MATH dataset, which consists of 12,500 problems from high school math competitions... MATH has 12,500 problems (7,500 training and 5,000 test)... Before fine-tuning on MATH, models pretrain on AMPS... During fine-tuning, models predict final answers and solutions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During pretraining, we upsample Khan Academy data by a factor of 5 and we downsample Mathematica by a factor of 2 to account for the large difference in dataset sizes... For fine-tuning we use the same batch size and weight decay as in pretraining... if hPi is the problem statement, we train with an equal mix of \"hPi Final Answer: <Answer>\" and \"hPi Full Solution: <Step-by-Step Solution>\" sequences."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Problems and solutions are consistently formatted using LATEX and the Asymptote vector graphics language... To assess models using exact match, we force the final boxed answers to follow consistent formatting rules. Specifically, probabilities are expressed as simplified fractions. Moreover, matrix entry fractions are encoded with x/y, while all other fractions are consistently encoded with the \\frac{x}{y} command. Coefficients are encoded without a multiplication symbol (e.g. 5x not 5*x). Expressions with multiple variables are entered in alphabetical order; polynomials are expressed in decreasing degree order."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1076,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20198,
+        "tokens_in": 5910,
+        "tokens_out": 748
+      },
+      "collection": {
+        "section_chars": 42115,
+        "tokens_in": 12094,
+        "tokens_out": 701
+      },
+      "annotation": {
+        "section_chars": 42115,
+        "tokens_in": 12084,
+        "tokens_out": 781
+      },
+      "impact": {
+        "section_chars": 42115,
+        "tokens_in": 12137,
+        "tokens_out": 716
+      },
+      "processing": {
+        "section_chars": 42115,
+        "tokens_in": 11951,
+        "tokens_out": 560
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

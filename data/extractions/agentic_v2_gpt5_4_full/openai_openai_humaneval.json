@@ -1,0 +1,259 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "A hand-written evaluation dataset of 164 original Python programming problems with function signatures, docstrings, bodies, and unit tests for measuring functional correctness of code generation from docstrings.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": "MIT",
+    "creator": "OpenAI",
+    "publisher": null,
+    "datePublished": "2021-07-14",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by hand-writing original programming problems for benchmarking code generation. Each problem includes a function signature, docstring, body, and unit tests.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Original hand-written Python programming problems consisting of function signatures, docstrings, bodies, and unit tests.",
+    "rai:dataCollectionTimeframe": "The training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For Codex training data, the authors filtered out files likely to be auto-generated, files with average line length greater than 100, files with maximum line length greater than 1000, and files containing a small percentage of alphanumeric characters. For supervised fine-tuning problems, they assembled programming tasks from collected problem statements, function signatures, solutions, and unit tests; for CI-derived problems they traced function inputs and outputs during integration tests; and they filtered curated problems by generating 100 samples per problem with Codex-12B, removing tasks where no samples passed unit tests and rerunning verification several times to remove stateful or non-deterministic problems.",
+    "rai:dataPreprocessingProtocol": "The GitHub Python corpus was restricted to unique Python files under 1 MB. After filtering out likely auto-generated files, files with average line length greater than 100, files with maximum line length greater than 1000, and files with a small percentage of alphanumeric characters, the final dataset totaled 159 GB. The code lexer was based on the GPT-3 text tokenizer with an additional set of tokens for representing whitespace runs of different lengths, reducing code representation by approximately 30% fewer tokens. For supervised fine-tuning, problems were assembled into the prompt format shown in Figure 2, and shorter prompts in a batch were left-padded to the length of the longest prompt so that the first tokens in the reference solutions lined up in context.",
+    "rai:dataAnnotationProtocol": "Problems were authored by hand and paired with unit tests used as correctness labels during evaluation.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For docstring generation evaluation, sample docstrings were graded by hand, considering a docstring correct if it uniquely and accurately specified the code body. Codex-D often generated incorrect unit tests along with a docstring, but these were ignored during grading. A docstring was not considered correct when the model simply copied the code body into the docstring. The authors report common failure modes such as leaving out important details or over-conditioning on the function name and inventing an unrelated problem.",
+    "rai:annotationsPerItem": "Several unit tests per problem; average 7.7 tests",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Codex-12B was used as an automated filtering tool for curated supervised fine-tuning problems: the authors generated 100 samples per curated problem and filtered out tasks for which no samples passed the unit tests.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "The paper discusses sensitive attributes in generated code and bias analysis, including gender, race, religion, age, emotion, class, and the structure of names.",
+    "rai:dataSocialImpact": "The paper discusses broader impacts of code generation technologies, including safety, security, economics, over-reliance, misalignment, bias and representation, labor market impacts, environmental impacts, legal implications, and mitigation strategies.",
+    "rai:dataBiases": "The authors report that Codex can generate racist, denigratory, and otherwise harmful outputs as code comments, and can generate code structures reflecting stereotypes about gender, race, emotion, class, names, and other characteristics.",
+    "rai:dataLimitations": "The dataset is hand-written to reduce contamination risk from GitHub training data, but novelty is not guaranteed. The paper also notes model limitations on this dataset, including struggles with long chains of operations, variable binding, undefined code, and higher-level specifications.",
+    "rai:dataUseCases": "Benchmarking and evaluating functional correctness and problem-solving capabilities of code generation models, especially synthesizing standalone Python functions from docstrings."
+  },
+  "usage": {
+    "input_tokens": 79335,
+    "output_tokens": 2128
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:17:43.515518Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Next, we describe the dataset of hand-written problems, called “HumanEval,” which we created in order to benchmark our models."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To accurately benchmark our model, we create a dataset of 164 original programming problems with unit tests. These problems assess language comprehension, algorithms, and simple mathematics, with some comparable to simple software interview questions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval."
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2107.03374v2 [cs.LG] 14 Jul 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each problem includes a function signature, docstring, body, and several unit tests"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release the HumanEval dataset so that others can evaluate functional correctness and measure the problem-solving capabilities of their models."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To accurately benchmark our model, we create a dataset of 164 original programming problems with unit tests... We evaluate functional correctness on a set of 164 handwritten programming problems, which we call the HumanEval dataset. Each problem includes a function signature, docstring, body, and several unit tests"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate functional correctness on a set of 164 handwritten programming problems, which we call the HumanEval dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each problem includes a function signature, docstring, body, and several unit tests"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate functional correctness on a set of 164 handwritten programming problems... Each problem includes a function signature, docstring, body, and several unit tests... a sample is considered correct if it passes a set of unit tests."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each problem includes a function signature, docstring, body, and several unit tests, with an average of 7.7 tests per problem."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, we discuss the potential broader impacts of deploying powerful code generation technologies, covering safety, security, and economics... We conclude by discussing the limitations and potential broader impacts of these Codex models and of increasingly powerful code generating models more generally."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we found that Codex can be prompted in ways that generate racist, denigratory, and otherwise harmful outputs as code comments... Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It is important for these tasks to be hand-written, since our models are trained on a large fraction of GitHub... Though not a guarantee for problem novelty, all problems were hand-written and not programmatically copied from existing sources... Careful investigation of our model reveals its limitations, including difficulty with docstrings describing long chains of operations and with binding operations to variables."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval... We release the HumanEval dataset so that others can evaluate functional correctness and measure the problem-solving capabilities of their models."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "fields_uncertain": 0,
+      "evidence_count": 16,
+      "evidence_coverage": 69.6,
+      "avg_confidence": 0.9
+    },
+    "cost_usd": 0.1204,
+    "split": "test",
+    "corrections_applied": 6,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 34.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

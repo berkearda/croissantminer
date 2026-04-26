@@ -1,0 +1,278 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS)",
+    "description": "A large multilingual read-speech corpus for speech research derived from LibriVox audiobooks. It contains 8 languages, including about 44.5K hours of English and about 6K hours across 7 other languages, and is intended to support ASR and TTS research.",
+    "url": "http://www.openslr.org",
+    "license": null,
+    "creator": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert",
+    "publisher": "Facebook AI Research",
+    "datePublished": "2020-12-22",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was created by downloading LibriVox audiobooks in selected languages, downsampling the audio, segmenting long files into 10–20 second clips using trained acoustic models, generating pseudo-labels, and retrieving original transcripts by matching pseudo-labels to available book transcripts.",
+    "rai:dataCollectionType": "Web API",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Read audiobook audio from LibriVox, mostly based on Project Gutenberg text data; language model source text came from Project Gutenberg books.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Automatic audio segmentation used trained acoustic models with TDS convolutions, ASG loss, and wav2letter@anywhere for streaming inference.",
+    "rai:dataBiases": "The dataset is biased toward read audiobook speech from public-domain sources and is heavily imbalanced across languages, with much more English data than other languages.",
+    "rai:dataLimitations": "The dataset is limited to read-speech audiobooks rather than broader speech domains, and there are vocabulary coverage issues for some languages, especially Polish with a high OOV rate.",
+    "rai:dataSocialImpact": "The authors state that the dataset is intended to expand multilingual ASR and TTS research by being freely available.",
+    "rai:personalSensitiveInformation": "Language",
+    "rai:dataUseCases": "Suitable for speech research, especially ASR and TTS; includes train, development, and test splits, limited-supervision train sets, released language-model training data and pre-built language models, and baseline ASR models.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is planned for free public release, along with language-model training data and pre-built language models; no update schedule, maintainers, or deprecation policy are specified.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Audio data augmentation during model training using SpecAugment with two frequency masks and ten time masks; time warping was not used.",
+    "rai:dataPreprocessingProtocol": "Downloaded LibriVox audiobooks were downsampled from 48kHz to 16kHz, segmented into 10–20 second utterances using acoustic-model-based inference and timestamps, and books were filtered to avoid overlap with development and test sets by removing title-near-duplicates and books sharing more than 1% of indexed 5-grams."
+  },
+  "usage": {
+    "input_tokens": 13064,
+    "output_tokens": 1872
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:37:48.891163Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces Multilingual LibriSpeech (MLS) dataset"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces Multilingual LibriSpeech (MLS) dataset, a large multilingual corpus suitable for speech research. The dataset is derived from read audiobooks from LibriVox and consists of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will be made freely available for anyone at http://www.openslr.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Facebook AI Research, Menlo Park & Paris, USA & France"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "December 22, 2020"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have selected English, German, Dutch, Spanish, French, Portuguese, Italian, Polish for the MLS dataset preparation"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In Section 3, we detail how we created the dataset, by (i) training some acoustic models on in-house data, (ii) generating pseudo-labels with these models, and (iii) retrieving the original transcript by matching pseudo-labels to available book transcripts."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 1 shows the LibriVox audiobooks data available for each language measured using LibriVox APIs"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MLS is a read-speech dataset, which leverages LibriVox audiobook data, most of which being based on the Project Gutenberg text data."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we have used trained acoustic models in each of the languages using Time-Depth Separable (TDS) Convolutions[7] with Auto-Segmentation Criterion [8] (ASG) loss” and “we have used wav2letter@anywhere framework [11] to perform the inference in a streaming fashion.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"As for LibriSpeech, MLS is a read-speech dataset, which leverages LibriVox audiobook data\" and \"MLS includes 44.5K hours of English, and a total of 6K hours spread over 7 other languages.\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"As for LibriSpeech, MLS is a read-speech dataset\" and \"Polish 13.39%\" (OOV rate in Table 5)."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We believe such a large transcribed dataset will open new avenues in ASR and Text-To-Speech (TTS) research. The dataset will be made freely available for anyone\""
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The dataset is derived from read audiobooks from LibriVox and consists of 8 languages\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"This paper introduces Multilingual LibriSpeech (MLS) dataset, a large multilingual corpus suitable for speech research.\" \"We believe such a large transcribed dataset will open new avenues in ASR and Text-To-Speech (TTS) research.\" \"Section 4 details the creation of train, development and test splits and limited supervision train sets.\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The dataset will be made freely available for anyone at http://www.openslr.org.\" and \"We release all the language model training data and pre-built language models with the dataset.\""
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SpecAugment[24] is used for data augmentation in training: there are two frequency masks, and ten time masks with maximum time mask ratio of p = 0.1; ... time warping is not used."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the audio data is downsampled from 48kHz to 16kHz for further processing. ... we segment the audio files into 10-20 second segments. ... We have also carefully filtered certain books to avoid any overlap with the development and test sets"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "evidence_count": 19,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.035,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 7806,
+        "tokens_in": 2415,
+        "tokens_out": 496
+      },
+      "collection": {
+        "section_chars": 11307,
+        "tokens_in": 3246,
+        "tokens_out": 311
+      },
+      "annotation": {
+        "section_chars": 5677,
+        "tokens_in": 2017,
+        "tokens_out": 241
+      },
+      "impact": {
+        "section_chars": 5954,
+        "tokens_in": 2195,
+        "tokens_out": 552
+      },
+      "processing": {
+        "section_chars": 9499,
+        "tokens_in": 3191,
+        "tokens_out": 272
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 30.3
+  }
+}

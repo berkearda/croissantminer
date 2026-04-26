@@ -1,0 +1,259 @@
+{
+  "dataset_id": "OpenGVLab_VideoChat-Flash-Training-Data",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "LongVid",
+    "description": "A large-scale long video instruction-tuning dataset comprising 114,228 long videos and 3,444,849 question-answering pairs across five task types for diverse long video scenarios.",
+    "url": "https://github.com/OpenGVLab/VideoChat-Flash",
+    "license": "Apache-2.0",
+    "creator": "Xinhao Li, Yi Wang, Jiashuo Yu, Xiangyu Zeng, Yuhan Zhu, Haian Huang, Jianfei Gao, Kunchang Li, Yinan He, Chenting Wang, Yu Qiao, Yali Wang, Limin Wang",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "LongVid was constructed by leveraging existing datasets spanning movies, egocentric videos, news, interviews, how-to videos, and other in-the-wild long-duration videos. The authors generated dense event labels for each long video using existing short video captions, filtered consecutive segments that could be regrouped into long video sequences, directly used existing event-level annotations when available, extracted major events from captions using an LLM otherwise, and then constructed long video QA pairs from captions, event labels, and timestamps.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Existing datasets Ego4D, HowTo100M, HD-VILA, and MiraData, along with their associated captions and annotations such as Panda-70M, CosMo, Ego4D-HCap, HT-Step, and original MiraData captions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was curated by filtering consecutive short-video segments that could be regrouped into long video sequences, constructing event-label sequences with timestamps, directly using existing event-level annotations when available, extracting major events from captions using an LLM for other datasets, and constructing QA pairs from captions, event labels, and timestamps.",
+    "rai:dataPreprocessingProtocol": "Consecutive segments were filtered and regrouped into long video sequences; dense event labels with timestamps were constructed from captions; for some datasets major events were extracted from captions using an LLM.",
+    "rai:dataAnnotationProtocol": "Annotations consist of dense event labels and QA pairs. Event labels were derived either directly from existing high-quality event-level annotations or by extracting major events from captions using an LLM. QA pairs were then constructed from video captions, event labels, and timestamps, covering five tasks: video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For the Multi-Hop Needle-in-a-Video-Haystack benchmark, the paper discusses reducing information leakage by sourcing all images from MS-COCO and using its human-annotated captions and question-answer pairs, noting that even if a model memorized MS-COCO content, it would not help much in finding the needle. For LongVid construction, datasets with high-quality event-level annotations are directly used as event labels, while for others the major event is extracted from captions using an LLM.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LLM",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Egocentric videos",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The paper notes potential information leakage in prior long-video evaluation setups when images and questions similar to the needle may appear in training data; their new benchmark is designed to reduce such leakage.",
+    "rai:dataLimitations": "Existing long-form video-text datasets lack the instruction-following paradigm of (video, instruction, answer) triplets crucial for multimodal reasoning. The paper also notes drawbacks of prior NIAH-Video evaluation: possible information leakage and insufficient assessment of reasoning ability.",
+    "rai:dataUseCases": "LongVid is used for long video instruction tuning and joint short-and-long video instruction tuning to train models for diverse long video scenarios and tasks including video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting."
+  },
+  "usage": {
+    "input_tokens": 27018,
+    "output_tokens": 2657
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:43:42.313348Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Second, we introduce a multi-stage short-to-long leaming scheme, a large-scale dataset of real-world long videos named LongVid"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address this, we introduce a largescale long video instruction-tuning dataset named LongVid . It comprises 114,228 long videos and 3,444,849 questionanswering (QA) pairs across five different task types, supporting models to handle diverse long video scenarios."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://github.com/OpenGVLab/VideoChat-Flash"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Xinhao Li2,1∗, Yi Wang1,4∗†, Jiashuo Yu1∗, Xiangyu Zeng2,1, Yuhan Zhu2, Haian Huang1, Jianfei Gao1, Kunchang Li3, Yinan He1, Chenting Wang1 Yu Qiao1, Yali Wang3,1, Limin Wang2,1†"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2501.00574v4 [cs.CV] 13 Jul 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper text is written in English, e.g., \"VideoChat-Flash: Hierarchical Compression for Long-Context Video Modeling\""
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To build LongVid, we leverages the rich diversity of existing datasets, including Ego4D [ 19], HowTo100M [ 37], HDVila [ 62], and MiraData [ 22], encompassing a wide range of video types: movies, egocentric videos, news, interviews, and how-to videos, and other in-the-wild videos of long duration. For data curation, we generate dense event labels for each long video. Specifically, we utilize existing high-quality short video captions ... and filter the consecutive segments that can be regroup into a long video sequence, then we construct a sequence of event labels with their corresponding timestamps for every long video based on their captions. ... Finally, we construct several types of long video QA pairs based on the video captions, event labels, and the timestamps of short video segments."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To build LongVid, we leverages the rich diversity of existing datasets, including Ego4D [ 19], HowTo100M [ 37], HDVila [ 62], and MiraData [ 22]"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To build LongVid, we leverages the rich diversity of existing datasets, including Ego4D [ 19], HowTo100M [ 37], HDVila [ 62], and MiraData [ 22]... Specifically, we utilize existing high-quality short video captions (Panda-70M [ 11] for HD-VILA [ 62], CosMo [ 51] for HowTo100M [ 37], Ego4D-HCap [ 21] for Ego4D [ 19], and the original high-quality captions provided in MiraData [ 22])"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we utilize existing high-quality short video captions ... and filter the consecutive segments that can be regroup into a long video sequence, then we construct a sequence of event labels with their corresponding timestamps for every long video based on their captions. In this process, for datasets with high-quality event-level annotations ... we directly utilize them as the event labels, while for others, we extract the major event from the caption using an LLM. Finally, we construct several types of long video QA pairs based on the video captions, event labels, and the timestamps of short video segments."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we utilize existing high-quality short video captions ... and filter the consecutive segments that can be regroup into a long video sequence, then we construct a sequence of event labels with their corresponding timestamps for every long video based on their captions. ... for others, we extract the major event from the caption using an LLM."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For data curation, we generate dense event labels for each long video. ... for datasets with high-quality event-level annotations ... we directly utilize them as the event labels, while for others, we extract the major event from the caption using an LLM. Finally, we construct several types of long video QA pairs based on the video captions, event labels, and the timestamps of short video segments.They are categorized into five tasks: video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "for others, we extract the major event from the caption using an LLM."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "including Ego4D [ 19], HowTo100M [ 37], HDVila [ 62], and MiraData [ 22], encompassing a wide range of video types: movies, egocentric videos, news, interviews, and how-to videos"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Firstly, it is difficult to prevent images and questions similar to the needle from appearing in the model’s training data, which leads to information leakage. ... It should be noted that even if the model can perfectly remember the content of MS-COCO, it will not be of much help in finding the needle, which significantly reduces the likelihood of successful “cheating”."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Though recent advances have mitigated this by long-form datasets of video-text pairs, these lack the instruction-following paradigm, such as (video, instruction, answer) triplets, crucial for multimodal reasoning. ... However, it has several drawbacks. Firstly, it is difficult to prevent images and questions similar to the needle from appearing in the model’s training data, which leads to information leakage. Secondly, merely examining the model’s visual retrieval ability is insufficient and lacks discrimination for evaluating its long video context understanding ability"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address this, we introduce a largescale long video instruction-tuning dataset named LongVid . It comprises 114,228 long videos and 3,444,849 questionanswering (QA) pairs across five different task types, supporting models to handle diverse long video scenarios. ... Stage-3: Joint Short & Long Video Instruction Tuning. To enable the model to handle a wide variety of video tasks, we collect 3.5 million instruction fine-tuning samples ... and 0.7M long videos"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 89.5,
+      "avg_confidence": 0.929
+    },
+    "cost_usd": 0.0603,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 35.1,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

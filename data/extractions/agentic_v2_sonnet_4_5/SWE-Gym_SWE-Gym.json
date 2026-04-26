@@ -1,0 +1,259 @@
+{
+  "dataset_id": "SWE-Gym_SWE-Gym",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "SWE-Gym",
+    "description": "SWE-Gym is the first training environment for software engineering agents, containing 2,438 real-world task instances from 11 popular Python repositories. Each task comprises a Python codebase with an executable runtime environment, unit tests, and a task specified in natural language. The environment enables training of language model based SWE agents and verifiers.",
+    "url": "https://huggingface.co/datasets/SWE-Gym/SWE-Gym",
+    "license": "MIT",
+    "creator": "Jiayi Pan, Xingyao Wang, Graham Neubig, Navdeep Jaitly, Heng Ji, Alane Suhr, Yizhe Zhang",
+    "publisher": "Proceedings of the 42nd International Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "SWE-Gym comprises 2,438 real-world software engineering tasks sourced from pull requests in 11 popular Python repositories. Tasks were extracted from 358 Python repositories created before July 1, 2022 with more than 500 stars, at least 300 lines of code, more than 500 pull requests and 100 contributors. Each task corresponds to a GitHub issue including the natural language description of the issue, a snapshot of the repository in which the issue was created, and a set of unit tests.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world GitHub issues and pull requests from 358 Python repositories. The raw dataset (SWE-Gym Raw) contains 64,689 task instances extracted from these repositories using SWE-Bench's instance extraction script.",
+    "rai:dataCollectionTimeframe": "Repositories created before July 1, 2022",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We use SWE-Bench's instance extraction script to convert repositories into task instances. We generalize SWE-Bench's versioning script to support versioning via script execution, and semi-automatically collect versions for each instance based on information available in the repository (e.g., pyproject.toml, git tag, etc). We manually configure dependencies for each task instance using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot at the time of issue creation. We then use SWE-Bench's execution-based validation script to ensure that the gold patch (the human-submitted code diff) passes more unit tests than the original code.",
+    "rai:dataPreprocessingProtocol": "Version training instances were associated with their respective version numbers. Executable environments were manually configured for each task instance using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot. Validation was performed using SWE-Bench's execution-based validation script to ensure that the gold patch passes more unit tests than the original code. Failed instances were filtered out. This process required approximately 200 human annotation hours and 10,000 CPU core hours.",
+    "rai:dataAnnotationProtocol": "Human annotations were performed by a subset of the authors to manually configure dependencies and validate task instances. The gold patches (human-submitted code diffs) serve as the ground truth solutions. Unit tests from the original repositories are used to verify correctness.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Annotations were done by a subset of the paper authors",
+    "rai:machineAnnotationTools": "SWE-Bench's instance extraction script, SWE-Bench's execution-based validation script",
+    "rai:dataReleaseMaintenancePlan": "The dataset, models, and agent trajectories are publicly released. Pre-built Docker images for each instance are released, totaling 6 TB.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "Improving automated software engineering capabilities could increase developer's productivity and accessibility across industries. The work can support critical open-source infrastructure and potentially make software development more accessible. However, as agents become more capable, they may impact software engineering jobs and require careful consideration around code ownership, licensing, and attribution. There are also concerns about potential misuse to automate the creation of malicious code.",
+    "rai:dataBiases": "The task distribution across repositories exhibits a long-tail pattern, with tasks associated with pandas comprising nearly one-third of the total, whereas tasks related to bokeh represent a mere one percent. Repeated sampling shows that task success probability follows a long-tail distribution, where more samples increase solved instances, introducing a bias toward easier tasks.",
+    "rai:dataLimitations": "SWE-Gym is limited by its environment diversity, including the number of repositories (11 with executable environments), types of tasks, and programming languages (Python only). Tasks in SWE-Gym are on average harder than those in SWE-Bench. The dataset focuses solely on task completion, neglecting human-in-the-loop collaboration which is essential for real-world software engineering. Current models are primarily research artifacts and not yet production-ready.",
+    "rai:dataUseCases": "Training software engineering agents and verifiers. The environment enables supervised fine-tuning, rejection sampling fine-tuning, and reinforcement learning for language model based SWE agents. It supports training verifier models for inference-time scaling. SWE-Gym Lite (230 instances) is suitable for rapid prototyping. The dataset is designed for research purposes to advance LM agent training research."
+  },
+  "usage": {
+    "input_tokens": 27306,
+    "output_tokens": 3140
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:01.391098Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present SWE-Gym, the first environment for training software engineering (SWE) agents."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-Gym contains 2,438 real-world task instances, each comprising a Python codebase with an executable runtime environment, unit tests, and a task specified in natural language."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jiayi Pan∗1Xingyao Wang∗2Graham Neubig3Navdeep Jaitly4Heng Ji2Alane Suhr†1Yizhe Zhang†4"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Proceedings of the 42ndIntemational Conference on Machine Leaming , Vancouver, Canada. PMLR 267, 2025."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Proceedings of the 42ndIntemational Conference on Machine Leaming , Vancouver, Canada. PMLR 267, 2025."
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-Gym comprises 2,438 real-world software engineering tasks sourced from pull requests in 11 popular Python repositories, with pre-configured executable environments and expert-validated test cases... We first use SEART GitHub search to filter a list of initial repositories... we select Python repositories that were created before July 1, 2022 and have more than 500 stars, with at least 300 lines of code, more than 500 pull requests (PRs) and 100 contributors."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use SWE-Bench's instance extraction script to convert these repositories into task instances, each corresponding to a GitHub issue including the natural language description of the issue, a snapshot of the repository in which the issue was created, and a set of unit tests."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Over the 358 repositories, we extract 64,689 task instances. We refer to this dataset as SWE-Gym Raw, which is over three times larger than the 19k instances gathered in previous work (Jimenez et al., 2024) and includes nearly ten times as many repositories."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we select Python repositories that were created before July 1, 2022 and have more than 500 stars"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We generalize SWE-Bench's versioning script to support versioning via script execution, and semi-automatically collect versions for each instance... To address this, we manually configure dependencies for each task instance using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot at the time of issue creation. We then use SWE-Bench'sexecution-based validation script to ensure that the gold patch (the human-submitted code diff) passes more unit tests than the original code. This process required approximately 200 human annotation hours and 10,000 CPU core hours."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotations are done by a subset of the authors... We then use SWE-Bench'sexecution-based validation script to ensure that the gold patch (the human-submitted code diff) passes more unit tests than the original code."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotations are done by a subset of the authors."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use SWE-Bench's instance extraction script to convert these repositories into task instances... We then use SWE-Bench'sexecution-based validation script to ensure that the gold patch (the human-submitted code diff) passes more unit tests than the original code."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To facilitate further research, we publicly release SWE-Gym, models, and agent trajectories... For full reproducibility, we publicly release pre-built Docker images for each instance, totaling 6 TB."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, improving automated software engineering capabilities could increase developer's productivity and accessibility across industries... Secondly, as these agents become more capable, they may impact software engineering jobs and require careful consideration around code ownership, licensing, and attribution. Additionally, while we focus on legitimate software engineering tasks, similar techniquescould potentially be misused to automate the creation of malicious code."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Fig. 2 illustrates that the task distribution across repositories exhibits a long-tail pattem. Notably, tasks associated with pandas comprise nearly one-third of the total, whereas tasks related to bokeh represent a mere one percent... Repeated sampling, as in Brown et al. (2024), shows that task success probability follows a long-tail distribution (Fig. 6), where more samples increase solved instances. While broader task coverage benefits training, it introduces a bias toward easier tasks"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-Gym, while effective, is limited by its environment diversity, including the number of repositories, types of tasks, and programming languages... Our analysis suggests that tasks in SWE-Gym are on average harder than those included in SWE-Bench... Current SWE settings focus solely on task completion, neglecting human-in-the-loop collaboration, which is essential for real-world software engineering... Although current models are primarily research artifacts and not yet production-ready"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use SWE-Gym to train language model based SWE agents... We also experiment with inferencetime scaling through verifiers trained on agent trajectories sampled from SWE-Gym... We also identify a subset of 230 tasks, SWE-Gym Lite, which contains generally easier and more self-contained tasks that are suitable for rapid prototyping... By combining real-world Python tasks with repository-level context, pre-configured execution environments, and test verifications, SWE-Gym will be a foundation for advancing LM agent training research."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 78.3,
+      "avg_confidence": 0.909
+    },
+    "cost_usd": 0.0645,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license",
+      "url"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

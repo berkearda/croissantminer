@@ -1,0 +1,279 @@
+{
+  "dataset_id": "nebius_SWE-rebench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "SWE-rebench",
+    "description": "A dataset of over 21,000 interactive Python-based software engineering tasks extracted from diverse GitHub repositories, designed for training and benchmarking LLM-based agents in real-world software development scenarios with automatic verification mechanisms.",
+    "url": "https://huggingface.co/datasets/nebius/SWE-rebench",
+    "license": "CC-BY-4.0",
+    "creator": "Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, Boris Yangel",
+    "publisher": "Nebius",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was constructed through a four-stage automated pipeline: (1) preliminary task collection from GitHub Archive and GitHub repositories, downloading ~450,000 pull requests linked to issues created before May 1, 2025 from over 30,000 Python repositories with permissive licenses; (2) automated installation instruction configuration using LLM-driven approaches to generate environment setup recipes; (3) execution-based installation verification in containers to confirm task solvability; and (4) automated quality assessment using a fine-tuned LLM to predict issue clarity, task complexity, and test patch correctness.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data consists of GitHub pull requests, issues, and repository commit histories. Specifically: issue descriptions, discussions, linked pull requests with metadata (creation date, labels, merge status, last commit), and full repository commit histories. The data originates from Python repositories where Python constitutes over 75% of the codebase lines of code and which have permissive licenses.",
+    "rai:dataCollectionTimeframe": "Issues created before May 1, 2025",
+    "rai:dataAnnotationProtocol": "Human annotations from SWE-bench Verified were used to fine-tune a Qwen 2.5-72B-Instruct model to predict three quality assessment labels: Test Patch Correctness, Task Complexity, and Issue Clarity. The fine-tuned LLM then automatically assessed task quality at scale.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Classification quality report comparing fine-tuned model against vanilla Qwen 2.5-72B-Instruct on validation set. Metrics include precision, recall, F1-score, accuracy, macro avg, and weighted avg for Test Patch Correctness, Task Complexity, and Issue Clarity labels. Fine-tuned model achieved 0.67 accuracy for Test Patch Correctness, 0.81 for Task Complexity, and 0.79 for Issue Clarity.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen 2.5-72B-Instruct model fine-tuned on SWE-bench Verified human annotations for automated task quality assessment. The model predicts Test Patch Correctness, Task Complexity, and Issue Clarity labels.",
+    "rai:dataBiases": "The dataset is limited to Python repositories with permissive licenses, which may introduce bias toward certain types of projects and exclude other programming languages and license types. The automated quality assessment using LLM-based predictions may contain errors and decrease dataset quality. The emphasis on scalability introduces trade-offs, particularly a reduced ability to manually curate and verify the quality and clarity of each individual task.",
+    "rai:dataLimitations": "The automated pipeline relies on heuristics and LLM-driven interpretations which may not capture every project's subtleties. The LLM-based approach to generating installation instructions was validated on a limited set of 18 repositories. The automated task quality assessment cannot fully replicate nuanced human judgment. Tasks may be imperfectly described or unsolvable solely from the issue description, leading to lower absolute success rates compared to manually curated benchmarks. The dataset is currently limited to Python programming language only.",
+    "rai:dataSocialImpact": "The benchmark may accelerate the development of increasingly autonomous AI systems in software engineering, which brings potential risks such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities. The authors believe that fostering openness, decontaminated evaluations, and rigorous benchmarking practices helps mitigate these concerns and contributes to responsible advancement of the field.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for training and benchmarking LLM-based software engineering agents, particularly suitable for reinforcement learning-based approaches. It comprises over 21,000 interactive Python-based SWE tasks suitable for reinforcement learning of SWE agents at scale. The dataset can be used for training, testing, validation, and fine-tuning of software engineering agents. Users can filter tasks based on LLM-generated quality labels (Issue Clarity, Task Complexity, Test Patch Correctness) to select instances according to their specific criteria.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly available on Hugging Face Datasets. The authors maintain a continuously updated public leaderboard based on fresh tasks. Future work includes expanding data coverage and volume, improving task filtering pipeline, supporting new programming languages, and keeping the benchmark up-to-date by maintaining evaluation process on fresh tasks for existing models and evaluating a wider range of LLMs.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Tasks are filtered based on specific criteria including task complexity, issue clarity, and evaluation environment consistency. Filtering includes: selecting tasks with manageable complexity for current models, ensuring well-defined problem specifications, and maintaining consistent evaluation environments. The benchmark subset is curated from the larger dataset by applying series of specific filtering criteria.",
+    "rai:dataPreprocessingProtocol": "Data preprocessing includes: (1) Patch generation from git history by prioritizing diffing head_commit against base_commit to isolate branch changes; (2) Test directive generation with filtering of deleted files from test directives; (3) AttributeError/ImportError checks by running tests with full error output (tb=line); (4) Dependency pinning by freezing and recording all dependency versions using pip freeze and conda env export after first successful environment setup to ensure reproducibility."
+  },
+  "usage": {
+    "input_tokens": 55877,
+    "output_tokens": 3890
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:46.132402Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Using this pipeline, we construct SWE-rebench, a public dataset comprising over 21,000 interactive Python-based SWE tasks"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-rebench, a public dataset comprising over 21,000 interactive Python-based SWE tasks, suitable for reinforcement learning of SWE agents at scale... a dataset of 21,336 verifiable SWE tasks from 3468 distinct GitHub repositiories"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Available on Hugging Face Datasets: https://huggingface.co/datasets/nebius/SWE-rebench"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibragim Badertdinov∗ Nebius Alexander Golubev∗ Nebius Maksim Nekrashevich Nebius Anton Shevtsov Nebius Simon Karasik Nebius Andrei Andriushchenko Nebius Maria Trofimova Nebius Daria Litvintseva Nebius Boris Yangel Nebius"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibragim Badertdinov∗ Nebius Alexander Golubev∗ Nebius... 39th Conference on Neural Information Processing Systems (NeurIPS 2025) Track on Datasets and Benchmarks"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "39th Conference on Neural Information Processing Systems (NeurIPS 2025) Track on Datasets and Benchmarks"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These originate from over 30,000 repositories that feature permissive licenses granting broad usage rights (see Appendix D for the list of included license types) and where Python constitutes over 75% of the codebase lines of code"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a novel, automated, and scalable pipeline to continuously extract real-world interactive SWE tasks from diverse GitHub repositories... A public SWE-rebench leaderboard that offers continuously updated, decontaminated, and standardized evaluations"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our automated pipeline processes a large volume of raw data through several stages to curate the final SWE-rebench dataset... we download approximately 450,000 pull requests linked to issues created before May 1, 2025. These originate from over 30,000 repositories that feature permissive licenses... Our pipeline comprises four stages: preliminary task collection, automated installation instruction configuration, execution-based installation verification, and quality assessment"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary sources for our data are GitHub Archive [Grigorik, 2011] and GitHub... We use this archive to collect detailed data about issues: issue description, discussion, linked pull requests, and metadata such as creation date and labels. We also extract information about pull requests, including their merge status, last commit, and discussions. We clone relevant GitHub repositories with their full commit histories to our local storage."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary sources for our data are GitHub Archive [Grigorik, 2011] and GitHub... We use this archive to collect detailed data about issues: issue description, discussion, linked pull requests, and metadata such as creation date and labels. We also extract information about pull requests, including their merge status, last commit, and discussions. We clone relevant GitHub repositories with their full commit histories to our local storage... we download approximately 450,000 pull requests linked to issues created before May 1, 2025. These originate from over 30,000 repositories that feature permissive licenses granting broad usage rights... and where Python constitutes over 75% of the codebase lines of code."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we download approximately 450,000 pull requests linked to issues created before May 1, 2025"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we fine-tuned a Qwen 2.5-72B-Instruct model using human annotations from SWE-bench Verified to predict three quality assessment labels: Test Patch Correctness, Task Complexity, and Issue Clarity"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 4 provides a detailed classification quality report, comparing the performance of our fine-tuned model against the vanilla Qwen 2.5-72B-Instruct model on the validation set... accuracy 0.67 [Test Patch Correctness], 0.81 [Task Complexity], 0.79 [Issue Clarity]"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we fine-tuned a Qwen 2.5-72B-Instruct model using human annotations from SWE-bench Verified to predict three quality assessment labels: Test Patch Correctness, Task Complexity, and Issue Clarity"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The initial release of SWE-rebench is limited exclusively to Python, restricting its immediate applicability to other language ecosystems... While we employ automated quality assessment, the fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue... the emphasis on scalability introduces trade-offs, particularly a reduced ability to manually curate and verify the quality and clarity of each individual task."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Extracting consistently high-quality, verifiable SWE tasks from diverse real-world GitHub repositories (Section 2) is an inherently imperfect process. While our multi-stage filtering, refinements to existing methodologies and automated dependency installation are designed for robustness at scale, they rely on heuristics and LLM-driven interpretations... our LLM-based approach to generating installation instructions from repository files (Qwen2.5-72B-Instruct, Section 2.2), while far more scalable than manual methods, was validated on a limited set of 18 repositories... the automated task quality assessment (Section 2.4)... cannot fully replicate nuanced human judgment... the fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue. This can lead to lower absolute success rates compared to manually curated benchmarks. Limited language diversity: The initial release of SWE-rebench is limited exclusively to Python"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "while our benchmark is intended to support transparency and standardization in evaluating SWE agents, it may also accelerate the development of increasingly autonomous AI systems in software engineering. This progress brings potential risks, such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities. We believe that fostering openness, decontaminated evaluations, and rigorous benchmarking practices helps mitigate these concerns and contributes to responsible advancement of the field."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we construct SWE-rebench, a public dataset comprising over 21,000 interactive Python-based SWE tasks, suitable for reinforcement learning of SWE agents at scale... For our collected tasks to be effectively used for reinforcement learning, they should possess certain properties... The LLM-generated labels for Issue Clarity, Task Complexity, and Test Patch Correctness are provided as metadata with each task instance. While this automated assessment is not perfect, these labels offer users a means to filter the dataset and select task instances according to their specific criteria."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This four-stage pipeline automates the collection and processing of interactive software engineering tasks. The process yields the SWE-rebench dataset of 21,336 annotated task instances, which is publicly available on Hugging Face Datasets... we maintain a private leaderboard based on this benchmark... Our future work will concentrate on several key areas: Expanding data coverage and volume... Improving task filtering pipeline... Support for new programming languages... Keeping SWE-rebench benchmark up-to-date: Maintaining evaluation process on fresh tasks for the existing models, evaluating a wider range of LLMs and sharing detailed performance analyses with the community."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The SWE-rebench benchmark subset, used for evaluating LLM-based agents as described in Section 3, is curated from the larger SWE-rebench dataset by applying a series of specific filtering criteria. These filters are designed to select tasks that are well-defined, of manageable complexity for current models, and ensure a consistent evaluation environment."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We enhanced mechanisms ensuring task validity compared to those used to build SWE-bench... We prioritize diffing head_commit (the last commit in the PR branch) against base_commit to generate patches, as this isolates changes made directly within the branch... Our refinement filters out deleted files from test directives... We run tests with full error output (tb=line) to accurately identify these cases... To ensure reproducibility, we freeze and record all dependency versions (using pip freeze and conda env export) after the first successful environment setup for a task"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.113,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 44422,
+        "tokens_in": 10522,
+        "tokens_out": 798
+      },
+      "collection": {
+        "section_chars": 54683,
+        "tokens_in": 16227,
+        "tokens_out": 720
+      },
+      "annotation": {
+        "section_chars": 15932,
+        "tokens_in": 5110,
+        "tokens_out": 608
+      },
+      "impact": {
+        "section_chars": 43151,
+        "tokens_in": 13306,
+        "tokens_out": 1304
+      },
+      "processing": {
+        "section_chars": 30457,
+        "tokens_in": 10712,
+        "tokens_out": 460
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

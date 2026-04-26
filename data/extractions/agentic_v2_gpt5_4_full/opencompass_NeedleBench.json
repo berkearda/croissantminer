@@ -1,0 +1,259 @@
+{
+  "dataset_id": "opencompass_NeedleBench",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "NeedleBench",
+    "description": "A comprehensive synthetic bilingual long-context benchmark/framework for evaluating LLM retrieval and reasoning across information-sparse and information-dense tasks with adaptive context lengths, including the Ancestral Trace Challenge.",
+    "url": "https://openreview.net/forum?id=cEvmIKsRw0",
+    "license": "MIT",
+    "creator": "Mo Li; Songyang Zhang; Taolin Zhang; Haodong Duan; Yunxin Liu; Kai Chen",
+    "publisher": "Transactions on Machine Learning Research",
+    "datePublished": "2025",
+    "inLanguage": "en, zh",
+    "citeAs": "Li, M., Zhang, S., Zhang, T., Duan, H., Liu, Y., & Chen, K. (2025). NeedleBench: Evaluating LLM Retrieval and Reasoning Across Varying Information Densities. Transactions on Machine Learning Research. Reviewed on OpenReview: https://openreview.net/forum?id=cEvmIKsRw0",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "NeedleBench is programmatically constructed using largely synthetic needles and generated ATC instances, with English filler text from PaulGrahamEssays and Chinese filler text from ChineseDomainModelingEval. ATC instances are generated algorithmically by sampling unique names, assigning relationship terms and templates, shuffling statements, and creating prompts and answers.",
+    "rai:dataCollectionType": "Software Collection, Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Synthetic, abstract, fictional statements and relational facts are used as needles; filler/haystack text comes from the PaulGrahamEssays dataset for English and the ChineseDomainModelingEval dataset for Chinese.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For information-sparse tasks, key data points are strategically inserted at various depths in long contexts; ATC relationship statements are randomly shuffled to eliminate positional bias; a context-length buffer is subtracted to avoid instruction truncation across tokenizers.",
+    "rai:dataPreprocessingProtocol": "Token lengths are measured using the GPT-4 tokenizer, and a buffer is subtracted from target context length to mitigate instruction truncation caused by tokenizer discrepancies across models.",
+    "rai:dataAnnotationProtocol": "Ground-truth labels/answers are generated automatically from predefined synthetic facts and the constructed family structure. Evaluation uses predefined core keywords for retrieval tasks and exact-match on answers in \\boxed{...} format for reasoning tasks. Additionally, approximately 10% of ATC errors were manually annotated for error analysis.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors manually annotated about 10% of ATC errors and categorized them into under-thinking, partial understanding, instruction following, repetitive output, hallucination, and other errors. They also analyzed output-format compliance and false error rates for small models.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4 tokenizer",
+    "rai:dataReleaseMaintenancePlan": "All reproducible scripts, code, and datasets will be made available upon publication; all codes and resources are publicly available at OpenCompass.",
+    "rai:personalSensitiveInformation": "Language (English and Chinese); synthetic names and familial relationships are included, with notes that gender consistency of names should be ignored.",
+    "rai:dataSocialImpact": "The benchmark is intended to provide critical insights and targeted evaluation tools for understanding and improving long-context capabilities of LLMs, especially for real-world applications such as legal document retrieval, academic research, and business intelligence.",
+    "rai:dataBiases": "Realistic benchmarks may suffer from data contamination and memorization due to overlap with pretraining data; NeedleBench uses synthetic tasks to mitigate this. The benchmark also notes cross-lingual performance gaps between English and Chinese and addresses positional bias by shuffling ATC statements.",
+    "rai:dataLimitations": "Because NeedleBench is synthetic, it may not fully reflect the complexity of real-world tasks. The paper also notes that realistic benchmarks may be saturated and confounded by memorization, while current models still struggle with integrating scattered evidence in long contexts.",
+    "rai:dataUseCases": "Evaluation/benchmarking of LLM long-context retrieval and reasoning, including bilingual assessment across information-sparse and information-dense tasks and adaptive context lengths."
+  },
+  "usage": {
+    "input_tokens": 64985,
+    "output_tokens": 2465
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:18:16.824631Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address these limitations, we introduce NeedleBench, a comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks with adaptive context lengths"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address the limitations of existing long-context evaluation methods, we present NeedleBench, a dataset framework that encompasses both information-sparse and information-dense tasks. NeedleBench is designed to provide a comprehensive, targeted assessment of models’ abilities to extract, analyze, and reason over long texts."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Reviewed on OpenReview:https: // openreview. net/ forum? id= cEvmIKsRw0"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mo Li ... Tsinghua University Shanghai AI Laboratory; Songyang Zhang ... Shanghai AI Laboratory; Taolin Zhang ... Tsinghua University Shanghai AI Laboratory; Haodong Duan ... Shanghai AI Laboratory; Yunxin Liu ... Tsinghua University; Kai Chen ... Shanghai AI Laboratory"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Leaming Research (09/2025)"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Leaming Research (09/2025)"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Comprehensive Bilingual Long-Context Benchmark: We introduce NeedleBench, a customizable framework for evaluating bilingual long-context capabilities of LLMs"
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All reproducible scripts, code, and datasets will be made available upon publication."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench addresses this dilemma by programmatically constructing tasks across a spectrum of information densities... In NeedleBench tasks, both the “needles” (key information units) and the “haystack” (background or filler content) are carefully constructed... The needles are synthetic, abstract, and fictional statements or relational facts... The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b)... The ATC task employs a systematic algorithmic approach to generate synthetic family relationship datasets."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench addresses this dilemma by programmatically constructing tasks across a spectrum of information densities... The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The needles are synthetic, abstract, and fictional statements or relational facts... The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b)"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our benchmark supports flexible context lengths (4k, 8k, 32k, 128k, 200k, 1000k, and beyond), allowing strategic insertion of key data points at various depths... Rshuffled ← Randomly shuffle R ▷ Eliminate positional bias... we subtract a buffer from the target context length when generating each input"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Token lengths are measured using the GPT-4 tokenizer. To mitigate the risk of instruction truncation... we subtract a buffer from the target context length when generating each input."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each instance, a predefined set of core keywords is used to determine whether the model prediction sufficiently captures the essential content... For the information-dense ATC task, we use an exact match (EM) metric based on the model’s ability to output the correct answer in the required format \\boxed{...} ... we manually annotated approximately 10% of the observed errors from the ATC task"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we manually annotated approximately 10% of the observed errors from the ATC task... The main error types identified in our analysis are summarized in Table 4... Table 10 presents the detailed results for these two models. The “false error rate” is defined as the proportion of cases where the model’s answer is actually correct... but is marked as wrong only because the output does not follow the required \\boxed{...} format"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Token lengths are measured using the GPT-4 tokenizer"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All codes and resources are publicly available at OpenCompass... All reproducible scripts, code, and datasets will be made available upon publication."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Comprehensive Bilingual Long-Context Benchmark... for English tasks... for Chinese tasks... Notes: 1. You do not need to worry about the gender consistency of names in this test. For example, a name that is typically considered feminine can still be the father of another person."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench thus provides critical insights and targeted evaluation tools essential for understanding and improving the long-context capabilities of LLMs... LLMs can rapidly identify and summarize relevant information within lengthy documents, making them invaluable for legal document retrieval, academic research, and aggregating business intelligence"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "real-world text benchmarks like LongBench v2... risk evaluating memorization due to potential pre-training data overlap... The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data... Rshuffled ← Randomly shuffle R ▷ Eliminate positional bias... Across most evaluated models, there is generally a performance gap between English and Chinese"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Future work can include... expanding NeedleBench to cover more diverse and realistic information-dense scenarios, since NeedleBench is a synthetic benchmark and may not fully reflect the complexity of real-world tasks... These findings demonstrate that synthetic tasks, though less “realistic” in content, are necessary for valid and robust evaluation"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce NeedleBench, a customizable framework for evaluating bilingual long-context capabilities of LLMs across multiple length intervals, covering both information-sparse and information-dense tasks."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.1059,
+    "split": "dev",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 32.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

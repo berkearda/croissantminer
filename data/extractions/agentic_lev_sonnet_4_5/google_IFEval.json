@@ -1,0 +1,279 @@
+{
+  "dataset_id": "google_IFEval",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "IFEval",
+    "description": "IFEval is a straightforward and easy-to-reproduce evaluation benchmark that focuses on a set of 'verifiable instructions' such as 'write in more than 400 words' and 'mention the keyword of AI at least 3 times'. It contains 25 types of verifiable instructions and around 500 prompts, with each prompt containing one or more verifiable instructions.",
+    "url": "https://github.com/google-research/google-research/tree/master/instruction_following_eval",
+    "license": "Apache-2.0",
+    "creator": "Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Siddhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, Le Hou",
+    "publisher": "Google",
+    "datePublished": "2023-11",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Prompts were generated through a four-step process: (1) generating base prompts with 1-3 randomly selected verifiable instructions, (2) using few-shot prompting to identify and remove illogical prompts, (3) applying few-shot prompting to rephrase prompts for diversity, and (4) manually checking and editing each rephrased prompt. The dataset contains 541 prompts with 25 types of verifiable instructions.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Base prompts were generated with verifiable instructions appended. The raw data consists of 25 types of verifiable instructions (such as 'write in more than 400 words' and 'mention the keyword of AI at least 3 times') that were used to construct around 500 prompts, with each prompt containing one or more verifiable instructions.",
+    "rai:dataCollectionTimeframe": "Model responses were collected in August 2023 (PaLM 2 S) and November 2023 (GPT-4)",
+    "rai:dataAnnotationProtocol": "Prompts were generated through a four-step process: (1) base prompts with 1-3 randomly selected verifiable instructions were generated, (2) few-shot prompting was used to identify and remove illogical prompts, (3) few-shot prompting was applied to rephrase prompts for diversity, and (4) manual checking and editing of all rephrased prompts was performed",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The verification process acknowledges false negatives and implements a loose accuracy metric using eight transformation functions (including removing markdown modifiers, removing first/last lines) to reduce false negatives, though this may introduce false positives",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Few-shot prompting was used for identifying illogical prompts and rephrasing prompts during the prompt synthesis process. Verification is performed using deterministic programs with simple heuristics",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset focuses on verifiable instructions which can be objectively verified, but very few instructions are 100% verifiable objectively and automatically - there always exist edge cases where it is hard to determine if an instruction is followed. The verification approach may yield false negatives in some cases, and the loose criterion may introduce false positives.",
+    "rai:dataSocialImpact": "The capability of LLMs to accurately interpret and follow natural language instructions is crucial for the safety and reliability of their implementations. Discrepancies or misunderstandings in following instructions can lead to unintended outputs, which might have dire results, especially in crucial scenarios like healthcare or autonomous systems.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for evaluating the instruction-following ability of large language models using prompts containing verifiable instructions. It provides a standardized and scalable evaluation approach for assessing how well LLMs can follow natural language instructions.",
+    "rai:dataReleaseMaintenancePlan": "The code and data are released on GitHub. Future work plans include improving the prompts and verifiable instructions to make them more related to real-world applications, expanding with more verifiable instructions, and adding support for multi-modal use cases.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Prompts were generated through four steps: (1) base prompts with 1-3 randomly selected verifiable instructions appended, (2) few-shot prompting to identify and remove illogical prompts, (3) few-shot prompting to rephrase prompts for diversity, (4) manual checking and editing of rephrased prompts. Each verifiable instruction has multiple variants in terms of parameters and phrasing.",
+    "rai:dataPreprocessingProtocol": "Responses were transformed using eight transformation functions to reduce false negatives in verification: (1) removing markdown font modifiers (* and **), (2) removing first line, (3) removing last line, plus combinations of these transformations and an identity transformation."
+  },
+  "usage": {
+    "input_tokens": 76149,
+    "output_tokens": 2973
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:30.402622Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Instruction-Following Eval (IFEval) for large language models"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "IFEval is a straightforward and easy-to-reproduce evaluation benchmark. It focuses on a set of 'verifiable instructions' such as 'write in more than 400 words' and 'mention the keyword of AI at least 3 times'. We identified 25 types of those verifiable instructions and constructed around 500 prompts, with each prompt containing one or more verifiable instructions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our code and data can be found at https://github.com/google-research/google-research/tree/master/instruction_following_eval"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jeffrey Zhou§∗Tianjian Lu♮Swaroop Mishra♮Siddhartha Brahma♮ Sujoy Basu♮Yi Luan♮Denny Zhou♮Le Hou♮†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "♮Google§Yale University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "November 15, 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Your entire response should be in English, capital letters only."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We further create a set of 541 prompts, with each prompt containing one or multiple verifiable instructions."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, we generate a set of base prompts with one to three randomly selected verifiable instructions appended to the end of each prompt. Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We identified 25 types of those verifiable instructions and constructed around 500 prompts, with each prompt containing one or more verifiable instructions."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We scrapped GPT-4 and PaLM 2 S responses in November and August of 2023, respectively, through API calls."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, we generate a set of base prompts with one to three randomly selected verifiable instructions appended to the end of each prompt. Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Even though we can verify if an instruction is followed using simple heuristics and programming, we found that there are still false negatives... To alleviate this false negative problem, we compute a loose accuracy score of instruction following... Although this loose instruction-following verification process reduces false negatives, it is likely to introduce false positives."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt... one can use a simple, interpretable, and deterministic program to verify if corresponding responses follow the instructions or not... we can verify if an instruction is followed using simple heuristics and programming"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It is important to note that while we focus on verifiable instructions, very few instructions are 100% verifiable objectively and automatically – there always exist edge cases where it is hard to determine if an instruction is followed... Although this loose instruction-following verification process reduces false negatives, it is likely to introduce false positives."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The capability of LLMs to accurately interpret and follow natural language instructions is crucial, not only for the precision of tasks but also for the safety and reliability of their implementations. Discrepancies or misunderstandings in following instructions can lead to unintended outputs, which might have dire results, especially in crucial scenarios like healthcare or autonomous systems."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce IFEval, a new approach for evaluating the proficiency of language models in instruction following... We propose IFEval: Instruction-Following Eval, a benchmark to evaluate the instruction following ability of LLMs using a set of prompts containing verifiable instructions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our code and data can be found at https://github.com/google-research/google-research/tree/master/instruction_following_eval... As part of our future work, we plan to improve the prompts and verifiable instructions, to make them more related to real-world applications. In addition, we plan to expand our approach with more verifiable instructions, and the support of multi-modal use cases."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We alleviate these problems by creating our prompts through four steps. First, we generate a set of base prompts with one to three randomly selected verifiable instructions appended to the end of each prompt. Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We transform each response using every of the following transformation functions: 1. Remove commonly seen font modifiers in the markdown syntax, especially '*' and '**'. 2. Remove the first line of the response, so that we skip intros like 'Sure, here it is:'. 3. Remove the last line of the response, so that we skip outros like 'Hope it helps.' We also combine every two and all three transformation functions, plus an identity transformation. Thus, there are in total of eight transformations."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1365,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 39338,
+        "tokens_in": 11311,
+        "tokens_out": 657
+      },
+      "collection": {
+        "section_chars": 60000,
+        "tokens_in": 16237,
+        "tokens_out": 542
+      },
+      "annotation": {
+        "section_chars": 60000,
+        "tokens_in": 16227,
+        "tokens_out": 603
+      },
+      "impact": {
+        "section_chars": 60000,
+        "tokens_in": 16280,
+        "tokens_out": 700
+      },
+      "processing": {
+        "section_chars": 60000,
+        "tokens_in": 16094,
+        "tokens_out": 471
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

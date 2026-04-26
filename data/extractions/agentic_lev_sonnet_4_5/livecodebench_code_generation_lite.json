@@ -1,0 +1,280 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "A comprehensive and contamination-free benchmark for evaluating Large Language Models on code-related tasks, collecting new problems over time from programming contests across LeetCode, AtCoder, and CodeForces. It evaluates models on code generation, self-repair, code execution, and test output prediction scenarios.",
+    "url": "https://livecodebench.github.io/",
+    "license": "cc",
+    "creator": "Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida I. Wang, Armando Solar-Lezama, Koushik Sen, Ion Stoica",
+    "publisher": "UC Berkeley, MIT, Cornell",
+    "datePublished": "2024-03",
+    "inLanguage": null,
+    "citeAs": "@Article{Jain2024LiveCodeBenchHA,\n author = {Naman Jain and King Han and Alex Gu and Wen-Ding Li and Fanjia Yan and Tianjun Zhang and Sida Wang and Armando Solar-Lezama and Koushik Sen and Ion Stoica},\n booktitle = {International Conference on Learning Representations},\n journal = {ArXiv},\n title = {LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code},\n volume = {abs/2403.07974},\n year = {2024}\n}\n",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Problems were collected from three coding competition websites (LeetCode, AtCoder, and CodeForces) using HTML scrapers. For each problem, tuples of natural language problem statement, test cases, and ground truth solutions were collected along with contest dates. Mathematical formulas were parsed and problems with images or those not suitable for input-output grading were excluded. Tests were collected from platform websites when available; otherwise, GPT-4-Turbo was used to generate tests using in-context learning to construct input generators. For code execution scenarios, approximately 2000 correct human-submitted solutions were collected from LeetCode and filtered using compile-time and run-time criteria.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data consists of problems from coding competition websites including natural language problem statements, test cases (both public and hidden when available), ground truth solutions, contest dates, difficulty ratings, and starter code (for LeetCode). For code execution scenarios, human-submitted correct solutions from LeetCode were collected. For test output prediction, example test inputs from LeetCode problems were used.",
+    "rai:dataCollectionTimeframe": "May 2023 to May 2024",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo for test generation using in-context learning to construct generators that sample inputs based on problem specifications",
+    "rai:dataBiases": "The benchmark may exhibit contamination bias where models trained on older competition problems show artificially inflated performance. Specific models (DeepSeek, GPT-4-O, Codestral) show performance drops on problems released after their training cutoff dates, indicating potential training data contamination.",
+    "rai:dataLimitations": "Competition programming problems are challenging for even best-performing LLMs, with most current SoTA models achieving close to zero performance on a majority of problems. This can result in low variance in performances, making meaningful comparisons difficult. The benchmark focuses primarily on Python programming and may not generalize to other programming languages.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The benchmark is designed for evaluating LLMs across multiple code-related scenarios including code generation, self-repair (debugging code from feedback), code execution (program comprehension), and test output prediction. It is intended for holistic evaluation of coding capabilities beyond just natural language-to-code generation tasks.",
+    "rai:dataReleaseMaintenancePlan": "LiveCodeBench is continuously updated with new problems from weekly contests on competition platforms (LeetCode, AtCoder, CodeForces). Problems are tagged with release dates from May 2023 onwards. The benchmark is an extensible framework that will keep updating with new problems, scenarios, and models. All prompts and model completions will be released for community analysis along with a general toolkit for adding new scenarios and models.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Problems are filtered by difficulty ratings to exclude problems above certain thresholds that are too difficult for models. Problems are classified into Easy, Medium, and Hard categories based on platform-specific rating brackets. For LeetCode: Easy [unspecified], Medium [unspecified], Hard [unspecified]; for AtCoder: Easy [0-200), Medium [200-400), Hard [400-500]; for CodeForces: Easy {800}, Medium (800-1000], Hard (1000-1300]. Problems with images, multiple correct answers, or requiring data structure construction are excluded. For Code Execution scenario, compile-time and run-time filters are applied to ensure samples are reasonable.",
+    "rai:dataPreprocessingProtocol": "HTML scrapers collect problems and metadata from competition websites (LeetCode, AtCoder, CodeForces). Mathematical formulas are parsed and problems with images are excluded. Problems not suitable for input-output grading are excluded. For each problem, tuples of natural language problem statement P, test cases T, and ground truth solution S are collected. Contest date D is associated as release date. For LeetCode, starter code is collected and provided in STDIN format. Tests are collected from platforms when available; otherwise, GPT-4-Turbo generates tests using input generators based on problem specifications via in-context learning. For Code Execution, correct human-submitted solutions are collected from LeetCode and filtered. For Test Case Output Prediction, example test inputs from problem statements are used."
+  },
+  "usage": {
+    "input_tokens": 31187,
+    "output_tokens": 3063
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:35.317959Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose LiveCodeBench, a comprehensive and contamination-free evaluation of LLMs for code"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose LiveCodeBench, a comprehensive and contamination-free evaluation of LLMs for code, which collects new problems over time from contests across three competition platforms, namely LeetCode, AtCoder, and CodeForces. Notably, our benchmark also focuses on a broader range of code-related capabilities, such as self-repair, code execution, and test output prediction, beyond just code generation."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Website: https://livecodebench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Naman Jain†King Han†Alex Gu*$Wen-Ding Li*‡ Fanjia Yan*†Tianjun Zhang*†Sida I. Wang Armando Solar-Lezama$Koushik Sen†Ion Stoica†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "†UC Berkeley$MIT‡Comell"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2403.07974v2 [cs.SE] 6 Jun 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we build LiveCodeBench, a continuously updated benchmark that avoids data contamination. Particularly, we have collected 511 problems from contests across three competition platforms – LeetCode, AtCoder, and CodeForces occurring from May 2023 to the present (May 2024)"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata... for each problem, we collect tuples of natural language problem statement P, test cases T, and ground truth solution S... We collect tests available on platform websites whenever possible and use them for the benchmark. Otherwise, following Liu et al. (2023b), we use a LLM (here GPT-4-Turbo) to generate tests for the problems... we collect a large pool of ∼2000 correct, human-submitted solutions from the LeetCode subset."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "for each problem, we collect tuples of natural language problem statement P, test cases T, and ground truth solution S... For each problem, we collect the problems, public tests, and user solutions. The platform also provides a difficulty label for each problem... AtCoder provides public and hidden tests for each problem... we collect a large pool of ∼2000 correct, human-submitted solutions from the LeetCode subset."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Currently, LiveCodeBench hosts over five hundred coding problems that were published between May 2023 and May 2024... We collect problems from all weekly and biweekly contests on LeetCode that have taken place after April'23... We collect problems from the abc (beginner round) contests on AtCoder that have taken place after April'23."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "we use a LLM (here GPT-4-Turbo) to generate tests for the problems. A key difference between our test generation approach is that instead of generating inputs directly using the LLM, we construct generators that sample inputs based on the problem specifications using in context learning."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We observe a stark drop in the performance of DeepSeek, GPT-4-O, and Codestral on LeetCode problems released after Aug 2023, Oct 2023, and Jan 2024 (Figure 1). These results highlight likely contamination in older problems and time-segmented evaluations prove effective for performing fair comparisons."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Competition programming is challenging for even the best-performing LLMs, and most of the current SoTA models achieve close to zero performance on a majority of problems. As a result, they can be unsuitable for meaningful comparing today's LLMs because the variance in performances is low."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In LiveCodeBench, we evaluate code LLMs on three additional scenarios, listed below. • Self-Repair. Fix an incorrect program from execution information, evaluating the ability to debug code from feedback. • Code Execution. 'Execute' a program on an input, evaluating code comprehension ability. • Test Output Prediction. Solve the natural language task on a specified input, evaluating the ability to generate testing outputs."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LiveCodeBench is an extensible framework, that will keep on updating with new problems, scenarios, and models... We will release all prompts and model completions for further community analysis, along with a general toolkit for adding new scenarios and models... we have collected 511 problems from contests across three competition platforms – LeetCode, AtCoder, and CodeForces occurring from May 2023 to the present (May 2024)"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collect problems of diverse difficulties as labeled in competition platforms, excluding problems that are rated above a certain threshold that are likely too difficult for even the best models... we use these ratings to classify problems as Easy, Medium, and Hard for more granular model comparisons... We deliberately avoid the more challenging arc and agc contests... we exclude abc problems with a rating of more than 500... we apply compile-time and run-time filters to ensure samples are reasonable"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata. To ensure quality and consistency, we parse mathematical formulas and exclude problems with images. We also exclude problems that are not suitable for grading by input-output examples... we collect tuples of natural language problem statement P, test cases T, and ground truth solution S... we use a LLM (here GPT-4-Turbo) to generate tests for the problems... we construct generators that sample inputs based on the problem specifications using in context learning"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 19,
+      "evidence_count": 18,
+      "evidence_coverage": 90.0,
+      "avg_confidence": 0.902
+    },
+    "cost_usd": 0.0698,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20899,
+        "tokens_in": 5665,
+        "tokens_out": 686
+      },
+      "collection": {
+        "section_chars": 25404,
+        "tokens_in": 8208,
+        "tokens_out": 694
+      },
+      "annotation": {
+        "section_chars": 10029,
+        "tokens_in": 3394,
+        "tokens_out": 274
+      },
+      "impact": {
+        "section_chars": 21156,
+        "tokens_in": 7301,
+        "tokens_out": 783
+      },
+      "processing": {
+        "section_chars": 21765,
+        "tokens_in": 6619,
+        "tokens_out": 626
+      }
+    },
+    "enrichments": [
+      "license",
+      "citeAs"
+    ]
+  }
+}

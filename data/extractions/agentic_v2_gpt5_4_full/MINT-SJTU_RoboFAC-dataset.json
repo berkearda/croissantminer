@@ -1,0 +1,257 @@
+{
+  "dataset_id": "MINT-SJTU_RoboFAC-dataset",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "RoboFAC dataset",
+    "description": "A large-scale and diverse dataset for question-answering on robot failure videos, containing erroneous and successful manipulation trajectories with multi-dimensional QA annotations for task understanding, failure analysis, and failure correction.",
+    "url": "https://github.com/MINT-SJTU/RoboFAC",
+    "license": null,
+    "creator": "Weifeng Lu; Minghao Ye; Zewei Ye; Ruihan Tao; Shuo Yang; Bo Zhao",
+    "publisher": null,
+    "datePublished": "2025-05-25",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was collected in both simulation and real-world settings. In simulation, the authors collected data for 14 robotic tasks in ManiSkill, augmented with YCB objects and ReplicaCAD and AI2-THOR scenes. They defined expert policies and then injected erroneous code snippets at selected substages to generate failure trajectories, recording each failure video with a textual description. In the real world, they collected data for 6 tasks via teleoperation using the SO-100 robotic arm, also pairing each video with a textual description. They additionally collected successful trajectories to reduce overfitting to failure patterns.",
+    "rai:dataCollectionType": "Experiments, Software Collection, Manual Human Curator, Direct measurement",
+    "rai:dataCollectionMissingData": "The paper states that motion planning for the robotic arm occasionally failed, resulting in trajectories that did not align with the corresponding textual descriptions. The authors manually performed thorough data cleaning and retained approximately 75% of the collected data.",
+    "rai:dataCollectionRawData": "Raw data consists of robot manipulation videos and corresponding textual descriptions from simulation and real-world executions. Simulation data came from ManiSkill with YCB objects and ReplicaCAD and AI2-THOR scenes; real-world data came from teleoperated SO-100 robotic arm tasks.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Failure trajectories were created by replacing the original expert policy with erroneous code snippets at selected substages to induce task failure. The dataset also introduced variations in backgrounds and camera viewpoints to increase visual diversity.",
+    "rai:dataPreprocessingProtocol": "The authors manually cleaned the collected simulation data because motion planning sometimes failed and produced trajectories inconsistent with the textual descriptions; they retained approximately 75% of the collected data.",
+    "rai:dataAnnotationProtocol": "The raw videos were annotated into video-based QA samples for eight question types. For each question type, five templates were provided. Reference answers for task identification, task planning, failure detection, failure identification, and failure locating were directly extracted from the textual descriptions. For failure explanation, high-level correction, and low-level correction, GPT-4o generated reference answers using both the video and textual description, and all GPT-4o outputs were manually reviewed and corrected.",
+    "rai:dataAnnotationPlatform": "GPT-4o",
+    "rai:dataAnnotationAnalysis": "GPT-4o-generated annotations for failure explanation and correction were manually reviewed and corrected to ensure annotation quality.",
+    "rai:annotationsPerItem": "8 question-answer pairs per video sample across eight question types",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4o",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset and model are intended to improve robotic failure handling and recovery, enabling more robust and transparent deployment of vision-language models in challenging robotic manipulation scenarios.",
+    "rai:dataBiases": "The authors note a risk of models overfitting to failure patterns and mitigate this by collecting successful trajectories in addition to failure trajectories.",
+    "rai:dataLimitations": "The current integration of RoboFAC correction suggestions into VLA-controlled robotic systems is not yet seamless. The work applies the model exclusively to VLA models, and success rates are still limited partly because the VLA model has limited ability to follow complex natural language instructions.",
+    "rai:dataUseCases": "The dataset is used to train and evaluate models for robotic failure video understanding, including task understanding, failure analysis, and failure correction. The authors construct training and testing splits from RoboFAC data, using 60K simulated QA pairs for training and the remaining simulated and real-world QA pairs for evaluation."
+  },
+  "usage": {
+    "input_tokens": 36642,
+    "output_tokens": 2611
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:37:15.968420Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Firstly, we construct RoboFAC dataset comprising 9,440 erroneous manipulation trajectories and 78,623 QA pairs across 16 diverse tasks and 53 scenes in both simulation and real-world environments."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this section, we introduce the RoboFAC dataset, which is a large-scale and diverse dataset for question-answering on robot failure videos. ... Our dataset is labeled with multi-dimensional information, comprising eight question types and totaling 78K video-question-answer (QA) pairs."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our model and dataset are publicly available at https://github.com/MINT-SJTU/RoboFAC ."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Weifeng Lu∗1,2Minghao Ye∗1,3Zewei Ye∗1Ruihan Tao1Shuo Yang3Bo Zhao†1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2505.12224v3 [cs.RO] 25 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct the training and testing datasets from our collected RoboFAC data. Specifically, we randomly sample 60K QA pairs from the simulated RoboFAC dataset as the training set. The remaining QA pairs are used for evaluation, including 10K simulated QA pairs and 8K QA pairs from real-world data."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect the simuluation data for 14 robotic tasks in the ManiSkill environment [25], augmented with objects from the YCB Object Dataset [26] to increase object diversity and scenes from ReplicaCAD [27] and AI2-THOR [28] to enrich environmental diversity. ... To generate failure data, we replace the original expert policy with a code snippet that generates an erroneous trajectory at the selected substage, causing the overall robotic task to fail. During data collection, we record each robotic failure video along with a corresponding descriptive text. ... Real-World Data. We collected real-world data for 6 tasks... Data collection is performed via teleoperation using the SO-100 robotic arm. As with the simulation data, each video is accompanied by a corresponding textual description. ... To prevent models from overfitting to failure pattems, we also collect 1,160 successful trajectories from simulation and 122 successful trajectories from real-world executions."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect the simuluation data for 14 robotic tasks in the ManiSkill environment [25]... To generate failure data, we replace the original expert policy with a code snippet that generates an erroneous trajectory... Given the motion planning for the robotic arm occasionally failed... we manually performed thorough data cleaning... Real-World Data. We collected real-world data for 6 tasks... Data collection is performed via teleoperation using the SO-100 robotic arm."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During data collection, we record each robotic failure video along with a corresponding descriptive text. ... Real-World Data. We collected real-world data for 6 tasks... Data collection is performed via teleoperation using the SO-100 robotic arm. As with the simulation data, each video is accompanied by a corresponding textual description."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To generate failure data, we replace the original expert policy with a code snippet that generates an erroneous trajectory at the selected substage, causing the overall robotic task to fail. ... To account for the diversity of deployment settings in real-world robotics, we introduce variations in backgrounds and camera viewpoints."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given the motion planning for the robotic arm occasionally failed, resulting in trajectories that did not align with the corresponding textual descriptions, we manually performed thorough data cleaning and retained approximately 75% of the collected data."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We annotate the raw data to construct video-based QA samples corresponding to eight question types... For each question type, we provide five question templates. ... For each sample, the reference answer is generated based on the textual description associated with the video. For five question types— task identification ,task planning ,failure detection ,failure identification , and failure locating —the reference answers can be directly extracted from the corresponding textual description... For the remaining three types— failure explanation ,high-level correction , and low-level correction —we utilize both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers... To ensure annotation quality, all outputs from GPT-4o were manually reviewed and corrected."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the remaining three types— failure explanation ,high-level correction , and low-level correction —we utilize both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure annotation quality, all outputs from GPT-4o were manually reviewed and corrected."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We annotate the raw data to construct video-based QA samples corresponding to eight question types... We provide detailed video question-answer annotations for eight distinct question types."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the remaining three types— failure explanation ,high-level correction , and low-level correction —we utilize both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This enables more robust and transparent deployment of vision-language models in diverse and challenging robotic manipulation scenarios."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To prevent models from overfitting to failure pattems, we also collect 1,160 successful trajectories from simulation and 122 successful trajectories from real-world executions."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although we have demonstrated that the RoboFAC model’s correction suggestions can effectively assist the VLA model in recovering from failures, our current integration of the model into the VLA-controlled robotic system is not yet seamless. ... Moreover, apply our model exclusively to the VLA model in this work. ... Despite these improvements, the success rate remains subject to further enhancement, largely due to the VLA model’s limited ability to follow complex natural language instructions."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Based on this dataset, we establish a comprehensive evaluation benchmark that assesses multimodal models’ capabilities in robotic failure video understanding. ... We construct the training and testing datasets from our collected RoboFAC data. Specifically, we randomly sample 60K QA pairs from the simulated RoboFAC dataset as the training set. The remaining QA pairs are used for evaluation, including 10K simulated QA pairs and 8K QA pairs from real-world data."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.943
+    },
+    "cost_usd": 0.0719,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 35.4,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "dataset_id": "EleutherAI_lambada_openai",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "A dataset for evaluating computational models' text understanding via a word prediction task using narrative passages where the last word is guessable by humans only when given the broader discourse context.",
+    "url": "https://huggingface.co/datasets/EleutherAI/lambada_openai",
+    "license": "MIT",
+    "creator": "Denis Papemo, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bemardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Fernández",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "LAMBADA was built by selecting narrative passages from a corpus of test novels, with passages filtered so that humans could guess the last word when given the full passage but not when given only the final sentence. A control set was also created by randomly sampling 5K similar passages from the same novels without filtering.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Narrative passages from novels/test novels, with target final words in context; additionally, similar-shaped passages were extracted from training novels.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human annotation was conducted via a three-step crowdsourcing protocol to filter passages: one subject guessed the target word from the full passage; if correct, a second subject also guessed from the full passage; if also correct, additional subjects guessed from the target sentence alone until the word was guessed or 10 unsuccessful guesses were reached. Items were included only if two full-passage annotators exactly matched the word and no sentence-only annotator could guess it; sentence-only annotators were allowed 3 guesses, and the same subject could not judge the same item in both conditions.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "The paper reports filtering outcomes and strict validation criteria rather than inter-annotator agreement metrics: 84–86% of items were discarded at step 1, 6–7% at step 2, and 3–5% at step 3; only about 1 in 25 examples passed all steps. A pilot study informed the addition of step 2 to ensure items were easy with discourse context but not local context.",
+    "rai:annotationsPerItem": "At least 2 full-passage annotations per retained item, plus up to 10 sentence-only annotations; sentence-only annotators could make 3 guesses each.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "A combination of four language models was used to pre-filter passages before human annotation: a pre-trained RNN, a 4-gram model, an RNN, and a feed-forward model.",
+    "rai:dataBiases": "The dataset is biased toward passages where the target word is strongly cued by broader discourse, often appearing in the context, and it over-represents proper nouns while under-representing other parts of speech.",
+    "rai:dataLimitations": "The dataset mainly captures cases where broad context strongly cues the answer, with many targets recoverable through co-reference and noun-focused phenomena; verbs, adjectives, and adverbs are rare because many such items can be guessed from local sentence context alone.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The passages are drawn from novels and may include personal or sensitive human attributes in text, such as references to health or reproductive topics.",
+    "rai:dataUseCases": "The dataset is intended as a benchmark to evaluate computational models and language modeling architectures on text understanding and the ability to use broad discourse context for word prediction. It includes training data from disjoint novels and separate development and test passages.",
+    "rai:dataReleaseMaintenancePlan": "The development set and training corpus are available for download, while the test set is planned for release at the time of a public competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": null
+  },
+  "usage": {
+    "input_tokens": 15849,
+    "output_tokens": 2183
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:32:50.594772Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce the LAMBADA dataset ( LAnguage Modeling Broadened to Account for Discourse Aspects)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce LAMBADA, a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task. LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Denis Papemo, Germ ´an Kruszewski, Angeliki Lazaridou, Quan Ngoc Phamy, Raffaella Bemardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Fem ´andezz"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1606.06031v1 [cs.CL] 20 Jun 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the target item is difficult to guess (for English speakers)"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thus propose LAMBADA as a challenging test set"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word.” and “This control set was constructed by randomly sampling 5K passages of the same shape and size as the ones used to build LAMBADA from the same test novels, but without filtering them in any way.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This control set was constructed by randomly sampling 5K passages ... from the same test novels” and “using the LAMBADA training data ... as input corpus.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“LAMBADA is a collection of narrative passages” and “from the same test novels” and “we extracted from the training novels similar-shaped passages to those in LAMBADA”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“A random sample of the remaining passages were then evaluated by human subjects through the CrowdFlower crowdsourcing service in three steps... 1. one human subject guessed the target word based on the whole passage... 2. a second subject guessed the target word based on the whole passage... 3. more subjects tried to guess the target word based on the target sentence only, until the word was guessed or the number of unsuccessful guesses reached 10; if no subject was able to guess the target word, the passage was added to the LAMBADA dataset.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“evaluated by human subjects through the CrowdFlower crowdsourcing service”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“In the crowdsourcing pipeline, 84–86% items were discarded at step 1, an additional 6–7% at step 2 and another 3–5% at step 3. Only about one in 25 input examples passed all the selection steps.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a second subject guessed the target word based on the whole passage... more subjects tried to guess the target word based on the target sentence only, until the word was guessed or the number of unsuccessful guesses reached 10... The subjects in step 3 were allowed 3 guesses per sentence”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To reduce time and cost of dataset collection, we filtered out passages that are relatively easy for standard language models... We used a combination of four language models... a pre-trained recurrent neural network (RNN) ... and three models trained on the Book Corpus (a standard 4-gram model, a RNN and a feed-forward model).”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"More than 80% of LAMBADA passages include the target word in the context\" and \"proper nouns are hugely over-represented in LAMBADA, while the other categories are under-represented\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"in order for the target word to be predictable in a broad context only, it must be strongly cued in the broader discourse\" and \"verbs, adjectives, and adverbs are rare in LAMBADA\""
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"the missing word is miscarriage\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We introduce LAMBADA, a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task\" and \"The training data for language models to be tested on LAMBADA include the full text of 2,662 novels (disjoint from those in dev+test)\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The development set of LAMBADA, along with the training corpus, can be downloaded\" and \"The test set will be made available at the time of the competition\""
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 19,
+      "evidence_coverage": 90.5,
+      "avg_confidence": 0.926
+    },
+    "cost_usd": 0.0416,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 8982,
+        "tokens_in": 2584,
+        "tokens_out": 491
+      },
+      "collection": {
+        "section_chars": 11024,
+        "tokens_in": 3175,
+        "tokens_out": 371
+      },
+      "annotation": {
+        "section_chars": 18046,
+        "tokens_in": 4555,
+        "tokens_out": 729
+      },
+      "impact": {
+        "section_chars": 12807,
+        "tokens_in": 3625,
+        "tokens_out": 515
+      },
+      "processing": {
+        "section_chars": 6379,
+        "tokens_in": 1910,
+        "tokens_out": 77
+      }
+    },
+    "enrichments": [
+      "license",
+      "url"
+    ],
+    "elapsed_seconds": 32.8
+  }
+}

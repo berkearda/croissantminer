@@ -1,0 +1,257 @@
+{
+  "dataset_id": "allenai_sciq",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "SciQ",
+    "description": "A dataset of 13,679 crowdsourced multiple choice science exam questions, with both multiple choice and direct-answer versions; most instances include the document used to formulate the question.",
+    "url": "http://allenai.org/data.html",
+    "license": "Creative Commons License",
+    "creator": "Johannes Welbl; Nelson F. Liu; Matt Gardner",
+    "publisher": null,
+    "datePublished": "2017",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was collected through a two-step crowdsourcing process. First, crowd workers selected one of three filtered textbook paragraphs and wrote a science question and correct answer based on it. Second, another worker validated the question and created three distractors, aided by model-generated distractor suggestions.",
+    "rai:dataCollectionType": "Manual Human Curator, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Science study textbooks from 28 books compiled from online learning resources including CK-12 and OpenStax; paragraphs from these books were filtered and shown to workers. Existing 4th and 8th grade science exam questions were also used to train the distractor model.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was randomly shuffled and split into training, validation, and test sets. A direct-answer subset was created by excluding questions whose passages came from unreleasable texts.",
+    "rai:dataPreprocessingProtocol": "Paragraphs from the textbook corpus were passed through a rule-based document filter that classified sentences as relevant or irrelevant and accepted a paragraph if a minimum number of sentences passed. The filter removed sentences based on lexical, grammatical, pragmatic, and complexity rules.",
+    "rai:dataAnnotationProtocol": "Crowd workers on Amazon Mechanical Turk generated question-answer pairs from selected textbook paragraphs, then separate workers validated whether questions were suitable for school science exams and selected up to two model-suggested distractors while writing at least one distractor themselves to make three total.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "The authors analyzed acceptance and validation outcomes during annotation: 12.1% of first-stage tasks rejected all three documents; 92.8% of questions passed second-stage validation; workers included predicted distractors about half the time, resulting in 36.1% of final distractors being model-generated.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": "Amazon Mechanical Turk workers with Master’s status; 175 workers participated in the crowdsourcing project.",
+    "rai:machineAnnotationTools": "A noisy classifier for relevant passage selection and a random forest distractor ranking model that suggested answer distractors.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset is intended to support research on science question answering and improve performance on real science exams by providing useful in-domain training data.",
+    "rai:dataBiases": "The base corpus choice shapes dataset characteristics: the authors rejected web search results as often commercial or irrelevant and Simple Wikipedia as too specific, instead using science study textbooks tailored to students.",
+    "rai:dataLimitations": "Some passages came from unreleasable texts, making the direct-answer version smaller. The distractor model quality was not high enough to use directly without human filtering, and long-answer cases had very low acceptance of predicted distractors.",
+    "rai:dataUseCases": "Training and evaluation for multiple choice science QA and direct-answer reading comprehension; also for augmenting training data for real 4th and 8th grade science exam question answering."
+  },
+  "usage": {
+    "input_tokens": 18383,
+    "output_tokens": 2492
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:50:36.392515Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Thus, with our methodology we leverage existing study texts and science questions to obtain new, relevant questions and plausible answer distractors. Consequently... With a total budget of $10,415, we collected 13,679 multiple choice science questions, which we call SciQ."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With a total budget of $10,415, we collected 13,679 multiple choice science questions, which we call SciQ. ... This dataset has a multiple choice version... and a direct answer version, where given a passage and a question a system must predict the span within the passage that answers the question. ... Most instances come with the document used to formulate the question."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset available at http://allenai.org/data.html"
+      },
+      "license": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Crowdsourcing Multiple Choice Science Questions Johannes Welbl ... Nelson F. Liu ... Matt Gardner"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1707.06209v1 [cs.HC] 19 Jul 2017"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper and all example questions are in English, e.g., “What type of organism is commonly used in preparation of foods such as cheese and yogurt?”"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have presented a method... Using this methodology, we have constructed a dataset of 13.7K science questions, called SciQ, which we release for future research."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this section we present our method for crowdsourcing science exam questions. The method is a two-step process: first we present a set of candidate passages to a crowd worker, letting the worker choose one of the passages and ask a question about it. Second, another worker takes the question and answer generated in the first step and produces three distractors, aided by a model trained to predict good answer distractors."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The method is a two-step process: first we present a set of candidate passages to a crowd worker... Second, another worker takes the question and answer generated in the first step and produces three distractors, aided by a model trained to predict good answer distractors."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We chose science study textbooks as our base corpus... we compiled a list of 28 books from various online learning resources, including CK-12 and OpenStax... The books are about biology, chemistry, earth science and physics... The model was then trained on a set of 3705 science exam questions (4th and 8th grade)."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We randomly shuffled this dataset and split it into training, validation and test portions, with 1000 questions in each of the validation and test portions, and the remainder in train. ... A small percentage of the passages were obtained from unreleasable texts, so the direct answer version of SciQ is slightly smaller, with 10481 questions in train, 887 in dev, and 884 in test."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We designed a rule-based document filter model into which individual paragraphs of the base corpus are fed. The system classifies individual sentences and accepts a paragraph if a minimum number of sentences is accepted. ... The final filter included lexical, grammatical, pragmatical and complexity based rules."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To actually generate in-domain QA pairs, we presented the filtered, in-domain text to crowd workers and had them ask a question that could be answered by the presented passage. ... To actually generate a multiple choice science question, we show the result of the first task, a (q;a*) pair, to a crowd worker, along with the top six distractors suggested from the previously described model. ... The second instruction was to select up to two of the six suggested distractors, and to write at least one distractor by themselves such that there is a total of three."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The task was advertised on Amazon Mechanical Turk, requiring Master’s status for the crowdworkers... We advertised the task on Amazon Mechanical Turk, paying 0.2$ per HIT, again requiring AMT Master’s status."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In 12.1% of the cases all three documents were rejected... The total proportion of questions passing was 92.8%. ... On average, crowd workers found the predicted distractors good enough to include in the final question around half of the time, resulting in 36.1% of the distractors in the final dataset being generated by the model."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The method is a two-step process: first we present a set of candidate passages to a crowd worker... Second, another worker takes the question and answer generated in the first step and produces three distractors..."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The task was advertised on Amazon Mechanical Turk, requiring Master’s status for the crowdworkers... A total of 175 workers participated in the whole crowdsourcing project."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use a two-step process to solve these problems, first using a noisy classifier to find relevant passages... Second, we use a model trained on real science exam questions to predict good answer distractors given a question and a correct answer. ... As classifier we chose a random forest."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also show that using SciQ as an additional source of training data improves performance on real 4th and 8th grade exam questions, proving that our method successfully produces useful in-domain training data."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Choosing a relevant, in-domain base corpus to inspire the questions is of crucial importance for the overall characteristics of the dataset. ... we observed that articles retrieved from web searches for science exam keywords... yield a significant proportion of commercial or otherwise irrelevant documents... Articles from science-related categories in Simple Wikipedia are more targeted and factual, but often state highly specific knowledge... We chose science study textbooks as our base corpus because they are directly relevant and linguistically tailored towards a student audience."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A small percentage of the passages were obtained from unreleasable texts, so the direct answer version of SciQ is slightly smaller... though the quality is not high enough to use them directly without additional filtering by crowd workers. ... Acceptance rates were higher in the case of short answers, with almost none accepted for the few cases with very long answers."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset has a multiple choice version... and a direct answer version... With experiments using recent state-of-the-art reading comprehension methods, we show that this is a useful dataset for further research. ... We also show that using SciQ as an additional source of training data improves performance on real 4th and 8th grade exam questions."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.943
+    },
+    "cost_usd": 0.0479,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 28.2,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

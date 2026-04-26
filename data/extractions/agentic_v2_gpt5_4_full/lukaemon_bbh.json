@@ -1,0 +1,259 @@
+{
+  "dataset_id": "lukaemon_bbh",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "BIG-Bench Hard (BBH)",
+    "description": "A curated subset of 23 particularly challenging BIG-Bench tasks (27 subtasks) for which prior reported model results did not outperform the average human-rater score, released with prompts and Codex outputs for evaluating answer-only and chain-of-thought prompting.",
+    "url": "https://github.com/suzgunmirac/BIG-Bench-Hard",
+    "license": null,
+    "creator": "Mirac Suzgun, Nathan Scales, Nathanael Schärli, Sebastian Gehrmann, Yi Tay, Hyung Won Chung, Aakanksha Chowdhery, Quoc V. Le, Ed H. Chi, Denny Zhou, Jason Wei",
+    "publisher": null,
+    "datePublished": "2022-10-17",
+    "inLanguage": "en",
+    "citeAs": "@Article{kazemi2025BIGBenchEH,\n author = {M. kazemi and Bahare Fatemi and Hritik Bansal and John Palowitch and Chrysovalantis Anastasiou and Sanket Vaibhav Mehta and Lalit K. Jain and Virginia Aglietti and Disha Jindal and Peter Chen and Nishanth Dikkala and Gladys Tyen and Xin Liu and Uri Shalit and S. Chiappa and Kate Olszewska and Yi Tay and Vinh Q. Tran and Quoc V. Le and Orhan Firat},\n booktitle = {Annual Meeting of the Association for Computational Linguistics},\n pages = {26473-26501},\n title = {BIG-Bench Extra Hard},\n year = {2025}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "BBH was created by filtering BIG-Bench tasks using explicit criteria: limiting subtasks, requiring at least 103 examples, requiring human-rater baselines, restricting to multiple-choice or exact-match evaluation, keeping tasks where prior models did not beat average human-rater performance, excluding extremely difficult tasks, and then sampling evaluation examples.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Some BIG-Bench tasks lacked human baselines, and some had only the minimum number of examples needed for submission; these were filtered out during curation.",
+    "rai:dataCollectionRawData": "The raw source data came from BIG-Bench tasks, specifically over 200 diverse text-based tasks from the BIG-Bench benchmark.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was manipulated by filtering BIG-Bench tasks according to predefined criteria, excluding tasks outside scope, and randomly subsetting most tasks to 250 evaluation examples.",
+    "rai:dataPreprocessingProtocol": "Preprocessing consisted of filtering out tasks with more than three subtasks, fewer than 103 examples, without human-rater baselines, and without multiple-choice or exact-match metrics; then removing tasks where prior models beat average human raters and tasks deemed outside scope.",
+    "rai:dataAnnotationProtocol": "The authors manually wrote three chain-of-thought exemplars for each BBH task and prepended 'let's think step-by-step' to all CoT annotations in the few-shot exemplars.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human-rater baselines should be interpreted with care because they were not fully representative of human performance; task formatting and content changed over time, raters solved subsampled sets over many months, could use external resources, and some task descriptions were hard to follow.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The authors note that surpassing average human-rater performance on BBH should not be confused with true language understanding or reasoning, and they avoided including Moral Permissibility because they did not want to delegate agency to models about moral judgment scenarios.",
+    "rai:dataBiases": "Some tasks require common practices and presuppositions in Western society, and human-rater scores are not representative of the entire population.",
+    "rai:dataLimitations": "Human-rater baselines are not fully representative; task formatting and content changed during evaluation; some task descriptions were hard to follow; BBH excludes tasks requiring specialized knowledge or impractical effort; and even the best model still lags expert human-rater performance.",
+    "rai:dataUseCases": "Evaluation benchmark for measuring language model capabilities and limitations on challenging reasoning tasks, including few-shot answer-only prompting and chain-of-thought prompting comparisons."
+  },
+  "usage": {
+    "input_tokens": 104775,
+    "output_tokens": 2514
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:13:08.669603Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the remaining 23 tasks as our curated benchmark that we refer to as BIG-Bench Hard (BBH)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we curate BIG-Bench Hard (BBH ), a subset of 23 particularly challenging BIG-Bench tasks (27 subtasks) for which no prior result from Srivastava et al. (2022) has outperformed the average human-rater score. ... We release the data and prompts used in the work, as well as the outputs from the Codex models, to facilitate further research."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data, prompts, and the Codex model outputs are all available at https://github.com/suzgunmirac/BIG-Bench-Hard ."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Challenging BIG-Bench tasks and whether chain-of-thought can solve them Mirac Suzgun Nathan Scales Nathanael Schärli Sebastian Gehrmann Yi Tay Hyung Won Chung Aakanksha Chowdhery Quoc V . Le Ed H. Chi Denny Zhou Jason Wei"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2210.09261v1 [cs.CL] 17 Oct 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The benchmark has over 200 diverse text-based tasks in task categories including traditional NLP, mathematics, commonsense reasoning, and question-answering."
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the remaining 23 tasks as our curated benchmark that we refer to as BIG-Bench Hard (BBH)."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We, therefore, choose a set of criteria (listed in Table 1) to filter BIG-Bench to arrive at a clean, challenging, and tractable subset... We use the remaining 23 tasks as our curated benchmark that we refer to as BIG-Bench Hard (BBH). Two tasks in this benchmark (namely, Logical Deduction and Tracking Shuffled Objects ) have three subtasks each. For all but three tasks in BBH, we take a random subset of 250 evaluation examples."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we curate BIG-Bench Hard (BBH ), a subset of 23 particularly challenging BIG-Bench tasks... We, therefore, choose a set of criteria (listed in Table 1) to filter BIG-Bench to arrive at a clean, challenging, and tractable subset... Based on manual inspection of 36 these tasks, we divide them into two categories."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given the large number of evaluation tasks in BIG-Bench, the tasks vary in how clean their data and metadata are. For example, some tasks that were added later in the curation process lack human baselines, while other tasks only have the minimum number of examples needed to qualify for submission."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "BIG-Bench is a collaborative benchmark that aims to quantitatively measure the capabilities and limitations of language models... The benchmark has over 200 diverse text-based tasks in task categories including traditional NLP, mathematics, commonsense reasoning, and question-answering."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These filtering criteria result in 78 clean multiple-choice or exact-match tasks... We use the remaining 23 tasks as our curated benchmark that we refer to as BIG-Bench Hard (BBH). ... For all but three tasks in BBH, we take a random subset of 250 evaluation examples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 1: Filtering criteria to used to create the BIG-Bench Hard (BBH) subset. ... 187 - After filtering out tasks with more than three subtasks ... 130 - After filtering out tasks with fewer than 103 examples (3 for few-shot, 100 for evaluation) ... 85 - After filtering out tasks without human-rater baselines ... 78 - After filtering out tasks that do not use multiple-choice or exact match as the evaluation metric ... 36 - After filtering out tasks in which the best reported model beats average reported human-rater score ... 23 - After filtering out extremely difficult tasks that are outside the scope of this work"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We manually compose three chain-of-thought exemplars for each task in BBH; all the prompts used are shown in Section C. We prepend “let’s think step-by-step” (Kojima et al., 2022) to all CoT annotations in the few-shot exemplars."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Human-Rater Baseline Performance. Finally, we note that even though Srivastava et al. (2022) report the average and maximum of human-rater performances on most BIG-Bench tasks; the organizers acknowledge that one should be careful in interpreting these results because the scores are not fully representative of human performance. The human-evaluation component of the benchmark took almost a year, during which the formatting and content of some tasks had been changed multiple times. Human-raters were allocated a few hours per day to solve a sub-sampled evaluation set of a benchmark task, where they could use external resources such as the Internet."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We manually compose three chain-of-thought exemplars for each task in BBH"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For example, Checkmate in One is not doable for non-chess players... Moral Permissibility has an ambiguous task formulation (and we did not want to delegate agency to models about moral judgement scenarios (Talat et al., 2022)). ... Therefore, surpassing average human-rater performance score on a set of challenging tasks should not be confused with true language understanding or reasoning."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Some BBH tasks require factual and general knowledge about the world as well as the common practices and presuppositions in the Western society. ... While the human-rater scores are not representative of the entire population, they express the empirical difficulty of a given task"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While the human-rater scores are not representative of the entire population... First, 13 tasks are extremely difficult for authors of this paper; they require domain-specific knowledge or are not practically solvable within twenty minutes. ... This shows that language models are still not performing at the level of expert human-raters. ... the organizers acknowledge that one should be careful in interpreting these results because the scores are not fully representative of human performance."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the remaining 23 tasks as our curated benchmark that we refer to as BIG-Bench Hard (BBH). ... We evaluate few-shot performance via standard “answer-only” prompting ... and chain-of-thought prompting ... To measure the capabilities and limitations of large language models, BIG-Bench was introduced as a diverse and challenging evaluation suite"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.1561,
+    "split": "dev",
+    "corrections_applied": 0,
+    "enrichments": [
+      "citeAs"
+    ],
+    "elapsed_seconds": 33.8,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "SWE-Bench+",
+    "description": "An enhanced coding benchmark dataset for evaluating Large Language Models in software engineering tasks, containing GitHub issues created after LLM training cutoff dates (2023-11-01 to 2024-08-22) with solution leakage problems filtered out to prevent data contamination.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah Nnorom, Gias Uddin, Song Wang",
+    "publisher": "York University",
+    "datePublished": "2024-10",
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The SWE-bench+ dataset was created by collecting GitHub issues from 12 widely used Python repositories, following the same data collection methodology as the original SWE-bench dataset. Issues were filtered to exclude those with solution leakage (solutions in issue descriptions or comments) and were collected after LLM training cutoff dates. The collection period was from 2023-11-01 to 2024-08-22, starting a month after the most recent model's cutoff date (GPT-4o's October 2023 cutoff).",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world GitHub issues and their corresponding pull requests from 12 widely used Python repositories. Each input for an issue consists of a description and a pull request with a reference to the corresponding buggy code repository. Each issue can be either a bug report or a new feature request. The pull request contains the code changes made by developers to address the issue, along with test cases.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataAnnotationProtocol": "Manual screening and validation of patches by comparing model-generated patches with actual pull requests. Analysis involved reviewing issue reports, corresponding tests, and available discussions. Patches were categorized into patterns including suspicious fixes (answer leak, weak tests) and correct fixes.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Analysis revealed that 63.75% (160 out of 251) of patches were suspicious fixes. Two main patterns identified: 32.67% had solution leakage (solutions directly in issue reports/comments), and 31.08% had weak tests (incorrect/incomplete changes that still passed tests). After filtering suspicious fixes, resolution rate dropped from 12.47% to 3.97%.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SWE-Agent+GPT-4, SWE-RAG+GPT-4, SWE-RAG+GPT-3.5, and AutoCodeRover+GPT-4o were used to generate patches for evaluation. These LLM-based tools perform tasks including reasoning about bug location, analyzing root causes, proposing fixing strategies, and writing patches.",
+    "rai:dataBiases": "The dataset suffers from solution leakage (32.67% of successful patches had solutions directly provided in issue reports or comments) and weak test cases (31.08% of patches passed despite being incorrect, incomplete, or applied to wrong locations). Additionally, over 94% of issues were created before LLM knowledge cutoff dates, posing potential data leakage issues.",
+    "rai:dataLimitations": "The dataset has significant quality issues including solution leakage in issue descriptions/comments, weak test cases that fail to adequately verify patch correctness, and potential data leakage from issues created before LLM training cutoffs. When filtering problematic issues, resolution rates dropped from 12.47% to 3.97%. Weak test cases continue to pose challenges even in the refined dataset.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed to systematically evaluate the capabilities of LLMs in resolving software issues. Given issue information as input, the task for the LLM is to modify the code base to address the issue (i.e., resolution). The dataset is used for testing and evaluating LLM coding capabilities in practical coding contexts.",
+    "rai:dataReleaseMaintenancePlan": "The dataset SWE-bench+ has been released on Zenodo while working on merging it to the SWE-bench project repository. The dataset was created by collecting issues from 2023-11-01 to 2024-08-22, after the most recent LLM model's cutoff date.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Filtered out problematic issues including those with solution leakage (32.67% where solutions were directly provided in issue reports or comments) and suspicious patches due to weak test cases (31.08%). Created refined dataset SWE-Bench+ by collecting GitHub issues created after LLM training cutoff dates and ensuring issues do not contain solutions in reports or comments.",
+    "rai:dataPreprocessingProtocol": "Manual screening of instances where SWE-Agent + GPT-4 successfully resolved issues by comparing model-generated patches with actual pull requests."
+  },
+  "usage": {
+    "input_tokens": 17916,
+    "output_tokens": 3274
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:51.293402Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The critical problem in the current versions of SWE-bench dataset motivated us to refine it to build a more rigorous evaluation dataset SWE-Bench+."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created SWE-bench+ by collecting GitHub issues that were created after the training cutoff dates of the LLMs to prevent the potential data leakage problem. We also ensure that the issues collected do not contain solutions in their reports or comments... we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While working on merging our SWE-bench+ to SWE-bench project repository, we release the dataset of SWE-bench+ to help other researchers replicate and extend our study. https://zenodo.org/records/13879453"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah Nnorom, Gias Uddin, Song Wang, Lassonde School of Engineering, York University"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Lassonde School of Engineering, York University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2410.06992v2 [cs.SE] 10 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we gathered issues from the period of 2023-11-01 to 2024-08-22"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench+ dataset is created by following the same data collection methodology described in the SWE-Bench dataset; except we filtered out issues with answer leakage problems... we opted to collect data starting a month after the most recent model's cut-off date. To the end, we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Carlos et al. introduced the SWE-bench dataset, which comprises 2,294 real-world GitHub issues and their corresponding pull requests, collected from 12 widely used Python repositories... SWE-bench+ dataset is created by following the same data collection methodology described in the SWE-Bench dataset"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the SWE-bench dataset, which comprises 2,294 real-world GitHub issues and their corresponding pull requests, collected from 12 widely used Python repositories... Each input for an issue consists of a description and a pull request with a reference to the corresponding buggy code repository. Each issue can be either a bug report or a new feature request."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we gathered issues from the period of 2023-11-01 to 2024-08-22"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We conducted a manual screening of instances where SWE-Agent + GPT-4 successfully resolved issues by comparing the model-generated patches with the actual pull requests... Our identified six patterns in the 251 SWE-Agent+GPT-4 patches can be broadly divided into two types: suspicious fixes and correct fixes... by comparing the files changed, the lines changed, and the code changes made in the fixes (both original and generated). Third, we determined eight patterns in the generated fixes by reviewing the issue reports, the corresponding tests, and the available discussions of issues"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Suspicious fixes corresponded to 63.75% (i.e., 160) of the patches. Two patterns were prevalent in those fixes: 1) Answer Leak. In 32.67% of the resolved instances, the solutions were outlined directly in the issue reports or comments. 2) Weak Tests. In 31.08% of the resolved instances, the changes made by the model are either incorrect, incomplete, or applied to different files or functions compared to the gold patch... after filtering these suspicious fixes, the correct resolution rate of SWE-Agent+GPT-4 dropped to 3.97% from 12.47%"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-Agent+GPT-4 was at the top of SWE-bench leaderboard during the time of our study... We further evaluated the SWE-RAG + GPT-4, SWE-RAG + GPT-3.5, and AutoCodeRover + GPT-4o models on the new dataset... these LLM-based approaches can perform a series of complex tasks, such as reasoning about the target bug's location, analyzing the root cause of the issue, proposing strategies for fixing the bug, and ultimately writing a patch to fix the issue"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our analysis reveals some critical issues with the SWE-bench dataset: 1) 32.67% of the successful patches involve 'cheating' as the solutions were directly provided in the issue report or the comments. We refer to as 'solution leakage' problem. 2) 31.08% of the passed patches are suspicious patches due to weak test cases... In addition, over 94% of the issues were created before LLM's knowledge cutoff dates, posing potential data leakage issues."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When we filtered out these problematic issues, the resolution rate of SWE-Agent+GPT-4 drops from 12.47% to 3.97%... Despite the reduced pass rates, SWE-Bench+ establishes a more reliable framework for assessing the true capabilities of LLMs in software development... For future work, further investigation into the issue of weak test cases is needed, along with suggestions for improving test quality to create more accurate and relevant test suites."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench aka Software Engineering Benchmark dataset is created to systematically evaluate the capabilities of an LLM in resolving software issues... Given as input the issue information to an LLM, the task for the LLM is to modify the code base to address the issue (i.e., resolution)... To facilitate a rigorous evaluation of LLMs in practical coding contexts, Carlos et al. introduced the SWE-bench dataset"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While working on merging our SWE-bench+ to SWE-bench project repository, we release the dataset of SWE-bench+ to help other researchers replicate and extend our study. https://zenodo.org/records/13879453... we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When we filtered out these problematic issues, the resolution rate of SWE-Agent+GPT-4 drops from 12.47% to 3.97%... We created SWE-bench+ by collecting GitHub issues that were created after the training cutoff dates of the LLMs to prevent the potential data leakage problem. We also ensure that the issues collected do not contain solutions in their reports or comments."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We conducted a manual screening of instances where SWE-Agent + GPT-4 successfully resolved issues by comparing the model-generated patches with the actual pull requests."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 20,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0514,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 17343,
+        "tokens_in": 5542,
+        "tokens_out": 648
+      },
+      "collection": {
+        "section_chars": 9995,
+        "tokens_in": 3404,
+        "tokens_out": 620
+      },
+      "annotation": {
+        "section_chars": 9995,
+        "tokens_in": 3394,
+        "tokens_out": 795
+      },
+      "impact": {
+        "section_chars": 13353,
+        "tokens_in": 4526,
+        "tokens_out": 875
+      },
+      "processing": {
+        "section_chars": 2575,
+        "tokens_in": 1050,
+        "tokens_out": 336
+      }
+    },
+    "enrichments": []
+  }
+}

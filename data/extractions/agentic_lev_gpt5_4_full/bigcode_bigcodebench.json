@@ -1,0 +1,280 @@
+{
+  "dataset_id": "bigcode_bigcodebench",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "BigCodeBench",
+    "description": "A benchmark for Python code generation that evaluates whether LLMs can solve challenging practical tasks requiring diverse function calls and complex instructions. It contains 1,140 fine-grained tasks spanning 139 libraries and 7 domains, with rigorous test cases and a natural-language-oriented variant called BigCodeBench-Instruct.",
+    "url": "https://bigcode-bench.github.io/",
+    "license": "Apache-2.0",
+    "creator": "Terry Yue Zhuo, Minh Chien Vu, Jenny Chim, Han Hu, Wenhao Yu, Ratnadira Widyasari, Imam Nur Bani Yusuf, Haolan Zhan, Junda He, Indraneil Paul, Simon Brunner, Chen Gong, Thong Hoang, Armel Zebaze, Xiaoheng Hong, Wen-Ding Li, Jean Kaddour, Ming Xu, Zhihan Zhang, Prateek Yadav, Naman Jain, Alex Gu, Zhoujun Cheng, Jiawei Liu, Qian Liu, Zijian Wang, Binyuan Hui, Niklas Muennighoff, David Lo, Daniel Fried, Xiaoning Du, Harm de Vries, Leandro von Werra",
+    "publisher": "ICLR 2025",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was constructed through a human-LLM collaboration pipeline with three stages: data synthesis from seed examples, semi-automatic program refactoring and test-case generation, and human curation/cross-checking. Seed examples from ODEX were expanded with GPT-4 into self-contained programming tasks, then annotators iteratively refined programs and tests with GPT-4 Code Interpreter, followed by manual examination, pre-evaluation, and cross-checking to finalize valid tasks.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Invalid or incomplete programs/test cases were removed during post-processing and program analysis; incomplete test cases arose when GPT-4 omitted partial content while writing long contexts into files.",
+    "rai:dataCollectionRawData": "The raw/source data consisted of seed API-usage code snippets with brief human instructions from ODEX, which contains intent-paired code skeletons from Stack Overflow.",
+    "rai:dataCollectionTimeframe": "04/2023 - 05/2024 for construction/finalization, with initial release in 06/2024; specifically data synthesis ran 06/2023 - 07/2023, refactoring/testing 07/2023 - 11/2023, and human curation 12/2023 - 04/2024.",
+    "rai:dataAnnotationProtocol": "Human-LLM collaborative annotation over three stages: data synthesis, semi-automatic program refactoring and test case generation, and human curation. Twenty authors served as annotators over one year, managed by a lead annotator for quality control. Annotators used detailed guidelines to refine functions/docstrings, generate and validate unit tests, perform manual examination, pre-evaluation, and cross-checking/finalization.",
+    "rai:dataAnnotationPlatform": "GPT-4 API and the web-based GPT-4 Code Interpreter session; final validation used automated test workflows in GitHub Container Registry.",
+    "rai:dataAnnotationAnalysis": "Quality control included lead-annotator management, removal of invalid programs via program analysis, cross-checking by 7 additional annotators, automated validation in GitHub Container Registry, and a final human validation where 97% (32/33) sampled tasks passed all test cases.",
+    "rai:annotationsPerItem": "At least two annotators in the final curation workflow for many items: one primary annotator plus cross-checking by additional annotators; additionally, finalized quality was spot-checked on a random sample of 33 tasks.",
+    "rai:annotatorDemographics": "20 annotators/authors; 75% had more than 5 years of Python programming experience. Age: 18-25 25% (5/20), 26-35 70% (14/20), 36-45 5% (1/20). Academic background: Bachelor 5% (1/20), Master 20% (4/20), PhD 75% (15/20). Communications were in mainstream English (en-US), and some annotators were non-native English speakers.",
+    "rai:machineAnnotationTools": "GPT-4 API for task synthesis, GPT-4 Code Interpreter for iterative refactoring and test generation, GPT-4 API for automatic program classification, NL-Augmenter back-translation for perturbing docstrings, abstract syntax tree parser and program analysis for validation/filtering, automatic docstring parsing, doctest for example verification, and GPT-3.5-Turbo API for pre-evaluation.",
+    "rai:dataBiases": "Potential model-generation and contamination biases are acknowledged. Because tasks were synthesized with GPT-4, the authors note LLMs can favor their own generations, which could make evaluation unfair; they mitigate this with obfuscation and perturbation. They also discuss possible training-data contamination overlap with ODEX, Stack Overflow archives, and StarCoderData.",
+    "rai:dataLimitations": "The benchmark is limited by being Python-only, having some flaky and not fully rigorous test cases, covering mainly common libraries and daily tasks rather than unseen/emerging tools, requiring substantial effort to extend, and being affected by library evolution/obsolescence and possible test-set contamination over time. The authors also note limited annotator expertise for latest or domain-specific libraries.",
+    "rai:dataSocialImpact": "The benchmark is intended to help stakeholders understand the abilities and limitations of deploying LLMs for programming, and the authors frame it as supporting open, reliable, scalable evaluation of program-aided language models toward broader AI progress.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Use as an execution-based benchmark to evaluate LLMs on practical and challenging programming tasks, especially diverse function calling and complex instruction following; intended for assessing model capabilities and limitations in an open-ended setting.",
+    "rai:dataReleaseMaintenancePlan": "The authors describe a long-term roadmap with step-by-step improvements, continual enhancement of test reliability with community help, future periodic benchmark evolution due to changing libraries, and plans for both public and private future releases/private test sets. A GitHub repository is provided for documentation and contributions.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Random sampling of programming tasks for annotation, plus obfuscation and perturbation of synthesized tasks by replacing semantic-rich function names with dummy names and back-translating docstrings.",
+    "rai:dataPreprocessingProtocol": "Post-processing and cleaning included validating synthesized programs with an abstract syntax tree parser, removing invalid programs via program analysis, removing unused libraries/imported modules, reformatting docstrings to PEP-257 conventions, aligning implementations/docstrings/imports, manually correcting parsed docstring structures, and validating examples/tests with doctest and automated test workflows."
+  },
+  "usage": {
+    "input_tokens": 57921,
+    "output_tokens": 3372
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:52:30.775144Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce BigCodeBench, a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce BigCodeBench, a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks. To evaluate LLMs rigorously, each task encompasses 5.6 test cases with an average branch coverage of 99%. In addition, we propose a natural-language-oriented variant of BigCodeBench, BigCodeBench-Instruct"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://bigcode-bench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Terry Yue Zhuo1,2,3 Minh Chien Vu4 Jenny Chim5 Han Hu1,3 Wenhao Yu12 Ratnadira Widyasari3 Imam Nur Bani Yusuf3 Haolan Zhan1 Junda He3 Indraneil Paul7 Simon Brunner8 Chen Gong9 Thong Hoang2 Armel Zebaze10 Xiaoheng Hong11 Wen-Ding Li13 Jean Kaddour14 Ming Xu19 Zhihan Zhang6 Prateek Yadav15 Naman Jain16 Alex Gu17 Zhoujun Cheng18 Jiawei Liu20 Qian Liu21 Zijian Wang22 Binyuan Hui8 Niklas Muennighoff23 David Lo3 Daniel Fried24 Xiaoning Du†1 Harm de Vries†25 Leandro von Werra†26"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2025"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose a natural-language-oriented variant of BigCodeBench, BigCodeBench-Instruct, that automatically transforms the original docstrings into short instructions only with essential information."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the process of BigCodeBench-Complete encompasses three stages: Data Synthesis, Semi-automatic Program Refactoring and Testing Case Generation, and Human Curation.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we introduce our human-LLM-collaboration framework for the BigCodeBench construction” and “The construction is progressively contributed by 20 authors as annotators for one year in total”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“During the post-processing of the annotated data, we observe that a significant number of test cases were incomplete... After removing all invalid programs via program analysis, we end up with 1,223 refactored programming tasks with paired test cases.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Given a code snippet of API usage with a brief human instruction as the seed example... Specifically, we use seed examples from ODEX (Wang et al., 2023c), a benchmark containing intent-paired code skeletons from Stack Overflow.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“DEVELOPMENT TIMELINE 04/2023 - 05/2023 Project Initiation. 06/2023 - 07/2023 Benchmark Construction — Data Synthesis. 07/2023 - 11/2023 Benchmark Construction — Semi-automatic Program Refactoring and Testing Case Generation. 12/2023 - 04/2024 Benchmark Construction — Human Curation... 06/2024 Initial BigCodeBench Release.”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"the process of BigCodeBench-Complete encompasses three stages: Data Synthesis, Semi-automatic Program Refactoring and Testing Case Generation, and Human Curation\"; \"The construction is progressively contributed by 20 authors as annotators for one year in total\"; \"The progress is continually managed by the lead annotator to control the data quality.\""
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We use the GPT-4 API\"; \"we utilize the Code Interpreter session in the web-based GPT-4\"; \"The confirmed programming tasks are finally validated by the automated test workflows in GitHub Container Registry\""
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The progress is continually managed by the lead annotator to control the data quality.\"; \"After removing all invalid programs via program analysis\"; \"7 additional annotators refine and finalize the data annotated by others\"; \"The confirmed programming tasks are finally validated by the automated test workflows in GitHub Container Registry\"; \"97% (32 out of 33) of sampled tasks can pass all test cases.\""
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"assigning each annotator 100 randomly sampled programming tasks\"; \"7 additional annotators refine and finalize the data annotated by others\"; \"we randomly assign 33 finalized task prompts to the 11 annotators\""
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"20 authors as annotators\"; \"75% of them having more than 5 years of experience in Python programming\"; \"Age: – 18-25: 25% (5/20) – 26-35: 70% (14/20) – 36-45: 5% (1/20)\"; \"Academic Background: – Bachelor: 5% (1/20) – Master: 20% (4/20) – PhD: 75% (15/20)\"; \"all communications during the annotation process are in mainstream English (en-US). We note that the first language of some annotators is not English\""
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We use the GPT-4 API\"; \"we utilize the Code Interpreter session in the web-based GPT-4\"; \"GPT-4 API is utilized to automatically classify each program\"; \"we perturb the natural language descriptions in docstrings with the back-translation method of NL-Augmenter\"; \"After validating the post-processed programs with an abstract syntax tree parser\"; \"After removing all invalid programs via program analysis\"; \"We automatically parse the docstrings\"; \"we ensure their correctness via doctest\"; \"We choose GPT-3.5-Turbo API to generate solutions\""
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“As previous studies have shown that LLMs favor their own generations... such phenomena can make the model evaluation unfair. We mitigate the model biases with an obfuscation and perturbation process.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“One of the main limitations is that BigCodeBench is Python-only and cannot be easily extended to other programming languages.”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This dataset will help stakeholders better understand the fundamental abilities and limitations associated with deploying LLMs.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our dataset aims to provide a thorough assessment of the capability of solving programming tasks... we focus on the challenges and practicability of the tasks, and pinpoint two main characteristics... (1) Diverse Function Calling; and (2) Complex Instruction Following.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Given the limited time and budget we have to develop the initial benchmark, we have foreseen several limitations and aim to address them step-by-step.”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We mitigate the model biases with an obfuscation and perturbation process. We first replace the semantic-rich program entry points with dummy function names. In addition, we perturb the natural language descriptions in docstrings with the back-translation method of NL-Augmenter” and “assigning each annotator 100 randomly sampled programming tasks”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“After validating the post-processed programs with an abstract syntax tree parser, we collected 4,718 function-level programming samples.”; “After removing all invalid programs via program analysis, we end up with 1,223 refactored programming tasks”; “Remove unused libraries”; “Reformat docstrings to adhere to PEP-257 conventions”; “we automatically parse the docstrings and ask annotators to manually correct the docstring structures”; “Additionally, we remove unused imported modules via program analysis.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "evidence_count": 25,
+      "evidence_coverage": 96.2,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.1061,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 41213,
+        "tokens_in": 10397,
+        "tokens_out": 782
+      },
+      "collection": {
+        "section_chars": 33834,
+        "tokens_in": 12473,
+        "tokens_out": 619
+      },
+      "annotation": {
+        "section_chars": 32901,
+        "tokens_in": 13332,
+        "tokens_out": 1043
+      },
+      "impact": {
+        "section_chars": 28865,
+        "tokens_in": 8855,
+        "tokens_out": 582
+      },
+      "processing": {
+        "section_chars": 32423,
+        "tokens_in": 12864,
+        "tokens_out": 346
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 45.1
+  }
+}

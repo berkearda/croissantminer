@@ -1,0 +1,259 @@
+{
+  "dataset_id": "LeoFan01_RoboBench",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "RoboBench",
+    "description": "A benchmark for evaluating multimodal large language models as embodied brains for robotic manipulation across five dimensions, 14 capabilities, 25 tasks, and 6092 QA pairs.",
+    "url": "https://robo-bench.github.io/",
+    "license": "CC-BY-4.0",
+    "creator": "Yulin Luo, Chun-Kai Fan, Menghang Dong, Jiayu Shi, Mengdi Zhao, Bo-Wen Zhang, Cheng Chi, Jiaming Liu, Gaole Dai, Rongyu Zhang, Ruichuan An, Kun Wu, Zhengping Che, Shaoxuan Xie, Guocai Yao, Zhongxia Zhao, Pengwei Wang, Guang Liu, Zhongyuan Wang, Tiejun Huang, Shanghang Zhang",
+    "publisher": null,
+    "datePublished": "2025-10-20",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was built from open-source and in-house robotic data, with customized workflows for each dimension. Data were enriched with MLLM- and human-provided annotations, and tasks were constructed for instruction comprehension, perception reasoning, generalized planning, affordance prediction, and failure analysis.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator, Software Collection",
+    "rai:dataCollectionMissingData": "For failure analysis, planning-level failures are synthesized by perturbing correct instructions (wrong object, missing step, wrong order) due to lack of real-world planning failure data.",
+    "rai:dataCollectionRawData": "Open-source and in-house robotic data, including large-scale real-world robotic datasets and high-quality robotic videos; execution-level failures were collected from RoboMIND.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Planning-level failures were synthesized by perturbing correct instructions, and explicit instructions were rewritten into implicit ones using LLMs. Planning data were converted into structured function templates and standardized inputs.",
+    "rai:dataPreprocessingProtocol": "The workflows generally followed preprocessing, annotation, and Q&A generation. For planning, frame sequences were extracted as standardized inputs. General and task-specific filters were applied for image quality and task validity, such as excluding single-arm data from dual-arm tasks.",
+    "rai:dataAnnotationProtocol": "Annotations were created using a mix of VLMs/MLLMs, detection models, human annotators, and experts. Gemini generated structured planning annotations that were refined by human annotators; scene-centric perception used manual annotations of relative positions and keypoint changes; task-centric perception used human-labeled bounding boxes; affordance frames were annotated with static, dynamic, and mobile affordances; execution-level failures were labeled by experts.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "A two-stage quality control process was used, including post-construction validation by 20 professionally trained annotators. Majority vote was used; items all models solved correctly were removed, and items all models failed were manually reviewed and corrected.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "20 professionally trained annotators; expert annotators with prior training were used in the human study.",
+    "rai:machineAnnotationTools": "Gemini, GPT, VLMs, detection models, LLMs",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The benchmark is intended to quantify high-level cognition in embodied AI and guide development of more robust robotic intelligence.",
+    "rai:dataBiases": "The authors note that existing planning data primarily focuses on concrete action execution and does not explicitly distinguish left-right arm assignments or positional movements, which affects model performance on cross-embodiment planning.",
+    "rai:dataLimitations": "The benchmark includes synthesized planning-level failures because real-world planning failure data were lacking. Human performance on execution-level failure diagnosis is also relatively low, underscoring task difficulty. Current models show weaknesses in implicit instruction grounding, spatiotemporal reasoning, cross-scenario planning, affordance understanding, and failure diagnosis.",
+    "rai:dataUseCases": "Benchmarking and evaluating MLLMs as embodied brains for robotic manipulation across instruction comprehension, perception reasoning, planning, affordance prediction, and failure analysis; establishing leaderboards and systematic evaluation of state-of-the-art models."
+  },
+  "usage": {
+    "input_tokens": 63392,
+    "output_tokens": 3023
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:36:10.488336Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To bridge this gap, we introduce RoboBench, a benchmark that systematically evaluates multimodal large language models (MLLMs) as embodied brains."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To bridge this gap, we introduce RoboBench, a benchmark that systematically evaluates multimodal large language models (MLLMs) as embodied brains. Motivated by the critical roles across the full manipulation pipeline, RoboBench defines five dimensions—instruction comprehension, perception reasoning, generalized planning, affordance prediction, and failure analysis—spanning 14 capabilities, 25 tasks, and 6092 QA pairs."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Project page:https://robo-bench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yulin Luo1,2*Chun-Kai Fan1*Menghang Dong1*Jiayu Shi1,2*Mengdi Zhao3* Bo-Wen Zhang4*Cheng Chi2Jiaming Liu1Gaole Dai1Rongyu Zhang1 Ruichuan An1Kun Wu5Zhengping Che5Shaoxuan Xie2Guocai Yao2Zhongxia Zhao1,2 Pengwei Wang2Guang Liu2Zhongyuan Wang2Tiejun Huang1,2Shanghang Zhang1,2"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2510.17801v1 [cs.RO] 20 Oct 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset Collection and Processing Pipeline To evaluate the five cognitive dimensions, we build datasets from open-source and in-house robotic data, enriched with MLLM- and human-provided annotations, aligning each sub-benchmark with the embodied task pipeline for realism. Figure 3: Dataset Construction Pipeline. RoboBench customizes data workflows for each dimension: orange for instruction, green for perception, blue for planning, purple for affordance, and red for reflection. Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct task settings spanning single-arm, dual-arm, and mobile manipulation... Data combine large-scale real-world robotic datasets Fang et al. (2023); Collaboration et al. (2023); Liu et al. (2024c); Wu et al. (2024); Bu et al. (2025) with curated in-house collection... Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct task settings spanning single-arm, dual-arm, and mobile manipulation... Data combine large-scale real-world robotic datasets Fang et al. (2023); Collaboration et al. (2023); Liu et al. (2024c); Wu et al. (2024); Bu et al. (2025) with curated in-house collection, narrowing the sim-to-real gap. Generalized Planning: We build a planning pool from high-quality robotic videos Collaboration et al. (2023); Lin et al. (2024a); Liu et al. (2024b;c); Fang et al. (2023); Wu et al. (2024); Mu et al. (2023); Yang et al. (2024), extracting frame sequences as standardized inputs. Failure Analysis: Execution-level failures (e.g., position misalignment, trajectory deviations, gripper errors) are collected from RoboMIND Wu et al. (2024) and labeled by experts"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Instruction Comprehension: Evaluated through planning tasks, this dimension adopts a paired explicit–implicit design. Explicit instructions are drawn from daily-life scenarios with clearly specified actions and targets, whereas implicit instructions are obtained by rewriting them into demand-based requests using LLMs. Each step is then mapped into function templates (e.g., pick up(object), move to(object, target)) grouped into manipulation or navigation skill lists... Failure Analysis: ... planning-level failures are synthesized by perturbing correct instructions (wrong object, missing step, wrong order) due to lack of real-world planning failure data."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation. Generalized Planning: ... extracting frame sequences as standardized inputs. Quality Control We adopt a two-stage quality control process to ensure benchmark quality: data filtering during construction and post-construction validation. In the construction stage, We apply both general and task-specific filters. General criteria address image quality and task validity, while sub-benchmarks have tailored rules—such as excluding single-arm data from dual-arm tasks."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation. Perception Reasoning: ... scene-centric, leveraging Gemini-segmented video steps for temporal grounding, together with manual annotations of relative positions and keypoint changes for spatial and causal reasoning; and task-centric, with human-labeled bounding boxes linking long-horizon instructions to target objects. Generalized Planning: Gemini Comanici et al. (2025) generates structured annotations—task summaries, step-wise instructions with timestamps, and metadata (objects, actions, scenes, embodiments)—which are refined by human annotators. Affordance Prediction: From the planning pool, representative frames are sampled and annotated with three types of affordance: static (contact points), dynamic (motion trajectories), and mobile (base positions). Failure Analysis: Execution-level failures ... are collected from RoboMIND Wu et al. (2024) and labeled by experts"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Quality ControlWe adopt a two-stage quality control process to ensure benchmark quality: data filtering during construction and post-construction validation... After data construction, we recruite 20 professionally trained annotators to conduct comprehensive quality inspections, validating linguistic clarity, answerability, and correctness Liu et al. (2024d). We further adopt a majority-vote strategy Liu et al. (2024d): items that all models solve correctly are removed, whereas items all models fail to solve undergo manual review and correction."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After data construction, we recruite 20 professionally trained annotators to conduct comprehensive quality inspections... To assess the validity of our evaluation metric, we conducted a human study on planning data... Expert annotators (with prior training) assigned holistic scores in the range 0–20"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation. Perception Reasoning: ... object-centric, combining curated static attributes Gao et al. (2024) with GPT-generated functional properties and distractors; scene-centric, leveraging Gemini-segmented video steps for temporal grounding... Generalized Planning: Gemini Comanici et al. (2025) generates structured annotations"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "RoboBench provides a comprehensive scaffold to quantify high-level cognition, clarify the role of the embodied brain, and guide the development of next-generation MLLMs toward more robust robotic intelligence."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We attribute this to the nature of existing planning data, which primarily focuses on concrete action execution without explicitly distinguishing between left–right arm assignments or positional movements."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Failure Analysis: ... planning-level failures are synthesized by perturbing correct instructions (wrong object, missing step, wrong order) due to lack of real-world planning failure data. Experiments on 14 state-of-the-art MLLMs reveal fundamental limitations: difficulties with implicit instruction comprehension, spatiotemporal reasoning, cross-scenario planning, fine-grained affordance understanding, and execution failure diagnosis. Even human performance remains relatively low in such cases — 47.30 compared to 80.67 in planning error — highlighting the intrinsic difficulty of this task."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce RoboBench, a comprehensive benchmark for evaluating MLLMs as embodied brains across 5 key dimensions, spanning 14 capabilities, 25 tasks, and 6092 QA pairs. We conduct large-scale systematic evaluation of SOTA MLLMs, establishing a leaderboard and offering actionable insights for advancing the embodied brain in robotic AI."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 85.7,
+      "avg_confidence": 0.924
+    },
+    "cost_usd": 0.1095,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 38.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

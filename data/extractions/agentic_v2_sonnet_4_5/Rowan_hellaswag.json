@@ -1,0 +1,256 @@
+{
+  "dataset_id": "Rowan_hellaswag",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "HellaSwag",
+    "description": "A challenge dataset for commonsense natural language inference consisting of 70k problems where machines must select the most likely followup to an event description. The dataset is constructed via Adversarial Filtering using state-of-the-art generators and discriminators, making it trivial for humans (>95% accuracy) yet challenging for machines (~48%).",
+    "url": "https://rowanzellers.com/hellaswag",
+    "license": null,
+    "creator": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi. HellaSwag: Can a Machine Really Finish Your Sentence? arXiv:1905.07830v1 [cs.CL] 19 May 2019",
+    "isLiveDataset": false,
+    "rai:dataCollection": "Data was collected from two sources: ActivityNet Captions dataset (video captions with activity labels) and WikiHow articles (how-to manuals covering diverse topics). The dataset construction used Adversarial Filtering (AF), where a series of discriminators iteratively selected adversarial machine-generated wrong answers. High-quality source text was combined with state-of-the-art generators (GPT) and discriminators (BERT).",
+    "rai:dataCollectionType": "Web Scraping, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data sources include: (1) ActivityNet Captions dataset containing video captions with temporal descriptions and activity labels, and (2) WikiHow articles containing how-to instructions. ActivityNet provides captions from videos, while WikiHow provides context and follow-up paragraphs from online how-to manuals.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Machine-generated wrong answers were created using a finetuned GPT language model. Adversarial Filtering was applied iteratively: on each iteration, the dataset was randomly partitioned into training and test sets, an ensemble was trained to classify endings as real or generated on the training set, then AF replaced easy-to-classify generations in the test set. This process continued until the accuracy of adversaries converged.",
+    "rai:dataPreprocessingProtocol": "For WikiHow, contexts were limited to at most three sentences, as were the follow-ups. For generation, two-sentence endings were used as a compromise between difficulty for models and human comprehensibility. The dataset examples were expanded in length and complexity towards a 'Goldilocks' zone wherein generated text is ridiculous to humans yet often misclassified by state-of-the-art models.",
+    "rai:dataAnnotationProtocol": "Human validation was performed through several rounds of annotation to ensure high agreement. Crowd workers were given a context and six ending choices (one true ending and five from Adversarial Filtering). On each iteration, machine-written endings that workers rated as realistic were replaced with new samples. The 25k best ActivityNet contexts and 45k best WikiHow contexts (those with highest agreement among workers) were kept. Human performance was measured by asking five independent crowd workers to solve the same four-way multiple choice problems, with predictions combined via majority vote.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Multiple rounds of human validation were conducted to filter false negative endings (machine generations that sound realistic) and replace them with true negatives. Agreement among workers was estimated and used to select the best contexts. Human performance increased from 60% to 94% on ActivityNet through this iterative validation process.",
+    "rai:annotationsPerItem": "Five independent crowd workers per item for human performance evaluation; multiple workers during validation rounds for filtering",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OpenAI GPT (finetuned 12-layer transformer) for generation; BERT-Large for adversarial discrimination during Adversarial Filtering",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The work addresses the need for evolving benchmarks in NLP that co-evolve with state-of-the-art models in an adversarial way to present ever-harder challenges. It suggests a path forward where benchmarks are not static but evolve together with modeling advancements to ensure continued progress toward genuine commonsense reasoning rather than dataset-specific pattern matching.",
+    "rai:dataBiases": "The paper acknowledges that prior NLI datasets contained annotation artifacts - class-conditional biases introduced when humans write endings. Adversarial Filtering was specifically designed to address these biases by using machine-generated endings selected to fool discriminators, rather than human-written negative examples. However, the dataset is constructed to be adversarial specifically to BERT-Large and models of similar capability.",
+    "rai:dataLimitations": "The dataset exists within a 'Goldilocks zone' of text complexity where generations are nonsensical to humans but challenging for current models. The difficulty is tied to the specific state-of-the-art models used during construction (GPT for generation, BERT-Large for discrimination). Future more powerful models may find the dataset easier. The dataset's adversarial nature means it specifically targets weaknesses of current deep pretrained models, which tend to perform lexical reasoning and pick up on distributional stylistic patterns rather than deeper semantic understanding.",
+    "rai:dataUseCases": "The dataset is designed for training, validation, and testing of commonsense natural language inference models. It includes 70k total examples split into training, validation (10k), and test (10k) sets. The validation and test sets each contain two subsets: 5k 'in-domain' examples from categories seen during training, and 5k 'zero-shot' examples from held-out categories, enabling evaluation of generalization to novel situations. The dataset is specifically intended as a challenging benchmark for evaluating whether models can perform human-level commonsense reasoning."
+  },
+  "usage": {
+    "input_tokens": 23339,
+    "output_tokens": 3744
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:00.989314Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset. Though its questions are trivial for humans (<95% accuracy), state-of-the-art models struggle (~48%)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset and code at https://rowanzellers.com/hellaswag."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi, Paul G. Allen School of Computer Science & Engineering, University of Washington, Allen Institute for Artificial Intelligence"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.07830v1 [cs.CL] 19 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start by including video captions from the ActivityNet Captions dataset (Krishna et al., 2017)... We next consider a new and challenging testbed for commonsense reasoning: completing how-to articles from WikiHow, an online how-to manual. We scrape 80k context and follow-up paragraphs from WikiHow, covering such diverse topics as 'how to make an origami owl' to 'how to survive a bank robbery.'"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We scrape 80k context and follow-up paragraphs from WikiHow... We start by including video captions from the ActivityNet Captions dataset (Krishna et al., 2017)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start by including video captions from the ActivityNet Captions dataset (Krishna et al., 2017). The original SWAG dataset contains these, along with captions from LSMDC (Rohrbach et al., 2017), but for HellaSwag we solely used ActivityNet. In addition to temporal descriptions, ActivityNet also provides activity labels for each caption (e.g. jumping rope)... We scrape 80k context and follow-up paragraphs from WikiHow, an online how-to manual."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The key idea is to produce a dataset D which is adversarial for any arbitrary split of (Dtrain, Dtest). This requires a generator of negative candidates (i.e., wrong endings that violate human notions about how the world works), which we achieve by using a language model. Potential candidates of incorrect answers were massively oversampled from a language model trained on in-domain data, and then selected using an ensemble of adversaries. The selection process happens iteratively: on each iteration, the dataset is randomly partitioned into Dtrain and Dtest. The ensemble is trained to classify endings as real or generated on Dtrain, then, AF replaces easy-to-classify generations in Dtest."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each context has at most three sentences, as do the follow-ups... We compromise and use two-sentence generations. Particularly in the two-sentence case, we find ourselves in a Goldilocks zone wherein generations are challenging for deep models, yet as we shall soon see, easy for humans... The key insight is to scale up the length and complexity of the dataset examples towards a critical 'Goldilocks' zone wherein generated text is ridiculous to humans, yet often misclassified by state-of-the-art models."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Last, humans validate the data to remove adversarial endings that seem realistic... To ensure high agreement on ActivityNet, we perform several rounds of human filtering, increasing human performance to 94%. During human validation, crowd workers are given a context and six ending choices, of which one is the true ending, and the other five are from AF. On each iteration, we replace machine-written endings that the worker rated as realistic with new samples. In the end, we keep the 25k best ActivityNet contexts (i.e. those with highest agreement among workers) and the 45k best WikiHow contexts... We compare all models to human performance by asking five independent crowd workers to solve the same four-way multiple choice problems; their predictions are combined via majority vote."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thank the Mechanical Turk workers for their great work during dataset collection."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure high agreement on ActivityNet, we perform several rounds of human filtering, increasing human performance to 94%. During human validation, crowd workers are given a context and six ending choices, of which one is the true ending, and the other five are from AF. On each iteration, we replace machine-written endings that the worker rated as realistic with new samples."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compare all models to human performance by asking five independent crowd workers to solve the same four-way multiple choice problems; their predictions are combined via majority vote."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To make this dataset robust to deep pretrained models, we use a trifecta of state-of-the-art generators (Radford et al., 2018), state-of-the-art discriminators (BERT), and high quality source text... On each iteration, BERT-Large is re-initialized from its pretrained checkpoint, finetuned, and then evaluated in a four-way setting on the dummy test set of held-out data."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "More broadly, it suggests a new path forward for NLP research, in which benchmarks co-evolve with the evolving state-of-the-art in an adversarial way, so as to present ever-harder challenges... We believe the answer is simple: crowdsource another dataset, with the same exact format, and see where models fail... This ties the future of SWAG-style benchmarks to progress on language generation: until generation is solved, commonsense NLI will remain unsolved."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Prior work (e.g. Gururangan et al., 2018; Poliak et al., 2018) has found that when humans write the endings to NLI questions, they introduce subtle yet strong class-conditional biases known as annotation artifacts. To address this, Zellers et al. (2018) introduced Adversarial Filtering (AF)... By making the dataset adversarial for BERT, it seems to also have become adversarial for every other model."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We find ourselves in a Goldilocks zone wherein generations are challenging for deep models, yet as we shall soon see, easy for humans... How hard will the dataset be for future, even more powerful, models? Answering this question is challenging because these models don't exist (or are unavailable) at the time of writing... Indeed, we find that existing deep methods often get fooled by lexical false friends. For example, in the WikiHow example from Figure 10, BERT chooses an ending that matches the technology words in the context, rather than matching the deeper topic: using technology as an excuse for not doing homework."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To evaluate a model's ability to generalize to new situations, we use category labels from WikiHow and ActivityNet to make 'zero-shot' evaluation sets. For each set (validation or test), we craft two subsets: one containing 5k 'in-domain' examples that come from categories as seen during training (Figure 8), and another with 5k 'zero-shot' examples from randomly chosen held-out categories. In total, there are 70k dataset examples... In this paper, we investigate the following question: How well do deep pretrained models, like BERT, perform at commonsense natural language inference (NLI)?"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 86.4,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.0631,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

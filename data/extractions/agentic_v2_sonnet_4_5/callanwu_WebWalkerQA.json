@@ -1,0 +1,258 @@
+{
+  "dataset_id": "callanwu_WebWalkerQA",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "WebWalkerQA",
+    "description": "A benchmark designed to assess the ability of LLMs to perform web traversal. It evaluates the capacity of LLMs to traverse a website's subpages to extract high-quality data systematically. The benchmark contains 680 question-answer pairs across four real-world domains (conference, organization, education, and game) spanning over 1373 webpages.",
+    "url": "https://github.com/Alibaba-NLP/WebAgent",
+    "license": "Apache-2.0",
+    "creator": "Jialong Wu, Wenbiao Yin, Yong Jiang, Zhenglin Wang, Zekun Xi, Runnan Fang, Linhai Zhang, Yulan He, Deyu Zhou, Pengjun Xie, Fei Huang, Tongyi Lab, Alibaba Group",
+    "publisher": "arXiv",
+    "datePublished": "2025-01-14",
+    "inLanguage": "en, zh",
+    "citeAs": "Jialong Wu, Wenbiao Yin, Yong Jiang, Zhenglin Wang, Zekun Xi, Runnan Fang, Linhai Zhang, Yulan He, Deyu Zhou, Pengjun Xie, Fei Huang. (2025). WebWalker: Benchmarking LLMs in Web Traversal. arXiv:2501.07572v3 [cs.CL]",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Data collection involves traversing official websites recursively, collecting information on accessible sub-links and their respective pages. The process uses a two-stage funnel annotation strategy, combining LLM-based and human annotation. GPT-4o performs initial annotations, followed by crowd-sourced human annotators conducting quality control and filtering.",
+    "rai:dataCollectionType": "Web Scraping, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Official websites across conference, organization, education, and game domains. The data includes accessible sub-links and their respective pages collected through recursive traversal.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Verification and filtering for legitimate queries that deviate from natural, human-like phrasing, retaining only QA pairs with short answers containing entities.",
+    "rai:dataAnnotationProtocol": "Two-stage annotation process: (1) GPT-4o generates synthetic queries based on provided page information and specified role (solo page or multiple pages simultaneously), (2) Human annotators rewrite and calibrate the questions and answers to ensure QA pairs are correct and consistent. The dataset includes both multi-source and single-source types corresponding to different human information-seeking behaviors.",
+    "rai:dataAnnotationPlatform": "GPT-4o was used for initial annotations in the first stage of the two-stage funnel annotation strategy",
+    "rai:dataAnnotationAnalysis": "A two-stage funnel annotation strategy was employed: In the first stage, GPT-4o performs initial annotations. In the second stage, crowd-sourced human annotators conduct quality control and filtering to refine the final results. Human annotators rewrite and calibrate the questions and answers to ensure the QA pairs are correct and consistent.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4o for initial annotation generation, Beautiful Soup for extracting web page markdown content and clickable HTML buttons",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "WebWalkerQA is built on official websites with dynamically updated information, while pre-trained models rely on static knowledge limited by a cutoff date and lack dynamic updates. The dataset features a diverse distribution of languages (Chinese 60.5%, English 39.5%) and domains (Conference 24.0%, Organization 7.9%, Education 46.3%, Game 24.0%) to ensure comprehensive evaluation.",
+    "rai:dataLimitations": "WebWalkerQA is built on official websites with dynamically updated information. The benchmark is challenging, with even the best-performing system (WebWalker using GPT-4o) not surpassing 40% accuracy. The dataset focuses on text-based reasoning abilities and constrains actions to 'click' to evaluate navigation and information-seeking capabilities.",
+    "rai:dataUseCases": "Testing and evaluation of LLMs' web traversal abilities in complex, multi-step information-seeking tasks. The benchmark is designed to assess the capacity of LLMs to traverse websites' subpages to extract high-quality data systematically. It can be used to evaluate RAG systems and web navigation agents."
+  },
+  "usage": {
+    "input_tokens": 20974,
+    "output_tokens": 2836
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:07.474464Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce WebWalkerQA, a benchmark designed to assess the ability of LLMs to perform web traversal"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce WebWalkerQA, a benchmark designed to assess the ability of LLMs to perform web traversal. It evaluates the capacity of LLMs to traverse a website's subpages to extract high-quality data systematically... Through such data construction method with LLM and human participation, we obtain 680 question-answer pairs for WebWalkerQA."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://github.com/Alibaba-NLP/WebAgent"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jialong Wu, Wenbiao Yin, Yong Jiang(  ), Zhenglin Wang, Zekun Xi, Runnan Fang, Linhai Zhang, Yulan He, Deyu Zhou, Pengjun Xie, Fei Huang Tongyi Lab, Alibaba Group"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "2025-01-14"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Language WebWalkerQA is a bilingual dataset that includes both Chinese and English... In terms of language distribution, Chinese and English account for 60.5%, 39.5%, respectively."
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To make the annotation process cost-efficient and accurate, we employ a two-stage funnel annotation strategy, combining LLM-based and human annotation. In the first stage, GPT-4o (OpenAI, 2022b), performs initial annotations, followed by a second stage, where crowd-sourced human annotators conduct quality control and filtering to refine the final results... Step1: Traverse official websites recursively, collecting information on accessible sub-links and their respective pages."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Step1: Traverse official websites recursively, collecting information on accessible sub-links and their respective pages... In the first stage, GPT-4o (OpenAI, 2022b), performs initial annotations, followed by a second stage, where crowd-sourced human annotators conduct quality control and filtering"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We first collect root official websites across conference, organization, education, and game domains. Then we mimic human behavior by systematically clicking and collecting subpages accessible through sublinks on the root page."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Step3: Verify and filter for legitimate queries that deviate from natural, human-like phrasing, retaining only QA pairs with short answers containing entities."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To make the annotation process cost-efficient and accurate, we employ a two-stage funnel annotation strategy, combining LLM-based and human annotation. In the first stage, GPT-4o (OpenAI, 2022b), performs initial annotations, followed by a second stage, where crowd-sourced human annotators conduct quality control and filtering to refine the final results... Step2: Construct queries based on the provided page information and specified role, such as focusing on the solo page or considering both pages simultaneously... After the synthetic queries are generated by LLM, human annotators can rewrite and calibrate the questions and answers to ensure the QA pairs are correct and consistent."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first stage, GPT-4o (OpenAI, 2022b), performs initial annotations... Specifically, we utilize the web page's markdown content along with clickable HTML buttons (and corresponding URL) extracted using Beautiful Soup as the observation for the current page."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Even the best-performing WebWalker using GPT-4o as its backbone does not surpass 40%, highlighting the challenge posed by WebWalkerQA... WebWalkerQA is built on official websites with dynamically updated information, while pre-trained models rely on static knowledge limited by a cutoff date and lack dynamic updates... WebWalkerQA focuses on text-based reasoning abilities, using a Question-Answer format to evaluate traversal and problem-solving capabilities in web scenarios. We constrain actions to 'click' to evaluate the agent's navigation and information-seeking capabilities."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce WebWalkerQA, a benchmark designed to assess the ability of LLMs to perform web traversal. It evaluates the capacity of LLMs to traverse a website's subpages to extract high-quality data systematically... We evaluate the performance of RAG systems in tackling WebWalkerQA's challenges, specifically, whether they can retrieve deep information"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 14,
+      "evidence_coverage": 70.0,
+      "avg_confidence": 0.9
+    },
+    "cost_usd": 0.0527,
+    "split": "dev",
+    "corrections_applied": 5,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

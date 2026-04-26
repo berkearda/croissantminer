@@ -1,0 +1,257 @@
+{
+  "dataset_id": "mlfoundations_MINT-1T-PDF-CC-2024-18",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "MINT-1T",
+    "description": "MINT-1T comprises of one trillion text tokens and 3.4 billion images, a 10x scale-up from existing open-source datasets. Additionally, we include previously untapped sources such as PDFs and ArXiv papers.",
+    "url": "https://github.com/mlfoundations/MINT-1T",
+    "license": "CC-BY-4.0",
+    "creator": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, Ludwig Schmidt",
+    "publisher": null,
+    "datePublished": "2024-10-31",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The data comes from CommonCrawl dumps and is filtered using a series of rules-based heuristics and deduplication methods. The data is parsed from HTML and PDF documents that come from CommonCrawl and ArXiv dumps.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "None.",
+    "rai:dataCollectionRawData": "CommonCrawl WARC files, CommonCrawl WAT files, and ArXiv LaTeX source code",
+    "rai:dataCollectionTimeframe": "January 2024 to June 2024",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For multi-file papers, the main Tex file is identified and input tags are replaced with the contents of their respective files. LaTeX code is cleaned up by removing imports, bibliography, tables, and citation tags.",
+    "rai:dataPreprocessingProtocol": "Non-English documents and documents with NSFW URLs were removed. Documents with excessive duplicate n-grams or low quality were filtered out. Images smaller than 150 pixels or larger than 20,000 pixels were removed. Paragraph, document text, and image deduplication were performed.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": "The authors will actively respond to issues, maintain the dataset, and provide updates communicated through the README in the Huggingface interface. A form for opting data out will also be provided.",
+    "rai:personalSensitiveInformation": "Images of individuals, text about specific individuals, email addresses, and IP addresses.",
+    "rai:dataSocialImpact": "The authors considered the risk of exposing harmful content from the web and took steps to filter out personally identifiable information and NSFW content.",
+    "rai:dataBiases": "The dataset avoids using model-based heuristics for text filtering to prevent favoring text from certain demographics.",
+    "rai:dataLimitations": "Limitations include occasional inability to detect images in PDFs and incorrect reading order extraction due to arbitrary layouts. The dataset should not be used to train models that ingest or generate personally identifying information or for military applications.",
+    "rai:dataUseCases": "Pre-training large multimodal models, generating interleaved images and text sequences, and building multimodal document retrieval systems."
+  },
+  "usage": {
+    "input_tokens": 49414,
+    "output_tokens": 2134
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-25T15:19:52.111430Z",
+    "git_commit": "7c3032f",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce MINT-1T, the most extensive and diverse open-source Multimodal INTerleaved dataset to date."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T comprises of one trillion text tokens and 3.4 billion images, a 10x scale-up from existing open-source datasets. Additionally, we include previously untapped sources such as PDFs and ArXiv papers."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our data at https://github.com/mlfoundations/MINT-1T ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release MINT-1T under a CC-BY-4.0 licence."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Anas Awadalla1,2∗Le Xue2Oscar Lo1Manli Shu2\nHannah Lee1Etash Guha1Matt Jordan4Sheng Shen5Mohamed Awadalla1\nSilvio Savarese⋄,2,3Caiming Xiong⋄,2Ran Xu⋄,2Yejin Choi⋄,1Ludwig Schmidt⋄,1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2406.11271v5 [cs.CV] 31 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Initially, we eliminate non-English documents using Fasttext’s [Joulin et al., 2017] language identification model"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes the dataset will be updated by the authors of this work. We will communicate updates through the README in the Huggingface interface."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data comes from CommonCrawl dumps and is filtered using a series of rules-based heuristics and deduplication methods. ... The data is parsed from HTML and PDF documents that come from CommonCrawl and ArXiv dumps."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data comes from CommonCrawl dumps and is filtered using a series of rules-based heuristics and deduplication methods."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow OBELICS’s method for extracting interleaved multimodal documents from CommonCrawl WARC files... We source PDF documents from CommonCrawl WAT files... ArXiv interleaved documents are built from the LaTeX source code."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data was collected from January 2024 to June 2024."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For multi-file papers (i.e. where each section is written in a different Tex file), we identify the main Tex file and replace input tags with the contents of its file. We additionally clean up the the LaTex code removing imports, bibliography, tables, and citation tags."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Initially, we eliminate non-English documents using Fasttext’s [Joulin et al., 2017] language identification model... documents with URLs containing NSFW substrings were removed... removing documents with excessive duplicate n-grams or those identified as low quality... We remove images smaller than 150pixels... and images larger than 20,000pixels... we perform paragraph and document text deduplication... and image deduplication"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work’s authors will actively respond to issues in MINT-1T and maintain the dataset... Yes the dataset will be updated by the authors of this work. We will communicate updates through the README in the Huggingface interface... we will provide a form for opting data out of MINT-1T."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes if it is present on the public web then it is possible to find images of individuals as well as text about specific individuals. We masked personally identifiable information such as emails and IP addresses to remove personal data from MINT-1T."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "An important consideration when releasing large datasets is to avoid exposing harmful content from the web. We were careful about filtering out personally identifiable information and not safe for work content from MINT-1T."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow previous works in not using text quality classifier models as they have been shown to favor text from certain demographics."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We noticed two limitations with using the PyMuPDF package for parsing PDFs: 1) we sometimes are unable to detect images 2) as PDFs have arbitrary layouts, in some cases we extract an incorrect reading order... Using the dataset to train models that ingest or generate personally identifying information (such as images of people’s faces and other sensitive content) as well as military applications are all inappropriate use cases of MINT-1T."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T is built for pre-training large multimodal models that can process multiple interleaved images and text... The dataset can be used for other training objectives like generating interleaved images and text sequences or for building multimodal document retrieval systems."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.943
+    },
+    "cost_usd": 0.0831,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 56.3,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "dataset_id": "IGNF_PASTIS-HD",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "PASTIS",
+    "description": "Large-scale publicly available satellite image time series dataset with semantic and panoptic annotations for agricultural parcel segmentation.",
+    "url": "https://github.com/VSainteuf/pastis-benchmark",
+    "license": "etalab-2.0",
+    "creator": "Vivien Sainte Fare Gamot; Loic Landrieu",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset consists of Sentinel-2 multi-spectral image sequences collected over four regions of France, with acquisitions automatically filtered for extensive cloud cover, and annotations sourced from the French Land Parcel Identification System.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Acquisition irregularity results from automatic filtering of images with extensive cloud cover; close to 28% of images still have at least partial cloud cover.",
+    "rai:dataCollectionRawData": "Sentinel-2 multi-spectral satellite image time series with 10 non-atmospheric spectral bands, plus parcel annotations from the French Land Parcel Identification System.",
+    "rai:dataCollectionTimeframe": "2018-09 to 2019-11",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Satellite bands were atmospherically corrected and re-sampled to 10 meters per pixel; the dataset was split into 5 folds with a 1 km buffer between images to avoid cross-fold contamination.",
+    "rai:dataPreprocessingProtocol": "Acquisitions with extensive cloud cover were automatically filtered by THEIA; Sentinel-2 bands were atmospherically corrected and resampled to 10 m spatial resolution.",
+    "rai:dataAnnotationProtocol": "Each pixel was assigned a semantic crop label from 18 crop types plus background, and each non-background pixel received a unique parcel instance label; annotations were taken from the French Land Parcel Identification System.",
+    "rai:dataAnnotationPlatform": "French Land Parcel Identification System",
+    "rai:dataAnnotationAnalysis": "Annotation quality is reported via French Payment Agency estimates: crop annotation accuracy over 98% from in situ control and relative surface error under 0.3%.",
+    "rai:annotationsPerItem": "1 semantic label and 1 instance label per pixel",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": "The paper states that the implementation and PASTIS dataset are publicly available at https://github.com/VSainteuf/utae-paps and https://github.com/VSainteuf/pastis-benchmark. It also notes a metric correction: values for the panoptic segmentation experiment differ from the ICCV 2021 proceedings because of a bug in the computation of the Recognition Quality metric in the original implementation; all models in Table 2 were re-evaluated with the corrected implementation, and readers are referred to github.com/VSainteuf/utae-paps/issues/11 for details.",
+    "rai:personalSensitiveInformation": "Geography",
+    "rai:dataSocialImpact": "The dataset supports agricultural parcel monitoring with major economic and environmental implications, including fair allocation of subsidies and crop rotation compliance.",
+    "rai:dataBiases": "The dataset is highly class-imbalanced, with over 50x ratio between the most and least common classes.",
+    "rai:dataLimitations": "Irregular acquisition times due to cloud filtering, partial cloud cover in about 28% of images, and strong class imbalance.",
+    "rai:dataUseCases": "Training and evaluating semantic and panoptic segmentation models on satellite image time series; cross-validation benchmarking."
+  },
+  "usage": {
+    "input_tokens": 19362,
+    "output_tokens": 2131
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:34:55.596428Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Lastly, we present Panoptic Agricultural Satellite TIme-Series (PASTIS), the first open-access dataset for training and evaluating panoptic segmentation models on SITS"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present PASTIS (Panoptic Agricultural Satellite TIme Series), the first large-scale, publicly available SITS dataset with both semantic and panoptic annotations."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset, as well as more information about its composition, are publicly available at https://github.com/VSainteuf/pastis-benchmark ."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Panoptic Segmentation of Satellite Image Time Series with Convolutional Temporal Attention Networks\nVivien Sainte Fare Gamot Loic Landrieu"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the version published in the ICCV 2021 proceedings"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Panoptic Segmentation of Satellite Image Time Series with Convolutional Temporal Attention Networks"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To allow for cross-validation, the dataset is split into 5 folds"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "PASTIS is comprised of 2 433 sequences of multi-spectral images of shape 10×128×128. Each sequence contains between 38 and 61 observations taken between September 2018 and November 2019... This lack of regularity is due to the automatic filtering of acquisitions with extensive cloud cover by the satellite data provider THEIA... All annotations are taken from the publicly available French Land Parcel Identification System."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The 10 channels correspond to the non-atmospheric spectral bands of the Sentinel-2 satellite... All annotations are taken from the publicly available French Land Parcel Identification System."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The time between acquisitions is uneven with a median of 5 days. This lack of regularity is due to the automatic filtering of acquisitions with extensive cloud cover by the satellite data provider THEIA... We estimate that close to 28% of images have at least partial cloud cover."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The 10 channels correspond to the non-atmospheric spectral bands of the Sentinel-2 satellite, after atmospheric correction and re-sampling at a spatial resolution of 10 meters per pixel... All annotations are taken from the publicly available French Land Parcel Identification System."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each sequence contains between 38 and 61 observations taken between September 2018 and November 2019"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The 10 channels correspond to the non-atmospheric spectral bands of the Sentinel-2 satellite, after atmospheric correction and re-sampling at a spatial resolution of 10 meters per pixel... To allow for cross-validation, the dataset is split into 5 folds, chosen with a 1 km buffer between images to avoid cross-fold contamination."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This lack of regularity is due to the automatic filtering of acquisitions with extensive cloud cover by the satellite data provider THEIA. The 10 channels correspond to the non-atmospheric spectral bands of the Sentinel-2 satellite, after atmospheric correction and re-sampling at a spatial resolution of 10 meters per pixel."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each pixel of PASTIS is associated with a semantic label taken from a nomenclature of 18 crop types plus a background class... Each non-background pixel also has a unique instance label corresponding to its parcel index... All annotations are taken from the publicly available French Land Parcel Identification System."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All annotations are taken from the publicly available French Land Parcel Identification System."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The French Payment Agency estimates the accuracy of the crop annotations via in situ control over 98% and the relative error in terms of surfaces under 0.3%."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each pixel of PASTIS is associated with a semantic label... Each non-background pixel also has a unique instance label corresponding to its parcel index."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset spans over 4000 km2, with images taken from four different regions of France with diverse climates and crop distributions"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Among them, pixel-precise panoptic segmentation of agricultural parcels has major economic and environmental implications... remote monitoring of the surface and nature of agricultural parcels is necessary for a fair allocation of agricultural subsidies... and for ensuring that best crop rotation practices are respected."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As is common in remote sensing applications, the dataset is highly unbalanced, with a ratio of over 50 between the most and least common classes."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The time between acquisitions is uneven with a median of 5 days. This lack of regularity is due to the automatic filtering of acquisitions with extensive cloud cover... We estimate that close to 28% of images have at least partial cloud cover... the dataset is highly unbalanced, with a ratio of over 50 between the most and least common classes."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "PASTIS, the first open-access dataset for training and evaluating panoptic segmentation models on SITS... To allow for cross-validation, the dataset is split into 5 folds"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 23,
+      "evidence_coverage": 92.0,
+      "avg_confidence": 0.934
+    },
+    "cost_usd": 0.0455,
+    "split": "dev",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 28.7,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "dataset_id": "allenai_sciq",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "SciQ",
+    "description": "A dataset of 13.7K multiple choice science exam questions created via crowdsourcing with model assistance for document selection and distractor choice. Most instances include a question, four answer options, and often the source document used to formulate the question.",
+    "url": "http://allenai.org/data.html",
+    "license": "cc-by-nc-3.0",
+    "creator": "Johannes Welbl, Nelson F. Liu, Matt Gardner",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2017-07-19",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected through a two-step crowdsourcing process: workers were shown filtered textbook paragraphs and asked to write a question answerable from a chosen passage; then another worker created three distractor answers with model assistance.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw/source data consisted of a large corpus of domain-specific science study textbooks, specifically 28 books from online learning resources such as CK-12 and OpenStax, with individual paragraphs filtered and shown to workers.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Two-step crowdsourcing process for creating multiple-choice science questions: first, a crowd worker selected one of three candidate textbook paragraphs (or rejected all) and wrote a question-answer pair about the chosen passage under detailed instructions; second, another worker produced three distractors for the question, aided by model suggestions. Instructions specified desirable question properties and examples of good/bad questions.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": "Two human annotation steps per item, involving two workers: one worker generated the question-answer pair and another worker generated three distractors.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "A noisy classifier/simple filter was used to find relevant passages, and a model trained on real science exam questions predicted good answer distractors to assist workers.",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset may not align well with systems relying on hand-collected background knowledge outside SciQ topics, and it is positioned as useful specifically in medium-sized data settings and for science exam QA augmentation rather than as a universal benchmark.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for training, validation, and testing of science QA and reading comprehension models, as well as augmenting training data for real science exam question answering and future research.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is released publicly for future research, but no update schedule, maintainer details, or deprecation policy are provided.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Rule-based filtering of textbook paragraphs/sentences to retain passages suitable for question generation. Sentences were classified as relevant or irrelevant using manually annotated validation data, and paragraphs were accepted only if a minimum number of sentences passed rules based on lexical, grammatical, pragmatic, and complexity criteria."
+  },
+  "usage": {
+    "input_tokens": 17350,
+    "output_tokens": 1804
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:49:38.838194Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"With this method we have assembled SciQ, a dataset of 13.7K multiple choice science exam questions.\""
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"With this method we have assembled SciQ, a dataset of 13.7K multiple choice science exam questions.\"; \"An instance consists of a question and 4 answer options (the correct one in green). Most instances come with the document used to formulate the question.\""
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Dataset available at http://allenai.org/data.html\""
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Johannes Welbl\"; \"Nelson F. Liu\"; \"Matt Gardner\""
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Matt Gardner Allen Institute for Artificial Intelligence\"; \"*Work done while at the Allen Institute for Artificial Intelligence.\""
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"arXiv:1707.06209v1 [cs.HC] 19 Jul 2017\""
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset examples and paper text are in English, e.g., \"What type of organism is commonly used in preparation of foods such as cheese and yogurt?\""
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The method is a two-step process: first we present a set of candidate passages to a crowd worker, letting the worker choose one of the passages and ask a question about it. Second, another worker takes the question and answer generated in the first step and produces three distractors, aided by a model trained to predict good answer distractors.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we presented the filtered, in-domain text to crowd workers and had them ask a question that could be answered by the presented passage”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We chose science study textbooks as our base corpus... we compiled a list of 28 books from various online learning resources, including CK-12 and OpenStax”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The method is a two-step process: first we present a set of candidate passages to a crowd worker, letting the worker choose one of the passages and ask a question about it. Second, another worker takes the question and answer generated in the first step and produces three distractors, aided by a model trained to predict good answer distractors.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“first we present a set of candidate passages to a crowd worker... Second, another worker takes the question and answer generated in the first step and produces three distractors”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We use a two-step process to solve these problems, first using a noisy classifier to find relevant passages... Second, we use a model trained on real science exam questions to predict good answer distractors given a question and a correct answer.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Because TableILP uses a hand-collected set of background knowledge that does not cover the topics in SciQ, its performance is substantially worse here than on its original test set. ... This suggests that SciQ is a useful dataset for studying reading comprehension models in medium-data settings."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SciQ has a total of 13,679 multiple choice questions. We randomly shuffled this dataset and split it into training, validation and test portions ... we release for future research. We have shown through baseline evaluations that this dataset is a useful research resource, both to investigate neural model performance in medium-sized data settings, and to augment training data for answering real science exam questions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset available at http://allenai.org/data.html ... we release for future research."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We designed a rule-based document filter model into which individual paragraphs of the base corpus are fed. The system classifies individual sentences and accepts a paragraph if a minimum number of sentences is accepted.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.0397,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 9515,
+        "tokens_in": 2696,
+        "tokens_out": 476
+      },
+      "collection": {
+        "section_chars": 17687,
+        "tokens_in": 4276,
+        "tokens_out": 340
+      },
+      "annotation": {
+        "section_chars": 17687,
+        "tokens_in": 4262,
+        "tokens_out": 424
+      },
+      "impact": {
+        "section_chars": 6546,
+        "tokens_in": 1970,
+        "tokens_out": 393
+      },
+      "processing": {
+        "section_chars": 17687,
+        "tokens_in": 4146,
+        "tokens_out": 171
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 29.3
+  }
+}

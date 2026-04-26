@@ -1,0 +1,281 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "A hand-written evaluation dataset of 164 original programming problems for generating standalone Python functions from docstrings, each with unit tests to measure functional correctness. The problems assess language comprehension, algorithms, and simple mathematics.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": "MIT",
+    "creator": "OpenAI",
+    "publisher": "OpenAI",
+    "datePublished": "2021-07-14",
+    "inLanguage": "en",
+    "citeAs": "@Article{Zheng2023CodeGeeXAP,\n author = {Qinkai Zheng and Xiao Xia and Xu Zou and Yuxiao Dong and Shanshan Wang and Yufei Xue and Zihan Wang and Lei Shen and Andi Wang and Yang Li and Teng Su and Zhilin Yang and Jie Tang},\n booktitle = {Knowledge Discovery and Data Mining},\n journal = {Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},\n title = {CodeGeeX: A Pre-Trained Model for Code Generation with Multilingual Benchmarking on HumanEval-X},\n year = {2023}\n}\n",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The training dataset was gathered from public GitHub repositories in May 2020, collecting unique Python files under 1 MB and filtering out likely auto-generated or low-quality files. Additional supervised fine-tuning data was collected from competitive programming/interview websites and from open-source projects with continuous integration by tracing function inputs and outputs during integration tests.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Publicly available code from GitHub, specifically 179 GB of unique Python files under 1 MB from 54 million public repositories; for fine-tuning, raw sources also included problem statements, function signatures, and solutions from programming contest/interview websites, plus source code from GitHub repositories using travis/tox and pip packages from PyPI with traced function inputs and outputs from integration tests.",
+    "rai:dataCollectionTimeframe": "May 2020",
+    "rai:dataAnnotationProtocol": "HumanEval consists of hand-written programming problems, and additional training problems were curated from competitive programming sites and continuous integration traces, then assembled into tasks similar to HumanEval and filtered by whether generated solutions passed unit tests.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Quality was assessed by verifying problems with unit tests using Codex-12B-generated samples; problems with no passing samples were treated as ambiguous or too difficult and removed, and verification was rerun to remove stateful or non-deterministic problems.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Codex-12B was used as an automated tool to generate 100 samples per curated problem for verification/filtering.",
+    "rai:dataBiases": "The training data and resulting model outputs can reflect harmful social biases and stereotypes. The paper reports racist, denigratory, and otherwise harmful outputs in comments, as well as code structures reflecting stereotypes about gender, race, emotion, class, names, and other characteristics.",
+    "rai:dataLimitations": "The dataset/model setup is highly data-inefficient, relying on hundreds of millions of lines of public GitHub Python code. The resulting system can generate syntactically incorrect or undefined code, invoke out-of-scope functions or variables, struggles with long and high-level/system-level specifications, degrades exponentially as docstring complexity increases, and makes variable-operation binding mistakes. The paper also recommends against trusting outputs without qualified review, especially in high-stakes settings.",
+    "rai:dataSocialImpact": "The paper discusses both positive and negative social impacts: potential benefits for onboarding, productivity, education, and enabling non-programmers to draft implementations; risks of over-reliance, misalignment, harmful biased outputs, labor market effects, security misuse including cybercrime, and legal/intellectual property implications. It emphasizes careful deployment and mitigation to maximize positive impacts and reduce harms.",
+    "rai:personalSensitiveInformation": "Sensitive human attributes discussed in relation to biased representations include gender, race, emotion, class, and the structure of names.",
+    "rai:dataUseCases": "The dataset is used for fine-tuning/training Codex on publicly available GitHub code and for evaluation via HumanEval, a benchmark for synthesizing programs from docstrings using functional correctness. Usage guidance emphasizes careful use, qualified human review of generated code before execution or trust, and restrictions/monitoring for high-stakes or malicious use cases.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Filtered the dataset by removing likely auto-generated files, files with average line length greater than 100, files with maximum line length greater than 1000, and files with a small percentage of alphanumeric characters."
+  },
+  "usage": {
+    "input_tokens": 22328,
+    "output_tokens": 2302
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:12:45.752773Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Next, we describe the dataset of hand-written problems, called “HumanEval,” which we created in order to benchmark our models."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We create a dataset of 164 original programming problems with unit tests. These problems assess language comprehension, algorithms, and simple mathematics... We evaluate functional correctness on a set of 164 handwritten programming problems, which we call the HumanEval dataset."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we create a dataset of 164 original programming problems with unit tests... We release this data along with an evaluation framework"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1OpenAI, San Francisco, California, USA."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2107.03374v2 [cs.LG] 14 Jul 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These problems assess language comprehension, algorithms, and simple mathematics"
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub, containing 179 GB of unique Python files under 1 MB. We filtered out files which were likely auto-generated...” and “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.” and “Taking advantage of sys.setprofile, we were able to trace and collect inputs and outputs for all functions called during integration tests.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub” and “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“publicly available code from GitHub” and “179 GB of unique Python files under 1 MB” and “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.” and “We considered GitHub repos using travis and tox as their CI frameworks... We additionally used publicly available source code from pip packages found in the python package index (PyPI).”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected in May 2020”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We evaluate functional correctness on a set of 164 hand-written programming problems, which we call the HumanEval dataset.” ; “We then assembled these into programming tasks similar to HumanEval” ; “To address these issues, we use Codex-12B to generate 100 samples per curated problem. If no samples pass the unit tests, we consider the task to be either ambiguous or too difficult, and filter it out.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To address these issues, we use Codex-12B to generate 100 samples per curated problem. If no samples pass the unit tests, we consider the task to be either ambiguous or too difficult, and filter it out. We reran this verification several times to remove stateful or non-deterministic problems.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we use Codex-12B to generate 100 samples per curated problem”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we found that Codex can be prompted in ways that generate racist, denigratory, and otherwise harmful outputs as code comments... Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our training dataset comprises a significant fraction of publicly available Python code on GitHub, totaling hundreds of millions of lines of code... Codex can recommend syntactically incorrect or undefined code, and can invoke functions, variables, and attributes that are undefined or outside the scope of the codebase. Moreover, Codex struggles to parse through increasingly long and higher-level or system-level specifications."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Codex has the potential to be useful in a range of ways... However, Codex also raises significant safety challenges... One of the key risks associated with using code generation models in practice is over-reliance... Code generation and associated capabilities have several possible economic and labor market impacts... Codex could also be misused to aid cybercrime... models like Codex should be developed, used, and their capabilities explored carefully with an eye towards maximizing their positive social impacts and minimizing intentional or unintentional harms"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce Codex, a GPT language model fine-tuned on publicly available code from GitHub... On HumanEval, a new evaluation set we release to measure functional correctness for synthesizing programs from docstrings... qualified operators should review its generations before executing or trusting them... policies such as user review, use case restrictions, monitoring, and/or rate limiting may also help"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We filtered out files which were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.927
+    },
+    "cost_usd": 0.0509,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 40843,
+        "tokens_in": 10517,
+        "tokens_out": 433
+      },
+      "collection": {
+        "section_chars": 9360,
+        "tokens_in": 2562,
+        "tokens_out": 507
+      },
+      "annotation": {
+        "section_chars": 11315,
+        "tokens_in": 2988,
+        "tokens_out": 427
+      },
+      "impact": {
+        "section_chars": 19542,
+        "tokens_in": 4855,
+        "tokens_out": 779
+      },
+      "processing": {
+        "section_chars": 4811,
+        "tokens_in": 1406,
+        "tokens_out": 156
+      }
+    },
+    "enrichments": [
+      "license",
+      "citeAs"
+    ],
+    "elapsed_seconds": 33.4
+  }
+}

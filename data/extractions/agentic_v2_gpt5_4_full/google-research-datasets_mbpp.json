@@ -1,0 +1,259 @@
+{
+  "dataset_id": "google-research-datasets_mbpp",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "Mostly Basic Programming Problems (MBPP) and MathQA-Python",
+    "description": "Two Python program synthesis datasets: MBPP, a crowd-sourced dataset of 974 short Python programming tasks with descriptions, reference solutions, and test cases; and MathQA-Python, a 23,914-problem Python conversion of MathQA for synthesizing code from mathematical word problems.",
+    "url": "https://github.com/google-research/google-research/tree/master/mbpp",
+    "license": "CC-BY-4.0",
+    "creator": "Jacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, Charles Sutton",
+    "publisher": "Google Research",
+    "datePublished": "2021-08-16",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "MBPP was collected by crowd-sourcing to an internal pool of crowdworkers with basic Python knowledge, who wrote problem statements, Python functions, and three test cases. A subset was then manually inspected, edited, and pruned by the authors. MathQA-Python was created by translating ground-truth programs from the MathQA domain-specific language into Python and filtering problems whose code did not evaluate to the declared numerical answer.",
+    "rai:dataCollectionType": "Manual Human Curator, Software Collection, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "For MBPP, raw data consisted of crowdworker-written problem statements, self-contained Python functions, and three semantic test cases, plus ground-truth solutions. For MathQA-Python, raw data came from MathQA mathematical word problems, multiple-choice answers, and DSL programs that were translated into Python.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "MBPP included manual inspection, editing, and pruning to create a 426-question hand-verified subset with standard signatures, unambiguous wording, and accurate test cases. MathQA-Python involved translating DSL programs to Python and filtering out problems whose code did not evaluate to the declared answer, removing 45% of problems.",
+    "rai:dataPreprocessingProtocol": "MathQA was filtered to retain only problems whose translated code evaluated to the declared numerical answer. MBPP reference code was programmatically checked to pass all tests under Python 3.6. Dataset splits were created for prompting, training, validation, and testing.",
+    "rai:dataAnnotationProtocol": "For MBPP, crowdworkers authored the problem statements, reference Python functions, and three test cases, and authors later hand-verified and edited a subset. For MathQA-Python, labels/programs were created by translating existing DSL solutions into Python.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors analyzed annotation/data quality by identifying ambiguity, uncommon signatures, missing detail, and mismatches between text and tests in MBPP, then creating a hand-verified edited subset. They also compared performance between original and edited versions.",
+    "rai:annotationsPerItem": "3 test cases per MBPP item",
+    "rai:annotatorDemographics": "Internal crowdworkers with basic knowledge of Python",
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Annotator experience/skill level in Python",
+    "rai:dataSocialImpact": "The paper discusses both potential benefits and risks: collaborative coding systems could augment programmers and make programming more accessible, but models may produce harmful or biased outputs, reveal training data or sensitive information, and interactive use may increase such risks.",
+    "rai:dataBiases": "The authors note that large language models can learn undesirable biased behavior from unlabeled training data, and that the models used in the paper have not been treated for safety.",
+    "rai:dataLimitations": "MBPP contains some ambiguous or underspecified questions, uncommon function signatures, and imperfect tests; benchmark programs are short and simple; models often solve tasks only in 1 or 2 out of 80 samples; and models cannot reliably predict program outputs on simple inputs, limiting claims of semantic understanding.",
+    "rai:dataUseCases": "The datasets are used to evaluate Python code synthesis in few-shot prompting and fine-tuning settings, with train/validation/test splits and held-out prompt examples. They are intended as benchmarks for training, validation, testing, and fine-tuning of program synthesis models."
+  },
+  "usage": {
+    "input_tokens": 44573,
+    "output_tokens": 2946
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:00:58.286854Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct two new datasets: one entirely new and the other modified from an existing benchmark. The first, Mostly Basic Programming Problems (MBPP), is an entirely new crowd-sourced programming dataset. The second is derived from the MathQA dataset [Amini et al., 2019] but casts the problem solutions as short Python programs."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mostly Basic Programming Problems (MBPP) dataset contains 974 short Python functions designed to be solved by entry-level programmers, text descriptions of those programs, and test cases to check for functional correctness... The second is a Python synthesis dataset, containing 23914 problems, produced by rewriting the solutions to a subset of the MathQA dataset [Amini et al., 2019] into Python."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have programmatically checked that all reference code passes all tests under Python 3.6, and we have open-sourced all of the problems.1\n2.1 Mostly Basic Programming Problems\n... 1https://github.com/google-research/google-research/tree/master/mbpp"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Program Synthesis with Large Language Models\nJacob Austin*Augustus Odena*\nMaxwell NyeyMaarten Bosma Henryk Michalewski David Dohan Ellen Jiang Carrie Cai\nMichael Terry Quoc Le Charles Sutton"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Google Research"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2108.07732v1 [cs.PL] 16 Aug 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The natural language descriptions are typically short, usually one sentence each."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have open-sourced all of the problems."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mostly Basic Programming Problems dataset contains 974 short Python programs constructed by crowd-sourcing to an internal pool of crowdworkers who have basic knowledge of Python. We asked crowd-sourcing participants to write a short problem statement, a single self-contained Python function solving the problem specified, and three test cases that check for semantic correctness of the function... Given this, we manually inspected, edited, and pruned a subset of the questions, yielding 426 hand-verified questions... To evaluate whether pre-training on source code is useful for this task, we translate this dataset into a Python program synthesis dataset by translating the ground-truth programs from the domain-specific language given in the paper to Python code... This method of checking correctness forced us to filter the MathQA dataset to keep only those problems for which the code evaluates to the declared numerical answer, resulting in us removing 45% of problems."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mostly Basic Programming Problems dataset contains 974 short Python programs constructed by crowd-sourcing to an internal pool of crowdworkers... we manually inspected, edited, and pruned a subset of the questions... The second is derived from the MathQA dataset [Amini et al., 2019] but casts the problem solutions as short Python programs."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked crowd-sourcing participants to write a short problem statement, a single self-contained Python function solving the problem specified, and three test cases that check for semantic correctness of the function. Participants also provided a ground-truth solution that passes all three test cases... The MathQA dataset [Amini et al., 2019] is a dataset where each data point consists of a mathematical word problem, multiple-choice answers for that problem, and a program in a domain-specific language that produces the correct answer."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given this, we manually inspected, edited, and pruned a subset of the questions, yielding 426 hand-verified questions, which we refer to as the edited dataset. For each question in the edited dataset, we ensured it had a standard Python function signature, that it was unambiguous to a human, and that its test cases accurately reflected the text description... This method of checking correctness forced us to filter the MathQA dataset to keep only those problems for which the code evaluates to the declared numerical answer, resulting in us removing 45% of problems."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This method of checking correctness forced us to filter the MathQA dataset to keep only those problems for which the code evaluates to the declared numerical answer, resulting in us removing 45% of problems. After this filtration we are left with 23914 problems, of which we use 19209 for training, 2822 for validation and1883 for testing... We have programmatically checked that all reference code passes all tests under Python 3.6... In the experiments described later in the paper, we hold out 10 problems for few-shot prompting, another 500 as our test dataset... 374 problems for fine-tuning, and the rest for validation."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked crowd-sourcing participants to write a short problem statement, a single self-contained Python function solving the problem specified, and three test cases that check for semantic correctness of the function. Participants also provided a ground-truth solution that passes all three test cases... Given this, we manually inspected, edited, and pruned a subset of the questions, yielding 426 hand-verified questions... we translate this dataset into a Python program synthesis dataset by translating the ground-truth programs from the domain-specific language given in the paper to Python code."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While inspecting the dataset, we observed that some questions used uncommon function signatures... lacked detail, were somewhat ambiguous... or performed unexpected operations in a function that were paired with the provided tests... Given this, we manually inspected, edited, and pruned a subset of the questions, yielding 426 hand-verified questions... Table 2 summarizes model performance on the original and edited dataset."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked crowd-sourcing participants to write a short problem statement, a single self-contained Python function solving the problem specified, and three test cases that check for semantic correctness of the function."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mostly Basic Programming Problems dataset contains 974 short Python programs constructed by crowd-sourcing to an internal pool of crowdworkers who have basic knowledge of Python."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mostly Basic Programming Problems dataset contains 974 short Python programs constructed by crowd-sourcing to an internal pool of crowdworkers who have basic knowledge of Python."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It is possible that these risks are increased for an interactive use-case such as we described in Section 5.1. Further analysis of such risks and how to mitigate the risks for program synthesis are important directions for future work... In addition to increasing productivity for existing programmers, this could make programming much more widely accessible, empowering more people to interact with technology to meet their needs."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The models we use in this paper have not been treated for safety, hence additional analysis of model outputs for potential harms is necessary before the use of the model in practice. For example, it is now increasingly understood that large language models can learn undesirable (e.g. biased) behavior from unlabeled training data..."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While inspecting the dataset, we observed that some questions used uncommon function signatures... lacked detail, were somewhat ambiguous... or performed unexpected operations... Several limitations of our current model point toward interesting directions for future work: 1. Our benchmark programs are short and simple... 2. Even when the model solves a task, it often does so with only one or two out of 80 samples... 3. The model cannot predict the outputs of programs on simple inputs (Section 6)."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate a collection of such models... on two new benchmarks, MBPP and MathQA-Python, in both the few-shot and fine-tuning regimes... In the experiments described later in the paper, we hold out 10 problems for few-shot prompting, another 500 as our test dataset... 374 problems for fine-tuning, and the rest for validation... After this filtration we are left with 23914 problems, of which we use 19209 for training, 2822 for validation and1883 for testing."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0852,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 35.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

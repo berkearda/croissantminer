@@ -1,0 +1,279 @@
+{
+  "dataset_id": "google_fleurs",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "FLEURS",
+    "description": "FLEURS is an n-way parallel speech dataset in 102 languages built on top of the machine translation FLoRes-101 benchmark, with approximately 12 hours of speech supervision per language. FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval.",
+    "url": "https://tensorflow.org/datasets/catalog/xtreme_s",
+    "license": "CC-BY-4.0",
+    "creator": "Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera, Ankur Bapna",
+    "publisher": "Google Research",
+    "datePublished": "2022",
+    "inLanguage": "102 languages",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Speech data was collected by having three different native speakers record each of 2009 sentences from the FLoRes-101 dataset (dev and devtest sets) in 102 languages. Each recording was then evaluated by additional workers to assess whether it corresponded to the input sentence, with invalid recordings discarded. A balance in sex ratio of at least 30/70% was imposed when possible. All recordings were kept as-is from either quiet or noisy environments without data augmentations. The speech sampling rate is 16kHz.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "About 21.5% of sentences are missing in the first version because none of the three recordings were validated. The authors plan to fill these gaps in future versions.",
+    "rai:dataCollectionRawData": "The raw data consists of sentences from the FLoRes-101 dataset, which contains 3001 sentences extracted from English Wikipedia that have been translated into 101 languages by human translators. The dev and devtest sets (2009 sentences total) were used as the source material for speech recordings.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "For each sentence in 102 languages, three recordings were collected by three different native speakers with a balance in sex ratio of at least 30/70% when possible. After recording, each recording was evaluated by additional workers to assess whether the recording corresponds to the input sentence. Invalid recordings were discarded, leaving between zero and three recordings per sentence in the final dataset.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "About 21.5% of the sentences are missing because none of the three recordings were validated in the first version of the dataset.",
+    "rai:annotationsPerItem": "Three recordings per sentence, with between zero and three recordings retained after validation",
+    "rai:annotatorDemographics": "Native speakers with a balance in sex ratio of at least 30/70% when possible",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset shows performance disparities across geographical groups, with Western European languages achieving better results (10.7 CER) compared to Sub-Saharan African (15.6 CER) and South Asian languages (17.4 CER), partly due to larger amounts of unlabeled data available for Western European languages from existing datasets like MLS and VoxPopuli.",
+    "rai:dataLimitations": "About 21.5% of sentences are missing in the first version because none of the three recordings were validated. Languages unseen during pre-training generally achieve worse than average CER due to fine-tuning on very limited supervised data. The dataset maintains recordings as-is from quiet or noisy environments without data augmentations.",
+    "rai:dataSocialImpact": "The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding. The dataset aims to reduce gaps across geographical groups and advance massively multilingual speech and text representations.",
+    "rai:personalSensitiveInformation": "The dataset includes recordings from native speakers with imposed balance in sex ratio of at least 30/70% when possible. Speakers are different between train and dev/test sets.",
+    "rai:dataUseCases": "FLEURS can be used for a variety of speech tasks including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval. The dataset is well-suited for downstream tasks including ASR, Speech-to-Text and Speech-to-Speech Translation, Speech LangID, and Multilingual Speech-to-Speech and Speech-to-Text Retrieval.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly available via TFDS and Huggingface. Future versions are planned to fill gaps where recordings are missing (about 21.5% of sentences in the first version).",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "For textual data, NFC and FST normalization is applied to each sentence, followed by lower-casing, normalization and punctuation removal. Words are split into characters with token 'j' as word boundaries. Three versions are provided: original raw transcript (SRC_RAW), preprocessed version (SRC_NORM), and character-based version (SRC_CHAR) for ASR. All recordings are kept as-is from quiet or noisy environments without any data augmentations (e.g., SpecAugment, speed perturbation, simulated reverberation). Speech sampling rate is 16kHz."
+  },
+  "usage": {
+    "input_tokens": 30304,
+    "output_tokens": 3344
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:31.248822Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce FLEURS, the Few-shot Learning Evaluation of Universal Representations of Speech benchmark."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FLEURS is an n-way parallel speech dataset in 102 languages built on top of the machine translation FLoRes-101 benchmark, with approximately 12 hours of speech supervision per language. FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is publicly available via TFDS at https://tensorflow.org/datasets/catalog/xtreme_s and Huggingface at https://hf.co/datasets/google/xtreme_s"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Alexis Conneau†‡1, Min Ma†2, Simran Khanuja†2, Yu Zhang2, Vera Axelrod2, Siddharth Dalmia3, Jason Riesa2, Clara Rivera2, Ankur Bapna‡2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Meta AI Research,2Google Research,3Carnegie Mellon University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2205.12446v1 [cs.CL] 25 May 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FLEURS contains n-way parallel speech and text in 102 languages, see Table 9 for a full list"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated. We plan to fill these gaps in the future versions of the dataset."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each sentence in the 102 languages (101 counted in FLoRes plus English, see Table 9), we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible. After this first recording step, each recording is evaluated by additional workers to assesses whether the recording corresponds to the input sentence. Invalid recordings are discarded, leaving us between zero and three recordings per sentence in the final dataset."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start with the FLoRes-101 dataset. FLoRes-101 contains 3001 sentences extracted from English Wikipedia and these sentences have been translated in 101 languages by human translators."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated. We plan to fill these gaps in the future versions of the dataset."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start with the FLoRes-101 dataset. FLoRes-101 contains 3001 sentences extracted from English Wikipedia and these sentences have been translated in 101 languages by human translators. Because the test set of FLoRes-101 is not publicly available, we only use the dev and devtest sets, which contain 2009 sentences in total."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each sentence in the 102 languages (101 counted in FLoRes plus English, see Table 9), we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible. After this first recording step, each recording is evaluated by additional workers to assesses whether the recording corresponds to the input sentence. Invalid recordings are discarded, leaving us between zero and three recordings per sentence in the final dataset."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each sentence in the 102 languages (101 counted in FLoRes plus English, see Table 9), we collected three recordings by three different native speakers... Invalid recordings are discarded, leaving us between zero and three recordings per sentence in the final dataset."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We observe in Table 4 that results are much better on the Western European group (with 10.7 and 10.6 average CER) than on other groups like Sub-Saharan African (15.6 and 16.4 average CER) or South Asian (17.4 and 19.2), which can be explained in part due to the larger amounts of unlabeled data in WE languages from MLS and VoxPopuli."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated. We plan to fill these gaps in the future versions of the dataset. All recordings are kept as they-are, either from quiet or noisy environment, without any data augmentations... For languages which were not seen in pre-training, a large fraction observed a test CER worse than global average due to fine-tuning on very limited amount of supervised data."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding... Reducing the gaps across geographical groups is an important research direction for future work."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each sentence in the 102 languages (101 counted in FLoRes plus English, see Table 9), we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible... We note that on FLEURS-LangID, speakers are different among the train and dev/test sets."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval... FLEURS is well-suited for several downstream tasks including ASR, Speech-to-Text and Speech-to-Speech Translation, Speech LangID, and Multilingual Speech-to-Speech and Speech-to-Text Retrieval."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is publicly available via TFDS at https://tensorflow.org/datasets/catalog/xtreme_s and Huggingface at https://hf.co/datasets/google/xtreme_s... In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated. We plan to fill these gaps in the future versions of the dataset."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We apply NFC and then FST normalization to each sentence, lower-case, normalize and remove punctuations. We also split words into characters, and define the token j as word boundaries. For each sentence, three versions are provided: the original raw transcript (SRC_RAW), the preprocessed version (SRC_NORM) and its character-based version (SRC_CHAR), which should be used for ASR... All recordings are kept as they-are, either from quiet or noisy environment, without any data augmentations (e.g: SpecAugment [23], speed perturbation [24], simulated reverberation [25], etc.). The speech sampling rate is 16kHz."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "evidence_count": 23,
+      "evidence_coverage": 95.8,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.0705,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 12421,
+        "tokens_in": 3978,
+        "tokens_out": 732
+      },
+      "collection": {
+        "section_chars": 20869,
+        "tokens_in": 6609,
+        "tokens_out": 632
+      },
+      "annotation": {
+        "section_chars": 20869,
+        "tokens_in": 6599,
+        "tokens_out": 532
+      },
+      "impact": {
+        "section_chars": 20869,
+        "tokens_in": 6652,
+        "tokens_out": 1050
+      },
+      "processing": {
+        "section_chars": 20869,
+        "tokens_in": 6466,
+        "tokens_out": 398
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

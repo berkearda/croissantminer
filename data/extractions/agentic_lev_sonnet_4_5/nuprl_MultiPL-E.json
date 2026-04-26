@@ -1,0 +1,279 @@
+{
+  "dataset_id": "nuprl_MultiPL-E",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MultiPL-E",
+    "description": "A massively multilingual code generation benchmark created by translating two popular Python code generation benchmarks (HumanEval and MBPP) to 18 additional programming languages. The system includes compilers for translating unit tests, doctests, Python-specific terminology, and type annotations across 19 programming languages.",
+    "url": "https://github.com/nuprl/MultiPL-E",
+    "license": "MIT",
+    "creator": "Federico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, Arjun Guha, Michael Greenberg, Abhinav Jangda",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by translating existing Python benchmarks (HumanEval and MBPP) to 18 other programming languages using a suite of compilers. The original Python datasets were manually cleaned, including adding missing type annotations, formatting examples to use docstrings consistently, and changing random tests into unit tests in two problems. The compilers preserve comments while automatically rephrasing Python-specific terminology.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of two existing Python NL2Code benchmarks: HumanEval (164 problems with tests, examples/doctests, and type annotations) and MBPP (Python problems with descriptions and assertions). The original data for both datasets is publicly available.",
+    "rai:dataCollectionTimeframe": "May–October 2022",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "MultiPL-E compilers translate Python benchmarks to 18 languages, including function signatures, unit tests, comments, and type annotations. A rule-based tool translates technical terms in comments.",
+    "rai:dataBiases": "The benchmarks may not be representative of the kinds of problems that programmers typically solve in each language. The dataset evaluates both scripting languages (e.g., Python and JavaScript) and systems languages (e.g., C++ and Rust) on the same task, but programmers frequently use these languages for very different tasks.",
+    "rai:dataLimitations": "Performance on benchmarks may not accurately represent real-world performance. The benchmarks are characterized as a mix of basic programming problems and straightforward interview questions. Code generation models are sensitive to small changes in prompt design, and pass rates could potentially be improved with more language-specific effort. The quality of generated code is sensitive to sampling configuration decisions.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset has been used for evaluating the performance of code generation models. The dataset could be used to evaluate other LLMs of code, or potentially to improve their performance.",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be maintained by the original authors. The dataset will be updated to correct labeling errors, add new instances, or delete instances. Older versions will continue to be supported/hosted/maintained. Any identified and confirmed errors will be acknowledged as part of the repository. There is a mechanism for others to extend/augment/build on/contribute to the dataset.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We standardize examples to the Python doctest format ('>>>' prepended). We apply value-to-value compilation to the doctests as we do for unit tests. We remove the assertions from the MBPP prompts so that we can use them as hidden unit tests. We mechanically augment every prompt with a function signature, based on the name and arity implied by the assertions.",
+    "rai:dataPreprocessingProtocol": "MultiPL-E uses a suite of 18 compilers to translate Python benchmarks to target languages. Each compiler translates function signatures, simple unit tests, comments describing expected function behavior, and type annotations if the target language is statically typed. We perform limited local type inference to calculate types from the function signature to ensure unit tests compile successfully. We identify Python-specific terminology in the natural language portion of the prompt and translate it to the most natural equivalent for the target language. Of the 164 original HumanEval benchmarks: we exclude 3 benchmarks that have Python helper functions in their prompt; we modify 2 benchmarks to use unit tests instead of randomized testing; and for certain typed languages, we fail to compile up to 5 benchmarks with untranslatable types."
+  },
+  "usage": {
+    "input_tokens": 44282,
+    "output_tokens": 2881
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:46.537475Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose MultiPL-E, a system for translating unit test-driven code generation benchmarks to new languages."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We create the first massively multilingual code generation benchmark by using MultiPL-E to translate two popular Python code generation benchmarks to 18 additional programming languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MultiPL-E system, dataset, and tutorial are available at github.com/nuprl/MultiPL-E."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Federico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, Arjun Guha, Michael Greenberg, Abhinav Jangda"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2208.08227v4 [cs.LG] 19 Dec 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given the description of a function in natural language, complete the function body."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MultiPL-E system, dataset, and tutorial are available at github.com/nuprl/MultiPL-E."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The original Python datasets were manually cleaned. The versions for other programming languages and prompt variations were produced by a suite of compilers... We added missing type annotations, formatted examples to use docstrings consistently, and changed random tests into unit tests in two problems."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We choose to translate HumanEval [1] and MBPP [2] as two of the most widely-used benchmarks... The original Python datasets were manually cleaned. The versions for other programming languages and prompt variations were produced by a suite of compilers."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "HumanEval... is a diverse collection of 164 problems, where all problems have tests to check correctness, and most have examples or doctests as part of the prompt... MBPP is another large, commonly used benchmark of Python problems... The original data is for both datasets is publicly available."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Over what timeframe was the data collected? May–October 2022"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "MultiPL-E uses a suite of 18 little compilers from Python benchmarks to each target language... MultiPL-E also includes a simple, rule-based tool to translate technical terms in comments to be more language appropriate, e.g. a Python list is approximately a C++ vector."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The principal threat to validity is that the (translated) benchmarks may not be representative of the kinds of problems that programmers typically solve in each languages. For example, we evaluate both scripting languages (e.g., Python and JavaScript) and systems languages (e.g., C++ and Rust) on the same task, but programmers frequently use these languages for very different tasks."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We characterize the HumanEval and MBPP benchmarks as a mix of basic programming problems and straightforward interview questions. Thus, performance on benchmarks may not accurately represent real-world performance. Code generation models are sensitive to small changes in how prompts are designed... It is likely that the pass rate on individual languages could be improved with even more language-specific effort."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Has the dataset been used for any tasks already? The dataset has been used for evaluating the performance of code generation models... What other tasks could the dataset be used for? The dataset could be used to evaluate other LLMs of code, or potentially to improve their performance."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Who will be supporting/hosting/maintaining the dataset? The original authors... Will the dataset be updated (for example, to correct labeling errors, add new instances, delete instances)? Yes. Will older versions of the dataset continue to be supported/hosted/maintained? Yes. If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? Yes, as described in the paper and website."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We standardize examples to the Python doctest format ('>>>' prepended). We apply value-to-value compilation to the doctests as we do for unit tests... We therefore remove the assertions from the MBPP prompts so that we can use them as hidden unit tests. However, with only a problem description, a code generation model is free to make up the name of a function (or not even produce a function). Therefore, we mechanically augment every prompt with a function signature, based on the name and arity implied by the assertions."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MultiPL-E uses a suite of 18 little compilers from Python benchmarks to each target language... Each compiler must be able to translate four components from Python: (1) a function signature (name and arguments), (2) simple unit tests, (3) a comment describing the expected function behavior, and (4) type annotations if the target language is statically typed... We perform limited local type inference to calculate these types from the type of the function signature to ensure that the unit tests always compile successfully... To mitigate the impact of these differences, we identify Python-specific terminology in the natural language portion of the prompt, and translate it to the most natural equivalent for the target language... Of the 164 original HumanEval benchmarks: (1) we exclude 3 benchmarks that have Python helper functions in their prompt; (2) we modify 2 benchmarks to use unit tests instead of randomized testing; and (3) for certain typed languages, we fail to compile up to 5 benchmarks with untranslatable types."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 18,
+      "evidence_count": 18,
+      "evidence_coverage": 94.7,
+      "avg_confidence": 0.913
+    },
+    "cost_usd": 0.088,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 27358,
+        "tokens_in": 7546,
+        "tokens_out": 659
+      },
+      "collection": {
+        "section_chars": 6609,
+        "tokens_in": 2187,
+        "tokens_out": 493
+      },
+      "annotation": {
+        "section_chars": 60000,
+        "tokens_in": 16356,
+        "tokens_out": 292
+      },
+      "impact": {
+        "section_chars": 6042,
+        "tokens_in": 1970,
+        "tokens_out": 744
+      },
+      "processing": {
+        "section_chars": 60000,
+        "tokens_in": 16223,
+        "tokens_out": 693
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "The first fully authentic Visual Question Answering dataset sourced from Stack Exchange online question-answering communities, containing visual questions with context, images, and lengthy validated answers (mean 173 words) across 105 diverse topics.",
+    "url": "https://vqaonline.github.io/",
+    "license": "CC-BY-SA 4.0",
+    "creator": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, and Danna Gurari",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected by scraping from the Stack Exchange online question-answering platform. The dataset includes four components: a natural language question (collected as post 'title'), a natural language context (collected via 'body' text entry field), an image (collected as URL link), and at least one answer. Only examples where the original questioner marked an 'accepted answer' were included. Two filtering steps were applied: (1) removing low-quality VQAs based on Stack Exchange's up-vote/down-vote system, and (2) additional quality filtering to obtain the final dataset of 64,696 VQAs.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consisted of publicly-available posts from Stack Exchange containing natural language questions (post titles), natural language context (body text with inline images), images (as URL links), and user-provided answers. The data came from 105 topical Stack Exchange sites across five super-categories: 46 about culture & recreation, 25 about life & arts, 24 about science, 7 about being professional, and 3 about business.",
+    "rai:dataCollectionTimeframe": "August 2010 to November 2022",
+    "rai:dataAnnotationProtocol": "Domain experts evaluated model-generated answers for visual questions across 10 topics. Experts assessed answers as correct, partially correct, or incorrect. Each expert received one-on-one training and instructions. Quality control included monitoring time spent per question (median 1.4 minutes, mean 1.29 minutes per model answer). Experts were compensated with $75 Amazon Gift Cards (~$26/hour).",
+    "rai:dataAnnotationPlatform": "Custom web-based annotation tool",
+    "rai:dataAnnotationAnalysis": "Spearman correlation analysis was conducted between evaluation metrics and human judgments. Results showed high correlation for reference-based metrics: GPT-4 (1.0 correlation, 0.000 significance), ROUGE-L (1.0, 0.000), METEOR (0.943, 0.005), BERTScore (0.829, 0.042), RefCLIP-S (0.771, 0.072), and CLIP-S (0.600, 0.208).",
+    "rai:annotationsPerItem": "1 expert annotation per model answer per visual question",
+    "rai:annotatorDemographics": "Domain experts located in the United States with English proficiency, representing 10 different fields/topics",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Models may exhibit biases from pretraining data, particularly CLIP-S which can reflect biases of pretraining data. Models may also trust natural language context over visual information, leading to hallucination issues where they generate answers conflicting with the given image to align with language priors.",
+    "rai:dataLimitations": "The dataset contains lengthy answers (mean of 173 words) which makes mainstream VQA evaluation metrics ill-suited. Models may have been exposed to Stack Exchange data during training, bringing an unfair advantage. The dataset requires handling conflicts between questions, context, and images. Evaluation metrics have known deficiencies including neglecting semantic similarity, context, negation, and potentially rewarding factually incorrect content.",
+    "rai:dataSocialImpact": "The dataset can benefit real-world applications including community question answering platforms, learning assistance VQA tools for children, virtual assistants, visual dialog and query, and visual search and browsing. It addresses limitations of existing datasets that generalize poorly to authentic use cases due to domain shifts.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for benchmarking and training VQA models in authentic use cases, particularly for zero-shot and few-shot settings. It can be used for model evaluation, testing, and development of VQA systems for online question answering communities and related applications.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly shared at https://vqaonline.github.io/ to encourage community-wide progress.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Multi-step filtering process: (1) Removed VQAs without accepted answers, reducing from 330,705 to 165,766 examples; (2) Removed visual questions with scores of 0 or less for either question or answer, resulting in 119,177 examples; (3) Removed visual questions with multiple images, leaving 85,573 examples; (4) Removed visual questions with visual answers, leaving 65,849 examples; (5) Removed examples where images could not be downloaded, resulting in final dataset of 64,696 examples; (6) Converted all images to png format for consistency"
+  },
+  "usage": {
+    "input_tokens": 24247,
+    "output_tokens": 3461
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:51.290561Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We address these limitations by introducing a new dataset called VQAonline. Sourced from online question answering communities, it is the the first VQA dataset with all contents originating from an authentic use case."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VQAonline is the first VQA dataset to originate from an authentic use case end to end, including with authentic context, answers, and topics/categories labels. It also is the first VQA dataset from an online question answering platform. A critical distinction of VQAonline, which necessitates a new evaluation methodology, is its lengthy answers."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To encourage community-wide progress, we publicly-share the dataset at https://vqaonline.github.io/."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022, and adhered to all data license restrictions (cc-by-sa 4.0) set forth by Stack Exchange."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Chongyan Chen1, Mengchen Liu2, Noel Codella2, Yunsheng Li2, Lu Yuan2, and Danna Gurari1,3"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.15562v4 [cs.CV] 17 Jul 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The natural language question was collected as the post 'title', using a text entry field paired with instructions 'be specific and imagine you're asking a question to another person' when writing the question."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange... we collected all examples containing four components: a natural language question, a natural language context, an image, and at least one answer... individuals who posted the visual questions could mark which answer was the 'accepted answer'; we only use examples for which individuals did this... We conducted two filtering steps to obtain our final dataset of 64,696 VQAs."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022... The natural language question was collected as the post 'title'... The image was collected as a URL link. The natural language context was provided via a 'body' text entry field supporting inline images (via a URL link)... We used the data from 105 topical sites that belong to five super-categories, with 46 about culture & recreation (e.g., travel, sports, Christianity, French language), 25 about life & arts (e.g., physical fitness, parenting, pets), 24 about science (e.g., physics, chemistry, biology), 7 about being professional, and 3 about business."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hired ten domain experts to represent each of the ten fields (topics)... We provided a one-on-one training session with each domain expert to introduce the task and instructions... We also inspected the time each expert spent on each visual question as a proxy for assessing whether the hired domain experts were finishing the task by quickly selecting random options. The median and mean times are 1.4 minutes and 1.29 minutes respectively for assessing each model answer per visual question. We compensated each domain expert with a $75 Amazon Gift Card, resulting in an average hourly wage of $26/hour."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The link to the code for our web-based annotation tool is available at https://github.com/VQAonline/VQAonlineVisualization."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To supplement the main paper, we also report the Spearman correlation scores for each evaluation metric: GPT-4 (1 - correlation, 0.000 - statistical significance), ROUGEL (1, 0.000), METEOR (0.943,0.005), BERTScore (0.829, 0.042), RefCLIP-S (0.771, 0.072), and CLIP-S (0.600,0.208). Spearman correlation rankings for the models follow the order from human judgments, reinforcing the main paper's findings that reference-based metrics and human judgments are highly correlated."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hired ten domain experts to represent each of the ten fields (topics)... The median and mean times are 1.4 minutes and 1.29 minutes respectively for assessing each model answer per visual question."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hired ten domain experts to represent each of the ten fields (topics). To guarantee English proficiency, as most of our visual questions are written in English, we only accepted experts located in the United States."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CLIP-S can reflect the biases of the pretraining data [33]... All the models trusted the natural language context and question more than the image and then thus were misled to answer the question (partially) incorrectly... VLMs may generate descriptions or answers conflicting with the given image to align with the natural language instructions or questions, influenced by the strong language priors of large language models."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the mainstream VQA evaluation metric is ill-suited our dataset's lengthy textual answers... most of these models are believed to be trained on Stack Exchange data and so potentially saw our VQAonline data... Like prior work, we evaluate with respect to multiple metrics to address a well-known issue that each brings deficiencies... context can reward semantically related but factually incorrect content as well as grammatically correct, well-written responses that are inaccurate"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We expect improved models designed for VQAonline can also benefit many other real-world applications including for other community question answering platforms (e.g., Yahoo! Answers, Wiki Answers, Quora), learning assistance VQA tools for children [32], virtual assistants, visual dialog and query, as well as visual search and browsing... models developed for artificially-constructed settings generalize poorly to authentic use cases due to significant domain shifts"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate the following six Vision and Language Models (VLMs) that achieve strong performance for various VQA datasets and subtasks in a zero-shot setting... We conduct analysis to highlight how this dataset differs from prior datasets... To encourage community-wide progress, we publicly-share the dataset"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To encourage community-wide progress, we publicly-share the dataset at https://vqaonline.github.io/."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We conducted two filtering steps to obtain our final dataset of 64,696 VQAs. First, we removed low-quality VQAs based on Stack Exchange's feature that enables users to up-vote or down-vote each post... After removing visual questions without an accepted answer, it resulted in 165,766 visual questions... After removing visual questions with scores of 0 or less for either the question or answer, we had 119,177 visual questions. Next, after removing visual questions with multiple images, we had 85,573 visual questions. Subsequently, removing visual questions with visual answers, left 65,849 visual questions... Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions. For data format consistency, we converted all images to png format."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 23,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0623,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 24327,
+        "tokens_in": 6681,
+        "tokens_out": 681
+      },
+      "collection": {
+        "section_chars": 12463,
+        "tokens_in": 3537,
+        "tokens_out": 691
+      },
+      "annotation": {
+        "section_chars": 24855,
+        "tokens_in": 6957,
+        "tokens_out": 825
+      },
+      "impact": {
+        "section_chars": 13069,
+        "tokens_in": 4079,
+        "tokens_out": 838
+      },
+      "processing": {
+        "section_chars": 10607,
+        "tokens_in": 2993,
+        "tokens_out": 426
+      }
+    },
+    "enrichments": []
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "dataset_id": "opencompass_NeedleBench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "NeedleBench",
+    "description": "A comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks with adaptive context lengths. Tasks are categorized into information-sparse scenarios (minimal relevant details in extensive irrelevant text) and information-dense scenarios (Ancestral Trace Challenge with relevant information continuously distributed throughout context).",
+    "url": "https://OpenCompass",
+    "license": "MIT",
+    "creator": "Mo Li, Songyang Zhang, Taolin Zhang, Haodong Duan, Yunxin Liu, Kai Chen",
+    "publisher": "Transactions on Machine Learning Research",
+    "datePublished": "2025-09",
+    "inLanguage": "en, zh",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "NeedleBench tasks are constructed using synthetic, abstract, and fictional statements or relational facts deliberately designed to avoid overlap with real-world knowledge or pretraining data. For information-sparse tasks, the haystack for English tasks is built by extending prompts with passages from the PaulGrahamEssays dataset, and for Chinese tasks, the ChineseDomainModelingEval dataset is used. The Ancestral Trace Challenge (ATC) is programmatically constructed with randomized names and diverse relationships to ensure every sentence contains critical information.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "For information-sparse tasks, raw data consists of passages from the PaulGrahamEssays dataset for English and the ChineseDomainModelingEval dataset for Chinese, which serve as filler content. The needles are synthetic, abstract, and fictional statements or relational facts. For the ATC task, all content is programmatically generated with randomized names and diverse kinship relationships.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Manual annotation of approximately 10% of observed errors from the ATC task, focusing on cases where the question type is 'identifying the eldest ancestor'. Error types were categorized and representative examples were provided.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Error analysis identified main error types including under-thinking (60.2%), partial understanding error (12.9%), instruction following error (7.5%), repetitive output (7.5%), hallucination error (7.5%), and other errors (4.5%). Representative prompt and response examples were provided for each error category.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Keyword-aware scoring approach using GPT-4 tokenizer for measuring token lengths. Automated evaluation using exact match (EM) metric based on model's ability to output correct answer in required format \\boxed{...}",
+    "rai:dataBiases": "The benchmark uses synthetic, abstract, and fictional statements deliberately designed to avoid overlap with real-world knowledge or pretraining data. Tasks are bilingual (English and Chinese), with performance gaps observed between languages, where English results are typically higher than Chinese across most models.",
+    "rai:dataLimitations": "NeedleBench is a synthetic benchmark and may not fully reflect the complexity of real-world tasks. The benchmark focuses on specific retrieval and reasoning capabilities and may not capture all aspects of long-context understanding. Token lengths are measured using the GPT-4 tokenizer, which may introduce measurement discrepancies across different models.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset uses synthetic names and relationships (e.g., kinship relationships, parent-child, ancestor-descendant) but these are fictional and randomly generated to avoid real personal information.",
+    "rai:dataUseCases": "NeedleBench is designed for evaluating and testing large language models' long-context retrieval and reasoning capabilities across varying information densities. It supports evaluation at flexible context lengths (4k, 8k, 32k, 128k, 200k, 1000k, and beyond) and includes both information-sparse tasks (retrieval) and information-dense tasks (complex reasoning).",
+    "rai:dataReleaseMaintenancePlan": "All codes and resources are publicly available at OpenCompass. All reproducible scripts, code, and datasets will be made available upon publication.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Tasks are categorized into information-sparse and information-dense scenarios. Information-sparse tasks insert synthetic needles (key information units) at varying depths within filler content. Information-dense tasks (ATC) embed relevant information continuously throughout context with varying needle counts (2 to 512) to increase logical complexity and context length. Needles are strategically inserted at various positions to test retrieval and reasoning across different context lengths (4k, 8k, 32k, 128k, 200k, 1000k).",
+    "rai:dataPreprocessingProtocol": "Synthetic, abstract, and fictional needles (key information units) are constructed to avoid overlap with real-world knowledge or pretraining data. For English tasks, haystack (filler content) is built using passages from PaulGrahamEssays dataset. For Chinese tasks, ChineseDomainModelingEval dataset is used. Token lengths are measured using GPT-4 tokenizer. A buffer is subtracted from target context length to mitigate instruction truncation risk across different tokenizers."
+  },
+  "usage": {
+    "input_tokens": 80318,
+    "output_tokens": 3236
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:48.550415Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce NeedleBench, a comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce NeedleBench, a comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks with adaptive context lengths (e.g., 32k, 128k, and beyond). NeedleBench systematically embeds key data points at varying depths to rigorously test models' capabilities in diverse settings. Tasks within NeedleBench are categorized into two distinct scenarios: information-sparse, characterized by minimal relevant details embedded within extensive irrelevant text to simulate simpler real-world retrieval tasks; and information-dense, implemented as the Ancestral Trace Challenge"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All codes and resources are publicly available at OpenCompass."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mo Li limo.research@gmail.com Tsinghua University Shanghai AI Laboratory; Songyang Zhang∗zhangsongyang@pjlab.org.cn Shanghai AI Laboratory; Taolin Zhang zhangtlin3@gmail.com Tsinghua University Shanghai AI Laboratory; Haodong Duanduanhaodong@pjlab.org.cn Shanghai AI Laboratory; Yunxin Liuliuyunxin@air.tsinghua.edu.cn Tsinghua University; Kai Chen∗chenkai@pjlab.org.cn Shanghai AI Laboratory"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Learning Research (09/2025)"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Learning Research (09/2025)"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce NeedleBench, a comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All codes and resources are publicly available at OpenCompass."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data... The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset, and for Chinese tasks, we use the ChineseDomainModelingEval dataset... The ATC task introduces diversity along several axes... Each critical piece of information in ATC is assigned a unique, randomized name"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b)"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b)... The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To investigate why state-of-the-art (SOTA) models like o3-mini and DeepSeek R1 frequently fail at information-dense tasks, we manually annotated approximately 10% of the observed errors from the ATC task, focusing specifically on cases where the question type is 'identifying the eldest ancestor.'"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The main error types identified in our analysis are summarized in Table 4. For each error category, we provide representative prompt and response examples in Secs. H.1 to H.5 to illustrate how these errors occur in practice."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We employ a keyword-aware variant of the Exact Match (EM) metric in Eq. (1)... Token lengths are measured using the GPT-4 tokenizer. For the information-dense ATC task, we use an exact match (EM) metric based on the model's ability to output the correct answer in the required format \\boxed{...}"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data... Performance in English tends to be higher than in Chinese for most models, though this is not universal"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench is a synthetic benchmark and may not fully reflect the complexity of real-world tasks... Token lengths are measured using the GPT-4 tokenizer... To mitigate the risk of instruction truncation—where essential prompt instructions at the end of the context may be lost due to tokenizer discrepancies across different models"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each critical piece of information in ATC is assigned a unique, randomized name, and the relationships among entities are highly diverse—including but not limited to parent-child, ancestor-descendant (across multiple generations), and dual-role relationships"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench is designed to provide a comprehensive, targeted assessment of models' abilities to extract, analyze, and reason over long texts... our benchmark supports flexible context lengths (4k, 8k, 32k, 128k, 200k, 1000k, and beyond), allowing strategic insertion of key data points at various depths to rigorously test retrieval and reasoning skills"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All codes and resources are publicly available at OpenCompass... All reproducible scripts, code, and datasets will be made available upon publication"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench systematically embeds key data points at varying depths to rigorously test models' capabilities in diverse settings. Tasks within NeedleBench are categorized into two distinct scenarios: information-sparse, characterized by minimal relevant details embedded within extensive irrelevant text to simulate simpler real-world retrieval tasks; and information-dense, implemented as the Ancestral Trace Challenge, where relevant information is continuously distributed throughout the context to simulate more complex real-world reasoning tasks... The number of needles per question is varied from 2 to 512, increasing both logical complexity and context length"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data... The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b) to ensure linguistic diversity and high-quality filler content... Token lengths are measured using the GPT-4 tokenizer... we subtract a buffer from the target context length when generating each input"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1447,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 29912,
+        "tokens_in": 8012,
+        "tokens_out": 731
+      },
+      "collection": {
+        "section_chars": 54376,
+        "tokens_in": 18104,
+        "tokens_out": 624
+      },
+      "annotation": {
+        "section_chars": 54376,
+        "tokens_in": 18094,
+        "tokens_out": 547
+      },
+      "impact": {
+        "section_chars": 54376,
+        "tokens_in": 18147,
+        "tokens_out": 745
+      },
+      "processing": {
+        "section_chars": 54376,
+        "tokens_in": 17961,
+        "tokens_out": 589
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

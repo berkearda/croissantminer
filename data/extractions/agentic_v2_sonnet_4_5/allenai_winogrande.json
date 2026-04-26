@@ -1,0 +1,256 @@
+{
+  "dataset_id": "allenai_winogrande",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "WINOGRANDE",
+    "description": "A large-scale dataset of 44k Winograd Schema Challenge-inspired pronoun resolution problems designed for commonsense reasoning, constructed through crowdsourcing and systematic bias reduction using the AFLITE algorithm.",
+    "url": "http://winogrande.allenai.org",
+    "license": null,
+    "creator": "Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, Yejin Choi",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "@article{sakaguchi2019winogrande,\n  title={WINOGRANDE: An Adversarial Winograd Schema Challenge at Scale},\n  author={Sakaguchi, Keisuke and Le Bras, Ronan and Bhagavatula, Chandra and Choi, Yejin},\n  journal={arXiv preprint arXiv:1907.10641},\n  year={2019}\n}",
+    "isLiveDataset": false,
+    "rai:dataCollection": "Data was collected via crowdsourcing on Amazon Mechanical Turk where workers were asked to write twin sentences meeting WSC problem requirements. Workers were primed by randomly chosen anchor words from randomly assigned WikiHow articles to encourage creativity and topic diversity.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Twin sentences authored by crowd workers on Amazon Mechanical Turk, primed by anchor words from WikiHow articles.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The key steps in WINOGRANDE construction consist of (1) a carefully designed crowdsourcing procedure, followed by (2) a novel algorithm AFLITE that generalizes human-detectable biases based on word occurrences to machine-detectable biases based on embedding occurrences. AFLITE uses an ensemble of linear classifiers trained on random subsets of the data to determine whether the representation is strongly indicative of the correct answer option. If so, the corresponding instances are discarded iteratively. The algorithm takes pre-computed embeddings and labels, along with ensemble size, training size for classifiers, filtering cutoff size, and filtering threshold. At each filtering phase, multiple linear classifiers are trained on different random partitions of the data and predictions are collected. For each instance, a score is computed as the ratio of correct predictions over total predictions. Instances are ranked according to their score and the top-k instances whose score is above threshold are removed. This process repeats until fewer than k instances are removed in a filtering phase or there are fewer than m remaining instances.",
+    "rai:dataPreprocessingProtocol": "Systematic bias reduction using AFLITE algorithm that uses pre-computed RoBERTa embeddings and ensemble of linear classifiers to iteratively filter instances with high spurious correlation. The algorithm removes instances where linear classifiers trained on random subsets can predict the correct answer with high accuracy based on embeddings alone.",
+    "rai:dataAnnotationProtocol": "Each collected question was validated through a distinct set of three crowd workers. A question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous (one option is clearly more plausible than the other) and (3) the question cannot be answered simply by word association in which local context around the target pronoun is given.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Majority vote of three crowd workers was used to determine validity. Questions required majority agreement on correct answer and unambiguity of options.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "Amazon Mechanical Turk workers with minimum qualification: 99% approval rate, 5k approvals.",
+    "rai:machineAnnotationTools": "RoBERTa (for embedding generation and bias detection in AFLITE algorithm)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "The dataset includes problems involving gender attributes, as evidenced by the Winogender diagnostics for gender bias evaluation.",
+    "rai:dataSocialImpact": "The work emphasizes the importance of algorithmic bias reduction in benchmarks to avoid overestimating machine commonsense capabilities. The dataset aims to create more robust evaluation that cannot be solved by exploiting spurious statistical patterns.",
+    "rai:dataBiases": "The original collected data contained dataset-specific biases including polarity bias (correlation between sentiment of answer option and target pronoun) and structural patterns. The AFLITE algorithm was applied to systematically reduce these biases, filtering from 53k to 12k instances. About 1/3 of final questions are not twins due to filtering.",
+    "rai:dataLimitations": "While WINOGRANDE is inspired by the original WSC, it deviates from the original design: (1) formatted as fill-in-the-blank instead of explicit pronouns, (2) not all problems are twins in the debiased version (about 1/3 are not twins), (3) authored by crowdworkers rather than linguistics experts, resulting in more diverse and noisy language.",
+    "rai:dataUseCases": "Training, Testing, Validation, and Transfer Learning. The dataset is split into training (9,248 for debiased; 40,938 for all), development (1,267), and test (1,767) sets. An additional 31k filtered problems are released for additional training. The dataset can be used as a benchmark for commonsense reasoning and as a resource for transfer learning to related tasks."
+  },
+  "usage": {
+    "input_tokens": 26004,
+    "output_tokens": 3376
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:05.908705Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To investigate this question, we introduce WINOGRANDE, a large-scale dataset of 44k problems, inspired by the original WSC design, but adjusted to improve both the scale and the hardness of the dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To investigate this question, we introduce WINOGRANDE, a large-scale dataset of 44k problems, inspired by the original WSC design, but adjusted to improve both the scale and the hardness of the dataset. The key steps of the dataset construction consist of (1) a carefully designed crowdsourcing procedure, followed by (2) systematic bias reduction using a novel AFLITE algorithm that generalizes human-detectable word associations to machine-detectable embedding associations."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our datasets, crowdsourcing interface, and models are available at http://winogrande.allenai.org."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, Yejin Choi, Allen Institute for Artificial Intelligence, University of Washington"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Allen Institute for Artificial Intelligence"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1907.10641v2 [cs.CL] 21 Nov 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT). Workers are asked to write twins sentences (as shown in Table 1) that meet the requirements for WSC problems (e.g., avoiding word association, non-zero but small edit distance). To avoid repeating the same topics, workers were instructed to randomly pick an anchor word(s) from a randomly assigned WikiHow article and to ensure that the twin sentences contain the anchor word."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT). Workers are asked to write twins sentences"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Workers are asked to write twins sentences (as shown in Table 1) that meet the requirements for WSC problems (e.g., avoiding word association, non-zero but small edit distance). To avoid repeating the same topics, workers were instructed to randomly pick an anchor word(s) from a randomly assigned WikiHow article and to ensure that the twin sentences contain the anchor word."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address this challenge, we propose a method for systematic bias reduction. Next, we use an ensemble of linear classifiers (logistic regressions) trained on random subsets of the data to determine whether the representation used in RoBERTa_embed is strongly indicative of the correct answer option. If so, we discard the corresponding instances and proceed iteratively."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We validate each collected question through a distinct set of three crowd workers. Following a rigorous process, a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous (one option is clearly more plausible than the other) and (3) the question cannot be answered simply by word association in which local context around the target pronoun is given"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT)."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We validate each collected question through a distinct set of three crowd workers. Following a rigorous process, a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous (one option is clearly more plausible than the other)"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We validate each collected question through a distinct set of three crowd workers."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The workers met minimum qualification in AMT: 99% approval rate, 5k approvals."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this work, we use RoBERTa (Liu et al. 2019) fine-tuned on a small subset of the dataset. Concretely, we use 6k instances (5k for training and 1k for validation) from the dataset (containing 53k instances in total) to fine-tune RoBERTa (referred to as RoBERTa_embed). We use RoBERTa_embed to pre-compute the embeddings for the rest of the instances (47k) as the input for AFLITE."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Winogender is designed as diagnostics for checking whether a model (and/or training corpora) suffers from gender bias. The bias is measured by the difference in accuracy between the cases where the pronoun gender matches the occupation's majority gender"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our work suggests a new perspective for designing benchmarks for measuring progress in AI. Unlike past decades where the community constructed a static benchmark dataset to work on for many years to come, we now need AI algorithms to compose challenges that are hard enough for AI, which requires dynamic datasets that evolve together with the evolving state-of-the-art."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We see a structural pattern in the first two twins, where the sentiment between the answer option and the target pronoun are highly correlated. In other words, these problems can be easily answered by simply exploiting the pattern of the polarity (positive or negative). Importantly, this dataset-specific bias is structural rather than at the token level... After applying the AFLITE algorithm, we obtain a debiased dataset of 12,282 instances"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While WINOGRANDE is inspired by the original WSC, we make a few design choices that deviate from the original design guidelines of WSC in order to scale up the dataset considerably while ensuring the hardness of the dataset. First, WINOGRANDE is formatted as a fill-in-the-blank problem... Second, while we originally collected all problems in twins, the final questions in the filtered WINOGRANDE_debiased are not always twins... In WINOGRANDE_debiased, about 1/3 of questions are not twins... Third, unlike the original WSC problems that were composed by just a few linguistics experts, WINOGRANDE is authored by crowdworkers."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After applying the AFLITE algorithm, we obtain a debiased dataset of 12,282 instances split into training (9,248), development (1,267), and test (1,767) sets. We also release 31k problems that are filtered out by AFLITE for additional training set... In addition to serving as a benchmark dataset, we use WINOGRANDE as a resource – we apply transfer learning by first fine-tuning a model on our dataset and evaluating its performance on related datasets"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 21,
+      "evidence_coverage": 84.0,
+      "avg_confidence": 0.926
+    },
+    "cost_usd": 0.0643,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

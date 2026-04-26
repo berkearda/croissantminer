@@ -1,0 +1,278 @@
+{
+  "dataset_id": "lmms-lab_ChartQA",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "ChartQA",
+    "description": "A large-scale benchmark for question answering about charts that focuses on visual and logical reasoning. It includes 9.6K human-written questions and 23.1K questions generated from human-written chart summaries over 20,882 real-world charts.",
+    "url": "https://github.com/vis-nlp/ChartQA",
+    "license": null,
+    "creator": "Ahmed Masry, Do Xuan Long, Jia Qing Tan, Shafiq Joty, Enamul Hoque",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "Charts were crawled from four online sources, with chart images collected from Pew and chart images plus underlying data tables, metadata, SVG files, and text descriptions extracted from the other three sources. Human-authored QA pairs were then collected via Amazon Mechanical Turk, and additional QA pairs were automatically generated from human-written chart summaries using a fine-tuned T5 model, with manual validation and filtering.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Invalid machine-generated questions were filtered out using a heuristic that removed questions whose answers could not be found in the chart data table, and the machine-generated test set was manually cleaned by removing invalid questions.",
+    "rai:dataCollectionRawData": "Raw/source data consisted of real-world charts from Statista, Pew Research, Our World in Data, and OECD, including chart images; for three sources also underlying data tables, metadata such as title and chart type, SVG files, associated text descriptions, and bounding box information for chart elements extracted from SVG files.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human-authored QA pairs were collected via an Amazon Mechanical Turk task where crowdworkers were instructed to write two types of questions per chart—compositional questions involving at least two mathematical/logical operations and visual questions referring to visual attributes such as color, height, and length—and provide answers. Each chart received two questions from one worker, and the same questions were answered by another annotator; exact-match agreement was used for validation, with manual adjudication when answers differed. Additionally, machine-generated QA pairs were produced from human-written chart summaries using fine-tuned T5 models, then filtered heuristically and partially manually validated.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Annotation quality was analyzed using inter-annotator agreement based on exact match and manual review. Exact-match agreement between crowdworkers was 61.04%, and a manual check of 500 random samples found agreement increased to 78.55% when accounting for typos and lexical variations. For machine-generated questions, a heuristic filter removed invalid questions, and manual analysis of 1,250 QA pairs found 86.64% were complete, answerable, and correct.",
+    "rai:annotationsPerItem": "For human-authored annotation, each chart received two questions from one worker, and each of those questions was answered by one additional annotator.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Fine-tuned T5 models were used for machine generation of QA pairs: one model for answer extraction and another for answer-aware question generation.",
+    "rai:dataBiases": "The dataset may reflect topical and source biases from the four crawled online sources, with some topics overrepresented such as U.S. politics and policy in the Pew subset.",
+    "rai:dataLimitations": "Known limitations include invalid machine-generated questions due to domain mismatch, reliance on heuristics to filter them, remaining quality issues despite filtering, OCR/data extraction errors, and challenges from linguistic variation, typos, and lexical variation. The paper also notes that gold data tables are often unavailable in real-world settings.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset includes charts and questions covering demographic and social attributes such as gender, age groups, geography, language variation, and public opinion/political topics.",
+    "rai:dataUseCases": "The dataset is intended as a benchmark for Chart Question Answering, supporting training, validation, and testing of models for answering questions about charts with visual and logical reasoning.",
+    "rai:dataReleaseMaintenancePlan": "The code and dataset are publicly available.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Crawled charts from four sources; for Pew only chart images were collected because tables were unavailable; for the other sources, underlying data tables, metadata, SVG files, and text descriptions were extracted; bounding box information for chart elements was extracted from SVG files to train data extraction models."
+  },
+  "usage": {
+    "input_tokens": 18925,
+    "output_tokens": 2406
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:03:29.224006Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present a large-scale benchmark covering 9.6K human-written questions as well as 23.1K questions generated from human-written chart summaries... Our benchmark consists of 20,882 charts"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our code and dataset are publicly available at https://github.com/vis-nlp/ChartQA"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ahmed Masryº, Do Xuan Long¹, Jia Qing Tan¹, Shafiq Joty¹¶, Enamul Hoqueº"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2203.10244v1 [cs.CL] 19 Mar 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The goal of a Chart Question Answering (ChartQA) system is to help users by taking a chart and a natural language question as input"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we crawled charts from four different sources” ; “For the Pew dataset, we only crawled chart images... For the other three, we extracted the underlying data tables, metadata... SVG file and associate text description.” ; “we designed an AMT task... the workers provide two questions with the answers” ; “we fine-tune a pre-trained T5 model... to automatically generate questions”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we crawled charts from four different sources”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To filter out such invalid questions, we developed a simple heuristic where we filter out the question if the answer cannot be found in the chart data table.” ; “we manually cleaned the test set of the machine generated dataset by removing invalid questions.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we crawled charts from four different sources: (i) Statista... (ii) The Pew research... (iii) Our World In Data... (iv) Organisation for Economic Co-operation and Development” ; “For the Pew dataset, we only crawled chart images... For the other three, we extracted the underlying data tables, metadata (e.g., title, chart type), SVG file and associate text description. Finally, we extracted the bounding boxes information of the different chart elements”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We have two main annotations procedures: (i) collect human-authored QA pairs using Amazon Mechanical Turk (AMT) and (ii) generate QA pairs from the Statista human-written summaries.” ; “we asked the crowdworkers to focus on two types of questions for each chart image: compositional and visual questions.” ; “For each chart, the workers provide two questions with the answers. The same questions are then answered by another annotator. If both workers’ answers exactly match, we consider the answer to be correct. Otherwise, we manually check the answers to select the final correct answer.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To create human-authored QA pairs, we designed an AMT task”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Overall, the agreement between the crowd workers based on exact matches was 61.04%.” ; “we have also manually checked the agreement on 500 random samples and found the agreement to be much higher (78.55%) when we consider typos and lexical variations.” ; “After applying the heuristic, we manually analyzed 1,250 QA pairs and found that 86.64% of them were complete, answerable, and correct”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For each chart, the workers provide two questions with the answers. The same questions are then answered by another annotator.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we fine-tune a pre-trained T5 model on the SQuAD QA dataset ... to automatically generate questions” ; “The process involves training and applying two T5 models: one for answer extraction and the other for answer-aware question generation.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Finally, the topic distribution in our data is quite diverse as it is constructed from four different sources. Politics is a common topic among all sources but particularly in the Pew dataset where nearly half of charts are about U.S. Politics & Policy (45.4 %).”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“However, the T5 question generation model may still generate invalid questions because of the mismatch in training and test domains.”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The Pew research (pewresearch.org) publishes report about social and economic issues, demographic trends and public opinion with a wide variety of charts.”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We present a large-scale benchmark covering 9,608 human-written questions as well as 23,111 questions generated from human-written chart summaries.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our code and dataset are publicly available at https://github.com/vis-nlp/ChartQA”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we crawled charts from four different sources... For the Pew dataset, we only crawled chart images since the underlying data tables are not available. For the other three, we extracted the underlying data tables, metadata (e.g., title, chart type), SVG file and associate text description. Finally, we extracted the bounding boxes information of the different chart elements (e.g., x-axis labels) from the SVG files to train our data extraction models.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0477,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 8950,
+        "tokens_in": 2522,
+        "tokens_out": 451
+      },
+      "collection": {
+        "section_chars": 19744,
+        "tokens_in": 5065,
+        "tokens_out": 540
+      },
+      "annotation": {
+        "section_chars": 19744,
+        "tokens_in": 5051,
+        "tokens_out": 726
+      },
+      "impact": {
+        "section_chars": 19744,
+        "tokens_in": 5090,
+        "tokens_out": 465
+      },
+      "processing": {
+        "section_chars": 3469,
+        "tokens_in": 1197,
+        "tokens_out": 224
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 36.6
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "dataset_id": "tencent_ArtifactsBenchmark",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "ArtifactsBench",
+    "description": "A benchmark and automated multimodal evaluation framework for evaluating LLM code generation on interactive visual artifacts, with 1,825 executable tasks across nine domains.",
+    "url": "https://artifactsbenchmark.github.io",
+    "license": "CC-BY-NC-4.0",
+    "creator": "Tencent Hunyuan Team",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was constructed through a multi-stage pipeline combining expert sourcing, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query generation from screenshots, followed by filtering, de-duplication, prompt rewriting, checklist generation, solvability validation, and standardized execution.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Candidate tasks were sourced from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query generation from screenshots.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Candidates were filtered to remove incomplete, non-visual, license-violating, duplicate, trivial, or non-interactive items; flagged duplicates were re-authored or discarded; prompts were rewritten by experts and LLMs; ambiguous or brittle tasks were revised or removed; difficulty was assigned post hoc based on aggregated performance of 30+ models.",
+    "rai:dataPreprocessingProtocol": "The benchmark applies automated filtering, two-stage de-duplication using MinHash, semantic similarity, normalized DOM/CSS/JS, and screenshot perceptual hashing, plus standardized execution with headless Chromium at 1024×768 resolution and deterministic seeds.",
+    "rai:dataAnnotationProtocol": "Each query was paired with a 10-dimension checklist covering visual, interactional, and code qualities. Checklists were drafted by LLMs and then refined by humans; a 10% manually curated seed was used for calibration. Human annotators also participated in a double-blind validation study scoring 280 queries from 6 models.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The annotation process included calibration with a 10% manually curated seed achieving Cohen’s kappa of at least 0.8 among annotators, and human validation used pairwise consistency (Pair ACC) with the final human ground-truth score taken as the median of annotators’ ratings.",
+    "rai:annotationsPerItem": "10 checklist dimensions per query",
+    "rai:annotatorDemographics": "Multiple front-end engineers with extensive front-end development experience",
+    "rai:machineAnnotationTools": "Hunyuan-Turbos, Gemini-2.5-Pro, Qwen2.5-VL-72B",
+    "rai:dataReleaseMaintenancePlan": "The authors release dataset specs, checklist templates, evaluation scripts, and referee settings; they also note version stability by replacing deprecated Gemini-2.5-Pro-Preview-0506 with stable Gemini-2.5-Pro without changing conclusions.",
+    "rai:personalSensitiveInformation": "The query filtering process explicitly aims to select privacy-free queries and avoid sensitive personal information such as phone numbers, addresses, or other identifiable details.",
+    "rai:dataSocialImpact": "The benchmark is intended to accelerate development of user-centric generative models and better evaluate qualities central to user experience in modern applications.",
+    "rai:dataBiases": "The paper notes potential cognitive biases in multimodal judges and possible divergence from human judgments because referees can evaluate additional code-level strengths and weaknesses.",
+    "rai:dataLimitations": "The benchmark may not fully capture highly complex, long-horizon, or state-dependent interactions because it evaluates dynamic behavior using fixed-interval screenshot sequences; it also focuses on single-turn final artifact generation rather than iterative or agentic development.",
+    "rai:dataUseCases": "Benchmarking and evaluating LLMs on interactive visual artifact generation, including automated scoring of code, visuals, and interaction, with diagnostic analysis of strengths and failure modes across more than 30 models."
+  },
+  "usage": {
+    "input_tokens": 38106,
+    "output_tokens": 2504
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:25:01.470995Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Therefore, we introduce ArtifactsBench, a benchmark for evaluating LLMs on interactive visual artifacts."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To bridge this gap, we introduce ArtifactsBench, a benchmark and automated, multimodal evaluation paradigm for visual code generation... We curate 1,825 diverse tasks and evaluate over 30 leading LLMs."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We opensource ArtifactsBench, including the benchmark, evaluation hamess, and baseline results at https://artifactsbenchmark.github.io"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "ArtifactsBench: Bridging the Visual-Interactive Gap in LLM Code Generation Evaluation\nTencent Hunyuan Team"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "ArtifactsBench: Bridging the Visual-Interactive Gap in LLM Code Generation Evaluation ... arXiv:2507.04952v2 [cs.CL] 29 Sep 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "ArtifactsBench: Bridging the Visual-Interactive Gap in LLM Code Generation Evaluation"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We opensource ArtifactsBench, including the benchmark, evaluation hamess, and baseline results"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate 1,825 tasks via a multi-stage pipeline combining expert sourcing with LLM generation and refinement... Sourcing & filtering. We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots... De-duplication & contamination control... Prompt rewriting & difficulty calibration... Checklist generation & calibration... Solvability validation & ambiguity repair."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate 1,825 tasks via a multi-stage pipeline combining expert sourcing with LLM generation and refinement... We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots... Experts rewrite for clarity/completeness/executability; LLM rewriting adds diverse styles; humans verify."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Sourcing & filtering. We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Automated filters drop incomplete, non-visual, license-violating, duplicate, trivial, or non-interactive items... Flagged items are re-authored or discarded... Experts rewrite for clarity/completeness/executability; LLM rewriting adds diverse styles; humans verify... Tasks solved only by brittle hacks... are revised or removed. We prefer prompts that admit multiple acceptable yet checkable implementations... Difficulty is assigned post hoc by aggregated performance of 30+ models."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Automated filters drop incomplete, non-visual, license-violating, duplicate, trivial, or non-interactive items... Two-stage filtering: (i) MinHash + semantic similarity over prompts, checklists, and normalized DOM/CSS/JS; (ii) screenshot perceptual hashing to catch visually near-identical artifacts... We standardize execution with headless Chromium (Playwright) at 1024×768 resolution and deterministic seeds."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Checklist generation & calibration. Each query is paired with a 10-dimension checklist covering visual, interactional, and code qualities. We LLM-draft and then human-refine for specificity and screenability. A 10% manually curated seed anchors calibration and achieves Cohen’s κ≥0.8 among annotators... We run a double-blind study on 280 queries and 6 models, judged by multiple front-end engineers."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A 10% manually curated seed anchors calibration and achieves Cohen’s κ≥0.8 among annotators... The final human ground-truth score represents the median of the individual annotators’ ratings. To quantify the agreement between our automated referee and human experts, we compute the pairwise consistency rate, denoted as Pair ACC."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each query is paired with a 10-dimension checklist covering visual, interactional, and code qualities."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We randomly selected 280 queries, along with the corresponding data from 6 models, and have them independently scored by multiple engineers with extensive front-end development experience."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Checklists are generated by Hunyuan-Turbos and human-refined... We adopt a dual-referee setup: the open-source Qwen2.5-VL-72B and the proprietary Gemini-2.5-Pro."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release dataset specs, checklist templates, evaluation scripts, and referee settings... replacing the deprecated Gemini-2.5-Pro-Preview-0506 preview with the stable Gemini-2.5-Pro leaves our conclusions unchanged."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the following prompt to filter the quality of queries, with the aim of selecting high-quality, practical, complete, and privacy-free queries... Privacy: Does the question avoid requesting or involving any sensitive personal information, such as phone numbers, addresses, or other identifiable details?"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We opensource ArtifactsBench... to provide the community with a scalable and accurate tool to accelerate the development of user-centric generative models... This gap is critical because high-fidelity, functional interactive visual artifacts are central to user experience in modem applications; their quality directly affects real-world adoption."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Nevertheless, minor discrepancies are observed in the fine-grained scoring of certain complex interactive tasks, reflecting potential cognitive biases in how different MLLMs interpret long-horizon interaction logic and dynamic visual feedback... since referee models can extract additional strengths and weaknesses from the code-level perspective, their evaluation criteria may diverge from human judgments."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, for highly complex, long-horizon, or state-dependent interactions... this discrete sampling may not fully capture the fluidity, correctness, and robustness of the entire interactive experience... ArtifactsBench currently focuses on evaluating the quality of the final artifact generated in a single tum from a given prompt. This scope does not assess an LLM’s capability to function as an autonomous agent that can iteratively refine an artifact based on feedback."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Therefore, we introduce ArtifactsBench, a benchmark for evaluating LLMs on interactive visual artifacts... We evaluate 30+ LLMs... an automated, checklist-guided MLLM referee scoring code, visuals, and interaction... offering diagnostics on strengths/failure modes"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 23,
+      "evidence_coverage": 95.8,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.0727,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 31.3,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

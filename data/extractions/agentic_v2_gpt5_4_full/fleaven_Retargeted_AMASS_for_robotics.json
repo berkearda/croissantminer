@@ -1,0 +1,259 @@
+{
+  "dataset_id": "fleaven_Retargeted_AMASS_for_robotics",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "AMASS: Archive of Motion Capture as Surface Shapes",
+    "description": "A large unified database of human motion that combines 15 optical marker-based motion capture datasets into a common SMPL-based representation with body shape, pose, hand articulation, and soft-tissue dynamics.",
+    "url": "http://amass.is.tue.mpg.de",
+    "license": "CC-BY-4.0",
+    "creator": "Naureen Mahmood; Nima Ghorbani; Nikolaus F. Troje; Gerard Pons-Moll; Michael J. Black",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was created by aggregating 15 existing optical marker-based motion capture datasets, downloaded publicly, obtained privately, or recorded by the authors, and converting the marker data into a unified SMPL representation using MoSh++. Results were manually inspected and problematic cases corrected or held out.",
+    "rai:dataCollectionType": "Secondary Data analysis, Physical data collection, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Marker occlusion and missing markers occur in the motion capture data; the method adjusts pose priors based on the number of missing markers.",
+    "rai:dataCollectionRawData": "Raw data consists of archival optical marker-based human motion capture recordings from 15 source datasets, with source marker sets ranging from 37 to 91 markers; for SSM, synchronized 4D body scans and marker-based mocap were also collected.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Marker data from different datasets were converted into common SMPL pose, shape, and soft-tissue parameters using MoSh++; data term weights were scaled for varying marker counts, and problematic swapped or mislabeled markers were manually corrected or excluded.",
+    "rai:dataPreprocessingProtocol": "The authors unified varying marker sets into a single format, separated SSM sequences into training/testing splits for tuning, used random frame selection for shape estimation, and held out problematic mocap results after manual inspection.",
+    "rai:dataAnnotationProtocol": "There are no human semantic labels; instead, MoSh++ fits SMPL/DMPL body model parameters to mocap markers to produce per-frame SMPL shape parameters, DMPL soft-tissue coefficients, and SMPL pose parameters including hands.",
+    "rai:dataAnnotationPlatform": "Chumpy autodifferentiation package",
+    "rai:dataAnnotationAnalysis": "The conversion method was tuned and evaluated using the SSM dataset with cross-validation and scan-to-model distance metrics; results were also manually inspected and problematic cases corrected or held out.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "MoSh++; SMPL; SMPL-H; DMPL; MANO; Chumpy",
+    "rai:dataReleaseMaintenancePlan": "The dataset will continue to be expanded with new mocap data contributed by the authors and the community, and the authors will support adding new captures when they can be shared.",
+    "rai:personalSensitiveInformation": "Body shape and motion data from human subjects; number of subjects is reported, and professional model status is mentioned for some SSM participants.",
+    "rai:dataSocialImpact": "The dataset is intended to enable new applications in animation and computer vision and to generate synthetic training data for computer vision tasks.",
+    "rai:dataBiases": "Source datasets are heterogeneous and often narrowly focused on particular motion classes; previous dataset unification approaches can alter data by normalizing body proportions, and marker occlusion or mislabeled markers can affect quality.",
+    "rai:dataLimitations": "The dataset inherits mocap issues such as swapped, mislabeled, occluded, and missing markers; hand articulation evaluation lacks ground truth; current MoSh++ runtime is not real-time.",
+    "rai:dataUseCases": "Training data for deep learning, animation, visualization, computer vision, and generating synthetic training data; users can use full body shape and soft tissue or ignore them for pose-only applications."
+  },
+  "usage": {
+    "input_tokens": 19610,
+    "output_tokens": 2525
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:00:22.242998Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "AMASS: Archive of Motion Capture as Surface Shapes"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address this, we introduce AMASS, a large and varied database of human motion that unifies 15 different optical marker-based mocap datasets by representing them within a common framework and parameterization."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We make AMASS available to the research community at http://amass.is.tue.mpg.de"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Naureen Mahmood ... Nima Ghorbani ... Nikolaus F. Troje ... Gerard Pons-Moll ... Michael J. Black"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1904.03278v1 [cs.CV] 5 Apr 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With MoSh++ it is easy to add more data and we will continue to expand the dataset."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We amassed in total 15 mocap datasets, summarized in Table 1. The publicly available datasets were downloaded from the internet. We obtained several other datasets privately or recorded them ourselves (Dancers, Transitions, BioMotionLab and SSM). We used MoSh++ to map this large amount of marker data into our common SMPL pose, shape, and soft-tissue parameters. Due to inherent problems with mocap, such as swapped and mislabeled markers, we manually inspected the results and either corrected or held out problems."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We amassed in total 15 mocap datasets... The publicly available datasets were downloaded from the internet. We obtained several other datasets privately or recorded them ourselves... We used MoSh++ to map this large amount of marker data into our common SMPL pose, shape, and soft-tissue parameters... we manually inspected the results and either corrected or held out problems."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During a mocap session, markers may get occluded by the body due to pose. If multiple markers of a particular body part are occluded simultaneously, the optimization may result in unreliable and implausible poses... To address this, we introduce a coefficient q... where x is the number of missing markers in a given frame"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We unify a large corpus of archival marker-based optical human mocap datasets... The input is sparse markers... The source datasets all contain varying markersets ranging in size from 37 to 91 markers... we collect a novel dataset, Synchronized Scans and Markers (SSM), that consists of dense 3D meshes in motion, captured with a 4D scanner, together with traditional marker-based mocap."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used MoSh++ to map this large amount of marker data into our common SMPL pose, shape, and soft-tissue parameters... To deal with varying numbers of markers, we automatically vary the weight of this term by scaling it by a factor b = 46/n... we manually inspected the results and either corrected or held out problems."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "AMASS unifies these into a single format... We separate the sequences into training and testing sets... For the shape estimation stage, the optimization uses 12 randomly chosen mocap frames from each training subject... we manually inspected the results and either corrected or held out problems."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used MoSh++ to map this large amount of marker data into our common SMPL pose, shape, and soft-tissue parameters... Each frame in AMASS includes the SMPL 3D shape parameters (16 dimensions), the DMPL soft tissue coefficients (8 dimensions), and the full SMPL pose parameters (90 dimensions), including hand articulations."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Similar to MoSh we use Powells gradient based dogleg minimization [34] implemented in the Chumpy [26] autodifferentiation package."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We separate the sequences into training and testing sets, and train the hyperparameters of MoSh++ to minimize the distance between the ground truth 3D scans and the estimated 3D body meshes. We then evaluate the performance of MoSh++ on the test set... Due to inherent problems with mocap, such as swapped and mislabeled markers, we manually inspected the results and either corrected or held out problems."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We achieve this using a new method, MoSh++, that converts mocap data into realistic 3D human meshes represented by a rigged body model; here we use SMPL [28]... We use a variant of SMPL, called SMPL-H [36]... We combine SMPL-H with DMPL... we use 24 dimensions of MANO’s [36] low-dimensional representation of the pose... implemented in the Chumpy [26] autodifferentiation package."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With MoSh++ it is easy to add more data and we will continue to expand the dataset. We make AMASS available to the research community... and will support the community in adding new captures as long as they can be similarly shared... We will continuously incorporate more mocap data contributed by us and the community."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "AMASS has 42 hours of mocap, 346 subjects, and 11451 motions... The dataset consists of three subjects with varying body shapes... Two of the three subjects were professional models who signed modeling contracts"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The consistent representation of AMASS makes it readily useful for animation, visualization, and generating training data for deep learning... This is useful for many tasks, including generating synthetic training for computer vision tasks [43]."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While there are many motion capture datasets available online for research purposes... they are often narrowly focused on a particular class of motions... Previous attempts to merge datasets [21, 29] adopt a common body representation in which the size variation among subjects is normalized... Due to inherent problems with mocap, such as swapped and mislabeled markers"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Due to inherent problems with mocap, such as swapped and mislabeled markers... During a mocap session, markers may get occluded by the body due to pose... We do not have ground-truth data for evaluating accuracy of hand articulation... Current runtime for MoSh++ is not real-time."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The consistent representation of AMASS makes it readily useful for animation, visualization, and generating training data for deep learning... In summary, we provide the largest unified mocap dataset (AMASS) to the community, enabling new applications that require large amounts of training data... Users who only care about pose can ignore body shape and soft tissue deformations if they wish."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.0498,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 30.5,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

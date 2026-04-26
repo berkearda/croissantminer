@@ -1,0 +1,258 @@
+{
+  "dataset_id": "tanganke_dtd",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Prompted Textures Dataset (PTD)",
+    "description": "A texture dataset spanning 246,285 images across 56 texture classes, generated using text-to-image models with texture-specific prompts and a three-stage refinement process consisting of frequency analysis, patch variance filtering, and CLIP scoring.",
+    "url": "https://zenodo.org/records/15359142",
+    "license": null,
+    "creator": "Blaine Hoak, Patrick McDaniel",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "@Book{Faruqi2025TactStyleGT,\n author = {Faraz Faruqi and Maxine Perroni-Scharf and J. Walia and Yunyi Zhu and Shuyue Feng and Donald Degraen and Stefanie Mueller},\n booktitle = {International Conference on Human Factors in Computing Systems},\n journal = {Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems},\n title = {TactStyle: Generating Tactile Textures with Generative AI for Digital Fabrication},\n year = {2025}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Images were generated using Stable Diffusion text-to-image models with texture-specific prompts. Prompts were constructed by combining descriptors from categories including artistic style, spatial arrangement, color enhancers, colors, and texture types, resulting in 96,768 unique prompts. Five images were generated per prompt.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images generated from Stable Diffusion model using constructed texture prompts. The prompts were based on 56 texture classes (47 from Describable Textures Dataset plus 9 additional classes) combined with artistic, spatial, color enhancer, and color descriptors.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Images flagged as NSFW by the Stable Diffusion safety filter were regenerated to ensure a consistent number of images per prompt. Flagged images were excluded from the final dataset.",
+    "rai:dataPreprocessingProtocol": "A three-stage refinement process was applied: (1) Frequency filtering using Fourier transforms to remove object-like images by retaining the top 80% of images with highest frequency cutoff values; (2) Patch variance filtering to eliminate homogeneous images by removing the bottom 20% with lowest mean patch variance; (3) CLIP score filtering to ensure prompt alignment by removing the bottom 20% with lowest CLIP scores. This reduced the dataset from 483,840 to 246,285 images.",
+    "rai:dataAnnotationProtocol": "Human evaluation was conducted with 9 participants who evaluated 100 images each (900 unique images total). Participants rated each image on two questions: (1) overall quality and (2) how well the image represents the provided descriptor, using a scale of 1 to 5.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human evaluation scores were analyzed across different refinement stages to validate the effectiveness of each filtering step. Mean quality and representativeness scores were computed, showing gradual improvement through refinement with an overall 3.4% increase in quality and 4.5% increase in representativeness. CLIP scores were found to align well with human representative scores.",
+    "rai:annotationsPerItem": "Each of the 900 evaluated images received one quality rating and one representativeness rating from a single participant.",
+    "rai:annotatorDemographics": "9 participants were recruited to evaluate the images",
+    "rai:machineAnnotationTools": "Stable Diffusion model from HuggingFace was used for image generation. CLIP (Contrastive Language-Image Pre-training) was used for computing alignment scores between images and text prompts. Fourier transforms were used for frequency analysis. Inception model was used for computing Inception Scores.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset enables research on texture bias in machine learning models, which has implications for understanding model trustworthiness and interpretability. The dataset has been used to develop Texture Object Association Values (TAV) metric for measuring texture bias, revealing that texture type can affect model accuracy by up to 66% and that 90% of natural adversarial examples contained misaligned texture information.",
+    "rai:dataBiases": "The dataset generation process encountered challenges with NSFW filtering, where up to 60% of initially generated images were flagged despite using benign prompts. Certain texture descriptors like 'paisley' consistently triggered the filter. Some texture classes performed better than others in quality metrics, with textures appearing in common objects (e.g., hairy, flaky) achieving better scores, while more structured textures (e.g., grid, polka-dotted) had worse scores. Certain word pair combinations in prompts yielded lower quality images, particularly 'muted' and 'earthy' descriptors with subtle textures.",
+    "rai:dataLimitations": "The dataset is generated synthetically using Stable Diffusion and may not fully capture all characteristics of real-world textures. There is variation in quality across texture classes, with structured textures showing room for improvement. The NSFW safety filter posed challenges and may have introduced unintended biases in the generation process. Some descriptor combinations (e.g., 'muted', 'earthy') tend to produce lower quality images. The dataset is limited to 56 texture classes.",
+    "rai:dataUseCases": "The dataset is designed for texture-based research including: understanding high-level features models learn, uncovering biases, identifying security vulnerabilities, measuring texture bias in models, constructing texture-object associations, and studying adversarial examples. It has been used to develop the Texture Object Association Values (TAV) metric for measuring texture bias. The dataset can be adapted for other tasks by replacing texture descriptors with other types (e.g., shape descriptors)."
+  },
+  "usage": {
+    "input_tokens": 21767,
+    "output_tokens": 3356
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:27.924709Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this work, we introduce an extensible methodology for generating high-quality, diverse texture images, which we use to create the Prompted Textures Dataset (PTD), a new texture dataset spanning 246,285 images across 56 texture classes."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this work, we introduce an extensible methodology for generating high-quality, diverse texture images, which we use to create the Prompted Textures Dataset (PTD), a new texture dataset spanning 246,285 images across 56 texture classes."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Blaine Hoaka,*and Patrick McDaniela aUniversity of Wisconsin-Madison"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2409.10297v3 [cs.CV] 9 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To generate images for our dataset, we use our texture prompts as input to the Stable Diffusion model [26]. ... After generating 5 (not flagged) images per prompt, we have a total of 483,840 images before additional refinement."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To generate images for our dataset, we use our texture prompts as input to the Stable Diffusion model [26]."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We begin with the 47 texture classes from the Describable Textures Dataset [5] and expand this list by identifying additional texture candidates by sourcing additional lists of textures [1], prioritizing those that are meaningfully different from our starting textures. From this, we add 9 new texture classes, resulting in a total of 56 texture classes for our prompts."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A notable challenge during image generation was achieving images that passed the NSFW filter, despite using benign prompts. To ensure a consistent number of images, we regenerated images flagged by the filter. ... Although we find no images that actually represent explicit content, for ethical reasons we exclude these flagged images from our final dataset and do not release them publicly."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure that our Prompted Textures Dataset (PTD) maintains high quality, diversity, and alignment with prompts, we apply a multi-stage refinement process. This process consists of three filtering steps, each targeting different aspects of image quality: (1) frequency filtering to remove object-like images, (2) patch variance filtering to eliminate homogeneous images, and (3) CLIP score filtering to ensure alignment with the prompts. ... After applying these three filtering stages, our refined Prompted Textures Dataset (PTD) contains 246,285 images"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For our human evaluation, we recruited 9 participants to evaluate the images. Each participant was shown 100 images in random order and asked two questions for each image: (1) How would you rate the overall quality of the image? and (2) How well does the image represent the provided descriptor? Participants were asked to supply a rating on a scale of 1 to 5, with 1 being the worst and 5 being the best"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "At each step in the refinement process, we can see that both quality and representativeness of the data improves from the previous step, confirming that each part of our refinement process leads to improved dataset quality. Combining all refinement steps together provides us with an overall 3.4% increase in quality and a 4.5% increase in representativeness."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each participant was shown 100 images in random order and asked two questions for each image: (1) How would you rate the overall quality of the image? and (2) How well does the image represent the provided descriptor? ... we ensured there were no duplicate images between or within the sets, meaning that we evaluated 900 unique images from our dataset."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Images are generated using the Stable Diffusion model [26] from HuggingFace [32]. ... CLIP scores [14] measure representativeness by calculating the cosine similarity between image and text embeddings from a pre-trained CLIP model. ... Inception Scores [28] evaluate image quality and diversity by measuring the KL divergence between conditional and marginal class probabilities using a pre-trained Inception model."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the initial release of the Prompted Textures Dataset, it has reached 23 downloads on Zenodo ... and has been used as the forefront for developing new texture bias measurement methodologies. ... it was found that the texture type can affect the accuracy (and confidence) of the model by up to 66% (and 40%) on clean validation data ... Furthermore, it was found that 90% of the natural adversarial examples contained misaligned texture information with their true class"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This filtering issue proved substantial, with up to 60% of our initial generated images being flagged as NSFW. ... Surprisingly, texture descriptors like 'paisley' consistently triggered the filter, with nearly 100% of prompts containing 'paisley' producing at least one flagged image ... Notably, textures that more often appear in common objects, such as hairy and flaky, despite being more complex textures, tend to have better scores. Meanwhile, more simple, but more structured textures, such as grid and polka-dotted textures tend to have worse scores."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since Stable Diffusion models are not explicitly designed to create textures, other kinds of images (e.g., objects) may arise during the generation process. ... While overall scores showcase the quality and diversity of PTD, we observe variations in both Inception and FID scores across texture classes, with certain textures performing better than others. ... This indicates that while the refinement process enhances general quality, there is room for improvement in generating more structured textures."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Texture data serves as a valuable tool for interpreting the high-level features models learn, uncovering biases, and identifying security vulnerabilities. ... This prompt creation methodology is versatile and can be adapted to other tasks in image generation. For example, replacing texture descriptors with shape descriptors enables prompts like 'photorealistic vivid red circle' to produce shape images. ... Since the initial release of the Prompted Textures Dataset ... has been used as the forefront for developing new texture bias measurement methodologies. Most recently, the Prompted Textures Dataset served as the basis for Texture Object Association Values (TAV) [16]"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 86.4,
+      "avg_confidence": 0.925
+    },
+    "cost_usd": 0.0578,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [
+      "citeAs"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Ibrahim Ethem Hamamci, Sezgin Er, Chenyu Wang, Furkan Almas, Ayse Gulnihan Simsek, Sewal Nil Esirgun, Irem Dogan, Omer Faruk Durugol, Benjamin Hou, Suprosanna Shit, Weicheng Dai, Murong Xu, Hadrien Reynaud, Muhammed Furkan Dasdelen, Bastian Wittmann, Tamaz Amiranashvili, Enis Simsar, Mehmet Simsar, Emine Bensu Erdemir, Abdullah Alanbay, Anjany Sekuboyina, Berkan Lafci, Ahmet Kaplan, Zhiyong Lu, Malgorzata Polacin, Bemhard Kainz, Christian Bluethgen, Kayhan Batmanghelich, Mehmet Kemal Ozdemir, and Bjoem Menze",
+    "publisher": null,
+    "datePublished": "2025-09-30",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset includes non-contrast chest CT volumes and corresponding radiology text reports acquired from a hospital database.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Istanbul Medipol University Mega Hospital",
+    "rai:dataCollectionTimeframe": "May 2015 to January 2023",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Reports were anonymized by removing personal information using regular expressions, translated from Turkish to English via Google Translate API, and reviewed/corrected by bilingual final-year medical students. CT volumes involving contrast material or body parts other than the chest were excluded.",
+    "rai:dataPreprocessingProtocol": "CT volumes were resized to uniform spacing (0.75 mm x/y, 1.5 mm z), center-cropped or padded to 480x480x240 resolution, converted to Hounsfield Unit (HU) values, clipped to a range of -1000 to 1000, and normalized to a range of -1 to 1 during training.",
+    "rai:dataAnnotationProtocol": "1,000 reports were manually annotated by merging findings and impression sections to create a multi-label dataset identifying 18 abnormalities. Conditions not referenced were considered absent, and similar conditions were grouped.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "RadBERT-RoBERTa-4m, Llama 3.1 8B, TotalSegmentator",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Age and sex",
+    "rai:dataSocialImpact": "The dataset and models aim to efficiently identify pathologies, reduce radiologist workload, and potentially save lives when immediate radiological expertise is unavailable.",
+    "rai:dataBiases": "The dataset originates from a single geographic and clinical setting, which may limit generalizability to other populations.",
+    "rai:dataLimitations": "Detection accuracy depends on specific terminology used in reports and prompt choices. The models are currently limited to chest CT volumes.",
+    "rai:dataUseCases": "Training, internal validation, and fine-tuning of foundation models for 3D medical imaging."
+  },
+  "usage": {
+    "input_tokens": 49458,
+    "output_tokens": 2397
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-25T15:08:48.860970Z",
+    "git_commit": "7c3032f",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce CT-RATE, a public dataset that pairs 3D medical images with corresponding textual reports."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our CT-RATE dataset, comprising paired chest CT volumes and radiology text reports, is publicly accessible via https://huggingface.co/datasets/ibrahimhamamci/CT-RATE [67]."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibrahim Ethem Hamamci1,2,3,†,∗,Sezgin Er1,3,†,Chenyu Wang4,Furkan Almas3,Ayse Gulnihan Simsek3, Sewal Nil Esirgun3,Irem Dogan3,Omer Faruk Durugol3,Benjamin Hou5,Suprosanna Shit1,2,Weicheng Dai4, Murong Xu1,2,Hadrien Reynaud6,Muhammed Furkan Dasdelen3,Bastian Wittmann1,2,Tamaz Amiranashvili1,2,Enis Simsar7,Mehmet Simsar3,Emine Bensu Erdemir3,Abdullah Alanbay3,Anjany Sekuboyina1,2,Berkan Lafci1,2,Ahmet Kaplan3,Zhiyong Lu4,Malgorzata Polacin8,Bemhard Kainz6,9, Christian Bluethgen8,Kayhan Batmanghelich4,Mehmet Kemal Ozdemir3, andBjoem Menze1,2"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2403.17834v4 [cs.CV] 30 Sep 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Subsequently, these anonymized reports are translated from Turkish to English using the Google Translate API... Only the English versions of these reports are included in our CT-RATE dataset."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The CT-RATE dataset includes non-contrast chest CT volumes acquired between May 2015 and January 2023, totaling 50,188 reconstructed CT volumes from 25,692 distinct CT experiments conducted on 21,304 unique patients."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we incorporate every reconstructed volume from the hospital database into our dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate a novel dataset, CT-RATE, consisting of chest CT volumes and corresponding radiology text reports from Istanbul Medipol University Mega Hospital."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The CT-RATE dataset includes non-contrast chest CT volumes acquired between May 2015 and January 2023"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To anonymize the CT-RATE dataset, we first anonymize reports by removing all personal information pertaining to patients and medical professionals. This process involves targeted searches using regular expressions... translated from Turkish to English using the Google Translate API, and bilingual final-year medical students review and correct all translations... We exclude volumes that involve contrast material or body parts other than the chest."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, each volume is resized to achieve uniform spacing of 0.75 mm in the x-axis and y-axis and 1.5 mm in the z-axis. The CT volumes are then either center-cropped or padded to reach a consistent resolution of 480×480×240... convert each CT volume to Hounsfield Unit (HU) values... clipped to a range of -1000 to 1000. During training, we normalize these values to a range of -1 to 1."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To develop an automated label extractor model, we annotate 1,000 reports by merging findings and impression sections... This creates a multi-label dataset for each report, identifying 18 abnormalities. Conditions that are not referenced in either section are considered absent."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Leveraging this dataset, we finetune the RadBERT-RoBERTa-4m model [34]... and apply it to classify the remaining 24,692 reports. All questions are generated using the Llama 3.1 8B large language model... Each CT-RATE volume is processed with TotalSegmentator [61]"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The patients range in age from 18 to 102 years... The sex distribution is 41.6% female and 58.4% male."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Artificial intelligence (AI) has the potential to address this challenge by efficiently identifying pathologies, reducing the workload on radiologists, and potentially saving lives in situations where immediate radiological expertise is not available."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, biases inherent to our single-institution dataset may influence our self-supervised training. Although we curate a large and diverse set of volume-report pairs, the data originates from a single geographic and clinical setting, which may limit the generalizability of our models to other populations."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Second, CT-CLIP depends on the specific terminology used in reports and the choice of prompts during zero-shot detection. Variability in how diseases are described across radiology reports can affect detection accuracy... Finally, our current models are limited to chest CT volumes."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE is divided into training and intemal validation sets for experiments... supporting extensive validation and fine-tuning."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0858,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 59.8,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

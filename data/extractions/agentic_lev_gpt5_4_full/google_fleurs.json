@@ -1,0 +1,281 @@
+{
+  "dataset_id": "google_fleurs",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "FLEURS",
+    "description": "An n-way parallel speech and text benchmark in 102 languages built on top of FLoRes-101, with approximately 12 hours of speech supervision per language. It supports tasks including ASR, speech language identification, translation, and retrieval.",
+    "url": "https://tensorflow.org/datasets/catalog/xtreme_s ; https://hf.co/datasets/google/xtreme_s",
+    "license": "CC-BY-4.0",
+    "creator": "Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera, Ankur Bapna",
+    "publisher": "Google Research",
+    "datePublished": "2022",
+    "inLanguage": "afr, amh, ara, asm, ast, azj, bel, ben, bos, cat, ceb, cmn, ces, cym, dan, deu, ell, eng, spa, est, fas, ful, fin, tgl, fra, gle, glg, guj, hau, heb, hin, hrv, hun, hye, ind, ibo, isl, ita, jpn, jav, kat, kam, kea, kaz, khm, kan, kor, ckb, kir, ltz, lug, lin, lao, lit, luo, lav, mri, mkd, mal, mon, mar, msa, mlt, mya, nob, npi, nld, nso, nya, oci, orm, ory, pan, pol, pus, por, ron, rus, bul, snd, slk, slv, sna, som, srp, swe, swh, tam, tel, tgk, tha, tur, ukr, umb, urd, uzb, vie, wol, xho, yor, yue, zul",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was built by starting from the FLoRes-101 sentence set, using its dev and devtest splits, re-splitting them into train/dev/test, then collecting three speech recordings per sentence from different native speakers with sex-balance targets. Additional workers validated whether recordings matched the input sentence, invalid recordings were discarded, and the final data were split with disjoint speakers between train/dev and test.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Invalid recordings were discarded, leaving zero to three recordings per sentence; about 21.5% of sentences were missing in the first version because none of the three recordings were validated, and the authors planned to fill these gaps later.",
+    "rai:dataCollectionRawData": "Source text came from FLoRes-101: 3001 sentences extracted from English Wikipedia and translated by human translators into 101 languages; the dataset used 2009 sentences from the dev and devtest splits. The raw speech data are native-speaker recordings of those sentences, kept as recorded from quiet or noisy environments at 16 kHz. Source transcripts were reused from the human-translated FLoRes transcripts, and the dataset provides raw, normalized, and character-based transcript versions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Speech recordings were validated by additional workers who checked whether each recording matched the input sentence; invalid recordings were discarded. The dataset also reused human-translated source transcripts.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Validation-based quality control was applied, with invalid recordings discarded; the paper reports that about 21.5% of sentences were missing because none of the three recordings were validated.",
+    "rai:annotationsPerItem": "Three recordings per sentence by three different native speakers; each recording was then evaluated by additional workers.",
+    "rai:annotatorDemographics": "Recording speakers were native speakers, with a sex ratio balance of at least 30/70% when possible.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset and resulting models are biased toward languages and regions with more pre-training data, with better performance on Western and Eastern European languages than on lower-resource regions. The paper also notes script-related and language-confusion biases, such as errors across mixed writing systems and confusion between acoustically similar languages.",
+    "rai:dataLimitations": "The first version has incomplete coverage because many sentences are missing when no recordings were validated. The dataset is relatively small for training large models from scratch and is intended more for fine-tuning/evaluation. Performance is weaker for unseen languages and limited supervised data, and noisy recordings are retained without augmentation.",
+    "rai:dataSocialImpact": "The dataset is intended to enable speech technology in more languages and catalyze research in low-resource speech understanding, supporting broader multilingual and cross-modal speech research.",
+    "rai:personalSensitiveInformation": "Sex ratio of speakers and speakers' native-speaker status were collected/used in data collection; geography is also used to group languages by region.",
+    "rai:dataUseCases": "The dataset is designed for training, fine-tuning, and evaluation/benchmarking across multiple speech tasks, including ASR, speech language identification, speech translation, and speech-text/speech-speech retrieval. The paper also provides tokenized transcript variants and states that the character-based version should be used for ASR.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly released via TFDS and Huggingface, and the authors plan future versions to fill missing recording gaps.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Balanced speaker collection by sex ratio (at least 30/70% when possible) and creation of new train/dev/test splits from FLoRes dev and devtest with disjoint speakers between train/dev and test and a target ratio of 7:1:2.",
+    "rai:dataPreprocessingProtocol": "Invalid recordings were discarded; audio was kept as recorded without augmentation, sampled at 16 kHz, and segments were limited to 30 seconds. Text preprocessing included NFC then FST normalization, lowercasing, punctuation normalization/removal, and splitting words into characters with word-boundary tokens; raw, normalized, and character-based transcript versions were provided."
+  },
+  "usage": {
+    "input_tokens": 26611,
+    "output_tokens": 2555
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:59:45.419937Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce FLEURS, the Few-shot Learning Evaluation of Universal Representations of Speech benchmark."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FLEURS is an n-way parallel speech dataset in 102 languages built on top of the machine translation FLoRes-101 benchmark, with approximately 12 hours of speech supervision per language. FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is publicly available via TFDS at https://tensorflow.org/datasets/catalog/xtreme_s and Huggingface at https://hf.co/datasets/google/xtreme_s."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Alexis Conneau†‡1, Min Ma†2, Simran Khanuja†2, Yu Zhang2, Vera Axelrod2, Siddharth Dalmia3, Jason Riesa2, Clara Rivera2, Ankur Bapna‡2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is publicly available via TFDS at https://tensorflow.org/datasets/catalog/xtreme_s and Huggingface at https://hf.co/datasets/google/xtreme_s."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2205.12446v1 [cs.CL] 25 May 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We plan to fill these gaps in the future versions of the dataset."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We start with the FLoRes101 dataset... we only use the dev and devtest sets, which contain 2009 sentences in total. We split those sentences into new train, dev and test splits... For each sentence in the 102 languages... we collected three recordings by three different native speakers... After this first recording step, each recording is evaluated by additional workers... Invalid recordings are discarded”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For each sentence in the 102 languages... we collected three recordings by three different native speakers... each recording is evaluated by additional workers”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Invalid recordings are discarded, leaving us between zero and three recordings per sentence in the final dataset. In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated. We plan to fill these gaps in the future versions of the dataset.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“FLoRes-101 contains 3001 sentences extracted from English Wikipedia and these sentences have been translated in 101 languages by human translators... we only use the dev and devtest sets, which contain 2009 sentences in total.” and “All recordings are kept as they-are, either from quiet or noisy environment... The speech sampling rate is 16kHz.” and “For source transcripts, we reuse the transcripts produced by human translators from [20].”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“After this first recording step, each recording is evaluated by additional workers to assesses whether the recording corresponds to the input sentence. Invalid recordings are discarded” and “For source transcripts, we reuse the transcripts produced by human translators”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“each recording is evaluated by additional workers... Invalid recordings are discarded” and “In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For each sentence in the 102 languages ... we collected three recordings by three different native speakers” and “each recording is evaluated by additional workers”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible.”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"results are much better on the Western European group ... than on other groups like Sub-Saharan African ... or South Asian ... which can be explained in part due to the larger amounts of unlabeled data in WE languages\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated\""
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding.\""
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval.\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"The dataset is publicly available via TFDS ... and Huggingface ... We plan to fill these gaps in the future versions of the dataset.\""
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we collected three recordings by three different native speakers, imposing a balance in terms of sex ratio of at least 30/70%, when possible.”; “We split those sentences into new train, dev and test splits, with 1509, 150 and 350 sentences respectively.”; “We then split the collected data into train, development (dev) and test sets with disjoint speakers between train/dev and test, with a target ratio of 7:1:2.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Invalid recordings are discarded”; “All recordings are kept as they-are... without any data augmentations”; “The speech sampling rate is 16kHz.”; “All the segments are within 30 seconds.”; “We apply NFC and then FST normalization to each sentence, lower-case, normalize and remove punctuations. We also split words into characters”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "evidence_count": 23,
+      "evidence_coverage": 92.0,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.0588,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 12421,
+        "tokens_in": 3514,
+        "tokens_out": 578
+      },
+      "collection": {
+        "section_chars": 20869,
+        "tokens_in": 5804,
+        "tokens_out": 615
+      },
+      "annotation": {
+        "section_chars": 20869,
+        "tokens_in": 5790,
+        "tokens_out": 400
+      },
+      "impact": {
+        "section_chars": 20869,
+        "tokens_in": 5829,
+        "tokens_out": 590
+      },
+      "processing": {
+        "section_chars": 20869,
+        "tokens_in": 5674,
+        "tokens_out": 372
+      }
+    },
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ],
+    "elapsed_seconds": 34.3
+  }
+}

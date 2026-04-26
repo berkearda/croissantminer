@@ -1,0 +1,257 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "OpenThoughts3-1.2M",
+    "description": "A 1.2 million-example open-data supervised fine-tuning reasoning dataset composed of math, code, and science data, built through a pipeline of question sourcing, filtering, deduplication, and multi-answer teacher generation for training reasoning models.",
+    "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M",
+    "license": null,
+    "creator": "OpenThoughts project team",
+    "publisher": "Hugging Face",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Guha, Etash, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, Marianna Nezhurina, Jean Mercat, Trung Vu, Zayne Sprague, Ashima Suvama, Benjamin Feuer, Liangyu Chen, Zaid Khan, Eric Frankel, Sachin Grover, Caroline Choi, Niklas Muennighoff, Shiye Su, Wanjia Zhao, John Yang, Shreyas Pimpalgaonkar, Kartik Sharma, Charlie Cheng-Jie Ji, Yichuan Deng, Sarah Pratt, Vivek Ramanujan, Jon Saad-Falcon, Jeffrey Li, Achal Dave, Alon Albalak, Kushal Arora, Blake Wulfe, Chinmay Hegde, Greg Durrett, Sewoong Oh, Mohit Bansal, Saadia Gabriel, Aditya Grover, Kai-Wei Chang, Vaishaal Shankar, Aaron Gokaslan, Mike A. Merrill, Tatsunori Hashimoto, Yejin Choi, Jenia Jitsev, Reinhard Heckel, Maheswaran Sathiamoorthy, Alexandros G. Dimakis, and Ludwig Schmidt. 2025. Data Recipes for Reasoning Models. arXiv:2506.04178v2.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was constructed through a multi-stage pipeline: sourcing questions from existing and newly generated datasets across math, code, and science; mixing top-performing sources; filtering questions with LLM-based methods; deduplicating questions for math and science; randomly sampling questions; and generating multiple answers per question using a teacher model.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data came from public question sources and generated sources across math, code, and science, including StackExchange CodeGolf, OpenCodeReasoning, OpenMath-2-Math, StackExchange Physics, and an Organic Chemistry PDF pipeline based on textbooks and PDFs.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were mixed from selected sources, filtered, deduplicated for math and science, randomly sampled, and expanded by generating 16 answers per question; answer filtering was ultimately skipped in the final pipeline.",
+    "rai:dataPreprocessingProtocol": "The dataset pipeline included decontamination against evaluation benchmarks by removing highly similar samples, question filtering using difficulty-based or response-length-based LLM methods, and deduplication using normalized Indel similarity. For sources with too few datapoints, questions were repeated to reach target counts during experiments.",
+    "rai:dataAnnotationProtocol": "Annotations are teacher-generated reasoning traces and answers for each question. Responses were generated with teacher models, with the final pipeline using QwQ-32B as teacher and generating 16 answers per question. Earlier experiments often used DeepSeek-R1 as teacher.",
+    "rai:dataAnnotationPlatform": "The dataset and models are released on Hugging Face; the project website is openthoughts.ai; the codebase will be released on GitHub. For annotation/generation, the paper explicitly mentions use of APIs/models including DeepSeek API, OpenAI models such as GPT-4o-mini and GPT-4.1-mini/nano, Gemini 2.0 Flash Lite Preview, and QwQ-32B.",
+    "rai:dataAnnotationAnalysis": "The authors analyzed alternative answer filtering and verification strategies, including majority consensus, GPT verification, fastText filtering, and response-length heuristics, and concluded that no answer filtering strategy outperformed using all answers.",
+    "rai:annotationsPerItem": "16",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "QwQ-32B, DeepSeek-R1, GPT-4o-mini, GPT-4.1-mini, GPT-4.1-nano, Gemini 2.0 Flash Lite Preview, fastText",
+    "rai:dataReleaseMaintenancePlan": "The project consists of continuous releases progressing through multiple generations, with assets shared via openthoughts.ai, Hugging Face, and GitHub.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The work aims to support the community's progress on open reasoning models, but the authors note safety concerns: supervised fine-tuning on reasoning data degraded safety alignment, and future work should incorporate safety-specific datasets.",
+    "rai:dataBiases": "The dataset design favors a small number of top-performing sources over diversity, and the final pipeline selected strategies based on average benchmark performance across domains rather than optimizing each domain individually, assuming cross-domain transfer.",
+    "rai:dataLimitations": "The work does not explore reinforcement learning datasets, staged SFT, or curriculum learning. The authors also note uncertainty about cross-domain transfer and how scaling behaves as student models approach teacher performance.",
+    "rai:dataUseCases": "The dataset is intended for supervised fine-tuning (SFT) of reasoning models, specifically training models on question-response pairs for reasoning across math, code, and science."
+  },
+  "usage": {
+    "input_tokens": 113736,
+    "output_tokens": 2985
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:22:12.514611Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thus mix and scale up the data pipelines from Section 4 to build OpenThoughts3-1.2M, our 1.2 million-sized dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Through iterative experimentation, our pipeline surfaced several key insights into effective SFT reasoning data curation. These findings collectively shape our final pipeline, allowing us to build OpenThoughts3-1.2M, a state-of-the-art open-data SFT reasoning dataset, composed of science, math, and code data."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset can be found in https://huggingface.co/datasets/open-thoug hts/OpenThoughts3-1.2M"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We are launching the OpenThoughts project to create state-of-the-art open reasoning datasets by exploring the rich design space in reasoning SFT datasets"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our model and our dataset as part of a collection on Hugging Face."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2506.04178v2 [cs.LG] 5 Jun 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper and dataset descriptions are written in English; e.g., \"OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints.\""
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thus mix and scale up the data pipelines from Section 4 to build OpenThoughts3-1.2M, our 1.2 million-sized dataset."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 2: The OpenThoughts experiment pipeline aims to build the strongest reasoning dataset recipe. We investigate (1) sourcing questions from existing and newly generated datasets, (2) mixing questions from the top-performing sources, (3) filtering for high-quality questions using fastText or LLMs, (4) deduplicating questions and sampling multiple answers per question, (5) filtering out low-quality answers using LLM verification or majority consensus, and (6) selecting the best teacher model."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We can broadly categorize our question sourcing techniques into three types: (1) Fully synthetic – an existing LLM generates questions with little-to-no seed material... (2) Semi-synthetic – an LLM uses existing data sources such as CommonCrawl or FineWeb as seeds to form questions... (3) Non-synthetic – humans write the questions."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Takeaway: We use OpenMath-2-Math as our sole math question source, CodeGolf and OpenCodeReasoning as our code question sources, and StackExchangePhysics and OrganicChemistryPDFs as our science question sources."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Takeaway: Our final pipeline uses 16× answers per question for all domains. It uses exact deduplication for math and science and no deduplication for code.\nTakeaway: We do not perform answer filtering because no filtering strategy outperformed the baseline, which uses all the answers."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also decontaminate our datasets against our benchmarks by removing samples with high similarity.\nFor sources that produce fewer datapoints, we repeat the questions until we reach the desired amount.\nTakeaway: We use difficulty-based filtering with GPT-4o-mini for code questions, and response length filtering with GPT-4.1-mini for math and science questions."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Takeaway: We use QwQ-32B as the teacher model.\nTakeaway: Our final pipeline uses 16× answers per question for all domains.\nFinally, we use DeepSeek-R1 to generate responses for each question, even if a pre-existing answer exists."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 7: Filtering answers did not improve over not filtering at all. Using verification techniques such as majority consensus filtering or response-length-based filtering did not improve upon training on all samples.\nTakeaway: We do not perform answer filtering because no filtering strategy outperformed the baseline, which uses all the answers."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Takeaway: Our final pipeline uses 16× answers per question for all domains."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Takeaway: We use QwQ-32B as the teacher model.\nWe use GPT-4o-mini for all sources that we generate which require an LLM.\nTakeaway: We use difficulty-based filtering with GPT-4o-mini for code questions, and response length filtering with GPT-4.1-mini for math and science questions.\nWe use gemini/gemini-2.0-flash-lite-preview-02-05 with the prompt in Figure 24 to extract the text from the PDFs.\nWe extensively explore various filtering methods, including fastText classifiers"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As mentioned in Section 3, the OpenThoughts project consists of a series of continuous releases, beginning with BespokeStratos-17K (Bespoke-Labs, 2025), and progressing through four generations of models and datasets.\nOur initial OpenThoughts and OpenThoughts2 releases are documented on https://www.openthoughts.ai/ , which also links to the main GitHub repo https://github.com/open-thoughts/open-thoughts and Hugging Face organization https://huggingface.co/open-thoughts where all the assets and code are stored."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We nonetheless believe this work serves as a valuable foundation for the community’s continued progress on open reasoning models.\nIn Table 30, we observe that supervised fine-tuning on reasoning inadvertently degrades the pre-existing safety alignment of Qwen2.5 models, consistent with prior findings Qi et al. (2023).\nFuture work on the OpenThoughts would benefit from incorporating safety-specific datasets to mitigate these risks while preserving their strong reasoning capabilities."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Selecting questions from a small number (top 1 or 2) of high-quality sources leads to better downstream performance compared to optimizing for diversity (i.e., top 8 or 16 sources).\nIn each step of our pipeline, we selected strategies that maximized overall average benchmark performance, rather than optimizing for each domain individually. This choice assumes some level of cross-domain transfer"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work has several limitations. We did not explore datasets for reinforcement learning, a standard training regime for building reasoning models. Within the SFT realm, we did not explore the use of staged SFT or curriculum learning to further improve performance.\nHowever, it’s unclear whether such transfer persists once domains are mixed."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Training Our goal is to create the best dataset of question-response pairs for SFT reasoning.\nThrough iterative experimentation, our pipeline surfaced several key insights into effective SFT reasoning data curation."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.172,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 43.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

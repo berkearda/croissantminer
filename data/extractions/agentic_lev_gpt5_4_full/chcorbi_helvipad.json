@@ -1,0 +1,280 @@
+{
+  "dataset_id": "chcorbi_helvipad",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "HELVIPAD",
+    "description": "A real-world dataset for omnidirectional stereo depth estimation featuring about 40K video frames from diverse indoor and outdoor scenes under varied lighting conditions. It was collected with two 360° cameras in a top-bottom setup and a LiDAR sensor, and includes depth and disparity labels plus an augmented training set with increased label density via depth completion.",
+    "url": "https://vita-epfl.github.io/Helvipad/",
+    "license": "CC0-1.0",
+    "creator": "Mehdi Zayene; Jannik Endres; Albias Havolli; Charles Corbiere; Salim Cherkaoui; Alexandre Kontouli; Alexandre Alahi",
+    "publisher": "EPFL",
+    "datePublished": null,
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected by recording video sequences in dynamic indoor and outdoor scenes across a university campus using a custom-built rig with two vertically arranged omnidirectional cameras synchronized with a LiDAR sensor; LiDAR point clouds were projected onto frames to obtain depth maps and disparity maps, and depth completion was later applied to augment training labels.",
+    "rai:dataCollectionType": "Direct measurement",
+    "rai:dataCollectionMissingData": "Missing/sparse depth labels were handled with depth completion, which interpolated missing values and removed out-of-distribution samples to increase label density.",
+    "rai:dataCollectionRawData": "Raw/source data consisted of omnidirectional video sequences (top and bottom images) synchronized with LiDAR point clouds, from which depth maps and disparity maps were produced.",
+    "rai:dataCollectionTimeframe": "Between December 2023 and February 2024",
+    "rai:dataAnnotationProtocol": "Depth and disparity labels were generated automatically by projecting LiDAR point clouds onto equirectangular images, optimizing LiDAR-to-image alignment, and augmenting training labels with a fully automated depth completion pipeline using temporally aggregated point clouds, interpolation, and filtering.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The paper evaluates annotation quality by measuring LiDAR-image alignment error and validating the depth completion pipeline on held-out LiDAR points, reporting pixel error and label-density/error tradeoffs.",
+    "rai:annotationsPerItem": "One automatically generated depth/disparity label map per paired image frame, with original sparse labels covering about 12% of pixels and augmented labels covering about 61% of pixels.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LiDAR-to-image mapping optimization using BFGS and an automated depth completion pipeline based on temporal aggregation, k-nearest-neighbor interpolation on spherical grids, and filtering were used to generate/augment labels.",
+    "rai:dataBiases": "The dataset may underrepresent some conditions and scene types, especially unseen or underrepresented situations such as outdoor scenes at night; models trained on specific environments generalize poorly outside those domains.",
+    "rai:dataLimitations": "Depth labels are sparse without completion; the depth completion approach is limited for fast-moving objects like cars; LiDAR-camera occlusions were not explicitly handled; and indoor-trained models show limited generalization to outdoor and night scenes.",
+    "rai:dataSocialImpact": "The dataset is intended to support robotics and depth estimation research in dynamic human environments, with implications for safer deployment and robustness assessment in real-world settings.",
+    "rai:personalSensitiveInformation": "Human presence/pedestrian activity and environmental context including indoor/outdoor location and lighting/time conditions (e.g., night) are captured.",
+    "rai:dataUseCases": "Use cases include training, validation, testing, benchmarking, and robustness/generalization assessment for omnidirectional stereo depth estimation models; the augmented depth-completed labels are specifically used as training data augmentation.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Training data augmentation via depth completion to increase label density; temporal aggregation of point clouds from the current frame plus four preceding and four succeeding frames.",
+    "rai:dataPreprocessingProtocol": "Projected LiDAR point clouds onto equirectangular images by applying initial rotation/translation, converting points to spherical coordinates, projecting to the equirectangular plane, and optimizing alignment with BFGS; depth completion pipeline interpolated depth on spherical grid points using k-nearest neighbors and filtered out points with high uncertainty or insufficient nearby measurements; cropped unnecessary sky and ground regions."
+  },
+  "usage": {
+    "input_tokens": 40840,
+    "output_tokens": 2405
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:54:05.052000Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce HELVIPAD, a real-world dataset for omnidirectional stereo depth estimation"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce HELVIPAD, a real-world dataset for omnidirectional stereo depth estimation, featuring 40K video frames from video sequences across diverse environments, including crowded indoor and outdoor scenes with various lighting conditions. Collected using two 360° cameras in a top-bottom setup and a LiDAR sensor, the dataset includes accurate depth and disparity labels... Additionally, we provide an augmented training set with an increased label density by using depth completion."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://vita-epfl.github.io/Helvipad/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mehdi Zayene1Jannik Endres1,2Albias Havolli1Charles Corbi `ere1* Salim Cherkaoui1Alexandre Kontouli1Alexandre Alahi1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1EPFL, Switzerland"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A Real-World Dataset for Omnidirectional Stereo Depth Estimation"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data were collected using a custom-built rig equipped with two omnidirectional cameras in a vertical arrangement... and paired with a synchronized LiDAR sensor to provide high-quality depth measurements."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data were collected using a custom-built rig equipped with two omnidirectional cameras in a vertical arrangement... and paired with a synchronized LiDAR sensor"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "depth completion increases the density of low-range depth values... as a result of the algorithm interpolating missing values and removing out-of-distribution samples."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each sequence is synchronized with its corresponding LiDAR point clouds, which are projected on frames to obtain depth maps, and subsequently disparity maps. Top images, bottom images, depth maps, and disparity maps..."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The HELVIPAD dataset includes 26 video sequences captured between December 2023 and February 2024."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"the dataset includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images\"; \"The core step of the mapping process is the optimization of the rotation and translation parameters\"; \"we develop a fully automated depth completion pipeline tailored for 360° images\""
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"To assess alignment accuracy, we calculated the pixel error ... resulting in an average error of 1.7 pixels\"; \"When selecting the same number of points from visually challenging areas ... the error remains relatively low at 8.0 pixels\"; \"To validate our depth completion pipeline, we split each LiDAR point cloud into training and test sets, and compute depth estimation metrics on the test set\"; \"our pipeline significantly increases the ratio of labeled pixels from 12% to 61% while maintaining very low error rates\""
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"the resulting dataset comprises 39,553 paired images with their corresponding depth and disparity maps\"; \"our pipeline significantly increases the ratio of labeled pixels from 12% to 61%\""
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Minimize the total error ... using BFGS\"; \"we develop a fully automated depth completion pipeline tailored for 360° images\"; \"we aggregate the current frame’s point cloud with those from the four preceding and four succeeding frames\"; \"we estimate its depth through a weighted average of its k-nearest neighbors\""
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conduct a detailed scene-wise analysis to study each method’s ability to generalize to unseen or underrepresented situations, such as outdoor scenes at night."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given the sparse nature of LiDAR point clouds compared to high-resolution camera images, ground-truth depth labels cover only a fraction of the total pixels... Note that this approach is limited for fast-moving objects like cars... Occlusions were not explicitly handled, as the small LiDAR-camera baseline minimizes their impact... indoor-trained models show a clear limitation in generalizing to outdoor scenes, particularly at night."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mobile robots are increasingly used in real-world applications such as autonomous driving, healthcare, or agriculture, where accurate 3D representations of dynamic human environments are crucial for navigation and interaction... To safely deploy learning systems in real-world settings, it is essential to assess their ability to generalize to unseen or underrepresented conditions"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "captured from a robot navigating in dynamic human environments... To assemble a dataset capturing human pedestrian activity... encompassing indoor ... and outdoor ... settings in various lighting conditions"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To create the benchmark, we split the captured sequences into a train-val set and a test set... We benchmark modern stereo depth estimation approaches on our dataset... This dataset is an ideal testbed for assessing the robustness of depth estimation methods... including further augmented data via depth completion which increases label density for training"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Additionally, we provide an augmented training set with an increased label density by using depth completion.” and “To increase the number of valid points, we aggregate the the current frame’s point cloud with those from the four preceding and four succeeding frames.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We apply initial rotation and translation transformations… The transformed points are then converted into spherical coordinates (r, θ, ϕ) to match the structure of equirectangular images, and projected onto the equirectangular plane.” “Minimize the total error… using BFGS.” “Our approach interpolates depth on spherical grid points by using temporally aggregated point clouds and applies a filtering process to exclude points with high uncertainty or lacking nearby measurements.” “After cropping unnecessary regions (sky, ground), the resulting dataset comprises 39,553 paired images...”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0751,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 19938,
+        "tokens_in": 5088,
+        "tokens_out": 507
+      },
+      "collection": {
+        "section_chars": 10567,
+        "tokens_in": 2796,
+        "tokens_out": 407
+      },
+      "annotation": {
+        "section_chars": 42584,
+        "tokens_in": 11011,
+        "tokens_out": 575
+      },
+      "impact": {
+        "section_chars": 42584,
+        "tokens_in": 11050,
+        "tokens_out": 575
+      },
+      "processing": {
+        "section_chars": 42584,
+        "tokens_in": 10895,
+        "tokens_out": 341
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 33.5
+  }
+}

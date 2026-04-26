@@ -1,0 +1,280 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "An open book question answering dataset modeled after open book exams, consisting of 5957 multiple-choice questions and a set of 1326 elementary science facts. Answering requires combining a provided science fact with additional common knowledge in a multi-hop reasoning setting.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": "unknown",
+    "creator": "Todor Mihaylov, Peter Clark, Tushar Khot, Ashish Sabharwal",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2018",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was created through a multi-stage process starting from a set of elementary science facts, then using crowdsourcing to generate questions about novel situations, followed by automatic, crowd, and expert filtering for hardness, answerability, and quality.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The source data consisted of a set of 1326 elementary-level science facts used as the open book, from which roughly 5957 multiple-choice questions were generated.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Multi-stage crowdsourced question generation and validation: a worker was shown a core science fact, asked to think of a second common fact, create a multiple-choice question with one correct and three incorrect answers, pass system checks and automatic hardness filtering, then the question was answered by 5 new crowdworkers and kept only if at least 4 of 5 answered correctly; Dev/Test were further filtered by an in-house expert.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Answerability was validated by 5 crowdworker judgments per question with a 4-of-5 acceptance threshold; the paper also analyzes human performance statistically using the 5 judgments per question and Hoeffding’s Inequality.",
+    "rai:annotationsPerItem": "5 validation annotations per question",
+    "rai:annotatorDemographics": "Workers from North America with 'masters' level qualification",
+    "rai:machineAnnotationTools": "Automatic filtering with an information retrieval solver and a word association based solver",
+    "rai:dataBiases": "The paper notes inevitable human bias from crowdsourcing, which makes the dataset partially gameable and allows simple neural baselines exploiting answer plausibility or odd-one-out patterns to achieve inflated performance.",
+    "rai:dataLimitations": "The open book facts are not self-contained and are generally insufficient by themselves to answer questions; the dataset requires additional common knowledge and multi-hop reasoning, and retrieving the needed knowledge remains an open challenge.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for training and development of open-book question answering systems that combine core science facts with external common knowledge; Train and Dev also provide intermediate supervision via the supporting fact used to generate each question.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Multi-stage crowdsourcing and filtering were used to generate and refine the dataset, including automatic hardness filtering, crowd answerability filtering, random shuffling of answer choices, and additional expert filtering for Dev/Test.",
+    "rai:dataPreprocessingProtocol": "The source fact set was filtered from WorldTree to central facts and then further reduced to facts general enough for multiple situations; generated questions also had to pass basic checks such as exactly four choices, no negation words, and uniform answer choice length."
+  },
+  "usage": {
+    "input_tokens": 17750,
+    "output_tokens": 2046
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:49:09.215565Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new kind of question answering dataset, OpenBookQA"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenBookQA, modeled after open book exams... The open book that comes with our questions is a set of 1326 elementary level science facts. Roughly 6000 questions probe an understanding of these facts and their application to novel situations."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset and the code for the models are available at http://data.allenai.org/OpenBookQA."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Todor Mihaylovzand Peter Clarkyand Tushar Khotyand Ashish Sabharwaly"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "yAllen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1809.02789v1 [cs.CL] 8 Sep 2018"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Which of these would let the most heat travel through?"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions based on F that probe novel situations, using an automatic filter to ensure hardness for retrieval and association based systems, using a crowd filter to ensure answerability by a lay person, and further using an expert filter to ensure higher quality in Dev and Test sets."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "using crowd-sourcing to generate (noisy) questions based on F ... using a crowd filter ... and further using an expert filter"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The open book that comes with our questions is a set of 1326 elementary level science facts. Roughly 6000 questions probe an understanding of these facts"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions… using an automatic filter… using a crowd filter… and further using an expert filter…”; “1. A crowd-worker… is shown a random science fact… 2. w is asked to think of a second common fact… 3. w then converts s into a question-answer pair… 5. The system verifies… 6. Question qmc is then shown to 5 new crowd-workers… 7. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable… The Dev and Test splits were further filtered by an in-house expert”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used Amazon Mechnical Turk, with workers from North America and with a ‘masters’ level qualification.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Question qmc is then shown to 5 new crowd-workers, who are asked to answer it. 7. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable”; “aggregating across all questions gives the following empirical estimate of H(Q)… An application of Hoeffding’s Inequality… shows that H(Q) converges…”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Question qmc is then shown to 5 new crowd-workers, who are asked to answer it.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used Amazon Mechnical Turk, with workers from North America and with a ‘masters’ level qualification.”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“w then feeds the multiple-choice question qmc to an information retrieval solver (Clark et al., 2016) and a word association based solver (Turney, 2017), and verifies that (a) neither of them answers qmc correctly…”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These highlight inevitable human bias in any crowdsourced dataset, increasing performance on OpenBookQA to 48%."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "by itself, F is generally insufficient to answer questions in Q... A successful system must therefore go beyond the typical challenges... While retrieving the most useful pieces of knowledge remains an open challenge"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To encourage further research on this new task, for each Train and Dev question q, OpenBookQA also includes f as intermediate supervision signal, which may be viewed as a partial explanation for q."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions ... using an automatic filter to ensure hardness ... using a crowd filter to ensure answerability ... and further using an expert filter to ensure higher quality in Dev and Test sets.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The subset we use is taken from the 2287 WorldTree facts that were marked as ‘central’ ... We further filter them down to 1326 that appear general enough to be applicable to multiple situations.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0426,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 14204,
+        "tokens_in": 3777,
+        "tokens_out": 451
+      },
+      "collection": {
+        "section_chars": 6608,
+        "tokens_in": 1960,
+        "tokens_out": 334
+      },
+      "annotation": {
+        "section_chars": 18983,
+        "tokens_in": 5055,
+        "tokens_out": 644
+      },
+      "impact": {
+        "section_chars": 6766,
+        "tokens_in": 2019,
+        "tokens_out": 354
+      },
+      "processing": {
+        "section_chars": 18983,
+        "tokens_in": 4939,
+        "tokens_out": 263
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 32.1
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "dataset_id": "ucla-contextual_contextual_test",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CONTEXTUAL",
+    "description": "A dataset for evaluating context-sensitive text-rich visual reasoning in large multimodal models, consisting of 506 challenging instructions across eight real-world scenarios: time reading, shopping, navigation, abstract scenes, mobile application, webpages, infographics, and miscellaneous natural scenes.",
+    "url": "https://con-textual.github.io/",
+    "license": null,
+    "creator": "Rohan Wadhawan, Hritik Bansal, Kai-Wei Chang, Nanyun Peng",
+    "publisher": "Proceedings of the 41st International Conference on Machine Learning, Vienna, Austria. PMLR 235, 2024",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "@inproceedings{wadhawan2024contextual,\n  title={CONTEXTUAL: Evaluating Context-Sensitive Text-Rich Visual Reasoning in Large Multimodal Models},\n  author={Wadhawan, Rohan and Bansal, Hritik and Chang, Kai-Wei and Peng, Nanyun},\n  booktitle={Proceedings of the 41st International Conference on Machine Learning},\n  pages={},\n  year={2024},\n  organization={PMLR}\n}",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Images were sourced from six different sources including LAION-5B (using keyword search with CLIP-retrieval UI), Rico Dataset for mobile applications, Open WebText Initiative for web screenshots, and existing VQA datasets (InfographicVQA, STVQA, ESTVQA). Human annotators created instruction-response pairs following specific guidelines requiring context-sensitive reasoning over text and visual elements.",
+    "rai:dataCollectionType": "Secondary Data analysis, Web Scraping, Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images from LAION-5B (for Time, Shopping, Navigation, Abstract categories), Rico Dataset (for Application Usage), Open WebText Initiative screenshots (for Web Usage), InfographicVQA dataset (for Infographic), STVQA and ESTVQA datasets (for Miscellaneous Natural Scenes).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Stage 1 involved manual filtering for Time, Shopping, Navigation, and Abstract categories to ensure suitability for annotation. For Application Usage, Web Usage, Infographic, and Miscellaneous Natural Scenes, heuristic-based filtering was performed using PaddleOCR to detect text, selecting the top 500 images with the highest number of words.",
+    "rai:dataAnnotationProtocol": "Authors were divided into two groups, each annotating four categories following strict annotation guidelines. Each sample consists of an image, instruction, and response triplet requiring context-sensitive reasoning over text and visual elements. Instructions include both questions and imperative tasks of varied complexity. Stage 3 involved verification by MTurk workers, with 96% of samples verified as correct. Each author group reviewed samples created by the other group to ensure quality.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "We perform a verification process for each sample annotated in Stage 2. We asked MTurk workers (mutually exclusive from the ones used for human performance baseline and human evaluation) to verify the correctness of each sample <image, instruction, response> and found that 96% of the samples were annotated correctly. Filtering out the incorrect samples, we tasked each author group to review the samples created by the other group. This ensured adherence to guidelines and filtered out low-quality samples.",
+    "rai:annotationsPerItem": "Three human annotators independently evaluated each model response during human evaluation, with majority vote determining the final decision.",
+    "rai:annotatorDemographics": "Human annotators were mainly from the US for establishing human baseline performance.",
+    "rai:machineAnnotationTools": "PaddleOCR (PP-OCRv4 model) for text extraction, ShareGPT-4V-7B for dense image captions",
+    "rai:dataReleaseMaintenancePlan": "To facilitate model development, a subset of 100 samples from the 506 will be released as validation set with reference responses, while keeping them hidden for the remaining 406 samples. The distribution of validation samples mirrors the overall dataset distribution.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset aims to evaluate context-sensitive text-rich visual reasoning capabilities which powers many real-world applications such as interpreting text-rich scenes for assisting the visually impaired and creative understanding of abstract text-rich images like memes.",
+    "rai:dataBiases": "The linguistic diversity and writing style of human responses may vary with different social groups. Human evaluation results may be affected by annotators being predominantly from the US rather than more diverse regions.",
+    "rai:dataLimitations": "The dataset was created to ensure images, instructions, and reference responses are not offensive to any social group. Human baseline performance may vary across different social groups due to linguistic diversity and writing style differences. Human evaluation was conducted primarily with US-based annotators, which may limit generalizability.",
+    "rai:dataUseCases": "The dataset is designed for evaluating and benchmarking large multimodal models on context-sensitive text-rich visual reasoning tasks. It is used for testing model capabilities across diverse visual scenarios including time reading, shopping, navigation, abstract scenes, mobile applications, webpages, infographics, and miscellaneous natural scenes."
+  },
+  "usage": {
+    "input_tokens": 88613,
+    "output_tokens": 3538
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:29.740527Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce CONTEXTUAL, a novel dataset featuring human-crafted instructions that require context-sensitive reasoning for text-rich images."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose CONTEXTUAL, a Context-sensitive Text-rich visual reasoning dataset consisting of 506 challenging instructions for LMMs evaluation. CONTEXTUAL covers eight real-world scenarios with text-rich images: time reading, shopping, navigation, abstract scenes, mobile application, webpages, infographics, and miscellaneous natural scenes"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset, code, and leaderboard can be found on the project page https://con-textual.github.io/."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Rohan Wadhawan*1 Hritik Bansal*1 Kai-Wei Chang1 Nanyun Peng1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Proceedings of the 41st International Conference on Machine Learning, Vienna, Austria. PMLR 235, 2024. Copyright 2024 by the author(s)."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Proceedings of the 41st International Conference on Machine Learning, Vienna, Austria. PMLR 235, 2024."
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CONTEXTUAL comprises 506 samples spanning eight visual categories"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CONTEXTUAL comprises images sourced from six different sources. Firstly, we obtain images for the Time, Shopping, Navigation & Abstract categories from the LAION-5B (Schuhmann et al., 2022). Specifically, we use keyword search using CLIP-retrieval UI (Beaumont, 2022). Secondly, we source images for the Application Usage category from the Rico Dataset (Deka et al., 2017), which includes 66,000 distinct UI screens originating from 9,300 Android apps. Thirdly, we scrape the website links made available by the Open WebText Initiative (Gokaslan & Cohen, 2019) and collect screenshots for the Web Usage category. Lastly, we acquire images from the test sets of existing VQA datasets"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we obtain images for the Time, Shopping, Navigation & Abstract categories from the LAION-5B... we source images for the Application Usage category from the Rico Dataset... we scrape the website links made available by the Open WebText Initiative... we acquire images from the test sets of existing VQA datasets... Stage 2: We divide the authors into two groups, namely Group 1 and Group 2, each responsible for annotating four specific categories."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Firstly, we obtain images for the Time, Shopping, Navigation & Abstract categories from the LAION-5B (Schuhmann et al., 2022). Secondly, we source images for the Application Usage category from the Rico Dataset (Deka et al., 2017). Thirdly, we scrape the website links made available by the Open WebText Initiative (Gokaslan & Cohen, 2019) and collect screenshots for the Web Usage category. Lastly, we acquire images from the test sets of existing VQA datasets... Specifically, we reannotate these image instances, categorizing them into two groups: Infographic, sourced from the InfographicVQA (Mathew et al., 2022) dataset, and Miscellaneous Natural Scenes, sourced from the STVQA (Biten et al., 2019) and ESTVQA (Wang et al., 2020) datasets."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Stage 1: In this stage, we shortlist images for instruction-response pair annotation. The images that are categorized under Time, Shopping, Navigation, and Abstract undergo manual filtering to guarantee their suitability for annotation. However, for Application Usage, Web Usage, Infographic, and Miscellaneous Natural Scenes, we perform heuristic-based filtering. Specifically, we employ a PaddleOCR (paddlepadle, 2023) to detect the text in the image. Subsequently, we select the top 500 images with the highest number of words, a subset of which get annotated in our dataset."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Stage 2: We divide the authors into two groups, namely Group 1 and Group 2, each responsible for annotating four specific categories. The authors strictly adhered to the provided annotation guidelines throughout the annotation. Stage 3: In this final stage, we perform a verification process for each sample annotated in Stage 2. We asked MTurk workers (mutually exclusive from the ones used for human performance baseline and human evaluation) to verify the correctness of each sample <image, instruction, response> and found that 96% of the samples were annotated correctly. Filtering out the incorrect samples, we tasked each author group to review the samples created by the other group."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked MTurk workers (mutually exclusive from the ones used for human performance baseline and human evaluation) to verify the correctness of each sample"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Third, we show each model response, without revealing the model identity, to three human annotators independently. Specifically, the human annotators are asked to decide the predicted response is acceptable given the reference response, instruction and image from the dataset. Finally, we report the acceptance rating (0-100 in percentage) of the responses using the majority vote among the three annotator as the final decision."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In our experiments, we asked human annotators, mainly from the US, to provide responses to establish a human baseline."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We leverage the PP-OCRv4 model of PaddleOCR library (paddlepadle, 2023) for extracting OCR from the images... and ShareGPT-4V-7B for the dense image captions"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To facilitate model development, we will release a subset of 100 samples from the 506, as validation set, along with their reference responses, while keeping them hidden for the remaining 406 samples. We ensure that the distribution of validation samples closely mirrors the overall dataset distribution."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ability to reason about the interactions between the text and visual context in the images powers many real-world applications. For example, interpreting text-rich scenes (e.g., navigating maps in public spaces) for assisting the visually impaired, and creative understanding of abstract text-rich images (e.g., memes)."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We are aware that the linguistic diversity and writing style of the human responses would change with different social groups... A similar argument is relevant for human evaluation of the model responses. To obtain more reliable human evaluation results, future work would involve annotators from more diverse regions."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During our data collection, we aim to ensure that the images, human-written instructions, and reference responses are not offensive to any social group... We are aware that the linguistic diversity and writing style of the human responses would change with different social groups. The extension of our work can focus on understanding the impact of different social groups on the human baseline performance on the CONTEXTUAL dataset. A similar argument is relevant for human evaluation of the model responses."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce CONTEXTUAL, a novel dataset featuring human-crafted instructions that require context-sensitive reasoning for text-rich images. We conduct experiments to assess the performance of 14 foundation models... CONTEXTUAL is proposed to evaluate the context-sensitive text-rich visual reasoning capabilities of large multimodal models."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 21,
+      "evidence_coverage": 87.5,
+      "avg_confidence": 0.931
+    },
+    "cost_usd": 0.1595,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

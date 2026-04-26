@@ -1,0 +1,256 @@
+{
+  "dataset_id": "common-canvas_commoncatalog-cc-by",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CommonCanvas",
+    "description": "An open diffusion model trained with Creative-Commons images and synthetic captions, achieving comparable performance to Stable Diffusion 2 while using only ~3% of the LAION data",
+    "url": "https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md",
+    "license": "Creative Commons",
+    "creator": "Aaron Gokaslan, A. Feder Cooper, Jasmine Collins, Landan Seguin, Austin Jacobson, Mihir Patel, Jonathan Frankle, Cory Stephenson, Volodymyr Kuleshov",
+    "publisher": "Cornell Tech and Databricks Mosaic",
+    "datePublished": "2023-10-25",
+    "inLanguage": "en",
+    "citeAs": "Aaron Gokaslan, A. Feder Cooper, Jasmine Collins, Landan Seguin, Austin Jacobson, Mihir Patel, Jonathan Frankle, Cory Stephenson, Volodymyr Kuleshov. CommonCanvas: An Open Diffusion Model Trained with Creative-Commons Images. arXiv:2310.16825v1 [cs.CV] 25 Oct 2023",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Creative-Commons-licensed images were sourced from YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files with Flickr IDs. Images were re-scraped from Flickr based on IDs provided in YFCC100M metadata to obtain high-resolution versions exceeding 4K.",
+    "rai:dataCollectionType": "Web Scraping, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "YFCC100M dataset containing 100 million Creative-Commons-licensed images from Flickr",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Images were center-cropped and resized to a maximum size of 512x512 pixels for captioning. At training time of the diffusion model, all images remain in their native resolution.",
+    "rai:dataPreprocessingProtocol": "Images with non-derivative (ND) licenses were excluded. Remaining images were divided into commercial (C) and non-commercial (NC) categories. Images were re-scraped from Flickr to obtain high-resolution versions exceeding 4K.",
+    "rai:dataAnnotationProtocol": "Synthetic captions were generated using pre-trained BLIP-2 OPT2.5B model. BLIP-2 consists of a frozen visual encoder, a learned transformer network that converts visual embeddings into text prompts, and a frozen large language model. All YFCC100M Creative-Commons images were captioned using this approach.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "BLIP-2 captions were found to be qualitatively more descriptive than LAION-2B ground-truth alt-text captions. BLIP-2 captions showed higher quality than ground-truth captions in terms of CLIP Score, at the cost of caption diversity. Reduced diversity of n-grams was observed in synthetic captions, with a decrease in unique trigrams.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BLIP-2 OPT2.5B model",
+    "rai:dataReleaseMaintenancePlan": "Commercial (CommonCatalog-C) and non-commercial (CommonCatalog-NC) CC-image and synthetic-caption datasets released on HuggingFace with associated data cards. BLIP-2 captions for non-derivative (ND) CC images also released as evaluation set.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The model addresses copyright concerns by training only on Creative-Commons licensed data with known provenance, avoiding unclear provenance issues of web-scraped datasets like LAION. The model is less likely to generate iconic characters or celebrities compared to SD2.",
+    "rai:dataBiases": "The model underperformed in several categories including faces, general photography, and paintings. These categories originated from the Conceptual Captions dataset which relies on web-scraped data. The YFCC100M data is about a decade old and not as current as LAION-2B images.",
+    "rai:dataLimitations": "The model underperformed in categories like faces, general photography, and paintings. The dataset is about a decade old and not as current as LAION-2B. Synthetic captions showed reduced diversity of n-grams. The model is worse at synthesizing individual people than SD2.",
+    "rai:dataUseCases": "Training text-to-image generative models. The dataset is intended for training, with separate evaluation sets provided. Users can supplement with their own datasets like FFHQ if they seek to fine-tune models for specific categories."
+  },
+  "usage": {
+    "input_tokens": 20928,
+    "output_tokens": 3303
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:09.607356Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We leverage this recipe to train several high-quality text-to-image models, which we dub the CommonCanvas family."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images, which we use to train a set of open diffusion models that are qualitatively competitive with Stable Diffusion 2 (SD2)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our models, data, and code at https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We exclude images with non-derivative (ND) licenses. The remaining images can be further divided into those that can be used for commercial (C) purposes and those that cannot (non-commercial/ NC)."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Aaron Gokaslan1A. Feder Cooper1Jasmine Collins2Landan Seguin2 Austin Jacobson2Mihir Patel2Jonathan Frankle2Cory Stephenson2Volodymyr Kuleshov1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Comell Tech {akg87,afc78,vk379 }@comell.edu 2Databricks Mosaic {firstname.lastname }@databricks.com"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2310.16825v1 [cs.CV] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data. We therefore re-scraped these images from Flickr, based on the IDs provided in the YFCC100M metadata. Our scraped images are very high resolution (exceeding 4K), which makes them more suitable for T2I training."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data. We therefore re-scraped these images from Flickr, based on the IDs provided in the YFCC100M metadata."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To do so, we center-cropped and resized all of the images to a maximum size of 512x512 pixels. We perform these transformations because captioning images at native resolution would be very expensive. At training time of the diffusion model, all images remain in their native resolution."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We exclude images with non-derivative (ND) licenses. The remaining images can be further divided into those that can be used for commercial (C) purposes and those that cannot (non-commercial/ NC). Our scraped images are very high resolution (exceeding 4K), which makes them more suitable for T2I training."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compared several captioning models and, based on qualitative analysis and its state-of-the-art performance on MS COCO, chose to use the pre-trained BLIP-2 OPT2.5B model for synthesizing CommonCatalog's captions. BLIP-2 consists of three components: a pre-trained, frozen (i.e., fixed) visual encoder, a leamed transformer network that converts the visual embeddings into a text prompt, and a frozen large language model (LLM) that takes in the prompt. Based on these preliminary results, we captioned all of the YFCC100M Creative-Commons images, which required about 1,120 GPU A100 hours."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given a LAION-2B image as input, we found that the resulting BLIP-2 caption is often qualitatively more descriptive than the corresponding LAION-2B ground-truth alt-text caption. This finding is corroborated by Nguyen et al. [42], which shows quantitatively (in terms of CLIP Score) that BLIP-2 captions are higher quality than ground-truth captions, at the cost of caption diversity. We also observed reduced diversity of n-grams in our synthetic captions, a pattem previously noted by Nguyen et al. [42]. This effect can be visualized through the decrease in unique trigrams."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Based on these preliminary results, we captioned all of the YFCC100M Creative-Commons images"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compared several captioning models and, based on qualitative analysis and its state-of-the-art performance on MS COCO, chose to use the pre-trained BLIP-2 OPT2.5B model for synthesizing CommonCatalog's captions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our commercial (CommonCatalog-C) and non-commercial (CommonCatalog-NC) CC-image and synthetic-caption datasets on HuggingFace at [REDACTED] with associated data cards. As an evaluation set, we also release the BLIP-2 captions that we produced for the non-derivative (ND) CC images that we did not use for training."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A natural altemative is to not use LAION datasets for training. One could instead independently curate a dataset of CC-licensed images with known provenance that expressly allow for copying, adaptation, and commercial use. Qualitatively, our model deviated more from these characters than SD2."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, like any model, ours has limitations. It underperformed in several categories, including faces, general photography, and paintings. These categories originated from the Conceptual Captions dataset [55], which relies on web-scraped data. An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, like any model, ours has limitations. It underperformed in several categories, including faces, general photography, and paintings. An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B. We also observed reduced diversity of n-grams in our synthetic captions. Our model is worse at synthesizing individual people than SD2, but is capable of generating some noteworthy public figures."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images, which we use to train a set of open diffusion models that are qualitatively competitive with Stable Diffusion 2 (SD2). As an evaluation set, we also release the BLIP-2 captions that we produced for the non-derivative (ND) CC images that we did not use for training. Moreover, we speculate that it would if users were to supplement with their own datasets, like FFHQ [22], if they seek to fine-tune models for specific categories."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0562,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

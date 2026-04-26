@@ -1,0 +1,258 @@
+{
+  "dataset_id": "AI4Math_MathVista",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MathVista",
+    "description": "A benchmark dataset for evaluating mathematical reasoning of foundation models in visual contexts, consisting of 6,141 examples derived from 28 existing multimodal datasets and 3 newly created datasets (IQTest, FunctionQA, and PaperQA).",
+    "url": "https://mathvista.github.io",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Pan Lu, Hritik Bansal, Tony Xia, Jiacheng Liu, Chunyuan Li, Hannaneh Hajishirzi, Hao Cheng, Kai-Wei Chang, Michel Galley, Jianfeng Gao",
+    "publisher": "ICLR 2024",
+    "datePublished": "2024",
+    "inLanguage": "en, zh, fa",
+    "citeAs": "arXiv:2310.02255v3 [cs.CV] 21 Jan 2024",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data collected from 28 existing multimodal datasets (9 MathQA datasets and 19 VQA datasets) and 3 newly created datasets (IQTest, FunctionQA, PaperQA). Each source dataset limited to 400 examples for balanced representation.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator, Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "28 existing multimodal datasets including MathQA datasets (Geometry3K, GeoQA+, GEOS, UniGeo, CLEVR-Math, IconQA, TabMWP, SciBench, TheoremQA) and VQA datasets (ChartQA, FigureQA, DVQA, MapQA, PlotQA, DocVQA, AI2D, ScienceQA, TQA, A-OKVQA, KVQA, ParsVQA-Caps, TextVQA, VizWiz, VQA2.0, PMC-VQA, VQA-RAD, Super-CLEVR, VQA-AS), plus 3 newly created datasets (IQTest from puzzle test figures on online learning platforms, FunctionQA with 400 examples on functional plots, PaperQA with 107 examples from papers released in August 2023 on Huggingface).",
+    "rai:dataCollectionTimeframe": "Papers released in August 2023 for PaperQA subset",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Automatic selection using heuristic rules to filter examples with numeric answers or quantity words, followed by manual labeling by three expert annotators to determine if examples involve mathematical reasoning. Each source dataset limited to 400 examples. Majority voting used for final selection, yielding 2,739 VQA examples and 2,666 MathQA examples.",
+    "rai:dataAnnotationProtocol": "All questions for new datasets manually annotated by graduate students in STEM fields. Two-step annotation process: three reviewers independently annotated each dataset, achieving 99.2% inter-annotation consistency. Discrepancies (6 out of 736 questions) resolved through team discussion. Metadata including question type, answer type, task category, grade level, visual context, and mathematical reasoning skills annotated. Mathematical reasoning categories automatically labeled and verified by manual annotation of 1,000 examples (94.1% exact match, 98.79% individual label match).",
+    "rai:dataAnnotationPlatform": "Custom GUI annotation tool",
+    "rai:dataAnnotationAnalysis": "Inter-annotator agreement measured using Fleiss Kappa score of 0.775, indicating substantial consistency among three annotators. Discrepancies resolved through team discussion to reach consensus.",
+    "rai:annotationsPerItem": "3 annotators per item for new datasets, 5 annotators per item for human performance evaluation",
+    "rai:annotatorDemographics": "Graduate students in STEM fields for dataset annotation. For human performance evaluation: Amazon Mechanical Turk workers with >5,000 HIT tasks completed, acceptance score >0.99, and high school diploma or higher education level.",
+    "rai:machineAnnotationTools": "EasyOCR for OCR text detection, Multimodal Bard for image caption generation",
+    "rai:dataReleaseMaintenancePlan": "Dataset divided into testmini (1,000 examples for development/validation) and test (5,141 examples for evaluation). Test set answer labels will not be publicly released to prevent data contamination. Online evaluation platform will be maintained. Committed to maintaining datasets and refining potential data noise in response to community feedback.",
+    "rai:personalSensitiveInformation": "Grade level (elementary school, high school, college) annotated as metadata. Some images contain people, with Multimodal Bard restricted from responding to such images.",
+    "rai:dataSocialImpact": "The paper discusses the development of MathVista as a benchmark to evaluate mathematical reasoning capabilities of foundation models in visual contexts. The authors note that AI agents with strong mathematical reasoning capabilities in visual contexts have wide-ranging real-world applications, including solving complex problems in educational disciplines, helping analysts with logical queries about statistical data, and assisting in theorem proving and scientific discovery in advanced research fields. The benchmark aims to facilitate the development of general-purpose AI agents capable of tackling mathematically intensive and visually rich real-world tasks.",
+    "rai:dataBiases": "The paper acknowledges several limitations related to potential biases and dataset coverage. Specifically, the authors note that while MathVista encompasses a broad spectrum of tasks and visual contexts, there may be gaps in the representation of certain types of mathematical problems and visuals. The dataset's focus on mathematical reasoning within visual contexts, spanning specific domains like science and college-level math, necessitates a more labor-intensive process for collecting high-quality data compared to textual-only or general-purpose datasets. The scalability and generalizability of the benchmark to other domains remain a concern. Additionally, the paper mentions that only 85.6% of examples have annotations due to heterogeneity of sources, and annotations lack a unified format and structure. The authors also note that the dataset contains 6.57% non-English questions, which requires models to be capable of understanding and processing multiple languages.",
+    "rai:dataLimitations": "Dataset coverage gaps exist in representation of certain mathematical problems and visuals. Focus on specific domains (science, college-level math) requires labor-intensive data collection. Only 85.6% of examples have annotations due to heterogeneous sources. Annotations lack unified format and structure. Scalability and generalizability to other domains remain concerns. Some false positive examples may remain after automatic filtration.",
+    "rai:dataUseCases": "Training, Testing, Validation for evaluating mathematical reasoning capabilities of foundation models in visual contexts. Testmini subset (1,000 examples) for model development validation. Test subset (5,141 examples) for standard evaluation. Benchmark designed to facilitate development of mathematical reasoning systems in visually intensive scenarios and evaluate research progress of LLMs and LMMs."
+  },
+  "usage": {
+    "input_tokens": 127956,
+    "output_tokens": 4006
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:44.412486Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present M ATHVISTA , a benchmark designed to combine challenges from diverse mathematical and visual tasks."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present M ATHVISTA , a benchmark designed to combine challenges from diverse mathematical and visual tasks. It consists of 6,141 examples, derived from 28 existing multimodal datasets involving mathematics and 3 newly created datasets ( i.e., IQTest, FunctionQA, and PaperQA)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://mathvista.github.io"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Pan Lu1,3, Hritik Bansal1, Tony Xia1, Jiacheng Liu2, Chunyuan Li3, Hannaneh Hajishirzi2,Hao Cheng3,Kai-Wei Chang1,Michel Galley3,Jianfeng Gao3"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Apart from English questions, M ATHVISTA contains 6.57% non-English questions, including languages such as Chinese and Persian."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2310.02255v3 [cs.CV] 21 Jan 2024"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Notably, the answer labels for testwill not be publicly released to prevent data contamination, and we will maintain an online evaluation platform."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected nine MathQA datasets in multimodal settings, including four for GPS, two for MWP with visual contexts of synthetic scenes, abstract diagrams, and tables, and two for TQA on college curricula... We reviewed more than 70 datasets, collecting 19 of them that contain math-related instances and are publicly available... To address these gaps, we introduced three new datasets: IQTest, FunctionQA, and PaperQA"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected nine MathQA datasets in multimodal settings... We reviewed more than 70 datasets, collecting 19 of them that contain math-related instances... To ensure data quality, all questions were manually annotated by graduate students in STEM fields and further refined through a rigorous review process."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected nine MathQA datasets in multimodal settings, including four for GPS, two for MWP with visual contexts of synthetic scenes, abstract diagrams, and tables, and two for TQA on college curricula... We reviewed more than 70 datasets, collecting 19 of them that contain math-related instances and are publicly available... IQTest comprises 228 examples requiring inductive reasoning, abstract thinking, pattem prediction, and calculations, sourced from puzzle test figures on online leaming platforms. FunctionQA, with 400 examples, emphasizes subtle visual perceptions of functional plots and algebraic reasoning conceming variables, expressions, equations, and functions. PaperQA is a novel dataset featuring questions derived from informative academic illustrations, including tables, figures, and charts from online education resources, with 107 examples sourced from papers released in August 2023 on Huggingface."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "with 107 examples sourced from papers released in August 2023 on Huggingface"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since these datasets are not originally math-targeted, we initially designed heuristic rules to automatically select examples likely to involve mathematical reasoning from a large pool of candidates. Examples with numeric answers or those containing quantity words (as listed in §D.1) in the questions were selected. This automatic filtration yielded 4,949 VQA-format examples, though some false positive examples remained. Therefore, we engaged three expert annotators to manually label these examples to determine if they involve mathematical reasoning (more details in § D.2). Utilizing majority voting and limiting each source dataset to 400 examples, we finalized a collection of 2,739 examples."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure data quality, all questions were manually annotated by graduate students in STEM fields and further refined through a rigorous review process. To ensure consistency in annotation, we employed a two-step process. Initially, each dataset was independently annotated by three reviewers, resulting in a high inter-annotation consistency rate of 99.2%. Specifically, among the newly collected 736 questions, only 6 exhibited disagreements in the annotated answers. Then, these discrepancies were resolved through discussion among the entire review team, ensuring a consensus was reached on each example... To verify the quality of automatic annotation, expert annotators manually label the mathematical reasoning categories from seven candidates for 1,000 examples, using the annotation tool illustrated in §D.4. The results show that 94.1% of the examples from automatic and human annotations have the exact same set of reasoning types, while 98.79% of the individual labels are identical"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The GUI of the annotation tool is shown in Figure 23 in §D.3."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In our study, we employed the Fleiss Kappa score to conduct an inter-annotator agreement analysis among three annotators tasked with labeling examples based on mathematical reasoning... Our analysis yielded a Fleiss Kappa score of 0.775, indicating a substantial level of consistency among the annotators... among the newly collected 736 questions, only 6 exhibited disagreements in the annotated answers. Then, these discrepancies were resolved through discussion among the entire review team, ensuring a consensus was reached on each example."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Initially, each dataset was independently annotated by three reviewers... Each question from the testmini subset was assigned to five annotators"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure data quality, all questions were manually annotated by graduate students in STEM fields... Eligible human annotators must have a satisfactory annotating history, successfully pass qualification examples, and possess a high school degree or higher... all of whom have a history of completing more than 5,000 HIT tasks and boast an acceptance score higher than 0.99"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the detected OCR text from EasyOCR... the generated image captions from Multimodal Bard"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "M ATHVISTA consists of 6,141 examples, divided into two subsets: testmini andtest.testmini contains 1,000 examples, intended for model development validation or for those with limited computing resources. The testset features the remaining 5,141 examples for standard evaluation. Notably, the answer labels for testwill not be publicly released to prevent data contamination, and we will maintain an online evaluation platform... we are committed to maintaining the datasets, such as refining the potential data noise, in response to the community feedback."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The datasets within M ATHVISTA are categorized into four distinct grade levels: elementary school ,high school ,college , and not applicable... Sorry, I can't help with images of people yet."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While M ATHVISTA encompasses a broad spectrum of tasks and visual contexts, there may be gaps in the representation of certain types of mathematical problems and visuals. Furthermore, the dataset's focus on mathematical reasoning within visual contexts, spanning specific domains like science and college-level math, necessitates a more labor-intensive process for collecting high-quality data compared to textual-only or general-purpose datasets. Thus, the scalability and generalizability of our benchmark to other domains remain a concem. Annotations were sourced from original data providers, resulting in only 85.6% of examples (Table 1) having annotations. Due to the heterogeneity of these sources, annotations lack a unified format and structure... This automatic filtration yielded 4,949 VQA-format examples, though some false positive examples remained."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "testmini contains 1,000 examples, intended for model development validation or for those with limited computing resources. The testset features the remaining 5,141 examples for standard evaluation... it is essential to develop a new benchmark to (1) facilitate the development of mathematical reasoning systems in visually intensive scenarios, and (2) evaluate the research progress of LLMs and LMMs, especially their capabilities in solving rigorous reasoning tasks."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 27,
+      "fields_uncertain": 0,
+      "evidence_count": 24,
+      "evidence_coverage": 88.9,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.222,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

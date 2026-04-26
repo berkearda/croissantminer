@@ -1,0 +1,257 @@
+{
+  "dataset_id": "tanganke_eurosat",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "EuroSAT",
+    "description": "A land use and land cover classification dataset based on Sentinel-2 satellite images, covering 13 spectral bands and 10 classes with 27,000 labeled and geo-referenced image patches.",
+    "url": "https://github.com/phelber/eurosat",
+    "license": null,
+    "creator": "Patrick Helber; Benjamin Bischke; Andreas Dengel; Damian Borth",
+    "publisher": null,
+    "datePublished": "2019-02-01",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Satellite images were downloaded from Sentinel-2A via Amazon S3 for cities covered in the European Urban Atlas across over 34 European countries. From these images, 27,000 geo-referenced and labeled 64x64 image patches were created and manually checked.",
+    "rai:dataCollectionType": "Web API, Manual Human Curator",
+    "rai:dataCollectionMissingData": "The authors state that they manually checked all 27,000 images multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice. They also selected satellite images with a low cloud level to improve the chance of getting valuable image patches.",
+    "rai:dataCollectionRawData": "Openly and freely accessible Sentinel-2A satellite images from the Copernicus Earth observation program, downloaded via Amazon S3 and associated with cities covered in the European Urban Atlas.",
+    "rai:dataCollectionTimeframe": "Images were recorded all over the year.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Image patches of size 64x64 pixels were extracted from satellite images to create the dataset.",
+    "rai:dataPreprocessingProtocol": "Satellite images with low cloud level were selected. All 27,000 images were manually checked multiple times, and mislabeled images and images full of snow or ice were removed. The dataset did not receive atmospheric correction, and samples with color cast due to atmospheric effects were retained. Lower-resolution bands were upsampled to 10 meters per pixel using cubic-spline interpolation for band evaluation.",
+    "rai:dataAnnotationProtocol": "The dataset consists of labeled image patches for 10 land use and land cover classes. Ground truth labels were manually checked multiple times and corrected by removing mislabeled images and images full of snow or ice.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors note low positive correlation between classes, with the most common confusions between agricultural classes and between residential and industrial buildings; the classifier confusion matrix also shows confusion between agricultural classes and highway versus river.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Geography/location information through geo-referenced images distributed over European cities in 34 countries.",
+    "rai:dataSocialImpact": "The dataset and resulting classification system are intended to support Earth observation applications such as agriculture, disaster recovery, climate change, urban development, environmental monitoring, land use and land cover change detection, nature protection, sustainable development, and improving geographical maps.",
+    "rai:dataBiases": "The dataset distribution is influenced by the number of represented cities per country in the European Urban Atlas. The authors also aimed to cover as many countries as possible and images from all over the year to capture high intra-class variance.",
+    "rai:dataLimitations": "The dataset has not received atmospheric correction, which can cause color cast. Some samples with atmospheric effects were intentionally retained. The 10-meter spatial resolution limits class visibility to those discernible at that resolution, and the patch-based classifier does not allow finely graduated per-pixel segmentation.",
+    "rai:dataUseCases": "The dataset is intended as a benchmark and training basis for land use and land cover classification with deep neural networks, and for real-world Earth observation applications including change detection and map updating."
+  },
+  "usage": {
+    "input_tokens": 18789,
+    "output_tokens": 2400
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:23:35.386019Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The geo-referenced dataset EuroSAT is made publicly available at https://github.com/phelber/eurosat."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a novel dataset based on Sentinel-2 satellite images covering 13 spectral bands and consisting out of 10 classes with in total 27,000 labeled and geo-referenced images."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The geo-referenced dataset EuroSAT is made publicly available at https://github.com/phelber/eurosat."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Patrick Helber1,2Benjamin Bischke1,2Andreas Dengel1,2Damian Borth2"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1709.00029v2 [cs.CV] 1 Feb 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The proposed dataset consists of 10 classes covering 13 different spectral bands with in total 27,000 labeled and geo-referenced images."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To construct an image classification dataset, we performed the following two steps: 1) Satellite Image Acquisition: We gathered satellite images of European cities distributed in over 34 countries as shown in Fig. 5. 2) Dataset Creation: Based on the obtained satellite images, we created a dataset of 27,000 georeferenced and labeled image patches. The image patches measure 64x64 pixels and have been manually checked."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have downloaded satellite images taken by the satellite Sentinel-2A via Amazon S3. ... We manually checked all 27,000 images multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we use mutli-spectral image data provided by the Sentinel-2A satellite... We have downloaded satellite images taken by the satellite Sentinel-2A via Amazon S3. We chose satellite images associated with the cities covered in the European Urban Atlas."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Furthermore, we have extracted images recorded all over the year to get a variance as high as possible inherent in the covered land use and land cover classes."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Patches extracted out of these images are used for classification. ... Based on the obtained satellite images, we created a dataset of 27,000 georeferenced and labeled image patches. The image patches measure 64x64 pixels"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In order to improve the chance of getting valuable image patches, we selected satellite images with a low cloud level. ... We manually checked all 27,000 images multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice. ... Please note, the proposed dataset has not received atmospheric correction. This can result in images with a color cast. ... we did not filter the respective samples and let them flow into the dataset. ... Bands with a lower spatial resolution have been upsampled to 10 meters per pixel using cubic-spline interpolation [8]."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The proposed EuroSAT dataset consists of 27,000 labeled images with 10 different land use and land cover classes. ... We manually checked all 27,000 images multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Between the classes, there is a low positive correlation. The classes most common to each other are the two presented agricultural classes and the two classes representing residential and industrial buildings. ... It is shown that the classifier sometimes confuses the agricultural land classes as well as the classes highway and river."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Every image in the dataset is labeled and geo-referenced. ... We gathered satellite images of European cities distributed in over 34 countries"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With access to such data, applications in the domains of agriculture, disaster recovery, climate change, urban development, or environmental monitoring can be realized ... We demonstrate how this classification system can be used for detecting land use and land cover changes and how it can assist in improving geographical maps. ... The presented examples are particularly of interest in urban area development, nature protection or sustainable development. For instance, deforestation is a main contributor to climate change"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Fig. 5: EuroSAT dataset distribution. The georeferenced images are distributed all over Europe. The distribution is influenced by the number of represented cities per country in the European Urban Atlas. ... We aimed for the objective to cover as many countries as possible in the EuroSAT dataset in order to cover the high intra-class variance inherent to remotely sensed images. Furthermore, we have extracted images recorded all over the year"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Please note, the proposed dataset has not received atmospheric correction. This can result in images with a color cast. ... we did not filter the respective samples and let them flow into the dataset. ... We have chosen 10 different land use and land cover classes based on the principle that they showed to be visible at the resolution of 10 meters per pixel ... While a classification system trained with 64x64 image patches does not allow a finely graduated per-pixel segmentation"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We provide benchmarks for this novel dataset with its spectral bands using state-of-the-art deep Convolutional Neural Network (CNNs). ... We provide this work in the context of the recently published EuroSAT dataset, which can be used similar to [18] as a basis for a large-scale training of deep neural networks for the task of satellite image classification. ... Possible applications are land use and land cover change detection or the improvement of geographical maps."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 90.5,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.0475,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 29.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

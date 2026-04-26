@@ -1,0 +1,258 @@
+{
+  "dataset_id": "tau_commonsense_qa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CommonsenseQA",
+    "description": "A challenging dataset for commonsense question answering containing 12,247 multiple-choice questions that require prior knowledge and common sense to answer. Questions are generated from ConceptNet by extracting source concepts and multiple target concepts with the same semantic relation, then asking crowd-workers to author questions that discriminate between the target concepts.",
+    "url": "https://www.tau-nlp.org/commonsenseqa",
+    "license": "MIT",
+    "creator": "Alon Talmor, Jonathan Herzig, Nicholas Lourie, Jonathan Berant",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions are generated through a multi-step crowdsourcing process using Amazon Mechanical Turk. Workers are shown a question concept and three answer concepts extracted from ConceptNet that share the same semantic relation. Workers formulate three questions (one per answer concept) where each question contains the question concept and has only one correct answer among the three concepts. Workers then add two additional distractors per question: one selected from ConceptNet and one manually authored.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "ConceptNet knowledge base containing 32 million triplets representing commonsense relations between natural language concepts. Triplets were filtered to 236,208 based on relation type, concept length, language, and edit distance criteria.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "ConceptNet triplets were filtered in three steps: (1) filtering triplets with general relations or relations well-explored in NLP, retaining 22 relations; (2) filtering triplets where concepts exceed four words or are not in English; (3) filtering triplets where edit distance between concepts is too low. Question sets were created by grouping three triplets with the same question concept and relation but different answer concepts. Questions were verified by workers and filtered if not verified by at least one worker, removing 15% of questions.",
+    "rai:dataAnnotationProtocol": "Workers formulated three questions per question set, ensuring each question contains the question concept and has one correct answer among three semantically similar answer concepts. Workers were instructed to avoid using words strongly related to the answer concept to discourage simple surface clues. Workers added two distractors per question: one from ConceptNet and one manually authored to seem plausible but dismissible by humans. Only workers with at least 75% question pass rate in verification were accepted.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Each question was verified by 2 workers who either annotated it as unanswerable or chose the right answer. Questions were only retained if verified by at least one worker who answered correctly, filtering out 15% of questions. For human evaluation on a separate sample, majority vote was taken across five workers per question.",
+    "rai:annotationsPerItem": "2 verifiers per question during quality control; 5 workers per question for human evaluation sample",
+    "rai:annotatorDemographics": "122 formulators contributed to question generation, with 10 workers formulating more than 85% of the questions. Workers were required to have at least 75% of their questions pass verification. For human evaluation, workers were not AMT master workers and did not use a qualification test.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Analysis revealed that BERT-LARGE performs well (77.7% accuracy) on examples with surface clues hinting to the correct answer, suggesting potential bias toward surface-level patterns. The model shows lower accuracy on negation/antonym questions (42.8%), factoid knowledge questions (38.4%), questions requiring fine-grained distinctions (35.4%), and conjunction conditions (23.8%).",
+    "rai:dataLimitations": "The dataset focuses on commonsense knowledge encoded in ConceptNet and may not cover all types of commonsense reasoning. Questions are limited to 22 ConceptNet relations after filtering. The top-5 question concepts account for only 6.8% of questions, with 'Person' (3.1%), 'People' (2.0%), 'Human' (0.7%), 'Water' (0.5%) and 'Cat' (0.5%), suggesting concentration on certain concept types. Question formulators often created questions probing relationships beyond the original ConceptNet relation shown.",
+    "rai:dataUseCases": "The dataset is designed for training and evaluating commonsense question answering systems. It can be used for testing models' ability to incorporate commonsense knowledge into NLU systems. The data was split into training/development/test sets with an 80/10/10 split, supporting both random split and question concept split evaluation modes."
+  },
+  "usage": {
+    "input_tokens": 21325,
+    "output_tokens": 3267
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:28.656525Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To investigate question answering with prior knowledge, we present COMMONSENSE QA: a challenging new dataset for commonsense question answering."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To capture common sense beyond associations, we extract from CONCEPTNET (Speer et al., 2017) multiple target concepts that have the same semantic relation to a single source concept. Crowd-workers are asked to author multiple-choice questions that mention the source concept and discriminate in turn between each of the target concepts."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset can be downloaded from www.tau-nlp.org/commonsenseqa"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Alon Talmor, Jonathan Herzig, Nicholas Lourie, Jonathan Berant. School of Computer Science, Tel-Aviv University. Allen Institute for Artificial Intelligence"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1811.00937v2 [cs.CL] 15 Mar 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We filter triplets where one of the concepts is more than four words or not in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We create 12,247 questions through this procedure"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "AMT workers saw, for every question set, the question concept and three answer concepts. They were asked to formulate three questions, where all questions contain the question concept. Each question should have as an answer one of the answer concepts, but not the other two... To make the task more difficult, we ask crowd-workers to add two additional incorrect answers to each formulated question. One distractor is selected from a set of answer concepts with the same relation to the question concept in CONCEPTNET. The second distractor is formulated manually by the workers themselves."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechanical Turk (AMT) workers to generate and validate commonsense questions."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CONCEPTNET is a graph knowledge-base GC,R,C, where the nodes C represent natural language concepts, and edges R represent commonsense relations... CONCEPTNET contains 32 million triplets. To select a subset of triplets for crowdsourcing we take the following steps: 1. We filter triplets with general relations (e.g., RelatedTo) or relations that are already well-explored in NLP (e.g., IsA). In total we use 22 relations. 2. We filter triplets where one of the concepts is more than four words or not in English. 3. We filter triplets where the edit distance between c1 and c2 is too low. This results in a set of 236,208 triplets (q, r, a)"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To select a subset of triplets for crowdsourcing we take the following steps: 1. We filter triplets with general relations (e.g., RelatedTo) or relations that are already well-explored in NLP (e.g., IsA). In total we use 22 relations. 2. We filter triplets where one of the concepts is more than four words or not in English. 3. We filter triplets where the edit distance between c1 and c2 is too low... Each question is verified by 2 workers, and only questions verified by at least one worker that answered correctly are used. This processes filters out 15% of the questions."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "They were asked to formulate three questions, where all questions contain the question concept. Each question should have as an answer one of the answer concepts, but not the other two. To discourage workers from providing simple surface clues for the answer, they were instructed to avoid using words that have a strong relation to the answer concept... Workers were encouraged to formulate a distractor that would seem plausible or related to the question but easy for humans to dismiss as incorrect... we only accept annotators for which at least 75% of the questions they formulate pass the verification process"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechanical Turk (AMT) workers to generate and validate commonsense questions."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Verifiers annotate a question as unanswerable, or choose the right answer. Each question is verified by 2 workers, and only questions verified by at least one worker that answered correctly are used. This processes filters out 15% of the questions... We sampled 100 random questions and for each question gathered answers from five workers that were not involved in question generation. Humans obtain 88.9% accuracy, taking a majority vote for each question."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each question is verified by 2 workers, and only questions verified by at least one worker that answered correctly are used... We sampled 100 random questions and for each question gathered answers from five workers that were not involved in question generation."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "122 formulators contributed to question generation. However, 10 workers formulated more than 85% of the questions... we only accept annotators for which at least 75% of the questions they formulate pass the verification process... To test human accuracy, we created a separate task for which we did not use a qualification test, nor used AMT master workers."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We found that the model does well (77.7% accuracy) on examples where surface clues hint to the correct answer. Examples that involve negation or understanding antonyms have lower accuracy (42.8%), similarly to examples that require factoid knowledge (38.4%). Accuracy is particularly low in questions where the correct answer has finer granularity compared to one of the distractors (35.4%), and in cases where the correct answer needs to meet a conjunction of conditions, and the distractor meets only one of them (23.8%)."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We filter triplets with general relations (e.g., RelatedTo) or relations that are already well-explored in NLP (e.g., IsA). In total we use 22 relations... The top-5 question concepts in COMMONSENSE QA are 'Person' (3.1%), 'People' (2.0%), 'Human' (0.7%), 'Water' (0.5%) and 'Cat' (0.5%)... It's worth noting that since question formulators were not shown the CONCEPTNET relation, they often asked questions that probe other relationships between the concepts."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hope that this dataset facilitates future work in incorporating commonsense knowledge into NLU systems... We split the data into a training/development/test set with an 80/10/10 split. We perform two types of splits: (a) random split – where questions are split uniformly at random, and (b) question concept split – where each of the three sets have disjoint question concepts."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0565,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

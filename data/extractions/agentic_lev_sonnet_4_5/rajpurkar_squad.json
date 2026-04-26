@@ -1,0 +1,279 @@
+{
+  "dataset_id": "rajpurkar_squad",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Stanford Question Answering Dataset (SQuAD)",
+    "description": "A reading comprehension dataset consisting of 100,000+ questions posed by crowdworkers on Wikipedia articles, where the answer to each question is a segment of text from the corresponding reading passage. SQuAD contains 107,785 question-answer pairs on 536 articles.",
+    "url": "https://stanford-qa.com",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, Percy Liang",
+    "publisher": "Stanford University",
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Dataset collected in three stages: (1) curating passages from top 10,000 English Wikipedia articles using Project Nayuki's internal PageRanks, sampling 536 articles and extracting 23,215 paragraphs; (2) crowdsourcing question-answers through Daemo platform with Amazon Mechanical Turk backend, where workers created up to 5 questions per paragraph; (3) obtaining at least 2 additional answers for each question in development and test sets.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Questions marked as unanswerable were submitted without marking an answer. Over the development and test sets, 2.6% of questions were marked unanswerable by at least one of the additional crowdworkers.",
+    "rai:dataCollectionRawData": "Top 10,000 English Wikipedia articles based on Project Nayuki's internal PageRanks, from which 536 articles were sampled uniformly at random. Individual paragraphs were extracted from these articles, with images, figures, and tables stripped away, and paragraphs shorter than 500 characters discarded, resulting in 23,215 paragraphs.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowdworkers were tasked with asking and answering up to 5 questions per paragraph, spending 4 minutes per paragraph. Questions had to be entered in text fields and answers highlighted in the paragraph. Workers were guided with sample paragraphs and examples of good/bad questions. Copy-paste was disabled to encourage original wording. For additional answers, workers selected shortest answer spans or marked questions as unanswerable.",
+    "rai:dataAnnotationPlatform": "Daemo platform with Amazon Mechanical Turk as backend",
+    "rai:dataAnnotationAnalysis": "2.6% of questions in development and test sets were marked unanswerable by at least one additional crowdworker. Task received positive comments on Turkopticon.",
+    "rai:annotationsPerItem": "At least 3 answers per question (1 original + at least 2 additional answers for development and test sets)",
+    "rai:annotatorDemographics": "Crowdworkers located in United States or Canada with 97% HIT acceptance rate and minimum of 1000 HITs",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The span constraint limits answers to segments of text from passages. 77.3% of correct answers in the development set are constituents in constituency parses, placing an effective ceiling on accuracy. Some examples have ambiguous answers where annotators disagree or questions don't have unique answers (6.1% of manually labeled examples).",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for training and evaluating reading comprehension systems. It is used for training data-intensive models and testing machine reading comprehension capabilities.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is version 1.0, freely available at https://stanford-qa.com. A version 1.1 is mentioned as being released after v1.0, indicating ongoing maintenance and updates.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Articles were partitioned randomly into training set (80%), development set (10%), and test set (10%). For development and test sets, at least 2 additional answers were obtained for each question to make evaluation more robust.",
+    "rai:dataPreprocessingProtocol": "Top 10000 Wikipedia articles were obtained using PageRanks, from which 536 articles were sampled uniformly at random. Individual paragraphs were extracted from articles, stripping away images, figures, tables, and discarding paragraphs shorter than 500 characters, resulting in 23,215 paragraphs."
+  },
+  "usage": {
+    "input_tokens": 11382,
+    "output_tokens": 2906
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:51.713465Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Stanford Question Answering Dataset (SQuAD), a new reading comprehension dataset consisting of 100,000+ questions posed by crowdworkers on a set of Wikipedia articles"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Stanford Question Answering Dataset (SQuAD), a new reading comprehension dataset consisting of 100,000+ questions posed by crowdworkers on a set of Wikipedia articles, where the answer to each question is a segment of text from the corresponding reading passage... SQuAD contains 107,785 question-answer pairs on 536 articles"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is freely available at https://stanford-qa.com"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Pranav Rajpurkar and Jian Zhang and Konstantin Lopyrev and Percy Liang fpranavsr,zjian,klopyrev,pliang g@cs.stanford.edu Computer Science Department Stanford University"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Computer Science Department Stanford University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Over the last four months (since June 2016), we have witnessed significant improvements from more sophisticated neural network-based models"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "questions posed by crowdworkers on a set of Wikipedia articles"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present the Stanford Question Answering Dataset v1.0 (SQuAD)... All experimental results in this paper are on SQuAD v1.0"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect our dataset in three stages: curating passages, crowdsourcing question-answers on those passages, and obtaining additional answers."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We employed crowdworkers to create questions. We used the Daemo platform (Gaikwad et al., 2015), with Amazon Mechanical Turk as its backend. Crowdworkers were required to have a 97% HIT acceptance rate, a minimum of 1000 HITs, and be located in the United States or Canada."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "If a question was not answerable by a span in the paragraph, workers were asked to submit the question without marking an answer... Over the development and test sets, 2.6% of questions were marked unanswerable by at least one of the additional crowdworkers."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To retrieve high-quality articles, we used Project Nayuki's Wikipedia's internal PageRanks to obtain the top 10000 articles of English Wikipedia, from which we sampled 536 articles uniformly at random. From each of these articles, we extracted individual paragraphs, stripping away images, figures, tables, and discarding paragraphs shorter than 500 characters. The result was 23,215 paragraphs for the 536 articles"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "On each paragraph, crowdworkers were tasked with asking and answering up to 5 questions on the content of that paragraph. The questions had to be entered in a text ﬁeld, and the answers had to be highlighted in the paragraph. To guide the workers, tasks contained a sample paragraph, and examples of good and bad questions and answers on that paragraph along with the reasons they were categorized as such. Additionally, crowdworkers were encouraged to ask questions in their own words, without copying word phrases from the paragraph."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the Daemo platform (Gaikwad et al., 2015), with Amazon Mechanical Turk as its backend."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Over the development and test sets, 2.6% of questions were marked unanswerable by at least one of the additional crowdworkers. The task was reviewed favorably by crowdworkers, receiving positive comments on Turkopticon."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To get an indication of human performance on SQuAD and to make our evaluation more robust, we obtained at least 2 additional answers for each question in the development and test sets."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Crowdworkers were required to have a 97% HIT acceptance rate, a minimum of 1000 HITs, and be located in the United States or Canada."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ignoring punctuation and articles, we ﬁnd that 77.3% of the correct answers in the development set are constituents. This places an effective ceiling on the accuracy of our methods... Ambiguous: We don't agree with the crowdworkers' answer, or the question does not have a unique answer. 6.1%"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "those that are high in quality (Richardson et al., 2013; Berant et al., 2014) are too small for training modern data-intensive models... To assess the difﬁculty of SQuAD, we implemented a logistic regression model... During training, when the correct answer of an example is not a constituent, we use the shortest constituent containing the correct answer as the target."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present the Stanford Question Answering Dataset v1.0 (SQuAD), freely available at https://stanford-qa.com... For example, Wang and Jiang (2016) obtained 70.3% F1 on SQuAD v1.1 (results on v1.0 are similar). All experimental results in this paper are on SQuAD v1.0."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We partitioned the articles randomly into a training set (80%), a development set (10%), and a test set (10%)... To get an indication of human performance on SQuAD and to make our evaluation more robust, we obtained at least 2 additional answers for each question in the development and test sets."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To retrieve high-quality articles, we used Project Nayuki's Wikipedia's internal PageRanks to obtain the top 10000 articles of English Wikipedia, from which we sampled 536 articles uniformly at random. From each of these articles, we extracted individual paragraphs, stripping away images, ﬁgures, tables, and discarding paragraphs shorter than 500 characters. The result was 23,215 paragraphs for the 536 articles"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0389,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 12083,
+        "tokens_in": 3705,
+        "tokens_out": 620
+      },
+      "collection": {
+        "section_chars": 2960,
+        "tokens_in": 1229,
+        "tokens_out": 658
+      },
+      "annotation": {
+        "section_chars": 3020,
+        "tokens_in": 1256,
+        "tokens_out": 652
+      },
+      "impact": {
+        "section_chars": 12678,
+        "tokens_in": 4034,
+        "tokens_out": 583
+      },
+      "processing": {
+        "section_chars": 3177,
+        "tokens_in": 1158,
+        "tokens_out": 393
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

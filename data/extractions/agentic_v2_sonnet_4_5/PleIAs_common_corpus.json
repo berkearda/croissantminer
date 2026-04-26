@@ -1,0 +1,256 @@
+{
+  "dataset_id": "PleIAs_common_corpus",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Common Corpus",
+    "description": "The largest open dataset for language model pre-training containing about two trillion tokens of uncopyrighted or permissibly licensed data across multiple languages and domains including government, culture, science, code, web, and semantic data.",
+    "url": "https://huggingface.co/datasets/PleIAs/common_corpus",
+    "license": "Multiple licenses including Public Domain, CC-By, MIT, CC-By-SA, Apache-2.0, BSD-3-Clause, Open license, BSD-2-Clause, CC-BY-4.0, CC0-1.0",
+    "creator": "PleIAs, Paris, France",
+    "publisher": "PleIAs",
+    "datePublished": "2025",
+    "inLanguage": "Multiple languages including English, French, German, Spanish, Latin, Italian, Polish, Greek, Portuguese, Russian, and many others",
+    "citeAs": "Pierre-Carl Langlais, Carlos Rosas Hinostroza, Mattia Nee, Catherine Arnett, Pavel Chizhov, Eliot Krzystof Jones, Irène Girard, David Mach, Anastasia Stasenko, and Ivan P. Yamshchikov. Common Corpus: The Largest Collection of Ethical Data for LLM Pre-Training. arXiv preprint arXiv:2506.01732, 2025.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Data collected from multiple sources including web archives, cultural heritage institutions, government databases, scientific repositories, and code repositories. Collection involved API access, web scraping, and direct dumps from institutions.",
+    "rai:dataCollectionType": "Web API, Web Scraping, Secondary Data analysis, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Missing data in Common Corpus is explicitly discussed in the context of OCR quality issues in historical documents. The paper states that OCRoscope provides 'a standardized rate of OCR quality and rate of non-character content' and reports that 'Complete processing by OCRoscope yielded a rate of 41% non-recognized 7-grams, which results in an OCR quality rate of 59%.' The authors also note challenges with 'poor OCR quality, which we partly solved through the development of OCR correction tools' and mention 'irrecoverable deterioration of the original support' in some cultural heritage materials.",
+    "rai:dataCollectionRawData": "Raw data sources include: Common Crawl web archives, digitized books and newspapers from national libraries (Gallica, Library of Congress, etc.), government databases (SEC, WTO, AMF, EU institutions), scientific repositories (OpenAlex, arXiv), code repositories (GitHub via Stack v1 and v2), Wikipedia/Wikisource, YouTube transcripts, StackExchange, and Wikidata.",
+    "rai:dataCollectionTimeframe": "Historical data spans from 1618 to 2024, with collection process occurring primarily between 2023-2025",
+    "rai:dataImputationProtocol": "The paper describes OCR correction as a form of data imputation for missing or corrupted text. OCRonos, a Llama 3 8B-based model, is used to correct OCR errors, wrong word cuts or merges, and broken text structures. The paper states: 'OCRonos is versatile and supports the correction of OCR errors, wrong word cuts or merges, and overall broken text structures.' For highly deteriorated content, 'OCRonos can act as a synthetic rewriting tool rather than a strict correction tool.' The training data for OCRonos includes 'a highly diverse set of OCR-ed texts in multiple languages, mostly coming from uncorrected versions of Open Culture and Open Government.' Additionally, for PII removal, the paper describes replacing personally identifiable information 'with fictitious but realistic values' rather than removing it entirely.",
+    "rai:dataManipulationProtocol": "The paper describes extensive data manipulation protocols across multiple stages: (1) Text segmentation using Segmentext, a model 'trained to be resilient to broken and unstructured texts with digitization artifacts and ill-recognized layout formats'; (2) OCR error detection using OCRoscope and OCRerrcr to measure digitization quality; (3) OCR correction using OCRonos to fix errors and broken text structures; (4) PII removal using Microsoft's Presidio with 'custom regular expression patterns' to identify and replace personally identifiable information with 'fictitious but realistic values'; (5) Toxicity filtering using Celadon, a multilingual classifier that identifies 'toxic and harmful content along five dimensions: race and origin-based bias, gender and sexuality-based bias, religious bias, ability bias, and violence and abuse,' with documents either removed or 'synthetically rewritten without the harmful language'; (6) For code data, the paper describes running 'a pipeline of varied filters' including removing unwanted file extensions, filtering licenses to keep only permissible ones, and removing files consisting of '75% or more of digits'; (7) License verification for cultural heritage content following specific criteria including 'Author life + 70 years for all non-US authors' and 'All publications after 1884' for unidentified authors.",
+    "rai:dataPreprocessingProtocol": "Preprocessing included text segmentation using Segmentext model, OCR error detection using OCRoscope and OCRerrcr tools, OCR correction using OCRonos model based on Llama 3 8B, PII removal using Microsoft's Presidio with custom regex patterns, toxicity filtering using Celadon classifier, and code filtering to remove low-quality files and non-permissible licenses.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Segmentext for text segmentation, OCRoscope and OCRerrcr for OCR error detection, OCRonos (Llama 3 8B-based) for OCR correction, Microsoft Presidio for PII detection, Celadon (DeBERTa-v3-small) for toxicity classification, fastText for language identification",
+    "rai:dataReleaseMaintenancePlan": "Common Corpus is an evolving resource with versioning maintained by HuggingFace. Initial release in March 2024, expanded throughout 2024, unified version in November 2024, and current version released February 2025. Future updates planned as part of ongoing infrastructure.",
+    "rai:personalSensitiveInformation": "PII including phone numbers, email addresses, and IP addresses were identified and removed or replaced with fictitious but realistic values using Microsoft's Presidio with custom regex patterns.",
+    "rai:dataSocialImpact": "The dataset aims to support open science research and development of LLMs while meeting legal and regulatory requirements, particularly EU AI regulations. It addresses the negative externalities of using copyrighted data and aims to prevent legal challenges that have affected previous open datasets.",
+    "rai:dataBiases": "Historical texts in Open Culture contain content that does not meet modern ethical standards regarding ethnic groups, women, and violence. Toxicity filtering was applied to identify and mitigate harmful language along five dimensions: race and origin-based bias, gender and sexuality-based bias, religious bias, ability bias, and violence and abuse.",
+    "rai:dataLimitations": "Common Corpus does not cover all available open data (open data paradox), has shallow coverage for low-resource languages, is suitable for pre-training models of limited size but larger models require more data, does not contain instruction-tuning or task-specific data, and curation methods do not achieve 100% accuracy. OCR errors remain in some historical documents.",
+    "rai:dataUseCases": "Pre-training of Large Language Models, particularly for multilingual and European language models. Used for training models like Pleias 1.0 family, Salamandra series, Lucie, and by Anthropic. Also used to create multimodal datasets, classifiers, synthetic datasets, and benchmarks. Suitable for RAG applications and document processing."
+  },
+  "usage": {
+    "input_tokens": 56550,
+    "output_tokens": 4080
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:00.849170Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce Common Corpus, the largest open dataset for language model pre-training."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce Common Corpus, the largest open dataset for language model pre-training. The data assembled in Common Corpus are either uncopyrighted or under permissible licenses and amount to about two trillion tokens."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://huggingface.co/datasets/PleIAs/common_corpus"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The majority of the data in Common Corpus is in the public domain (see Table 3). The license for each document is provided in the metadata, so the dataset can be easily filtered by license as needed for a particular use case."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Pierre-Carl Langlais Carlos Rosas Hinostroza Mattia Nee Catherine Amett Pavel Chizhov Eliot Krzystof Jones Irène Girard David Mach Anastasia Stasenko Ivan P. Yamshchikov PleIAs, Paris, France https://pleias.fr/"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "PleIAs, Paris, France https://pleias.fr/"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2506.01732v1 [cs.CL] 2 Jun 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset contains a wide variety of languages, ranging from the main European languages to low-resource ones rarely present in pre-training datasets"
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Common Corpus will remain an evolving resource reflecting the need for a continuous open infrastructure rather than a fixed dataset, with HuggingFace ensuring a proper archiving of past versions for reproducibility."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All other parts of Open Culture have been collected on a resource-by-resource basis using APIs and other standard retrieval methods whenever available. The largest extractions of this kind include Internet Archive (about 2 million monographs in multiple languages) and Delpher (50,000 Dutch monographs and periodicals filtered to match the Dutch copyright law for public domain)."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All other parts of Open Culture have been collected on a resource-by-resource basis using APIs and other standard retrieval methods whenever available. The largest extractions of this kind include Internet Archive (about 2 million monographs in multiple languages) and Delpher (50,000 Dutch monographs and periodicals filtered to match the Dutch copyright law for public domain)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Open Science collection was made possible largely due to the recent development of OpenAlex, the largest open catalogue of scientific documents... The code data we use comes from the Stack v1 and v2... Large portion of data in Open Culture part of the Common Corpus was built on top of the following collection-as-data initiatives: Chronicle America, Europeana, Gallica, Biblioteca"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The articles were published between the years 1690 and 1963... The documents span the years 1995 to 2024... Common Corpus was first conceptualized in May 2023... The current version of Common Corpus, the one we describe in this paper, was released in February 2025 for the Paris AI Summit."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For text segmentation, we developed Segmentext... We developed two pipelines to determine the digitization quality of different datasets... We developed OCRonos model based on Llama 3 8B... To identify and replace PII, we use Microsoft's Presidio... To address this, we developed a pipeline to filter the public domain training data. We identify documents containing harmful language and either remove it or synthetically rewrite the document without the harmful language... To prepare the collection, we ran a pipeline of varied filters. We first removed files that were not in our desired set of languages and formats according to their file extensions"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "For text segmentation, we developed Segmentext... We developed two pipelines to determine the digitization quality of different datasets in order to determine the appropriate treatment before datasets can be used for pre-training: OCRoscope... OCRerrcr... We developed OCRonos model based on Llama 3 8B... To identify and replace PII, we use Microsoft's Presidio... We created a multilingual toxicity classifier, Celadon, a DeBERTa-v3-small model... Language distribution was computed using the fastText language identification model."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Common Corpus will remain an evolving resource reflecting the need for a continuous open infrastructure rather than a fixed dataset, with HuggingFace ensuring a proper archiving of past versions for reproducibility... A collection of various open datasets was first published under the name Common Corpus in March 2024... In November 2024, Common Corpus became an unified corpus... The current version of Common Corpus, the one we describe in this paper, was released in February 2025 for the Paris AI Summit."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Personally Identifiable Information (PII), which is any information that can be used to distinguish or trace an individual's identity, is protected under legislation such as GDPR... To identify and replace PII, we use Microsoft's Presidio, an open-source state-of-the-art tool... By applying custom regular expression patterns that include most phone numbers, we increased this accuracy to 85%... Instead, we replace PII with fictuous but realistic values."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Through the release of this dataset, we show that open LLM research and development is possible while meeting legal and regulatory requirements—even in the EU, where AI regulations are currently the strictest... As data curation also became a primary concern, the collection, maintenance, processing, and filtering of data became one of the primary cost of standard language model training. This does not factor in even larger hidden costs: the negative externalities affecting competing markets, the digital commons, and society at large."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Many texts there are historical periodicals and monographs from at least 80 years ago. Cultural norms surrounding the discussion of certain ethnic groups, women, and themes such as violence have changed dramatically. Many of these texts, therefore, do not meet modern ethical standards... We created a multilingual toxicity classifier, Celadon, a DeBERTa-v3-small model (∼140M parameters), which we trained from scratch on 2M annotated samples. Celadon identifies toxic and harmful content along five dimensions: race and origin-based bias, gender and sexuality-based bias, religious bias, ability bias, and violence and abuse."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Common Corpus is far from collecting the whole range of available open data, which we call the open data paradox... In addition to this, even though the language diversity of the data is large, the coverage for low-resource languages is still shallow... In addition, Common Corpus naturally does not contain data for instruction-tuning and any forms of specialized tasks... Even though we used these methods responsibly and mitigated many issues overlooked by the counterparts (e.g., with toxicity detection and PII removal), none of the curation methods could naturally facilitate a hundred-percent accuracy."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Common Corpus can be used on its own or in conjunction with existing open datasets, according to one's needs and the desired use case of a language model... As of May 2025, seven European SLMs and LLMs have been trained on at least some part of Common Corpus... Common Corpus is also being used to create new datasets. For instance, YouTube Commons was used to create two major multimodal datasets: FineVideo (43000 YouTube videos) and Mosel (1 million audio hours, half from YouTube Commons)"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 24,
+      "fields_uncertain": 1,
+      "evidence_count": 21,
+      "evidence_coverage": 84.0,
+      "avg_confidence": 0.908
+    },
+    "cost_usd": 0.1154,
+    "split": "test",
+    "corrections_applied": 4,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}
