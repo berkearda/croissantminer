@@ -37,7 +37,7 @@ RESULTS_DIR = ROOT / "results" / "v5_scoring"
 STRATEGY_DIRS = {
     # 12 single-pass (10 proprietary + 3 open-weight, but Sonnet 4.5 here is
     # the gold-reference single-pass; agentic variants below)
-    "claude_sonnet_4_5":          ROOT / "data" / "processed",
+    "claude_sonnet_4_5":          EXTRACTION_BASE / "claude_sonnet_4_5",
     "claude_sonnet_4_6":          EXTRACTION_BASE / "claude_sonnet_4_6",
     "claude_opus_4_7":            EXTRACTION_BASE / "claude_opus_4_7",
     "gpt5_4_full":                EXTRACTION_BASE / "gpt5.4_full",
