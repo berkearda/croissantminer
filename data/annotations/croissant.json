@@ -1,0 +1,981 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "@id": "https://github.com/berkearda/croissantminer/tree/main/data/annotations",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "name": "CroissantMiner Annotations",
+  "description": "Human-validated annotation dataset accompanying the CroissantMiner benchmark for automated extraction of MLCommons Croissant Responsible AI metadata from ML dataset papers. Contains 9595 ratings and 267 calibration ratings from 22 annotators across 102 papers and 30 Croissant Core + RAI fields, with derived gold values, per-field inter-annotator agreement metrics, and pseudonymized annotator demographics. Released under CC-BY-4.0; LLM-generated extractions referenced by the ratings are subject to their respective providers' terms.",
+  "url": "https://github.com/berkearda/croissantminer",
+  "version": "0.1.0",
+  "datePublished": "2026-04-25",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "inLanguage": "en",
+  "isLiveDataset": false,
+  "keywords": [
+    "Responsible AI",
+    "metadata extraction",
+    "Croissant",
+    "LLM evaluation",
+    "human annotation",
+    "inter-annotator agreement",
+    "benchmark"
+  ],
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "name": "Berke Arda",
+      "affiliation": "ETH Zurich"
+    }
+  ],
+  "publisher": {
+    "@type": "sc:Organization",
+    "name": "ETH Zurich"
+  },
+  "citeAs": "Arda, B., Akhtar, M., et al. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "ratings-parquet",
+      "name": "ratings.parquet",
+      "description": "Long-format raw human ratings, one row per (paper, field, annotator). Annotators were instructed to rate each LLM-extracted Croissant metadata value as Correct (1), Partially Correct (2), or Not Correct (3); for ratings of 2 or 3, an optional corrected_value and free-text notes were collected, plus a confidence label (High / Medium / Low) and a failure-mode category.",
+      "contentUrl": "ratings.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "7c79cc56573ecf044ce34472544d7e7522cb523482857429c8296a3f0210b652"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "calibration-parquet",
+      "name": "calibration.parquet",
+      "description": "Pilot ratings collected before the main collection began. Used a binary TRUE/FALSE rubric (mapped to rating 1 or 3 in this file) on a 15-cell sample. Released for transparency; downstream evaluation should use ratings.parquet.",
+      "contentUrl": "calibration.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "bda3c7ab24eab3f7741ab7636d0efadbe1ad51b1ef04882fc257f033c5909ec7"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "gold-parquet",
+      "name": "gold.parquet",
+      "description": "Derived gold values, one row per (paper, field). Computed by majority vote across raters (3 to 4 raters per cell, see n_raters column); cells where no rating reached majority (gold_method = 'tie_split') were sent to senior adjudication and the gold_value/gold_rating were filled by the adjudicator.",
+      "contentUrl": "gold.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "79bcff91a7aacde2d00aa580bae443d5666d342272f99b9518e88910dc5bccc9"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "iaa-parquet",
+      "name": "iaa.parquet",
+      "description": "Per-field inter-annotator agreement metrics with bootstrap 95 percent confidence intervals. Reports Krippendorff's alpha (ordinal), Gwet's AC1 (chance-corrected, prevalence-robust), raw pairwise agreement, and percent unanimous cells. The AC1 + pairwise pair triangulates against the prevalence paradox in alpha when ratings cluster on one category.",
+      "contentUrl": "iaa.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "affcab7689b48213dce2de0a2a2ad686805d2b0f04a51f23f8079afdeea43520"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "annotators-parquet",
+      "name": "annotators.parquet",
+      "description": "Pseudonymized roster of the 22 annotators who contributed to the main set. Demographics aggregated from the recruitment registration form: role, affiliation, ML familiarity, paper-experience frequency, hours dedicated. No personally identifying information beyond what annotators publicly associate with their professional profiles.",
+      "contentUrl": "annotators.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "f86fcb9a6042d5c6c5d7aef597d1d493a3c4dc17af8396214977fc1013309822"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "ratings",
+      "name": "ratings",
+      "description": "Long-format raw human ratings, one row per (paper, field, annotator). Annotators were instructed to rate each LLM-extracted Croissant metadata value as Correct (1), Partially Correct (2), or Not Correct (3); for ratings of 2 or 3, an optional corrected_value and free-text notes were collected, plus a confidence label (High / Medium / Low) and a failure-mode category.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/annotator",
+          "name": "annotator",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "annotator"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/rating",
+          "name": "rating",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/extracted_value",
+          "name": "extracted_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "extracted_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/corrected_value",
+          "name": "corrected_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "corrected_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/failure_mode",
+          "name": "failure_mode",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "failure_mode"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/confidence",
+          "name": "confidence",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "confidence"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/notes",
+          "name": "notes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "notes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/source_file",
+          "name": "source_file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "source_file"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "calibration",
+      "name": "calibration",
+      "description": "Pilot ratings collected before the main collection began. Used a binary TRUE/FALSE rubric (mapped to rating 1 or 3 in this file) on a 15-cell sample. Released for transparency; downstream evaluation should use ratings.parquet.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/annotator",
+          "name": "annotator",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "annotator"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/rating",
+          "name": "rating",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/extracted_value",
+          "name": "extracted_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "extracted_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/corrected_value",
+          "name": "corrected_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "corrected_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/failure_mode",
+          "name": "failure_mode",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "failure_mode"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/confidence",
+          "name": "confidence",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "confidence"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/notes",
+          "name": "notes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "notes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "calibration/source_file",
+          "name": "source_file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "calibration-parquet"
+            },
+            "extract": {
+              "column": "source_file"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "gold",
+      "name": "gold",
+      "description": "Derived gold values, one row per (paper, field). Computed by majority vote across raters (3 to 4 raters per cell, see n_raters column); cells where no rating reached majority (gold_method = 'tie_split') were sent to senior adjudication and the gold_value/gold_rating were filled by the adjudicator.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "gold/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/gold_value",
+          "name": "gold_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "gold_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/gold_rating",
+          "name": "gold_rating",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "gold_rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/gold_method",
+          "name": "gold_method",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "gold_method"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/n_raters",
+          "name": "n_raters",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "n_raters"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/n_agree",
+          "name": "n_agree",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "n_agree"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/consensus_pct",
+          "name": "consensus_pct",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "consensus_pct"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/adjudicator_id",
+          "name": "adjudicator_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "adjudicator_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gold/adjudication_notes",
+          "name": "adjudication_notes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gold-parquet"
+            },
+            "extract": {
+              "column": "adjudication_notes"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "iaa",
+      "name": "iaa",
+      "description": "Per-field inter-annotator agreement metrics with bootstrap 95 percent confidence intervals. Reports Krippendorff's alpha (ordinal), Gwet's AC1 (chance-corrected, prevalence-robust), raw pairwise agreement, and percent unanimous cells. The AC1 + pairwise pair triangulates against the prevalence paradox in alpha when ratings cluster on one category.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/level",
+          "name": "level",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "level"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/alpha",
+          "name": "alpha",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "alpha"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/alpha_ci_low",
+          "name": "alpha_ci_low",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "alpha_ci_low"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/alpha_ci_high",
+          "name": "alpha_ci_high",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "alpha_ci_high"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/gwet_ac1",
+          "name": "gwet_ac1",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "gwet_ac1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/gwet_ac1_ci_low",
+          "name": "gwet_ac1_ci_low",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "gwet_ac1_ci_low"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/gwet_ac1_ci_high",
+          "name": "gwet_ac1_ci_high",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "gwet_ac1_ci_high"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/pct_pairwise_agreement",
+          "name": "pct_pairwise_agreement",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "pct_pairwise_agreement"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/pct_unanimous",
+          "name": "pct_unanimous",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "pct_unanimous"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/n_unanimous_cells",
+          "name": "n_unanimous_cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "n_unanimous_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/n_cells_with_2plus_raters",
+          "name": "n_cells_with_2plus_raters",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "n_cells_with_2plus_raters"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/n_papers",
+          "name": "n_papers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "n_papers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/n_active_annotators",
+          "name": "n_active_annotators",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "n_active_annotators"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/n_total_ratings",
+          "name": "n_total_ratings",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "n_total_ratings"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "iaa/note",
+          "name": "note",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "iaa-parquet"
+            },
+            "extract": {
+              "column": "note"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "annotators",
+      "name": "annotators",
+      "description": "Pseudonymized roster of the 22 annotators who contributed to the main set. Demographics aggregated from the recruitment registration form: role, affiliation, ML familiarity, paper-experience frequency, hours dedicated. No personally identifying information beyond what annotators publicly associate with their professional profiles.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/annotator_id",
+          "name": "annotator_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "annotator_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/n_ratings",
+          "name": "n_ratings",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "n_ratings"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/phases_active",
+          "name": "phases_active",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "phases_active"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/role",
+          "name": "role",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "role"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/affiliation",
+          "name": "affiliation",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "affiliation"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/ml_familiarity",
+          "name": "ml_familiarity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "ml_familiarity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/paper_experience",
+          "name": "paper_experience",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "paper_experience"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/hours_dedicated",
+          "name": "hours_dedicated",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "hours_dedicated"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "annotators/registered",
+          "name": "registered",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "annotators-parquet"
+            },
+            "extract": {
+              "column": "registered"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "rai:dataCollection": "Human ratings of LLM-extracted Croissant metadata across 102 ML dataset papers and 30 RAI fields. Collected over seven phases between March and April 2026: pilot calibration, Phase 2 main collection, mid-project redistribution to balance coverage, a round-3 top-up, two final sweeps for cells under the three-rater target, and an orphan top-up to bring every cell to at least three distinct annotators. Senior adjudication resolved cells where no rating reached majority.",
+  "rai:dataCollectionType": "Manual Human Curator. Annotators were instructed not to use AI tools while rating.",
+  "rai:dataCollectionTimeframe": "2026-03-10 to 2026-04-25",
+  "rai:dataCollectionRawData": "AI-extracted Croissant metadata values produced by Claude Sonnet 4.5 on 102 arXiv-published ML dataset papers, plus the papers themselves (read by annotators when validating each value).",
+  "rai:dataAnnotationProtocol": "Each (paper, field) cell received three independent ratings on a three-level rubric (Correct / Partially Correct / Not Correct) with six failure-mode categories (Incomplete, Hallucination, Wrong Section, Granularity Mismatch, Format Error, Other) and an optional corrected value plus free-text notes. Confidence (High / Medium / Low) was recorded per rating.",
+  "rai:dataAnnotationPlatform": "Excel files distributed via shared cloud storage; one workbook per annotator with separate sheets for Instructions, Field Definitions, Calibration Examples, and Annotations.",
+  "rai:dataAnnotationAnalysis": "Krippendorff's alpha (ordinal, primary), Gwet's AC1 (chance-corrected, prevalence-robust), raw pairwise agreement, and percent unanimous cells, all computed per field with 1000-iteration bootstrap 95 percent confidence intervals. Triangulation across alpha and AC1 is necessary because alpha collapses under skewed marginals (Feinstein-Cicchetti paradox).",
+  "rai:annotationsPerItem": "3",
+  "rai:annotatorDemographics": "22 distinct annotators after deduplicating two who registered twice and merging name variants. Roles spanned PhD students, postdoctoral researchers, faculty, and industry professionals across academic and external institutions. Aggregate demographics in annotators.parquet (role, affiliation, ML familiarity tier, paper-experience frequency, hours dedicated). No personally identifying demographic data (age, gender, ethnicity, geography) was collected.",
+  "rai:machineAnnotationTools": "None. Annotators were instructed not to use AI tools while rating. The pre-filled metadata values rated by annotators were generated by Claude Sonnet 4.5 (not part of the rating step itself).",
+  "rai:dataReleaseMaintenancePlan": "Released alongside the CroissantMiner NeurIPS 2026 E&D paper. Maintained at https://github.com/berkearda/croissantminer. Versioning via Git tags. Bug-fix updates expected through 2027; substantive schema changes deprecated rather than silently overwritten.",
+  "rai:personalSensitiveInformation": "None collected. Annotator names appear in the local raw ratings.parquet for build provenance and are replaced with pseudonymous integer IDs (A01..A22) before public release; the raw-name version is gitignored.",
+  "rai:dataSocialImpact": "Enables study of LLM extraction quality on Responsible AI metadata. Permits downstream research into RAI-field difficulty, extraction-distillation, and disagreement-aware fine-tuning. Limitation: source papers are arXiv-published English-language ML dataset papers, so coverage is biased toward the English-speaking ML research community.",
+  "rai:dataBiases": "Annotator pool is biased toward ML/AI researchers (recruited via an open call to NeurIPS-track-adjacent researchers); ratings reflect this group's interpretation of the Croissant RAI rubric. Source-paper sample is biased toward Vision and NLP domains (the two largest fractions of the 102-paper benchmark). Field difficulty is non-uniform: short-text fields (sc:license, sc:datePublished) saw substantially higher pairwise agreement than long-form RAI fields (rai:dataBiases, rai:dataSocialImpact).",
+  "rai:dataLimitations": "Three RAI field definitions (rai:dataCollectionMissingData, rai:dataManipulationProtocol, rai:dataBiases) were tightened in the annotator rubric beyond the canonical Croissant RAI 1.0 specification, which contributes to definitional asymmetry on rai:dataBiases between LLM extractions and human ratings. Annotator demographics are aggregate-only; no per-annotator demographic stratification of agreement is released. Source-paper PDFs are not redistributed; downstream users must obtain them from the original publishers.",
+  "rai:dataUseCases": "Training, Testing, Validation, and Benchmarking of LLM-based metadata extraction systems for Responsible AI documentation. Suitable for evaluating extraction accuracy, abstention calibration (when fields are absent from a paper), and field-specific difficulty profiles."
+}
