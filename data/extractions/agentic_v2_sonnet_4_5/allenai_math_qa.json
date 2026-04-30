@@ -1,0 +1,258 @@
+{
+  "dataset_id": "allenai_math_qa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MathQA",
+    "description": "A large-scale dataset of 37,200 math word problems with operation-based formal annotations, covering multiple math domain categories including geometry, physics, probability, gain-loss, and general mathematics. Each problem includes multiple-choice options and aligned operation programs.",
+    "url": "https://math-qa.github.io/math-QA/",
+    "license": "Apache-2.0",
+    "creator": "Aida Amini, Saadia Gabriel, Shanchuan Lin, Rik Koncel-Kedziorski, Yejin Choi, and Hannaneh Hajishirzi from University of Washington and Allen Institute for AI",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Math word problems were collected from the existing AQuA dataset and annotated with formal operation programs using a dynamic crowdsourcing platform. Problems were first categorized into math domains using term frequencies, then annotators sequentially selected operations and arguments to solve each problem.",
+    "rai:dataCollectionType": "Manual Human Curator, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Problems sourced from the AQuA-RAT dataset, which contains over 100K GRE- and GMAT-level math word problems that are multiple choice and come from a wide range of domains.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Problems from AQuA were filtered for solvability, removing unsolvable problems including those with no words, sequence problems, problems requiring options, non-numeric problems, and duplicates. Annotation expansion was performed by finding closely similar problems using Levenshtein distance with a threshold of 4 words in edit distance, replacing numeric values with generic numbers.",
+    "rai:dataPreprocessingProtocol": "Problems were categorized into math domains (Geometry, Physics, Probability, Gain-Loss, General, Other) using term frequency analysis. A lexicon of n-grams relating to specific domains was constructed, and problems were assigned categories based on domain-specific n-gram frequency.",
+    "rai:dataAnnotationProtocol": "Annotators used a dynamic annotation platform to sequentially select operations and arguments until problems were solved. They were provided with math knowledge through operation hints (arguments, formula, and explanations). Valid arguments consisted of numbers in the problem, constants in the problem category, and previous calculations. The platform only accepted programs that included numbers from the problem and whose final calculation matched the correct numeric solution. At least 2 out of 3 validators had to rank the operation program as valid for selection.",
+    "rai:dataAnnotationPlatform": "Figure Eight",
+    "rai:dataAnnotationAnalysis": "Validation accuracy was 94.64% across categories. Expert evaluation of 500 problems showed 92% of annotations were valid, with 87% agreement between expert validation and crowdsourcing validation tasks.",
+    "rai:annotationsPerItem": "At least 2 out of 3 validators per problem for validation",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The AQuA source dataset contains significant noise including problems with incorrect solutions, problems unsolvable without brute-force enumeration, and rationales with few or none of the required problem-solving steps. Near-duplicates exist with slight changes to stories or numerical values that are not always reflected in rationales, leading to incorrect solutions.",
+    "rai:dataLimitations": "The dataset does not cover high-order polynomials and problems where solutions are entirely nonnumeric. Some problem types like sequence problems require understanding of patterns difficult to intuit without domain knowledge and can only be solved through brute-force or guessing. The categorization strategy can be noisy due to using only one mathematical interpretation for each domain-specific n-gram. Model performance is still significantly lower than human performance.",
+    "rai:dataUseCases": "Training and evaluation of neural models for math word problem solving with interpretable operation-based reasoning. The dataset is split 80/12/8% for training/dev/test. The operation programs provide supervision for learning logical reasoning steps and can be used to reduce influence of statistical bias."
+  },
+  "usage": {
+    "input_tokens": 19677,
+    "output_tokens": 2747
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:04.854498Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce a new representation language to construct MathQA, a new large-scale, diverse dataset of 37k English multiple-choice math word problems"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset (called MathQA) consists of 37,200 math word problems, corresponding lists of multiple-choice options and aligned operation programs. We use problems in the AQuA dataset and carefully annotate those problems with formal operation programs."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available at: https://math-qa.github.io/math-QA/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Aida Amini1, Saadia Gabriel1, Shanchuan Lin1, Rik Koncel-Kedziorski1, Yejin Choi1,2, and Hannaneh Hajishirzi1,2 1University of Washington 2Allen Institute for AI"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.13319v1 [cs.CL] 30 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a new large-scale, diverse dataset of 37k English multiple-choice math word problems"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use problems in the AQuA dataset and carefully annotate those problems with formal operation programs. Math problems are first categorized into math domains using term frequencies... We use crowdsourcing to carefully align problems with operation programs"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use problems in the AQuA dataset and carefully annotate those problems with formal operation programs. We use crowdsourcing to carefully align problems with operation programs"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We choose the 2017 AQUA-RAT dataset to demonstrate use of our representation language on an existing large-scale math word problem solving dataset. The AQuA provides over 100K GRE- and GMAT-level math word problems."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We carefully study the AQuA dataset... Table 2 shows a full breakdown of the AQuA dataset by solvability... We find closely similar problems, replace numeric values with generic numbers, and expand annotations to cover more problems from the AQuA dataset. For similarity, we use Levenshtein distance with a threshold of 4 words in edit distance."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Math problems are first categorized into math domains using term frequencies... We first construct a lexicon of n-grams relating to a specific domain... We compute n-gram frequency fpc as the number of n-grams associated with a category c appearing in the text of a word problem p."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The annotators are instructed to sequentially select an operation from the list of operations in the problem category. Annotators are provided with math knowledge by hovering over every operation and getting the related hint that consists of arguments, formula and a short explanation of the operation... Our platform only accepts programs which include some numbers from the problem, and whose final calculation is very close to the correct numeric solution... According to this strategy, at least 2 out of 3 validators should rank the operation program as valid for it to be selected."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We take advantage of the annotation platform in Figure Eight"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The validation accuracy is 94:64% across categories... Our expert evaluation of the annotation procedure for a collection of 500 problems shows that 92% of the annotations are valid. Additionally, it has 87% agreement between the expert validation and the crowd sourcing validation task."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "According to this strategy, at least 2 out of 3 validators should rank the operation program as valid for it to be selected."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However there is a significant amount of unwanted noise in the dataset, including problems with incorrect solutions, problems that are unsolvable without brute-force enumeration of solutions, and rationales that contain few or none of the steps required to solve the corresponding problem... Many of the problems are near-duplicates with slight changes to the math word problem stories or numerical values since they are expanded from a set of 30,000 seed problems through crowdsourcing. These changes are not always reflected in the rationales, leading to incorrect solutions."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We omit high-order polynomials and problems where the solutions are entirely nonnumeric... Sequence problems, for example, require understanding of pattems that are difficult to intuit without domain knowledge like sequence formulas, and can only be solved automatically through brute-force or guessing... The gain is relatively small because the current model only uses categorization decisions as hard constraints at decoding time. Moreover, the problem categorization might be noisy due to our use of only one mathematical interpretation for each domain-specific n-gram... The gap between the performance of our models and human performance indicates that our MathQA still maintains the challenging nature of AQuA problems."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset consists of 37k problems which are randomly split in (80=12=8)% training/dev/test problems... Our representation language provides an extra layer of supervision that can be used to reduce the influence of statistical bias in datasets like AQuA."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 90.0,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.0501,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "dataset_id": "mteb_sts22-crosslingual-sts",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MTEB: Massive Text Embedding Benchmark",
+    "description": "MTEB spans 8 embedding tasks covering a total of 58 datasets and 112 languages. The benchmark consists of Bitext mining, classification, clustering, pair classification, reranking, retrieval, STS and summarization tasks.",
+    "url": "https://github.com/embeddings-benchmark/mteb",
+    "license": "unknown",
+    "creator": "Niklas Muennighoff, Nouamane Tazi, Loïc Magne, Nils Reimers",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "112 languages",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "MTEB consists of 58 datasets covering 112 languages from 8 embedding tasks. Datasets are grouped into three categories based on text length: Sentence to sentence (S2S), Paragraph to paragraph (P2P), and Sentence to paragraph (S2P). Custom datasets were created for MTEB using public APIs from arXiv and bioRxiv/medRxiv. Other datasets were reused from existing benchmarks like BEIR, SemEval, and various other sources.",
+    "rai:dataCollectionType": "Web API, Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data sources include arXiv papers, bioRxiv/medRxiv papers, Reddit posts, StackExchange posts, Amazon reviews, Twitter data, news articles, scientific papers, and various other text corpora from existing benchmarks like BEIR, SemEval, BUCC, and Tatoeba.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For ArxivClustering, abstracts are concatenated to the title in the P2P setting. For bioRxiv and medRxiv, only the first category is used when multiple categories are given. For arXiv, three types of clustering splits are created: main category clustering, secondary category clustering within the same main category, and secondary category clustering across all main categories.",
+    "rai:dataPreprocessingProtocol": "MTEB imposes no limit on the input length, leaving it up to the models to truncate if necessary. For clustering tasks, subsets of all labels are selected and then articles are sampled from those labels, yielding splits with varying amounts and sizes of clusters.",
+    "rai:dataAnnotationProtocol": "Cluster labels for arXiv and bioRxiv/medRxiv datasets are generated using categories given to the papers by humans. For other datasets, annotations come from the original sources including human annotations for sentiment, intent, toxicity, paraphrase detection, and similarity scores.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": "Through versioning at a dataset and software level, MTEB aims to make it easy to reproduce results. JSON files corresponding to all results are made available together with the MTEB benchmark. The benchmark welcomes task, dataset or metric contributions from the community via pull requests.",
+    "rai:personalSensitiveInformation": "Some datasets contain sensitive attributes including gender, socio-economic status, geography, language, age, and culture. The multilingual datasets cover 112 different languages. Datasets include user-generated content from platforms like Twitter, Reddit, and Amazon reviews.",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The benchmark has task imbalance with different amounts of datasets per task, with summarization consisting of only a single dataset. MTEB average scores are biased towards tasks with many datasets, notably retrieval, classification and clustering. Some models show high variance across different languages. Data contamination is challenging to control due to the scale of experiments and model pre-training.",
+    "rai:dataLimitations": "MTEB lacks very long document datasets, with the longest datasets having only a few hundred words. The benchmark has task imbalance with underrepresented tasks like summarization and pair classification. Multilingual coverage is limited for retrieval and clustering tasks which are English-only. The benchmark does not contain code datasets. Some datasets may overlap with model training data.",
+    "rai:dataUseCases": "MTEB is designed for evaluating text embedding models across diverse use cases including clustering, topic representation, search systems, text mining, classification, bitext mining, reranking, retrieval, semantic textual similarity assessment, and summarization evaluation. The benchmark serves as a gateway to finding universal text embeddings applicable to a variety of tasks. Models are evaluated on test splits (or dev split for MSMARCO)."
+  },
+  "usage": {
+    "input_tokens": 100656,
+    "output_tokens": 2843
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:23.213755Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB: Massive Text Embedding Benchmark"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB spans 8 embedding tasks covering a total of 58 datasets and 112 languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB comes with open-source code and a public leaderboard at https://github.com/embeddings-benchmark/mteb"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Niklas Muennighoff1, Nouamane Tazi1, Loïc Magne1, Nils Reimers2*"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2210.07316v3 [cs.CL] 19 Mar 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB spans 8 embedding tasks covering a total of 58 datasets and 112 languages."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB consists of 58 datasets covering 112 languages from 8 embedding tasks: Bitext mining, classification, clustering, pair classification, reranking, retrieval, STS and summarization. To further the diversity of MTEB, datasets of varying text lengths are included. All datasets are grouped into three categories: Sentence to sentence (S2S), Paragraph to paragraph (P2P), Sentence to paragraph (S2P). These datasets are custom-made for MTEB using the public APIs from arXiv and bioRxiv/medRxiv."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These datasets are custom-made for MTEB using the public APIs from arXiv and bioRxiv/medRxiv. MTEB reuses datasets and evaluation from BEIR. We refer to the BEIR paper (Thakur et al., 2021), which contains description of each dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These datasets are custom-made for MTEB using the public APIs from arXiv and bioRxiv/medRxiv. Dataset created for MTEB using available data from Reddit posts. Dataset created for MTEB using available data from StackExchange posts. A collection of Amazon customer reviews. Collection of comments from the Civil Comments platform. Dataset from Kaggle competition. Questions from AskUbuntu. Large-scale English Dataset for News Recommendation Research."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For ArxivClustering, for example, abstracts are concatenated to the title in the P2P setting. For bioRxiv and medRxiv this category is unique, but for arXiv multiple categories can be given to a single paper so we only use the first one. Hence, we create three types of splits: (a) Main category clustering (b) Secondary category clustering within the same main category (c) Secondary category clustering"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB imposes no limit on the input length, leaving it up to the models to truncate if necessary. For every dataset, split and strategy, we select subsets of all labels and then sample articles from those labels. This yields splits with a varying amount and size of clusters."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "The cluster labels are generated using categories given to the papers by humans. A collection of Amazon customer reviews annotated for counterfactual detection pair classification. Dataset composed of online banking queries annotated with their corresponding intents. Dataset of English Twitter messages with six basic emotions. Collection of comments from the Civil Comments platform together with annotations if the comment is toxic or not."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Through versioning at a dataset and software level, we aim to make it easy to reproduce results in MTEB. JSON files corresponding to all results available in this paper have been made available together with the MTEB benchmark. We welcome task, dataset or metric contributions from the community via pull requests to continue the development of MTEB."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB spans 8 embedding tasks covering a total of 58 datasets and 112 languages. Dataset of English Twitter messages with six basic emotions. Dataset created for MTEB using available data from Reddit posts. A collection of Amazon customer reviews."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Tasks in MTEB have a different amount of datasets with summarization consisting of only a single dataset. This means MTEB average scores, which are computed over all datasets, are biased towards tasks with many datasets, notably retrieval, classification and clustering. LASER2 shows high variance across different languages. Our scale of experiments and that of model pre-training make controlling for data contamination challenging."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MTEB covers multiple text lengths (S2S, P2P, S2P), but very long documents are still missing. The longest datasets in MTEB have a few hundred words. Tasks in MTEB have a different amount of datasets with summarization consisting of only a single dataset. However, retrieval and clustering are English-only. Further, MTEB does not contain any code datasets. As long as enough datasets are averaged, we believe these effects to be insignificant."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Natural language embeddings power a variety of use cases from clustering and topic representation to search systems and text mining to feature representations for downstream models. MTEB aims to provide clarity on how models perform on a variety of embedding tasks and thus serves as the gateway to finding universal text embeddings applicable to a variety of tasks. We evaluate on the test splits of all datasets except for MSMARCO, where the dev split is used."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 17,
+      "fields_uncertain": 1,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.911
+    },
+    "cost_usd": 0.1723,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

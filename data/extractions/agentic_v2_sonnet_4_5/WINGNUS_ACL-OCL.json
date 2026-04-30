@@ -1,0 +1,256 @@
+{
+  "dataset_id": "WINGNUS_ACL-OCL",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "ACL OCL Corpus",
+    "description": "A scholarly corpus derived from the ACL Anthology containing 73K papers spanning seven decades (1952-2022) with metadata, PDF files, citation graphs, structured full texts with sections, figures, and links to Semantic Scholar. The corpus includes 210K figures and provides structured information to enable research in computational linguistics.",
+    "url": "https://huggingface.co/datasets/WINGNUS/ACL-OCL",
+    "license": "CC-BY-4.0",
+    "creator": "Shaurya Rohatgi, Yanxia Qin, Benjamin Aw, Niranjana Unnithan, Min-Yen Kan",
+    "publisher": "Association for Computational Linguistics",
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": "@inproceedings{rohatgi-etal-2023-acl,\n    title = \"The {ACL} {OCL} Corpus: Advancing Open Science in Computational Linguistics\",\n    author = \"Rohatgi, Shaurya  and\n      Qin, Yanxia  and\n      Aw, Benjamin  and\n      Unnithan, Niranjana  and\n      Kan, Min-Yen\",\n    booktitle = \"Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing\",\n    month = dec,\n    year = \"2023\",\n    address = \"Singapore\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2023.emnlp-main.000\",\n    pages = \"1--15\"\n}",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Data was collected by crawling PDF files and metadata from the ACL Anthology website. The corpus includes conference, journal, and workshop papers in the computational linguistics domain. Papers longer than 50 pages (mostly conference volume introductions or handbooks) were removed.",
+    "rai:dataCollectionType": "Web Scraping, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "PDF files and metadata from the ACL Anthology website, which hosts peer-reviewed computational linguistics papers from conferences, journals, and workshops.",
+    "rai:dataCollectionTimeframe": "1952 to September 2022",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We remove PDF files longer than 50 pages, which are mostly conference volume introductions or handbooks.",
+    "rai:dataPreprocessingProtocol": "PDF files were processed through GROBID for full-text extraction to obtain structured texts in S2ORC-JSON format including metadata, authors, body text with citations, references, and sections. Figures and tables were extracted using PDFFigures. Papers were filtered to remove documents longer than 50 pages. Language detection was performed using a public toolkit with title and abstract as inputs. The corpus was linked to Semantic Scholar Academic Graph via API to enrich with external information such as citations.",
+    "rai:dataAnnotationProtocol": "Topic labels were obtained by crawling published papers from online CL conferences (ACL 2020, EMNLP 2020, ACL-IJCNLP 2021, EACL 2021, NAACL 2021) between 2020 and 2022 together with their topics from conference websites. A total of 2,545 documents were obtained with ground truth topic labels across 21 topics. These were used to train a supervised neural model (PLM-SPECTER) for topic classification, which was then used to predict silver topic labels for the entire corpus.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The best performing topic classification model (PLM-SPECTER) achieved 69% accuracy on the test set. The model was trained using 5-fold cross-validation with 80% training and 20% test split. Performance was evaluated using Macro F1, Weighted F1, and Accuracy metrics. A case study on top-cited papers showed 87% accuracy (13 correct out of 15), higher than the expected 69%, mainly due to bias in distribution towards dominant topics.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GROBID for full-text extraction, PDFFigures for figure and table extraction, langdetect toolkit for language detection, BART-large-MNLI for zero-shot topic classification, SciBERT and SPECTER for supervised topic classification",
+    "rai:dataReleaseMaintenancePlan": "The dataset undergoes annual updates by downloading and processing papers recently added to the ACL Anthology, with new additions identified by monitoring changes in URLs. Future plans include providing full-text extraction and information extraction APIs to ACL Anthology to host OCL data directly on the ACL Anthology itself.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The corpus enables analysis of research trends in computational linguistics, including the emergence of new topics like Ethics and the decline of topics like Syntax. It highlights underrepresented languages in CL research and can facilitate more equitable representation. The corpus supports open science by providing accessible resources for the CL community.",
+    "rai:dataBiases": "The corpus shows bias towards English language papers, with English being the most dominant language. There is a bias in the distribution of top-cited papers towards dominant topics like Machine Translation. The corpus only includes peer-reviewed papers from ACL Anthology, which may not represent all computational linguistics research. Topic classification model predictions show bias due to insufficient training samples for some topics and high overlap between certain topics.",
+    "rai:dataLimitations": "The corpus is limited to peer-reviewed, open-access CL papers from ACL Anthology and does not include other sources. Full-text extraction quality is limited by GROBID's capabilities, with common issues including incorrect metadata, missing section names, merged paragraphs, mixing of footnotes with text, and difficulties extracting tables, figures, and in-line equations. The corpus is unlabeled for specific tasks. Only open-source toolkits were used due to budget constraints, though paid services might yield higher quality. The corpus does not include arXiv papers which could expand coverage.",
+    "rai:dataUseCases": "Training, Testing, Validation, Fine Tuning. Use cases include: topic trend analysis, emerging topic detection, paper-reviewer matching, document-level terminology detection and coreference resolution, pre-training or fine-tuning scientific language models, building scientific assistants for CL domain, summarization and related work generation, contribution extraction, future work prediction, analyzing language change in CL domain, constructing knowledge graphs, and multimodal research tasks combining text and figures."
+  },
+  "usage": {
+    "input_tokens": 20077,
+    "output_tokens": 4160
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:03.540254Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present ACL OCL, a scholarly corpus derived from the ACL Anthology to assist Open scientific research in the Computational Linguistics domain."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present ACL OCL, a scholarly corpus derived from the ACL Anthology to assist Open scientific research in the Computational Linguistics domain. Integrating and enhancing the previous versions of the ACL Anthology, the ACL OCL contributes metadata, PDF files, citation graphs and additional structured full texts with sections, figures, and links to a large knowledge resource (Semantic Scholar). The ACL OCL spans seven decades, containing 73K papers, alongside 210K figures."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available from HuggingFace https://huggingface.co/datasets/WINGNUS/ACL-OCL"
+      },
+      "license": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Shaurya Rohatgi1∗Yanxia Qin2∗†Benjamin Aw2Niranjana Unnithan2‡Min-Yen Kan2"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2305.14996v2 [cs.CL] 24 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As expected, English is the most dominant language processed in the ACL OCL."
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset undergoes annual updates, during which we download and process papers recently added to the ACL Anthology. For these updates, we identify new additions by monitoring changes in URLs."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "From the ACL Anthology, we design crawlers to fetch all the PDF documents and metadata from its website. Meta information is included, as the website's version is more accurate than that obtained by PDF extraction, given its author-driven nature. We remove PDF files longer than 50 pages, which are mostly conference volume introductions or handbooks. We then obtain 73,285 conference journal and workshop papers in the CL domain."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "From the ACL Anthology, we design crawlers to fetch all the PDF documents and metadata from its website."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ACL Anthology is an important resource that digitally archives all scientific papers in the CL domain, including metadata, PDF files, and supplementary materials."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The OCL corpus includes 73,285 papers hosted by the ACL Anthology published from 1952 to September 2022."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After an extensive comparison with open-source toolkits such as PDFBox and pdfminer.six, we use GROBID for the full-text extraction from PDF files. We take the S2ORC-JSON format used by Lo et al. (2020) and Wang et al. (2020) for our full-text schema, which includes complete information parsed from PDF files, such as metadata, authors, and body text with citations, references, sections and etc. Due to the limitations of GROBID in formatting information extraction such as figures, we extract figures and tables from PDF files using PDFFigures (Clark and Diwala, 2016) following Karishma et al. (2023). To detect the language in which a document is written, we utilize a public language detection toolkit (Shuyo, 2010) with its title and abstract as inputs."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We crawl published papers of several online held CL conferences (e.g., ACL 2020, EACL 2021) between 2020 and 2022, together with their topics from those websites. After aligning those papers with the data in the ACL OCL, we obtained 2545 documents classified in 21 topics in total, present in Table 4. These documents together with their topics are used as our training and testing data."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use 5-fold cross-validation across all experiments, randomly selecting 2,036 (80%) papers balanced in each topic as our training set, and the remaining 509 (20%) as test. We use Macro F1, Weighted F1, and Accuracy (aka. Micro F1) as evaluation metrics for the multi-class topic classification. From the last column in Table 3 (system-predicted topics), we observe 13 correct labels out of 15 documents. The 87% accuracy is higher than an expected 69% accuracy tested on the STop test set in Table 5, mainly because of the bias in the distribution of top-cited papers towards dominant topics (e.g., MT)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The single-label topic classification setting is adopted in this paper for simplicity; multi-label classification is left to future work."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After an extensive comparison with open-source toolkits such as PDFBox and pdfminer.six, we use GROBID for the full-text extraction from PDF files. Due to the limitations of GROBID in formatting information extraction such as figures, we extract figures and tables from PDF files using PDFFigures (Clark and Diwala, 2016). To detect the language in which a document is written, we utilize a public language detection toolkit (Shuyo, 2010) with its title and abstract as inputs. We follow their work and use a variant model BART-large-MNLI to model the topic classification task as an inference task. In addition, we consider pre-trained language models trained from scientific documents, namely SciBERT (Maheshwari et al., 2021) and SPECTER (Cohan et al., 2020)."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset undergoes annual updates, during which we download and process papers recently added to the ACL Anthology. For these updates, we identify new additions by monitoring changes in URLs. In the future, we will work on the data currency of OCL, which aims to keep OCL up-to-date with the ACL Anthology data. We plan to update OCL by year to keep it alive. The ultimate solution is to provide full-text extraction and information extraction APIs to ACL Anthology, thus hosting the OCL data on ACL Anthology itself."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "By analyzing the topics' popularity, we ask for more attention on the emerging new topics such as 'Ethics of NLP' and the declining underrepresented topics like 'Discourse and Pragmatics' and 'Phonology, Morphology and Word Segmentation'. Prior research (Ranathunga and de Silva, 2022) on the representation of low-resource languages in the ACL Anthology found that numerous languages remain underrepresented."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As expected, English is the most dominant language processed in the ACL OCL. The 87% accuracy is higher than an expected 69% accuracy tested on the STop test set in Table 5, mainly because of the bias in the distribution of top-cited papers towards dominant topics (e.g., MT). Two works in Resource & Evaluation, namely BLEU (Papineni et al., 2002) and ROUGE (Lin, 2004), are incorrectly predicted due to insufficient training samples and high overlap with other topics."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The OCL corpus is a small-scale collection of documents specifically focusing on peer-reviewed and open-access CL papers. As a result, it is not a comprehensive corpus like S2ORC (Lo et al., 2020), since it does not include any other sources beyond the ACL Anthology. To ensure the extraction of high-quality full texts from the provided PDF files, the OCL corpus utilizes the most advanced open-sourced PDF2text toolkit, GROBID. Due to constraints on budget, only open-source toolkits are considered, although it is acknowledged that some paid PDF2text services might yield higher-quality full texts. For general text extraction, some common issues include missing section names, merged paragraphs, the mixing of footnotes with texts, and misidentifying texts as table captions. The OCL corpus is an unlabeled resource, lacking annotations for specific tasks that require labels."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Additional forms of topic analyses and topic-aided tasks are now feasible with the domain-specific, fine-grained topic information provided by OCL, such as emerging topic detection (Asooja et al., 2016), evolution detection of topics (Uban et al., 2021), paper-reviewer matching (Thom Jakobsen and Rogers, 2022) via topics and etc. OCL aids tasks that demand complete textual content from scientific papers, such as document-level terminology detection, coreference resolution, pre-training scientific large language models like Galactica (Taylor et al., 2022) or fine-tuning a general LLM like Llama (Touvron et al., 2023). High-quality texts are more suited for task-specific supervised data. For example, the abstracts and related work texts can be used as direct references for summarization and related work generation (Hoang and Kan, 2010; Hu and Wan, 2014) tasks, respectively."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 21,
+      "evidence_coverage": 84.0,
+      "avg_confidence": 0.926
+    },
+    "cost_usd": 0.0613,
+    "split": "test",
+    "corrections_applied": 4,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

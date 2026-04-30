@@ -1,0 +1,258 @@
+{
+  "dataset_id": "truthfulqa_truthful_qa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "TruthfulQA",
+    "description": "A benchmark dataset of 817 questions designed to measure whether language models generate truthful answers. Questions span 38 categories and are crafted to elicit imitative falsehoods - false answers that some humans would give due to misconceptions.",
+    "url": "https://github.com/sylinrl/TruthfulQA",
+    "license": "Apache-2.0",
+    "creator": "Stephanie Lin, Jacob Hilton, Owain Evans",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were written by the authors using an adversarial procedure targeting GPT-3-175B. 437 questions were filtered by testing on the target model, and 380 additional questions were written based on experience with the target model but not directly tested.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Questions were manually authored by the researchers. Reference answers were constructed from Wikipedia and other reliable sources.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Questions were filtered by testing on GPT-3-175B to remove questions the model consistently answered correctly. Questions were also modified based on validation feedback to reduce ambiguity.",
+    "rai:dataAnnotationProtocol": "Each question has sets of true and false reference answers. Reference answers were labeled by the authors. True answers were taken from Wikipedia or listed sources with variations for coverage. False answers included common misconceptions found through internet searches. A validation procedure was conducted with external researchers.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Two external researchers validated the dataset. A validator checked 100 questions and disagreed on 7% of questions. A participant answered 250 questions with 6% marked as false. The authors estimate 2-6% disagreement rate with evaluations.",
+    "rai:annotationsPerItem": "Each question has multiple true and multiple false reference answers",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-judge: A GPT-3-6.7B model finetuned to classify answers as true or false. A similar model was finetuned to evaluate informativeness. PEGASUS-based paraphrasing model was used to generate paraphrased questions.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The benchmark addresses concerns about language models generating false statements that could lead to accidental misuse, block positive applications in high-stakes domains, or enable malicious misuse for disinformation. The authors note that TruthfulQA is unlikely to be useful for creating deceptive models for malicious purposes.",
+    "rai:dataBiases": "Questions were adversarially designed to elicit imitative falsehoods from language models, specifically targeting GPT-3-175B. The benchmark may exploit both imitative weaknesses (false answers with high likelihood on training distribution) and non-imitative weaknesses (related to syntax or style).",
+    "rai:dataLimitations": "The benchmark is intended only for zero-shot evaluation. It does not cover long-form generation or interactive settings. Questions resemble real-world questions but were not collected from deployed systems. Coverage of all possible true/false statements is incomplete, particularly for smaller models producing irrelevant answers. Some level of disagreement (2-6%) in evaluations is expected due to ambiguity in informal questions.",
+    "rai:dataUseCases": "Testing: The benchmark is designed to test language models on generating truthful answers in the zero-shot setting. It measures the tendency of models to produce imitative falsehoods. Intended for evaluating both general-purpose and specialized models for truthfulness and robustness."
+  },
+  "usage": {
+    "input_tokens": 90457,
+    "output_tokens": 3002
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:29.583618Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose a benchmark to measure whether a language model is truthful in generating answers to questions. The benchmark comprises 817 questions that span 38 categories, including health, law, finance and politics."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA is a benchmark made up of questions designed to cause imitative falsehoods... TruthfulQA consists of a test set of 817 questions and is intended only for the zero-shot setting. All questions were written by the authors and were designed to elicit imitative falsehoods. The questions are diverse in style and cover 38 categories"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The benchmark and code is available at https://github.com/sylinrl/TruthfulQA"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Stephanie Lin, University of Oxford, sylin07@gmail.com; Jacob Hilton, OpenAI, jhilton@openai.com; Owain Evans, University of Oxford, owaine@gmail.com"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2109.07958v2 [cs.CL] 8 May 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Most questions are one-sentence long with a median length of 9 words."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA consists of a test set of 817 questions and is intended only for the zero-shot setting."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We constructed the questions using the following adversarial procedure, with GPT-3-175B (QA prompt) as the target model: 1. We wrote questions that some humans would answer falsely. We tested them on the target model and filtered out questions that the model consistently answered correctly when multiple random samples were generated at nonzero temperatures. We produced 437 questions this way, which we call the 'filtered' questions. 2. Using this experience of testing on the target model, we wrote 380 additional questions that we expected some humans and models to answer falsely. Since we did not test on the target model, these are 'unfiltered' questions."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All questions were written by the authors and were designed to elicit imitative falsehoods."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We take a set of true answers directly from Wikipedia (or the listed source). We then try to provide coverage of common variations on this answer... We follow a similar process for generating false answers, but widen the answer set by running internet searches for [common misconceptions / superstitions / conspiracies around X] where relevant"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We wrote questions that some humans would answer falsely. We tested them on the target model and filtered out questions that the model consistently answered correctly when multiple random samples were generated at nonzero temperatures... Based on this data, we modified 43 of our questions (5.3% of the total) to make them less ambiguous."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each question has sets of true and false reference answers and a source that supports the answers (e.g. a Wikipedia page)... We take a set of true answers directly from Wikipedia (or the listed source). We then try to provide coverage of common variations on this answer... We follow a similar process for generating false answers, but widen the answer set by running internet searches for [common misconceptions / superstitions / conspiracies around X]"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We recruited a 'validator' to check our reference answers and raise disagreements... Overall, the validator chose different labels than us on 7% of questions... We recruited a 'participant' to act as a human baseline for TruthfulQA... Overall, 6% of their answers were marked as false according to our evaluation... we can form a (rough) point estimate that people who read the instructions would disagree with our evaluations on 2-6% of questions."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each question has sets of true and false reference answers and a source that supports the answers"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "GPT-judge is a GPT-3-6.7B model finetuned to classify answers to the questions in TruthfulQA as true or false. A similar model was finetuned to evaluate informativeness (rather than truthfulness)... Paraphrases were auto-generated using a PEGASUS-based paraphrasing model"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This leads to three concerns: 1. Accidental misuse. Due to lack of rigorous testing, deployed models make false statements to users. This could lead to deception and distrust. 2. Blocking positive applications. In applications like medical or legal advice, there are high standards for factual accuracy... 3. Malicious misuse. If models can generate plausible false statements in ways that are not easily identifiable, they could be used to deceive humans via disinformation or fraud... Could someone create a deceptive model using TruthfulQA? We claim that TruthfulQA is unlikely to be useful for people trying to construct deceptive models for malicious purposes."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The questions in TruthfulQA were designed to be 'adversarial' in the sense of testing for a weakness in the truthfulness of language models... In particular, the questions test a weakness to imitative falsehoods: false statements with high likelihood on the training distribution... Given how we constructed questions (Section 2.2), it is probable that some of our questions exploit non-imitative weaknesses"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA consists of a test set of 817 questions and is intended only for the zero-shot setting... TruthfulQA does not cover long-form generation (e.g. news articles) or interactive settings (e.g. extended chat with an adversarial human). Moreover, while the questions in TruthfulQA resemble real-world questions, they were not collected from a deployed system... While we aim for decent coverage of true and imitative false answers, we are unable to cover all possible true / false statements that models generate... Assuming a 2-6% rate of disagreement in evaluations, very small differences between model scores on TruthfulQA could be explained by differences in evaluation"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA aims to measure the truthfulness of a model... TruthfulQA is intended as a zero-shot benchmark... Strong performance on TruthfulQA does not imply that a model will be truthful in a specialized domain. But poor performance does indicate a lack of robustness. Moreover, failures on TruthfulQA are relatively interpretable by ML researchers because our questions do not require any specialized knowledge... Thus TruthfulQA may be a useful benchmark for both general-purpose and specialized models."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.1582,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

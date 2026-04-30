@@ -1,0 +1,257 @@
+{
+  "dataset_id": "google_xtreme_s",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "XTREME-S",
+    "description": "A benchmark for evaluating multilingual speech representations across 102 languages, covering speech recognition, classification, speech-to-text translation, and retrieval, and including the new Fleurs dataset.",
+    "url": "https://hf.co/datasets/google/xtreme_s",
+    "license": "permissive license that allows the use and redistribution of the data for research purposes",
+    "creator": "Alexis Conneau, Ankur Bapna, Yu Zhang, Min Ma, Patrick von Platen, Anton Lozhkov, Colin Cherry, Ye Jia, Clara Rivera, Mihir Kale, Daan Van Esch, Vera Axelrod, Simran Khanuja, Jonathan H. Clark, Orhan Firat, Michael Auli, Sebastian Ruder, Jason Riesa, Melvin Johnson",
+    "publisher": "Hugging Face",
+    "datePublished": "2022-04-13",
+    "inLanguage": "en",
+    "citeAs": "Conneau, Alexis; Bapna, Ankur; Zhang, Yu; Ma, Min; von Platen, Patrick; Lozhkov, Anton; Cherry, Colin; Jia, Ye; Rivera, Clara; Kale, Mihir; Van Esch, Daan; Axelrod, Vera; Khanuja, Simran; Clark, Jonathan H.; Firat, Orhan; Auli, Michael; Ruder, Sebastian; Riesa, Jason; Johnson, Melvin. XTREME-S: Evaluating Cross-lingual Speech Representations. arXiv:2203.10752.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "XTREME-S combines several existing multilingual speech datasets and introduces Fleurs. For Fleurs-ASR, the authors used 2009 parallel sentences from the FLoRes dev and devtest sets in 102 languages, collected between one and three recordings per sentence, and created new train/dev/test splits. Minds-14 monolingual datasets were merged into a multilingual dataset.",
+    "rai:dataCollectionType": "Secondary Data analysis, Physical data collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "FLEURS is reported as more than 97% complete, with some missing recordings and some low-quality recordings that may be replaced in a later version.",
+    "rai:dataCollectionRawData": "The benchmark uses speech and text from FLoRes dev/devtest sentences for Fleurs, read audiobooks from LibriVox for MLS, European Parliament sessions for VoxPopuli, CoVoST-2 for speech translation, and spoken e-banking data for Minds-14.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The benchmark creates new train/dev/test splits for Fleurs, merges monolingual Minds-14 datasets into one multilingual dataset, augments retrieval candidate pools with 100k Wikipedia sentences, and groups languages/results by geographical areas.",
+    "rai:dataPreprocessingProtocol": "The authors provide scripts to reproduce preprocessing when needed, use official 10-hour MLS splits for few-shot evaluation, select the 14 VoxPopuli languages with more than 10 hours of ASR data, and create multilingual fine-tuning setups.",
+    "rai:dataAnnotationProtocol": "Speech recognition uses transcriptions, speech translation uses translations into English, language identification uses language labels from Fleurs splits, and Minds-14 uses 14 intent labels from spoken e-banking data.",
+    "rai:dataAnnotationPlatform": "HuggingFace platform",
+    "rai:dataAnnotationAnalysis": "For speech classification, the paper notes inherent variance and encourages reporting averages over 5 random seeds after hyperparameter tuning; for LangID, avoiding overfitting to speaker identity is emphasized.",
+    "rai:annotationsPerItem": "Between one and three recordings per sentence for Fleurs (2.3 on average)",
+    "rai:annotatorDemographics": "Speakers span 102 languages and are grouped geographically into Western Europe, Eastern Europe, Central-Asian/Middle-East/North-Africa, Sub-Saharan Africa, South Asia, South-Eastern Asia, and CJK languages; train speakers are different from dev/test speakers in Fleurs.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": "The dataset is hosted on Hugging Face; results and task support may be updated in future paper versions, additional test sets may be added, and FLEURS may receive a second version with fixes for missing or low-quality recordings.",
+    "rai:personalSensitiveInformation": "Language and geography; speaker identity is also discussed as a factor to avoid overfitting in LangID.",
+    "rai:dataSocialImpact": "The benchmark is motivated by making speech technology available in all languages, especially under-represented ones, to give speakers an equal voice on the Internet and help share their content and culture beyond their language cluster.",
+    "rai:dataBiases": "Performance is substantially better on Western European languages than on groups such as Sub-Saharan African and South Asian languages, partly due to larger amounts of unlabeled data in Western European languages.",
+    "rai:dataLimitations": "The benchmark does not evaluate nonlinguistic/paralinguistic speech aspects such as speech synthesis or voice conversion; FLEURS is not fully complete; speech classification tasks are prone to overfitting; and users are warned not to overfit because test sets are public.",
+    "rai:dataUseCases": "The benchmark is intended for evaluation of multilingual speech representation learning across ASR, speech translation, speech classification, and optional speech retrieval. It supports training, validation, and testing via train/dev/test splits and encourages multilingual fine-tuning and reproducible submissions using publicly available data."
+  },
+  "usage": {
+    "input_tokens": 33559,
+    "output_tokens": 3104
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:03:47.927476Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce XTREME-S, a new benchmark to evaluate universal cross-lingual speech representations in many languages."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "XTREME-S covers four task families: speech recognition, classification, speech-to-text translation and retrieval. Covering 102 languages from 10+ language families, 3 different domains and 4 task families, XTREME-S aims to simplify multilingual speech representation evaluation... It also includes a new general-purpose massively multilingual evaluation dataset dubbed Fleurs in all of the 102 languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Code and data publicly available at https://hf.co/datasets/google/xtreme_s ."
+      },
+      "license": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "XTREME-S: Evaluating Cross-lingual Speech Representations Alexis Conneau, Ankur Bapna, Yu Zhang, Min Ma, Patrick von Platen, Anton Lozhkov, Colin Cherry, Ye Jia, Clara Rivera, Mihir Kale, Daan Van Esch, Vera Axelrod, Simran Khanuja, Jonathan H. Clark, Orhan Firat, Michael Auli, Sebastian Ruder, Jason Riesa, Melvin Johnson"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Datasets and fine-tuning scripts are made easily accessible through the HuggingFace platform."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2203.10752v3 [cs.CL] 13 Apr 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Results on this task will be updated in the next version of the paper... Additional test sets may be added in the future... Updates will be made on our platform."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "XTREME-S benchmark groups several multilingual speech datasets... It also includes a new general-purpose massively multilingual evaluation dataset dubbed Fleurs in all of the 102 languages. We use 2009 n-way parallel sentences from the FLoRes dev and devtest publicly available sets, in 102 languages. We collect between one and three recordings for each sentence (2.3 on average), and build new train-dev-test splits with 1509, 150 and 350 sentences for train, dev and test respectively... We merge monolingual datasets into a single multilingual dataset, with a 30-20-50% train-dev-test split."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "XTREME-S benchmark groups several multilingual speech datasets... We use 2009 n-way parallel sentences from the FLoRes dev and devtest publicly available sets, in 102 languages. We collect between one and three recordings for each sentence (2.3 on average), and build new train-dev-test splits..."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FLEURS is a dataset that is complete at more than 97%. Some slight improvements and changes may be done in a 2nd version of the dataset (e.g. missing recordings, or replaced low-quality recordings)."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use 2009 n-way parallel sentences from the FLoRes dev and devtest publicly available sets... The Multilingual LibriSpeech (MLS) dataset is a large corpus derived from read audiobooks of Librivox... VoxPopuli is a multilingual speech dataset for semi-supervised learning... built from European Parliament session... CoVoST-2 is a large-scale multilingual speech translation corpus... MINDS-14 is an intent classification task from spoken data. It covers 14 intents extracted from the e-banking domain"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect between one and three recordings for each sentence (2.3 on average), and build new train-dev-test splits with 1509, 150 and 350 sentences for train, dev and test respectively... We merge monolingual datasets into a single multilingual dataset, with a 30-20-50% train-dev-test split... For each language, the pool of transcription candidates is augmented with 100k sentences from Wikipedia. Languages and results are also grouped into seven geographical areas"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When needed, we provide scripts to download and easily reproduce the preprocessing steps... The task consists of the official 10-hour splits provided by [6] to evaluate few-shot learning capabilities... We use the 14 languages with more than 10 hours of data from the ASR task. Models are fine-tuned on all 14 languages at once"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "VoxPopuli... includes speech transcriptions and translations... CoVoST-2 is a large-scale multilingual speech translation corpus covering translations from 21 languages into English... We use Fleurs as a LangID dataset by using the same train, dev and test splits as used for ASR... MINDS-14 is an intent classification task from spoken data. It covers 14 intents extracted from the e-banking domain"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Datasets and fine-tuning scripts are made easily accessible through the HuggingFace platform."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "For speech classification, we include LangID and intent classification. After hyperparameter tuning, we encourage reporting the average result over 5 random seeds... we build a multilingual training set from Minds14 to reduce its inherent variance... Avoiding overfitting on speaker ID for the LangID task is essential for obtaining good performance."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "We collect between one and three recordings for each sentence (2.3 on average)"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Languages and results are also grouped into seven geographical areas: Western Europe (WE), Eastern Europe (EE), Central-Asian/Middle-East/North-Africa (CMN), Sub-Saharan Africa (SSA), South Asia (SA), South-Eastern Asia (SEA) and CJK languages (CJK)... Speakers of the train sets are different than speakers from the dev/test sets."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Results on this task will be updated in the next version of the paper... Additional test sets may be added in the future... More details will be added on the XTREME-S Dataset card... Some slight improvements and changes may be done in a 2nd version of the dataset (e.g. missing recordings, or replaced low-quality recordings). Updates will be made on our platform."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Covering 102 languages from 10+ language families... Languages and results are also grouped into seven geographical areas... Avoiding overfitting on speaker ID for the LangID task is essential for obtaining good performance."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Making speech technology available in all languages is especially important to give speakers of under-represented languages an equal voice on the Internet, and the possibility to make their content and culture known outside of their language cluster."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We observe in Table 4 that results are much better on the Western European group (with 11.5 average WER) than on other groups like Sub-Saharan African (26.7 average WER) or South Asian (20.7), which can be explained in part due to the larger amounts of unlabeled data in WE languages from MLS and VoxPopuli."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We note that the tasks are focused particularly on linguistic aspects of speech, while nonlinguistic/paralinguistic aspects of speech relevant to e.g. speech synthesis or voice conversion are not evaluated... FLEURS is a dataset that is complete at more than 97%... speech classification tasks are prone to overfitting... Test sets are available in open-source and are not hidden to the public... We ask users to be extra careful in this process not to inadvertently overfit on the test set."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "XTREME-S is a benchmark for evaluating multilingual speech representation learning. It covers 4 task families... We collect between one and three recordings for each sentence (2.3 on average), and build new train-dev-test splits... We use multilingual fine-tuning... We encourage submissions that leverage publicly available speech and text datasets. Users should detail which data they use."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 22,
+      "fields_uncertain": 5,
+      "evidence_count": 24,
+      "evidence_coverage": 88.9,
+      "avg_confidence": 0.85
+    },
+    "cost_usd": 0.073,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "elapsed_seconds": 37.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

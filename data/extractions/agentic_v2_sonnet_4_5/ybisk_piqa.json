@@ -1,0 +1,258 @@
+{
+  "dataset_id": "ybisk_piqa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "PIQA: Physical Interaction Question Answering",
+    "description": "A benchmark dataset for evaluating physical commonsense reasoning in natural language understanding systems. The dataset consists of multiple choice questions requiring physical commonsense knowledge, with goals expressed in natural language and two possible solutions where exactly one is correct.",
+    "url": "http://yonatanbisk.com/piqa",
+    "license": "unknown",
+    "creator": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, Yejin Choi",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected through crowdsourced annotations using instructables.com as inspiration. Annotators were prompted with links to instructables and asked to construct goal-solution pairs, including a valid solution and an invalid trick solution that sounds reasonable but is wrong.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Instructables.com was used as the source of inspiration for data collection. Instructables is a crowdsourced collection of instructions for various tasks from cooking to car repair, with users providing images or videos detailing each step and lists of required tools.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Examples with low agreement during validation were removed from the data, particularly those requiring expert level knowledge. The AFLite algorithm was used to remove stylistic artifacts and trivial examples. Text was tokenized by Spacy and truncated at 150 tokens which affects 1% of the data.",
+    "rai:dataAnnotationProtocol": "Annotators were prompted with instructables and asked to create goal-solution pairs. They provided: 1) a physical goal, 2) a valid solution, and 3) a trick (invalid solution). The trick should sound reasonable but be wrong, often due to subtle misunderstandings. Annotators used both simple linguistic tricks (negation, numerical changes) and swapped key actions or items for topically similar but unhelpful alternatives. A diff button was included in the interface to highlight differences between solutions.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Data was collected in batches of several thousand triples and validated by other annotators for correctness. Users with low agreement were disqualified. A qualification HIT containing well-constructed and underspecified goal-solution pairs was used, and annotators had to successfully identify well-formed pairs (>80%) to participate in the main HIT.",
+    "rai:annotationsPerItem": "Multiple annotators validated each item for correctness during the validation phase",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "AFLite algorithm, BERT-Large (for artifact detection), Spacy (for tokenization)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset aims to advance physical commonsense understanding in AI systems, which is critical for robots that interact with the world and understand natural language. The work positions that learning about the world from language alone is limiting, and knowledge should be learned from interaction with the world to eventually be communicated with language.",
+    "rai:dataBiases": "The dataset was specifically designed to avoid reporting bias and prototypical solutions. Initial experiments with unconstrained prompts showed that reporting bias led annotators to focus on prototypical solutions and common tools. The AFLite algorithm was used to systematically reduce data biases and remove stylistic artifacts.",
+    "rai:dataLimitations": "The dataset focuses on physical commonsense that can be expressed in language, but due to reporting bias, many commonsense properties are rarely directly reported. Some correct examples requiring expert level domain knowledge were removed during validation. The dataset may not capture all dimensions of physical understanding. Future research may match human performance by finding large sources of in-domain data and fine-tuning heavily, but this misses the philosophical point that knowledge should be learned from interaction with the world.",
+    "rai:dataUseCases": "The dataset is designed for training and evaluating natural language understanding models on physical commonsense reasoning. It serves as a benchmark for progress towards language representations that capture knowledge traditionally only seen or experienced. The dataset can be used as a diagnostic tool to probe the inner workings of deep pretrained language models and determine the extent of their physical knowledge. It aims to enable construction of language models useful beyond the NLP community, particularly for robotics and embodied AI applications."
+  },
+  "usage": {
+    "input_tokens": 20171,
+    "output_tokens": 3193
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:30.562596Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce the task of physical commonsense reasoning and a corresponding benchmark dataset Physical Interaction: Question Answering or PIQA."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The underlying task is multiple choice question answering: given a question q and two possible solutions s1, s2, a model or a human must choose the most appropriate solution, of which exactly one is correct."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "http://yonatanbisk.com/piqa"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yonatan Bisk1;2;3;4 Rowan Zellers1;4 Ronan Le Bras1 Jianfeng Gao2 Yejin Choi1;4"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Allen Institute for Artificial Intelligence"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1911.11641v1 [cs.CL] 26 Nov 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "all data was collected in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked annotators to provide semantic perturbations or alternative approaches which are otherwise syntactically and topically similar to ensure physical knowledge is targeted... Using these examples as the seed for their annotation, helps remind annotators about the less prototypical uses of everyday objects... annotators were asked to glance at the instructions of an instructable and pull out or have it inspire them to construct two component tasks. They would then articulate the goal (often centered on atypical materials) and how to achieve it. In addition, we asked them to provide a permutation to their own solution which makes it invalid, often subtly."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked annotators to provide semantic perturbations or alternative approaches which are otherwise syntactically and topically similar to ensure physical knowledge is targeted... annotators were asked to glance at the instructions of an instructable and pull out or have it inspire them to construct two component tasks."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is inspired by instructables.com, which provides users with instructions on how to build, craft, bake, or manipulate objects using everyday materials... The instructables website is a crowdsourced collection of instructions for doing everything from cooking to car repair. In most cases, users provide images or videos detailing each step and a list of tools that will be required."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During validation, examples with low agreement were removed from the data. This often meant that correct examples were removed that required expert level knowledge of a domain (e.g. special woodworking terminology) which should not fall under the umbrella of 'commonsense.'... The dataset is further cleaned of basic artifacts using the AFLite algorithm introduced in (Sakaguchi et al. 2020; Sap et al. 2019) which is an improvement on adversarial filtering... we used the transformers library and truncated examples at 150 tokens, which affects 1% of the data."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "annotators were asked to glance at the instructions of an instructable and pull out or have it inspire them to construct two component tasks. They would then articulate the goal (often centered on atypical materials) and how to achieve it. In addition, we asked them to provide a permutation to their own solution which makes it invalid, often subtly... We asked that two examples be drawn per instructable to encourage one of them to come later in the process and require precise articulation of pre-conditions... annotators used both simple linguistic tricks (e.g. negation and numerical changes) and often swapped a key action or item for another that was topically similar but not helpful for completing the given goal. For this reason, our interface also includes a diff button which highlights where the solutions differ."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotator pay averaged >15$/hr according to both self-reporting on turkerview.com and our timing calculations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data was collected in batches of several thousand triples and validated by other annotators for correctness. Users will low agreement were de-qualed... In addition to this design, we also include a qualification HIT which contained well constructed and underspecified (goal, solution) pairs. Annotators had to successfully (>80%) identify which were well formed to participate in the main HIT."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data was collected in batches of several thousand triples and validated by other annotators for correctness."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is further cleaned of basic artifacts using the AFLite algorithm introduced in (Sakaguchi et al. 2020; Sap et al. 2019)... In practice, we use 5,000 examples from the original dataset to fine-tune BERT-Large for this task and compute the corresponding embeddings of all remaining instances... all data was collected in English. – https://spacy.io"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Likewise, we hypothesize that modeling physical commonsense knowledge is a major challenge on the road to true AI completeness, including robots that interact with the world and understand natural language... Philosophically, knowledge should be learned from interaction with the world to eventually be communicated with language."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We initially experimented with asking annotators for (task, tool) pairs via unconstrained prompts, but found that reporting bias swamped the dataset. In particular, when thinking about how to achieve a goal, people most often are drawn to prototypical solutions and look for tools in the kitchen (e.g. forks and knives) or the garage (e.g. hammers and drills)... The AFLite algorithm performs a systematic data bias reduction: it discards instances whose given feature representations are collectively highly indicative of the target label."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Much of physical commonsense can be expressed in language, as the versatility of everyday objects and common concepts eludes other label schemes. However, due to issues of reporting bias, these commonsense properties - facts like 'it is a bad idea to apply eyeshadow with a toothpick' are rarely directly reported... During validation, examples with low agreement were removed from the data. This often meant that correct examples were removed that required expert level knowledge of a domain (e.g. special woodworking terminology) which should not fall under the umbrella of 'commonsense.'... Future research, may 'match' humans on our dataset by finding a large source of in-domain data and fine-tuning heavily, but this is very much not the point."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our goal with PIQA is to provide insight and a benchmark for progress towards language representations that capture knowledge traditionally only seen or experienced, to enable the construction of language models useful beyond the NLP community... The setup of PIQA allows us to use it to probe the inner workings of deep pretrained language models, and to determine the extent of their physical knowledge... Key to our research aims in this work is helping to build language tools which capture enough physical knowledge to speed up the bootstrapping of robotic-language applications."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.932
+    },
+    "cost_usd": 0.0542,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

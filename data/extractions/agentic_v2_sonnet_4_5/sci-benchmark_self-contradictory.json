@@ -1,0 +1,258 @@
+{
+  "dataset_id": "sci-benchmark_self-contradictory",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Self-Contradictory Instructions (SCI)",
+    "description": "A multimodal benchmark comprising 20,000 conflicts evenly distributed between language and vision paradigms to evaluate the capability of Large Multimodal Models (LMMs) in recognizing self-contradictory instructions. It includes 10,000 language-language (L-L) and 10,000 vision-language (V-L) paradigms, each with 4 tasks.",
+    "url": "https://sci-jingao.pages.dev",
+    "license": "MIT",
+    "creator": "Jin Gao, Lei Gan, Yuankai Li, Yixin Ye, and Dequan Wang from Shanghai Jiao Tong University, Fudan University, and Shanghai Artificial Intelligence Laboratory",
+    "publisher": null,
+    "datePublished": "2024-08-05",
+    "inLanguage": "en",
+    "citeAs": "Jin Gao, Lei Gan, Yuankai Li, Yixin Ye, and Dequan Wang. Dissecting Dissonance: Benchmarking Large Multimodal Models Against Self-Contradictory Instructions. arXiv:2408.01091v2 [cs.AI], 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset is constructed using an automatic dataset creation framework called AutoCreate, which leverages programs and large language models. The framework starts from several task-relevant seeds and maintains a seed pool. During each cycle, AutoCreate includes two branches (language and vision), each consisting of a generator and a decorator. A cleaner excludes data that does not meet standards, and data is fed into the seed pool for the next round after quality check by human experts.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "For SemanticConflict, the generation process is based on the ImageNet dataset. For other tasks, raw data is generated from manually input seeds and expanded through the AutoCreate framework using Large Language Models.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For FigureConflict, numerical data is manipulated by changing the maximum value to the minimum value. For SemanticConflict, correct labels in questions are substituted with similar but different objects. For AttributeConflict, opposite descriptions are generated to contradict original attribute descriptions.",
+    "rai:dataPreprocessingProtocol": "The Cleaner component in AutoCreate removes data that does not meet quality standards. Both human experts and LLMs are involved in double-checking the quality of the generated dataset. Human experts rigorously checked the quality of the AutoCreate-generated dataset.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Large Language Models (LLMs) are used for automatic dataset generation through the AutoCreate framework. GPT-4 is used as an evaluation agent to assess whether replies successfully identify conflicts.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The work provides researchers and practitioners with a standardized platform to assess and enhance LMMs' ability to navigate conflicting instructions, advancing human-computer interaction and communication technologies. The AutoCreate framework facilitates the creation of diverse instruction datasets, promoting inclusivity in AI research. By improving dissonance detection, the approach boosts LMM performance and fosters trust and reliability in AI systems, essential for societal integration.",
+    "rai:dataBiases": "The paper acknowledges that different tasks vary in difficulty. Specifically, ExclusionConflict is more challenging to most LMMs, showing LMMs' inability to understand the exclusion of two instructions. RuleConflict and AttributeConflict are relatively easier for LMMs due to their powerful information retrieval ability. LMMs' performances vary on ForbbidenConflict, with GPT-4 achieving a hit ratio of 98.4% while ChatGPT only achieves 4.5%, which might be due to differences in their training data. For vision-language conflicts, OCRConflict and SemanticConflict are relatively easy for GPT-4V and Gemini, while FigureConflict and GeometricConflict exhibit the greatest difficulty, demonstrating that current LLMs still struggle with interpreting figures and performing spatial reasoning tasks.",
+    "rai:dataLimitations": "The benchmark only includes language-language and vision-language paradigms, with more modalities to be included in future work. No fine-grained control is introduced to determine the conflict degree. The study does not provide a detailed analysis of the attention mechanism of large multimodal models when confronted with conflict instructions.",
+    "rai:dataUseCases": "The dataset is designed for evaluating and testing the capability of Large Multimodal Models (LMMs) to detect self-contradictory instructions. It can be used to assess model performance in recognizing conflicting commands across language-language and vision-language paradigms."
+  },
+  "usage": {
+    "input_tokens": 23096,
+    "output_tokens": 2698
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:27.201059Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce the Self-Contradictory Instructions benchmark to evaluate the capability of LMMs in recognizing conflicting commands."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It comprises 20,000 conflicts, evenly distributed between language and vision paradigms... SCI comprises 10,000 language-language (L-L) and 10,000 vision-language (V-L) paradigms, each with 4 tasks."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Website: https://sci-jingao.pages.dev Dataset: https://huggingface.co/datasets/sci-benchmark/self-contradictory"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jin Gao1, Lei Gan2⋆, Yuankai Li2⋆, Yixin Ye1, and Dequan Wang1,3† 1Shanghai Jiao Tong University 2Fudan University 3Shanghai Artificial Intelligence Laboratory"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2408.01091v2 [cs.AI] 5 Aug 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose AutoCreate, an automatic dataset creation framework that leverages programs and large language models. AutoCreate starts from several task-relevant seeds and maintains a seed pool. During each cycle, AutoCreate includes two branches, the language (left) and the vision (right). Each branch consists of a generator and a decorator. Finally, the cleaner will exclude data that does not meet the standards. The data will be fed into the seed pool for the next round after a quality check by human experts."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "AutoCreate requires a small batch of manually input seeds to automatically generate a large quantity of high-quality, diverse data by Large Language Models (LLMs)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The generation process of SemanticConflict is based on the ImageNet dataset [10]. First, we generate some questions about a label and retrieve images according to that label in the ImageNet dataset."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Third, the numerical data is manipulated by changing the maximum value to the minimum value... Second, we substitute the correct label in the questions with some similar but different objects... third, generate an opposite description to contradict the original for each attribute."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, the cleaner will exclude data that does not meet the standards... Both human experts and LLMs are involved in double-checking the quality of the generated dataset... Finally, human experts have rigorously checked the quality of the AutoCreate-generated dataset, SCI."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "AutoCreate requires a small batch of manually input seeds to automatically generate a large quantity of high-quality, diverse data by Large Language Models (LLMs)... Employing LLMs as an evaluation agent offers a more efficient and cost-effective alternative... These replies were then evaluated by both human experts and GPT-4 [32]."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It provides researchers and practitioners with a standardized platform to assess and enhance LMMs' ability to navigate conflicting instructions, advancing human-computer interaction and communication technologies. The AutoCreate framework facilitates the creation of diverse instruction datasets, promoting inclusivity in AI research. Additionally, the CaP approach integrates external cognition into multimodal models, enhancing context-aware understanding. By improving dissonance detection, our approach boosts LMM performance and fosters trust and reliability in AI systems, essential for societal integration."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To begin with, we only include language-language and vision-language paradigms. More modalities will be included in our SCI benchmark based on our automatic framework, AutoCreate. Besides, no fine-grained control is introduced to determine the conflict degree. Finally, we do not provide a detailed study on the attention mechanism of large multimodal models when confronted with conflict instructions."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce the Self-Contradictory Instructions benchmark to evaluate the capability of LMMs in recognizing conflicting commands... This benchmark aims to evaluate Large Multimodal Models (LMMs) regarding their ability to detect conflicting commands."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 18,
+      "fields_uncertain": 1,
+      "evidence_count": 14,
+      "evidence_coverage": 73.7,
+      "avg_confidence": 0.882
+    },
+    "cost_usd": 0.0549,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

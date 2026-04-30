@@ -1,0 +1,279 @@
+{
+  "dataset_id": "lmms-lab_POPE",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "POPE",
+    "description": "POPE (Polling-based Object Probing Evaluation) is a method for evaluating object hallucination in large vision-language models by converting the evaluation into a binary classification task using simple Yes-or-No questions about probing objects in images.",
+    "url": "https://huggingface.co/datasets/lmms-lab/POPE",
+    "license": null,
+    "creator": "Yifan Li, Yifan Du, Kun Zhou, Jinpeng Wang, Wayne Xin Zhao, Ji-Rong Wen",
+    "publisher": "Renmin University of China",
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The evaluation dataset was constructed by randomly sampling 2,000 images with annotations about contained objects and human-labeled captions from the MSCOCO validation set. Objects were obtained either from annotations or from automatic segmentation tools like SEEM. The dataset construction involved creating polling questions with a 1:1 ratio between ground-truth and nonexistent objects for label balance.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "MSCOCO validation set, which is a large-scale image recognition, segmentation, and captioning dataset. The raw data consists of images with annotations about contained objects and human-labeled captions. For computing the CHAIR metric, only 80 objects appearing in the MSCOCO segmentation challenge were considered.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LLMs were used to generate synthetic visual instructions",
+    "rai:dataBiases": "The visual instruction datasets are mostly constructed based on MSCOCO and share a similar unbalanced object distribution where top frequent objects occupy a major part of the dataset. LVLMs are prone to hallucinate frequently appearing objects and objects that frequently co-occur with ground-truth objects in the image.",
+    "rai:dataLimitations": "The study focuses on coarse-grained object hallucinations in model-generated captions and leaves fine-grained object hallucinations such as the number, attributes, and positions of objects for future work. The CHAIR metric shows instability when different instructions are employed and requires complex human-crafted parsing rules that may not be adapted to the special generation styles of LVLMs.",
+    "rai:dataSocialImpact": "The hallucination phenomenon hinders the safe use of LVLMs in real-world deployment and may result in unexpected consequences. For example, in autonomous driving systems, incorrect understanding of the external environment could lead to wrong decisions and serious safety issues.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is used for evaluating object hallucination in LVLMs through image captioning tasks and visual question answering. The POPE method converts hallucination evaluation into a binary classification task by prompting LVLMs with simple Yes-or-No questions about probing objects.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": null
+  },
+  "usage": {
+    "input_tokens": 23641,
+    "output_tokens": 2216
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:38.484263Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We further design a polling-based query method called POPE for better evaluation of object hallucination."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The basic idea is to convert the evaluation of hallucination into a binary classification task by prompting LVLMs with simple Yes-or-No short questions about the probing objects (e.g., Is there a car in the image?)."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yifan Li1,3∗, Yifan Du1,3∗, Kun Zhou2∗, Jinpeng Wang4, Wayne Xin Zhao2,3†and Ji-Rong Wen1, 2,3"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Gaoling School of Artificial Intelligence, Renmin University of China 2School of Information, Renmin University of China."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2305.10355v3 [cs.CV] 26 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper is written in English and evaluates English language models with English questions like 'Is there a car in the image?'"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We conduct the evaluation experiments on several representative LVLMs on the MSCOCO dataset."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Here, we randomly sample 2,000 images with annotations about contained objects and human-labeled captions from its validation set as our evaluation dataset... oi can be obtained either from annotations or the results of automatic segmentation tools like SEEM (Zou et al., 2023). We set the ratio between ground-truth and nonexistent objects as 1:1 for label balance."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Here, we randomly sample 2,000 images with annotations about contained objects and human-labeled captions from its validation set as our evaluation dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MSCOCO (Lin et al., 2014) is a large-scale image recognition, segmentation, and captioning dataset... For computing the CHAIR metric on MSCOCO, we follow the settings in Rohrbach et al. (2018) which only considers 80 objects appearing in the MSCOCO segmentation challenge."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "other LVLMs mostly employ the visual instructions generated by unimodal LLMs (Liu et al., 2023). Such synthetic visual instructions are generally longer and more informative, but may involve unexpected descriptive information (hallucination inherent from LLMs) that is inconsistent with the image"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As the visual instruction datasets of these LVLMs are mostly constructed based on MSCOCO (Lin et al., 2014), they generally share a similar unbalanced object distribution where top frequent objects occupy a major part of the dataset. After being fine-tuned on them, LVLMs may also be prone to generate (or hallucinate) frequently appearing objects in MSCOCO."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this work, we focus on coarse-grained object hallucinations in the model-generated captions and leave fine-grained object hallucinations such as the number, attributes, and positions of the object for future work... It indicates the instability of the CHAIR metric when different instructions are employed... it needs complex human-crafted parsing rules to perform exact matching, which has not been adapted to the special generation styles of LVLMs and may lead to misclassification errors."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The hallucination phenomenon hinders the safe use of LVLMs in real-world deployment, as it may result in unexpected consequences caused by these hallucinated objects (MacLeod et al., 2017). For example, due to an incorrect understanding of the extemal environment, an autonomous driving system would make wrong decisions when encountering unexpected events, which might lead to serious safety issues."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The basic idea is to convert the evaluation of hallucination into a binary classification task by prompting LVLMs with simple Yes-or-No short questions about the probing objects (e.g., Is there a car in the image?)... We conduct the evaluation experiments on several representative LVLMs"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 16,
+      "fields_null": 14,
+      "fields_verified": 16,
+      "evidence_count": 15,
+      "evidence_coverage": 93.8,
+      "avg_confidence": 0.934
+    },
+    "cost_usd": 0.0521,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11652,
+        "tokens_in": 3801,
+        "tokens_out": 580
+      },
+      "collection": {
+        "section_chars": 9184,
+        "tokens_in": 3324,
+        "tokens_out": 490
+      },
+      "annotation": {
+        "section_chars": 18017,
+        "tokens_in": 5532,
+        "tokens_out": 263
+      },
+      "impact": {
+        "section_chars": 18017,
+        "tokens_in": 5585,
+        "tokens_out": 778
+      },
+      "processing": {
+        "section_chars": 18017,
+        "tokens_in": 5399,
+        "tokens_out": 105
+      }
+    },
+    "enrichments": [
+      "url"
+    ]
+  }
+}

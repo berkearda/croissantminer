@@ -1,0 +1,278 @@
+{
+  "dataset_id": "SWE-bench_SWE-bench_Verified",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "An evaluation framework of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase and an issue description, a language model must edit the codebase to resolve the issue, with solutions evaluated against real tests.",
+    "url": "https://swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez; John Yang; Alexander Wettig; Shunyu Yao; Kexin Pei; Ofir Press; Karthik Narasimhan",
+    "publisher": "ICLR 2024",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was constructed through a 3-stage pipeline: scraping pull requests from selected GitHub repositories via the GitHub developer API, converting merged PRs that resolve issues and add tests into candidate task instances, and validating them by executing the codebase and tests before and after applying the solution patch; invalid candidates were discarded.",
+    "rai:dataCollectionType": "Web API",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data consisted of pull requests from open-source GitHub repositories corresponding to top PyPI packages, including PR metadata and content such as titles, bodies, commit messages, linked issues, code changes, test patches, gold patches, comments, and base commits used to reconstruct the codebase state.",
+    "rai:dataCollectionTimeframe": "August 2023 for selecting the source PyPI packages; PR-based task instances use each PR's creation timestamp and comments written before the PR's initial commit timestamp.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Repository selection is filtered by popularity, but the authors state this does not rely on discriminatory or biased heuristics.",
+    "rai:dataLimitations": "The benchmark currently covers only Python task instances, and execution-based code testing alone is not sufficient to guarantee reliable model performance; generated code may be less comprehensive, efficient, or readable than human-written solutions.",
+    "rai:dataSocialImpact": "The dataset may support research on safe and robust AI-driven software engineering, with implications for AI safety, alignment, and ensuring AI-generated code follows human intent.",
+    "rai:personalSensitiveInformation": "No personal information about GitHub users is collected; the dataset uses only public repository/API data and involves no human subjects.",
+    "rai:dataUseCases": "Use as a benchmark/testbed for evaluating models on realistic software engineering tasks and for designing safe, robust AI-driven software engineering methods; documentation will describe each component and its use.",
+    "rai:dataReleaseMaintenancePlan": "The authors plan to open source the task instances, collection/evaluation infrastructure, experimental results, fine-tuning training data, and model weights, provide documentation, and maintain communication channels for feedback to improve SWE-bench.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Dataset instances were filtered and sampled: PRs were selected only if merged, linked to issues, and introduced new tests; candidates failing execution-based validation were discarded; a 300-instance Lite subset was sampled to be more self-contained and focused on functional bug fixes.",
+    "rai:dataPreprocessingProtocol": "Repositories and pull requests were scraped from top PyPI packages and converted into ML-ready task instances by identifying eligible repositories, collecting PRs via the GitHub API, extracting linked issues from PR title/body/commits, aggregating issue text and pre-PR comments into problem statements, separating PR code changes into test and gold patches, creating repository mirrors and checking out base commits, and storing finalized task instances in a single JSON file with cached test-result structures."
+  },
+  "usage": {
+    "input_tokens": 19010,
+    "output_tokens": 2307
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:45:07.477898Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To this end, we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data, code, and leaderboard at swebench.com"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Carlos E. Jimenez* 1,2John Yang* 1,2Alexander Wettig1,2 Shunyu Yao1,2Kexin Pei3Ofir Press1,2Karthik Narasimhan1,2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench is a benchmark featuring GitHub issues from popular repositories that report bugs or request new features"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the ability to continuously update the benchmark with new instances, requiring minimal human intervention"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we use a 3-stage pipeline as follows.”; “collect all PRs for these repositories via the GitHub developer API.”; “We construct candidate task instances from PRs that satisfy three conditions.”; “We verify the usability of a task instance via execution.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“collect all PRs for these repositories via the GitHub developer API”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From a list of the top 5,000 most downloaded PyPI libraries during August 2023, we select the top 100 packages, identify each library’s corresponding open-source GitHub repository... and collect all PRs for these repositories via the GitHub developer API.”; “We scan a PR’s title, body, and commit messages for linked issues”; “The problem statement P is an aggregate of all related issues’ titles and descriptions along with any subsequent comments”; “A PR’s code changes are separated into a test patch and a gold patch δ.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From a list of the top 5,000 most downloaded PyPI libraries during August 2023” and “created at (date) Datetime object of when PR was first created (not merged)” and “comments written before the timestamp of the PR’s initial commit”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench’s filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench task instances are all in Python; we hope to apply SWE-bench’s task instance collection procedure to expand its coverage to more programming languages and domains. Lastly, while this work evaluates models using execution-based code testing, relying solely on this method is insufficient to guarantee reliable performance of model generations, as we find automated code generations from LMs can frequently be less comprehensive, efficient, or readable compared to human-written solutions."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a potential future of machine-automated software engineering raises many important questions and has important potential ramifications with regards to AI Safety... we hope SWE-bench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During the collection or evaluation processes, we do not collect information about GitHub users... Our contributions do not involve any human subject participation"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we hope SWE-bench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering. Following best practice precedents, we will also put forth ample documentation to describe each component and its use"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the dataset release, we plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, the experimental results, the training data used for fine-tuning SWE-Llama models, and the SWE-Llama model weights. Following best practice precedents, we will also put forth ample documentation to describe each component and its use, and we will also put in place convenient communication channels for soliciting feedback to improve SWE-bench."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We construct candidate task instances from PRs that satisfy three conditions. First, the PR’s status must be Merged... Second, the PR resolves one or more issues... Third, the PR must introduce one or more new tests.”; “A candidate is removed from consideration for the final dataset if any step in the verification process fails.”; “we create a Lite subset of 300 instances from SWE-bench that have been sampled to be more self-contained, with a focus on evaluating functional bug fixes.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we select the top 100 packages, identify each library’s corresponding open-source GitHub repository, verify which packages have licenses allowing for free software use, and collect all PRs for these repositories via the GitHub developer API.”; “We scan a PR’s title, body, and commit messages for linked issues”; “The problem statement P is an aggregate of all related issues’ titles and descriptions along with any subsequent comments written before the timestamp of the PR’s initial commit”; “A PR’s code changes are separated into a test patch and a gold patch δ.”; “We save all finalized task instances to a single .json file”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 20,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0468,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 32430,
+        "tokens_in": 8385,
+        "tokens_out": 526
+      },
+      "collection": {
+        "section_chars": 12682,
+        "tokens_in": 3334,
+        "tokens_out": 516
+      },
+      "annotation": {
+        "section_chars": 7940,
+        "tokens_in": 2267,
+        "tokens_out": 147
+      },
+      "impact": {
+        "section_chars": 3651,
+        "tokens_in": 1137,
+        "tokens_out": 669
+      },
+      "processing": {
+        "section_chars": 14914,
+        "tokens_in": 3887,
+        "tokens_out": 449
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 35.0
+  }
+}

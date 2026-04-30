@@ -1,0 +1,279 @@
+{
+  "dataset_id": "truthfulqa_truthful_qa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "TruthfulQA",
+    "description": "A benchmark to measure whether language models are truthful in generating answers to questions. It comprises 817 questions spanning 38 categories including health, law, finance and politics, designed to test whether models avoid generating false answers learned from imitating human texts.",
+    "url": "https://github.com/sylinrl/TruthfulQA",
+    "license": "Apache-2.0",
+    "creator": "Stephanie Lin, Jacob Hilton, Owain Evans",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "TruthfulQA consists of 817 questions written by the authors using an adversarial procedure. Questions were designed to elicit imitative falsehoods from language models. The construction involved two approaches: (1) 437 'filtered' questions were written to target answers some humans would give falsely, then tested on GPT-3-175B and filtered to keep only those the model answered incorrectly at nonzero temperatures; (2) 380 'unfiltered' questions were written based on experience with the target model but without direct testing. Each question includes sets of true and false reference answers and a source supporting the answers (e.g., Wikipedia page). Questions span 38 categories and are diverse in style with a median length of 9 words.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of questions crafted by the authors to target common human misconceptions and false beliefs across 38 categories including health, law, finance, politics, conspiracies, and fiction. Reference answers (both true and false) were written by authors and supported by publicly available sources such as Wikipedia pages.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human evaluators assigned qualitative labels to model-generated answers using a structured protocol with 13 truth labels and 11 informativeness labels. Evaluators were blinded to model names, consulted reliable sources for verification (~80% of answers matched reference answers with sources), and used a fixed mapping from qualitative labels to numerical scores. A participant answered 250 questions as a human baseline, and a validator checked 100 randomly sampled reference answers.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Two external researchers performed validation: a validator checked 100 randomly sampled questions and disagreed on 7% of questions; a participant answered 250 questions with 6% marked as false. The authors estimate 2-6% disagreement rate with their evaluations. 43 questions (5.3%) were modified based on validation feedback to reduce ambiguity.",
+    "rai:annotationsPerItem": "Single annotation per item for human evaluation of model-generated answers. For GPT-judge training, reference answers were labeled once by authors, and model-generated answers received one human evaluation label.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-judge: a GPT-3-6.7B model finetuned to classify answers as true or false, trained on 6.9k reference answers and 15.5k human-evaluated model answers. A similar model was finetuned to evaluate informativeness. Also compared to ROUGE1, BLEURT, and GPT-3-Sim (a GPT-3-6.7B model finetuned to predict semantic equivalence).",
+    "rai:dataBiases": "The benchmark is designed to test whether models generate false answers learned from imitating human texts. Questions were crafted that some humans would answer falsely due to false beliefs or misconceptions. Models generated many false answers that mimic popular misconceptions.",
+    "rai:dataLimitations": "The benchmark comprises 817 questions spanning 38 categories. Human evaluation shows 6-7% disagreement with reference answers, though this may be inflated by evaluator mistakes. The evaluation uses scalar truth scores thresholded at 0.5 for binary classification, which discards some granularity but helps with consistency.",
+    "rai:dataSocialImpact": "Models generated false answers that have the potential to deceive humans, particularly mimicking popular misconceptions. The benchmark tests models on questions spanning sensitive domains including health, law, finance and politics.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The benchmark is designed for testing and evaluating language models for truthfulness in question answering. It includes both a generation task and evaluation metrics. The training set for the automated GPT-judge metric includes examples from the benchmark questions with true/false reference answers and model-generated answers with human evaluation labels.",
+    "rai:dataReleaseMaintenancePlan": "The benchmark has been evaluated on newer language models released after initial publication by external researchers, including InstructGPT, WebGPT, Anthropic Assistant, and Gopher models.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were constructed in two phases: (1) 437 'filtered' questions were written and tested on GPT-3-175B to ensure they would elicit false answers, and (2) 380 'unfiltered' questions were written based on experience from testing but without direct testing on the target model. Reference answers were augmented by running internet searches for common misconceptions, superstitions, and conspiracies to widen the false answer set.",
+    "rai:dataPreprocessingProtocol": "Questions span 38 categories and were designed to cause imitative falsehoods. Reference answers were constructed from Wikipedia and reliable sources, with true answers providing coverage of common variations and false answers covering common misconceptions. Answers were generated using greedy decoding (temperature set to zero) with default parameters from OpenAI API or HuggingFace API. Human evaluation used a structured protocol with 13 qualitative labels mapped to truth scores, with verification by consulting reliable sources for approximately 80% of answers."
+  },
+  "usage": {
+    "input_tokens": 62335,
+    "output_tokens": 3682
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:57.279509Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose a benchmark to measure whether a language model is truthful in generating answers to questions. The benchmark comprises 817 questions that span 38 categories, including health, law, finance and politics."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose a benchmark to measure whether a language model is truthful in generating answers to questions. The benchmark comprises 817 questions that span 38 categories, including health, law, finance and politics. We crafted questions that some humans would answer falsely due to a false belief or misconception."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The benchmark and code is available at https://github.com/sylinrl/TruthfulQA"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Stephanie Lin, University of Oxford, sylin07@gmail.com; Jacob Hilton, OpenAI, jhilton@openai.com; Owain Evans, University of Oxford, owaine@gmail.com"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2109.07958v2 [cs.CL] 8 May 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The questions in TruthfulQA were designed to be 'adversarial' in the sense of testing for a weakness in the truthfulness of language models"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA consists of a test set of 817 questions and is intended only for the zero-shot setting."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA consists of a test set of 817 questions... All questions were written by the authors and were designed to elicit imitative falsehoods... We wrote questions that some humans would answer falsely. We tested them on the target model and filtered out questions that the model consistently answered correctly... We produced 437 questions this way, which we call the 'filtered' questions... we wrote 380 additional questions that we expected some humans and models to answer falsely. Since we did not test on the target model, these are 'unfiltered' questions."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All questions were written by the authors and were designed to elicit imitative falsehoods. The questions are diverse in style and cover 38 categories... Each question has sets of true and false reference answers and a source that supports the answers (e.g. a Wikipedia page)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each question has sets of true and false reference answers and a source that supports the answers (e.g. a Wikipedia page)... The questions in TruthfulQA were designed to be 'adversarial' in the sense of testing for a weakness in the truthfulness of language models... We wrote questions that some humans would answer falsely."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The evaluators are blinded to the model name and prompt that generated an answer. Instead of evaluators assigning a truth value or score to answers directly, they assign one of 13 qualitative labels to an answer (see Table 8). These labels include 'mostly true', 'mixed true/false', and 'contradiction'. Each label maps to a truth score (e.g. 'mostly true' maps to 0.9) and this mapping was fixed before evaluating any answers... Answers were verified by consulting a reliable source where appropriate. For around 80% of the answers that were evaluated, there was a close semantic match to one of our reference answers (which already has a source supporting it)."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We recruited a 'validator' to check our reference answers and raise disagreements... Overall, the validator chose different labels than us on 7% of questions... We recruited a 'participant' to act as a human baseline for TruthfulQA... Overall, 6% of their answers were marked as false according to our evaluation... Based on this data, we modified 43 of our questions (5.3% of the total) to make them less ambiguous... we can form a (rough) point estimate that people who read the instructions would disagree with our evaluations on 2-6% of questions."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The training set for GPT-judge consists of triples of the form (question, answer, label), where label is either true or false. The training set includes 6.9k examples taken directly from the benchmark, where the answer is a true/false reference answer written by the authors. It also contains around 15.5k examples where the answer is generated by one of the models in Section 3.1 and the label is a human evaluation."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "GPT-judge is a GPT-3-6.7B model finetuned to classify answers to the questions in TruthfulQA as true or false. The training set for GPT-judge consists of triples of the form (question, answer, label), where label is either true or false. The training set includes 6.9k examples taken directly from the benchmark, where the answer is a true/false reference answer written by the authors. It also contains around 15.5k examples where the answer is generated by one of the models in Section 3.1 and the label is a human evaluation... We also use an identical approach to finetune a model to evaluate informativeness (rather than truthfulness)."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We crafted questions that some humans would answer falsely due to a false belief or misconception. To perform well, models must avoid generating false answers learned from imitating human texts... Models generated many false answers that mimic popular misconceptions and have the potential to deceive humans."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The benchmark comprises 817 questions that span 38 categories, including health, law, finance and politics... These results suggest disagreement with 6-7% of our reference answers. However, in both cases we suspect the external researcher made some mistakes (e.g. due to insufficient time) which inflated the apparent level of disagreement... Scalar truth scores are thresholded at 0.5 for a binary true / false split, where ≥0.5 is considered truthful. This discards some granularity but helps with consistency."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Models generated many false answers that mimic popular misconceptions and have the potential to deceive humans... The benchmark comprises 817 questions that span 38 categories, including health, law, finance and politics."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose a benchmark to measure whether a language model is truthful in generating answers to questions... The training set for GPT-judge consists of triples of the form (question, answer, label), where label is either true or false. The training set includes 6.9k examples taken directly from the benchmark, where the answer is a true/false reference answer written by the authors. It also contains around 15.5k examples where the answer is generated by one of the models in Section 3.1 and the label is a human evaluation."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the benchmark was initially published, several new language models have been released and evaluated on the two TruthfulQA tasks by external researchers"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We take a set of true answers directly from Wikipedia (or the listed source). We then try to provide coverage of common variations on this answer... We follow a similar process for generating false answers, but widen the answer set by running internet searches for [common misconceptions / superstitions / conspiracies around X] where relevant... Using this experience of testing on the target model, we wrote 380 additional questions that we expected some humans and models to answer falsely. Since we did not test on the target model, these are 'unfiltered' questions."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TruthfulQA is a benchmark made up of questions designed to cause imitative falsehoods... comprises 817 questions that span 38 categories... We take a set of true answers directly from Wikipedia (or the listed source)... Answers are generated using greedy decoding (i.e. temperature set to zero). Model and sampling parameters are otherwise unchanged from the defaults in the OpenAI API (GPT-3; OpenAI, 2020) or the HuggingFace API... evaluators assigning a truth value or score to answers directly, they assign one of 13 qualitative labels to an answer... Answers were verified by consulting a reliable source where appropriate. For around 80% of the answers that were evaluated, there was a close semantic match to one of our reference answers"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1211,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 26742,
+        "tokens_in": 8063,
+        "tokens_out": 598
+      },
+      "collection": {
+        "section_chars": 60000,
+        "tokens_in": 19242,
+        "tokens_out": 641
+      },
+      "annotation": {
+        "section_chars": 47304,
+        "tokens_in": 15401,
+        "tokens_out": 1035
+      },
+      "impact": {
+        "section_chars": 21061,
+        "tokens_in": 8136,
+        "tokens_out": 810
+      },
+      "processing": {
+        "section_chars": 35508,
+        "tokens_in": 11493,
+        "tokens_out": 598
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

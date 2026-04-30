@@ -1,0 +1,280 @@
+{
+  "dataset_id": "LeoFan01_RoboBench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "RoboBench",
+    "description": "A comprehensive benchmark for evaluating multimodal large language models (MLLMs) as embodied brains in robotic manipulation tasks. It systematically assesses five dimensions—instruction comprehension, perception reasoning, generalized planning, affordance prediction, and failure analysis—spanning 14 capabilities, 25 tasks, and 6092 QA pairs.",
+    "url": "https://robo-bench.github.io/",
+    "license": "CC-BY-4.0",
+    "creator": "Yulin Luo, Chun-Kai Fan, Menghang Dong, Jiayu Shi, Mengdi Zhao, Bo-Wen Zhang, Cheng Chi, Jiaming Liu, Gaole Dai, Rongyu Zhang, Ruichuan An, Kun Wu, Zhengping Che, Shaoxuan Xie, Guocai Yao, Zhongxia Zhao, Pengwei Wang, Guang Liu, Zhongyuan Wang, Tiejun Huang, Shanghang Zhang",
+    "publisher": "State Key Laboratory of Multimedia Information Processing, School of Computer Science, Peking University; Beijing Academy of Artificial Intelligence",
+    "datePublished": "2025-10-20",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "RoboBench combines data from large-scale real-world robotic datasets with curated in-house collection. The benchmark customizes data workflows for each dimension, generally following three stages: preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Large-scale real-world robotic datasets from multiple sources (Fang et al. 2023, Collaboration et al. 2023, Liu et al. 2024c, Wu et al. 2024, Bu et al. 2025) combined with in-house curated data. Tasks span single-arm, dual-arm, and mobile manipulation with objects having material attributes, physical properties, and world knowledge; multi-view scenes with occlusion and memory-driven navigation.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Multi-stage annotation process involving: (1) Automated annotation using Gemini for structured annotations (task summaries, step-wise instructions with timestamps, metadata), (2) Human refinement by expert annotators, (3) Template-based QA generation, (4) Manual labeling for specific tasks (bounding boxes, affordance points/trajectories, failure types), (5) Two-stage quality control with general and task-specific filters followed by validation by 20 professionally trained annotators checking linguistic clarity, answerability, and correctness, (6) Majority-vote strategy for quality assurance",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Two-stage quality control process: (1) Data filtering during construction with general criteria for image quality and task validity plus task-specific rules, (2) Post-construction validation by 20 professionally trained annotators checking linguistic clarity, answerability, and correctness, (3) Majority-vote strategy where items all models solve correctly are removed and items all models fail undergo manual review and correction",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "20 professionally trained annotators",
+    "rai:machineAnnotationTools": "Gemini for generating structured annotations (task summaries, step-wise instructions with timestamps, metadata including objects, actions, scenes, embodiments); Gemini for video segmentation; GPT for generating functional properties and distractors for object-centric tasks; Detection models for object-centric perception tasks",
+    "rai:dataBiases": "Models exhibit severe degradation on implicit instructions with average scores dropping by 30%, indicating weak grounding of indirect human goals. Models perform poorly on robot-view recognition and temporal grounding, revealing fragile spatial-temporal perception and limited embodiment awareness. Identification errors include aliasing errors where models confuse visually similar objects (e.g., misidentifying a crumpled paper ball as popcorn).",
+    "rai:dataLimitations": "Complex planning remains the primary bottleneck with models struggling with dual-arm coordination and rare-object reasoning. Current models struggle to maintain logical consistency, object grounding, and physical feasibility in long-horizon planning. Execution errors account for the majority of failures, primarily caused by missing or redundant actions and incorrect function selection, indicating insufficient procedural reasoning and weak grounding of task sequences.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "RoboBench is designed to systematically evaluate multimodal large language models (MLLMs) as embodied brains for robotic manipulation. The benchmark evaluates models across five dimensions—Instruction Comprehension, Perception Reasoning, Generalized Planning, Affordance Prediction, and Failure Analysis—to assess cognitive capabilities required for embodied cognition. It provides a unified scaffold for measuring embodied cognition and guiding the development of more robust, generalizable embodied intelligence.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For instruction comprehension, implicit instructions are obtained by rewriting explicit instructions into demand-based requests using LLMs. For perception reasoning, GPT-generated functional properties and distractors are added to object-centric data. For failure analysis, planning-level failures are synthesized by perturbing correct instructions (wrong object, missing step, wrong order) due to lack of real-world planning failure data.",
+    "rai:dataPreprocessingProtocol": "Data collection from open-source and in-house robotic datasets, enriched with MLLM- and human-provided annotations. For planning, frame sequences are extracted from high-quality robotic videos as standardized inputs. Gemini generates structured annotations (task summaries, step-wise instructions with timestamps, metadata) which are refined by human annotators. For perception, Gemini-segmented video steps are used for temporal grounding, with manual annotations of relative positions and keypoint changes. Quality control includes two-stage filtering: general criteria for image quality and task validity, plus task-specific rules, followed by validation by 20 professionally trained annotators and majority-vote strategy for item removal/correction."
+  },
+  "usage": {
+    "input_tokens": 55797,
+    "output_tokens": 3637
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:59.278192Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce RoboBench, a benchmark that systematically evaluates multimodal large language models (MLLMs) as embodied brains"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "RoboBench defines five dimensions—instruction comprehension, perception reasoning, generalized planning, affordance prediction, and failure analysis—spanning 14 capabilities, 25 tasks, and 6092 QA pairs"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Project page: https://robo-bench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yulin Luo1,2* Chun-Kai Fan1* Menghang Dong1* Jiayu Shi1,2* Mengdi Zhao3* Bo-Wen Zhang4* Cheng Chi2 Jiaming Liu1 Gaole Dai1 Rongyu Zhang1 Ruichuan An1 Kun Wu5 Zhengping Che5 Shaoxuan Xie2 Guocai Yao2 Zhongxia Zhao1,2 Pengwei Wang2 Guang Liu2 Zhongyuan Wang2 Tiejun Huang1,2 Shanghang Zhang1,2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1State Key Laboratory of Multimedia Information Processing, School of Computer Science, Peking University 2Beijing Academy of Artificial Intelligence"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2510.17801v1 [cs.RO] 20 Oct 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "RoboBench consists of 6092 samples and 4333 unique items"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data combine large-scale real-world robotic datasets Fang et al. (2023); Collaboration et al. (2023); Liu et al. (2024c); Wu et al. (2024); Bu et al. (2025) with curated in-house collection, narrowing the sim-to-real gap... RoboBench customizes data workflows for each dimension... Each workflow generally follows three stages—preprocessing, annotation with VLMs, detection models or human experts, and Q&A format generation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data combine large-scale real-world robotic datasets Fang et al. (2023); Collaboration et al. (2023); Liu et al. (2024c); Wu et al. (2024); Bu et al. (2025) with curated in-house collection"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data combine large-scale real-world robotic datasets Fang et al. (2023); Collaboration et al. (2023); Liu et al. (2024c); Wu et al. (2024); Bu et al. (2025) with curated in-house collection... We construct task settings spanning single-arm, dual-arm, and mobile manipulation; objects with material attributes, physical properties, and world knowledge; multi-view scenes with occlusion and memory-driven navigation"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Gemini generates structured annotations—task summaries, step-wise instructions with timestamps, and metadata (objects, actions, scenes, embodiments)—which are refined by human annotators... representative frames are sampled and annotated with three types of affordance: static (contact points), dynamic (motion trajectories), and mobile (base positions)... Execution-level failures (e.g., position misalignment, trajectory deviations, gripper errors) are collected from RoboMIND and labeled by experts... We recruite 20 professionally trained annotators to conduct comprehensive quality inspections, validating linguistic clarity, answerability, and correctness... We further adopt a majority-vote strategy"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We adopt a two-stage quality control process to ensure benchmark quality: data filtering during construction and post-construction validation... We recruite 20 professionally trained annotators to conduct comprehensive quality inspections, validating linguistic clarity, answerability, and correctness... We further adopt a majority-vote strategy: items that all models solve correctly are removed, whereas items all models fail to solve undergo manual review and correction"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We recruite 20 professionally trained annotators to conduct comprehensive quality inspections"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Gemini generates structured annotations—task summaries, step-wise instructions with timestamps, and metadata (objects, actions, scenes, embodiments)—which are refined by human annotators... scene-centric, leveraging Gemini-segmented video steps for temporal grounding... object-centric, combining curated static attributes with GPT-generated functional properties and distractors... object-centric, using real robot data with type and view metadata for template-based QA"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, models exhibit severe degradation on implicit instructions, with average scores dropping by 30%, indicating weak grounding of indirect human goals. Second, models perform poorly on robot-view recognition and temporal grounding, revealing fragile spatial–temporal perception and limited embodiment awareness... Aliasing Errors: the model confuses visually similar objects, such as misidentifying a crumpled paper ball as popcorn."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Third, complex planning remains the primary bottleneck: models struggle with dual-arm coordination and rare-object reasoning... Overall, these findings reveal that current models struggle to maintain logical consistency, object grounding, and physical feasibility in long-horizon planning... Execution Errors account for the majority of failures, primarily caused by missing or redundant actions and incorrect function selection. These indicate insufficient procedural reasoning and weak grounding of task sequences."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To bridge this gap, we introduce RoboBench, a benchmark that systematically evaluates multimodal large language models (MLLMs) as embodied brains... RoboBench defines five dimensions—Instruction Comprehension, Perception Reasoning, Generalized Planning, Affordance Prediction, and Failure Analysis—that together capture the interdependent capabilities required for embodied cognition... RoboBench thus provides a unified scaffold for measuring embodied cognition and guiding the development of more robust, generalizable embodied intelligence."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Explicit instructions are drawn from daily-life scenarios with clearly specified actions and targets, whereas implicit instructions are obtained by rewriting them into demand-based requests using LLMs... object-centric, combining curated static attributes with GPT-generated functional properties and distractors... planning-level failures are synthesized by perturbing correct instructions (wrong object, missing step, wrong order) due to lack of real-world planning failure data."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We build datasets from open-source and in-house robotic data, enriched with MLLM- and human-provided annotations... We build a planning pool from high-quality robotic videos, extracting frame sequences as standardized inputs. Gemini generates structured annotations—task summaries, step-wise instructions with timestamps, and metadata (objects, actions, scenes, embodiments)—which are refined by human annotators... scene-centric, leveraging Gemini-segmented video steps for temporal grounding, together with manual annotations of relative positions and keypoint changes... We adopt a two-stage quality control process to ensure benchmark quality: data filtering during construction and post-construction validation... We recruite 20 professionally trained annotators to conduct comprehensive quality inspections, validating linguistic clarity, answerability, and correctness... We further adopt a majority-vote strategy: items that all models solve correctly are removed, whereas items all models fail to solve undergo manual review and correction."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 19,
+      "evidence_coverage": 90.5,
+      "avg_confidence": 0.926
+    },
+    "cost_usd": 0.111,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 31240,
+        "tokens_in": 8745,
+        "tokens_out": 827
+      },
+      "collection": {
+        "section_chars": 10579,
+        "tokens_in": 3164,
+        "tokens_out": 604
+      },
+      "annotation": {
+        "section_chars": 58806,
+        "tokens_in": 20084,
+        "tokens_out": 821
+      },
+      "impact": {
+        "section_chars": 13868,
+        "tokens_in": 3853,
+        "tokens_out": 749
+      },
+      "processing": {
+        "section_chars": 58806,
+        "tokens_in": 19951,
+        "tokens_out": 636
+      }
+    },
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ]
+  }
+}

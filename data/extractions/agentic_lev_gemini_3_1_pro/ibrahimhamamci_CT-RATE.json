@@ -1,0 +1,280 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Ibrahim Ethem Hamamci, Sezgin Er, Chenyu Wang, Furkan Almas, Ayse Gulnihan Simsek, Sewal Nil Esirgun, Irem Dogan, Omer Faruk Durugol, Benjamin Hou, Suprosanna Shit, Weicheng Dai, Murong Xu, Hadrien Reynaud, Muhammed Furkan Dasdelen, Bastian Wittmann, Tamaz Amiranashvili, Enis Simsar, Mehmet Simsar, Emine Bensu Erdemir, Abdullah Alanbay, Anjany Sekuboyina, Berkan Lafci, Ahmet Kaplan, Zhiyong Lu, Malgorzata Polacin, Bemhard Kainz, Christian Bluethgen, Kayhan Batmanghelich, Mehmet Kemal Ozdemir, and Bjoem Menze",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was curated from a single center, collecting existing non-contrast 3D chest CT volumes and their corresponding radiology text reports.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Non-contrast 3D chest CT volumes (totaling over 14.3 million 2D slices) and corresponding radiology text reports that include impression, findings, patient information, and scan technique sections.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The dataset was enriched with global abnormality labels using an automated text classifier. To train this classifier, 1,000 radiology reports were manually annotated for 18 distinct abnormalities to finetune a pretrained language model.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "RadBERT (automated text classifier)",
+    "rai:dataBiases": "The dataset contains geographic and clinical biases because it originates from a single institution and a single geographic and clinical setting.",
+    "rai:dataLimitations": "The dataset is limited to chest CT volumes from a single institution, which restricts generalizability. Furthermore, models trained on this data are not ready for clinical deployment and require further validation for robustness, interpretability, and regulatory compliance.",
+    "rai:dataSocialImpact": "The dataset and resulting models aim to broaden accessibility to 3D medical imaging AI, serving as valuable tools for educational and clinical research settings and inviting wider engagement in AI-driven clinical practice.",
+    "rai:personalSensitiveInformation": "The dataset contains sensitive patient demographic information, specifically age and sex.",
+    "rai:dataUseCases": "The dataset is used for training, validation, and fine-tuning of 3D medical imaging foundation models and multimodal AI assistants for tasks such as zero-shot multi-abnormality detection and radiology report generation.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was split into training and internal validation sets for experimental purposes.",
+    "rai:dataPreprocessingProtocol": "3D CT volumes were reconstructed to accommodate different window settings. Additionally, the text data was preprocessed by combining the impression and findings sections of the radiology reports, and an automated text classifier (RadBERT) was used to extract global abnormality labels to make the data ML-ready."
+  },
+  "usage": {
+    "input_tokens": 50537,
+    "output_tokens": 2486
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-25T17:51:00.855668Z",
+    "git_commit": "ede26c8",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce CT-RATE, a public dataset that pairs 3D medical images with corresponding textual reports."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our CT-RATE dataset, comprising paired chest CT volumes and radiology text reports, is publicly accessible via https://huggingface.co/datasets/ibrahimhamamci/CT-RATE [67]."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibrahim Ethem Hamamci1,2,3,†,∗,Sezgin Er1,3,†,Chenyu Wang4,Furkan Almas3,Ayse Gulnihan Simsek3,\nSewal Nil Esirgun3,Irem Dogan3,Omer Faruk Durugol3,Benjamin Hou5,Suprosanna Shit1,2,Weicheng Dai4,\nMurong Xu1,2,Hadrien Reynaud6,Muhammed Furkan Dasdelen3,Bastian Wittmann1,2,Tamaz\nAmiranashvili1,2,Enis Simsar7,Mehmet Simsar3,Emine Bensu Erdemir3,Abdullah Alanbay3,Anjany\nSekuboyina1,2,Berkan Lafci1,2,Ahmet Kaplan3,Zhiyong Lu4,Malgorzata Polacin8,Bemhard Kainz6,9,\nChristian Bluethgen8,Kayhan Batmanghelich4,Mehmet Kemal Ozdemir3, andBjoem Menze1,2"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "[67] Ibrahim Ethem Hamamci. CT-RATE: Paired chest CT volumes and radiology reports. https://huggingface.co/datasets/ibrahimhamamci/CT-RATE. 2025."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "prompt 7 (“{Abnormality}is{∅/not}present.”)"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate and open-source CT-RATE, a dataset comprising 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports from 21,304 unique patients... While CT-RATE is a single-center dataset, it captures substantial heterogeneity in CT scanners, acquisition protocols, and reconstruction techniques."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate and open-source CT-RATE, a dataset comprising 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports from 21,304 unique patients... Each CT exam is accompanied by a report that includes an impression and a findings section, authored by a radiologist"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These 3D volumes, reconstructed using various methods to suit different window settings [31], total over 14.3 million 2D slices. Each CT exam is accompanied by a report that includes an impression and a findings section, authored by a radiologist, along with additional sections detailing patient information and scan technique."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To meet this need, we enrich CT-RATE with global abnormality labels extracted from the radiology reports using an automated text classifier (Figure1b). This process involves finetuning a pretrained language model, RadBERT [34], similar to recent works [35]. Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities for this finetuning procedure."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we enrich CT-RATE with global abnormality labels extracted from the radiology reports using an automated text classifier (Figure1b). This process involves finetuning a pretrained language model, RadBERT [34]"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, biases inherent to our single-institution dataset may influence our self-supervised training. Although we curate a large and diverse set of volume-report pairs, the data originates from a single geographic and clinical setting, which may limit the generalizability of our models to other populations."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Despite these advancements, our CT-RATE dataset and the CT-CLIP and CT-CHAT models have certain limitations. First, biases inherent to our single-institution dataset... may limit the generalizability of our models to other populations. [...] That said, it remains far from ready for clinical deployment, as emphasized by our radiologists. [...] Finally, our current models are limited to chest CT volumes."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To help broaden accessibility, we introduce a user-friendly graphical interface... This interface not only makes CT-CHAT a valuable tool for educational and clinical research settings but also invites a wider audience to engage with and contribute to the evolution of interactive AI-driven inference in clinical practice."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises data from 21,304 unique patients, with ages ranging from 18 to 102 years. [...] Age distribution [...] Sex distribution"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this study, we introduce CT-RATE, a comprehensive dataset, which we first use to develop CT-CLIP, a foundation model for 3D medical imaging using radiology text reports... For validation and finetuning purposes, multi-abnormality labels for 18 distinct abnormalities are extracted from the corresponding radiology reports for each CT volume."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE is divided into training and intemal validation sets for experiments"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These 3D volumes, reconstructed using various methods to suit different window settings [31], total over 14.3 million 2D slices. [...] We enrich CT-RATE with global abnormality labels extracted from the radiology reports using an automated text classifier (Figure 1b). This process involves finetuning a pretrained language model, RadBERT"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "evidence_count": 18,
+      "evidence_coverage": 94.7,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.088,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 46744,
+        "tokens_in": 13459,
+        "tokens_out": 874
+      },
+      "collection": {
+        "section_chars": 49532,
+        "tokens_in": 11149,
+        "tokens_out": 416
+      },
+      "annotation": {
+        "section_chars": 49532,
+        "tokens_in": 11131,
+        "tokens_out": 338
+      },
+      "impact": {
+        "section_chars": 15142,
+        "tokens_in": 3792,
+        "tokens_out": 616
+      },
+      "processing": {
+        "section_chars": 49532,
+        "tokens_in": 11006,
+        "tokens_out": 242
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 92.8
+  }
+}

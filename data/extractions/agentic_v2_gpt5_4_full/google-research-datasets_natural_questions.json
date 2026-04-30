@@ -1,0 +1,257 @@
+{
+  "dataset_id": "google-research-datasets_natural_questions",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "Natural Questions",
+    "description": "A question answering dataset pairing real anonymized, aggregated Google Search queries with Wikipedia pages, where annotators label long answers, short answers, or null.",
+    "url": "https://ai.google.com/research/NaturalQuestions",
+    "license": "CC-BY 4.0",
+    "creator": "Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein, Illia Polosukhin, Jacob Devlin, Kenton Lee, Kristina Toutanova, Llion Jones, Matthew Kelcey, Ming-Wei Chang, Andrew M. Dai, Jakob Uszkoreit, Quoc Le, Slav Petrov",
+    "publisher": "Association for Computational Linguistics",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Kwiatkowski, Tom, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein, Illia Polosukhin, Jacob Devlin, Kenton Lee, Kristina Toutanova, Llion Jones, Matthew Kelcey, Ming-Wei Chang, Andrew M. Dai, Jakob Uszkoreit, Quoc Le, and Slav Petrov. 2019. \"Natural Questions: A Benchmark for Question Answering Research.\" Transactions of the Association for Computational Linguistics 7: 453–466. https://doi.org/10.1162/tacl_a_00276",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were sampled from anonymized, aggregated Google Search queries using heuristics, then paired with a Wikipedia page appearing in the top 5 search results. Human annotators labeled question quality, long answers, and short answers using a custom interface.",
+    "rai:dataCollectionType": "Web API, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Examples may have no answer labeled; 51% of examples have no long answer, and annotators can mark null when no viable candidate exists on the Wikipedia page.",
+    "rai:dataCollectionRawData": "Real anonymized, aggregated Google Search queries and Wikipedia pages returned in the top 5 Google search results.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Simple heuristics were used to filter the query stream to retain likely factual questions of 8 words or more, and only queries with a Wikipedia page in the top 5 search results were kept.",
+    "rai:dataPreprocessingProtocol": "Queries were filtered by heuristic rules to remove many non-questions and focus on longer factual questions; questions were retained only if a Wikipedia page appeared in the top 5 search results. Part-of-speech tags and entities were identified using Google's Cloud NLP API.",
+    "rai:dataAnnotationProtocol": "Annotators used a three-stage process: determine whether the question is good or bad, select the earliest HTML bounding box containing enough information as the long answer or mark no answer, and then select entity spans, yes/no, or no short answer within the long answer.",
+    "rai:dataAnnotationPlatform": "Custom annotation interface",
+    "rai:dataAnnotationAnalysis": "Annotation quality was monitored and evaluated using post hoc expert judgments and k-way annotations. The paper reports 25-way annotations on a subset to study variability and disagreement, and defines expert categories Correct, Correct but debatable, and Wrong.",
+    "rai:annotationsPerItem": "1 for training examples; 5 for development and test examples; 25 on a 302-example subset for variability analysis",
+    "rai:annotatorDemographics": "A pool of around 50 annotators; four experts who prepared the annotation guidelines evaluated correctness.",
+    "rai:machineAnnotationTools": "Google Cloud NLP API",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Language",
+    "rai:dataSocialImpact": "The dataset is intended to support question answering systems with genuine utility to users and to drive advances in natural language understanding.",
+    "rai:dataBiases": "The dataset may be biased by focusing on Wikipedia as the evidence source and by excluding shorter queries and 'how to' questions through filtering heuristics.",
+    "rai:dataLimitations": "The dataset is limited to longer Google queries with Wikipedia pages in the top 5 results, excludes many shorter and 'how to' queries, and exhibits genuine ambiguity and variability in acceptable answers.",
+    "rai:dataUseCases": "Benchmarking, training, development, and testing of question answering systems; intended to provide large-scale end-to-end training data and evaluation for QA research."
+  },
+  "usage": {
+    "input_tokens": 25212,
+    "output_tokens": 2646
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:01:30.180914Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Natural Questions corpus, a question answering data set."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Natural Questions corpus, a question answering data set. Questions consist of real anonymized, aggregated queries issued to the Google search engine. An annotator is presented with a question along with a Wikipedia page from the top 5 search results, and annotates a long answer (typically a paragraph) and a short answer (one or more entities) if present on the page, or marks null if no long/short answer is present."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Available at: https://ai.google.com/re search/ NaturalQuestions ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Distributed under a CC-BY 4.0 license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Natural Questions: A Benchmark for Question Answering Research Tom Kwiatkowski... Slav Petrov"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "c/circlecopyrt2019 Association for Computational Linguistics."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published 7/2019."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The questions consist of real anonymized, aggregated queries issued to the Google search engine."
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The public release consists of 307,373 training examples with single annotations; 7,830 examples with 5-way annotations for development data; and a further 7,842 examples with 5-way annotated sequestered as test data."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the questions in NQ are queries of 8 words or more that have been issued to the Google search engine by multiple users in a short period of time... We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results. The (question, Wikipedia page) pairs are the input to the human annotation task described next. Annotation is performed using a custom annotation interface, by a pool of around 50 annotators."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the questions in NQ are queries of 8 words or more that have been issued to the Google search engine... Annotation is performed using a custom annotation interface, by a pool of around 50 annotators."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Both the long and short answer can be NULL if no viable candidates exist on the Wikipedia page. In total, annotators identify a long answer for 49% of the examples... We consider the choice of whether or not to answer a question a core part of the question answering task, and do not discard the remaining 51% that have no answer labeled."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions consist of real anonymized, aggregated queries issued to the Google search engine... We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Simple heuristics are used to filter questions from the query stream... From these queries, we sample a subset that either... We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The goal of these heuristics is to discard a large proportion of queries that are non-questions, while retaining the majority of queries of 8 words or more in length that are questions... We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results... Part of speech tags and entities are identified using Google’s Cloud NLP API."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The guidelines and tooling divide the annotation task into three conceptual stages... Question Identification... Long Answer Identification... Short Answer Identification... For good questions only, annotators select the earliest HTML bounding box containing enough information for a reader to completely infer the answer to the question... annotators select the entity or set of entities within the long answer that answer the question. Alternatively, annotators can flag that the short answer is yes, no, or they can flag that no short answer is possible."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotation is performed using a custom annotation interface"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotation quality was constantly monitored... Section 4 describes post hoc evaluation of annotation quality... We also describe analysis of 25-way annotations on 302 examples, giving insights into human variability on the annotation task... We used four experts for these judgments... Experts categorized (q,l′) pairs into the following three categories: Correct (C)... Correct (but debatable) (Cd)... Wrong (W)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The public release consists of 307,373 training examples with single annotations; 7,830 examples with 5-way annotations for development data; and a further 7,842 examples with 5-way annotated sequestered as test data. We also describe analysis of 25-way annotations on 302 examples"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotation is performed using a custom annotation interface, by a pool of around 50 annotators... We used four experts for these judgments. These experts had prepared the guidelines for the annotation process."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Part of speech tags and entities are identified using Google’s Cloud NLP API"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "DuReader is a Chinese language data set... This is the first large publicly available data set to pair real user queries with high-quality annotations of answers in documents."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Open-domain question answering (QA) is a benchmark task in natural language understanding (NLU), which has significant utility to users... We believe that, because a solution to NQ will have genuine utility, it is better equipped as a benchmark for NLU."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We focus on Wikipedia as it is a very important source of factual information, and we believe that stylistically it is similar to other sources of factual information on the Web; however, like any data set there may be biases in this choice. Future data collection efforts may introduce shorter queries, 'how to' questions, or domains other than Wikipedia."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the questions in NQ are queries of 8 words or more... We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results... Future data collection efforts may introduce shorter queries, 'how to' questions, or domains other than Wikipedia... One clear finding in NQ is that for naturally occurring questions there is often genuine ambiguity in whether or not an answer is acceptable. There are also often a number of acceptable answers."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our goals are three-fold: 1) To provide large-scale end-to-end training data for the QA problem... We propose NQ as a new benchmark for research in QA... The public release consists of 307,373 training examples with single annotations; 7,830 examples with 5-way annotations for development data; and a further 7,842 examples with 5-way annotated sequestered as test data."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 27,
+      "fields_uncertain": 0,
+      "evidence_count": 26,
+      "evidence_coverage": 96.3,
+      "avg_confidence": 0.944
+    },
+    "cost_usd": 0.058,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 31.5,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

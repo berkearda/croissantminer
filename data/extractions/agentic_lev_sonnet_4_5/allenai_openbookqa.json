@@ -1,0 +1,279 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "A question answering dataset modeled after open book exams consisting of 5957 multiple-choice questions about elementary level science and 1326 science facts. Questions require combining facts from the open book with common knowledge to answer, probing deeper understanding and multi-hop reasoning.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": "unknown",
+    "creator": "Todor Mihaylov, Peter Clark, Tushar Khot, Ashish Sabharwal",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2018-09",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Multi-stage crowdsourcing process starting with elementary science facts, generating questions that probe novel situations, followed by automatic filtering for retrieval difficulty, crowd filtering for answerability, and expert filtering for quality assurance in Dev and Test sets",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "1326 elementary level science facts that form the basis for question generation, deemed central to scientific explanations",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Multi-stage crowdsourcing process where workers: (1) were shown a random science fact from set F, (2) asked to think of a second common fact k that combines with f to derive a new assertion s, (3) converted s into a question-answer pair and created a 4-way multiple choice question with 3 incorrect answer choices, (4) system verified basic checks like uniformity of answer choices, (5) question tested against IR solver and word association solver to verify hardness, (6) question shown to 5 new crowd-workers to answer, (7) if at least 4 out of 5 workers answered correctly, deemed answerable and kept, otherwise discarded, (8) answer choices randomly shuffled to avoid bias. Dev and Test splits were further filtered by an in-house expert to ensure higher quality.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Human accuracy assessed using a Bernoulli model where each question has unknown human accuracy pq. Using 5 independent samples per question from Step 6, empirical estimate H̃(Q) calculated. Hoeffding's Inequality applied showing H̃(Q) converges to H(Q) rapidly. For Dev and Test sets with 500 questions and 5 judgments each, H(Q) is at least H̃(Q) - 3% with probability over 98.8%. Conservative estimate reports human performance as H̃(Q) - 3%. Additionally, 100 questions from Train set analyzed to categorize types of common knowledge and reasoning needed.",
+    "rai:annotationsPerItem": "5 crowd-workers per question for answerability verification",
+    "rai:annotatorDemographics": "Workers from North America with 'masters' level qualification on Amazon Mechanical Turk",
+    "rai:machineAnnotationTools": "Information retrieval (IR) solver and word association based solver (ACME) used to verify question hardness during filtering",
+    "rai:dataBiases": "The dataset contains inevitable human bias from crowdsourcing, as evidenced by simple neural baselines (plausible answer detector and odd-one-out solver) achieving 48% accuracy by exploiting these biases.",
+    "rai:dataLimitations": "The open book F is not self-contained and is generally insufficient to answer questions in Q. The dataset requires combining facts with broad common knowledge from other sources. Retrieving the most useful pieces of knowledge remains an open challenge.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for training and evaluating question answering systems that can combine open book facts with common knowledge. It includes Train and Dev splits with intermediate supervision signals (fact f) for each question to support model development.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Answer choices were randomly shuffled to avoid unintended bias. Questions were filtered through multiple stages including automatic verification for hardness (IR solver and word association solver), crowd verification for answerability (at least 4 out of 5 workers must answer correctly), and expert filtering for Dev and Test sets to ensure higher quality.",
+    "rai:dataPreprocessingProtocol": "Questions underwent basic verification checks including: exactly 4 answer choices, no negation words to trivially fool baselines (no, none, not, isn't, doesn't, aren't, don't, won't, except, can't, shouldn't, wouldn't, couldn't, mustn't), and uniform answer choice length (all with at most 3 or at least 4 words). Questions were verified to be hard for IR and word association solvers, with top 3 IR retrieved sentences being insufficient to answer the question."
+  },
+  "usage": {
+    "input_tokens": 20009,
+    "output_tokens": 3241
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:16.488513Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present a new kind of question answering dataset, OpenBookQA"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenBookQA, that consists of two parts: Q, a set of 5957 multiple-choice questions, and F, a set of 1326 diverse facts about elementary level science... This requires combining an open book fact (e.g., metals conduct electricity) with broad common knowledge (e.g., a suit of armor is made of metal) obtained from other sources."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset and the code for the models are available at http://data.allenai.org/OpenBookQA"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Todor Mihaylov and Peter Clark and Tushar Khot and Ashish Sabharwal"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Allen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1809.02789v1 [cs.CL] 8 Sep 2018"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Roughly 6000 questions probe an understanding of these facts... elementary level science facts"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenBookQA, that consists of two parts: Q, a set of 5957 multiple-choice questions, and F, a set of 1326 diverse facts"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions based on F that probe novel situations, using an automatic ﬁlter to ensure hardness for retrieval and association based systems, using a crowd ﬁlter to ensure answerability by a lay person, and further using an expert ﬁlter to ensure higher quality in Dev and Test sets."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions based on F that probe novel situations, using an automatic ﬁlter to ensure hardness for retrieval and association based systems, using a crowd ﬁlter to ensure answerability by a lay person, and further using an expert ﬁlter to ensure higher quality in Dev and Test sets."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "F, a set of 1326 diverse facts about elementary level science. F has three key characteristics of an 'open book': (a) it forms the basis for generating Q; (b) it has been deemed central to scientiﬁc explanations (Jansen et al., 2018)"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The overall question generation and filtering pipeline is summarized in Figure 2... 1. A crowd-worker w is shown a random science fact f from the set F. 2. w is asked to think of a second common fact, k, that may be combined with f to derive a new, valid assertion s. 3. w then converts s into a question-answer pair and extends this into a 4-way multiple choice question by adding 3 incorrect answer choices... 6. Question qmc is then shown to 5 new crowd-workers, who are asked to answer it. 7. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues. If not, qmc is discarded... The Dev and Test splits were further filtered by an in-house expert to ensure higher quality."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechnical Turk, with workers from North America and with a 'masters' level qualification."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To assess human accuracy on this dataset, we consider the following model: Each question q ∈ Q has some (unknown) human accuracy pq, defined as the probability that a random human subject, chosen uniformly from a large pool H, would answer q correctly... An application of Hoeffding's Inequality (Hoeffding, 1963) shows that H̃(Q) converges to H(Q) very rapidly as n = |Q||I| grows... In our Dev and Test sets, where |Q| = 500 and |I| = 5, this translates into H(Q) being at least H̃(Q) − 3% with probability over 98.8%... We analyzed 100 questions in the Train set to capture the kind of common knowledge and reasoning needed."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Question qmc is then shown to 5 new crowd-workers, who are asked to answer it. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechnical Turk, with workers from North America and with a 'masters' level qualification."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "w then feeds the multiple-choice question qmc to an information retrieval solver (Clark et al., 2016) and a word association based solver (Turney, 2017), and verifies that (a) neither of them answers qmc correctly and (b) the top 3 IR retrieved sentences are insufficient to answer qmc"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Motivated by recent findings of gameability of NLP datasets (Gururangan et al., 2018), we also develop and evaluate simple, attention-based, neural baselines including a plausible answer detector (which ignores the question text completely) and an odd-one-out solver. These highlight inevitable human bias in any crowdsourced dataset, increasing performance on OpenBookQA to 48%."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "by itself, F is generally insufficient to answer questions in Q... While retrieving the most useful pieces of knowledge remains an open challenge... Facts from the open book F are valuable (5% improvement) but not sufficient."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "for each Train and Dev question q, OpenBookQA also includes f as intermediate supervision signal, which may be viewed as a partial explanation for q. We leave closing the large gap to human performance as a challenge for the NLP community."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The answer choices of qmc are randomly shuffled to avoid unintended bias... Question qmc is then shown to 5 new crowd-workers, who are asked to answer it. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues. If not, qmc is discarded... The Dev and Test splits were further filtered by an in-house expert to ensure higher quality."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The system verifies qmc passes basic checks such as uniformity of answer choices. Specifically, it looks for: 1) exactly 4 answer choices; 2) no negation words to trivially fool baselines (no, none, not, isn't, doesn't, aren't, don't, won't, except, can't, shouldn't, wouldn't, couldn't, mustn't); 3) uniform answer choice length: all with at most 3 or at least 4 words... w then feeds the multiple-choice question qmc to an information retrieval solver and a word association based solver, and verifies that (a) neither of them answers qmc correctly and (b) the top 3 IR retrieved sentences are insufficient to answer qmc"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 22,
+      "evidence_coverage": 95.7,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0543,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 14204,
+        "tokens_in": 4243,
+        "tokens_out": 603
+      },
+      "collection": {
+        "section_chars": 6608,
+        "tokens_in": 2248,
+        "tokens_out": 480
+      },
+      "annotation": {
+        "section_chars": 18983,
+        "tokens_in": 5660,
+        "tokens_out": 1109
+      },
+      "impact": {
+        "section_chars": 6766,
+        "tokens_in": 2331,
+        "tokens_out": 504
+      },
+      "processing": {
+        "section_chars": 18983,
+        "tokens_in": 5527,
+        "tokens_out": 545
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

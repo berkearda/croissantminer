@@ -1,0 +1,281 @@
+{
+  "dataset_id": "Cnam-LMSSC_vibravox",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "Vibravox",
+    "description": "A GDPR-compliant dataset of French speech captured with five body-conduction audio sensors plus an airborne reference microphone. It contains about 45 hours per sensor from 188 participants recorded under different acoustic conditions, with recording-condition annotations and linguistic transcriptions.",
+    "url": "https://huggingface.co/datasets/Cnam-LMSSC/vibravox",
+    "license": "CC-BY-4.0",
+    "creator": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poirée, Véronique Zimpfer, and Éric Bavu",
+    "publisher": "HuggingFace",
+    "datePublished": null,
+    "inLanguage": "fr",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The section indicates the dataset was created through experimental recordings, including a 3D sound spatialization system used during recording, and mentions limited training data with additional synthetic data.",
+    "rai:dataCollectionType": "Experiments",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Recorded speech data, including emotional bone conducted speech, throat and acoustic paired speech, and synthetic data used alongside a limited training set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Linguistic transcriptions and phonetic transcriptions were created from normalized French Wikipedia/Common Voice text using the CoML lab phonemizer, with manual phonetic transcription for unrecognized words; annotation quality was further controlled by automatic post-processing filters using Whisper-based phoneme error rate and signal quality criteria.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Annotation quality was analyzed with automatic filtering based on phoneme error rate (PER) computed via Levenshtein distance between labeled and Whisper-derived phonetic transcriptions, plus signal-quality checks (SNR and speech-vs-silence level thresholds). Samples with PER > 10% or poor signal quality were discarded.",
+    "rai:annotationsPerItem": "1 transcription/phonetic annotation per utterance",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "CoML lab text phonemizer; whisper-timestamped model based on Whisper with dynamic time warping for timestamp alignment and phonetic/transcription-based filtering.",
+    "rai:dataBiases": "The dataset creators attempted to reduce demographic bias by recruiting a diverse and gender-balanced participant group to improve representativeness and inclusivity.",
+    "rai:dataLimitations": "The dataset showed task-dependent performance limitations: while useful for speech enhancement and phoneme transcription, enhancement was found to hurt speaker verification performance.",
+    "rai:dataSocialImpact": "The dataset is intended to advance body-conducted speech analysis and enable more robust communication systems for real-world applications.",
+    "rai:personalSensitiveInformation": "Gender information is implicated, as the participant recruitment explicitly aimed for a gender-balanced group.",
+    "rai:dataUseCases": "The dataset is publicly released for speech processing tasks including speech enhancement, speech-to-phonemes, and speaker verification.",
+    "rai:dataReleaseMaintenancePlan": "The corpus is publicly available online on HuggingFace under a Creative Commons Attribution 4.0 International license.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was post-filtered to remove low-quality utterances using automatic filters based on pronunciation accuracy and signal quality, then split by speaker into train/validation/test with 80/10/10 male and female speakers.",
+    "rai:dataPreprocessingProtocol": "Audio acquisition applied a uniform 20 Hz high-pass filter to each channel. Text data were filtered to remove problematic utterances (e.g., proper names, numbers, Greek letters, mathematical symbols, syntactic errors), then normalized by lowercasing and removing punctuation except apostrophes. Phonetic transcriptions were generated with a phonemizer, with some manual corrections for unrecognized words. After filtering accepted samples, VAD timestamps were extended by 0.6 s on both sides and trimmed by 15 ms at boundaries when needed."
+  },
+  "usage": {
+    "input_tokens": 24155,
+    "output_tokens": 2197
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:31:10.927469Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox: A Dataset of French Speech Captured with Body-conduction Audio Sensors"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Abstract —Vibravox is a dataset compliant with the General Data Protection Regulation (GDPR) containing audio recordings using five different body-conduction audio sensors... The Vibravox corpus contains 45 hours per sensor of speech samples and physiological sounds recorded by 188 participants under different acoustic conditions... Annotations about the recording conditions and linguistic transcriptions are also included in the corpus."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poir ´ee, V ´eronique Zimpfer, and ´Eric Bavu"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TABLE I OPEN SOURCE BCM D ATASET REVIEW ... Vibravox (ours) [39] ... HuggingFace"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox: A Dataset of French Speech Captured with Body-conduction Audio Sensors"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“she contributed to the creation of the 3D sound spatialization system used during the recording of the Vibravox dataset” and “a limited training set of 5 hours of 29 speakers and additional synthetic data”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“she contributed to the creation of the 3D sound spatialization system used during the recording of the Vibravox dataset”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Emobone: A multinational audio dataset of emotional bone conducted speech,” “TAPS: Throat and acoustic paired speech dataset,” and “a limited training set of 5 hours of 29 speakers and additional synthetic data”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From this normalized text, we also generated the corresponding phonetic transcription using the International Phonetic Alphabet (IPA)... This operation was done with the text phonemizer of the CoML lab [63]... A phase of manual phonetic transcription was then necessary for these unrecognized words” and “we applied a series of three automatic filters to remove utterances with obvious deficiencies. We retained only sentences with correct pronunciation and a sufficiently high SNR”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“PER[j]: Phoneme Error Rate is computed... using the Levenshtein distance between the phonetic labeled transcription and the phonetic transcription derived from Whisper’s output” and “The first filter discards any audio samples where PER[j] > 10%... The second filter... SNR[i, j]... > 1.5 dB... The last filter... checks that Lspeech50[i, j] > Lsilence50[i]”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Each utterance generates a new recording, and the transcriptions are retained.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This operation was done with the text phonemizer of the CoML lab [63]” and “The whisper-timestamped model constitutes a key component of our indicator extraction process. This model is a speech-to-text engine based on Whisper [29] that applies dynamic time warping [67] to cross-attention weights.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "to increase the representativeness and inclusivity of the dataset, a deliberate effort was made to recruit a diverse and gender-balanced group of participants."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, it was found to have a detrimental impact on speaker verification performance."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hope this release will drive progress in body-conducted speech analysis and support the development of robust communication systems for real-world applications."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a deliberate effort was made to recruit a diverse and gender-balanced group of participants."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Using Vibravox has proven to yield satisfactory results in Speech Enhancement, Speech-to-Phonemes and Speaker Verification, which are three fundamental speech processing tasks."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This corpus is being made available online on HuggingFace via Creative Commons Attribution 4.0 International license."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we applied a series of three automatic filters to remove utterances with obvious deficiencies. We retained only sentences with correct pronunciation and a sufficiently high SNR” and “The dataset is then split by speaker, with 80% of male and female speakers in the training set, 10% in the development/validation set, and 10% in the test set.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To enhance audio data quality, a 20 Hz high-pass filter is uniformly applied to each acquisition channel” ; “This textual data was further filtered... utterances containing numbers, Greek letters, mathematical symbols, or syntactic errors were carefully removed” ; “we applied common text normalization operations, such as lowercasing text and removing punctuation except for apostrophes” ; “we also generated the corresponding phonetic transcription... A phase of manual phonetic transcription was then necessary” ; “the timestamps generated by Voice Activity Detection (VAD) are extended by 0.6 seconds on both sides... the audio is trimmed by 15 ms on the affected side.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.927
+    },
+    "cost_usd": 0.0522,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 15989,
+        "tokens_in": 4007,
+        "tokens_out": 472
+      },
+      "collection": {
+        "section_chars": 5768,
+        "tokens_in": 1999,
+        "tokens_out": 299
+      },
+      "annotation": {
+        "section_chars": 36070,
+        "tokens_in": 8679,
+        "tokens_out": 578
+      },
+      "impact": {
+        "section_chars": 2360,
+        "tokens_in": 907,
+        "tokens_out": 412
+      },
+      "processing": {
+        "section_chars": 36070,
+        "tokens_in": 8563,
+        "tokens_out": 436
+      }
+    },
+    "enrichments": [
+      "license",
+      "url"
+    ],
+    "elapsed_seconds": 34.0
+  }
+}

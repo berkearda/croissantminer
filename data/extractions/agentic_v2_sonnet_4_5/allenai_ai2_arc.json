@@ -1,0 +1,258 @@
+{
+  "dataset_id": "allenai_ai2_arc",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "ARC (AI2 Reasoning Challenge)",
+    "description": "A dataset of 7,787 natural, grade-school science questions partitioned into a Challenge Set (2,590 questions) and an Easy Set (5,197 questions), designed to encourage AI research in advanced question answering requiring reasoning and knowledge beyond simple retrieval methods.",
+    "url": "http://data.allenai.org/arc",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Allen Institute for Artificial Intelligence",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2018",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": false,
+    "rai:dataCollection": "Questions were drawn from a variety of sources through extensive search and investigation over several months. The dataset consists of natural science questions authored for standardized tests, targeting grade levels from 3rd to 9th grade.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Natural science questions authored for standardized tests, drawn from various sources including a subset of the 2016 Allen AI Science Challenge questions and other public-domain test sources.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The ARC dataset was partitioned into a Challenge Set (2590 questions) and an Easy Set (5197 questions). Challenge questions were operationally defined as those answered incorrectly by both a retrieval-based algorithm (IR solver) and a word co-occurrence algorithm (PMI solver). The IR solver searches for explicit statements of question+answer in a corpus using Elasticsearch, returning the top retrieved sentence with non-stopword overlap with both question and answer. The PMI solver measures associational strength between question and answer n-grams using pointwise mutual information calculated from corpus co-occurrence within a 10-word window. Questions correctly answered by either algorithm were placed in the Easy Set.",
+    "rai:dataPreprocessingProtocol": "Questions were partitioned into a Challenge Set and an Easy Set based on whether they were answered incorrectly by both an IR (Information Retrieval) solver and a PMI (Pointwise Mutual Information) solver. Challenge questions are those that both baseline solvers failed to answer correctly.",
+    "rai:dataAnnotationProtocol": "Questions were originally authored by human examiners for standardized tests with grade-level assignments. The correct answers were provided as part of the original test materials.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Information Retrieval (IR) solver using Elasticsearch and Pointwise Mutual Information (PMI) solver were used to partition questions into Challenge and Easy sets.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Questions target student grade levels from 3rd to 9th grade (ages 8-13 years).",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The dataset exhibits a retrieval bias in the Challenge Set by design - questions were specifically filtered to exclude those answerable by simple retrieval or word co-occurrence methods. This creates a bias towards questions requiring more complex reasoning. The underlying baseline methods show a retrieval bias towards sentences very similar to the question, and away from sentences that individually only partially match but together could explain the answer through chaining or multi-hop reasoning.",
+    "rai:dataLimitations": "The Challenge Set definition is based on failure of two specific baseline algorithms (IR and PMI), which only approximates the informal goal of identifying 'hard' questions. The dataset contains only non-diagram, multiple-choice questions, excluding questions requiring visual reasoning.",
+    "rai:dataUseCases": "The dataset is partitioned into train/dev/test sets for training and evaluating question-answering systems. Challenge Set is designed for testing advanced reasoning capabilities. Easy Set provides baseline comparison. The dataset is intended to encourage AI research in advanced question answering requiring reasoning and knowledge beyond simple retrieval methods."
+  },
+  "usage": {
+    "input_tokens": 20334,
+    "output_tokens": 2549
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:03.976415Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new question set, text corpus, and baselines assembled to encourage AI research in advanced question answering. Together, these constitute the AI2 Reasoning Challenge (ARC)"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC Dataset consists of a collection of 7787 natural science questions, namely questions authored for use on standardized tests... we have partitioned ARC into a Challenge Set (2590 questions), containing questions answered incorrectly by both a retrieval-based algorithm and a word co-occurrence algorithm, and an Easy Set (5197 questions), containing the remainder."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC Dataset, Corpus, Models, and Leaderboard can be accessed at http://data.allenai.org/arc"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, Oyvind Tafjord, Allen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, Oyvind Tafjord, Allen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1803.05457v1 [cs.AI] 14 Mar 2018"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset contains only natural, grade-school science questions (authored for human tests)"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For ARC we have addressed this through several months of extensive search and investigation... The ARC Dataset consists of a collection of 7787 natural science questions, namely questions authored for use on standardized tests... Questions vary in their target student grade level (as assigned by the examiners who authored the questions), ranging from 3rd grade to 9th"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions were drawn from a variety of sources... The dataset contains only natural, grade-school science questions (authored for human tests)"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC Dataset consists of a collection of 7787 natural science questions, namely questions authored for use on standardized tests... ARC includes the publically releasable subset of the Kaggle questions (about 60% of the Kaggle set, making up 43% of the ARC set)"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have partitioned ARC into a Challenge Set (2590 questions), containing questions answered incorrectly by both a retrieval-based algorithm and a word co-occurrence algorithm, and an Easy Set (5197 questions), containing the remainder... Operationally, we define a Challenge question as one that is answered incorrectly by both of two baseline solvers"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Questions vary in their target student grade level (as assigned by the examiners who authored the questions), ranging from 3rd grade to 9th... The dataset contains only natural, grade-school science questions (authored for human tests)"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "The first filter we apply is the IR solver from Clark et al. (2016)... The solver searches to see if the question q along with an answer option is explicitly stated in the corpus... it sends q+ai as a query to a search engine (we use Elasticsearch)... The second filter we apply is the PMI solver"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions vary in their target student grade level (as assigned by the examiners who authored the questions), ranging from 3rd grade to 9th, i.e., students typically of age 8 through 13 years."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Operationally, we define a Challenge question as one that is answered incorrectly by both of two baseline solvers, described below. Although this only approximates the informal goal of it being a 'hard' question, this definition nevertheless serves as a practical and useful filter... The ARC dataset consists of 7787 science questions, all non-diagram, multiple choice"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 1 summarizes the sizes of the train/dev/test partitions in the ARC dataset... We present a new question set, text corpus, and baselines assembled to encourage AI research in advanced question answering... The ARC question set is partitioned into a Challenge Set and an Easy Set, where the Challenge Set contains only questions answered incorrectly by both a retrieval-based algorithm and a word co-occurence algorithm"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 18,
+      "fields_uncertain": 2,
+      "evidence_count": 16,
+      "evidence_coverage": 80.0,
+      "avg_confidence": 0.87
+    },
+    "cost_usd": 0.0496,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [
+      "license"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

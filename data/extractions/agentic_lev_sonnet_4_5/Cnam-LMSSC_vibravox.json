@@ -1,0 +1,279 @@
+{
+  "dataset_id": "Cnam-LMSSC_vibravox",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Vibravox",
+    "description": "A GDPR-compliant dataset containing 45 hours per sensor of French speech samples and physiological sounds recorded by 188 participants using five different body-conduction audio sensors (two in-ear microphones, two bone conduction vibration pickups, and a laryngophone) plus an airborne microphone reference, captured under different acoustic conditions imposed by a high order ambisonics 3D spatializer.",
+    "url": "https://huggingface.co/datasets/vibravox",
+    "license": "CC-BY-4.0",
+    "creator": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poirée, Véronique Zimpfer, and Éric Bavu",
+    "publisher": "Laboratoire de Mécanique des Structures et des Systèmes Couplés, Conservatoire national des arts et métiers, HESAM Université and French-German Research Institute of Saint-Louis (ISL)",
+    "datePublished": "2024",
+    "inLanguage": "fr",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": null,
+    "rai:dataCollectionType": null,
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": null,
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Participants read sentences from French Wikipedia for 15 minutes in clean conditions, remained silent for 2 minutes 24 seconds in noisy environments, remained silent for 54 seconds in complete silence, and read for 54 seconds in noisy conditions. Automatic post-processing filters were applied: (1) Phoneme Error Rate <10% using Levenshtein distance, (2) SNR >1.5 dB between speech and silence energy levels, (3) Speech energy level check to detect sensor drift. Whisper-timestamped model was used for voice activity detection and phonetic transcription validation.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Phoneme Error Rate (PER) computed using Levenshtein distance between labeled phonetic transcription and Whisper-generated transcription. Signal-to-noise ratio (SNR) analysis using L50 percentile levels for speech and silence segments. Coherence functions computed using 2,048 frequency bins at 48 kHz to analyze sensor bandwidth. Out of 200 participants, 188 were retained after filtering, with 6.8% of pronounced sentences excluded.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": "188 participants total: 97 female and 91 male speakers",
+    "rai:machineAnnotationTools": "Whisper-timestamped model for speech-to-text and voice activity detection using dynamic time warping on cross-attention weights. CoML lab text phonemizer for IPA phonetic transcription generation (33 French phonemes).",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": "The dataset is intended to drive progress in body-conducted speech analysis and support the development of robust communication systems for real-world applications.",
+    "rai:personalSensitiveInformation": "Gender information was collected as part of efforts to ensure dataset diversity and inclusivity.",
+    "rai:dataUseCases": "The dataset has been validated for Speech Enhancement, Speech-to-Phonemes transcription, and Speaker Verification tasks, which are fundamental speech processing applications.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly available online on HuggingFace via Creative Commons Attribution 4.0 International license.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was split by speaker with 80% of male and female speakers in the training set, 10% in the development/validation set, and 10% in the test set, ensuring that all utterances from a given speaker are grouped together to prevent speaker overlap between splits. Voice Activity Detection timestamps were extended by 0.6 seconds on both sides, and in rare cases where adjusted timestamps exceeded original audio boundaries, audio was trimmed by 15 ms on the affected side.",
+    "rai:dataPreprocessingProtocol": "A 20 Hz high-pass filter was uniformly applied to each acquisition channel to attenuate low-frequency noise and artifacts. Three automatic filters were applied to remove utterances with deficiencies: (1) discarding samples where Phoneme Error Rate (PER) > 10%, (2) verifying sensor functionality by checking SNR[i,j] = L50_speech[i,j] - L50_silence[i,j] > 1.5dB, and (3) detecting sensitivity drift by checking that L50_speech[i,j] > L50_silence[i]. Text normalization operations included lowercasing text and removing punctuation except for apostrophes. Phonetic transcriptions were generated using the International Phonetic Alphabet with 33 French phonemes."
+  },
+  "usage": {
+    "input_tokens": 26586,
+    "output_tokens": 3039
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:51.744171Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox is a dataset compliant with the General Data Protection Regulation (GDPR) containing audio recordings using five different body-conduction audio sensors"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox is a dataset compliant with the General Data Protection Regulation (GDPR) containing audio recordings using five different body-conduction audio sensors: two in-ear microphones, two bone conduction vibration pickups, and a laryngophone. The dataset also includes audio data from an airbome microphone used as a reference. The Vibravox corpus contains 45 hours per sensor of speech samples and physiological sounds recorded by 188 participants under different acoustic conditions imposed by a high order ambisonics 3D spatializer."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox (ours) [39] ... Download page ... HuggingFace"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poir´ee, V´eronique Zimpfer, and ´Eric Bavu"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Julien Hauret, Malo Olivier, Christophe Langrenne, Sarah Poir´ee, and ´Eric Bavu are with the Laboratoire de M´ecanique des Structures et des Syst`emes Coupl´es, Conservatoire national des arts et m´etiers, HESAM Universit´e, 75003 Paris, France... Thomas Joubaud and V´eronique Zimpfer are with the Department of Acoustics and Soldier Protection, French-German Research Institute of Saint-Louis (ISL)."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SUBMITTED TO ELSEVIER SPEECH COMMUNICATION ON AUGUST 20, 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox (ours) [39] ... Language ... French"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A total of 200 participants contributed to the dataset, with 188 retained after post-processing to ensure high-quality data."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The recording process consists of four steps... speech-clean: The participant reads sentences sourced from the French Wikipedia for a duration of 15 minutes... A total of J=30,568 sentences were initially collected from 200 participants... we applied a series of three automatic filters to remove utterances with obvious deficiencies... The first filter discards any audio samples where PER[j]>10%... The second filter is employed to verify that the sensor is functioning correctly, specifically by examining the ratio between speech and silence energy levels... The last filter is designed to detect any potential sensitivity drift on the sensors."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "PER[j]: Phoneme Error Rate is computed for each sample j∈[1,J] using the Levenshtein distance between the phonetic labeled transcription and the phonetic transcription derived from Whisper's output... SNR[i,j]=Lspeech_50[i,j]−Lsilence_50[i,j]>1.5dB... These coherence functions were averaged on the entire filtered dataset and computed using 2,048 frequency bins on the raw signals recorded at 48 kHz... Out of 200 participants, 188 were retained, with a total of 28,471 sentences... this post-processing filtering excluded a non-negligible amount of data (6% of participants and 6.8% of pronounced sentences)"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each utterance generates a new recording, and the transcriptions are retained."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Out of 200 participants, 188 were retained... 97F/91M"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The whisper-timestamped model constitutes a key component of our indicator extraction process. This model is a speech-to-text engine based on Whisper [29] that applies dynamic time warping [67] to cross-attention weights... This operation was done with the text phonemizer of the CoML lab [63]... which contains 33 phonemes in French."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hope this release will drive progress in body-conducted speech analysis and support the development of robust communication systems for real-world applications."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "to increase the representativeness and inclusivity of the dataset, a deliberate effort was made to recruit a diverse and gender-balanced group of participants."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Using Vibravox has proven to yield satisfactory results in Speech Enhancement, Speech-to-Phonemes and Speaker Verification, which are three fundamental speech processing tasks."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This corpus is being made available online on HuggingFace via Creative Commons Attribution 4.0 International license."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is then split by speaker, with 80% of male and female speakers in the training set, 10% in the development/validation set, and 10% in the test set. This ensures that all utterances from a given speaker are grouped together, preventing any speaker overlap between splits... the timestamps generated by Voice Activity Detection (VAD) are extended by 0.6 seconds on both sides. In rare cases where the adjusted start or end timestamps exceed the original audio boundaries, the audio is trimmed by 15 ms on the affected side."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To enhance audio data quality, a 20 Hz high-pass filter is uniformly applied to each acquisition channel, effectively attenuating low-frequency noise and artifacts... we applied a series of three automatic filters to remove utterances with obvious deficiencies... The first filter discards any audio samples where PER[j]>10%... The second filter is employed to verify that the sensor is functioning correctly... SNR[i, j] = Lspeech_50[i, j] − Lsilence_50[i, j] > 1.5dB... The last filter is designed to detect any potential sensitivity drift on the sensors... the filter checks that Lspeech_50[i, j] > Lsilence_50[i]... we applied common text normalization operations, such as lowercasing text and removing punctuation except for apostrophes."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0627,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 15989,
+        "tokens_in": 4363,
+        "tokens_out": 880
+      },
+      "collection": {
+        "section_chars": 5768,
+        "tokens_in": 2271,
+        "tokens_out": 155
+      },
+      "annotation": {
+        "section_chars": 36070,
+        "tokens_in": 9527,
+        "tokens_out": 912
+      },
+      "impact": {
+        "section_chars": 2360,
+        "tokens_in": 1031,
+        "tokens_out": 405
+      },
+      "processing": {
+        "section_chars": 36070,
+        "tokens_in": 9394,
+        "tokens_out": 687
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

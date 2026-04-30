@@ -1,0 +1,278 @@
+{
+  "dataset_id": "ScaleAI_SWE-bench_Pro",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "SWE-BENCH PRO",
+    "description": "SWE-BENCH PRO is a benchmark designed to capture realistic, complex, enterprise-level software engineering problems. It contains 1,865 problems sourced from a diverse set of 41 actively maintained repositories spanning business applications, B2B services, and developer tools.",
+    "url": "https://scale.com/research/swe_bench_pro",
+    "license": null,
+    "creator": "Xiang Deng, Jeff Da, Edwin Pan, Yannis Yiming He, Charles Ide, Kanak Garg, Niklas Lauffer, Andrew Park, Nitin Pasari, Chetan Rane, Karmini Sampath, Maya Krishnan, Srivatsa Kundurthy, Sean Hendryx, Zifan Wang, Chen Bo Calvin Zhang, Noah Jacobson, Bing Liu, Brad Kenstler",
+    "publisher": "Scale AI",
+    "datePublished": null,
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The data collection process involves identifying pairs of consecutive commits from codebases to extract test and gold patches that capture the resolution of an issue. This is followed by human-driven augmentation to create task descriptions using information from issue discussions, commit messages, and pull requests.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": "Missing or incomplete commit messages were handled by collecting and organizing supplementary information from other original sources, such as issue discussions and pull requests, to create a complete task description.",
+    "rai:dataCollectionRawData": "The raw data consists of commit histories, issue discussions, and pull requests from 41 actively maintained repositories, which include public GPL-licensed repositories and private commercial codebases from startups.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A three-stage human-in-the-loop process where professional software engineers manually construct environments, augment task descriptions (problem statements, requirements, interfaces) using original sources, and manually verify and clean test suites to remove irrelevant or overly broad tests.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Validation includes an automatic pipeline to run gold tests multiple times to ensure consistency (filtering flaky tests) and a human verification pipeline to check test relevance and scope.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Professional software engineers / software engineering experts.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset contains a representation bias regarding programming languages; the distribution is skewed, leaving several major languages underrepresented.",
+    "rai:dataLimitations": "Limitations include limited programming language coverage, a narrow scope focused only on issue resolution via code patches (ignoring broader tasks like system design), reliance on specific test suites that may reject valid alternative solutions, and a lack of real-world ambiguity due to the human augmentation process.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed to be used as a benchmark for testing and evaluating the coding capabilities of Large Language Model (LLM) agents on complex software engineering tasks.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset undergoes human-driven augmentation to add missing context, requirements, and interfaces to task descriptions. Additionally, the dataset is balanced by capping the number of instances per repository to 50-100 to prevent overfitting.",
+    "rai:dataPreprocessingProtocol": "Data is filtered to exclude trivial edits (1-10 lines of code), retaining only substantial multi-file modifications. Test suites are cleaned by running tests multiple times to filter out flaky tests, and human annotators filter out tests that are irrelevant or too broad. Problems failing these criteria are dropped."
+  },
+  "usage": {
+    "input_tokens": 20213,
+    "output_tokens": 2240
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:10:23.726148Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce SWE-BENCH PRO, a substantially more challenging benchmark that builds upon the best practices of SWE-Bench"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce SWE-BENCH PRO, a substantially more challenging benchmark that builds upon the best practices of SWE-Bench [25], but is explicitly designed to capture realistic, complex, enterprise-level problems beyond the scope of SWE-Bench. SWE-BENCH PRO contains 1,865 problems sourced from a diverse set of 41 actively maintained repositories spanning business applications, B2B services, and developer tools."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://scale.com/research/swe_bench_pro"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Xiang Deng*, Jeff Da*\nEdwin Pan, Yannis Yiming He, Charles Ide, Kanak Garg, Niklas Lauffer, Andrew Park, Nitin\nPasari, Chetan Rane, Karmini Sampath, Maya Krishnan, Srivatsa Kundurthy, Sean Hendryx,\nZifan Wang, Chen Bo Calvin Zhang, Noah Jacobson\nBing Liu, Brad Kenstler"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Scale AI"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To collect the problems, we leverage the evolution of a codebase through its commit history. Specifically, we identify pairs of consecutive commits that together capture the resolution of an issue... we collect and organize the available information from original sources, such as issue discussions, commit messages, or pull requests, and produce the final task description"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "exclusively selecting repositories distributed under strong copyleft licenses (GPL) to construct a public set (11 repositories) and a held-out set (12 repositories), and (2) acquiring commercial codebases from real startups"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "commit messages are often unstructured, incomplete, or entirely missing... To address this gap, we collect and organize the available information from original sources, such as issue discussions, commit messages, or pull requests, and produce the final task description"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-BENCH PRO contains 1,865 problems sourced from a diverse set of 41 actively maintained repositories spanning business applications, B2B services, and developer tools. The benchmark is partitioned into a public set... a held-out set... and a commercial set of 18 proprietary repositories"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We design a novel three-stage human-in-the-loop process... First, we construct environments manually with software engineering experts. Second, we use an in-house pipeline to validate... Finally, we have a human-verification of all tests in the fail2pass test list, in which irrelevant tests are dropped."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use automatic verification to ensure that the environment is working as expected. For each environment, we run the gold tests several times and ensure that they pass consistently... We additionally send all tests through a human verification pipeline, where each tests is checked if it is relevant to the task description, and if it is not too broad."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct environments manually with software engineering experts... We leveraged professional software engineers to create Docker-based environments."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although SWE-BENCH PRO includes multiple programming languages (Python, JavaScript, TypeScript, Go), the distribution is not uniform, and some widely-used languages like Java, C++, and Rust are underrepresented."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Limitations\nLimited Language Coverage... Issue Scope. The current evaluation framework focuses primarily on issue resolution through code patches... Dependency on Test Suite. We rely on a test suite of fail2pass and pass2pass to verify problem solutions... Reduction in Ambiguity. The human augmentation process, while improving problem clarity, may inadvertently make problems too prescriptive"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "generate high-quality coding problems for evaluating the progress of LLM agents after SWE-Bench is saturated."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-BENCH PRO leverages human-driven augmentation... The goal of augmentation is to equip the SWE agent with sufficient context to resolve the issue... we limit each repository to contribute 50-100+ instances. This avoids the situation where models get an advantage by being especially good at a single repository"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we exclude trivial edits (1–10 lines of code) and retain only problems requiring substantial, multi-file modifications. [...] we run each set of tests 3 times and filter out any test that doesn’t pass consistently. [...] we drop tests that fall into either category: a) it is irrelevant to the task description, and b) it is too broad. In the case that all tests are too broad or not relevant, we drop the problem."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 17,
+      "fields_null": 13,
+      "fields_verified": 17,
+      "evidence_count": 17,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0477,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 16089,
+        "tokens_in": 4005,
+        "tokens_out": 608
+      },
+      "collection": {
+        "section_chars": 16423,
+        "tokens_in": 3726,
+        "tokens_out": 482
+      },
+      "annotation": {
+        "section_chars": 20028,
+        "tokens_in": 4466,
+        "tokens_out": 402
+      },
+      "impact": {
+        "section_chars": 13735,
+        "tokens_in": 3222,
+        "tokens_out": 401
+      },
+      "processing": {
+        "section_chars": 22488,
+        "tokens_in": 4794,
+        "tokens_out": 347
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 104.9
+  }
+}

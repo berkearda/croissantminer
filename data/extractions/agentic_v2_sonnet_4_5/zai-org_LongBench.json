@@ -1,0 +1,256 @@
+{
+  "dataset_id": "zai-org_LongBench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "LongBench",
+    "description": "A bilingual, multi-task benchmark for long context understanding comprising 21 datasets across 6 task categories in both English and Chinese, with an average length of 6,711 words (English) and 13,386 characters (Chinese). Tasks cover single-doc QA, multi-doc QA, summarization, few-shot learning, synthetic tasks, and code completion.",
+    "url": "https://github.com/THUDM/LongBench",
+    "license": null,
+    "creator": "Yushi Bai, Xin Lv, Jiajie Zhang, Hongchang Lyu, Jiankai Tang, Zhidian Huang, Zhengxiao Du, Xiao Liu, Aohan Zeng, Lei Hou, Yuxiao Dong, Jie Tang, Juanzi Li (Tsinghua University, Zhipu.AI, Institute of Automation, Chinese Academy of Sciences)",
+    "publisher": "arXiv",
+    "datePublished": "2023",
+    "inLanguage": "en, zh",
+    "citeAs": "Yushi Bai, Xin Lv, Jiajie Zhang, Hongchang Lyu, Jiankai Tang, Zhidian Huang, Zhengxiao Du, Xiao Liu, Aohan Zeng, Lei Hou, Yuxiao Dong, Jie Tang, Juanzi Li. (2024). LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding. arXiv:2308.14508v2 [cs.CL]",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data collected from multiple sources including existing datasets (NarrativeQA, Qasper, HotpotQA, 2WikiMultihopQA, MuSiQue, DuReader, GovReport, QMSum, MultiNews, VCSUM, TREC, TriviaQA, SAMSum, LSHT, LCC, RepoBench-P), manually curated datasets (MultiFieldQA-en, MultiFieldQA-zh), and synthetic datasets (PassageCount, PassageRetrieval-en, PassageRetrieval-zh). Documents collected from legal documents, government reports, encyclopedias, academic papers, Wikipedia, GitHub repositories, and other sources.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator, Software Collection, Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data sources include: NarrativeQA (long stories), Qasper (NLP papers), legal documents, government reports, encyclopedias, academic papers, Wikipedia, Baidu Search, Baidu Zhidao, U.S. Government Accountability Office reports, Congressional Research Service reports, meeting transcripts, news articles, messenger conversations, C4 dataset, and GitHub repositories.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For multi-doc QA tasks, complete Wikipedia passages were used as context with supporting passages included and distracting passages added until maximum length, then randomly ordered. For few-shot learning tasks, random number of examples were sampled from training sets and concatenated. For synthetic tasks, passages were randomly sampled, repeated, and shuffled. For code completion, cross-file code snippets were shuffled and combined with in-file context.",
+    "rai:dataPreprocessingProtocol": "All 21 datasets standardized into unified format. Data extraction performed using random sampling (for LongBench) and uniform sampling based on length (for LongBench-E). When input length exceeds model's maximum context length, sequences truncated from middle. For chat models, specific prompts avoided in few-shot learning and code completion tasks.",
+    "rai:dataAnnotationProtocol": "For MultiFieldQA datasets, three Ph.D. students annotated questions and answers for each article with definitive answers. Annotators ensured answers could be inferred from documents and evidence placement was fairly random to avoid biases. For synthetic PassageRetrieval tasks, summaries were generated using GPT-3.5-Turbo.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For MultiFieldQA datasets, three Ph.D. students annotate the question and answer for each article, with definitive answers as much as possible for ease of automated evaluation. During the annotation, we ensure that the answers can be inferred from the documents, and the placement of evidence is fairly random to avoid biases that might occur if, for instance, the answer-related statements are frequently found at the beginning or the end.",
+    "rai:annotationsPerItem": "For MultiFieldQA datasets: 3 annotators (Ph.D. students) per item",
+    "rai:annotatorDemographics": "Three Ph.D. students for MultiFieldQA annotation",
+    "rai:machineAnnotationTools": "GPT-3.5-Turbo for generating summaries in PassageRetrieval synthetic tasks",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "The paper mentions that documents are collected from multiple sources including legal documents, government reports, encyclopedias, academic papers, etc. However, no explicit discussion of personal sensitive information or human attributes collected as part of the dataset is provided.",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Potential memorization bias where models may rely on information encountered during pre-training rather than context understanding. High memorization performance observed on HotpotQA, 2WikiMultihopQA, and MuSiQue likely because these datasets are derived from Wikipedia, a common source for training LLMs.",
+    "rai:dataLimitations": "Potentially unreliable automatic metrics (ROUGE-L, F1) may not accurately reflect response quality and may underestimate models that generate longer responses. Performance on LongBench is coupled with models' instruction-following capabilities. Test leakage concerns as LLMs may have been trained on training sets of some public datasets used.",
+    "rai:dataUseCases": "Testing and evaluation of large language models' long context understanding capabilities across multiple tasks including single-doc QA, multi-doc QA, summarization, few-shot learning, synthetic tasks, and code completion. Benchmark enables rigorous evaluation of LLMs on sequences spanning thousands to tens of thousands of tokens."
+  },
+  "usage": {
+    "input_tokens": 26938,
+    "output_tokens": 3989
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:31.711938Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce LongBench, the first bilingual, multi-task benchmark for long context understanding"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LongBench comprises 21 datasets across 6 task categories in both English and Chinese, with an average length of 6,711 words (English) and 13,386 characters (Chinese). These tasks cover key long-text application areas including single-doc QA, multi-doc QA, summarization, few-shot learning, synthetic tasks, and code completion."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The code and datasets are available at https://github.com/THUDM/LongBench"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yushi Bai12, Xin Lv2, Jiajie Zhang12, Hongchang Lyu3, Jiankai Tang1, Zhidian Huang1, Zhengxiao Du12, Xiao Liu12, Aohan Zeng12, Lei Hou1, Yuxiao Dong1†, Jie Tang1, Juanzi Li1† 1Tsinghua University2Zhipu.AI3Institute of Automation, Chinese Academy of Sciences"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2308.14508v2 [cs.CL] 19 Jun 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LongBench comprises 21 datasets across 6 task categories in both English and Chinese"
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LongBench contains 4,750 test instances"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We extract NarrativeQA from the original dataset... We also sample from Qasper... we manually curate the MultiFieldQA datasets in both English and Chinese. We first collect documents and articles from multiple sources, including legal documents, government reports, encyclopedias, academic papers, etc... The English test samples are built from three Wikipedia-based multi-hop QA datasets: HotpotQA, 2WikiMultihopQA, and MuSiQue... PassageRetrieval-en and PassageRetrieval-zh are constructed based on English Wikipedia and the Chinese sections of the C4 dataset"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We extract NarrativeQA from the original dataset... We also sample from Qasper... we manually curate the MultiFieldQA datasets... We first collect documents and articles from multiple sources... PassageRetrieval-en and PassageRetrieval-zh are constructed based on English Wikipedia and the Chinese sections of the C4 dataset... The LCC dataset is sampled from the original Long Code Completion dataset... we adapt the RepoBench-P dataset... RepoBench-P is collected from Github repositories"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NarrativeQA from the original dataset in Kočiský et al. (2018), which consists of long stories... Qasper (Dasigi et al., 2021), which features QA over NLP papers... We first collect documents and articles from multiple sources, including legal documents, government reports, encyclopedias, academic papers, etc... The English test samples are built from three Wikipedia-based multi-hop QA datasets... we also construct a Chinese dataset based on DuReader (He et al., 2018), which is developed based on Baidu Search and Baidu Zhidao... GovReport dataset is a large-scale collection of detailed reports from the U.S. Government Accountability Office and Congressional Research Service... QMSum (Zhong et al., 2021), which consists of query-summary pairs annotated over 232 meetings... MultiNews dataset features clusters of 2-10 news articles... VCSUM (Wu et al., 2023) is a large-scale Chinese meeting summarization dataset... SAMSum dataset (Gliwa et al., 2019), which contains messenger-like conversations... PassageRetrieval-en and PassageRetrieval-zh are constructed based on English Wikipedia and the Chinese sections of the C4 dataset... The LCC dataset is sampled from the original Long Code Completion dataset (Guo et al., 2023)... RepoBench-P is collected from Github repositories"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To tailor the data for long-context evaluation, we utilize complete Wikipedia passages encompassing the supporting or distracting paragraphs as the context. Initially, supporting passages are included within the context, and then as many distracting passages are added until the total length reaches a maximum length. Finally, these passages are randomly ordered to form the multi-document context... for each test data, we first randomly select an integer within a range as the number of examples, then randomly sample the corresponding number of samples from the training set, and concatenate them to form the context C... For each piece of data, we randomly select several passages from English Wikipedia, repeat each paragraph at random several times, and finally shuffle the paragraphs... For each original piece of data, we shuffle the cross-file code snippets that include the gold cross-file code snippet"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All 21 datasets in LongBench are standardized into a unified format... We employ two extraction strategies: random sampling and uniform sampling. Through random sampling, we maintain a natural length distribution to more accurately mimic real scenarios, and obtain LongBench. Alternatively, we perform uniform sampling based on the length of the data with a focus on studying the model's capabilities across varying context lengths... When the input length L surpasses the maximum context length M of a model, we truncate the input sequence S from the middle... During evaluation, we avoid adding these prompts in few-shot learning and code completion tasks"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We invite three Ph.D. students to annotate the question and answer for each article, with definitive answers as much as possible for ease of automated evaluation. During the annotation, we ensure that the answers can be inferred from the documents, and the placement of evidence is fairly random to avoid biases that might occur if, for instance, the answer-related statements are frequently found at the beginning or the end... For each data entry, we randomly sample 30 passages and select one of them for summarization using GPT-3.5-Turbo"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We invite three Ph.D. students to annotate the question and answer for each article"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For each data entry, we randomly sample 30 passages and select one of them for summarization using GPT-3.5-Turbo"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the model may have potentially encountered the long context during pre-training, it may rely on memorization rather than context understanding to answer the question... We observe that the memorization performance (w/o context) on HotpotQA, 2WikiMultihopQA, and MusiQue is relatively high. This is likely because these datasets are derived from Wikipedia, a common source for training prevalent LLMs."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Despite LongBench offers a more comprehensive testbed for long context understanding, it still has its shortcomings... (1) Potentially unreliable automatic metrics: As previous studies suggest (Bai et al., 2023), the automatic evaluation metrics (ROUGE-L, F1) may not accurately reflect the quality of the response. Particularly, the results on these metrics may be underestimated for models that are used to generating longer responses... (2) Coupling with instruction-following capabilities: Our primary objective is to assess the models' proficiency in long-context modeling regardless of their instruction-following capabilities. However, as the tasks in LongBench are closer to real-world applications, mastering them inevitably demands a certain level of instruction-following capability... Since LLMs may have already been trained on the training set of some of our collected public datasets, to avoid test leakage, we extract data from the test sets of these public datasets"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LongBench, the first bilingual, multi-task benchmark for long context understanding, enabling a more rigorous evaluation of long context understanding... These tasks cover key long-text application areas including single-doc QA, multi-doc QA, summarization, few-shot learning, synthetic tasks, and code completion... We conduct a comprehensive evaluation of 8 LLMs on LongBench... LongBench and LongBench-E serve as ideal testbeds for future research in long context modeling"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 78.3,
+      "avg_confidence": 0.917
+    },
+    "cost_usd": 0.0703,
+    "split": "test",
+    "corrections_applied": 5,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

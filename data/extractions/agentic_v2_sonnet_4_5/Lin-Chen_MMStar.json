@@ -1,0 +1,256 @@
+{
+  "dataset_id": "Lin-Chen_MMStar",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MMStar",
+    "description": "An elite vision-indispensable multi-modal benchmark comprising 1,500 challenge samples meticulously selected by humans. MMStar benchmarks 6 core capabilities and 18 detailed axes, aiming to evaluate LVLMs' multi-modal capacities with carefully balanced and purified samples.",
+    "url": "https://mmstar-benchmark.github.io/",
+    "license": null,
+    "creator": "Lin Chen, Jinsong Li, Xiaoyi Dong, Pan Zhang, Yuhang Zang, Zehui Chen, Haodong Duan, Jiaqi Wang, Yu Qiao, Dahua Lin, Feng Zhao",
+    "publisher": "University of Science and Technology of China, The Chinese University of Hong Kong, Shanghai AI Laboratory",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "@article{chen2024mmstar,\n  title={Are We on the Right Way for Evaluating Large Vision-Language Models?},\n  author={Chen, Lin and Li, Jinsong and Dong, Xiaoyi and Zhang, Pan and Zang, Yuhang and Chen, Zehui and Duan, Haodong and Wang, Jiaqi and Qiao, Yu and Lin, Dahua and Zhao, Feng},\n  journal={arXiv preprint arXiv:2403.20330},\n  year={2024}\n}",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Samples are first roughly selected from current benchmarks with an automated pipeline using eight powerful LLMs as candidate inspectors for visual dependency and LLM leakage. Then 16 leading LVLMs are used to gauge the difficulty of the samples and split them to four levels. Finally, strict manual review and selection are applied to curate 1,500 high-quality multimodal evaluation samples.",
+    "rai:dataCollectionType": "Secondary Data analysis, Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Samples collected from six existing benchmarks: two benchmarks focused on natural images (MMBench, SEED) and four centered on scientific and technical knowledge (MMMU, ScienceQA, AI2D, MathVista).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Samples with hit counts of two or fewer hits from LLM inspectors were retained, indicating that around 75% of LLM inspectors fail to provide the correct answer. Following this initial coarse filtering, the sample pool was reduced from 22,401 to 11,607.",
+    "rai:dataPreprocessingProtocol": "An automated pipeline was developed to preliminarily filter out samples that do not meet visual dependency and minimal data leakage criteria. Two closed-source LLMs and six open-source LLMs sizing 20B or larger served as inspectors with a 2-shot in-context inference strategy to minimize response refusals and ensure consistency in answer formatting.",
+    "rai:dataAnnotationProtocol": "Three experts conducted manual review to ensure: 1) each sample's answer should be based on the understanding of visual content; 2) selected samples should cover a comprehensive range of capability assessment dimensions; 3) most samples should require LVLMs to possess advanced multi-modal abilities for resolution. Hit counts of all 16 LVLMs were tallied and samples split into four difficulty categories: easy (12-16), moderate (8-11), hard (4-7), and tough (0-3).",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Samples are first roughly selected from current benchmarks with an automated pipeline using eight powerful LLMs as candidate inspectors for visual dependency and LLM leakage. Samples that could be answered by more than 2 of the 8 LLMs are excluded. Then 16 leading LVLMs are used to gauge the difficulty of the samples and split them into four levels. Ultimately, strict manual review and selection are applied to curate 1,500 high-quality multimodal evaluation samples.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Three experts",
+    "rai:machineAnnotationTools": "Eight LLMs used as inspectors: GPT4-Turbo, GeminiPro, LLaMA-70B, Qwen-1.5-72B, Mixtral-8x7B, IntemLM2-20B, Yi-34B, Deepseek-67B. Sixteen LVLMs used for difficulty assessment: GPT4V, GeminiPro-Vision, LLaVA series, and others.",
+    "rai:dataReleaseMaintenancePlan": "Future plans to expand MMStar into a larger, online test set and explore dynamic evaluation methods to maintain sample visual dependency and reduce accidental data leakage.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The paper identifies two primary biases in existing benchmarks: 1) Visual content is unnecessary for many samples - answers can be directly inferred from questions/options or world knowledge embedded in LLMs; 2) Unintentional data leakage exists in LLM and LVLM training, where models can answer visual-necessary questions without visual content due to memorization during training.",
+    "rai:dataLimitations": "The benchmark currently contains 1,500 samples. Future work plans to expand into a larger online test set. The paper notes that even with careful curation, maintaining sample visual dependency and reducing data leakage requires ongoing dynamic evaluation methods.",
+    "rai:dataUseCases": "Testing and evaluation of Large Vision-Language Models (LVLMs) across 6 core capabilities: Coarse Perception, Fine-grained Perception, Instance Reasoning, Logical Reasoning, Science & Technology, and Mathematics. The benchmark aims to evaluate LVLMs' multi-modal capacities with carefully balanced and purified samples that require visual understanding."
+  },
+  "usage": {
+    "input_tokens": 46693,
+    "output_tokens": 3461
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:54.606446Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present MMStar, an elite vision-indispensable multi-modal benchmark comprising 1,500 samples meticulously selected by humans."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present MMStar, an elite vision-indispensable multi-modal benchmark comprising 1,500 samples meticulously selected by humans. MMStar benchmarks 6 core capabilities and 18 detailed axes, aiming to evaluate LVLMs' multi-modal capacities with carefully balanced and purified samples."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://mmstar-benchmark.github.io/"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Lin Chen1,3∗Jinsong Li2,3∗Xiaoyi Dong2,3Pan Zhang3Yuhang Zang3 Zehui Chen1Haodong Duan3Jiaqi Wang3†Yu Qiao3Dahua Lin2,3Feng Zhao1†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1University of Science and Technology of China 2The Chinese University of Hong Kong 3Shanghai AI Laboratory"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Preprint.arXiv:2403.20330v2 [cs.CV] 9 Apr 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the future, we plan to expand MMStar into a larger, online test set"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Samples are first roughly selected from current benchmarks with an automated pipeline. In detail, we use eight powerful LLMs as candidates inspectors for visual dependency and LLM leakage... Then we use 16 leading LVLMs (e.g., GPT4V [35], GeminiPro-Vision [41], LLaV A series [24, 26]) to gauge the difficulty of the samples and split them to four levels. Ultimately, based on the difficulty of the rough-filtered samples, strict manual review and selection are applied to curate 1,500 high-quality multimodal evaluation samples."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We first choose two benchmarks [27, 21] focused on natural images and four centered on scientific and technical knowledge [51, 30, 20, 29] for our sample collection... After the coarse filtering with LLM inspectors, we further employ three experts to conduct the manual review process"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We first choose two benchmarks [27, 21] focused on natural images and four centered on scientific and technical knowledge [51, 30, 20, 29] for our sample collection."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Following this, we evaluate the sample pool with these LLM inspectors, documenting the hit frequency for each evaluation sample. Finally, we only retain those samples with hit counts of two or fewer hits, indicating that around 75% of LLM inspectors fail to provide the correct answer. As illustrated in Figure 4, following this initial coarse filtering, our sample pool was reduced from 22,401 to 11,607."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We then develop an automated pipeline to preliminarily filter out samples that do not meet the first two criteria. Specifically, we employ two closed-source LLMs [41, 34] and six open-source LLMs [1, 42, 49, 3, 19, 43] sizing 20B or larger to serve as inspectors. These open-source LLMs are applied with a 2-shot in-context inference strategy to minimize response refusals and ensure consistency in answer formatting."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After the coarse filtering with LLM inspectors, we further employ three experts to conduct the manual review process to ensure: 1) each sample's answer should be based on the understanding of visual content; 2) selected samples should cover a comprehensive range of capability assessment dimensions; 3) most samples should require LVLMs to possess advanced multi-modal abilities for resolution. To expedite the manual selection of samples with varying difficulty levels for LVLMs, we tally the hit counts of all 16 LVLMs on the coarsely filtered samples and split them into four difficulty categories: easy (12-16), moderate (8-11), hard (4-7), and tough (0-3)."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After the coarse filtering with LLM inspectors, we further employ three experts to conduct the manual review process"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In detail, we use eight powerful LLMs as candidates inspectors for visual dependency and LLM leakage, including two closed-source APIs (GPT4-Turbo [34], and GeminiPro [41]) and six leading open-source models (e.g., LLaMA-70B [43], Qwen-1.5-72B [1], and Mixtral-8x7B [19])... Then we use 16 leading LVLMs (e.g., GPT4V [35], GeminiPro-Vision [41], LLaV A series [24, 26]) to gauge the difficulty of the samples"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the future, we plan to expand MMStar into a larger, online test set and explore dynamic evaluation methods to maintain sample visual dependency and reduce accidental data leakage into LLM's and LVLM's training corpora."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, we dig into current evaluation works and identify two primary issues: 1) Visual content is unnecessary for many samples. The answers can be directly inferred from the questions and options, or the world knowledge embedded in LLMs... 2)Unintentional data leakage exists in LLM and LVLM training. LLM and LVLM could still answer some visual-necessary questions without visual content, indicating the memorizing of these samples within large-scale training data."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the future, we plan to expand MMStar into a larger, online test set and explore dynamic evaluation methods to maintain sample visual dependency and reduce accidental data leakage into LLM's and LVLM's training corpora."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MMStar benchmarks 6 core capabilities and 18 detailed axes, aiming to evaluate LVLMs' multi-modal capacities with carefully balanced and purified samples... These samples span 6 core multimodal capability dimensions and 18 detailed axes, aiming to probe LVLMs' advanced multimodal capabilities with a purified and high-quality set of samples."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 86.4,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.096,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

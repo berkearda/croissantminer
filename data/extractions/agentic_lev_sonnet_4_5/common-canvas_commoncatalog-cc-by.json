@@ -1,0 +1,279 @@
+{
+  "dataset_id": "common-canvas_commoncatalog-cc-by",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CommonCatalog",
+    "description": "A dataset of roughly 70 million open-licensed Creative Commons images with synthetically generated captions produced using a pre-trained BLIP-2 model, designed for training text-to-image diffusion models.",
+    "url": "https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md",
+    "license": "Creative Commons",
+    "creator": "Aaron Gokaslan, A. Feder Cooper, Jasmine Collins, Landan Seguin, Austin Jacobson, Mihir Patel, Jonathan Frankle, Cory Stephenson, Volodymyr Kuleshov",
+    "publisher": "Cornell Tech and Databricks Mosaic",
+    "datePublished": "2023-10-25",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was constructed by sourcing Creative Commons licensed images from YFCC100M, excluding images with non-derivative (ND) licenses. Images were divided into commercial (C) and non-commercial (NC) categories. All images were then captioned using the BLIP-2 OPT2.5B model, with images center-cropped and resized to 512x512 pixels for captioning (though kept at native resolution for training). The captioning process required approximately 1,120 GPU A100 hours.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "YFCC100M Creative Commons licensed images, which were divided into approximately 70 million non-commercial (NC) images and a subset of approximately 25 million images that can be used commercially (C). The raw images rarely had alt-text captions and when present, often just included image titles or URLs.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Synthetic captions were generated for Creative Commons images using a pre-trained BLIP-2 model. The process involved using BLIP-2 to perform 'lossy compression' from high-dimensional images to low-dimensional text captions, creating image-caption pairs for training.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BLIP-2 model pre-trained on LAION-400M was used to generate synthetic captions for Creative Commons images",
+    "rai:dataBiases": "The dataset contains biases related to temporal currency, as the YFCC100M data is about a decade old and CC images are not as current as those in LAION-2B. The models also under-perform in some categories, particularly faces.",
+    "rai:dataLimitations": "The dataset has data incompleteness and scarcity issues associated with Creative Commons images. The data is temporally limited (about a decade old) and not as current as alternative datasets. Models trained on this data under-perform in certain categories like faces.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training text-to-image latent diffusion models. The dataset is specifically designed for training models on only Creative Commons licensed images with synthetic captions.",
+    "rai:dataReleaseMaintenancePlan": "Future plans include augmenting CommonCatalog with Creative Commons images from other sources and testing larger CommonCanvas model architectures.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset uses aspect ratio bucketing and micro-conditioning techniques as part of the SDXL architecture implementation.",
+    "rai:dataPreprocessingProtocol": "The preprocessing involves curating Creative-Commons licensed images from YFCC100M dataset, filtering for high-resolution images, and generating synthetic captions using a pre-trained BLIP-2 model through a transfer learning technique called 'telephoning' that converts images to text captions."
+  },
+  "usage": {
+    "input_tokens": 20163,
+    "output_tokens": 2600
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:25.298537Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The above methods enable us to create CommonCanvas, a suite of latent diffusion model (LDM) architectures trained on our curated dataset of CC images and synthetic captions, which we denote CommonCatalog."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Curate CommonCatalog, a dataset of roughly 70 million open-licensed CC images, for which we use telephoning to generate accompanying high-quality synthetic captions"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our models, data, and code at https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images"
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Aaron Gokaslan1A. Feder Cooper1Jasmine Collins2Landan Seguin2 Austin Jacobson2Mihir Patel2Jonathan Frankle2Cory Stephenson2Volodymyr Kuleshov1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Comell Tech {akg87,afc78,vk379 }@comell.edu 2Databricks Mosaic {firstname.lastname }@databricks.com"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2310.16825v1 [cs.CV] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images... Curate CommonCatalog, a dataset of roughly 70 million open-licensed CC images"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We exclude images with non-derivative (ND) licenses. The remaining images can be further divided into those that can be used for commercial (C) purposes and those that cannot (non-commercial/ NC)... we captioned all of the YFCC100M Creative-Commons images, which required about 1,120 GPU A100 hours. To do so, we center-cropped and resized all of the images to a maximum size of 512x512 pixels."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset was constructed by sourcing Creative Commons licensed images from YFCC100M... Directly sourcing CommonCatalog avoids some concerns"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CC images rarely have the alt-text captions necessary to train a T2I model like Stable Diffusion (Figure 4); those that do have associated text often just include the image title or a URL... we could only find roughly 70 million usable CC images... In total, CommonCatalog contains roughly 70 million NC CC-images, of which a subset of approximately 25 million images can also be used commercially."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use a pre-trained BLIP-2 model [34], which we use to produce high-quality, synthetic captions for a set of curated, open licensed CC images... CC images are the high-dimensional inputs, and we use a pre-trained BLIP-2 model [34] for 'lossy compression' to short-text captions"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use a pre-trained BLIP-2 model [34], which we use to produce high-quality, synthetic captions for a set of curated, open licensed CC images... Even though BLIP-2 was pre-trained on LAION-400M [52], CommonCatalog and CommonCanvas never have direct access to LAION-400M"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B... Our CommonCanvas models under-perform in some categories, like faces"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We discuss the data incompleteness and scarcity issues associated with CC images... An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B... Our CommonCanvas models under-perform in some categories, like faces"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we train the family of CommonCanvas text-to-image latent diffusion models on only Creative-Commons images and synthetic captions... we can train SD2 on <3% of LAION-2B"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given the success of our results, in the future, we plan to augment CommonCatalog with Creative-Commons images from other sources, as well as test larger CommonCanvas model architectures."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Stable Diffusion XL (SDXL) is larger, with 2.6 billion parameters, and has other advancements involving aspect ratio bucketing, micro-conditioning, and multiple text encoders and tokenizers."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We address the data incompleteness problem by using a pre-trained BLIP-2 model [34], which we use to produce high-quality, synthetic captions for a set of curated, open licensed CC images... We focus on locating high-resolution Creative-Commons images that have open licenses. We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0497,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 16148,
+        "tokens_in": 4776,
+        "tokens_out": 698
+      },
+      "collection": {
+        "section_chars": 7259,
+        "tokens_in": 2383,
+        "tokens_out": 568
+      },
+      "annotation": {
+        "section_chars": 17361,
+        "tokens_in": 4942,
+        "tokens_out": 437
+      },
+      "impact": {
+        "section_chars": 7948,
+        "tokens_in": 3253,
+        "tokens_out": 567
+      },
+      "processing": {
+        "section_chars": 17361,
+        "tokens_in": 4809,
+        "tokens_out": 330
+      }
+    },
+    "enrichments": [
+      "inLanguage"
+    ]
+  }
+}

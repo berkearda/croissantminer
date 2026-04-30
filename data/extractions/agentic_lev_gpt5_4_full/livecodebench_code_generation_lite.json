@@ -1,0 +1,280 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "A comprehensive, contamination-free benchmark for evaluating LLMs on code. It collects new programming contest problems over time from LeetCode, AtCoder, and CodeForces, and evaluates multiple code-related capabilities including code generation, self-repair, code execution, and test output prediction.",
+    "url": "https://livecodebench.github.io/",
+    "license": "cc",
+    "creator": "Naman Jain; King Han; Alex Gu; Wen-Ding Li; Fanjia Yan; Tianjun Zhang; Sida I. Wang; Armando Solar-Lezama; Koushik Sen; Ion Stoica",
+    "publisher": null,
+    "datePublished": "2024-06-06",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was collected by writing HTML scrapers for LeetCode, AtCoder, and CodeForces to gather contest problems and metadata, parsing formulas, excluding image-based or unsuitable problems, collecting problem statements, test cases, ground-truth solutions, and contest dates, and supplementing tests with LLM-generated or platform failing tests when needed.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw/source data consisted of coding competition website content from LeetCode, AtCoder, and CodeForces, including natural language problem statements, example input-output examples, public/hidden tests when available, user or ground-truth solutions, starter code, metadata such as difficulty labels/ratings, and contest dates.",
+    "rai:dataCollectionTimeframe": "Problems were collected from contests occurring from May 2023 to May 2024; platform-specific collection used contests after April 2023.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo was used to generate tests when platform tests were unavailable; semi-automatic construction of test case generators was also used for some CodeForces problems.",
+    "rai:dataBiases": "The benchmark may reflect contamination and overfitting biases present in older benchmark problems and model training data; the paper also notes that averaging across mixed difficulty levels can minimize differences between models.",
+    "rai:dataLimitations": "Existing benchmarks are described as limited because they focus only on natural-language-to-code tasks, may suffer from contamination or overfitting, can contain insufficient tests and ambiguous descriptions, and very hard competition problems can yield near-zero performance for many models, making comparisons less meaningful.",
+    "rai:dataSocialImpact": "The benchmark is intended to advance understanding of code LLMs and guide future research through improved, contamination-aware evaluation.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is used for evaluation/benchmarking of code LLMs across code generation, self-repair, code execution, and test output prediction. Usage guidance includes evaluating newer models only on problems released after the model's cutoff date to avoid contamination and enable fair comparison.",
+    "rai:dataReleaseMaintenancePlan": "The benchmark is continuously updated with new problems over time, using live updates from weekly contests across LeetCode, AtCoder, and CodeForces. The framework is extensible and will keep updating with new problems, scenarios, and models; release dates are tracked for problems.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Problems were filtered and subsetted by release date and difficulty; harder problems above platform-specific thresholds were excluded, and only selected contest types/platform subsets were retained for benchmark construction.",
+    "rai:dataPreprocessingProtocol": "Collected problems via HTML scrapers; parsed mathematical formulas; excluded problems with images and those unsuitable for input-output grading; collected problem statements, solutions, tests, and contest dates; for code execution, applied compile-time and run-time filters and manual inspection to keep reasonable samples."
+  },
+  "usage": {
+    "input_tokens": 27607,
+    "output_tokens": 2235
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:02:52.286997Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this work, we propose LiveCodeBench, a comprehensive and contamination-free evaluation of LLMs for code"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose LiveCodeBench, a comprehensive and contamination-free evaluation of LLMs for code, which collects new problems over time from contests across three competition platforms, namely LeetCode, AtCoder, and CodeForces. Notably, our benchmark also focuses on a broader range of code-related capabilities, such as self-repair, code execution, and test output prediction, beyond just code generation."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Website: https://livecodebench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Naman Jain†King Han†Alex Gu*$Wen-Ding Li*‡ Fanjia Yan*†Tianjun Zhang*†Sida I. Wang Armando Solar-Lezama$Koushik Sen†Ion Stoica†"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2403.07974v2 [cs.SE] 6 Jun 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Large Language Models (LLMs) applied to code-related applications have emerged as a prominent field"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Live updates to prevent contamination... we use live updates, that is evaluate models on new problems"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata. To ensure quality and consistency, we parse mathematical formulas and exclude problems with images. We also exclude problems that are not suitable for grading by input-output examples... Thus for each problem, we collect tuples of natural language problem statement P, test cases T, and ground truth solution S. Finally, we associate the contest date D"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate our problems from three coding competition websites: LeetCode, AtCoder, and CodeForces... The problems consist of a natural language problem statement along with example input-output examples... Besides parsing the problem descriptions, we also collect associated ground truth solutions and test cases whenever directly available... Finally, we associate the contest date D"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Currently, LiveCodeBench hosts over five hundred coding problems that were published between May 2023 and May 2024... we have collected 511 problems from contests across three competition platforms ... occurring from May 2023 to the present (May 2024)... We collect problems from all weekly and biweekly contests on LeetCode that have taken place after April’23."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "“following Liu et al. (2023b), we use a LLM (here GPT-4-Turbo) to generate tests for the problems” and “we only consider a small fraction of problems from CodeForces and semi-automatically construct test case generators”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These results highlight likely contamination in older problems and time-segmented evaluations prove effective for performing fair comparisons. ... Furthermore, the averaging of evaluation scores across problems with different difficulty levels artificially minimizes the differences between models."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "these benchmarks only focus on natural language-to-code tasks, thus overlooking broader code-related capabilities. Moreover, these benchmarks may be subject to potential contamination or overfitting... prior works have revealed deficiencies in existing benchmarks... insufficient tests and ambiguous problem descriptions... most of the current SoTA models achieve close to zero performance on a majority of problems. As a result, they can be unsuitable for meaningful comparing today's LLMs"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hope LiveCodeBench with serve to advance understanding of current code LLMs and also guide future research in this area through our findings."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose LiveCodeBench, a holistic and contamination-free benchmark for evaluating code capabilities... we evaluate code LLMs on three additional scenarios... Self-Repair... Code Execution... Test Output Prediction... for newer models, we only consider problems released after the model's cutoff date to ensure that the model has not encountered the exact problem in the training dataset"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "which collects new problems over time from contests across three competition platforms... we collect problems from weekly contests on competition platforms and tag them with a release date... LiveCodeBench is an extensible framework, that will keep on updating with new problems, scenarios, and models."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we only consider problems released after the model’s cutoff date” ; “we use problem difficulty ratings ... for filtering the harder problems and classifying problem difficulties” ; “we exclude abc problems with a rating of more than 500”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We have written HTML scrapers ... To ensure quality and consistency, we parse mathematical formulas and exclude problems with images. We also exclude problems that are not suitable for grading by input-output examples” ; “we collect tuples of natural language problem statement P, test cases T, and ground truth solution S” ; “we apply compile-time and run-time filters to ensure samples are reasonable, and we double-check this with a manual inspection”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 19,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.915
+    },
+    "cost_usd": 0.0569,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20899,
+        "tokens_in": 5067,
+        "tokens_out": 546
+      },
+      "collection": {
+        "section_chars": 25404,
+        "tokens_in": 7309,
+        "tokens_out": 525
+      },
+      "annotation": {
+        "section_chars": 10029,
+        "tokens_in": 3063,
+        "tokens_out": 235
+      },
+      "impact": {
+        "section_chars": 21156,
+        "tokens_in": 6245,
+        "tokens_out": 632
+      },
+      "processing": {
+        "section_chars": 21765,
+        "tokens_in": 5923,
+        "tokens_out": 297
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 32.8
+  }
+}

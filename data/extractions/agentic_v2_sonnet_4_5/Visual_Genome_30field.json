@@ -1,0 +1,256 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "A dataset of 108,249 images with dense annotations including region descriptions, objects, attributes, relationships, scene graphs, and question-answer pairs to enable comprehensive scene understanding and cognitive visual tasks.",
+    "url": "https://visualgenome.org",
+    "license": "Creative Commons Attribution 4.0 International License",
+    "creator": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei",
+    "publisher": "arXiv",
+    "datePublished": "2016-02-23",
+    "inLanguage": "en",
+    "citeAs": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bemstein, Li Fei-Fei. Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations. arXiv:1602.07332v1 [cs.CV] 23 Feb 2016",
+    "isLiveDataset": false,
+    "rai:dataCollection": "Visual Genome was collected entirely by crowd workers from Amazon Mechanical Turk. The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation. Approximately 800,000 Human Intelligence Tasks (HITs) were launched on AMT, where each HIT involved creating descriptions, questions and answers, or region graphs.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The Visual Genome dataset consists of all 108,249 images from the intersection of MS-COCO's 328,000 images and YFCC's 100 million images. These images are real-world, non-iconic images that were uploaded onto Flickr by users.",
+    "rai:dataCollectionTimeframe": "The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "All Visual Genome data go through a verification stage as soon as they are annotated. This stage helps eliminate incorrectly labeled objects, attributes, and relationships. It also helps remove region descriptions and questions and answers that might be correct but are vague, subjective, or opinionated. Verification is conducted using two separate strategies: majority voting and rapid judgments. All components of the dataset except objects are verified using majority voting. Majority voting involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct. We only use rapid judgments to speed up the verification of the objects in our dataset.",
+    "rai:dataPreprocessingProtocol": "For training, we begin by preprocessing region descriptions; we remove all non-alphanumeric characters and lowercase and strip excess whitespace from them. We lowercase, lemmatize, and strip excess whitespace from all attributes and relationships.",
+    "rai:dataAnnotationProtocol": "Workers were asked to draw bounding boxes and write descriptions for regions, extract objects from descriptions and ground them with bounding boxes, add attributes to objects or connect pairs of objects with relationships, and write question-answer pairs. Each HIT was designed such that workers manage to earn anywhere between $6-$8 per hour if they work continuously. To ensure quality, workers were instructed to follow specific rules including starting questions with one of the seven Ws, avoiding ambiguous questions, and being precise and unique.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "All Visual Genome data go through a verification stage as soon as they are annotated. Verification is conducted using two separate strategies: majority voting and rapid judgments. Majority voting involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct.",
+    "rai:annotationsPerItem": "Each image contains an average of 42 region descriptions. For verification, three unique workers look at each annotation and vote on whether it is factually correct.",
+    "rai:annotatorDemographics": "A total of over 33,000 unique workers contributed to the dataset. 93.02% of workers contributed from the United States. The majority of workers were between the ages of 25 and 34 years old. The youngest contributor was 18 years old and the oldest was 68 years old. There was a near-balanced split of 54.15% male and 45.85% female workers.",
+    "rai:machineAnnotationTools": "Stanford's dependency parser was used to extract nouns automatically from region descriptions. Stanford NLP tools were used to extract noun phrases from region descriptions and QAs. A 16-layer VGG network was used to extract features for various experiments.",
+    "rai:dataReleaseMaintenancePlan": "The first release of the Visual Genome dataset uses 108,249 images from the intersection of the YFCC100M and MS-COCO. The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation.",
+    "rai:personalSensitiveInformation": "The dataset contains images of people with various attributes including gender (man, woman), age-related descriptors (young, old), and physical characteristics. Worker demographics show 54.15% male and 45.85% female workers, with ages ranging from 18 to 68 years old, and 93.02% of workers from the United States.",
+    "rai:dataSocialImpact": "Visual Genome aims to enable the modeling of relationships between objects in images to support cognitive computer vision tasks. The dataset is designed to train models that can understand interactions and relationships between objects, moving from perceptual awareness to cognitive understanding of images. This can enable important applications such as image search, question answering, and robotic interactions. The dataset regards relationships and attributes as first-class citizens of the annotation space, which is important for complete understanding of visual scenes.",
+    "rai:dataBiases": "Our dataset is somewhat biased towards images of people. Common visual elements like 'green grass,' 'tree [in] distance,' and 'blue sky' occur much more often than other, more nuanced elements. The images range from as small as 72 pixels wide to as large as 1280 pixels wide, with an average width of 500 pixels. Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images.",
+    "rai:dataLimitations": "The objectively low accuracy in image captioning experiments illustrates that current models are unable to reason about complex images. While the model is good at associating objects with their most salient attributes, there is some difference between the user-provided result and the correct ground truth. For cases where the objects are not clearly visible but are abstract outlines, models are unable to predict attributes or objects accurately. Relationships are not visually distinct enough for discriminative models to learn effectively due to high intra-class variability.",
+    "rai:dataUseCases": "The Visual Genome dataset was collected to be a general-purpose representation of the visual world, without bias toward a particular task. It can be used for training and benchmarking models for image description, question answering, object detection, attribute classification, relationship classification, dense image captioning, visual question answering, image understanding, relationship extraction, semantic image retrieval, and other cognitive computer vision tasks."
+  },
+  "usage": {
+    "input_tokens": 63820,
+    "output_tokens": 3971
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:02.539855Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we present the Visual Genome dataset to enable the modeling of such relationships."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Visual Genome dataset to enable the modeling of such relationships. We collect dense annotations of objects, attributes, and relationships within each image to learn these models. Specifically, our dataset contains over 100K images where each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Further visualizations, API, and additional information on the Visual Genome dataset can be found online at https://visualgenome.org"
+      },
+      "license": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1602.07332v1 [cs.CV] 23 Feb 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk. In this section, we outline the pipeline employed in creating all the components of the dataset... The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation. Approximately 800,000 Human Intelligence Tasks (HITs) were launched on AMT, where each HIT involved creating descriptions, questions and answers, or region graphs."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Visual Genome dataset consists of all 108,249 images from the intersection of MS-COCO's (Lin et al., 2014) 328,000 images and YFCC's (Thomee et al., 2016) 100 million images. These images are real-world, non-iconic images that were uploaded onto Flickr by users."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For training, we begin by preprocessing region descriptions; we remove all non-alphanumeric characters and lowercase and strip excess whitespace from them... We lowercase, lemmatize, and strip excess whitespace from all relationships."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When a new image is added to the crowdsourcing pipeline with no annotations, it is sent to a worker who is asked to draw three bounding boxes and write three descriptions for the region enclosed by each box... Each description is sent to one crowd worker, who extracts all the objects from the description and grounds each object as a bounding box in the image... We present each worker with a region description along with its extracted objects and ask them to add attributes to objects or to connect pairs of objects with relationships... To create question answer (QA) pairs, we ask the AMT workers to write pairs of questions and answers about an image... Each HIT was designed such that workers manage to earn anywhere between $6-$8 per hour if they work continuously, in line with ethical research standards on Mechanical Turk."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All Visual Genome data go through a verification stage as soon as they are annotated. This stage helps eliminate incorrectly labeled objects, attributes, and relationships... Verification is conducted using two separate strategies: majority voting (Snow et al., 2008) and rapid judgments (Krishna et al., 2016)... Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset contains on average a total of 42 region descriptions per image... Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Overall, a total of over 33,000 unique workers contributed to the dataset... 93.02% of workers contributed from the United States... The majority of our workers were between the ages of 25 and 34 years old. Our youngest contributor was 18 years old and the oldest was 68 years old. We also had a near-balanced split of 54.15% male and 45.85% female workers."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, to increase the speed with which workers complete this task, we also use Stanford's dependency parser (Manning et al., 2014) to extract nouns automatically and send them to the workers as suggestions... We use the Stanford NLP tools (Manning et al., 2014) to extract the noun phrases from the region descriptions and QAs... We feed the bounding boxes of the regions through the pretrained VGG 16-layer network (Simonyan and Zisserman, 2014) to get the 4096-dimensional feature vectors of each region."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is somewhat biased towards images of people, as Figure 13 shows... In Figure 18 (a), we plot the most common phrases occurring in our region descriptions, with stop words removed. Common visual elements like 'green grass,' 'tree [in] distance,' and 'blue sky' occur much more often than other, more nuanced elements like 'fresh strawberry.'... Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The objectively low accuracy in both cases illustrates that current models are unable to reason about complex images... In general, the model is good at associating objects with their most salient attributes, for example, animal with stuffed and elephant with grazing. However, there is some difference between the user-provided result and the correct ground truth, so the model incorrectly classifies some correct predictions... For cases where the objects are not clearly visible but are abstract outlines, our model is unable to predict attributes or objects accurately... Overall, we find that relationships are not visually distinct enough for our discriminative model to learn effectively... For relationship classification, we converge after around 800 iterations with 8.74% top-one accuracy and 29.69% top-five accuracy. Unlike attribute prediction, the accuracy results for relationships are much lower because of the high intra-class variability of most relationships."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Unlike previous datasets, which were collected for a single task like image classification, the Visual Genome dataset was collected to be a general-purpose representation of the visual world, without bias toward a particular task... Visual Genome provides a multi-layered understanding of pictures. It allows for a multi-perspective study of an image, from pixel-level information like objects, to relationships that require further inference, and to even deeper cognitive tasks like question answering. It is a comprehensive dataset for training and benchmarking the next generation of computer vision models."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 28,
+      "fields_null": 2,
+      "fields_verified": 28,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 67.9,
+      "avg_confidence": 0.902
+    },
+    "cost_usd": 0.1255,
+    "split": "test",
+    "corrections_applied": 8,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

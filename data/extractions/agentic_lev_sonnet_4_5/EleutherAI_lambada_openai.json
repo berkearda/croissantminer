@@ -1,0 +1,280 @@
+{
+  "dataset_id": "EleutherAI_lambada_openai",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word. The dataset evaluates computational models' capabilities for text understanding through a word prediction task requiring broad discourse context.",
+    "url": "https://huggingface.co/datasets/EleutherAI/lambada_openai",
+    "license": "MIT",
+    "creator": "Denis Paperno, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Fernández",
+    "publisher": "CIMeC - Center for Mind/Brain Sciences, University of Trento",
+    "datePublished": "2016-06-20",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "LAMBADA was constructed by extracting narrative passages from novels where human subjects could guess the last word when exposed to the whole passage, but not when only seeing the last sentence. Passages were sampled from test novels and filtered based on human performance criteria. A control set was constructed by randomly sampling 5K passages of the same shape and size from the same test novels without filtering.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Narrative passages from novels, specifically test novels. The training data consisted of training novels from which similar-shaped passages were extracted (about 9M passages for Sup-CBOW training).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Three-step crowdsourcing protocol: (1) one subject guesses target word from whole passage; if correct, (2) second subject guesses from whole passage; if correct, (3) up to 10 subjects try to guess from target sentence only with 3 guesses each. Passage included only if no subject guesses correctly in step 3. Subjects paid $0.22 per page (10 passages) for steps 1-2, $0.15 per page (20 sentences) for step 3.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "Strict perfect-match criteria requiring exact word match. 84-86% items discarded at step 1, additional 6-7% at step 2, and 3-5% at step 3. Only about 1 in 25 input examples passed all selection steps. Same subject prevented from judging same item in both passage and sentence conditions.",
+    "rai:annotationsPerItem": "Variable: 2 subjects for whole passage (steps 1-2), up to 10 subjects for sentence-only context (step 3)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Four language models used for pre-filtering: pre-trained RNN (Mikolov et al., 2011), standard 4-gram model, RNN, and feed-forward model (latter three trained on Book Corpus). Passages excluded if target word probability ≥0.00175 according to any model.",
+    "rai:dataBiases": "The dataset is heavily skewed towards proper nouns (48%) and common nouns (37%), with verbs (7.7%), adjectives, and adverbs being underrepresented. Over 80% of LAMBADA passages include the target word in the context, which may bias models toward co-reference resolution tasks. Pronouns constitute only 0.3% of target words despite co-reference being common.",
+    "rai:dataLimitations": "The dataset focuses primarily on co-reference and proper noun prediction, with limited representation of verbs, adjectives, and adverbs. The end-of-sentence context naturally skews distribution in favor of nouns. Many verb, adjective, and adverb items can be guessed with local sentence context only, suggesting they may not require broad discourse understanding.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for testing language models on their ability to take broad discourse context into account when predicting words. It is intended for training, testing, and validation of neural network approaches that track long-distance effects in text understanding. The authors plan to announce a public competition based on the LAMBADA data.",
+    "rai:dataReleaseMaintenancePlan": "The development set of LAMBADA along with the training corpus can be downloaded at http://clic.cimec.unitn.it/lambada/. The test set will be made available at the time of the competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Passages extracted from novels with target words removed from sentences; dataset divided into development and test sets from disjoint novels"
+  },
+  "usage": {
+    "input_tokens": 17701,
+    "output_tokens": 2970
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:53.427446Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce LAMBADA, a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Denis Paperno, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Fernández"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CIMeC - Center for Mind/Brain Sciences, University of Trento"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1606.06031v1 [cs.CL] 20 Jun 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The sentence Do you honestly think that I would want you to have a ?has a multitude of possible continuations, but the broad context clearly indicates that the missing word is miscarriage."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LAMBADA is a collection of narrative passages"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word... This control set was constructed by randomly sampling 5K passages of the same shape and size as the ones used to build LAMBADA from the same test novels, but without filtering them in any way."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This control set was constructed by randomly sampling 5K passages of the same shape and size as the ones used to build LAMBADA from the same test novels"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we trained the models, as is standard practice, on predicting each upcoming word given the previous context, using the LAMBADA training data (see Section 3.2 above) as input corpus... we extracted from the training novels similar-shaped passages to those in LAMBADA and trained the model on them (about 9M passages)"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For a given passage, 1. one human subject guessed the target word based on the whole passage (comprising the context and the target sentence); if the guess was right, 2. a second subject guessed the target word based on the whole passage; if that guess was also right, 3. more subjects tried to guess the target word based on the target sentence only, until the word was guessed or the number of unsuccessful guesses reached 10; if no subject was able to guess the target word, the passage was added to the LAMBADA dataset."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A random sample of the remaining passages were then evaluated by human subjects through the CrowdFlower crowdsourcing service"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the crowdsourcing pipeline, 84–86% items were discarded at step 1, an additional 6–7% at step 2 and another 3–5% at step 3. Only about one in 25 input examples passed all the selection steps... We made sure that it was not possible for the same subject to judge the same item in both passage and sentence conditions"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1. one human subject guessed the target word based on the whole passage... 2. a second subject guessed the target word based on the whole passage... 3. more subjects tried to guess the target word based on the target sentence only, until the word was guessed or the number of unsuccessful guesses reached 10"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To reduce time and cost of dataset collection, we filtered out passages that are relatively easy for standard language models... We used a combination of four language models, chosen by availability and/or ease of training: a pre-trained recurrent neural network (RNN) (Mikolov et al., 2011) and three models trained on the Book Corpus (a standard 4-gram model, a RNN and a feed-forward model... Any passage whose target word had probability 0.00175 according to any of the language models was excluded."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 2(b) shows that most target words in LAMBADA are proper nouns (48%), followed by common nouns (37%) and, at a distance, verbs (7.7%). In fact, proper nouns are hugely over-represented in LAMBADA, while the other categories are under-represented, compared to the POS distribution in the input... More than 80% of LAMBADA passages include the target word in the context, while in the input data that was the case for less than 15% of the passages."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In contrast, verbs, adjectives, and adverbs are rare in LAMBADA. Many of those items can be guessed with local sentence context only... While end-of-sentence context skews input distribution in favour of nouns, subject filtering does show a clear differential effect for nouns vs. other POSs."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduced the new LAMBADA dataset, aimed at testing language models on their ability to take a broad discourse context into account when predicting a word... We hope the computational community will be stimulated to develop novel language models that are genuinely capturing the non-local phenomena that LAMBADA reflects. To promote research in this direction, we plan to announce a public competition based on the LAMBADA data."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The development set of LAMBADA, along with the training corpus, can be downloaded at http://clic.cimec.unitn.it/lambada/. The test set will be made available at the time of the competition."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The LAMBADA dataset consists of 10,022 passages, divided into 4,869 development and 5,153 test passages (extracted from 1,331 and 1,332 disjoint novels, respectively). The average passage consists of 4.6 sentences in the context plus 1 target sentence"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.927
+    },
+    "cost_usd": 0.0488,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 8982,
+        "tokens_in": 2812,
+        "tokens_out": 629
+      },
+      "collection": {
+        "section_chars": 11024,
+        "tokens_in": 3541,
+        "tokens_out": 465
+      },
+      "annotation": {
+        "section_chars": 18046,
+        "tokens_in": 4929,
+        "tokens_out": 896
+      },
+      "impact": {
+        "section_chars": 12807,
+        "tokens_in": 4170,
+        "tokens_out": 779
+      },
+      "processing": {
+        "section_chars": 6379,
+        "tokens_in": 2249,
+        "tokens_out": 201
+      }
+    },
+    "enrichments": [
+      "license",
+      "url"
+    ]
+  }
+}

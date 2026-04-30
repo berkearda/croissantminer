@@ -1,0 +1,257 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS)",
+    "description": "A large multilingual corpus suitable for speech research derived from read audiobooks from LibriVox, consisting of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages.",
+    "url": "http://www.openslr.org",
+    "license": "CC0-1.0",
+    "creator": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert",
+    "publisher": "Facebook AI Research",
+    "datePublished": "2020-12-22",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "Audiobooks were downloaded using LibriLight tools and downsampled to 16kHz. Text sources were automatically extracted using parsers for major domains or manually copied/extracted from PDFs and EPUBs.",
+    "rai:dataCollectionType": "Secondary Data analysis, Web Scraping",
+    "rai:dataCollectionMissingData": "The training data is lower than the total available audiobook data because text sources for some audiobooks could not be downloaded, candidate labels were filtered during the transcript retrieval stage, or data was filtered while creating valid/test splits. Additionally, some links to text sources were invalid or redirected to incorrect pages.",
+    "rai:dataCollectionRawData": "Read audiobooks from LibriVox and corresponding text data from Project Gutenberg and other online text sources.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": "For audiobooks with invalid links for text sources, alternate sources were manually searched online to find where the book was available. Additionally, to handle numbers in the text, the matched text from the book was aligned with the pseudo label, and numbers were replaced with the corresponding aligned words from the pseudo label.",
+    "rai:dataManipulationProtocol": "Numbers in the matched text were replaced with corresponding aligned words from the pseudo label. Hyphens and apostrophes in rare words were replaced based on specific heuristics.",
+    "rai:dataPreprocessingProtocol": "Audio files were segmented into 10-20 second segments using trained acoustic models. Text data underwent NFKC normalization, removal of unwanted characters (punctuations, emojis, etc.), and filtering of characters outside the valid unicode range based on the language's orthography.",
+    "rai:dataAnnotationProtocol": "Pseudo labels were generated for audio segments using beam-search decoding with a 4-gram language model. The original transcript was retrieved by matching pseudo labels to available book transcripts using TF-IDF similarity on bigrams and Smith-Waterman alignment.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human transcribers evaluated the development and test sets by listening to the audio and correcting the transcripts. They were instructed to only correct clear and obvious errors to avoid introducing bias.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "wav2letter@anywhere framework, Time-Depth Separable (TDS) Convolutions with Auto-Segmentation Criterion (ASG) loss, Smith-Waterman alignment algorithm",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Gender",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The authors explicitly attempted to prevent human transcribing bias during the verification of development and test sets by limiting corrections to obvious errors.",
+    "rai:dataLimitations": "The automated replacement of numbers using pseudo labels is not perfect, as the pseudo label may not always have the correct transcription of the audio.",
+    "rai:dataUseCases": "Training, development, and testing for Automatic Speech Recognition (ASR) and Text-To-Speech (TTS) research."
+  },
+  "usage": {
+    "input_tokens": 18214,
+    "output_tokens": 2257
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:46:27.249352Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces Multilingual LibriSpeech (MLS) dataset, a large multilingual corpus suitable for speech research."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is derived from read audiobooks from LibriV ox and consists of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will be made freely available for anyone at http://www.openslr.org ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LibriV ox and Project Gutenberg data are released in the public domain, which allows us to release MLS freely to everyone."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert\nFacebook AI Research"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Facebook AI Research, Menlo Park & Paris, USA & France"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "December 22, 2020"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have selected English, German, Dutch, Spanish, French, Portuguese, Italian, Polish for the MLS dataset preparation."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For downloading the LibriV ox audiobooks in these languages, we have used data preparation tools available at LibriLight open source library. All the audio data is downsampled from 48kHz to 16kHz for further processing... We have written parsers to automatically extract the text for each of these domains and downloaded the text sources for all the audiobooks in English."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have selected English, German, Dutch, Spanish, French, Portuguese, Italian, Polish for the MLS dataset preparation. For downloading the LibriV ox audiobooks in these languages, we have used data preparation tools... We have written parsers to automatically extract the text for each of these domains and downloaded the text sources"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MLS is a read-speech dataset, which leverages LibriV ox audiobook data, most of which being based on the Project Gutenberg text data."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we align the matched text from the book with the pseudo label and replace the numbers in the matched text with the corresponding aligned words from the pseudo label... Figure 3 shows some examples of these issues from the books we processed and the heuristics we used to replace such word forms."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we segment the audio files into 10-20 second segments... For normalizing the text, we first perform NFKC normalization and remove all the unwanted characters like punctuations, subscript/superscripts, emojis, escape symbols etc. We also remove the hyphens used for “end-of-line hyphenation” and join the parts of words into a single word. We then prepare a list of valid unicode characters based on the language’s orthography and filter characters outside this range."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We generate pseudo labels for the segmented audio samples by performing a beam-search decoding with a 4-gram language model... We retrieve the documents which best matches with the pseudo label for the audio segments using term-frequency inverse document-frequency (TF-IDF) similarity score on bigrams. We then perform a Smith-Waterman alignment to find the best matching sub-sequence of words."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The human transcribers listen to the audio file while looking the transcript and are asked to correct the transcripts if they find any mistakes. To ensure that we do not add any potential bias into the dataset from human transcribing, we ask the transcribers to only correct “clear and obvious” errors."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have used wav2letter@anywhere framework to perform the inference in a streaming fashion... We then perform a Smith-Waterman alignment to find the best matching sub-sequence of words."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we label the gender of all the speakers with a gender classifier."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure that we do not add any potential bias into the dataset from human transcribing, we ask the transcribers to only correct “clear and obvious” errors."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While this solution is not perfect as the pseudo label may be not be always have the correct transcription of the audio, we found this to be a reasonably good solution to solve the issue."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We believe such a large transcribed dataset will open new avenues in ASR and Text-To-Speech (TTS) research... The dataset is split into training, development and test sets"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.0453,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 53.1,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

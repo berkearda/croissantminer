@@ -1,0 +1,280 @@
+{
+  "dataset_id": "BianYx_VAP-Data",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "VAP-Data",
+    "description": "The largest dataset for semantic-controlled video generation with over 100K paired videos across 100 semantic conditions spanning concept, style, motion, and camera categories.",
+    "url": "https://bytedance.github.io/Video-As-Prompt",
+    "license": "Apache-2.0",
+    "creator": "Yuxuan Bian, Xin Chen, Zenan Li, Tiancheng Zhi, Shen Sang, Linjie Luo, Qiang Xu",
+    "publisher": "Intelligent Creation Lab, ByteDance",
+    "datePublished": "2025-10-27",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by collecting 2K high-quality reference images from the Internet spanning various subjects (men, women, children, animals, objects, landscapes, multi-subject cases), then using Image-to-Video visual-effects templates from commercial models (VIDU and Kling) and community LoRAs to create paired videos by matching each image to all compatible templates. This resulted in over 100K samples across 100 semantic conditions.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "2K high-quality reference images collected from the Internet, spanning men, women, children, animals, objects, landscapes, and multi-subject cases. These images were then processed using Image-to-Video visual-effects templates from commercial models and community LoRAs to generate paired videos.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Paired videos were created by matching 2K high-quality reference images collected from the Internet to compatible Image-to-Video visual-effects templates from commercial models and community LoRAs. Images span men, women, children, animals, objects, landscapes, and multi-subject cases. Each image was matched to all compatible templates, with some templates restricting subject categories.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Commercial models VIDU and Kling, and community LoRAs were used as automated engines to create paired video dataset from reference images using Image-to-Video visual-effects templates.",
+    "rai:dataBiases": "The dataset is synthetic and derived from other generative models, which may cause the model to inherit specific stylistic biases, artifacts, and conceptual limitations of the source templates. For example, if the source models are poor at generating hands, VAP will likely not learn to generate hands well from this data.",
+    "rai:dataLimitations": "The semantic conditions in VAP-Data are relatively limited, synthetic, and derived from other generative models. The dataset cannot be labeled by directly applying vision perception models. Inaccurate semantic descriptions or large subject mismatch can degrade generation quality. Building a large, real-world, semantic-controlled video dataset remains future work.",
+    "rai:dataSocialImpact": "Potential misuses include identity impersonation, deepfake content, targeted harassment, deceptive political messaging, and generation of sexualized or violent media. The framework is not intended for surveillance, impersonation, political persuasion, or other high-risk deployments.",
+    "rai:personalSensitiveInformation": "The dataset includes reference images spanning men, women, children, animals, objects, landscapes, and multi-subject cases.",
+    "rai:dataUseCases": "VAP targets semantic-controlled video generation for research, education, and creative prototyping, where a reference video and an optional caption steer concept/style/motion/camera. Mitigations include research-only release and default content filters blocking clearly harmful categories (e.g., sexual content, explicit violence, hate symbols).",
+    "rai:dataReleaseMaintenancePlan": "The artifact release will be accompanied with a research-only license and an acceptable-use policy (AUP) that explicitly prohibits abusive or unlawful scenarios.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Videos are resized to 480×720(832) and sampled to 49 frames at 16fps for training and inference",
+    "rai:dataPreprocessingProtocol": "Reference videos and target videos are encoded into latents using a VAE encoder. Videos are tokenized and processed with temporally biased Rotary Position Embedding (RoPE). Reference images (first frames) are concatenated with video tokens. Captions are encoded using a text encoder."
+  },
+  "usage": {
+    "input_tokens": 26297,
+    "output_tokens": 2743
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:49.732855Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce VAP-Data, the largest to date, with over 100K curated samples across 100 semantic conditions, providing a robust data foundation for unified semantic-controlled video generation."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct and release VAP-Data, the largest dataset for semantic-controlled video generation, with over 100K curated paired samples across 100 semantic conditions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Project Page: https://bytedance.github.io/Video-As-Prompt"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yuxuan Bian1,2 Xin Chen1,†,‡ Zenan Li1 Tiancheng Zhi1 Shen Sang1 Linjie Luo1,‡ Qiang Xu2,‡"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Intelligent Creation Lab, ByteDance, 2The Chinese University of Hong Kong"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Date: October 27, 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We construct and release VAP-Data, the largest dataset for semantic-controlled video generation, with over 100K curated paired samples across 100 semantic conditions."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collect 2K high-quality reference images from the Internet, spanning men, women, children, animals, objects, landscapes, and multi-subject cases. We then use Image-to-Video visual-effects templates from commercial models (VIDU [68] and Kling [40]) and community LoRAs [11] to create paired videos by matching each image to all compatible templates"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curated thousands of high-quality real images and then used the existing 'zoo of specialist models' (commercial APIs [40, 56, 68] and LoRAs [11, 27]) as a powerful, automated engine to create our paired dataset, VAP-Data"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collect 2K high-quality reference images from the Internet, spanning men, women, children, animals, objects, landscapes, and multi-subject cases"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "we collect 2K high-quality reference images from the Internet, spanning men, women, children, animals, objects, landscapes, and multi-subject cases. We then use Image-to-Video visual-effects templates from commercial models (VIDU [68] and Kling [40]) and community LoRAs [11] to create paired videos by matching each image to all compatible templates (some restrict subject categories)."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "We curated thousands of high-quality real images and then used the existing 'zoo of specialist models' (commercial APIs [40, 56, 68] and LoRAs [11, 27]) as a powerful, automated engine to create our paired dataset, VAP-Data."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VAP-Data was created using visual effects templates from commercial models (vidu, Kling) and community LoRAs. Thus, the dataset is synthetic and derived from other generative models, leading to VAP may inherit the specific stylistic biases, artifacts, and conceptual limitations of the source templates (e.g., if the source models are poor at generating hands, VAP will likely not learn to generate hands well from this data)."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We experimented on our large-scale VAP-Data, yet the semantic conditions in VAP-Data are relatively limited, synthetic, and derived from other generative models... We leave the construction of larger-scale, real, semantic-controlled video data to future work... inaccurate semantics descriptions or large subject mismatch can degrade generation quality"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Potential misuses include identity impersonation, 'deep-fake' content, targeted harassment, deceptive political messaging, and generation of sexualized or violent media... It is not intended for surveillance, impersonation, political persuasion, or other high-risk deployments."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collect 2K high-quality reference images from the Internet, spanning men, women, children, animals, objects, landscapes, and multi-subject cases"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VAP targets semantic-controlled video generation for research, education, and creative prototyping... Our mitigations include: (i) a research-only release; (ii) default content filters blocking clearly harmful categories (e.g., sexual content, explicit violence, hate symbols)."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We will accompany any artifact release with a research-only license and an acceptable-use policy (AUP) that explicitly prohibits abusive or unlawful scenarios."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Following pre-trained DiTs, we resize videos to 480 ×720(832) and sample 49 frames at 16fps."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We first encode the reference video c∈Rn×h×w×c and the target video X∈Rn×h×w×c into latents ˆc∈Rn′×h′×w′×d and x ∈Rn′×h′×w′×d by VAE... First frame tokens are concatenated with video tokens. We add a temporal bias ∆ to RoPE... together with captions (See top right), form an in-context token sequence [Reftext, Refvideo, Tartext, Tarvideo]"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 20,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.886
+    },
+    "cost_usd": 0.06,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 27995,
+        "tokens_in": 7927,
+        "tokens_out": 578
+      },
+      "collection": {
+        "section_chars": 6820,
+        "tokens_in": 2085,
+        "tokens_out": 489
+      },
+      "annotation": {
+        "section_chars": 6820,
+        "tokens_in": 2075,
+        "tokens_out": 454
+      },
+      "impact": {
+        "section_chars": 7906,
+        "tokens_in": 2835,
+        "tokens_out": 862
+      },
+      "processing": {
+        "section_chars": 38229,
+        "tokens_in": 11375,
+        "tokens_out": 360
+      }
+    },
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ]
+  }
+}

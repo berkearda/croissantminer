@@ -1,0 +1,259 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "A question answering dataset modeled after open book exams, consisting of about 6,000 4-way multiple-choice questions associated with 1,326 elementary science facts, requiring combination of provided science facts with additional common knowledge.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": "unknown",
+    "creator": "Todor Mihaylov, Peter Clark, Tushar Khot, Ashish Sabharwal",
+    "publisher": null,
+    "datePublished": "2018-09-08",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created through a multi-stage crowdsourcing pipeline starting from a set of core science facts. Crowd workers were shown a science fact, asked to think of a second common fact, combine them into a new assertion, convert it into a 4-way multiple-choice question, pass automatic hardness checks against retrieval and association solvers, then have the question answered by 5 new crowd workers for answerability. Dev and Test were further filtered by an in-house expert.",
+    "rai:dataCollectionType": "Manual Human Curator, Experiments, Software Collection",
+    "rai:dataCollectionMissingData": "The paper states that 8140 questions were collected, of which 2183 were discarded in crowdsourcing Step 7 because they did not meet the answerability criterion. It also notes that the crowdsourced second facts k were often incomplete, over-complete, or only distantly related to the question, and therefore are included only as auxiliary data and should not be viewed as gold additional facts.",
+    "rai:dataCollectionRawData": "The core fact set F was built from a subset of the WorldTree corpus, specifically facts marked as central in at least one explanation and then filtered for generality. Additional common knowledge was expected from sources such as ConceptNet, Wikipedia, or a 14M-sentence science corpus.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The authors filtered WorldTree facts from 2,287 central facts down to 1,326 general facts, discarded collected questions that failed answerability checks, randomly shuffled answer choices to reduce bias, and further expert-filtered Dev and Test.",
+    "rai:dataPreprocessingProtocol": "Questions underwent automatic checks for exactly four answer choices, no negation words, and uniform answer choice length. They were also filtered to ensure hardness for an IR solver and a word-association solver, and only retained if at least 4 of 5 crowd workers answered correctly.",
+    "rai:dataAnnotationProtocol": "Crowd workers generated questions by combining a provided science fact with a second common fact, writing a multiple-choice question with one correct and three incorrect answers. Five new crowd workers then answered each question to verify answerability. Each question was associated with its core science fact, and workers also marked a second fact k as auxiliary data.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "The second facts k provided by workers were analyzed as noisy and not gold because they were often incomplete, over-complete, or only distantly related to the question. Human answerability was analyzed using five independent annotations per question and a conservative estimate of average human accuracy.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": "Crowd workers from North America with a masters-level qualification",
+    "rai:machineAnnotationTools": "An information retrieval solver and a word association based solver were used as automatic filters during question generation.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Annotator geography",
+    "rai:dataSocialImpact": "The paper frames OpenBookQA as a challenge dataset intended to encourage further research on question answering that combines provided science facts with external common knowledge and multi-hop reasoning. It states, \"We leave closing the large gap to human performance as a challenge for the NLP community.\"",
+    "rai:dataBiases": "The paper notes inevitable human bias in crowdsourced datasets, including answer-position bias and biases exploitable by plausible-answer and odd-one-out baselines. Choice A was initially correct disproportionately often before shuffling.",
+    "rai:dataLimitations": "The open book F is not self-contained and is generally insufficient by itself to answer questions. The auxiliary second-fact set K is noisy and should not be treated as gold. Some crowdsourced questions do not actually require the original science fact. Retrieving the right external knowledge and reasoning over it remain open challenges.",
+    "rai:dataUseCases": "The dataset is intended as a benchmark for open book question answering and research on combining provided science facts with external common knowledge and multi-hop reasoning. It includes Train, Dev, and Test splits, and for Train and Dev each question includes the associated core fact as intermediate supervision."
+  },
+  "usage": {
+    "input_tokens": 21751,
+    "output_tokens": 2853
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:50:07.757993Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new kind of question answering dataset, OpenBookQA"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new kind of question answering dataset, OpenBookQA, modeled after open book exams for assessing human understanding of a subject. The open book that comes with our questions is a set of 1326 elementary level science facts. Roughly 6000 questions probe an understanding of these facts and their application to novel situations."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset and the code for the models are available at http://data.allenai.org/OpenBookQA"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Can a Suit of Armor Conduct Electricity? A New Dataset for Open Book Question Answering Todor Mihaylovzand Peter Clarkyand Tushar Khotyand Ashish Sabharwaly"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1809.02789v1 [cs.CL] 8 Sep 2018"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new kind of question answering dataset, OpenBookQA"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenBookQA consists of 5957 questions, with 4957/500/500 in the Train/Dev/Test splits."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Generating interesting open book questions is a difficult task. We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions based on F that probe novel situations, using an automatic filter to ensure hardness for retrieval and association based systems, using a crowd filter to ensure answerability by a lay person, and further using an expert filter to ensure higher quality in Dev and Test sets."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used a multi-stage process starting with F, using crowd-sourcing to generate (noisy) questions based on F that probe novel situations, using an automatic filter to ensure hardness for retrieval and association based systems, using a crowd filter to ensure answerability by a lay person, and further using an expert filter to ensure higher quality in Dev and Test sets."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For F, we use a subset of the WorldTree corpus which Jansen et al. (2018) have analyzed for sufficiency for elementary level science. The subset we use is taken from the 2287 WorldTree facts that were marked as “central” by the original authors in at least one explanation. We further filter them down to 1326 that appear general enough to be applicable to multiple situations. OpenBookQA additionally requires broad common knowledge, which is expected to come from large corpora, such as ConceptNet, Wikipedia, or a corpus with 14M science-related sentences used by some existing baselines."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The subset we use is taken from the 2287 WorldTree facts that were marked as “central” by the original authors in at least one explanation. We further filter them down to 1326 that appear general enough to be applicable to multiple situations. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues. If not, qmc is discarded. The answer choices of qmc are randomly shuffled to avoid unintended bias. The Dev and Test splits were further filtered by an in-house expert to ensure higher quality."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The system verifies qmc passes basic checks such as uniformity of answer choices. Specifically, it looks for: 1) exactly 4 answer choices; 2) no negation words to trivially fool baselines ... 3) uniform answer choice length: all with at most 3 or at least 4 words. ... verifies that (a) neither of them answers qmc correctly and (b) the top 3 IR retrieved sentences are insufficient to answer qmc ... If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues. If not, qmc is discarded."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A crowd-worker w is shown a random science fact f from the set F. w is asked to think of a second common fact, k, that may be combined with f to derive a new, valid assertion s. w then converts s into a question-answer pair and extends this into a 4-way multiple choice question by adding 3 incorrect answer choices ... Question qmc is then shown to 5 new crowd-workers, who are asked to answer it. ... qmc is associated with f as the core science fact and added to the question set Q. k is added to the set K of additional (noisy) facts."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechnical Turk, with workers from North America and with a ‘masters’ level qualification."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The crowdsourcing process below also asks workers to mark a second fact, k, needed for each question q, in addition to f. These second facts, unfortunately, were often incomplete, over-complete, or only distantly related to q. We thus include in OpenBookQA the set K of such second facts only as auxiliary data for optional use. We emphasize that K should not be viewed as ‘gold’ additional facts, or as a substitute for broad common knowledge."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Question qmc is then shown to 5 new crowd-workers, who are asked to answer it."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechnical Turk, with workers from North America and with a ‘masters’ level qualification."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "w then feeds the multiple-choice question qmc to an information retrieval solver (Clark et al., 2016) and a word association based solver (Turney, 2017), and verifies that (a) neither of them answers qmc correctly and (b) the top 3 IR retrieved sentences are insufficient to answer qmc"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechnical Turk, with workers from North America"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Motivated by recent findings of gameability of NLP datasets (Gururangan et al., 2018), we also develop and evaluate simple, attention-based, neural baselines including a plausible answer detector ... These highlight inevitable human bias in any crowdsourced dataset ... Choice ‘A’ was the correct answer in 69% of the questions at the end of Step 4."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "by itself, F is generally insufficient to answer questions in Q. ... We emphasize that K should not be viewed as ‘gold’ additional facts, or as a substitute for broad common knowledge. ... In 21% of the cases, the crowdsourced question actually tests for a fact that doesn’t necessarily need the original science fact. ... While retrieving the most useful pieces of knowledge remains an open challenge"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To encourage further research on this new task, for each Train and Dev question q, OpenBookQA also includes f as intermediate supervision signal, which may be viewed as a partial explanation for q. ... We present a new dataset, OpenBookQA, of about 6000 questions for open book question answering. The task focuses on the challenge of combining a corpus of provided science facts (open book) with external broad common knowledge."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 88.0,
+      "avg_confidence": 0.928
+    },
+    "cost_usd": 0.0557,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 35.8,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

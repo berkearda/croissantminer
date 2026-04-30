@@ -1,0 +1,257 @@
+{
+  "dataset_id": "asahi417_seamless-align-enA-hiA.speaker-embedding.xlsr-2b",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "SeamlessM4T",
+    "description": "A massively multilingual and multimodal machine translation system and associated open resources, including SeamlessAlign, supporting speech-to-speech, speech-to-text, text-to-speech, text-to-text translation, and ASR across up to 100 languages.",
+    "url": "https://github.com/facebookresearch/seamless_communication",
+    "license": null,
+    "creator": "Meta AI",
+    "publisher": null,
+    "datePublished": "2023-10-25",
+    "inLanguage": "en",
+    "citeAs": "Barrault, Loïc, Yu-An Chung, Mariano Coria Meglioli, David Dale, Ning Dong, Paul-Ambroise Duquenne, Hady Elsahar, Hongyu Gong, Kevin Heffeman, John Hoffman, Christopher Klaiber, Pengwei Li, Daniel Licht, Jean Maillard, Alice Rakotoarison, Kaushik Ram Sadagopan, Guillaume Wenzek, Ethan Ye, Bapi Akula, Peng-Jen Chen, Naji El Hachem, Brian Ellis, Gabriel Mejia Gonzalez, Justin Haaheim, Prangthip Hansanti, Russ Howes, Bernie Huang, Min-Jae Hwang, Hirofumi Inaguma, Somya Jain, Elahe Kalbassi, Amanda Kallet, Ilia Kulikov, Janice Lam, Daniel Li, Xutai Ma, Ruslan Mavlyutov, Benjamin Peloquin, Mohamed Ramadan, Abinesh Ramakrishnan, Anna Sun, Kevin Tran, Tuan Tran, Igor Tufanov, Vish Vogeti, Carleigh Wood, Yilin Yang, Bokai Yu, Pierre Andrews, Can Balioglu, Marta R. Costa-jussà, Onur Celebi, Maha Elbayad, Cynthia Gao, Francisco Guzmán, Justine Kao, Ann Lee, Alexandre Mourachko, Juan Pino, Sravya Popuri, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, Paden Tomasello, Changhan Wang, Jeff Wang, and Skyler Wang. 2023. SeamlessM4T: Massively Multilingual & Multimodal Machine Translation. arXiv:2308.11596v3.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset SeamlessAlign was created through parallel data mining from large-scale raw audio and text corpora. Raw audio was chunked into overlapping segments, processed with speech language identification, and paired against sentence-segmented text from NLLB in a shared embedding space to mine translation pairs. The current version focused mining on 37 target languages and produced 470,000 hours of multimodal translation data.",
+    "rai:dataCollectionType": "Web Scraping, Software Collection, Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Some evaluation samples were missing in CVSS-C for 8 of 21 languages.",
+    "rai:dataCollectionRawData": "Raw sources included 4 million hours of publicly available crawled web audio and the sentence-segmented text dataset from NLLB.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Speech and text were projected into a joint embedding space and mined using FAISS nearest-neighbor search with a margin criterion. Mining used a threshold of 1.15 on Sonar scores, and the released metadata covers the full amount up to that threshold.",
+    "rai:dataPreprocessingProtocol": "Text used the same NLLB cleaning and filtering pipeline. Audio preprocessing deduplicated URLs, downloaded files, resampled audio to 16kHz, filtered non-speech with an audio event detection model, segmented audio with voice activity detection, applied speech language identification, and created overlapping over-segmented chunks. Additional filtering rejected low-confidence LID data and later removed toxic imbalance, extreme durations, long texts, and high emoji/punctuation/space ratios.",
+    "rai:dataAnnotationProtocol": "The corpus combines automatically aligned mined data with human-labeled and pseudo-labeled data. Human evaluation annotations used XSTS and MOS protocols. For XSTS, 3 annotators rated each source-target pair for semantic similarity, with 2 additional annotators added when disagreement was 2 points or more; median scores were used. For MOS, annotators rated clarity, sound quality, and naturalness on a 1–5 Likert scale.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For XSTS, disagreement was handled by adding two more annotators when the initial three differed by 2 or more points, and the median score per item was used for robustness. Language-level scores were calibrated using a cross-lingual calibration set and moderated calibration methodology.",
+    "rai:annotationsPerItem": "3, with 5 for XSTS items when initial annotators disagreed by 2 or more; MOS used 3 for most languages and 1 for some languages.",
+    "rai:annotatorDemographics": "Annotators were monolingual English practice evaluators and language-specific annotator crews; no further demographics were provided.",
+    "rai:machineAnnotationTools": "Speech language identification model based on ECAPA-TDNN; Voice Activity Detection model (Silero); bespoke audio event detection model; Sonar text and speech encoders; FAISS; NLLB-200-3.3B for pseudo-labeling; in-house ASR model for target speech transcriptions; XLS-R-1B and k-means for discrete acoustic units; fairseq S2 transformer TTS and MMS-TTS for speech extensions; ETOX for toxicity detection.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Language, gender/sex, race/ethnicity, ability, age, body type, cultural background, nationality, political ideologies, religion, sexual orientation, and socioeconomic class are discussed in evaluation datasets such as HolisticBias and Multilingual HolisticBias.",
+    "rai:dataSocialImpact": "The work argues that multilingual speech translation can improve social bonding, inclusion, accessibility, and access across literacy and script barriers, while also aiming to bridge gaps between speakers of high- and low-resource languages.",
+    "rai:dataBiases": "The authors evaluated gender bias and found that SeamlessM4T overgeneralizes to masculine forms when translating from neutral terms and shows limited robustness to gender variation. They also note that unequal training datasets can lead to demographic and representational biases.",
+    "rai:dataLimitations": "Mining currently covers only 37 target languages rather than all 100. Human evaluation is limited by varying sentence coverage across languages in Fleurs, limited speaker diversity, small annotator samples, and annotator bias. Toxicity detection based on word lists has substantial false positives and ASR-based false negatives. Some languages were excluded from toxicity analysis due to segmentation and word-list consistency issues.",
+    "rai:dataUseCases": "The resources are intended for training and evaluating multilingual multimodal translation systems, including ASR, S2TT, S2ST, T2ST, and T2TT. The released metadata is meant to let the community rebuild SeamlessAlign and tune thresholds for their own tasks, balancing dataset size and alignment quality."
+  },
+  "usage": {
+    "input_tokens": 115621,
+    "output_tokens": 3839
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:51:54.548906Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce SeamlessM4T —Massively Multilingual & Multimodal Machine Translation"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce SeamlessM4T —Massively Multilingual & Multimodal Machine Translation—a single model that supports speech-to-speech translation, speech-to-text translation, text-to-speech translation, text-to-text translation, and automatic speech recognition for up to 100 languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "all contributions in this work—including models, inference code, finetuning recipes backed by our improved modeling toolkit Fairseq2 , and metadata to recreate the unfiltered 470,000 hours of SeamlessAlign —are open-sourced and accessible at https://github.com/facebookresearch/seamless_communication ."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Meta AI,‡INRIA,§UC Berkeley"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2308.11596v3 [cs.CL] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we are open-sourcing the meta-data for the full amount9(i.e., up to a Sonar threshold of 1.15), to allow the community to rebuild SeamlessAlign and use it for their own purposes."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this section, we describe how we employed parallel data mining to create SeamlessAlign : the largest open dataset for multimodal translation to date, totaling 470,000 hours. Starting with a large collection of raw audio, we chunked files into overlapping segments and applied speech Language Identification (LID). On the text side, we used the same sentence-segmented dataset drawn from NLLB [NLLB Team et al., 2022]. Speech and text corpora were then projected into a common embedding space, in which mining was performed to identify translation pairs with optimal segmentation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Audio pre-processing We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data... On the text side, we rely entirely on the same dataset deployed in NLLB [NLLB Team et al., 2022]."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We note that some samples from the evaluation data were missing (in 8 out of 21 languages: Catalan, German, Estonian, French, Italian, Mongolian, Persian, and Portuguese)."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Audio pre-processing We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data... On the text side, we rely entirely on the same dataset deployed in NLLB [NLLB Team et al., 2022]."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, the embeddings for all speech segments and text sentences are calculated. These are then indexed with the FAISS library [Johnson et al., 2019], enabling efficient large-scale similarity search on GPUs... Since full end-to-end evaluation with S2TT or S2ST training is too compute-intensive, we set the new threshold at 1.15 after some human inspection... we are open-sourcing the meta-data for the full amount9(i.e., up to a Sonar threshold of 1.15)"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The same data sources, cleaning, and filtering steps are used and run at scale with our Stopes library... Firstly, we deduplicated the audio file URLs found in the repository, downloaded the audio files, and resampled at 16KHz. Subsequently, we filtered out the non-speech data with a bespoke audio event detection (AED) model... First, we used an open Voice Activity Detection (VAD) model [Silero, 2021] to split audio files into shorter segments... We selected a threshold per language such that p(correct |score )> p(incorrect |score )... Following NLLB Team et al. [2022], we implemented a toxicity filter... We removed pairs in which the utterance is shorter than 0.1 seconds or longer than 50 seconds... Lastly, we removed pairs in which the text contains more than 20% of emojis, more than 50% of punctuations, or more than 50% of spaces."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Filtered and combined with human-labeled and pseudo-labeled data (totaling 406,000 hours)... During annotation, 3 annotators examined each source-target audio pair (or audio-text pair) and evaluated the item for semantic similarity using the XSTS protocol... In cases where the 3 annotators had a disagreement of score values of 2 or more, 2 additional annotators evaluated the same item again... For each of these questions, annotators are instructed to provide a Likert score (1-5)."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In cases where the 3 annotators had a disagreement of score values of 2 or more, 2 additional annotators evaluated the same item again, bringing the total to 5 evaluator scores for those items. The median score over annotators of the same audio pair was then taken for each evaluation sentence pair; the median is used for robustness... To enable interlanguage comparison of model quality, a mono-lingual \"cross-lingual calibration set\" [Licht et al., 2022] was generated and included in the evaluation, and scores were calibrated using the ‘moderated calibration’ methodology"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During annotation, 3 annotators examined each source-target audio pair... In cases where the 3 annotators had a disagreement of score values of 2 or more, 2 additional annotators evaluated the same item again, bringing the total to 5 evaluator scores for those items... Similar to XSTS, 3 annotators scored each generation for most languages evaluated, with some languages... only receiving scores from a single annotator per item"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Prior to annotating, all annotators went through a set of monolingual English ‘practice’ evaluations with score justifications. To expedite evaluation, more than 3 (up to 30 in our case) annotators were used per language pair"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we trained our own model, following the ECAPA-TDNN architecture... We used an open Voice Activity Detection (VAD) model [Silero, 2021]... Subsequently, we filtered out the non-speech data with a bespoke audio event detection (AED) model... These are then indexed with the FAISS library [Johnson et al., 2019]... we used NLLB-200-3.3B and generated pseudo-labels... An in-house ASR model is then deployed to generate text transcriptions... We extracted features from the 35th layer of XLS-R-1B... We then applied a k-means algorithm... we extend HolisticBias to speech by applying the default “en” transformer-tts model from fairseq Sˆ2... we begin by extending the Multilingual HolisticBias dataset from text to speech by using the TTS model19 provided by Pratap et al. [2023]... then the toxicity detection module, ETOX [Costa-jussà et al., 2023]"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The nearly 600 descriptors cover various demographic aspects, including ability, race/ethnicity, and gender/sex... Following previous work [Costa-jussà et al., 2023], we perform an analysis of toxicity per HolisticBias ’ axes... ability, age, body_type, characteristics, cultural, gender_and_sex, nationality, nonce, political_ideologies, race_ethnicity, religion, sexual_orientation, socioeconomic_class"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "communication through speech creates stronger social bonds between interlocutors... UNESCO estimates that 773 million adults... have not received the education necessary to read or write... Another group more reliant on speech than text in their everyday lives is those who are blind or with visual impairments... Our effort seeks to bridge the translation gap between those who speak high and low-resource languages."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also evaluated for gender bias on the Multilingual HolisticBias datasets and found that SeamlessM4T overgeneralizes to masculine forms when translating from neutral terms (with an average preference of ∼10%) while showing a lack of robustness when varying gender by an amount of ∼3%... Unequal training datasets can lead to demographic and representational biases that affect our models and their generated outputs."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the current version, mining was focused on 37 target languages of the SeamlessM4T system. Scaling to all 100 languages will be explored in future iterations of our work... The Fleurs [Conneau et al., 2022] test set is limited in that the different language pairs contain slightly different sets of sentences... we have a lack of diversity in our speaker set per language... We only have a maximum of 5 (but typically 3) annotator evaluations per sentence... word-list-based toxicity detection techniques are known to produce a substantial number of false positives... Igbo, Burmese, Nepali, and Assamese have issues related to segmentation and consistencies in the toxicity word lists."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These corpora are subsequently combined with other resources to train the SeamlessM4T model... To spur further research in speech translation and to make our work available to the community, we open-source the following... Tools for creating aligned speech data, including metadata to recreate the unfiltered 470,000 hours of SeamlessAlign... The optimal threshold can thus be tuned based on the task, balancing dataset size and alignment quality."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "fields_uncertain": 0,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.1829,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 45.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

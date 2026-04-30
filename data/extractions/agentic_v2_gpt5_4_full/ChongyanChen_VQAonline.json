@@ -1,0 +1,257 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "A fully authentic visual question answering dataset sourced from online question answering communities, where each example includes a natural language question, image, context, and an accepted answer validated by the individual asking the question.",
+    "url": "https://vqaonline.github.io/",
+    "license": "CC-BY-SA 4.0",
+    "creator": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, and Danna Gurari",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by scraping publicly available Stack Exchange data and collecting examples containing a natural language question, natural language context, an image, and at least one answer. The original content came from Stack Exchange user interactions, and only examples with an accepted answer were retained.",
+    "rai:dataCollectionType": "Web Scraping, User-generated content data",
+    "rai:dataCollectionMissingData": "Examples whose images could not be downloaded from the provided link were removed.",
+    "rai:dataCollectionRawData": "Public Stack Exchange archive data in XML format, including post titles, body text, image URL links, answers, accepted-answer markers, scores, and topic-site information.",
+    "rai:dataCollectionTimeframe": "2010-08 to 2022-11",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Images were converted to PNG format for consistency, and training/validation splits were created by random selection per topic.",
+    "rai:dataPreprocessingProtocol": "The authors filtered candidate visual questions by requiring an accepted answer, removing low-quality posts with question or answer scores of 0 or less, excluding examples with multiple images or visual answers, removing examples whose images could not be downloaded, and converting images to PNG format.",
+    "rai:dataAnnotationProtocol": "Topic labels come from authentic user-chosen Stack Exchange topical sites. Additional user-intention annotations were collected via Amazon Mechanical Turk: three crowdworkers labeled one primary intent per visual question for 105 randomly selected VQAs, with two independent annotations per item and a third worker used to break ties. The final label was assigned by majority vote.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk; spreadsheet-based annotation workflow",
+    "rai:dataAnnotationAnalysis": "The user-intention taxonomy was refined through four rounds of annotator analysis by two author-annotators, with disagreements discussed and resolved and definitions adjusted accordingly. Agreement improved from 53.3% to 87.5%, and Cohen’s kappa improved from 45.24% to 84.69%. Final user-intention labels were assigned by majority vote across three crowdworker annotations when needed.",
+    "rai:annotationsPerItem": "2 or 3 for user-intention annotations",
+    "rai:annotatorDemographics": "For crowdworkers: workers located in the United States with more than 500 completed HITs and over a 95% approval rating. For human evaluation annotators: ten domain experts, each assigned one of ten topics, each with at least a Master’s degree in a related field, and located in the United States.",
+    "rai:machineAnnotationTools": "GPT-3.5; DeepSolo",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": "Geography/language-related information may be present; the paper explicitly discusses multilingual VQAs and unbalanced geographic representation of Stack Exchange users.",
+    "rai:dataSocialImpact": "The dataset may support improved VQA models for real-world applications such as community question answering platforms, learning assistance tools for children, virtual assistants, visual dialog/query, and visual search/browsing. The paper also notes underrepresentation of people in poverty-stricken areas and geographic imbalance in Stack Exchange users.",
+    "rai:dataBiases": "The dataset may poorly represent people in poverty-stricken areas because it is limited to Stack Exchange users with internet and mobile-device access, and geographic representation is unbalanced with more users from the US, India, and Europe and fewer from countries like Egypt.",
+    "rai:dataLimitations": "The dataset may underrepresent people in poverty-stricken areas and has geographically unbalanced representation. The paper also notes that many benchmarked models may have seen Stack Exchange data during training, creating potential data contamination for evaluation.",
+    "rai:dataUseCases": "The dataset supports few-shot learning and includes training, validation, and test splits. It is used for benchmarking and evaluating VQA models, especially for authentic-use-case VQA with long-form answers."
+  },
+  "usage": {
+    "input_tokens": 52865,
+    "output_tokens": 2916
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:30:32.094587Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We address these limitations by introducing a new dataset called VQAonline."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Sourced from online question answering community forums, we call it VQAonline. ... To our knowledge, our work is the first to provide an authentic dataset end-to-end, with each example including a natural language question, image, context, and answer validated by the individual asking the question."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We publicly-share the dataset at: https://vqaonline.github.io/."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022, and adhered to all data license restrictions (cc-by-sa 4.0) set forth by Stack Exchange."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Chongyan Chen1, Mengchen Liu2, Noel Codella2, Yunsheng Li2, Lu Yuan2, and Danna Gurari1,3"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.15562v4 [cs.CV] 17 Jul 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To guarantee English proficiency, as most of our visual questions are written in English, we only accepted experts located in the United States."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange. ... From the Stack Exchange archive, we collected all examples containing four components: a natural language question, a natural language context, an image, and at least one answer. ... Finally, individuals who posted the visual questions could mark which answer was the “accepted answer\"; we only use examples for which individuals did this."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange. ... Originally, this information was collected from Stack Exchange users via four user entry interactions."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Stack Exchange data is hosted at https://archive.org/details/stackexchange in XML format. ... The natural language question was collected as the post \"title\"... The image was collected as a URL link. The natural language context was provided via a \"body\" text entry field supporting inline images (via a URL link)..."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For data format consistency, we converted all images to png format. ... We created training and validation splits by randomly selecting from each of the 105 topics in our dataset 7 examples for training and 3 examples for validation for topics with at least 20 examples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We started with 330,705 candidate visual questions. After removing visual questions without an accepted answer, it resulted in 165,766 visual questions. ... After removing visual questions with scores of 0 or less for either the question or answer, we had 119,177 visual questions. Next, after removing visual questions with multiple images, we had 85,573 visual questions. Subsequently, removing visual questions with visual answers, left 65,849 visual questions. ... Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions. For data format consistency, we converted all images to png format."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It also is the first VQA dataset from an online question answering platform. ... user-chosen topics for each visual question from 105 diverse topics. ... We hired three crowdworkers from Amazon Mechanical Turk to perform our task. ... we collected two user intention annotations from two independent workers (worker A and B) per VQA instance ... We then detected if their annotations matched. We found that 25 out of 105 didn’t match. Thus, we hired a third worker (worker C) to break the tie ... User Intention Annotations Task Design. Crowdworkers labeled one primary intent per visual question when shown the question, image, context, and answer. For the final label, we used the majority vote label per VQA from 3 crowdsourced labels per visual question."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hired three crowdworkers from Amazon Mechanical Turk to perform our task. ... Fill in the user intent category for each question in the provided spreadsheet."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We then finalized the taxonomy with definitions via four rounds of annotator analysis on a total of 105 visual questions. Specifically, two annotators (authors) tagged the category for each visual question. Any disagreements that arose were discussed and resolved, and the definitions associated with each taxonomy category were adjusted accordingly. ... from round 1 to round 4, agreement accuracy improved from 53.3% to 87.5% and Cohen’s kappa agreement improved from 45.24% to 84.69%. ... For the final label, we used the majority vote label per VQA from 3 crowdsourced labels per visual question."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collected two user intention annotations from two independent workers (worker A and B) per VQA instance ... We found that 25 out of 105 didn’t match. Thus, we hired a third worker (worker C) to break the tie"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For quality control, we only accepted workers located in the United States who had completed more than 500 Human Intelligence Tasks (HITs) with over a 95% approval rating. ... Each individual was a domain expert in one of ten topics covered in our dataset ... with at least a Master’s degree in a field related to their assigned VQA topic. ... we only accepted experts located in the United States."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To do so, we solicited help from GPT-3.5 by having it indicate via a zero-shot prompt the user intentions when given a question and context. ... We utilized the state-of-the-art text spotter model DeepSolo to detect text for all images in our dataset."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Despite the VQAonline dataset’s inclusion of multilingual VQAs and coverage of users’ generated visual questions from various countries ... Additionally, the geographic representation of Stack Exchange is unbalanced, with more from countries like US, India, Europe and less from countries like Egypt."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We expect improved models designed for VQAonline can also benefit many other real-world applications including for other community question answering platforms (e.g., Yahoo! Answers, Wiki Answers, Quora), learning assistance VQA tools for children [32], virtual assistants, visual dialog and query, as well as visual search and browsing. ... we highlight that this dataset may poorly represent people in poverty-stricken areas since VQAs are posted by Stack Exchange users with access to mobile devices and Internet. Additionally, the geographic representation of Stack Exchange is unbalanced"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we highlight that this dataset may poorly represent people in poverty-stricken areas since VQAs are posted by Stack Exchange users with access to mobile devices and Internet. Additionally, the geographic representation of Stack Exchange is unbalanced, with more from countries like US, India, Europe and less from countries like Egypt."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we highlight that this dataset may poorly represent people in poverty-stricken areas ... Additionally, the geographic representation of Stack Exchange is unbalanced ... Of note, most of these models are believed to be trained on Stack Exchange data and so potentially saw our VQAonline data"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset Splits. VQAonline supports few-shot learning by containing training, validation, and test splits of 665, 285, and 63,746 examples respectively. ... we benchmarked the performance of six modern foundation models with respect to popular evaluation metrics for long-form text."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "fields_uncertain": 0,
+      "evidence_count": 26,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0952,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [],
+    "elapsed_seconds": 38.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

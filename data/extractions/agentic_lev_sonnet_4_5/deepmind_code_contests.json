@@ -1,0 +1,279 @@
+{
+  "dataset_id": "deepmind_code_contests",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CodeContests",
+    "description": "A competitive programming dataset that combines data from various sources, splits temporally so all training data predates all evaluation problems, and adds additional generated tests to ensure correctness. The dataset evaluates submissions in a setting that mirrors competitive programming and reduces false positive rates from 30-60% in existing datasets to just 4%.",
+    "url": "https://github.com/deepmind/code_contests",
+    "license": "CC-BY-4.0",
+    "creator": "Yujia Li, David Choi, Junyoung Chung, Nate Kushman, Julian Schrittwieser, Rémi Leblond, Tom Eccles, James Keeling, Felix Gimeno, Agustin Dal Lago, Thomas Hubert, Peter Choy, Cyprien de Masson d'Autume, Igor Babuschkin, Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey Cherepanov, James Molloy, Daniel J. Mankowitz, Esme Sutherland Robson, Pushmeet Kohli, Nando de Freitas, Koray Kavukcuoglu, Oriol Vinyals",
+    "publisher": "DeepMind",
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was collected through two main stages: (1) Pre-training data from a snapshot of public GitHub repositories taken on 2021/07/14, filtered to include code files from 12 popular programming languages, with files larger than 1MB or with lines longer than 1000 characters removed to exclude automatically generated code, and duplicates removed; (2) Fine-tuning data curated from competitive programming problems scraped from the Codeforces platform, combined with existing public datasets (Description2Code and CodeNet), with a strict temporal split to prevent data leakage.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data consists of: (1) Public GitHub code files from 12 programming languages totaling 715.1 GB after filtering; (2) Competitive programming problems from Codeforces including full problem descriptions, metadata (difficulty ratings and tags), correct and incorrect human submissions in C++, Python, and Java, and test cases (both example tests from problem statements and hidden test cases made available after contests finish).",
+    "rai:dataCollectionTimeframe": "Pre-training data: on or before 2021/07/14; Fine-tuning training data: on or before 2021/07/14; Validation data: 2021/07/15 to 2021/09/20; Test data: after 2021/09/21",
+    "rai:dataAnnotationProtocol": "The dataset includes problems, solutions and test cases scraped from Codeforces platform. Correctness of programs is checked by executing them on test cases and comparing program output with expected correct output. The dataset contains both correct and incorrect human submissions.",
+    "rai:dataAnnotationPlatform": "Codeforces platform",
+    "rai:dataAnnotationAnalysis": "Data quality and consistency improved through cleaning procedure to avoid duplication issues involved in merging datasets",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Test case execution and output comparison for correctness checking",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The evaluation is susceptible to accepting correct but slow solutions due to the lack of long test cases. High difficulty rating problems are particularly affected by this. The test input generation model is not perfect and can generate test inputs that are invalid or cannot sufficiently distinguish correct solutions from incorrect samples. Performance quickly degrades when problem difficulty increases. The model has lower syntactic correctness for C++ (around 64-67%) compared to Python (around 89-90%).",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is used for training, validation, and testing of code generation models for competitive programming problems. Models are trained on the dataset and evaluated on validation and test sets. The dataset supports fine-tuning and evaluation with different sampling budgets (e.g., 10@1024, 10@100k solve rates). It is also used for analyzing model capabilities including sensitivity to problem descriptions, metadata conditioning, and ensemble performance.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Large-scale sampling followed by filtering and clustering. Generated a very large number of samples from models for each problem. Filtered samples to only those that pass example tests (removes approximately 99% of model samples). Clustered remaining candidates using test input generation model to group semantically equivalent programs, selecting one solution from each cluster from largest to smallest.",
+    "rai:dataPreprocessingProtocol": "For pre-training dataset: filtered out all files larger than 1MB or with lines longer than 1000 characters to exclude automatically generated code; removed duplicates of the same file, ignoring whitespace in comparisons. For fine-tuning dataset: cleaned data using procedure outlined in Appendix B.2; adopted strict temporal split where all pre-training and fine-tuning training data appeared online before any validation problems, and all validation problems before test ones."
+  },
+  "usage": {
+    "input_tokens": 61479,
+    "output_tokens": 3289
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:25.643038Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Towards this goal, we release a new training and evaluation competitive programming dataset, CodeContests1 (Section 3)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset combines data from various sources, splits temporally so all training data predates all evaluation problems, adds additional generated tests to ensure correctness, and evaluates submissions in a setting that mirrors that of competitive programming. In our evaluation (Section 3.2.1), CodeContests reduces the false positive rate from 30-60% in existing datasets to just 4%."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is located at https://github.com/deepmind/code_contests."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yujia Li*, David Choi*, Junyoung Chung*, Nate Kushman*, Julian Schrittwieser*, Rémi Leblond*, Tom Eccles*, James Keeling*, Felix Gimeno*, Agustin Dal Lago*, Thomas Hubert*, Peter Choy*, Cyprien de Masson d'Autume*, Igor Babuschkin, Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey Cherepanov, James Molloy, Daniel J. Mankowitz, Esme Sutherland Robson, Pushmeet Kohli, Nando de Freitas, Koray Kavukcuogluand Oriol Vinyals"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "©2022 DeepMind. All rights reserved"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "2022-3-16"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "You are given two strings 𝑠and𝑡, both consisting of lowercase English letters."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset combines data from various sources, splits temporally so all training data predates all evaluation problems"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our pre-training dataset is based on a snapshot of selected public GitHub repositories taken on 2021/07/14. We included all code ﬁles from several popular languages: C++, C#, Go, Java, JavaScript, Lua, PHP, Python, Ruby, Rust, Scala, and TypeScript... we ﬁltered out all ﬁles larger than 1MB or with lines longer than 1000 characters, to exclude automatically generated code. We also removed duplicates of the same ﬁle... the training dataset combines newly scraped data from Codeforces (Mirzayanov, 2020) with existing data from Description2Code (Caballero et al., 2016), and CodeNet (Puri et al., 2021)."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our scraped data from Codeforces includes full problem descriptions like that shown in Figure 2, along with metadata for each problem... the training dataset combines newly scraped data from Codeforces (Mirzayanov, 2020) with existing data from Description2Code (Caballero et al., 2016), and CodeNet (Puri et al., 2021)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After ﬁltering, our ﬁnal pre-training dataset contains a total of 715.1 GB of code... Our scraped data from Codeforces includes full problem descriptions like that shown in Figure 2, along with metadata for each problem. The metadata includes diﬃculty ratings and tags... Our dataset also contains both correct and incorrect human submissions written in the most popular submission languages: C++, Python, and Java. Each problem includes all the test cases that are accessible from the platform: example tests in the problem statements and hidden test cases that are made available at the evaluation result pages once a contest is ﬁnished."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our pre-training dataset is based on a snapshot of selected public GitHub repositories taken on 2021/07/14... Following our GitHub pre-training dataset snapshot date, all training data in CodeContests was publicly released on or before 2021/07/14. Validation problems appeared between 2021/07/15 and 2021/09/20, and the test set contains problems published after 2021/09/21."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Our scraped data from Codeforces includes full problem descriptions... The dataset also contains both correct and incorrect human submissions written in the most popular submission languages: C++, Python, and Java... The correctness of a program is checked by executing it on the test cases and comparing the program output with the expected correct output."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "we curated a new dataset of competitive programming problems, named CodeContests... The dataset includes problems, solutions and test cases we scraped from the Codeforces platform"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "To improve data quality and consistency, and to avoid duplication issues involved in merging datasets, we cleaned this data using the procedure outlined in Appendix B.2."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "The correctness of a program is checked by executing it on the test cases and comparing the program output with the expected correct output."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Also note that due to the lack of long test cases, our evaluation is susceptible to accepting correct but slow solutions (see Section 3.2.1). The high difficulty rating problems are particularly affected by this... Since the test input generation model we trained is not perfect, it can generate test inputs that are invalid or cannot sufficiently distinguish correct solutions from incorrect samples... As expected, we see that overall our models perform significantly better on problems with low difficulty ratings, and the performance quickly degrades when the problem difficulty increases."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We tuned two hyperparameters for clustering on the evalidation set: the number of test inputs to use in clustering as well as the maximum number of model samples to consider for clustering... We report 10@1024 solve rates for different model sizes and different description ablations... We therefore used the ensemble of 41B and 9B models for our evaluation on Codeforces described in Section 5.1."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Among these, the large-scale sampling followed by filtering is unique to our setup, and we found that this process greatly improves problem solve rate... Filtering removes approximately 99% of model samples... After clustering on program behaviour we found that selecting one solution from each cluster from largest to smallest performed best"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we filtered out all files larger than 1MB or with lines longer than 1000 characters, to exclude automatically generated code. We also removed duplicates of the same file, ignoring whitespace in comparisons... To improve data quality and consistency, and to avoid duplication issues involved in merging datasets, we cleaned this data using the procedure outlined in Appendix B.2... To guard against data leakage, we adopted a strict temporal split: all pre-training and fine-tuning training data appeared online before any validation problems, and all validation problems before test ones."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 17,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.852
+    },
+    "cost_usd": 0.1169,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 47350,
+        "tokens_in": 14846,
+        "tokens_out": 890
+      },
+      "collection": {
+        "section_chars": 60000,
+        "tokens_in": 19186,
+        "tokens_out": 941
+      },
+      "annotation": {
+        "section_chars": 7724,
+        "tokens_in": 2811,
+        "tokens_out": 436
+      },
+      "impact": {
+        "section_chars": 60000,
+        "tokens_in": 18223,
+        "tokens_out": 567
+      },
+      "processing": {
+        "section_chars": 19297,
+        "tokens_in": 6413,
+        "tokens_out": 455
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

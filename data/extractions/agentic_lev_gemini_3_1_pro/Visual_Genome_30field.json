@@ -1,0 +1,278 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "The Visual Genome dataset contains over 100K images with dense annotations of objects, attributes, and relationships. It includes region descriptions and question-answer pairs to help models understand interactions and relationships between objects for cognitive tasks.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bemstein, Li Fei-Fei",
+    "publisher": null,
+    "datePublished": null,
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected and verified through crowdsourcing using Amazon Mechanical Turk, where workers provided annotations such as region descriptions, objects, attributes, relationships, and scene graphs.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of 108,249 real-world, non-iconic images taken from the intersection of the MS-COCO and YFCC datasets, originally uploaded to Flickr.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A multi-stage pipeline where workers write region descriptions, extract objects and draw bounding boxes (following coverage and quality rules), add attributes and relationships, and write QA pairs following specific rules (e.g., starting with the 'seven Ws', avoiding ambiguity).",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "A verification stage is used to eliminate incorrect, vague, or subjective annotations using majority voting and rapid judgments.",
+    "rai:annotationsPerItem": "50 region descriptions per image; 1 worker per description for object extraction; 8 QA pairs per image for freeform QA.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Stanford's dependency parser",
+    "rai:dataBiases": "The dataset contains a bias towards images of people and an overrepresentation of certain sports (such as skiing and surfboarding).",
+    "rai:dataLimitations": "The canonicalization mappings of objects, attributes, and relationships to WordNet synsets are not perfect and contain some ambiguity.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset collects attributes describing people, which includes terms related to gender and age (e.g., man, boy, girls).",
+    "rai:dataUseCases": "The dataset is designed to be used for training and benchmarking/testing models on cognitive scene understanding, visual question answering, and region description generation.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was balanced by randomly sampling up to 500 instances per attribute category, and then split into 80% training, 10% validation, and 10% testing sets.",
+    "rai:dataPreprocessingProtocol": "Data was filtered to include only the 100 most common attributes and objects occurring at least 100 times. Text data was normalized by lowercasing, lemmatizing, and stripping whitespace. Image inputs were prepared by cropping bounding boxes."
+  },
+  "usage": {
+    "input_tokens": 24276,
+    "output_tokens": 2121
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T11:13:01.708121Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we present the Visual Genome dataset to enable the modeling of such relationships."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect dense annotations of objects, attributes, and relationships within each image to leam these models. Speci\fically, our dataset contains over 100K images where each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://visualgenome.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna  Yuke Zhu  Oliver Groth  Justin Johnson\n Kenji Hata  Joshua Kravitz  Stephanie Chen  Yannis Kalantidis\n Li-Jia Li  David A. Shamma  Michael S. Bemstein  Li Fei-Fei"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When asked \\What vehicle is the person riding?\", computers will need to identify the objects in an image as well as the relationships riding(man, carriage) and pulling(horse, carriage) in order to answer correctly that \\the person is riding a horse-drawn carriage.\""
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk. In this section, we outline the pipeline employed in creating all the components of the dataset."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Visual Genome dataset consists of all 108, 249 images from the intersection of MS-COCO’s (Lin et al., 2014) 328, 000 images and YFCC’s (Thomee et al., 2016) 100 million images. These images are real-world, non-iconic images that were uploaded onto Flickr by users."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each description is sent to one crowd worker, who extracts all the objects from the description and grounds each object as a bounding box in the image... We present each worker with a region description along with its extracted objects and ask them to add attributes to objects or to connect pairs of objects with relationships... we instruct the workers to follow three rules: 1) start the questions with one of the “seven Ws”... 2) avoid ambiguous and speculative questions; 3) be precise and unique"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechanical Turk (AMT) as our primary source of annotations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All Visual Genome data go through a veriﬁcation stage as soon as they are annotated. This stage helps eliminate incorrectly labeled objects, attributes, and relationships... Veriﬁcation is conducted using two separate strategies: majority voting (Snow et al., 2008) and rapid judgments (Krishna et al., 2016)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Once 50 region descriptions are collected for an image, we extract the visual objects from each description. Each description is sent to one crowd worker... In freeform QA, we ask a worker to look at an image and write eight QA pairs about it."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also use Stanford’s dependency parser (Manning et al., 2014) to extract nouns automatically and send them to the workers as suggestions."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is somewhat biased towards images of people, as Figure 13 shows... Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These mappings are not perfect and still contain some ambiguity."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 24 (b) shows the distribution of attributes describing people (e.g. man, girls, and person)."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "...serve as training and benchmarking datasets for these deeper, cognitive scene understanding and reasoning tasks... We split the QA pairs into a training set (60%) and a test set (40%)."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the number of examples per attribute class varies, we randomly sample 500 attributes from each category (if fewer than 500 are in the class, we take all of them). [...] We use 80% of the images for training and 10% each for validation and testing."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For both experiments, we follow a similar data pre-processing pipeline. First, we lowercase, lemmatize, and strip excess whitespace from all attributes. [...] The input data for this experiment is the cropped bounding box of the object associated with each attribute."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "evidence_count": 19,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0516,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 33412,
+        "tokens_in": 9377,
+        "tokens_out": 545
+      },
+      "collection": {
+        "section_chars": 3277,
+        "tokens_in": 1255,
+        "tokens_out": 361
+      },
+      "annotation": {
+        "section_chars": 13953,
+        "tokens_in": 3781,
+        "tokens_out": 543
+      },
+      "impact": {
+        "section_chars": 19154,
+        "tokens_in": 5768,
+        "tokens_out": 380
+      },
+      "processing": {
+        "section_chars": 15059,
+        "tokens_in": 4095,
+        "tokens_out": 292
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 87.8
+  }
+}

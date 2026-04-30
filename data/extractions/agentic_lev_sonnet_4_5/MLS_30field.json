@@ -1,0 +1,277 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS)",
+    "description": "A large multilingual corpus derived from read audiobooks from LibriVox, consisting of 8 languages with about 44.5K hours of English and a total of about 6K hours for other languages (German, Dutch, Spanish, French, Portuguese, Italian, Polish), suitable for speech research including ASR and TTS.",
+    "url": "http://www.openslr.org",
+    "license": "CC0-1.0",
+    "creator": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert",
+    "publisher": "Facebook AI Research",
+    "datePublished": "2020-12-22",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by (i) training acoustic models on in-house data, (ii) generating pseudo-labels with these models on LibriVox audiobooks, and (iii) retrieving original transcripts by matching pseudo-labels to available book transcripts from Project Gutenberg. Audio files were downloaded from LibriVox using LibriLight open source library tools, downsampled from 48kHz to 16kHz, and segmented into 10-20 second segments using trained acoustic models.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Read audiobooks from LibriVox with corresponding text transcripts from Project Gutenberg books. The raw audio files had huge variance in duration from few minutes to hours at 48kHz sampling rate. For acoustic model training, in-house datasets consisting of audio from videos publicly shared by users were used (completely de-identified).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Trained acoustic models using Time-Depth Separable (TDS) Convolutions with Auto-Segmentation Criterion (ASG) loss for audio segmentation; wav2letter@anywhere framework for streaming inference",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "MLS is a read-speech dataset derived from audiobooks, which may limit its generalization to other speech domains. The dataset leverages LibriVox audiobook data, most of which is based on Project Gutenberg text data.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is suitable for speech research, including Automatic Speech Recognition (ASR) and Text-To-Speech (TTS) research. Train, development and test splits and limited supervision train sets are provided.",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be made freely available under an open license at http://www.openslr.org. LibriVox and Project Gutenberg data are released in the public domain, which allows free release to everyone.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "SpecAugment data augmentation with two frequency masks and ten time masks with maximum time mask ratio of p = 0.1; frequency and time mask parameters tuned separately for each model; time warping not used. Maximum frequency bands masked by one frequency mask is 30, and maximum frames masked by time mask is 30. Books filtered to avoid overlap with development and test sets using edit distance and 5-gram inverted index matching.",
+    "rai:dataPreprocessingProtocol": "Audio downsampled from 48kHz to 16kHz. Audio files segmented into 10-20 second segments using trained acoustic models with TDS Convolutions and ASG loss. Segmentation performed via streaming inference generating viterbi token sequences with timestamps. Audio converted to 80-channel log-mel filterbanks as input features."
+  },
+  "usage": {
+    "input_tokens": 14222,
+    "output_tokens": 2527
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:00.866351Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces Multilingual LibriSpeech (MLS) dataset, a large multilingual corpus suitable for speech research."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is derived from read audiobooks from LibriVox and consists of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will be made freely available for anyone at http://www.openslr.org"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "LibriVox and Project Gutenberg data are released in the public domain, which allows us to release MLS freely to everyone."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert\nFacebook AI Research, Menlo Park & Paris, USA & France"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert\nFacebook AI Research, Menlo Park & Paris, USA & France"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "December 22, 2020"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Based on the number of audiobook hours and the availability of the corresponding text sources of the audiobooks, we have selected English, German, Dutch, Spanish, French, Portuguese, Italian, Polish for the MLS dataset preparation."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will be made freely available for anyone at http://www.openslr.org"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we created the dataset, by (i) training some acoustic models on in-house data, (ii) generating pseudo-labels with these models, and (iii) retrieving the original transcript by matching pseudo-labels to available book transcripts... For downloading the LibriVox audiobooks in these languages, we have used data preparation tools available at Libri-Light open source library. All the audio data is downsampled from 48kHz to 16kHz for further processing."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is derived from read audiobooks from LibriVox... most of which being based on the Project Gutenberg text data. LibriVox and Project Gutenberg data are released in the public domain"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is derived from read audiobooks from LibriVox... most of which being based on the Project Gutenberg text data... Audio files downloaded from LibriVox have a huge variance in duration - from few minutes to hours... For each language, we train models on in-house datasets consisting of videos publicly shared by users. We use only audio part of the videos and the data is completely de-identified."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For this, we have used trained acoustic models in each of the languages using Time-Depth Separable (TDS) Convolutions[7] with Auto-Segmentation Criterion [8] (ASG) loss... we have used wav2letter@anywhere framework [11] to perform the inference in a streaming fashion"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MLS is a read-speech dataset, which leverages LibriVox audiobook data, most of which being based on the Project Gutenberg text data."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We believe such a large transcribed dataset will open new avenues in ASR and Text-To-Speech (TTS) research... Section 4 details the creation of train, development and test splits and limited supervision train sets."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will be made freely available for anyone at http://www.openslr.org... LibriVox and Project Gutenberg data are released in the public domain, which allows us to release MLS freely to everyone."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SpecAugment[24] is used for data augmentation in training: there are two frequency masks, and ten time masks with maximum time mask ratio of p = 0.1; frequency and time mask parameters are tuned separately for each model; time warping is not used. The maximum frequency bands masked by one frequency mask is 30, and the maximum frames masked by the time mask is 30, too. We have also carefully filtered certain books to avoid any overlap with the development and test sets, following the procedure described in [13]."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the audio data is downsampled from 48kHz to 16kHz for further processing... we segment the audio files into 10-20 second segments. For this, we have used trained acoustic models in each of the languages using Time-Depth Separable (TDS) Convolutions[7] with Auto-Segmentation Criterion [8] (ASG) loss... we run inference on the audio and generate viterbi token sequence along with their timestamps... The AMs take 80-channel log-mel filterbanks as input"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "evidence_count": 18,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0403,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 7806,
+        "tokens_in": 2624,
+        "tokens_out": 696
+      },
+      "collection": {
+        "section_chars": 11307,
+        "tokens_in": 3584,
+        "tokens_out": 568
+      },
+      "annotation": {
+        "section_chars": 5677,
+        "tokens_in": 2201,
+        "tokens_out": 303
+      },
+      "impact": {
+        "section_chars": 5954,
+        "tokens_in": 2391,
+        "tokens_out": 454
+      },
+      "processing": {
+        "section_chars": 9499,
+        "tokens_in": 3422,
+        "tokens_out": 506
+      }
+    },
+    "enrichments": []
+  }
+}

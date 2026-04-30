@@ -1,0 +1,281 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "A visual question answering dataset sourced from online question answering communities in which all contents originate from an authentic use case. It includes authentic context, answers validated as acceptable by the question asker, and user-chosen topics across 105 diverse topics.",
+    "url": "https://vqaonline.github.io/",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, and Danna Gurari",
+    "publisher": null,
+    "datePublished": "2024-07-17",
+    "inLanguage": "en",
+    "citeAs": "@Article{Chen2023FullyAV,\n author = {Chongyan Chen and Mengchen Liu and Noel Codella and Yunsheng Li and Lu Yuan and D. Gurari},\n booktitle = {European Conference on Computer Vision},\n pages = {252-269},\n title = {Fully Authentic Visual Question Answering Dataset from Online Communities},\n year = {2023}\n}\n",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was created by scraping publicly available Stack Exchange data and collecting examples that contained a natural language question, natural language context, an image, and at least one answer; only examples with an accepted answer were kept, followed by filtering out low-quality VQAs.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Public Stack Exchange archive data consisting of user-provided post titles as questions, body text as context, image URL links, answers, and accepted-answer markings from 105 topical sites.",
+    "rai:dataCollectionTimeframe": "August 2010 to November 2022",
+    "rai:dataAnnotationProtocol": "For dataset labels, answers were provided publicly by Stack Exchange users, and the question asker could mark one answer as the \"accepted answer\"; the dataset kept only examples with an accepted answer. For expert evaluation, ten domain experts were hired, given a one-on-one training session, and used a web-based annotation interface with instructions; time spent per question was monitored as a quality-control proxy.",
+    "rai:dataAnnotationPlatform": "Stack Exchange for accepted-answer labeling; a custom web-based annotation tool for expert evaluation.",
+    "rai:dataAnnotationAnalysis": "Quality-related analysis included reliance on Stack Exchange moderation/reputation mechanisms for answer quality, monitoring expert annotation time as a QC proxy, and reporting Spearman correlation between evaluation metrics and human judgments.",
+    "rai:annotationsPerItem": "At least one answer per item in the source data; one accepted answer retained for dataset examples. For expert evaluation, one domain expert represented each selected topic.",
+    "rai:annotatorDemographics": "Stack Exchange users; for expert evaluation, annotators were domain experts located in the United States and selected to ensure English proficiency.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Potential benchmark bias exists because many evaluated models may have been trained on Stack Exchange data and thus could have seen VQAonline examples; additionally, one evaluation metric (CLIP-S) may reflect biases from its pretraining data.",
+    "rai:dataLimitations": "The paper discusses limitations of prior VQA datasets rather than explicit limitations of VQAonline itself. It notes that existing datasets are artificially constructed, generalize poorly to authentic use cases due to domain shifts, often lack diversity, and that VizWiz-VQA is limited to one population and uses answers collected years later rather than validated by the original askers. It also notes reproducibility concerns for GPT-4V evaluation and deficiencies in standard short-answer VQA metrics for this dataset’s long answers.",
+    "rai:dataSocialImpact": "The dataset is expected to support improvements in real-world VQA applications, including community question answering platforms, learning assistance tools for children, virtual assistants, visual dialog/query, and visual search/browsing. It is also intended to facilitate research on hallucination issues in authentic use cases.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for benchmarking and improving VQA models on authentic use cases, especially long-form answer generation and evaluation. It is publicly shared to encourage community-wide progress and can support future work on evaluation metrics and hallucination analysis.",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be publicly released/shared, but no explicit maintenance schedule, versioning policy, maintainers, or deprecation policy is provided.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Filtered the scraped Stack Exchange data by keeping examples with question, context, image, and at least one answer; retaining only examples with an accepted answer; removing low-quality posts with scores of 0 or less for either the question or answer; removing questions with multiple images; removing visual questions with visual answers; removing examples whose images could not be downloaded; and converting all images to PNG format for consistency."
+  },
+  "usage": {
+    "input_tokens": 21836,
+    "output_tokens": 2465
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:30:36.666732Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We address these limitations by introducing a new dataset called VQAonline."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Sourced from online question answering communities, it is the the first VQA dataset with all contents originating from an authentic use case... it contains: (1) authentic context that clarifies the question, (2) an answer the individual asking the question validated as acceptable, (3) answers that are considerably longer... and (4) user-chosen topics for each visual question from 105 diverse topics."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We publicly-share the dataset at: https://vqaonline.github.io/."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Chongyan Chen1, Mengchen Liu2, Noel Codella2, Yunsheng Li2, Lu Yuan2, and Danna Gurari1,3"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.15562v4 [cs.CV] 17 Jul 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The natural language question was collected as the post \"title\"... The natural language context was provided via a \"body\" text entry field..."
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We created our dataset by scraping data from the online question-answering platform Stack Exchange.” ; “From the Stack Exchange archive, we collected all examples containing four components: a natural language question, a natural language context, an image, and at least one answer.” ; “we only use examples for which individuals did this.” ; “We conducted two filtering steps to obtain our final dataset of 64,696 VQAs.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We created our dataset by scraping data from the online question-answering platform Stack Exchange.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used the publicly-available data that spanned from August 2010 to November 2022” ; “The natural language question was collected as the post ‘title’” ; “The image was collected as a URL link.” ; “The natural language context was provided via a ‘body’ text entry field” ; “individuals on the site could publicly provide answers.” ; “individuals who posted the visual questions could mark which answer was the ‘accepted answer’”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used the publicly-available data that spanned from August 2010 to November 2022”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“individuals on the site could publicly provide answers... Finally, individuals who posted the visual questions could mark which answer was the ‘accepted answer’; we only use examples for which individuals did this.” and “We hired ten domain experts... We provided a one-on-one training session with each domain expert to introduce the task and instructions... We also inspected the time each expert spent on each visual question as a proxy”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the online question-answering platform Stack Exchange” and “The link to the code for our web-based annotation tool is available at https://github.com/VQAonline/VQAonlineVisualization.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the Stack Exchange platform has two key mechanisms that contribute to high quality VQAs. First, the platform enforces a stringent reputation system with moderation policies.”, “We also inspected the time each expert spent on each visual question as a proxy”, and “we also report the Spearman correlation scores for each evaluation metric”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“at least one answer” and “we only use examples for which individuals did this [mark the ‘accepted answer’].” and “We hired ten domain experts to represent each of the ten fields (topics).”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Stack Exchange users” and “We hired ten domain experts... To guarantee English proficiency... we only accepted experts located in the United States.”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“most of these models are believed to be trained on Stack Exchange data and so potentially saw our VQAonline data” and “CLIP-S can reflect the biases of the pretraining data”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“most publicly-available VQA datasets are artificially-constructed... models developed for artificially-constructed settings generalize poorly to authentic use cases due to significant domain shifts” and “VizWiz-VQA is constrained to one population” and “the existing VQA evaluation metric... is designed for short responses”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We expect improved models designed for VQAonline can also benefit many other real-world applications including for other community question answering platforms... learning assistance VQA tools for children, virtual assistants, visual dialog and query, as well as visual search and browsing.” and “We will release our dataset to facilitate further exploration of the hallucination issue in the authentic use cases.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we benchmarked the performance of six modern foundation models with respect to popular evaluation metrics for long-form text” and “this dataset to facilitate the research community’s continued improvement of VQA models” and “To encourage community-wide progress, we publicly-share the dataset”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To encourage community-wide progress, we publicly-share the dataset at https://vqaonline.github.io/.” and “We will release our dataset”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we collected all examples containing four components: a natural language question, a natural language context, an image, and at least one answer” ; “we only use examples for which individuals did this [marked the ‘accepted answer’]” ; “After removing visual questions with scores of 0 or less for either the question or answer” ; “after removing visual questions with multiple images” ; “removing visual questions with visual answers” ; “after removing examples for which the image could not be downloaded from the provided link” ; “For data format consistency, we converted all images to png format.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 21,
+      "evidence_coverage": 91.3,
+      "avg_confidence": 0.928
+    },
+    "cost_usd": 0.0519,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 24327,
+        "tokens_in": 5970,
+        "tokens_out": 488
+      },
+      "collection": {
+        "section_chars": 12463,
+        "tokens_in": 3246,
+        "tokens_out": 444
+      },
+      "annotation": {
+        "section_chars": 24855,
+        "tokens_in": 6254,
+        "tokens_out": 587
+      },
+      "impact": {
+        "section_chars": 13069,
+        "tokens_in": 3621,
+        "tokens_out": 669
+      },
+      "processing": {
+        "section_chars": 10607,
+        "tokens_in": 2745,
+        "tokens_out": 277
+      }
+    },
+    "enrichments": [
+      "license",
+      "citeAs"
+    ],
+    "elapsed_seconds": 37.0
+  }
+}

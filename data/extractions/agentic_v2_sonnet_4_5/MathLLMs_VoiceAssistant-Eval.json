@@ -1,0 +1,259 @@
+{
+  "dataset_id": "MathLLMs_VoiceAssistant-Eval",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "VoiceAssistant-Eval",
+    "description": "A comprehensive benchmark of 10,497 curated instances across 13 subsets for evaluating general AI assistants on listening, speaking, and viewing abilities, including personalized voice imitation, hands-free audio interaction, multimodal vision-audio understanding, and audio QA under audio context.",
+    "url": "https://huggingface.co/datasets/MathLLMs/VoiceAssistant-Eval",
+    "license": "MIT",
+    "creator": "Ke Wang, Houxing Ren, Zimu Lu, Mingjie Zhan, Hongsheng Li (CUHK MMLab, SenseTime Research, CPII under InnoHK)",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "@Article{Wang2025VoiceAssistantEvalBA,\n author = {Ke Wang and Houxing Ren and Zimu Lu and Mingjie Zhan and Hongsheng Li},\n booktitle = {arXiv.org},\n journal = {ArXiv},\n title = {VoiceAssistant-Eval: Benchmarking AI Assistants across Listening, Speaking, and Viewing},\n volume = {abs/2509.22651},\n year = {2025}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data collected from 47 existing datasets spanning audio understanding (23 datasets), text and audio for speaking tasks (22 datasets), and vision (MMMU). Speech instructions synthesized using three TTS models (F5-TTS, ChatTTS, Dia-1.6B) with quality control via UTMOS and Whisper transcription verification.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data sourced from 47 existing datasets including LibriSpeech, Common Voice, Clotho, AudioCaps, AVQA, MusicCaps, MUSIC-AVQA, MMMU, RoleBench, and 37 others spanning speech, sound, music, text, and vision domains.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Text preprocessing for TTS synthesis including replacing image reference tokens with descriptive phrases, rewriting text using Qwen2.5-72B-Instruct for TTS suitability (e.g., converting mathematical expressions and numbers to readable form), and rephrasing multiple-choice options for better readability.",
+    "rai:dataPreprocessingProtocol": "Four-stage curation process: (1) Deduplication using lexical overlap and Levenshtein distance with manual review; (2) Validation to exclude incomplete or unsuitable instances (corrupted images, silent audio, ill-posed prompts, incorrect answers), removing approximately 10% of candidates; (3) Categorization into 13 predefined task categories based on source metadata; (4) Balanced sampling across task categories. Final dataset: 10,497 high-quality samples from initial 15,359 after deduplication.",
+    "rai:dataAnnotationProtocol": "Reference answers obtained from source datasets. For role-play tasks, 100 distinct roles selected with three representative audio clips per role collected. Speech synthesis quality controlled via UTMOS scoring (threshold 3.8) and Whisper transcription with word error rate selection.",
+    "rai:dataAnnotationPlatform": "Lightweight web-based curation tool with inline audio players, image viewers, transcript displays, and multiple-choice option rendering for manual quality review.",
+    "rai:dataAnnotationAnalysis": "Manual review in three passes: (1) Media integrity verification (audio/images present, decodable, audible, visible, not silent/corrupted); (2) Task well-posedness confirmation (prompt clarity, input-task alignment); (3) Answer validity checking (reference answer consistency with prompt and media, multi-turn coherence). Approximately 10% of candidates discarded via this process.",
+    "rai:annotationsPerItem": "One reference answer per item from source datasets. For role-play tasks, three audio clips per role (100 roles total).",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "TTS models: F5-TTS, ChatTTS, Dia-1.6B for speech synthesis. Quality assessment: UTMOS Strong for speech quality scoring. Transcription: Whisper-Large-v3 for speech-to-text verification. Text rewriting: Qwen2.5-72B-Instruct for TTS preprocessing. Evaluation: gpt-oss-20b for content quality assessment, emotion2vec for emotion detection, Wespeaker for speaker similarity.",
+    "rai:dataReleaseMaintenancePlan": "Dataset and code will be publicly released. Data governance process maintained for auditing and removal with right to update assets if consent or licensing concerns arise.",
+    "rai:personalSensitiveInformation": "Role-play tasks include voice imitation with 100 distinct roles and associated audio clips. Five Chinese roles included among primarily English content. Speaker voice characteristics captured in audio data.",
+    "rai:dataSocialImpact": "Benchmark enables evaluation of voice assistants across healthcare, education, smart homes, customer service, and automotive domains. Identifies gaps in audio understanding, multimodal integration, safety alignment, and robustness. Potential misuse risks in voice cloning and impersonation addressed through consent requirements, anti-impersonation safeguards, and safety cards.",
+    "rai:dataBiases": "Monolingual focus (primarily English with five Chinese roles) may not capture full variability of real user interactions. Questions and contexts drawn from academic or synthetic sources may not reflect full richness or fairness concerns of real deployments. Role-play subset uses fixed set of 100 roles that may encode stereotypes or omit important user personas.",
+    "rai:dataLimitations": "Dataset size (10.5K items) may be limited in diversity. Monolingual English focus (except five Chinese roles). Evaluation relies on automated measures and GPT-based scoring which may introduce noise and bias. Lacks video-audio integration and continuous audio-visual streaming tasks. Offline, static evaluation does not capture latency, continuous listening, incremental processing, barge-in, or error recovery. Source data from academic/synthetic sources may not reflect real-world deployment scenarios.",
+    "rai:dataUseCases": "Testing and evaluation of voice assistant models across listening (audio understanding), speaking (voice generation and dialogue), and viewing (multimodal vision-audio) capabilities. Intended for researchers to evaluate voice assistants and facilitate future studies. Not intended for training models to cheat on the benchmark."
+  },
+  "usage": {
+    "input_tokens": 130101,
+    "output_tokens": 4506
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:58.932145Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce VoiceAssistant-Eval, a comprehensive benchmark designed to assess AI assistants across listening, speaking, and viewing."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VoiceAssistant-Eval comprises 10,497 curated examples spanning 13 task categories. These tasks include natural sounds, music, and spoken dialogue for listening; multi-turn dialogue, role-play imitation, and various scenarios for speaking; and highly heterogeneous images for viewing."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": "Code and data will be released at this page."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The VoiceAssistant-Eval data and our open-source code are under an MIT license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ke Wang1,∗ Houxing Ren1,∗ Zimu Lu1 Mingjie Zhan2,† Hongsheng Li1,3,† 1CUHK MMLab, 2SenseTime Research, 3CPII under InnoHK"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2509.22651v1 [cs.CL] 26 Sep 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English."
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VoiceAssistant-Eval evaluates models in an offline, static manner, which might not capture certain practical deployment factors."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect source data from 23 audio understanding datasets, following the practice of AirBench... We pre-design eight sub-tasks: assistant, emotion, instruction following, multi-round, reasoning, robustness, role-playing, and safety. For role-playing, we use the role profiles and question texts from RoleBench... To ensure the Viewing subset covers as many image types as possible, we select MMMU as the source dataset... We synthesize speech for question texts using three advanced text-to-speech (TTS) models: F5-TTS, ChatTTS, and Dia-1.6B."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect source data from 23 audio understanding datasets... We pre-design eight sub-tasks... source data are from 22 datasets, including 11 text datasets and 11 audio datasets... we select MMMU as the source dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Tab. 8 provides an overview of the diverse set of source datasets included in our benchmark... Specifically, for the Speech subset, the sources are 10 datasets (Panayotov et al., 2015; Wang et al., 2020a; Drossos et al., 2020; Poria et al., 2019; Bastianelli et al., 2020; Nagrani et al., 2017; Reimao & Tzerpos, 2019; Cieri et al., 2004; Si et al., 2023; Antoniou et al., 2023); for Sound, the sources are 6 datasets... for Music, the sources are 4 datasets... and for General, the sources are 3 datasets."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We preprocess the texts to ensure high synthesis quality: 1. Image references: We replace special tokens (e.g., '<image1>') with descriptive phrases, such as 'as shown in the first image.' 2. Text rewriting: We use Qwen2.5-72B-Instruct to rewrite the text so it is more suitable for TTS, ensuring that challenging content, such as numbers and mathematical expressions, is read accurately. For example, 'OC= 2rsin(π)' is converted to 'O C equals two r times sine of pi,' and '$31,000' is converted to 'thirty-one thousand dollars'. 3. Multiple-Choice Questions: We rephrase the options for better readability."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We improve data quality through a four-stage curation process: (1) Deduplication: We use lexical overlap and Levenshtein distance to flag potential duplicate questions. Suspected duplicates are manually reviewed and removed, resulting in 15,359 samples. (2) Validation: We exclude incomplete or unsuitable instances, including entries with corrupted images, silent audio, ill-posed prompts, and demonstrably incorrect answers. Approximately 10% of candidates are discarded at this stage. (3) Categorization: We assign the remaining problems to 13 predefined task categories, primarily based on their source metadata. (4) Sampling: We sample data from the categorized problems to balance the ratio of different tasks. After this, we obtain 10,497 high-quality samples."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To evaluate voice personalization, we utilize texts from RoleBench and analyze both role-specific speaking style and vocal timbre... Specifically, we select 100 distinct roles and collect three representative audio clips per role... During speech synthesis, we use UTMOS Strong to evaluate the generated speech and regenerate it until the score surpasses 3.8... Finally, we use Whisper-Large-v3 to transcribe the synthesized audio back into text and select the audio sample with the lowest word error rate."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To operationalize the validation step described in the main text, we build a lightweight web-based curation tool that standardizes quality checks across modalities. The tool ingests candidate items consisting of a unique ID, metadata, raw prompt, reference answer(s), and associated media (audio waveform(s), image(s), and optional multi-turn transcripts). Curators review each item on a single screen, with inline players and viewers, transcripts, and multiple-choice options when present, and then assign a Good or Bad verdict, along with optional notes."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Manual review proceeds in three quick passes: (1) Media integrity: Verify that the audio and images are present, decodable, audible, and visible, and that they are not silent or corrupted; (2) Task well-posedness: Confirm that the prompt is clear, unambiguous, and that inputs align with the stated task (e.g., options match the question); (3) Answer validity: Check that reference answers are consistent with the prompt and media, and that multi-turn items are coherent. Approximately 10% of candidates are discarded via this process."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we select 100 distinct roles and collect three representative audio clips per role."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We synthesize speech for question texts using three advanced text-to-speech (TTS) models: F5-TTS, ChatTTS, and Dia-1.6B... During speech synthesis, we use UTMOS Strong to evaluate the generated speech... Finally, we use Whisper-Large-v3 to transcribe the synthesized audio back into text... We use Qwen2.5-72B-Instruct to rewrite the text so it is more suitable for TTS... For content quality, we use gpt-oss-20b to assess response texts... For emotion, we use emotion2vec to get the emotion probabilities... For the role-play task, we use Wespeaker to calculate the speaker similarity."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We document the VoiceAssistant-Eval dataset within the paper and note that the VoiceAssistant-Eval and code for result reproduction will be publicly available... We will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To evaluate voice personalization, we utilize texts from RoleBench and analyze both role-specific speaking style and vocal timbre... Specifically, we select 100 distinct roles and collect three representative audio clips per role... Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With these advancements, models that support hands-free voice interaction are showing strong potential as AI assistants across a range of domains, including healthcare, education, smart homes, customer service, and the automotive industry... However, challenges remain: multimodal (audio plus visual) input and role-play voice imitation tasks are difficult for current models, and significant gaps persist in robustness and safety alignment... To mitigate misuse risks (e.g., identity spoofing, harassment, fraud), we (i) prohibit training or releasing models intended to reproduce identifiable speakers without documented consent; (ii) require downstream users to implement consent gating and watermarking or traceability of synthetic audio; (iii) provide 'safety cards' that describe acceptable use, known risks, and red-team tests for voice cloning abuse."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English. This monolingual focus may not capture the full variability of real user interactions... The questions and contexts are drawn from academic or synthetic sources (e.g., existing datasets and rewritten instructions), which might not reflect the full richness or fairness concerns of real deployments. For example, the role-play subset uses a fixed set of 100 roles and associated style prompts. These roles may encode stereotypes or omit important user personas."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset, though sizable (10.5K curated QA items), may still be limited in diversity. Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English... We rely on automated measures and GPT-based scoring, which, while efficient, may introduce noise and bias... The absence of these scenarios means current evaluations might overestimate a model's capabilities in controlled settings compared to messy, continuous real-world input... VoiceAssistant-Eval evaluates models in an offline, static manner, which might not capture certain practical deployment factors."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We intend for researchers to use this dataset to better evaluate voice assistants and, consequently, facilitate future studies in this area. We bear all responsibility in case of violation of rights. The VoiceAssistant-Eval dataset is not supposed to be used, though the risk exists, for training models for cheating."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 24,
+      "evidence_coverage": 96.0,
+      "avg_confidence": 0.93
+    },
+    "cost_usd": 0.2289,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "url",
+      "citeAs"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

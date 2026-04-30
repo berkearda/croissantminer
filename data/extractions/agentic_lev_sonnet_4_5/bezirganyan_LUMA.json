@@ -1,0 +1,279 @@
+{
+  "dataset_id": "bezirganyan_LUMA",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "LUMA",
+    "description": "A multimodal dataset featuring audio, image, and textual data from 50 classes, specifically designed for learning from uncertain data. It extends the CIFAR 10/100 dataset with audio samples from three audio corpora and text data generated using the Gemma-7B LLM. The dataset enables controlled injection of varying types and degrees of uncertainty for benchmarking multimodal deep learning approaches.",
+    "url": "https://github.com/bezirganyan/LUMA",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier",
+    "publisher": "SIGIR '25",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data. In Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25), July 13–18, 2025, Padua, Italy. ACM, New York, NY, USA, 10 pages. https://doi.org/10.1145/3726302.3730302",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset combines images from CIFAR-10/100, audio samples extracted from three audio corpora (The Spoken Wikipedia, LibriSpeech, and Mozilla Common Voice) using forced alignment techniques, and text generated using the Gemma-7B Large Language Model. Each modality was independently sourced and then aligned so that text passages relate to image objects and audio recordings pronounce the corresponding class labels.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw data sources include: CIFAR-10/100 dataset (32x32 images), The Spoken Wikipedia corpus (phoneme-level aligned audio of Wikipedia articles), LibriSpeech dataset (1,000 hours of English speech from audiobooks with forced-aligned alignments), Mozilla Common Voice corpora (crowdsourced open-source voice recordings with forced-aligned alignments), and EDM Diffusion-based generative model samples for additional image diversity.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Audio samples were validated through automatic transcription using OpenAI's Whisper Large V3 model, followed by manual validation for negative predictions. Manual validation was performed using Label Studio with the prompt 'Is the audio saying the word below? (An extra 's' or 'es' in the pronunciation is okay.)' with Yes/No answer options. Annotators were M.Sc. and PhD students and professors with advanced to fluent English knowledge. Samples were accepted where both annotators confirmed validity; conflicting annotations were rejected.",
+    "rai:dataAnnotationPlatform": "Label Studio",
+    "rai:dataAnnotationAnalysis": "71.61% annotation agreement was achieved. Samples with both annotators confirming validity were accepted (5,027 samples). Samples with conflicting annotations were rejected.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": "17 annotators total, consisting of M.Sc. and PhD students and professors with advanced to fluent English knowledge",
+    "rai:machineAnnotationTools": "OpenAI's Whisper Large V3 model for audio transcription validation; Montreal Forced Aligner for word-level alignment of LibriSpeech and Mozilla Common Voice; Gemma-7B Instruct model for text generation; EDM Diffusion-based generative model for image generation",
+    "rai:dataBiases": "The dataset includes bias analysis performed on the generated data. The audio modality incorporates diversity of accent in pronunciation from volunteer readers and contributors from around the world.",
+    "rai:dataLimitations": "The dataset is based on relatively simple 32x32 images from CIFAR-10/100. Some classes had fewer than 600 samples after alignment with other modalities and were used as out-of-distribution samples. The dataset currently focuses on independent modalities rather than dependent modalities.",
+    "rai:dataSocialImpact": "The dataset is intended to promote trustworthy and robust machine learning approaches for safety critical applications such as healthcare, autonomous driving, and finance, where multimodal information integration is crucial for decision-making.",
+    "rai:personalSensitiveInformation": "The audio modality includes recordings from volunteer contributors from around the world, capturing accent diversity. The dataset uses crowdsourced voices from Mozilla Common Voice and volunteer readers from The Spoken Wikipedia and LibriVox projects.",
+    "rai:dataUseCases": "The dataset is designed for training, testing, and benchmarking multimodal deep learning approaches with uncertainty quantification. It consists of 500 samples per class for training and 100 for testing across 42 classes, plus 3,859 out-of-distribution samples. The dataset enables controlled injection of varying types and degrees of uncertainty for experiments and benchmarking initiatives.",
+    "rai:dataReleaseMaintenancePlan": "The dataset can be easily extended with additional modalities and augmented with more data samples. Future plans include adding dependent modalities. The open-source nature of the data compilation pipeline and code facilitates integration of new contributions from the community.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset supports controlled injection of varying types and degrees of uncertainty through multiple manipulation techniques: (1) Data diversity control using inverse distance sampling with parameter k to control epistemic uncertainty; (2) Sample noise injection including background noise for audio (using audiomentations library), multiple text noise types (keyboard, OCR, character, antonym, word, spelling, back-translation using nlpaug library), and 15 image perturbations (Gaussian noise, blur, weather effects, compression); (3) Label noise injection by reassigning labels based on nearest neighbor distances in feature space; (4) Out-of-distribution (OOD) sample injection from classes not present in training data.",
+    "rai:dataPreprocessingProtocol": "Deep feature extraction was performed for each modality to enable diversity control and label noise injection: Wav2Vec for audio, BERT for text, and VGG-11 for images. For audio classification, 128x128 mel-spectrograms were extracted from padded audio samples. For text classification, BERT embeddings were extracted for each token and averaged to produce one embedding per text passage."
+  },
+  "usage": {
+    "input_tokens": 28838,
+    "output_tokens": 4097
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:19.820796Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose LUMA, a unique multimodal dataset, featuring audio, image, and textual data from 50 classes, specifically designed for learning from uncertain data."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We propose LUMA, a unique multimodal dataset, featuring audio, image, and textual data from 50 classes, specifically designed for learning from uncertain data. It extends the well-known CIFAR 10/100 dataset with audio samples extracted from three audio corpora, and text data generated using the Gemma-7B Large Language Model (LLM). The LUMA dataset enables the controlled injection of varying types and degrees of uncertainty to achieve and tailor specific experiments and benchmarking initiatives."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The code and instructions for downloading and processing the dataset can be found at: https://github.com/bezirganyan/LUMA."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25), July 13–18, 2025, Padua, Italy"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SIGIR '25, July 13–18, 2025, Padua, Italy"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we used The Spoken Wikipedia [15], LibriSpeech [27], and Mozilla Common Voice [2] corpora... The LibriSpeech dataset is a corpus of 1,000 hours of English speech"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data. In Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25), July 13–18, 2025, Padua, Italy. ACM, New York, NY, USA, 10 pages. https://doi.org/10.1145/3726302.3730302"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each generated version of the dataset consists of 600 data records per class (500 for training, and 100 for testing) belonging to 42 classes, and 3,859 OOD data points, belonging to the remaining 8 classes."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For audio modality, the diversity of accent in the pronunciation was an important factor to consider, and we collected samples, where different people would pronounce the corresponding class label of CIFAR 10/100 images. For this task, we used three audio/text parallel corpora and extracted the desired audio segments. More specifically, we used The Spoken Wikipedia [15], LibriSpeech [27], and Mozilla Common Voice [2] corpora... We compiled the images from the CIFAR 10/100 dataset [18], extracted, validated, and associated audio samples corresponding to the CIFAR image class labels from three diverse audio corpora [2, 15, 27], and generated the text modality based on the class labels using the Gemma-7B Instruct [25] Large Language Model (LLM)."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compiled the images from the CIFAR 10/100 dataset [18], extracted, validated, and associated audio samples corresponding to the CIFAR image class labels from three diverse audio corpora [2, 15, 27], and generated the text modality based on the class labels using the Gemma-7B Instruct [25] Large Language Model (LLM)."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the image modality, our priority was to choose a relatively simple yet well-known dataset, where we could have the option to manually increase the degree of uncertainty. For that purpose, we chose CIFAR-100 and CIFAR-10 [18] datasets... The Spoken Wikipedia is a collection of hundreds of hours of phoneme-level aligned audio, where volunteer readers are reading various Wikipedia articles... The LibriSpeech dataset is a corpus of 1,000 hours of English speech, derived from audiobooks from the LibriVox project... The Mozilla Common Voice corpora, is a crowdsourced open-source collection of voices by volunteer contributors from around the world."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The automatic validation was achieved with the OpenAI's Whisper Large V3 model for audio transcription... For manual validation... we opted for Label Studio to build the labeling interface. The interface provided the audio sample, with the prompt 'Is the audio saying the word below? (An extra 's' or 'es' in the pronunciation is okay.)' and answer options of 'Yes' or 'No'. We asked our colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge to annotate the samples."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We opted for Label Studio to build the labeling interface."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We got 71.61% annotation agreement and accepted 5,027 samples, where both annotators confirmed the validity of the sample. Samples with conflicting annotations were rejected."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In total, we collected 2 annotations per sample, from 17 annotators."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked our colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge to annotate the samples. In total, we collected 2 annotations per sample, from 17 annotators."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The automatic validation was achieved with the OpenAI's Whisper Large V3 model for audio transcription... we used force-aligned alignments generated with the Montreal Forced Aligner... We utilized Google's Gemma-7B Instruct model to generate more than 1,200 texts samples per class... we decided to sample 600 data points with different level of diversity from the bigger set CIFAR-10/100... We alleviated this issue with including images generated with EDM Diffusion-based generative model"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also performed additional bias analysis of the dataset... For audio modality, the diversity of accent in the pronunciation was an important factor to consider, and we collected samples, where different people would pronounce the corresponding class label of CIFAR 10/100 images."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the image modality, our priority was to choose a relatively simple yet well-known dataset... 42 classes were chosen so that after aligning with the other modalities, we would have at least 600 samples in each class per modality... We took another 8 classes, which had less than 600 samples after aligning with other modalities, as OOD samples... In the future, we plan to include dependent modalities"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We anticipate that the LUMA dataset will help the research community to design more trustworthy and robust machine learning approaches for safety critical applications... In domains such as healthcare, autonomous driving, and finance, information is distributed across multiple modalities including audio, video, text, and images."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For audio modality, the diversity of accent in the pronunciation was an important factor to consider... The Mozilla Common Voice corpora, is a crowdsourced open-source collection of voices by volunteer contributors from around the world... volunteer readers are reading various Wikipedia articles"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each generated version of the dataset consists of 600 data records per class (500 for training, and 100 for testing) belonging to 42 classes, and 3,859 OOD data points... The LUMA dataset enables the controlled injection of varying types and degrees of uncertainty to achieve and tailor specific experiments and benchmarking initiatives... intended to promote and support the development, evaluation, and benchmarking of trustworthy and robust multimodal deep learning approaches"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset can be easily extended with additional modalities and augmented with more data samples. In the future, we plan to include dependent modalities... The open-source nature of the data compilation pipeline and code for uncertainty and noise generation facilitates the integration of new contributions from the community"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We prioritized flexibility, offering multiple options for controlling uncertainty through adjustable parameters such as data diversity, sample-level noise, label corruption, and the injection of out-of-distribution (OOD) samples... To control the diversity, we extract deep features from each modality... We want to have an option to inject a controlled amount of noise into the data... Aleatoric uncertainty can also be introduced by injecting label noise into the dataset... we kept a separate set of samples from the same dataset, but belonging to classes that are not present in the training data, as OOD samples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To control the diversity, we extract deep features from each modality (Wav2Vec [3] for audio, BERT [5] for text and VGG-11 [30] for images)... For the audio modality, we extracted 128x128 mel-spectrograms from padded audio samples... For the text modality, we extracted the BERT [6] embeddings for each token, and averaged them out, so that we have one embedding per text passage."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 27,
+      "evidence_count": 26,
+      "evidence_coverage": 96.3,
+      "avg_confidence": 0.941
+    },
+    "cost_usd": 0.074,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 22666,
+        "tokens_in": 6261,
+        "tokens_out": 1081
+      },
+      "collection": {
+        "section_chars": 24154,
+        "tokens_in": 6823,
+        "tokens_out": 755
+      },
+      "annotation": {
+        "section_chars": 21002,
+        "tokens_in": 5736,
+        "tokens_out": 786
+      },
+      "impact": {
+        "section_chars": 17774,
+        "tokens_in": 5151,
+        "tokens_out": 915
+      },
+      "processing": {
+        "section_chars": 15909,
+        "tokens_in": 4867,
+        "tokens_out": 560
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

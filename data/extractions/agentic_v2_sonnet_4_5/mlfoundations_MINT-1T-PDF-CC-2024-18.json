@@ -1,0 +1,256 @@
+{
+  "dataset_id": "mlfoundations_MINT-1T-PDF-CC-2024-18",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "MINT-1T",
+    "description": "MINT-1T is a multimodal interleaved dataset comprising one trillion text tokens and 3.4 billion images, sourced from HTML documents, PDFs, and ArXiv papers. It is designed for training large multimodal models (LMMs) with free-form interleaved sequences of images and text.",
+    "url": "https://github.com/mlfoundations/MINT-1T",
+    "license": "CC-BY-4.0",
+    "creator": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, Ludwig Schmidt",
+    "publisher": "University of Washington, Salesforce Research, Stanford University, University of Texas at Austin, University of California Berkeley",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, and Ludwig Schmidt. MINT-1T: Scaling Open-Source Multimodal Data by 10x: A Multimodal Dataset with One Trillion Tokens. arXiv:2406.11271v5 [cs.CV], 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "MINT-1T curates multimodal documents from CommonCrawl WARC files (HTML), CommonCrawl WAT files (PDFs), and ArXiv LaTeX source code. HTML documents are parsed from DOM trees, PDFs are downloaded and parsed using PyMuPDF with reading order extraction, and ArXiv documents are built from LaTeX source using TexSoup to identify figure tags and interleave images with text.",
+    "rai:dataCollectionType": "Web Scraping, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "HTML documents from CommonCrawl WARC files (May 2017 to April 2024), PDF documents from CommonCrawl WAT files (February 2023 to April 2024), and ArXiv papers from ArXiv S3 buckets.",
+    "rai:dataCollectionTimeframe": "January 2024 to June 2024 (collection process); source data spans 2013 to 2024",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For HTML documents, we follow OBELICS's method for extracting interleaved multimodal documents from CommonCrawl WARC files by parsing each WARC entry's DOM tree. For PDF documents, we extract reading order by finding the bounding box of all text blocks on a page, clustering the blocks based on columns, and ordering the blocks from top left to bottom right. Images are anchored in the sequence based on the proximity between the image's bounding box and text blocks on the same page. For ArXiv documents, we use TexSoup to find figure tags and interleave the images with the paper text. For multi-file papers, we identify the main Tex file and replace input tags with the contents of its file. We additionally clean up the LaTeX code removing imports, bibliography, tables, and citation tags.",
+    "rai:dataPreprocessingProtocol": "Text quality filtering using RefinedWeb methods including removal of documents with excessive duplicate n-grams and low quality documents using MassiveText rules. Image filtering to remove images smaller than 150 pixels or larger than 20,000 pixels, and images with aspect ratios greater than 2 (HTML) or 3 (PDFs). Paragraph and document deduplication using Bloom Filter with 13-gram paragraphs. Image deduplication based on SHA256 hashes, removing images appearing more than 10 times per snapshot. NSFW image detection and removal. PII masking for email addresses and IP addresses.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "NSFW image detection (https://github.com/GantMan/nsfw_model), Fasttext language identification, PyMuPDF for PDF parsing, TexSoup for LaTeX parsing",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be updated by the authors. Updates will be communicated through the README in the Huggingface interface. Older versions can be found using Git history. An erratum will be present on the README of the Huggingface dataset page.",
+    "rai:personalSensitiveInformation": "The dataset may contain personally identifiable information, images of individuals, and sensitive attributes such as race, ethnic origins, sexual orientations, religious beliefs, political opinions, locations, financial or health data. Email addresses and IP addresses have been masked to reduce PII exposure.",
+    "rai:dataSocialImpact": "MINT-1T was built to make research into large multimodal models more accessible. Inappropriate use cases include training models that ingest or generate personally identifying information (such as images of people's faces and other sensitive content) as well as military applications.",
+    "rai:dataBiases": "The dataset follows previous works in not using text quality classifier models as they have been shown to favor text from certain demographics. While steps were taken to reduce biases and risks, dataset consumers are encouraged to further filter the data based on their use case.",
+    "rai:dataLimitations": "PDF parsing has limitations including inability to detect some images and incorrect reading order extraction in some cases due to arbitrary PDF layouts. The dataset relies on external image URLs which may become unavailable over time due to link rot. The dataset may contain offensive, insulting, or threatening content despite filtering efforts.",
+    "rai:dataUseCases": "Training large multimodal models (LMMs) for pre-training with interleaved image-text sequences. Can also be used for generating interleaved images and text sequences or building multimodal document retrieval systems. The dataset is designated primarily as a research artifact."
+  },
+  "usage": {
+    "input_tokens": 54994,
+    "output_tokens": 3501
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:21.374996Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T, the most extensive and diverse open-source Multimodal INTerleaved dataset to date."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T comprises of one trillion text tokens and 3.4 billion images, a 10x scale-up from existing open-source datasets. Additionally, we include previously untapped sources such as PDFs and ArXiv papers."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our data at https://github.com/mlfoundations/MINT-1T"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release MINT-1T under a CC-BY-4.0 license, designating it primarily as a research artifact."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Anas Awadalla1,2∗Le Xue2Oscar Lo1Manli Shu2 Hannah Lee1Etash Guha1Matt Jordan4Sheng Shen5Mohamed Awadalla1 Silvio Savarese⋄,2,3Caiming Xiong⋄,2Ran Xu⋄,2Yejin Choi⋄,1Ludwig Schmidt⋄,1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1University of Washington,2Salesforce Research,3Stanford University, 4University of Texas at Austin,5University of Califomia, Berkeley"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2406.11271v5 [cs.CV] 31 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Initially, we eliminate non-English documents using Fasttext's [Joulin et al., 2017] language identification model (with a confidence threshold of 0.65)."
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data was collected from January 2024 to June 2024. We include web data from 2013 to 2024."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow OBELICS's method for extracting interleaved multimodal documents from CommonCrawl WARC files by parsing each WARC entry's DOM tree... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps... ArXiv interleaved documents are built from the LaTeX source code. We use TexSoup to find figure tags and interleave the images with the paper text."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow OBELICS's method for extracting interleaved multimodal documents from CommonCrawl WARC files by parsing each WARC entry's DOM tree... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have expanded our document pool to include HTML documents from May 2017 to April 2024 (note that we use the full dumps from October 2018 to April 2024 and partial dumps from earlier years)... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps... Data was obtained from a third party web crawl, CommonCrawl, for HTML and PDF documents and directly from ArXiv S3 buckets for ArXiv documents."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data was collected from January 2024 to June 2024. We include web data from 2013 to 2024."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We apply text filtering methods from RefinedWeb, specifically removing documents with excessive duplicate n-grams or those identified as low quality in using MassiveText [Rae et al., 2021] rules... We remove images smaller than 150pixels to avoid noisy images such as logos and icons and images larger than 20,000pixels... Following Dolma's methodology [Groeneveld, 2023], we use a Bloom Filter for efficient text deduplication. We set the false positive rate to 0.01for the bloom filter and deduplicate 13-gram paragraphs... We apply an NSFW image detector [Laborde] to all images in our dataset... To mitigate the risk of personal data leakage, we anonymize email addresses and IP addresses in our text data."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Initially, we eliminate non-English documents using Fasttext's [Joulin et al., 2017] language identification model... We apply an NSFW image detector [Laborde] to all images in our dataset... We use PyMuPDF to find the bounding box of all text blocks on a page... We use TexSoup to find figure tags and interleave the images with the paper text."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes the dataset will be updated by the authors of this work. We will communicate updates through the README in the Huggingface interface... Older versions of the dataset can be found using the Git history of the dataset repository. We will communicate the issues with previous versions in the erratum."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes if it is present on the public web then it is possible to find images of individuals as well as text about specific individuals. We masked personally identifiable information such as emails and IP addresses to remove personal data from MINT-1T... Yes if it is present on the public web then it is possible such data is found in MINT-1T."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T was built to make research into large multimodal models more accessible. Using the dataset to train models that ingest or generate personally identifying information (such as images of people's faces and other sensitive content) as well as military applications are all inappropriate use cases of MINT-1T."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow previous works in not using text quality classifier models as they have been shown to favor text from certain demographics. While we take steps to reduce biases and risks in our dataset (see A.3.2), we encourage dataset consumers to further filter the data based on their use case."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We noticed two limitations with using the PyMuPDF package for parsing PDFs: 1) we sometimes are unable to detect images 2) as PDFs have arbitrary layouts, in some cases we extract an incorrect reading order... MINT-1T is not self-contained and relies on downloading extemal image urls to collect the full dataset. There are no guarantees these urls will remain available over time as link rot is a common problem for large scale image datasets... Yes it is possible such content can be found in MINT-1T."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T is a multimodal interleaved dataset comprising one trillion text tokens and 3.4 billion images... The dataset can be used for other training objectives like generating interleaved images and text sequences or for building multimodal document retrieval systems... We release MINT-1T under a CC-BY-4.0 license, designating it primarily as a research artifact."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 22,
+      "fields_uncertain": 1,
+      "evidence_count": 21,
+      "evidence_coverage": 91.3,
+      "avg_confidence": 0.917
+    },
+    "cost_usd": 0.1087,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

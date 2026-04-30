@@ -1,0 +1,257 @@
+{
+  "dataset_id": "MathLLMs_VoiceAssistant-Eval",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "VoiceAssistant-Eval",
+    "description": "A comprehensive benchmark for evaluating AI assistants across listening, speaking, and viewing, comprising 10,497 curated examples spanning 13 task categories.",
+    "url": "https://arxiv.org/abs/2509.22651",
+    "license": "MIT",
+    "creator": "Ke Wang, Houxing Ren, Zimu Lu, Mingjie Zhan, Hongsheng Li",
+    "publisher": "arXiv",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Wang, K., Ren, H., Lu, Z., Zhan, M., & Li, H. (2025). VoiceAssistant-Eval: Benchmarking AI assistants across listening, speaking, and viewing. arXiv:2509.22651.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The benchmark was built by extracting diverse visual and auditory inputs from multiple existing datasets, converting text instructions into spoken prompts, synthesizing role-play and task audio, and then applying multi-stage curation including deduplication, validation, categorization, and balanced sampling.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Incomplete or unsuitable instances such as corrupted images, silent or broken audio, missing media, ill-posed prompts, and incorrect answers were removed; about 10% of candidates were discarded.",
+    "rai:dataCollectionRawData": "Raw data came from 47 source datasets covering audio understanding, spoken interaction, text tasks, and images, including 23 audio understanding datasets for Listening, 22 datasets plus RoleBench for Speaking, and MMMU for Viewing.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Text instructions were rewritten for speech synthesis, image references were replaced with descriptive phrases, multiple-choice options were rephrased for readability, and spoken prompts were synthesized and selected based on quality and transcription error.",
+    "rai:dataPreprocessingProtocol": "Collected text instructions were converted into audio; synthesized speech was evaluated with UTMOS and regenerated until scores exceeded 3.8, then transcribed with Whisper and the sample with the lowest word error rate was retained. Deduplication used lexical overlap and Levenshtein distance, followed by validation, categorization into 13 tasks, and balanced sampling.",
+    "rai:dataAnnotationProtocol": "Reference answers and task labels were inherited from source datasets and curated into 13 predefined task categories; human curators manually reviewed suspected duplicates and validated media integrity, task well-posedness, and answer validity, assigning Good/Bad verdicts during curation.",
+    "rai:dataAnnotationPlatform": "A lightweight web-based curation tool",
+    "rai:dataAnnotationAnalysis": "Suspected duplicates were flagged automatically and then manually reviewed; approved items were logged with curator decisions and timestamps, and approximately 10% of candidates were discarded during manual validation.",
+    "rai:annotationsPerItem": 1,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen2.5-72B-Instruct, UTMOS Strong, Whisper-Large-v3, lexical overlap matching, Levenshtein distance",
+    "rai:dataReleaseMaintenancePlan": "The dataset and evaluation code will be publicly released; the authors will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise.",
+    "rai:personalSensitiveInformation": "Speaker voices and role audio clips; user emotions; language; gender labels in some source tasks; five Chinese roles and otherwise English prompts/evaluations.",
+    "rai:dataSocialImpact": "The benchmark is intended to support development of next-generation multimodal AI assistants, but the authors highlight misuse risks from voice imitation such as identity spoofing, harassment, fraud, privacy violations, and unequal performance across demographics, and propose safeguards like consent gating, watermarking, traceability, safety cards, and governance for removal.",
+    "rai:dataBiases": "The benchmark may carry biases from source data and design choices; it is largely English-focused, uses academic or synthetic sources and rewritten instructions, and the fixed set of 100 role-play personas may encode stereotypes or omit important user personas.",
+    "rai:dataLimitations": "Limitations include limited diversity despite 10.5K items, mostly English prompts and evaluations, evaluation of only one proprietary model, reliance on automated and GPT-based scoring that may introduce noise and bias, possible source-data and design biases, incomplete task coverage such as no video-audio or continuous streaming tasks, and offline static evaluation that does not measure latency, partial utterances, interruption handling, or error recovery.",
+    "rai:dataUseCases": "Intended for evaluating and benchmarking voice assistants and multimodal AI assistants across listening, speaking, and viewing; not intended for training models for cheating."
+  },
+  "usage": {
+    "input_tokens": 112597,
+    "output_tokens": 2725
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:40:56.906289Z",
+    "git_commit": "846a3df",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce VoiceAssistant-Eval, a comprehensive benchmark designed to assess AI assistants across listening, speaking, and viewing."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "VoiceAssistant-Eval comprises 10,497 curated examples spanning 13 task categories."
+      },
+      "url": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The VoiceAssistant-Eval data and our open-source code are under an MIT license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ke Wang1,∗Houxing Ren1,∗Zimu Lu1 Mingjie Zhan2,† Hongsheng Li1,3,†"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2509.22651v1 [cs.CL] 26 Sep 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English."
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure reproducibility, we will release both the dataset and evaluation code used in this work."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When collecting test data, we first extract diverse visual and auditory inputs from 37 datasets, including natural sounds, music, dialogue, and various images... To ensure data quality and reliability, we conduct a multi-stage curation process. First, we de-duplicate the content... Next, we filter out incomplete or inappropriate items... The remaining examples are mapped to 13 task categories, and we apply balanced sampling to equalize category representation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When collecting test data, we first extract diverse visual and auditory inputs from 37 datasets... We improve data quality through a four-stage curation process: (1) Deduplication... Suspected duplicates are manually reviewed and removed..."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we filter out incomplete or inappropriate items, including cases with missing or broken audio or images, as well as instances with ill-posed questions or incorrect answers. Approximately 10% of candidates are removed during this stage."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 2: Overview of principal statistics for VoiceAssistant-Eval... Number of source datasets 47... We collect source data from 23 audio understanding datasets... For role-playing, we use the role profiles and question texts from RoleBench... Other source data are from 22 datasets... To ensure the Viewing subset covers as many image types as possible, we select MMMU (Yue et al., 2024) as the source dataset."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We preprocess the texts to ensure high synthesis quality: 1. Image references: We replace special tokens... 2. Text rewriting: We use Qwen2.5-72B-Instruct... 3. Multiple-Choice Questions: We rephrase the options for better readability."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The collected text instructions are then converted into audio... During speech synthesis, we use UTMOS Strong (Saeki et al., 2022) to evaluate the generated speech and regenerate it until the score surpasses 3.8... Finally, we use Whisper-Large-v3 (Radford et al., 2022) to transcribe the synthesized audio back into text and select the audio sample with the lowest word error rate... We improve data quality through a four-stage curation process: (1) Deduplication... (2) Validation... (3) Categorization... (4) Sampling..."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assign the remaining problems to 13 predefined task categories, primarily based on their source metadata... Suspected duplicates are manually reviewed and removed... Manual review proceeds in three quick passes: (1) Media integrity... (2) Task well-posedness... (3) Answer validity..."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To operationalize the validation step described in the main text, we build a lightweight web-based curation tool that standardizes quality checks across modalities."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use lexical overlap and Levenshtein distance to flag potential duplicate questions. Suspected duplicates are manually reviewed and removed... The tool exports an audit log with item IDs, curator decisions, and timestamps... Approximately 10% of candidates are discarded via this process."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use Qwen2.5-72B-Instruct (Qwen et al., 2025) to rewrite the text... During speech synthesis, we use UTMOS Strong... Finally, we use Whisper-Large-v3... We use lexical overlap and Levenshtein distance to flag potential duplicate questions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure reproducibility, we will release both the dataset and evaluation code used in this work... We will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we select 100 distinct roles and collect three representative audio clips per role... Number of user emotions 7... Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English... Please listen to this audio clip and identify whether the speaker is a man or a woman."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We believe it will be instrumental in developing next-generation multimodal models... To mitigate misuse risks (e.g., identity spoofing, harassment, fraud), we (i) prohibit training or releasing models intended to reproduce identifiable speakers without documented consent; (ii) require downstream users to implement consent gating and watermarking or traceability of synthetic audio... These measures aim to enable research on personalization while minimizing harms related to impersonation, privacy violations, and unequal performance across demographics."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Fourth, like many benchmarks, VoiceAssistant-Eval may carry biases from its source data and design choices... The questions and contexts are drawn from academic or synthetic sources (e.g., existing datasets and rewritten instructions), which might not reflect the full richness or fairness concerns of real deployments. For example, the role-play subset uses a fixed set of 100 roles and associated style prompts. These roles may encode stereotypes or omit important user personas."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, the dataset, though sizable (10.5K curated QA items), may still be limited in diversity... all other prompts and evaluations are in English... Second, the range of models evaluated in our study is limited... Third, our evaluation methodology has limitations. We rely on automated measures and GPT-based scoring, which, while efficient, may introduce noise and bias... Fifth, although we span 13 task categories, there remain gaps in task coverage and scenario realism... Finally, VoiceAssistant-Eval evaluates models in an offline, static manner..."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We intend for researchers to use this dataset to better evaluate voice assistants and, consequently, facilitate future studies in this area. The VoiceAssistant-Eval dataset is not supposed to be used, though the risk exists, for training models for cheating."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 27,
+      "fields_uncertain": 0,
+      "evidence_count": 23,
+      "evidence_coverage": 85.2,
+      "avg_confidence": 0.928
+    },
+    "cost_usd": 0.168,
+    "split": "test",
+    "corrections_applied": 4,
+    "enrichments": [],
+    "elapsed_seconds": 38.4,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

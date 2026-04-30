@@ -1,0 +1,59 @@
+{
+  "dataset_id": "bezirganyan_LUMA",
+  "model": "claude-opus-4-7",
+  "extraction": {
+    "name": "LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data",
+    "description": "LUMA is a multimodal dataset featuring audio, image, and textual data from 50 classes, specifically designed for learning from uncertain data. It extends the CIFAR 10/100 dataset with audio samples extracted from three audio corpora (The Spoken Wikipedia, LibriSpeech, and Mozilla Common Voice) and text data generated using the Gemma-7B Large Language Model. The dataset includes 101,000 images, 135,096 speech audio recordings, and 62,875 text passages (~3 GB). Each generated version consists of 600 data records per class (500 training, 100 testing) for 42 classes and 3,859 OOD data points belonging to 8 remaining classes. A Python package accompanies the dataset for injecting controlled uncertainty.",
+    "url": "https://github.com/bezirganyan/LUMA",
+    "license": null,
+    "creator": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, Sébastien Fournier",
+    "publisher": "ACM",
+    "datePublished": "2025",
+    "inLanguage": "English",
+    "citeAs": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data. In Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25), July 13–18, 2025, Padua, Italy. ACM, New York, NY, USA, 10 pages. https://doi.org/10.1145/3726302.3730302",
+    "isLiveDataset": "false",
+    "rai:dataCollection": "The dataset was compiled from multiple sources across three modalities. Images were sourced from CIFAR-10/100 and augmented with EDM diffusion-generated samples. Audio samples were extracted from The Spoken Wikipedia, LibriSpeech, and Mozilla Common Voice corpora using phoneme/word-level alignments (including forced alignments generated with the Montreal Forced Aligner), plus 73 voluntary recordings from colleagues. Text data was generated using Google's Gemma-7B Instruct LLM with 13 different prompts per class label.",
+    "rai:dataCollectionType": "Secondary Data analysis, Document analysis, Software Collection, Others (LLM-generated data)",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images: CIFAR-10/100 dataset and EDM Diffusion-based generative model outputs. Audio: The Spoken Wikipedia, LibriSpeech (from LibriVox public domain audiobooks), Mozilla Common Voice corpora, plus voluntary contributions from colleagues. Text: Generated via Gemma-7B Instruct LLM.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Audio samples were extracted by iterating over aligned transcripts and extracting segments corresponding to CIFAR-10/100 class labels (including plural forms). For text, class label occurrences were masked and fed back to Gemma-7B Instruct for classification validation. For gender-biased labels (man, woman, boy, girl), prompts were reconstructed with specific occupation keywords to reduce bias.",
+    "rai:dataPreprocessingProtocol": "Audio samples were automatically validated using OpenAI's Whisper Large V3 model for transcription; samples with transcriptions matching the class label (or plural form) were accepted. Negative predictions were sent for manual validation. Text samples were validated by masking labels and re-classifying via Gemma-7B Instruct. Deep features were extracted using Wav2Vec for audio, BERT for text, and VGG-11 for images to enable diversity control.",
+    "rai:dataAnnotationProtocol": "Manual annotation was performed for audio samples in classes with fewer than 800 samples (8,372 samples scheduled). Annotators were asked 'Is the audio saying the word below? (An extra 's' or 'es' in the pronunciation is okay.)' with 'Yes' or 'No' answer options. Samples where both annotators confirmed validity were accepted; conflicting annotations were rejected.",
+    "rai:dataAnnotationPlatform": "Label Studio",
+    "rai:dataAnnotationAnalysis": "71.61% annotation agreement was achieved between annotators. 5,027 samples were accepted where both annotators confirmed validity. Samples with conflicting annotations were rejected.",
+    "rai:annotationsPerItem": "2 annotations per audio sample",
+    "rai:annotatorDemographics": "17 annotators consisting of colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge.",
+    "rai:machineAnnotationTools": "OpenAI Whisper Large V3 (audio transcription/validation), Gemma-7B Instruct (text validation and bias detection), Montreal Forced Aligner (audio-text alignment), Wav2Vec (audio features), BERT (text features), VGG-11 (image features)",
+    "rai:dataReleaseMaintenancePlan": "The dataset is available on HuggingFace (https://huggingface.co/datasets/bezirganyan/LUMA) and GitHub (https://github.com/bezirganyan/LUMA). The dataset can be extended with additional modalities and augmented with more data samples. Authors plan to include dependent modalities in the future.",
+    "rai:personalSensitiveInformance": null,
+    "rai:personalSensitiveInformation": "Voluntary audio recording contributions from colleagues were anonymized and trimmed before inclusion. The dataset contains voice recordings from crowdsourced contributors (Mozilla Common Voice) and audiobook readers (LibriSpeech/LibriVox). Text samples describe human-related classes including 'man', 'woman', 'boy', 'girl'.",
+    "rai:dataSocialImpact": "The dataset is intended to promote and support the development, evaluation, and benchmarking of trustworthy and robust multimodal deep learning approaches, helping the research community design more trustworthy ML approaches for safety-critical applications.",
+    "rai:dataBiases": "The text modality contains significant gender bias, particularly for classes 'man', 'woman', 'boy', and 'girl', as well as potential racial, religious, and cultural biases, due to generation by the Gemma-7B Instruct LLM trained on unbalanced data. Prompts were reconstructed to reduce gender bias for these 4 labels, but significant bias still remains; the Gemma model was used to filter biased text. Audio samples may have accent-related variations. The dataset may contain factual inaccuracies due to LLM-generated content.",
+    "rai:dataLimitations": "The textual data may contain factual inaccuracies or biases since it was generated using an LLM. LUMA should not be used as a source of knowledge or information. Some audio samples collected from forced alignments may be misaligned, introducing noise. The dataset uses only 42 in-distribution classes due to audio sample availability constraints. Bias detection accuracy and consistency using the Gemma model cannot be fully assessed.",
+    "rai:dataUseCases": "Training, Testing, and Validation for benchmarking multimodal learning algorithms on uncertain data, uncertainty quantification methods evaluation, out-of-distribution detection, and studying the impact of aleatoric and epistemic uncertainty in multimodal deep learning. The dataset enables controlled injection of uncertainty via data diversity control, sample noise, label noise, and OOD injection."
+  },
+  "usage": {
+    "input_tokens": 21934,
+    "output_tokens": 2711
+  },
+  "valid": false,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-opus-4-7",
+    "provider": "anthropic",
+    "temperature": null,
+    "timestamp": "2026-04-23T19:55:27.957657Z",
+    "git_commit": "0d09f6d",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/experiments/model_comparison/extract_all_models_batch.py",
+    "mode": "batch"
+  },
+  "validation_errors": [
+    "bezirganyan_LUMA: extra fields: ['rai:personalSensitiveInformance']"
+  ]
+}

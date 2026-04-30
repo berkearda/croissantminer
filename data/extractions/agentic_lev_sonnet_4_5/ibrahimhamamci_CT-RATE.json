@@ -1,0 +1,279 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "CT-RATE is a dataset comprising 25,692 non-contrast 3D chest CT scans from 21,304 unique patients, with each scan accompanied by its corresponding radiology report. The dataset includes over 14.3 million 2D slices reconstructed using various methods, with reports containing impression and findings sections authored by radiologists. Each volume is annotated with 18 abnormalities.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Ibrahim Ethem Hamamci, Sezgin Er, and collaborators from University of Zurich, ETH Zurich, Istanbul Medipol University, Boston University, and other institutions",
+    "publisher": "University of Zurich and Istanbul Medipol University",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients, with each scan accompanied by its corresponding radiology report. The dataset includes 50,188 reconstructed 3D chest CT volumes (over 14.3 million 2D slices) paired with radiology text reports. Data was collected from electronic health records at a single institution. Multi-abnormality labels were extracted from reports using a finetuned language model, with manual annotation of a small portion of reports to develop an automatic labeler.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of non-contrast 3D chest CT scans and their corresponding radiology text reports from electronic health records. Each 3D volume contains multiple 2D slices (over 14.3 million total slices across the dataset). The reports include impression and findings sections written by radiologists as part of routine clinical practice.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Manual annotation of 1,000 reports for 18 distinct abnormalities by domain experts, followed by automated text classification using a finetuned language model (RadBERT) to extract multi-abnormality labels from radiology reports. For CT-CHAT, over 2.7 million question-answer pairs were generated from CT-RATE using Llama 3.1 7B. Expert evaluation involved three board-certified radiologists who independently rated 150 reports for each model on a scale from 0 to 10 based on predefined clinical criteria.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The finetuned text classification model's precision, recall, and F1 scores were evaluated and detailed in Supplementary Table 2, showing robust classification across abnormalities. For expert evaluation, mean scores from three board-certified radiologists were computed: Radiologist 1 rated CT-CHAT at 3.44, Radiologist 2 at 4.10, and Radiologist 3 at 4.52.",
+    "rai:annotationsPerItem": "For expert evaluation, each of 150 reports was independently rated by three board-certified radiologists.",
+    "rai:annotatorDemographics": "Three board-certified radiologists",
+    "rai:machineAnnotationTools": "RadBERT (pretrained language model) for automated text classification to extract multi-abnormality labels from radiology reports. Llama 3.1 7B for generating question-answer pairs. State-of-the-art 3D nodule segmentation algorithm for extracting nodule information (lobar location, centroid, diameters, and volumes).",
+    "rai:dataBiases": "Biases inherent to single-institution dataset may influence self-supervised training. The data originates from a single geographic and clinical setting, which may limit the generalizability of models to other populations.",
+    "rai:dataLimitations": "Dataset originates from single institution limiting generalizability; CT-CLIP depends on specific terminology used in reports and choice of prompts; lack of pretrained 3D medical multimodal AI assistants for benchmarking; models limited to chest CT volumes only; generated reports remain insufficient for clinical use.",
+    "rai:dataSocialImpact": "Models remain far from ready for clinical deployment. Challenges such as robustness, interpretability, regulatory compliance, and prospective validation must be addressed before integration into routine radiology workflows. User-friendly graphical interface introduced to broaden accessibility for educational and clinical research settings.",
+    "rai:personalSensitiveInformation": "Age (ranging from 18 to 102 years), sex, and geographic location (single institution in Turkey)",
+    "rai:dataUseCases": "Training foundation models for 3D medical imaging, zero-shot multi-abnormality detection, finetuning for classification tasks, visual question-answering, radiology report generation, educational and clinical research settings. Not recommended for clinical deployment without further validation.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For CT-CHAT training, a visual question-answering (VQA) dataset comprising over 2.7 million question-answer pairs was derived from CT-RATE using Llama 3.1 7B. The dataset consists of several components, including long-answer questions, short-answer questions, multiple-choice questions, and report generation tasks. For report generation enhancement, structured 3D segmentation inputs were integrated by providing detailed nodule information, such as lobar location, centroid, diameters, and volumes, extracted using a state-of-the-art 3D nodule segmentation algorithm on the CT-RATE training set.",
+    "rai:dataPreprocessingProtocol": "CT-RATE comprises 25,692 non-contrast 3D chest CT volumes reconstructed using various methods to suit different window settings, totaling over 14.3 million 2D slices. Multi-abnormality labels were extracted from radiology reports using an automated text classifier by finetuning a pretrained language model, RadBERT. Within CT-RATE, 1,000 reports were manually annotated for 18 distinct abnormalities for this finetuning procedure. For comparison with 2D models, Digitally Reconstructed Radiographs (DRRs) of 3D chest CT volumes were generated to ensure accurate representation in a 2D context."
+  },
+  "usage": {
+    "input_tokens": 56157,
+    "output_tokens": 3974
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:34.417798Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce CT-RATE, a public dataset that pairs 3D medical images with corresponding textual reports. CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report... These 3D volumes, reconstructed using various methods to suit different window settings, total over 14.3 million 2D slices. Each CT exam is accompanied by a report that includes an impression and a findings section, authored by a radiologist... Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our CT-RATE dataset, comprising paired chest CT volumes and radiology text reports, is publicly accessible via https://huggingface.co/datasets/ibrahimhamamci/CT-RATE"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibrahim Ethem Hamamci1,2,3,†,∗,Sezgin Er1,3,†... 1Department of Quantitative Biomedicine, University of Zurich, Zurich, Switzerland 2ETH AI Center, ETH Zurich, Zurich, Switzerland 3International School of Medicine, Istanbul Medipol University, Istanbul, Turkey"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also thank Istanbul Medipol University for their invaluable support and provision of data... 1Department of Quantitative Biomedicine, University of Zurich, Zurich, Switzerland"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibrahim Ethem Hamamci. CT-RATE: Paired chest CT volumes and radiology reports. https://huggingface.co/datasets/ibrahimhamamci/CT-RATE. 2025."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each CT exam is accompanied by a report that includes an impression and a findings section, authored by a radiologist"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE is divided into training and internal validation sets for experiments"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate and open-source CT-RATE, a dataset comprising 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports from 21,304 unique patients... CT-RATE comprises 50,188 reconstructed 3D chest CT volumes (over 14.3 million 2D slices) from 25,692 scans of 21,304 patients with corresponding radiology reports... we extract multi-abnormality labels from reports, making them publicly available... we develop an automatic labeler by finetuning a language model... our effort in manually annotating a small portion of the reports"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Radiology reports provide comprehensive descriptions of medical images without adding extra labeling burden, as they are already part of the daily routine for radiologists... Data was collected from electronic health records at a single institution"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports... 50,188 reconstructed 3D chest CT volumes (over 14.3 million 2D slices)... Radiology reports provide comprehensive descriptions of medical images without adding extra labeling burden, as they are already part of the daily routine for radiologists"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities for this finetuning procedure. The finetuned model's precision, recall, and F1 scores, detailed in Supplementary Table2, show robust classification across abnormalities... To train CT-CHAT, we create a visual question-answering (VQA) dataset, comprising over 2.7 million question-answer pairs derived from CT-RATE using Llama 3.1 7B... we conducted expert evaluations with three board-certified radiologists who independently rated 150 reports for each model... Each radiologist then scored the reports on a scale from 0 to 10 based on predefined clinical criteria."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The finetuned model's precision, recall, and F1 scores, detailed in Supplementary Table2, show robust classification across abnormalities, ensuring the CT-RATE dataset is enriched with high-quality labels... The mean expert scores demonstrate CT-CHAT's clear superiority: Radiologist 1 rated CT-CHAT at 3.44 (vs. RadFM 0.55, CT2Rep 2.66); Radiologist 2 at 4.10 (vs. RadFM 0.91, CT2Rep 2.52); and Radiologist 3 at 4.52 (vs. RadFM 0.86, CT2Rep 2.74)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conducted expert evaluations with three board-certified radiologists who independently rated 150 reports for each model"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conducted expert evaluations with three board-certified radiologists"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This process involves finetuning a pretrained language model, RadBERT [34], similar to recent works [35]... To train CT-CHAT, we create a visual question-answering (VQA) dataset, comprising over 2.7 million question-answer pairs derived from CT-RATE using Llama 3.1 7B... we enhanced CT-CHAT with structured 3D segmentation inputs by providing detailed nodule information,such as lobar location, centroid, diameters, and volumes, extracted using a state-of-the-art 3D nodule segmentation algorithm"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, biases inherent to our single-institution dataset may influence our self-supervised training. Although we curate a large and diverse set of volume-report pairs, the data originates from a single geographic and clinical setting, which may limit the generalizability of our models to other populations."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, biases inherent to our single-institution dataset may influence our self-supervised training... Second, CT-CLIP depends on the specific terminology used in reports and the choice of prompts during zero-shot detection... Third, the evaluation of CT-CHAT faces limitations due to the lack of pretrained 3D medical multimodal AI assistants for benchmarking... Finally, our current models are limited to chest CT volumes... the quality of its generated reports remains insufficient for clinical use"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "That said, it remains far from ready for clinical deployment, as emphasized by our radiologists. As with all AI systems, challenges such as robustness, interpretability, regulatory compliance, and prospective validation must be addressed before integration into routine radiology workflows. To help broaden accessibility, we introduce a user-friendly graphical interface (via our GitHub repository) that allows non-experts to interact with the CT-CHAT model."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CT-RATE comprises data from 21,304 unique patients, with ages ranging from 18 to 102 years... the data originates from a single geographic and clinical setting"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce CT-RATE, a comprehensive dataset, which we first use to develop CT-CLIP, a foundation model for 3D medical imaging using radiology text reports... CT-CLIP's zero-shot multi-abnormality detection... For finetuning, we create and open-source a visual question-answering dataset... This interface not only makes CT-CHAT a valuable tool for educational and clinical research settings... it remains far from ready for clinical deployment"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To train CT-CHAT, we create a visual question-answering (VQA) dataset, comprising over 2.7 million question-answer pairs derived from CT-RATE using Llama 3.1 7B... This dataset consists of several components, including long-answer questions, short-answer questions, multiple-choice questions, and report generation tasks... we enhanced CT-CHAT with structured 3D segmentation inputs by providing detailed nodule information, such as lobar location, centroid, diameters, and volumes, extracted using a state-of-the-art 3D nodule segmentation algorithm on the CT-RATE training set."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These 3D volumes, reconstructed using various methods to suit different window settings, total over 14.3 million 2D slices... This process involves finetuning a pretrained language model, RadBERT... Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities for this finetuning procedure... these models, designed for 2D imaging tasks, are tested using Digitally Reconstructed Radiographs (DRRs) of 3D chest CT volumes, a method that ensures accurate representation in a 2D context"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "evidence_count": 23,
+      "evidence_coverage": 95.8,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.114,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 46744,
+        "tokens_in": 15039,
+        "tokens_out": 851
+      },
+      "collection": {
+        "section_chars": 49532,
+        "tokens_in": 12363,
+        "tokens_out": 619
+      },
+      "annotation": {
+        "section_chars": 49532,
+        "tokens_in": 12353,
+        "tokens_out": 1013
+      },
+      "impact": {
+        "section_chars": 15142,
+        "tokens_in": 4182,
+        "tokens_out": 816
+      },
+      "processing": {
+        "section_chars": 49532,
+        "tokens_in": 12220,
+        "tokens_out": 675
+      }
+    },
+    "enrichments": [
+      "license"
+    ]
+  }
+}

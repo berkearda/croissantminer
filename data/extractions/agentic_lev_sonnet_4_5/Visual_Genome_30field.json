@@ -1,0 +1,277 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "A dataset of over 100K images densely annotated with objects, attributes, and relationships to enable cognitive understanding of visual scenes. Each image contains an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects, along with region descriptions and question-answer pairs.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk. The dataset involved multiple task stages for each component (region descriptions, objects, attributes, relationships, region graphs, scene graphs, questions and answers). Over 33,000 unique workers contributed to the dataset. The collection process focused on gathering region descriptions where workers naturally described the most salient parts of images first, then moved to other parts.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The Visual Genome dataset consists of 108,249 images from the intersection of MS-COCO's 328,000 images and YFCC's 100 million images. These are real-world, non-iconic images uploaded to Flickr by users. Images range from 72 pixels to 1280 pixels wide, with an average width of 500 pixels. The images cover 972 WordNet synsets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Multi-stage crowdsourcing pipeline with specific task instructions for each component. Workers extracted objects from descriptions with coverage and quality requirements for bounding boxes. For attributes and relationships, workers were presented with region descriptions and extracted objects, then asked to add attributes or connect object pairs with relationships. QA workers followed three rules: start with 'seven Ws', avoid ambiguous questions, and be precise. All data went through verification using majority voting and rapid judgments.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Verification conducted using majority voting and rapid judgments to eliminate incorrectly labeled objects, attributes, and relationships, and remove vague, subjective, or opinionated descriptions and questions.",
+    "rai:annotationsPerItem": "50 region descriptions per image; 8 freeform QA pairs and approximately 20 region-based QA pairs per image",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Stanford dependency parser used to automatically extract nouns as suggestions to speed up object extraction",
+    "rai:dataBiases": "The dataset is biased towards images of people and certain sports activities. Images cover 972 synsets with 'ski' being the most common synset (2612 images), followed by 'ballplayer' and 'racket'. Certain sports like skiing and surfboarding are overrepresented due to bias in the source images.",
+    "rai:dataLimitations": "The canonicalization mappings to WordNet synsets are not perfect and contain some ambiguity. The dataset shows long-tail distribution in answers for question-answering tasks, with top frequent answers covering only 41.1%-64.1% of correct answers. Spatial reasoning ('where') and common sense reasoning ('why') questions have particularly diverse answers and poor baseline performance.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed for training and benchmarking cognitive scene understanding tasks including object detection, image captioning, visual question answering, relationship recognition, attribute recognition, and region description generation. It enables building models for fine-grained recognition, activity recognition, knowledge base reasoning, and common-sense reasoning.",
+    "rai:dataReleaseMaintenancePlan": "This is the first release of the Visual Genome dataset. The paper mentions 'The first release of the Visual Genome' but does not provide specific information about versioning timeframes, maintainers, or deprecation policies.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For attribute prediction experiments, attributes were randomly sampled (500 per category if available, otherwise all instances) to balance class distribution. Images were split 80% training, 10% validation, 10% testing. Bounding boxes were cropped as input data. For canonicalization, mappings were sent to Amazon Mechanical Turk with top four alternative synsets for verification and potential correction.",
+    "rai:dataPreprocessingProtocol": "Attributes were lowercased, lemmatized, and stripped of excess whitespace. Objects were extracted from region descriptions using Stanford's dependency parser to automatically extract nouns. Noun phrases were extracted from region descriptions and QAs using Stanford NLP tools. All objects, attributes, relationships, and noun phrases were mapped to WordNet synsets for canonicalization, with hand-crafted mapping rules for common failure cases. Attributes were normalized based on morphology (stemming). Bounding boxes were required to satisfy coverage (completely cover object) and quality (tight fit within 4 pixels) requirements."
+  },
+  "usage": {
+    "input_tokens": 25084,
+    "output_tokens": 3291
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:13.816329Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we present the Visual Genome dataset to enable the modeling of such relationships."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset contains over 100K images where each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects... We present a dataset of images densely annotated with numerous region descriptions, objects, attributes, and relationships."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Further visualizations, API, and additional information on the Visual Genome dataset can be found online3. 3https://visualgenome.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1602.07332v1 [cs.CV] 23 Feb 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each description is a phrase ranging from 1 to 16 words in length describing that region."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first release of the Visual Genome dataset uses 108,249 images from the intersection of the YFCC100M (Thomee et al., 2016) and MS-COCO (Lin et al., 2014)."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk... Overall, a total of over 33, 000 unique workers contributed to the dataset... when asked to describe an image using natural language, crowd workers naturally start with the most salient part of the image and then move to describing other parts of the image one by one."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk... Overall, a total of over 33, 000 unique workers contributed to the dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Visual Genome dataset consists of all 108, 249 images from the intersection of MS-COCO's (Lin et al., 2014) 328, 000 images and YFCC's (Thomee et al., 2016) 100 million images. These images are real-world, non-iconic images that were uploaded onto Flickr by users. The images range from as small as 72 pixels wide to as large as 1280 pixels wide, with an average width of 500 pixels."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk... Each component (region descriptions, objects, attributes, relationships, region graphs, scene graphs, questions and answers) involved multiple task stages... We require each bounding box to be drawn to satisfy two requirements: coverage and quality... All Visual Genome data go through a verification stage as soon as they are annotated... Verification is conducted using two separate strategies: majority voting (Snow et al., 2008) and rapid judgments (Krishna et al., 2016)."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechanical Turk (AMT) as our primary source of annotations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All Visual Genome data go through a verification stage as soon as they are annotated. This stage helps eliminate incorrectly labeled objects, attributes, and relationships. It also helps remove region descriptions and questions and answers that might be correct but are vague... subjective... or opinionated... Verification is conducted using two separate strategies: majority voting (Snow et al., 2008) and rapid judgments (Krishna et al., 2016)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Once 50 region descriptions are collected for an image, we extract the visual objects from each description... In freeform QA, we ask a worker to look at an image and write eight QA pairs about it... This enables us to collect around twenty region-based pairs at the same cost of the eight freeform QAs."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, to increase the speed with which workers complete this task, we also use Stanford's dependency parser (Manning et al., 2014) to extract nouns automatically and send them to the workers as suggestions."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is somewhat biased towards images of people, as Figure 13 shows... Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These mappings are not perfect and still contain some ambiguity... The top 100, 500, and 1000 most frequent answers only cover 41.1%, 57.3%, and 64.1% of the correct answers... The 'where' and 'why' questions, which tend to involve spatial and common sense reasoning, tend to have more diverse answers and hence perform poorly"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome aims to capture the details of the images with diverse question types and long answers. These questions should cover a wide range of visual tasks from basic perception to complex reasoning... Question answering can involve fine-grained recognition (e.g. 'What is the breed of the dog?'), object detection (e.g. 'Where is the kite in the image?'), activity recognition (e.g. 'What is this man doing?'), knowledge base reasoning (e.g. 'Is this glass full?'), and common-sense reasoning"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first release of the Visual Genome"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the number of examples per attribute class varies, we randomly sample 500 attributes from each category (if fewer than 500 are in the class, we take all of them). We use 80% of the images for training and 10% each for validation and testing. The input data for this experiment is the cropped bounding box of the object associated with each attribute. Therefore, we send all our mappings along with the top four alternative synsets for each term to Amazon Mechanical Turk. We ask workers to verify that our mapping was accurate and change the mapping to an alternative one if it was a better fit."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, we lowercase, lemmatize, and strip excess whitespace from all attributes. We use the Stanford NLP tools (Manning et al., 2014) to extract the noun phrases from the region descriptions and QAs. Next, we map them to their most frequent matching synset in WordNet according to WordNet lexeme counts. We normalize each attribute based on morphology (so called 'stemming') and map them to the WordNet adjectives. Coverage requires that each bounding box covers the object completely. Quality requires that each bounding box be as tight as possible around its object such that if the box's length or height were decreased by one pixel, it would no longer satisfy the coverage requirement. Since a one pixel error can be physically impossible for most workers, we relax the definition of quality to four pixels."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0623,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 33412,
+        "tokens_in": 9469,
+        "tokens_out": 679
+      },
+      "collection": {
+        "section_chars": 3277,
+        "tokens_in": 1322,
+        "tokens_out": 581
+      },
+      "annotation": {
+        "section_chars": 13953,
+        "tokens_in": 4041,
+        "tokens_out": 712
+      },
+      "impact": {
+        "section_chars": 19154,
+        "tokens_in": 5929,
+        "tokens_out": 705
+      },
+      "processing": {
+        "section_chars": 15059,
+        "tokens_in": 4323,
+        "tokens_out": 614
+      }
+    },
+    "enrichments": []
+  }
+}

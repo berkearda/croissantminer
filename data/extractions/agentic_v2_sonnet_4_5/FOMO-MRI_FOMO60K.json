@@ -1,0 +1,259 @@
+{
+  "dataset_id": "FOMO-MRI_FOMO60K",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "FOMO60K",
+    "description": "A large-scale, heterogeneous dataset of 60,529 brain MRI scans from 13,900 sessions and 11,187 subjects, aggregated from 16 publicly available sources. The dataset includes both clinical- and research-grade images, multiple MRI sequences, and a wide range of anatomical and pathological variability, including scans with large brain anomalies.",
+    "url": "https://huggingface.co/datasets/FOMO25/FOMO-MRI",
+    "license": "other",
+    "creator": "Asbjørn Munk, Stefano Cerri, Jakob Ambsdorf, Julia Machnio, Sebastian Nørgaard Llambias, Vardan Nersesjan, Christian Hedeager Krag, Peirong Liu, Pablo Rocamora García, Mostafa Mehdipour Ghazi, Mikael Boesen, Michael Eriksen Benros, Juan Eugenio Iglesias, and Mads Nielsen",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "@Inproceedings{Chiche2026ComparativeAO,\n author = {Hendrik Chiche and Ludovic Corcos and Logan Rouge},\n title = {Comparative Analysis of 3D Convolutional and 2.5D Slice-Conditioned U-Net Architectures for MRI Super-Resolution via Elucidated Diffusion Models},\n year = {2026}\n}\n",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "FOMO60K is derived from 16 publicly available datasets, aggregating brain MRI scans from multiple sources including clinical- and research-grade imaging with multiple MRI sequences.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Data aggregated from 16 publicly available sources: MGH Wild, SOOP, BraTS-GEN, OASIS1, OASIS2, MSD Braintumor, IXI, NIMH, DLBS, IDEAS, ARC, MBSR, UCLA, QTAB, NKI, and AOMIC ID1000.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For diffusion-weighted imaging (DWI) scans stored in 4D format, if a b=0 volume was available, it was extracted and saved separately. For the b=1000 shell, three diffusion-weighted volumes were selected based on their gradient directions being most closely aligned with the canonical x, y, and z axes, and the corresponding volumes were averaged to produce a single representative 3D image.",
+    "rai:dataPreprocessingProtocol": "MRI preprocessing comprised three main steps: reorienting images to RAS (Right–Anterior–Superior) orientation, affine co-registration using FreeSurfer 7.4.1 mri_coreg command with default parameters, and skull-stripping using SynthSeg. Within each MRI session, scans were aligned to the image with the highest spatial resolution to preserve anatomical detail.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SynthSeg (FreeSurfer 7.4.1) for skull-stripping segmentation masks",
+    "rai:dataReleaseMaintenancePlan": "The dataset will continue to grow in future releases as additional cohorts and modalities become available.",
+    "rai:personalSensitiveInformation": "To protect privacy and prevent easy identification of dataset sources, subjects have been shuffled. Images were either skull-stripped or defaced for anonymization.",
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Existing resources such as ADNI, UK Biobank, PPMI, and ABCD, while valuable, are often curated for specific diseases or patient populations, and typically follow homogeneous imaging protocols with limited pathological variability. Access is often restricted by formal applications, data use agreements, and institutional approvals, and data are commonly distributed in formats that require domain-specific preprocessing. These challenges raise the barrier to entry and hinder the scalability of SSL pretraining.",
+    "rai:dataUseCases": "The dataset is intended to support the development and benchmarking of self-supervised learning methods in medical imaging at scale. It can be used with no further pre-processing for pre-training. Accompanying code for self-supervised pretraining and finetuning is provided."
+  },
+  "usage": {
+    "input_tokens": 8192,
+    "output_tokens": 2746
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:13:52.361531Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present FOMO60K, a large-scale, heterogeneous dataset of 60,529 brain Magnetic Resonance Imaging (MRI) scans from 13,900 sessions and 11,187 subjects, aggregated from 16 publicly available sources."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present FOMO60K, a large-scale, heterogeneous dataset of 60,529 brain Magnetic Resonance Imaging (MRI) scans from 13,900 sessions and 11,187 subjects, aggregated from 16 publicly available sources. The dataset includes both clinical- and research-grade images, multiple MRI sequences, and a wide range of anatomical and pathological variability, including scans with large brain anomalies."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The FOMO60K dataset is publicly available at https://huggingface.co/datasets/FOMO25/FOMO-MRI"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Asbjøm Munk1,2,+,*, Stefano Cerri3,1,2,14+,*, Jakob Ambsdorf1,2, Julia Machnio1,2, Sebastian Nørgaard Llambias1,2, Vardan Nersesjan3,12, Christian Hedeager Krag10,11, Peirong Liu4,5,6,9, Pablo Rocamora Garc´ ıa1,2, Mostafa Mehdipour Ghazi1,2, Mikael Boesen10,13, Michael Eriksen Benros3,14, Juan Eugenio Iglesias4, 5, 6, 7, 8, and Mads Nielsen1, 2"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2506.14432v1 [eess.IV] 17 Jun 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will continue to grow in future releases as additional cohorts and modalities become available."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FOMO60K is derived from 16 publicly available datasets. Table 1 summarizes the source datasets, listing the number of subjects, sessions, scans, MRI sequence types, and applied preprocessing steps."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FOMO60K is derived from 16 publicly available datasets."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FOMO60K is derived from 16 publicly available datasets. Table 1 summarizes the source datasets... MGH Wild, SOOP, BraTS-GEN, OASIS1, OASIS2, MSD Braintumor, IXI, NIMH, DLBS, IDEAS, ARC, MBSR, UCLA, QTAB, NKI, AOMIC ID1000"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For diffusion-weighted imaging (DWI) scans stored in 4D format, additional steps were applied. If a b=0 (non-diffusionweighted) volume was available, it was extracted and saved separately. For the b=1000 shell, three diffusion-weighted volumes were selected based on their gradient directions being most closely aligned with the canonical x, y, and z axes. Alignment was determined by computing the cosine similarity between each gradient vector (bvec) and the orthogonal unit vectors. The corresponding volumes were averaged to produce a single representative 3D image."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MRI preprocessing comprised three main steps: reorienting images to RAS (Right–Anterior–Superior) orientation, affine co-registration, and skull-stripping. All scans were first reoriented to RAS and affinely co-registered using the mri_coreg command from FreeSurfer 7.4.130, with default parameters. Within each MRI session, scans were aligned to the image with the highest spatial resolution to preserve anatomical detail... Skull-stripping was performed using SynthSeg31(FreeSurfer 7.4.1)"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Skull-stripping was performed using SynthSeg31(FreeSurfer 7.4.1), which outputs segmentation masks of brain structures."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset will continue to grow in future releases as additional cohorts and modalities become available."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To protect privacy and prevent easy identification of dataset sources, subjects have been shuffled... Skull-stripping was only applied when the images were not already defaced or skull-stripped by the dataset provider, or when visual inspection identified residual cranial features that could compromise anonymization."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "FOMO60K is intended to support the development and benchmarking of self-supervised leaming methods in medical imaging at scale... The dataset can be used with no further pre-processing for pre-training. We also release code for self-supervised pretraining and fine-tuning to facilitate benchmarking, method development, and broader adoption of SSL in medical imaging."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 18,
+      "fields_uncertain": 1,
+      "evidence_count": 15,
+      "evidence_coverage": 78.9,
+      "avg_confidence": 0.884
+    },
+    "cost_usd": 0.0329,
+    "split": "dev",
+    "corrections_applied": 2,
+    "enrichments": [
+      "license",
+      "citeAs"
+    ],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}

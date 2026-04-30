@@ -1,0 +1,277 @@
+{
+  "dataset_id": "asahi417_seamless-align-enA-hiA.speaker-embedding.xlsr-2b",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "SeamlessAlign",
+    "description": "A multimodal corpus of automatically aligned speech translations totaling 470,000 hours, created through parallel data mining to support multilingual and multimodal machine translation across 37 languages.",
+    "url": "https://github.com/facebookresearch/seamless_communication",
+    "license": null,
+    "creator": "Seamless Communication team at Meta AI",
+    "publisher": "Meta AI",
+    "datePublished": "2023-08",
+    "inLanguage": "mul",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created through parallel data mining from massive monolingual corpora. Starting with 4 million hours of raw audio from a publicly available repository of crawled web data, files were chunked into overlapping segments, processed with speech language identification, and projected into a joint embedding space with text data. Mining was performed by pairwise comparison where sentences with similarity above a threshold were considered mutual translations. The process included deduplication, audio resampling at 16KHz, filtering non-speech data with an audio event detection model, voice activity detection for segmentation, and over-segmentation creating multiple overlapping splits.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "4 million hours of raw audio from a publicly available repository of crawled web data, with approximately 1 million hours in English. Text data was drawn from the NLLB dataset using the same data sources, cleaning, and filtering steps. Audio was resampled at 16KHz after deduplication and download.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human evaluation for translation quality using ranking between 1 and 5, and evaluation across four dimensions: translation quality (meaning capture), naturalness (voice and pronunciation), clarity of speech for comprehension, and sound quality (noise and artifacts). Annotations drawn from XSTS-annotated data, NLLB human evaluations, and other internal studies.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Train/test splits were reused for original BLASER data. Other datasets were split randomly in 80/20 proportion so that the same source audio or text always goes to the same partition. Audio longer than 30 seconds was filtered out because SONAR encoders were not trained on long audio.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Whisper-Large-v2 and Whisper-Medium for ASR-BLEU evaluation, wav2vec 2.0, w2v-BERT 2.0 for speech encoding, ETOX for automatic toxicity detection, speech Language Identification (LID) model for language identification",
+    "rai:dataBiases": "SeamlessM4T exhibits gender bias, overgeneralizing to masculine forms when translating from neutral terms (with an average preference of ~10%) and showing a lack of robustness when varying gender by an amount of ~3%. The model achieved comparable results to state-of-the-art models on these gender bias metrics.",
+    "rai:dataLimitations": "The toxicity detection approach using word list-based techniques (ETOX) has limitations including: (1) tendency to over-detect terms that are only toxic in specific contexts, (2) reliance on precise tokenization which is difficult in non-segmenting or highly agglutinative languages, and (3) when dealing with speech outputs, ASR before lexical matching adds error sources leading to false negatives, particularly affecting eng-X directions due to lower quality ASR for non-English languages. Gender bias detection using noun lists shares word list-based limitations and relies on linguistic gender clues as proxy for overall gender representation, with results from 30 specific nouns not guaranteed to generalize to other noun sets.",
+    "rai:dataSocialImpact": "SeamlessM4T aims to promote accessibility and bridge communication gaps in multilingual contexts by advancing speech translation beyond text-based approaches. The work is designed to augment world-readiness and help individuals communicate and learn in languages where proficiency is low. The model is open-sourced with two sizes to ensure researchers with limited computing resources can use it.",
+    "rai:personalSensitiveInformation": "Gender is collected and analyzed as part of the bias evaluation using the Multilingual HolisticBias datasets.",
+    "rai:dataUseCases": "The dataset and models support multiple use cases including: S2ST (speech-to-speech translation), T2ST (text-to-speech translation), S2TT (speech-to-text translation), T2TT (text-to-text translation), and ASR (automatic speech recognition). The models are designed for training, testing, validation, and fine-tuning with provided recipes.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Audio over-segmentation using VAD to create multiple overlapping splits (roughly octupling potential segments); pseudo-labeling using text-to-unit models to convert text into discrete acoustic units; filtering based on audio-to-text token length ratio (discarding pairs exceeding 0.5); random 80/20 train/test splits ensuring same source audio/text goes to same partition; gender-based pairing of Fleurs readers (53% matched gender, 47% mixed-gender); limiting to 2 unique readings per Fleurs sentence; filtering audio longer than 30 seconds",
+    "rai:dataPreprocessingProtocol": "Text: Same dataset, cleaning, and filtering steps as NLLB using Stopes library. Audio: Deduplication of audio file URLs, downloading, resampling at 16KHz, filtering non-speech data with audio event detection (AED) model, Voice Activity Detection (VAD) for segmentation, speech language identification (LID) model application, discrete acoustic unit extraction using XLS-R-1B 35th layer features at 50Hz frame rate with k-means clustering (K=10000 centroids)"
+  },
+  "usage": {
+    "input_tokens": 57192,
+    "output_tokens": 3795
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:18.671370Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Subsequently, we created a multimodal corpus of automatically aligned speech translations, dubbed SeamlessAlign."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this section, we describe how we employed parallel data mining to create SeamlessAlign: the largest open dataset for multimodal translation to date, totaling 470,000 hours... In the current version, mining was focused on 37 target languages of the SeamlessM4T system."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, all contributions in this work—including models, inference code, finetuning recipes backed by our improved modeling toolkit Fairseq2, and metadata to recreate the unfiltered 470,000 hours of SeamlessAlign —are open-sourced and accessible at https://github.com/facebookresearch/seamless_communication."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Seamless Communication, Loïc Barrault∗, Yu-An Chung∗, Mariano Coria Meglioli∗, David Dale∗, Ning Dong∗, Paul-Ambroise Duquenne∗,‡, Hady Elsahar∗, Hongyu Gong∗, Kevin Heffeman∗, John Hoffman∗, Christopher Klaiber∗, Pengwei Li∗, Daniel Licht∗, Jean Maillard∗, Alice Rakotoarison∗, Kaushik Ram Sadagopan∗, Guillaume Wenzek∗, Ethan Ye∗... Meta AI"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Meta AI,‡INRIA,§UC Berkeley"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2308.11596v3 [cs.CL] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the current version, mining was focused on 37 target languages of the SeamlessM4T system... we developed the first multitasking system that performs S2ST from 100 languages to English (100-eng) and from English to 35 languages (eng-35)"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "metadata to recreate the unfiltered 470,000 hours of SeamlessAlign —are open-sourced"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Starting with a large collection of raw audio, we chunked files into overlapping segments and applied speech Language Identification (LID). On the text side, we used the same sentence-segmented dataset drawn from NLLB... Speech and text corpora were then projected into a common embedding space, in which mining was performed to identify translation pairs with optimal segmentation... We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data... Approximately 1 million hours in this collection are in English... On the text side, we rely entirely on the same dataset deployed in NLLB... we deduplicated the audio file URLs found in the repository, downloaded the audio files, and resampled at 16KHz."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The IWSLT Evaluation Campaign covers speech translation. As an example, the speech-to-speech track evaluates speech output quality in four dimensions. The first one is translation quality, which focuses on capturing meaning, and annotators rank target audio between 1 and 5. The rest of the dimensions cover naturalness, including voice and pronunciation, clarity of speech for comprehension, and sound quality, which takes into account noise and other artifacts... The supervised version of Blaser 2.0 was trained on the XSTS-annotated data (Licht et al. [2022]), which includes the same S2ST annotations as in the original BLASER (Chen et al. [2023a]). Additional S2ST, S2TT, and T2ST annotations come from a variety of other internal studies, including NLLB human evaluations NLLB Team et al. [2022], and T2TT annotations are drawn from NLLB (NLLB Team et al. [2022])."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For the original BLASER data, train/test splits were reused. The other datasets were split randomly in 80/20 proportion so that the same source audio or text always goes to the same partition... We filtered out all audio longer than 30 seconds because the SONAR encoders were not trained on long audio."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluated S2ST and T2ST accuracy with ASR-BLEU [Lee et al., 2022a] with Whisper-Large-v2 as the underlying ASR model for eng–X directions and with Whisper-Medium for X–eng directions... We use the Github implementation of ETOX... an improved and extended speech language identification (LID) model... The w2v-BERT 2.0 model is trained on 1 million hours of open speech audio data that covers over 143 languages."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also evaluated for gender bias on the Multilingual HolisticBias datasets and found that SeamlessM4T overgeneralizes to masculine forms when translating from neutral terms (with an average preference of ∼10%) while showing a lack of robustness when varying gender by an amount of ∼3%. For these conditions, SeamlessM4T achieved comparable results to state-of-the-art models."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Due to the lack of available model-based techniques that could be applied to added toxicity or gender imbalance detection in this multimodal and massively multilingual setting, we used string-matching techniques that present known limitations... the two main limitations of word list-based detectors are (1) their tendency to over-detect terms that are only toxic in specific contexts, and (2) their reliance on precise tokenization, which is more difficult to achieve in non-segmenting or highly agglutinative languages. When dealing with speech outputs, the process of using ASR before lexical matching adds one more source of error, which tends to lead to false negatives."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Human communication is multisensorial... In multilingual contexts, advancements in text-based machine translation have given rise to tools that help individuals communicate and learn in languages where proficiency is low... Made with the goal of promoting accessibility, we open-source all contributions of our work, including two sizes of our model to ensure that even researchers with limited computing resources can use our work."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also evaluated for gender bias on the Multilingual HolisticBias datasets and found that SeamlessM4T overgeneralizes to masculine forms when translating from neutral terms"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluated our models on all four supervised tasks (T2TT, ASR, S2TT, and S2ST) as well as the zero-shot task of text-to-speech translation (T2ST, also referred to as cross-lingual text to speech synthesis)... SeamlessM4T models, including model weights for SeamlessM4T-Large (2.3B parameters) and SeamlessM4T-Medium (1.2B parameters), as well as their inference code and fine-tuning recipes"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This over-segmentation strategy roughly octuples the number of potential segments considered... To remove outlier samples from our paired data, we filtered based on the number of seconds of audio generated per text token length ratio, discarding any pair with a ratio exceeding 0.5... The other datasets were split randomly in 80/20 proportion so that the same source audio or text always goes to the same partition... We filtered out all audio longer than 30 seconds because the SONAR encoders were not trained on long audio"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "On the text side, we rely entirely on the same dataset deployed in NLLB... The same data sources, cleaning, and filtering steps are used... we deduplicated the audio file URLs found in the repository, downloaded the audio files, and resampled at 16KHz. Subsequently, we filtered out the non-speech data with a bespoke audio event detection (AED) model... We extracted features from the 35th layer of XLS-R-1B for continuous speech representations at a 50Hz frame rate... We then applied a k-means algorithm on these representations to estimate K cluster centroids"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1143,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 52909,
+        "tokens_in": 16728,
+        "tokens_out": 774
+      },
+      "collection": {
+        "section_chars": 18108,
+        "tokens_in": 6223,
+        "tokens_out": 564
+      },
+      "annotation": {
+        "section_chars": 21190,
+        "tokens_in": 7235,
+        "tokens_out": 802
+      },
+      "impact": {
+        "section_chars": 49386,
+        "tokens_in": 17853,
+        "tokens_out": 1065
+      },
+      "processing": {
+        "section_chars": 26866,
+        "tokens_in": 9153,
+        "tokens_out": 590
+      }
+    },
+    "enrichments": []
+  }
+}

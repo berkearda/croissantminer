@@ -81,6 +81,12 @@ MODELS = {
         "provider": "anthropic",
         "output_dir": "claude_sonnet_4_6",
     },
+    "claude-sonnet-4-5-repro": {
+        "name": "Claude Sonnet 4.5 (reproducibility re-run)",
+        "model_id": "claude-sonnet-4-5-20250929",
+        "provider": "anthropic",
+        "output_dir": "claude_sonnet_4_5_repro",
+    },
     "gpt-5.4": {
         "name": "GPT-5.4 full",
         "model_id": "gpt-5.4-2026-03-05",
@@ -110,7 +116,7 @@ MODELS = {
 }
 
 TEST_PAPERS = ["AI4Math_MathVista", "openai_gsm8k", "rajpurkar_squad"]
-MAX_OUTPUT_TOKENS = 4096
+MAX_OUTPUT_TOKENS = 8192  # 4096 truncated Gemini 3.1 Pro (~42% of papers); 8192 gives headroom + handles Opus 4.7 extended-thinking budget
 _CUSTOM_ID_RE = re.compile(r"[^a-zA-Z0-9_-]")
 
 
@@ -325,11 +331,24 @@ def anthropic_fetch(cfg: dict, info: dict) -> int:
         ds_id = id_map.get(result.custom_id, result.custom_id)
         if result.result.type == "succeeded":
             msg = result.result.message
-            raw_text = msg.content[0].text
+            # Content can be multi-block (text + thinking) or empty on edge cases;
+            # concatenate all text blocks, skip non-text.
+            raw_text = ""
+            for block in msg.content:
+                if getattr(block, "type", None) == "text":
+                    raw_text += block.text
+                elif hasattr(block, "text"):
+                    raw_text += block.text
             usage = {
                 "input_tokens": msg.usage.input_tokens,
                 "output_tokens": msg.usage.output_tokens,
             }
+            if not raw_text.strip():
+                log.error(f"  {ds_id}: empty content from model (blocks={[getattr(b,'type',type(b).__name__) for b in msg.content]})")
+                (fail_dir / f"{ds_id.replace('/', '__')}_empty.json").write_text(
+                    json.dumps({"ds_id": ds_id, "usage": usage}, indent=2)
+                )
+                continue
             if _write_output(cfg, ds_id, raw_text, usage, out_dir, fail_dir):
                 written += 1
         else:
@@ -701,7 +720,10 @@ def gemini_status(info: dict) -> dict:
     return {
         "state": state,
         "counts": meta.get("requestCounts") or data.get("requestCounts") or {},
-        "done": state in {"JOB_STATE_SUCCEEDED", "JOB_STATE_FAILED", "JOB_STATE_CANCELLED", "JOB_STATE_EXPIRED"},
+        "done": state in {
+            "JOB_STATE_SUCCEEDED", "JOB_STATE_FAILED", "JOB_STATE_CANCELLED", "JOB_STATE_EXPIRED",
+            "BATCH_STATE_SUCCEEDED", "BATCH_STATE_FAILED", "BATCH_STATE_CANCELLED", "BATCH_STATE_EXPIRED",
+        },
         "output_file": (data.get("response", {}) or {}).get("responsesFile") or (data.get("output", {}) or {}).get("responsesFile"),
         "raw": data,
     }

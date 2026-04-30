@@ -1,0 +1,277 @@
+{
+  "dataset_id": "Rowan_hellaswag",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "HellaSwag",
+    "description": "A benchmark dataset for commonsense natural language inference where machines must select the most likely followup to an event description. The dataset contains 70k problems that are easy for humans (95.6% accuracy) but challenging for state-of-the-art models (~48%), created using Adversarial Filtering with machine-generated wrong answers.",
+    "url": "https://rowanzellers.com/hellaswag",
+    "license": null,
+    "creator": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi",
+    "publisher": "Paul G. Allen School of Computer Science & Engineering, University of Washington and Allen Institute for Artificial Intelligence",
+    "datePublished": "2019-05-19",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created using Adversarial Filtering (AF), a data collection approach that generates challenging examples by iteratively filtering out instances that models can solve. The data comes from two sources: ActivityNet video captions and WikiHow articles. Negative answer choices were generated and filtered through multiple iterations using language models (Zellers' LM and GPT) to ensure they were challenging for machines but trivial for humans.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of video captions from ActivityNet and instructional text from WikiHow articles. For ActivityNet, contexts come from video captions with followup events. For WikiHow, the data includes instructional how-to content describing sequential steps and procedures.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Adversarial Filtering (AF) approach used to generate challenging examples that are trivial for humans (>95% accuracy) but difficult for state-of-the-art models (<48%)",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human accuracy measured at >95% on the dataset; validation analysis conducted by comparing performance across different dataset variants and measuring transfer between SWAG and HellaSwag",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Language models (Zellers' LM and GPT) used in Adversarial Filtering process to generate challenging negative examples across multiple iterations",
+    "rai:dataBiases": "The dataset was created using Adversarial Filtering to reduce dataset-specific distributional biases that models like BERT learn during finetuning. The paper notes that deep models operate as 'rapid surface learners' that pick up on dataset-specific distributional biases rather than demonstrating robust commonsense reasoning.",
+    "rai:dataLimitations": "The dataset is designed to be challenging for current state-of-the-art models but trivial for humans (>95% accuracy). Performance drops drastically when the distribution of language shifts slightly, even if the domain remains identical. The paper discusses limitations in terms of model performance gaps and the existence of a 'Goldilocks zone' of text complexity where generations are nonsensical but models cannot tell the difference.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is designed as a benchmark for commonsense natural language inference (NLI) and for testing/validation of models. It serves as a challenging testbed for state-of-the-art NLI models to evaluate their commonsense reasoning abilities.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Adversarial Filtering (AF) was used to generate challenging negative examples. Machine-written endings rated as realistic by crowd workers were iteratively replaced with new samples. The dataset was filtered to keep the 25k best ActivityNet contexts and 45k best WikiHow contexts based on highest agreement among workers. Zero-shot evaluation sets were created by splitting data into 'in-domain' examples (5k from training categories) and 'zero-shot' examples (5k from held-out categories).",
+    "rai:dataPreprocessingProtocol": null
+  },
+  "usage": {
+    "input_tokens": 18943,
+    "output_tokens": 2389
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:09.581226Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "batch",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use Adversarial Filtering (AF), a data-collection paradigm in which a series of discriminators is used to select a challenging set of generated wrong answers. AF is surprisingly effective towards this goal: the resulting dataset of 70k problems is easy for humans (95.6% accuracy), yet challenging for machines (~50%)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset and code at https://rowanzellers.com/hellaswag."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi, Paul G. Allen School of Computer Science & Engineering, University of Washington, Allen Institute for Artificial Intelligence"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Paul G. Allen School of Computer Science & Engineering, University of Washington, Allen Institute for Artificial Intelligence"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.07830v1 [cs.CL] 19 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "given an event description such as 'A woman sits at a piano,' a machine must select the most likely followup"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the resulting dataset of 70k problems is easy for humans (95.6% accuracy), yet challenging for machines (~50%)"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use Adversarial Filtering (AF), a data... Overall, a BERT-Large that is trained on SWAG hardly generalizes to HellaSwag... evaluated on the underlying data sources (ActivityNet versus WikiHow)"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "evaluated on the underlying data sources (ActivityNet versus WikiHow)... the data comes from two sources: ActivityNet video captions and WikiHow articles"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "evaluated on the underlying data sources (ActivityNet versus WikiHow)... a context from a video caption and four ending choices for what might happen next... WikiHow is a much harder domain that ActivityNet"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Though its questions are trivial for humans (ą95% accuracy), state-of-the-art models struggle (ă48%). We achieve this via Adversarial Filtering (AF)"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Though its questions are trivial for humans (ą95% accuracy), state-of-the-art models struggle (ă48%)"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 9 shows Adversarial Filtering iteration with Zellers' LM and GPT used to generate examples, with BERT accuracy measured across iterations"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Their strong performance on SWAG is dependent on the finetuning process, wherein they largely learn to pick up on dataset-speciﬁc distributional biases."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "When the distribution of language shifts slightly, performance drops drastically – even if the domain remains identical... we showed the existence of a Goldilocks zone of text complexity – in which generations are nonsensical, but existing state-of-the-art NLP models cannot tell the diﬀerence."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "HellaSwag is a challenging testbed for state-of-the-art NLI models... a new benchmark for commonsense NLI."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During human validation, crowd workers are given a context and six ending choices, of which one is the true ending, and the other five are from AF. On each iteration, we replace machine-written endings that the worker rated as realistic with new samples. In the end, we keep the 25k best ActivityNet contexts (i.e. those with highest agreement among workers) and the 45k best WikiHow contexts... For each set (validation or test), we craft two subsets: one containing 5k 'in-domain' examples that come from categories as seen during training (Figure 8), and another with 5k 'zero-shot' examples from randomly chosen held-out categories."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "evidence_count": 18,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0463,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11582,
+        "tokens_in": 3659,
+        "tokens_out": 679
+      },
+      "collection": {
+        "section_chars": 9844,
+        "tokens_in": 3834,
+        "tokens_out": 421
+      },
+      "annotation": {
+        "section_chars": 3910,
+        "tokens_in": 1642,
+        "tokens_out": 399
+      },
+      "impact": {
+        "section_chars": 9339,
+        "tokens_in": 3706,
+        "tokens_out": 532
+      },
+      "processing": {
+        "section_chars": 17337,
+        "tokens_in": 6102,
+        "tokens_out": 358
+      }
+    },
+    "enrichments": []
+  }
+}

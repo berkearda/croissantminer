@@ -1,0 +1,256 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench",
+  "model": "claude-sonnet-4-5-20250929",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "SWE-bench is an evaluation framework for language models consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue.",
+    "url": "https://swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik Narasimhan",
+    "publisher": "ICLR 2024",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "SWE-bench task instances are created from merged pull requests that resolve an issue, contribute tests, and install successfully. The collection involves three stages: (1) Repo selection and data scraping from 12 popular open-source Python repositories on GitHub producing ~90,000 PRs, (2) Attribute-based filtering to select merged PRs that resolve a GitHub issue and make changes to test files, (3) Execution-based filtering to verify task instances install successfully and have at least one test that changes from fail to pass.",
+    "rai:dataCollectionType": "Web Scraping, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Pull requests from 12 popular open-source Python repositories on GitHub, including astropy, django, flask, matplotlib, pylint, pytest, requests, scikit-learn, seaborn, sphinx, sympy, and xarray. Data collected via the GitHub developer API from repositories corresponding to top downloaded PyPI libraries.",
+    "rai:dataCollectionTimeframe": "August 2023",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Task instances are constructed from pull requests by separating code changes into test patches and gold patches. Test patches consist of all tests from files edited in the test patch. Gold patches contain the remaining code changes that serve as reference solutions. Both are stored as .patch format files.",
+    "rai:dataPreprocessingProtocol": "Three-stage filtering pipeline: (1) Attribute-based filtering to select merged PRs that resolve a GitHub issue and contribute test changes, (2) Execution-based filtering to verify installation success and test status changes from fail to pass, (3) Exclusion of task instances with tests that invoke newly created functions or classes first introduced in the solution. Task instances are removed if any step in verification fails or if there are no fail-to-pass tests.",
+    "rai:dataAnnotationProtocol": "No human annotation was performed. Task instances are automatically derived from merged GitHub pull requests that resolve issues and contribute tests. The validation process uses execution-based filtering to verify that at least one test changes status from fail to pass when the solution is applied.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BM25 retrieval (Robertson et al., 2009) for sparse retrieval of relevant files. Radon package for computing software engineering metrics (Cyclomatic complexity and Halstead complexity). Repository-specific parsers to convert test execution logs into test-to-status mappings. Unix patch program for applying generated patches to codebases.",
+    "rai:dataReleaseMaintenancePlan": "SWE-bench can be continuously updated with new task instances from new PRs created after model training dates. The collection process is easily extensible to any open source code repositories with minimal human intervention, allowing for temporal robustness and extension to new programming languages and code domains.",
+    "rai:personalSensitiveInformation": "No personal or sensitive information is collected. The dataset uses only public GitHub repository data (issues, pull requests, code) and does not collect information about GitHub users beyond what is publicly available via the GitHub API.",
+    "rai:dataSocialImpact": "The benchmark raises questions about AI Safety in automated software engineering, including how to ensure AI-generated code is faithful to human intents and what guardrails might be needed when human objectives are misinterpreted by code agents. SWE-bench may serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering.",
+    "rai:dataBiases": "The dataset focuses exclusively on Python repositories and popular open-source projects, which may not represent all software engineering contexts. Repository selection based on popularity may introduce bias toward well-maintained projects with extensive documentation and test coverage. Some repositories feature more instances with embedded images in issue text (e.g., 32% of matplotlib, 10% of seaborn vs 2% overall), which may require multi-modal capabilities.",
+    "rai:dataLimitations": "The benchmark is limited to Python programming language. Task instances are all from popular open-source repositories which may not generalize to all software engineering contexts. Relying solely on execution-based code testing is insufficient to guarantee reliable performance as automated code generations can be less comprehensive, efficient, or readable compared to human-written solutions. Models struggle with long contexts, multi-file changes, and understanding inter-file dependencies.",
+    "rai:dataUseCases": "The dataset is designed for evaluating language models on realistic software engineering tasks including repository-scale code editing, bug fixing, and feature implementation. It can be used for testing, validation, and benchmarking of LMs. The training dataset SWE-bench-train (19,000 instances from 37 repositories) is provided for fine-tuning models. Models should not be constrained to specific approaches and can use retrieval, long-context processing, or agent-based methods."
+  },
+  "usage": {
+    "input_tokens": 94515,
+    "output_tokens": 3110
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-5-20250929",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-04-24T10:14:24.619678Z",
+    "git_commit": "3ac5343",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "batch",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data, code, and leaderboard at swebench.com"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Carlos E. Jimenez* 1,2 John Yang* 1,2 Alexander Wettig1,2 Shunyu Yao1,2 Kexin Pei3 Ofir Press1,2 Karthik Narasimhan1,2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our collection process can be easily applied to any Python repository on GitHub and requires minimal human intervention. Therefore, we can extend SWE-bench with a continual supply of new task instances and evaluate LMs on issues created after their training date"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start by collecting pull requests (PRs) from 12 popular open-source Python repositories on GitHub, producing about ∼90,000 PRs in total... We create candidate tasks by selecting the merged PRs that (1) resolve a GitHub issue and (2) make changes to the test files of the repository... For each candidate task, we apply the PR's test content, and log the associated test results before and after the PR's other content is applied."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "From a list of the top 5,000 most downloaded PyPI libraries during August 2023, we select the top 100 packages, identify each library's corresponding open-source GitHub repository, verify which packages have licenses allowing for free software use, and collect all PRs for these repositories via the GitHub developer API."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start by collecting pull requests (PRs) from 12 popular open-source Python repositories on GitHub, producing about ∼90,000 PRs in total. We focus on popular repositories as they tend be better maintained, have clear contributor guidelines, and have better test coverage."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "From a list of the top 5,000 most downloaded PyPI libraries during August 2023, we select the top 100 packages"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Through these stages of filtering, the original 90,000 PRs are filtered down to the 2,294 task instances which comprise SWE-bench... We filter out task instances without at least one test where its status changes from a fail to pass (henceforth referred to as fail-to-pass test). We also filter out instances that result in installation or runtime errors."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our collection process can be easily applied to any Python repository on GitHub and requires minimal human intervention. Therefore, we can extend SWE-bench with a continual supply of new task instances and evaluate LMs on issues created after their training date, which ensures that the solution was not included in their training corpus."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During the collection or evaluation processes, we do not collect information about GitHub users, and the SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As reasoning on code has emerged as a foundational skill underlying many LM's capability, a potential future of machine-automated software engineering raises many important questions and has important potential ramifications with regards to AI Safety... we hope SWE-bench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We focus on popular repositories as they tend be better maintained, have clear contributor guidelines, and have better test coverage... Some repositories naturally feature more instances with images; for example 32% of matplotlib and 10% of seaborn instances contain embedded images in their issue text compared to just 2% of all instances."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench task instances are all in Python; we hope to apply SWE-bench's task instance collection procedure to expand its coverage to more programming languages and domains... while this work evaluates models using execution-based code testing, relying solely on this method is insufficient to guarantee reliable performance of model generations, as we find automated code generations from LMs can frequently be less comprehensive, efficient, or readable compared to human-written solutions."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In addition to SWE-bench our contributions include the release of a training dataset, SWE-bench-train, which is essential for advancing open model development in this challenging domain. This dataset comprises a collection of 19,000 non-testing task instances derived from 37 repositories... our experiments aim to establish a baseline of the simplest and most straight-forward approaches for this task; we do not intend to constrain future methodologies to the same type of approach and encourage future work to investigate different methods (e.g., agent-based approaches, tool augmented LMs)."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 81.8,
+      "avg_confidence": 0.923
+    },
+    "cost_usd": 0.1651,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    }
+  }
+}
