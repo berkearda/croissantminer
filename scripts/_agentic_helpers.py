@@ -59,6 +59,23 @@ MODELS: dict[str, dict[str, Any]] = {
         "input_price_per_mtok": 1.25,
         "output_price_per_mtok": 10.0,
     },
+    "gpt-5.4-mini": {
+        "name": "GPT-5.4 mini",
+        "model_id": "gpt-5.4-mini-2026-03-17",
+        "provider": "openai",
+        "output_slug": "gpt5_4_mini",
+        "max_tokens_param": "max_completion_tokens",
+        "input_price_per_mtok": 0.15,
+        "output_price_per_mtok": 0.60,
+    },
+    "sonnet-4-6": {
+        "name": "Claude Sonnet 4.6",
+        "model_id": "claude-sonnet-4-6",
+        "provider": "anthropic",
+        "output_slug": "sonnet_4_6",
+        "input_price_per_mtok": 3.0,
+        "output_price_per_mtok": 15.0,
+    },
     "gemini-3.1-pro": {
         "name": "Gemini 3.1 Pro Preview",
         "model_id": "gemini-3.1-pro-preview",

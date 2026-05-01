@@ -61,6 +61,12 @@ STRATEGY_DIRS = {
     "agentic_lev_gpt5_4_full":    EXTRACTION_BASE / "agentic_lev_gpt5_4_full",
     "agentic_lev_gemini_3_1_pro": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro",
     "agentic_lev_llama4_scout":   EXTRACTION_BASE / "agentic_lev_llama4_scout",
+    # LEV mixed-backbone bake-off (locator + extractor). Phase 0.5 of the
+    # 2026-05-01 V2/LEV iteration plan. Locator runs an LLM at runtime
+    # (replaces precomputed Phase 1 Gemini-Flash triage).
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini":  EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini",
+    "agentic_lev_gemini_3_1_pro_sonnet_4_6":   EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_sonnet_4_6",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_full":  EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_full",
 }
 
 # gold_method values that count as "settled" gold by default.

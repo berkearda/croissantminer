@@ -505,7 +505,17 @@ AGENTIC_SYSTEMS = frozenset({
     "agentic_v2_llama4_scout",
     "agentic_lev_gpt5_4_full", "agentic_lev_gemini_3_1_pro",
     "agentic_lev_llama4_scout",
+    # LEV mixed-backbone bake-off variants (Phase 0.5).
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini",
+    "agentic_lev_gemini_3_1_pro_sonnet_4_6",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_full",
 })
+
+
+def is_agentic_system(strat: str) -> bool:
+    """Any system_id starting with 'agentic_' is agentic; iteration variants
+    of the form '<base_system>_v2', '_v3', etc. inherit this naturally."""
+    return strat in AGENTIC_SYSTEMS or strat.startswith("agentic_")
 
 
 def build_production_tasks() -> pd.DataFrame:
@@ -540,7 +550,7 @@ def build_production_tasks() -> pd.DataFrame:
             # Skip agentic-system test cells until owners freeze. Score only
             # dev for now so owners get tuning feedback; the held-out test
             # number is produced by a separate scoring run after freeze.
-            if strat in AGENTIC_SYSTEMS and paper not in dev_papers:
+            if is_agentic_system(strat) and paper not in dev_papers:
                 skipped_agentic_test += 1
                 continue
             ext_path = sdir / f"{paper}.json"

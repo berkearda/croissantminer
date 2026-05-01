@@ -55,6 +55,8 @@ load_dotenv(ROOT / ".env")
 
 SCRIPT_NAME = "scripts/agentic_lev.py"
 MAX_TOKENS_GROUP = 4096
+MAX_TOKENS_LOCATOR = 2048
+LOCATOR_CHAR_CAP = 200_000  # cap full-paper input to locator at 200K chars
 GROUP_CHAR_CAP = 60_000
 GROUP_MIN_CONTEXT = 2_000
 
@@ -234,8 +236,99 @@ def load_section_text(ds_id: str) -> dict[str, str]:
 
 
 # ── LOCATE ────────────────────────────────────────────────────────
-def locate_sections(ds_id: str, full_text: str) -> tuple[dict[str, str], dict]:
-    triage = load_triage(ds_id)
+LOCATOR_SYSTEM_PROMPT = """You are an expert at navigating academic papers about ML datasets. Given a paper's text and a list of available section names, your job is to identify which sections are most relevant for extracting specific groups of metadata fields.
+
+You will return a JSON object with one entry per field group, listing the section names (from the provided list, exact match) that contain content relevant to that group, plus a presence indicator.
+
+Be precise: only include sections that genuinely discuss the topic. If no section discusses a group, return an empty list and presence="unlikely". If discussion is brief or scattered, mark presence="possible". If a clearly dedicated section exists, mark presence="likely"."""
+
+
+LOCATOR_USER_TEMPLATE = """Paper text (may be truncated for length):
+
+{paper_text}
+
+Available section names in this paper (use these EXACTLY — they are case-sensitive, do not paraphrase):
+{section_list}
+
+Identify relevant sections for each of these field groups:
+
+- G3_collection: How the data was collected — sources, methodology, raw data, timeframe, missing data handling.
+- G4_annotation: Annotation procedures — labeling protocols, annotator demographics, annotation platforms (MTurk, Label Studio, etc.), per-item annotation counts, machine annotation tools, annotation analysis / quality metrics.
+- G5_rai: Responsible-AI considerations — biases, limitations, ethical issues, social impact, sensitive personal information, intended use cases, release maintenance plan.
+- G6_processing: Data processing — preprocessing steps, data manipulation/transformation, imputation of missing values.
+
+Return JSON only, in this exact schema:
+{{
+  "G3_collection": {{"sections": ["EXACT_SECTION_NAME_1", ...], "presence": "likely"|"possible"|"unlikely"}},
+  "G4_annotation": {{"sections": [...], "presence": "..."}},
+  "G5_rai": {{"sections": [...], "presence": "..."}},
+  "G6_processing": {{"sections": [...], "presence": "..."}}
+}}"""
+
+
+def locate_with_llm(cfg, ds_id: str, full_text: str) -> tuple[dict, dict]:
+    """LLM-based locator: replaces precomputed Phase 1 Gemini-Flash triage.
+
+    Calls the locator LLM with the full paper text + the list of available
+    section names from PHASE0 chunks; the LLM returns a triage dict in the
+    same format as load_triage() so the rest of the pipeline is unchanged.
+
+    Returns (triage_dict, usage_dict). On failure, returns ({}, usage) and
+    locate_sections() will fall back to keyword-based section selection.
+    """
+    sections = load_section_text(ds_id)
+    section_names = sorted(sections.keys())
+
+    if not section_names:
+        return {}, {"input_tokens": 0, "output_tokens": 0}
+
+    section_list = "\n".join(f"- {n}" for n in section_names)
+    paper_text = full_text[:LOCATOR_CHAR_CAP]
+    user = LOCATOR_USER_TEMPLATE.format(
+        paper_text=paper_text,
+        section_list=section_list,
+    )
+
+    try:
+        raw, usage = call_llm(cfg, LOCATOR_SYSTEM_PROMPT, user, MAX_TOKENS_LOCATOR)
+        parsed = parse_json_response(raw)
+    except Exception as e:
+        print(f"    {ds_id}/locator FAILED: {str(e)[:80]} — falling back to keyword search")
+        return {}, {"input_tokens": 0, "output_tokens": 0}
+
+    # Normalize: ensure section names match available ones (uppercase compare)
+    name_to_canonical = {n.upper(): n for n in section_names}
+    triage: dict = {}
+    for group_key in ("G3_collection", "G4_annotation", "G5_rai", "G6_processing"):
+        entry = parsed.get(group_key, {})
+        if not isinstance(entry, dict):
+            continue
+        raw_sections = entry.get("sections", [])
+        if not isinstance(raw_sections, list):
+            raw_sections = []
+        # Map each LLM-returned name to a canonical section name; drop unknowns.
+        canonical_sections: list[str] = []
+        for s in raw_sections:
+            key = str(s).upper().strip()
+            if key in name_to_canonical:
+                canonical_sections.append(name_to_canonical[key])
+            else:
+                # Fuzzy match: substring either way
+                for known_upper, known in name_to_canonical.items():
+                    if key in known_upper or known_upper in key:
+                        canonical_sections.append(known)
+                        break
+        presence = entry.get("presence", "possible")
+        if presence not in ("likely", "possible", "unlikely"):
+            presence = "possible"
+        triage[group_key] = {"sections": canonical_sections, "presence": presence}
+
+    return triage, usage
+
+
+def locate_sections(ds_id: str, full_text: str,
+                    triage_override: dict | None = None) -> tuple[dict[str, str], dict]:
+    triage = triage_override if triage_override is not None else load_triage(ds_id)
     sections = load_section_text(ds_id)
 
     group_texts: dict[str, str] = {}
@@ -442,14 +535,20 @@ def save_paper(out_dir: Path, ds_id: str, cfg, extraction, details, usage,
 
 
 # ── Sequential processing ─────────────────────────────────────────
-def process_paper(cfg, ds_id: str, out_dir: Path) -> dict | None:
+def process_paper(cfg, ds_id: str, out_dir: Path,
+                  locator_cfg: dict | None = None) -> dict | None:
     t0 = time.time()
     full_text = load_paper_text(ds_id)
     if not full_text:
         print(f"  SKIP {ds_id}: no PDF")
         return None
 
-    group_texts, triage = locate_sections(ds_id, full_text)
+    locator_usage = {"input_tokens": 0, "output_tokens": 0}
+    if locator_cfg is not None:
+        triage_override, locator_usage = locate_with_llm(locator_cfg, ds_id, full_text)
+        group_texts, triage = locate_sections(ds_id, full_text, triage_override=triage_override)
+    else:
+        group_texts, triage = locate_sections(ds_id, full_text)
 
     extraction: dict = {}
     evidence: dict = {}
@@ -488,6 +587,10 @@ def process_paper(cfg, ds_id: str, out_dir: Path) -> dict | None:
         }
         time.sleep(0.3)
 
+    # Fold locator tokens into total so cost reflects full pipeline.
+    total_usage["input_tokens"] += locator_usage["input_tokens"]
+    total_usage["output_tokens"] += locator_usage["output_tokens"]
+
     extraction, enrichments = enrich(ds_id, extraction)
     details = validate_and_score(extraction, evidence, enrichments, triage)
 
@@ -496,10 +599,20 @@ def process_paper(cfg, ds_id: str, out_dir: Path) -> dict | None:
         "enrichments": list(enrichments.keys()),
         "elapsed_seconds": round(time.time() - t0, 1),
     }
+    if locator_cfg is not None:
+        extra_meta["locator"] = {
+            "backbone_key": locator_cfg.get("backbone_key", "unknown"),
+            "model_id": locator_cfg.get("model_id"),
+            "provider": locator_cfg.get("provider"),
+            "input_tokens": locator_usage["input_tokens"],
+            "output_tokens": locator_usage["output_tokens"],
+        }
+    else:
+        extra_meta["locator"] = {"source": "precomputed_phase1_triage"}
     return save_paper(out_dir, ds_id, cfg, extraction, details, total_usage, "realtime", extra_meta)
 
 
-def run_sequential(cfg, papers, args, out_dir):
+def run_sequential(cfg, papers, args, out_dir, locator_cfg: dict | None = None):
     ok = fail = total_extracted = total_verified = 0
     total_usage = {"input_tokens": 0, "output_tokens": 0}
 
@@ -513,7 +626,7 @@ def run_sequential(cfg, papers, args, out_dir):
             continue
 
         try:
-            stats = process_paper(cfg, ds_id, out_dir)
+            stats = process_paper(cfg, ds_id, out_dir, locator_cfg=locator_cfg)
             if stats is None:
                 fail += 1
                 continue
@@ -550,6 +663,9 @@ def run_sequential(cfg, papers, args, out_dir):
 
     summary = {
         "backbone": cfg["model_id"],
+        "extractor_backbone": cfg["model_id"],
+        "locator_backbone": (locator_cfg["model_id"] if locator_cfg else
+                             "precomputed_phase1_gemini_flash_triage"),
         "papers_ok": ok, "papers_failed": fail,
         "total_extracted": total_extracted,
         "total_verified": total_verified,
@@ -725,16 +841,56 @@ def run_batch(cfg, papers, out_dir):
 # ── CLI ───────────────────────────────────────────────────────────
 def main():
     p = argparse.ArgumentParser(description="CroissantMiner LEV (Locate-Extract-Verify) pipeline")
-    p.add_argument("--backbone", default="sonnet-4-5",
-                   help="Backbone key from scripts/_agentic_helpers.py::MODELS")
-    p.add_argument("--dev-only", action="store_true", help="Process only the 15 dev papers")
+    p.add_argument("--backbone", default=None,
+                   help="(Legacy) single backbone for extractor; "
+                        "uses precomputed Phase-1 Gemini-Flash triage as locator. "
+                        "Mutually exclusive with --extractor-backbone.")
+    p.add_argument("--locator-backbone", default=None,
+                   help="LLM backbone for the locate step (replaces precomputed triage). "
+                        "When set, --extractor-backbone must also be set.")
+    p.add_argument("--extractor-backbone", default=None,
+                   help="LLM backbone for the 5 extract calls. "
+                        "When set, --locator-backbone must also be set.")
+    p.add_argument("--dev-only", action="store_true", help="Process only the dev papers")
     p.add_argument("--paper", type=str, help="Process a single paper by dataset_id")
     p.add_argument("--batch", action="store_true",
-                   help="Use Anthropic batch API (sonnet-4-5 only)")
+                   help="Use Anthropic batch API (sonnet-4-5 only); "
+                        "currently incompatible with --locator-backbone.")
     args = p.parse_args()
 
-    cfg = resolve_backbone(args.backbone)
-    out_dir = output_dir_for("lev", args.backbone)
+    # CLI validation: either legacy --backbone alone, or both new flags together.
+    using_mixed = args.locator_backbone is not None or args.extractor_backbone is not None
+    if using_mixed:
+        if args.locator_backbone is None or args.extractor_backbone is None:
+            raise SystemExit(
+                "--locator-backbone and --extractor-backbone must be set together; "
+                "use --backbone alone for the legacy precomputed-triage path."
+            )
+        if args.backbone is not None:
+            raise SystemExit(
+                "--backbone is mutually exclusive with --locator-backbone/--extractor-backbone."
+            )
+        if args.batch:
+            raise SystemExit(
+                "--batch path not yet supported with mixed-backbone LLM locator."
+            )
+        locator_cfg = dict(resolve_backbone(args.locator_backbone))
+        locator_cfg["backbone_key"] = args.locator_backbone
+        extractor_cfg = dict(resolve_backbone(args.extractor_backbone))
+        extractor_cfg["backbone_key"] = args.extractor_backbone
+        cfg = extractor_cfg  # cfg semantics: the model used by extract_group()
+        out_dir = (ROOT / "data" / "extractions" /
+                   f"agentic_lev_{locator_cfg['output_slug']}_{extractor_cfg['output_slug']}")
+        backbone_label = (f"locator={args.locator_backbone} ({locator_cfg['name']}) | "
+                          f"extractor={args.extractor_backbone} ({extractor_cfg['name']})")
+    else:
+        if args.backbone is None:
+            args.backbone = "sonnet-4-5"  # restore legacy default
+        cfg = dict(resolve_backbone(args.backbone))
+        cfg["backbone_key"] = args.backbone
+        locator_cfg = None
+        out_dir = output_dir_for("lev", args.backbone)
+        backbone_label = f"backbone={args.backbone} ({cfg['name']})  locator=precomputed_phase1_triage"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.paper:
@@ -745,15 +901,15 @@ def main():
         papers = sorted(SPLIT["dev"] + SPLIT["test"])
 
     print(f"{'=' * 70}")
-    print(f"CROISSANTMINER LEV — backbone={args.backbone} ({cfg['name']})")
+    print(f"CROISSANTMINER LEV — {backbone_label}")
     print(f"Papers: {len(papers)}  Output: {out_dir}")
-    print(f"Architecture: 5 specialist calls per paper (core/collection/annotation/impact/processing)")
+    print(f"Architecture: {'1 locator + 5 specialist' if locator_cfg else '5 specialist'} calls per paper (core/collection/annotation/impact/processing)")
     print(f"{'=' * 70}")
 
     if args.batch:
         run_batch(cfg, papers, out_dir)
     else:
-        run_sequential(cfg, papers, args, out_dir)
+        run_sequential(cfg, papers, args, out_dir, locator_cfg=locator_cfg)
 
 
 if __name__ == "__main__":
