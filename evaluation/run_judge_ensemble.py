@@ -64,18 +64,88 @@ JUDGE_SYSTEM = (
     '{"score": 1, 2, or 3, "reason": "one short sentence"}'
 )
 
+JUDGE_USER_TEMPLATE_FEWSHOT = """You will rate metadata extractions against a reference. Three
+worked examples first, then your task at the bottom.
+
+==================== EXAMPLE 1 (Score = 1, Correct) ====================
+Field: rai:dataPreprocessingProtocol
+Reference: Two filtering steps were conducted: (1) Removed low-quality VQAs based on Stack Exchange's voting feature - excluded visual questions with scores 0 or less for either the question or answer. (2) Excluded visual questions with multiple images (e.g., GIF) or with visual answers. Final dataset contains 64,696 VQAs after filtering and removing examples where images could not be downloaded. All images were converted to png format for consistency.
+Candidate: Removed visual questions with scores 0 or less, excluded visual questions with multiple images or visual answers, removed examples where the image could not be downloaded, and converted all images to png format.
+Score: 1
+Reason: Captures both filtering steps and post-processing in compressed form; minor omissions (final count, voting source) are acceptable.
+
+==================== EXAMPLE 2 (Score = 2, Partially correct) ====================
+Field: rai:dataCollectionRawData
+Reference: The raw data source was instructables.com, a crowdsourced collection of instructions for various tasks from cooking to car repair. Users on instructables provide images or videos detailing each step and lists of required tools. Annotators were asked to glance at instructables and pull out or be inspired to construct two component tasks.
+Candidate: How-to instructions from instructables.com were used as the source/scaffold for annotation prompts.
+Score: 2
+Reason: Names the source correctly but omits substantial content about the crowdsourced nature, the multimedia format, and the annotator workflow.
+
+==================== EXAMPLE 3 (Score = 3, Not correct) ====================
+Field: rai:dataManipulationProtocol
+Reference: Data manipulation included: (1) Text segmentation using Segmentext model to handle broken and unstructured texts with digitization artifacts; (2) OCR correction using OCRonos model based on Llama 3 8B to correct OCR errors, wrong word cuts or merges, and broken text structures; (3) License filtering to retain only permissible licenses; (4) Format filtering to remove non-informative file types; (5) Replacement of sequences of [\\r]+\\n with \\n and recalculation of line lengths.
+Candidate: PII is replaced with fictitious but realistic values. Toxic content is either removed or synthetically rewritten. Wikidata items and properties are translated into simple natural language sequences.
+Score: 3
+Reason: Candidate describes entirely different manipulation operations (PII replacement, toxicity, Wikidata) that do not appear in the reference (text segmentation, OCR correction, license filtering).
+
+==================== YOUR TASK ====================
+Field: {field_id}
+Reference (human-validated): {gold_value}
+Candidate (model output): {candidate_value}
+
+Rubric -- rate the candidate's similarity to the reference. The
+reference is the authoritative answer for this paper-field cell.
+
+1 = Correct. The candidate conveys the same meaning as the reference,
+    capturing all or nearly all of the same content. Stylistic
+    differences and minor omissions are acceptable.
+2 = Partially correct. The candidate covers the topic and shares
+    some content with the reference, but misses or distorts
+    substantial parts of the meaning.
+3 = Not correct. The candidate's meaning differs substantially from
+    the reference, shares little content with it, contradicts it,
+    or contains hallucinated information not supported by the
+    reference.
+
+Special case: if the reference is empty / NULL / "[NULL ...]" (paper
+does not document this field), score 1 if the candidate is also
+empty/null; score 3 if the candidate provides content (hallucination).
+
+Return JSON only."""
+
+
 JUDGE_USER_TEMPLATE = """Field: {field_id}
 Reference (human-validated): {gold_value}
 Candidate (model output): {candidate_value}
 
-Rubric:
-1 = Not correct. Wrong, hallucinated, or contradicts the reference.
-2 = Partially correct. Captures part of the reference but misses
-    important content or contains errors.
-3 = Correct. Conveys the same content as the reference; stylistic
-    differences are fine.
+Rubric -- rate the candidate's similarity to the reference. The
+reference is the authoritative answer for this paper-field cell.
+
+1 = Correct. The candidate conveys the same meaning as the reference,
+    capturing all or nearly all of the same content. Stylistic
+    differences and minor omissions are acceptable.
+2 = Partially correct. The candidate covers the topic and shares
+    some content with the reference, but misses or distorts
+    substantial parts of the meaning.
+3 = Not correct. The candidate's meaning differs substantially from
+    the reference, shares little content with it, contradicts it,
+    or contains hallucinated information not supported by the
+    reference.
+
+Special case: if the reference is empty / NULL / "[NULL ...]" (paper
+does not document this field), score 1 if the candidate is also
+empty/null; score 3 if the candidate provides content (hallucination).
 
 Return JSON only."""
+
+# Croissant schema field definitions (extracted from the
+# Mubashara adjudication xlsx "Field Definitions" tab; same content
+# Mubashara saw during adjudication and approved as part of the
+# eval proposal). Loaded once at module import.
+import json as _json
+FIELD_DEFINITIONS_PATH = ROOT / "evaluation" / "croissant_field_definitions.json"
+with open(FIELD_DEFINITIONS_PATH) as _f:
+    FIELD_DEFINITIONS: dict[str, str] = _json.load(_f)
 
 
 # ── Judge configuration ────────────────────────────────────────────
@@ -96,6 +166,15 @@ class JudgeCfg:
 
 
 JUDGES: dict[str, JudgeCfg] = {
+    "claude-opus-4-7": JudgeCfg(
+        slug="claude_opus_4_7",
+        name="Claude Opus 4.7",
+        provider="anthropic",
+        model_id="claude-opus-4-7",
+        input_price_per_mtok=15.0,
+        output_price_per_mtok=75.0,
+        skip_temperature=True,
+    ),
     "gpt-5.4-full": JudgeCfg(
         slug="gpt5_4_full",
         name="GPT-5.4 full",
@@ -104,11 +183,98 @@ JUDGES: dict[str, JudgeCfg] = {
         input_price_per_mtok=1.25,
         output_price_per_mtok=10.0,
     ),
+    "gpt-5.5": JudgeCfg(
+        slug="gpt5_5",
+        name="GPT-5.5",
+        provider="openai",
+        model_id="gpt-5.5-2026-04-23",
+        input_price_per_mtok=5.0,
+        output_price_per_mtok=30.0,
+        skip_temperature=True,  # GPT-5.5 only supports default temperature (1)
+    ),
+    "llama-4-maverick": JudgeCfg(
+        slug="llama_4_maverick",
+        name="Llama 4 Maverick 17B-128E (DeepInfra)",
+        provider="openai_compatible",
+        model_id="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.20,
+        output_price_per_mtok=0.60,
+    ),
+    "deepseek-v3-2": JudgeCfg(
+        slug="deepseek_v3_2",
+        name="DeepSeek V3.2 (DeepInfra)",
+        provider="openai_compatible",
+        model_id="deepseek-ai/DeepSeek-V3.2",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.27,
+        output_price_per_mtok=0.40,
+    ),
+    "glm-5-1": JudgeCfg(
+        slug="glm_5_1",
+        name="GLM-5.1 (DeepInfra)",
+        provider="openai_compatible",
+        model_id="zai-org/GLM-5.1",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.40,
+        output_price_per_mtok=1.30,
+    ),
+    "glm-5": JudgeCfg(
+        slug="glm_5",
+        name="GLM-5 (DeepInfra)",
+        provider="openai_compatible",
+        model_id="zai-org/GLM-5",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.40,
+        output_price_per_mtok=1.30,
+    ),
+    "kimi-k2-6": JudgeCfg(
+        slug="kimi_k2_6",
+        name="Kimi K2.6 (Moonshot, DeepInfra)",
+        provider="openai_compatible",
+        model_id="moonshotai/Kimi-K2.6",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.55,
+        output_price_per_mtok=2.20,
+    ),
+    "qwen-3-5-397b": JudgeCfg(
+        slug="qwen_3_5_397b",
+        name="Qwen 3.5 397B-A17B (DeepInfra)",
+        provider="openai_compatible",
+        model_id="Qwen/Qwen3.5-397B-A17B",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=0.50,
+        output_price_per_mtok=1.50,
+    ),
+    "qwen-3-max": JudgeCfg(
+        slug="qwen_3_max",
+        name="Qwen 3 Max (DeepInfra)",
+        provider="openai_compatible",
+        model_id="Qwen/Qwen3-Max",
+        base_url="https://api.deepinfra.com/v1/openai",
+        api_key_env="DEEPINFRA_API_KEY",
+        input_price_per_mtok=1.20,
+        output_price_per_mtok=6.0,
+    ),
     "gemini-3.1-pro": JudgeCfg(
         slug="gemini_3_1_pro",
         name="Gemini 3.1 Pro Preview",
         provider="google",
         model_id="gemini-3.1-pro-preview",
+        input_price_per_mtok=2.0,
+        output_price_per_mtok=12.0,
+    ),
+    "gemini-2.5-pro": JudgeCfg(
+        slug="gemini_2_5_pro",
+        name="Gemini 2.5 Pro",
+        provider="google",
+        model_id="gemini-2.5-pro",
         input_price_per_mtok=1.25,
         output_price_per_mtok=10.0,
     ),
@@ -116,7 +282,7 @@ JUDGES: dict[str, JudgeCfg] = {
         slug="llama_3_3_70b",
         name="Llama 3.3 70B (DeepInfra)",
         provider="openai_compatible",
-        model_id="meta-llama/Meta-Llama-3.3-70B-Instruct",
+        model_id="meta-llama/Llama-3.3-70B-Instruct-Turbo",
         base_url="https://api.deepinfra.com/v1/openai",
         api_key_env="DEEPINFRA_API_KEY",
         input_price_per_mtok=0.40,
@@ -182,12 +348,23 @@ def _call_openai_compatible(cfg: JudgeCfg, system_prompt: str,
             {"role": "user", "content": user_content},
         ],
         "response_format": {"type": "json_object"},
-        "max_completion_tokens": 200,
+        "max_completion_tokens": 2000,
     }
     if not cfg.skip_temperature:
         params["temperature"] = 0.0
-    resp = client.chat.completions.create(**params)
-    raw = resp.choices[0].message.content or ""
+    # 180s per-call timeout: prevents hangs on reasoning models that
+    # can spin indefinitely on hard cells without server-side timeout.
+    resp = client.with_options(timeout=180.0).chat.completions.create(**params)
+    msg = resp.choices[0].message
+    raw = msg.content or ""
+    # Reasoning models (GLM-5/5.1, DeepSeek-R1, others) put the answer in
+    # reasoning_content when content is empty. Fall back to that.
+    if not raw.strip() and hasattr(msg, "reasoning_content"):
+        raw = msg.reasoning_content or ""
+    elif not raw.strip():
+        # Some providers expose it via model_extra / extra fields
+        extra = getattr(msg, "model_extra", None) or {}
+        raw = extra.get("reasoning_content") or raw
     usage = {
         "input_tokens": resp.usage.prompt_tokens,
         "output_tokens": resp.usage.completion_tokens,
@@ -201,20 +378,62 @@ def _call_google(cfg: JudgeCfg, system_prompt: str,
     api_key = os.environ["GEMINI_API_KEY"]
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
           f"{cfg.model_id}:generateContent")
+    gen_config = {
+        "temperature": 0.0,
+        "maxOutputTokens": 2000,
+        "responseMimeType": "application/json",
+    }
+    # thinkingLevel is only supported on Gemini 3.x; 2.5 Pro returns 400.
+    # On 3.x we set "low" because we need a 1/2/3 ordinal score, not deep
+    # reasoning. Default HIGH burns 21-31s on internal thoughts and
+    # frequently times out (documented Gemini 3.1 Pro Preview issue,
+    # April 2026).
+    if cfg.model_id.startswith("gemini-3"):
+        gen_config["thinkingConfig"] = {"thinkingLevel": "low"}
     payload = {
         "contents": [{"parts": [{"text": user_content}]}],
         "systemInstruction": {"parts": [{"text": system_prompt}]},
-        "generationConfig": {
-            "temperature": 0.0,
-            "maxOutputTokens": 200,
-            "responseMimeType": "application/json",
-        },
+        "generationConfig": gen_config,
     }
-    resp = requests.post(url, params={"key": api_key}, json=payload, timeout=60)
-    if resp.status_code != 200:
-        raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:200]}")
+    # 503-aware retry with exponential backoff. The 60s default timeout
+    # was below Gemini 3.1 Pro Preview's normal TTFT range, causing false
+    # timeouts; bumped to 180s. 503/504 errors are retried with longer
+    # waits since they indicate server overload, not slow processing.
+    backoffs = [5, 15, 45, 90, 180]
+    last_status, last_text = None, None
+    for attempt in range(6):
+        try:
+            resp = requests.post(url, params={"key": api_key}, json=payload, timeout=180)
+            last_status, last_text = resp.status_code, resp.text
+            if resp.status_code == 200:
+                break
+            if resp.status_code in (429, 500, 502, 503, 504) and attempt < 5:
+                wait = backoffs[attempt]
+                log.warning("  Gemini %s, sleeping %ds (attempt %d/6)",
+                          resp.status_code, wait, attempt + 1)
+                time.sleep(wait)
+                continue
+            raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:200]}")
+        except requests.exceptions.RequestException as e:
+            if attempt < 5:
+                wait = backoffs[attempt]
+                log.warning("  Gemini network error (%s), sleeping %ds (attempt %d/6)",
+                          str(e)[:100], wait, attempt + 1)
+                time.sleep(wait)
+                continue
+            raise
+    else:
+        raise RuntimeError(f"Gemini API exhausted retries: {last_status} {last_text[:200]}")
     data = resp.json()
-    raw = data["candidates"][0]["content"]["parts"][0]["text"]
+    cand0 = data["candidates"][0]
+    content = cand0.get("content") or {}
+    parts = content.get("parts") or []
+    if not parts:
+        raise RuntimeError(
+            f"Gemini returned no text parts (finishReason={cand0.get('finishReason')}, "
+            f"usage={data.get('usageMetadata', {})})"
+        )
+    raw = parts[0]["text"]
     um = data.get("usageMetadata", {})
     usage = {
         "input_tokens": um.get("promptTokenCount", 0),
@@ -282,12 +501,34 @@ def load_audit_tasks() -> pd.DataFrame:
                "gold_value", "candidate_value"]].copy()
 
 
+# Agentic systems (architectures whose orchestration logic can be tuned).
+# Per dev-set iteration policy locked 2026-05-01 in decisions.md, these are
+# scored on DEV only (14 papers) for owner tuning feedback; test cells are
+# held out until each owner declares their system frozen and pushes test
+# extractions, at which point a separate scoring run produces the final
+# held-out test number. Single-pass models are scored on all 102 papers —
+# their prompt is locked across the family, no iteration possible.
+AGENTIC_SYSTEMS = frozenset({
+    "agentic_v2_sonnet_4_5", "agentic_lev_sonnet_4_5",
+    "agentic_react_sonnet_4_5", "agentic_specialist_sonnet_4_5",
+    "agentic_v2_gpt5_4_full", "agentic_v2_gemini_3_1_pro",
+    "agentic_v2_llama4_scout",
+    "agentic_lev_gpt5_4_full", "agentic_lev_gemini_3_1_pro",
+    "agentic_lev_llama4_scout",
+})
+
+
 def build_production_tasks() -> pd.DataFrame:
     """Stage B: build the full task list from gold + extractions.
 
     For every (paper, prose field) cell with a settled gold_value, and
     for every system in our locked lineup that has a non-null
     extraction, emit one task row.
+
+    Per-system-category filter applied:
+    - Agentic systems: DEV 14 only (owner tuning feedback; test held out
+      until owners freeze and push test extractions).
+    - Single-pass and other systems: all 102 papers.
     """
     from evaluation.field_metrics import LONG_TEXT_RAI_FIELDS  # noqa: WPS433
 
@@ -295,12 +536,23 @@ def build_production_tasks() -> pd.DataFrame:
     gold = gold[gold["gold_value"].notna()].copy()
     gold = gold[gold["field_id"].isin(LONG_TEXT_RAI_FIELDS)].copy()
 
+    # Load dev/test split for the agentic-systems-test-only filter.
+    split = json.loads((ROOT / "data" / "agentic" / "dev_test_split.json").read_text())
+    dev_papers = frozenset(split["dev"])
+
     # locked production lineup (matches score_against_gold.STRATEGY_DIRS).
     from evaluation.score_against_gold import STRATEGY_DIRS  # noqa: WPS433
 
     rows = []
+    skipped_agentic_test = 0
     for paper, paper_rows in gold.groupby("paper_id"):
         for strat, sdir in STRATEGY_DIRS.items():
+            # Skip agentic-system test cells until owners freeze. Score only
+            # dev for now so owners get tuning feedback; the held-out test
+            # number is produced by a separate scoring run after freeze.
+            if strat in AGENTIC_SYSTEMS and paper not in dev_papers:
+                skipped_agentic_test += 1
+                continue
             ext_path = sdir / f"{paper}.json"
             if not ext_path.exists():
                 ext_path = sdir / paper / "extraction.json"
@@ -325,8 +577,9 @@ def build_production_tasks() -> pd.DataFrame:
 
     df = pd.DataFrame(rows)
     df.insert(0, "row_id", range(1, len(df) + 1))
-    log.info("built %d production tasks across %d systems",
-            len(df), df["system_id"].nunique())
+    log.info("built %d production tasks across %d systems "
+            "(skipped %d agentic-x-test paper-system pairs)",
+            len(df), df["system_id"].nunique(), skipped_agentic_test)
     return df
 
 
@@ -433,10 +686,48 @@ def print_plan(stage: str, tasks: pd.DataFrame, judges: list[str],
 # ── Run loop ──────────────────────────────────────────────────────
 
 
+def _score_one(cfg: JudgeCfg, task) -> dict:
+    """Score a single task; return a row dict (success or FAIL)."""
+    user = JUDGE_USER_TEMPLATE.format(
+        field_id=task.field_id,
+        gold_value=task.gold_value[:8000],
+        candidate_value=task.candidate_value[:8000],
+    )
+    try:
+        raw, usage = call_judge(cfg, JUDGE_SYSTEM, user)
+        score, reason = parse_judge_response(raw)
+        return {
+            "paper_id": task.paper_id,
+            "field_id": task.field_id,
+            "system_id": task.system_id,
+            "judge": cfg.slug,
+            "score": score,
+            "reason": reason,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
+            "scored_at": datetime.now(timezone.utc).isoformat(),
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "paper_id": task.paper_id,
+            "field_id": task.field_id,
+            "system_id": task.system_id,
+            "judge": cfg.slug,
+            "score": None,
+            "reason": f"FAIL: {str(exc)[:200]}",
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "scored_at": datetime.now(timezone.utc).isoformat(),
+        }
+
+
 def run_judge(cfg: JudgeCfg, tasks: pd.DataFrame, out_path: Path,
              dry: bool = False) -> pd.DataFrame:
     """Score every task with one judge. Resumes from existing parquet
-    if present (skips already-scored rows)."""
+    if present (skips already-scored rows). Concurrency controlled by
+    JUDGE_CONCURRENCY env var (default 30, DeepInfra account cap 200)."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     existing = pd.DataFrame()
     if out_path.exists():
         existing = pd.read_parquet(out_path)
@@ -454,52 +745,30 @@ def run_judge(cfg: JudgeCfg, tasks: pd.DataFrame, out_path: Path,
     if dry:
         return existing
 
+    concurrency = int(os.environ.get("JUDGE_CONCURRENCY", "30"))
+    log.info("  %s: concurrency=%d", cfg.slug, concurrency)
+
     rows = []
     fail_count = 0
-    for i, task in enumerate(tasks.itertuples(index=False)):
-        user = JUDGE_USER_TEMPLATE.format(
-            field_id=task.field_id,
-            gold_value=task.gold_value[:8000],
-            candidate_value=task.candidate_value[:8000],
-        )
-        try:
-            raw, usage = call_judge(cfg, JUDGE_SYSTEM, user)
-            score, reason = parse_judge_response(raw)
-            rows.append({
-                "paper_id": task.paper_id,
-                "field_id": task.field_id,
-                "system_id": task.system_id,
-                "judge": cfg.slug,
-                "score": score,
-                "reason": reason,
-                "input_tokens": usage["input_tokens"],
-                "output_tokens": usage["output_tokens"],
-                "scored_at": datetime.now(timezone.utc).isoformat(),
-            })
-        except Exception as exc:  # noqa: BLE001
-            fail_count += 1
-            log.warning("  fail [%d] (%s, %s, %s): %s",
-                       fail_count, task.paper_id, task.field_id,
-                       task.system_id, str(exc)[:120])
-            rows.append({
-                "paper_id": task.paper_id,
-                "field_id": task.field_id,
-                "system_id": task.system_id,
-                "judge": cfg.slug,
-                "score": None,
-                "reason": f"FAIL: {str(exc)[:200]}",
-                "input_tokens": 0,
-                "output_tokens": 0,
-                "scored_at": datetime.now(timezone.utc).isoformat(),
-            })
-        # Periodic save: every 25 cells, flush to disk so a crash
-        # does not lose work.
-        if (i + 1) % 25 == 0:
-            df_so_far = pd.concat([existing, pd.DataFrame(rows)],
-                                ignore_index=True)
-            df_so_far.to_parquet(out_path, index=False)
-            log.info("  %s: %d/%d done, %d failed, snapshot saved",
-                    cfg.slug, i + 1, len(tasks), fail_count)
+    task_list = list(tasks.itertuples(index=False))
+    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+        futures = [pool.submit(_score_one, cfg, t) for t in task_list]
+        for i, fut in enumerate(as_completed(futures)):
+            row = fut.result()
+            if row["score"] is None and str(row["reason"]).startswith("FAIL"):
+                fail_count += 1
+                if fail_count <= 10:
+                    log.warning("  fail [%d] (%s, %s, %s): %s",
+                                fail_count, row["paper_id"], row["field_id"],
+                                row["system_id"], row["reason"][:120])
+            rows.append(row)
+            # Periodic save: every 25 completions.
+            if (i + 1) % 25 == 0:
+                df_so_far = pd.concat([existing, pd.DataFrame(rows)],
+                                      ignore_index=True)
+                df_so_far.to_parquet(out_path, index=False)
+                log.info("  %s: %d/%d done, %d failed, snapshot saved",
+                        cfg.slug, i + 1, len(task_list), fail_count)
 
     df_final = pd.concat([existing, pd.DataFrame(rows)], ignore_index=True)
     df_final.to_parquet(out_path, index=False)
@@ -530,6 +799,10 @@ def main():
                   help="run on only N cells; output goes to <output-dir>/_smoke/")
     p.add_argument("--no-smoke-required", action="store_true",
                   help="skip the 'recent smoke run required' check (Stage B only)")
+    p.add_argument("--systems", default=None,
+                  help="comma-separated system_ids to filter task list (Stage B "
+                       "only). Used by agentic-system owners during dev tuning "
+                       "to re-score only their own system's cells.")
     args = p.parse_args()
 
     stage = "Stage A" if args.stage in ("a", "audit") else "Stage B"
@@ -543,6 +816,17 @@ def main():
         tasks = load_audit_tasks()
     else:
         tasks = build_production_tasks()
+
+    if args.systems:
+        wanted = {s.strip() for s in args.systems.split(",") if s.strip()}
+        before = len(tasks)
+        tasks = tasks[tasks["system_id"].isin(wanted)].copy()
+        log.info("--systems filter: %d -> %d tasks (kept: %s)",
+                before, len(tasks), sorted(wanted))
+        if len(tasks) == 0:
+            raise SystemExit(f"--systems filter matched 0 tasks; "
+                             f"available system_ids in task list: "
+                             f"{sorted(set(build_production_tasks()['system_id']))}")
 
     if args.smoke is not None:
         tasks = tasks.head(args.smoke).copy()
