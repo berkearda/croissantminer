@@ -138,16 +138,6 @@ empty/null; score 3 if the candidate provides content (hallucination).
 
 Return JSON only."""
 
-# Croissant schema field definitions (extracted from the
-# Mubashara adjudication xlsx "Field Definitions" tab; same content
-# Mubashara saw during adjudication and approved as part of the
-# eval proposal). Loaded once at module import.
-import json as _json
-FIELD_DEFINITIONS_PATH = ROOT / "evaluation" / "croissant_field_definitions.json"
-with open(FIELD_DEFINITIONS_PATH) as _f:
-    FIELD_DEFINITIONS: dict[str, str] = _json.load(_f)
-
-
 # ── Judge configuration ────────────────────────────────────────────
 
 
