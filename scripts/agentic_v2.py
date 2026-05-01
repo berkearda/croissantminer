@@ -52,8 +52,8 @@ from _agentic_helpers import (
 load_dotenv(ROOT / ".env")
 
 MAX_PAPER_CHARS = 200_000
-MAX_TOKENS_EXTRACT = 8192
-MAX_TOKENS_CORRECT = 4096
+MAX_TOKENS_EXTRACT = 16384  # was 8192; bumped to clear Gemini 3.x truncation failures (2026-04-30)
+MAX_TOKENS_CORRECT = 8192   # was 4096; bumped proportionally
 SCRIPT_NAME = "scripts/agentic_v2.py"
 
 PHASE1_DIR = ROOT / "data" / "agentic" / "phase1"

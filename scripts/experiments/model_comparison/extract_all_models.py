@@ -163,7 +163,7 @@ def call_anthropic(model_id, system_prompt, user_prompt, skip_temperature=False)
     client = anthropic.Anthropic()
     kwargs = {
         "model": model_id,
-        "max_tokens": 4096,
+        "max_tokens": 8192,
         "system": system_prompt,
         "messages": [{"role": "user", "content": user_prompt}],
     }
@@ -191,7 +191,7 @@ def call_openai(model_id, system_prompt, user_prompt, max_tokens_param="max_comp
             {"role": "user", "content": user_prompt},
         ],
     }
-    params[max_tokens_param] = 4096
+    params[max_tokens_param] = 8192
 
     response = client.chat.completions.create(**params)
     text = response.choices[0].message.content
@@ -214,7 +214,11 @@ def call_google(model_id, system_prompt, user_prompt):
         "systemInstruction": {"parts": [{"text": system_prompt}]},
         "generationConfig": {
             "temperature": 0.0,
-            "maxOutputTokens": 8192,
+            # Bumped 8192 -> 16384: Flash truncated JSON mid-string on
+            # 4 of 102 papers when emitting all 30 fields verbose. Flash's
+            # native cap is 65K; 16K is comfortably above what any test
+            # paper has needed.
+            "maxOutputTokens": 16384,
         },
     }
 

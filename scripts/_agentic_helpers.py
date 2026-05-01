@@ -245,10 +245,17 @@ def _call_google(cfg, system_prompt, user_content, max_tokens):
 
     api_key = os.getenv("GEMINI_API_KEY")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{cfg['model_id']}:generateContent"
+    gen_config = {"temperature": 0.0, "maxOutputTokens": max_tokens}
+    # Gemini 3.x burns most output budget on internal reasoning before
+    # emitting JSON, truncating extraction mid-field. Set thinkingLevel
+    # to "low" so the budget goes to the actual JSON. Gemini 2.5 (and
+    # earlier) reject thinkingLevel, so apply only to 3.x.
+    if cfg.get("model_id", "").startswith("gemini-3"):
+        gen_config["thinkingConfig"] = {"thinkingLevel": "low"}
     payload = {
         "contents": [{"parts": [{"text": user_content}]}],
         "systemInstruction": {"parts": [{"text": system_prompt}]},
-        "generationConfig": {"temperature": 0.0, "maxOutputTokens": max_tokens},
+        "generationConfig": gen_config,
     }
     resp = requests.post(url, params={"key": api_key}, json=payload, timeout=180)
     if resp.status_code != 200:
