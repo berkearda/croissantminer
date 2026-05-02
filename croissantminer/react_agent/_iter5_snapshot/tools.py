@@ -240,7 +240,7 @@ TOOL_SCHEMAS: list[dict] = [
 # limit for Claude Sonnet 4.5. search_paper still indexes the full paper_text,
 # so no information is lost — the agent just has to use search_paper for anything
 # past the truncation point.
-MAX_PAPER_CHARS_IN_CONTEXT = 200_000  # ITER 5 / FREEZE — 200K is the empirical sweet spot. Iter 6 (800K) → 0.622 mean (-0.06); iter 7 (800K + section filter) → 0.649; iter 8 (400K) → 0.641. The cap forces the agent's attention onto the dataset-relevant first ~50K tokens; the 10/102 papers that exceed 200K still extract well via search_paper for the truncated tail.
+MAX_PAPER_CHARS_IN_CONTEXT = 200_000  # ITER 5 SNAPSHOT — 200K char cap, no section parsing. This is the configuration that produced 0.681 dev mean / 17 wrong cells / $0.44 per paper.
 
 
 def _h_read_full_paper(state: ToolState) -> dict:

@@ -53,6 +53,7 @@ STRATEGY_DIRS = {
     "agentic_v2_sonnet_4_5":      EXTRACTION_BASE / "agentic_v2_sonnet_4_5",
     "agentic_lev_sonnet_4_5":     EXTRACTION_BASE / "agentic_lev_sonnet_4_5",
     "agentic_react_sonnet_4_5":   EXTRACTION_BASE / "agentic_react_sonnet_4_5",
+    "agentic_react_sonnet_4_6":   EXTRACTION_BASE / "agentic_react_sonnet_4_6",
     "agentic_specialist_sonnet_4_5": EXTRACTION_BASE / "agentic_specialist_sonnet_4_5",
     # 6 appendix (backbone-isolation block)
     "agentic_v2_gpt5_4_full":     EXTRACTION_BASE / "agentic_v2_gpt5_4_full",
