@@ -14,12 +14,36 @@ Run: python scripts/annotations/build_croissant.py
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import os
 from datetime import date
 from pathlib import Path
 
 import pandas as pd
+
+# ── Anonymisation toggle ─────────────────────────────────────────
+# Default to ANONYMOUS for double-blind NeurIPS submission. Set
+# CROISSANT_FINAL=1 in env or pass --final at the camera-ready stage to
+# restore identities. Per NeurIPS 2026 double-blind policy, the
+# Croissant metadata file submitted with the paper PDF must not contain
+# author names, affiliations, or de-anonymising URLs.
+ANON = os.environ.get("CROISSANT_FINAL", "0") != "1"
+
+# Anonymous values used when ANON=True
+ANON_PROJECT_URL = "https://anonymous.4open.science/r/croissantminer-NEURIPS"
+ANON_REPO_URL = "https://anonymous.4open.science/r/croissantminer-NEURIPS"
+ANON_CREATOR = [{"@type": "sc:Person", "name": "Anonymous Author(s)", "affiliation": "Anonymous"}]
+ANON_PUBLISHER = {"@type": "sc:Organization", "name": "Anonymous"}
+ANON_CITE = "Anonymous Authors. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track (under review)."
+
+# Final (camera-ready) values
+FINAL_PROJECT_URL = "https://github.com/berkearda/croissantminer"
+FINAL_REPO_URL = "https://github.com/berkearda/croissantminer"
+FINAL_CREATOR = [{"@type": "sc:Person", "name": "Berke Arda", "affiliation": "ETH Zurich"}]
+FINAL_PUBLISHER = {"@type": "sc:Organization", "name": "ETH Zurich"}
+FINAL_CITE = "Arda, B., Akhtar, M., et al. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track."
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ANNOT_DIR = REPO_ROOT / "data" / "annotations"
@@ -259,7 +283,7 @@ RAI_FIELDS = {
     ),
     "rai:dataReleaseMaintenancePlan": (
         "Released alongside the CroissantMiner NeurIPS 2026 E&D paper. "
-        "Maintained at https://github.com/berkearda/croissantminer. "
+        f"Maintained at {ANON_REPO_URL if ANON else FINAL_REPO_URL}. "
         "Versioning via Git tags. Bug-fix updates expected through "
         "2027; substantive schema changes deprecated rather than "
         "silently overwritten."
@@ -346,7 +370,7 @@ def build_dataset() -> dict:
     return {
         "@context": CONTEXT,
         "@type": "sc:Dataset",
-        "@id": "https://github.com/berkearda/croissantminer/tree/main/data/annotations",
+        "@id": (ANON_PROJECT_URL if ANON else FINAL_PROJECT_URL) + "/tree/main/data/annotations",
         "conformsTo": "http://mlcommons.org/croissant/1.1",
         "name": "CroissantMiner Annotations",
         "description": (
@@ -361,7 +385,7 @@ def build_dataset() -> dict:
             "CC-BY-4.0; LLM-generated extractions referenced by the "
             "ratings are subject to their respective providers' terms."
         ),
-        "url": "https://github.com/berkearda/croissantminer",
+        "url": ANON_PROJECT_URL if ANON else FINAL_PROJECT_URL,
         "version": "0.1.0",
         "datePublished": date.today().isoformat(),
         "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -372,22 +396,9 @@ def build_dataset() -> dict:
             "Croissant", "LLM evaluation", "human annotation",
             "inter-annotator agreement", "benchmark",
         ],
-        "creator": [
-            {
-                "@type": "sc:Person",
-                "name": "Berke Arda",
-                "affiliation": "ETH Zurich",
-            },
-        ],
-        "publisher": {
-            "@type": "sc:Organization",
-            "name": "ETH Zurich",
-        },
-        "citeAs": (
-            "Arda, B., Akhtar, M., et al. CroissantMiner: Automated "
-            "Extraction and Validation of Croissant Metadata for ML "
-            "Datasets. NeurIPS 2026 Evaluations and Datasets Track."
-        ),
+        "creator": ANON_CREATOR if ANON else FINAL_CREATOR,
+        "publisher": ANON_PUBLISHER if ANON else FINAL_PUBLISHER,
+        "citeAs": ANON_CITE if ANON else FINAL_CITE,
         "distribution": build_distribution(),
         "recordSet": [build_record_set(p) for p in PARQUET_FILES
                       if (ANNOT_DIR / p["filename"]).exists()],
@@ -396,16 +407,29 @@ def build_dataset() -> dict:
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--final", action="store_true",
+                    help="Build the camera-ready (de-anonymised) version")
+    args = ap.parse_args()
+    if args.final:
+        global ANON
+        ANON = False
+
     dataset = build_dataset()
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(dataset, f, indent=2, ensure_ascii=False)
 
-    print(f"Wrote: {OUT_PATH}")
+    mode = "ANONYMOUS (submission)" if ANON else "FINAL (camera-ready)"
+    print(f"Wrote: {OUT_PATH}  [{mode}]")
     print(f"  Distribution files: {len(dataset['distribution'])}")
     print(f"  Record sets:        {len(dataset['recordSet'])}")
     print(f"  RAI fields:         "
           f"{sum(1 for k in dataset if k.startswith('rai:'))}")
     print(f"  Total bytes:        {OUT_PATH.stat().st_size:,}")
+    if ANON:
+        print(f"  creator: {dataset['creator'][0]['name']!r}")
+        print(f"  publisher: {dataset['publisher']['name']!r}")
+        print(f"  url: {dataset['url']}")
 
 
 if __name__ == "__main__":
