@@ -5,14 +5,24 @@ HuggingFace Space Demo (Gradio)
 
 import json
 import re
+import tempfile
 import gradio as gr
-from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
-from croissantminer.pdf.processor import clean_text as _canonical_clean_text
+
 # ---------------------------------------------------------------------------
 # Prompts (canonical source: croissantminer/config.py)
+# Loaded directly to avoid heavy __init__.py imports (anthropic, scipy, etc.)
 # ---------------------------------------------------------------------------
 
-from croissantminer.config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location(
+    "croissantminer.config",
+    str(__import__("pathlib").Path(__file__).resolve().parent.parent / "croissantminer" / "config.py"),
+)
+_config_mod = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_config_mod)
+SYSTEM_PROMPT = _config_mod.SYSTEM_PROMPT
+USER_PROMPT_TEMPLATE = _config_mod.USER_PROMPT_TEMPLATE
+del _ilu, _spec, _config_mod
 
 
 # ---------------------------------------------------------------------------
@@ -78,7 +88,7 @@ URL: https://github.com/openai/grade-school-math
 Published: October 2021
 Language: English"""
 
-EXAMPLE_CARD = ""  # No dataset card for example
+EXAMPLE_CARD = ""
 
 # ---------------------------------------------------------------------------
 # Helper utilities
@@ -105,17 +115,58 @@ def _parse_json_response(text: str) -> dict:
         text = text.split("```json", 1)[1].split("```", 1)[0].strip()
     elif "```" in text:
         text = text.split("```", 1)[1].split("```", 1)[0].strip()
-    return json.loads(text)
+    raw = json.loads(text)
+    # Normalize keys: the prompt uses sc:/cr: prefixes but internal keys don't
+    normalized = {}
+    for k, v in raw.items():
+        if k.startswith("sc:"):
+            normalized[k[3:]] = v
+        elif k.startswith("cr:"):
+            normalized[k[3:]] = v
+        else:
+            normalized[k] = v
+    return normalized
 
 
 def _extract_text_from_pdf(file_path: str) -> str:
-    """Extract text from a PDF file using PyMuPDF."""
-    doc = fitz.open(file_path)
-    pages = []
-    for page in doc:
-        pages.append(page.get_text())
+    """Extract text from a PDF file using PyMuPDF (imported lazily)."""
+    import pymupdf
+    doc = pymupdf.open(file_path)
+    pages = [page.get_text() for page in doc]
     doc.close()
     return "\n".join(pages)
+
+
+def _compute_coverage(metadata: dict) -> str:
+    """Compute extraction coverage and return a Markdown summary."""
+    general_filled = sum(1 for k, _ in GENERAL_FIELDS if _is_valid(metadata.get(k)))
+    rai_filled = sum(1 for k, _ in RAI_FIELDS if _is_valid(metadata.get(k)))
+    total_filled = general_filled + rai_filled
+    total = len(GENERAL_FIELDS) + len(RAI_FIELDS)
+    pct = int(100 * total_filled / total)
+
+    return (
+        f"### Extraction Coverage: {total_filled}/{total} fields ({pct}%)\n\n"
+        f"**General:** {general_filled}/{len(GENERAL_FIELDS)} &nbsp;|&nbsp; "
+        f"**RAI:** {rai_filled}/{len(RAI_FIELDS)}"
+    )
+
+
+def _build_field_table(metadata: dict, fields: list) -> list:
+    """Build a table of [Field, Description, Value] rows for gr.Dataframe."""
+    rows = []
+    for key, desc in fields:
+        val = metadata.get(key)
+        if val is None or not _is_valid(val):
+            display_val = "—"
+        elif isinstance(val, str):
+            display_val = val
+        elif isinstance(val, dict):
+            display_val = val.get("name", json.dumps(val, ensure_ascii=False))
+        else:
+            display_val = str(val)
+        rows.append([key, desc, display_val])
+    return rows
 
 
 def _build_croissant(metadata: dict) -> dict:
@@ -135,19 +186,16 @@ def _build_croissant(metadata: dict) -> dict:
         "license": metadata.get("license") if _is_valid(metadata.get("license")) else "unknown",
     }
 
-    # Optional top-level fields
     for key in ("datePublished", "inLanguage", "url", "publisher", "citeAs"):
         if _is_valid(metadata.get(key)):
             croissant[key] = metadata[key]
 
-    # isLiveDataset
     is_live = metadata.get("isLiveDataset", "")
     if isinstance(is_live, bool):
         croissant["isLiveDataset"] = is_live
     elif isinstance(is_live, str) and is_live.lower() in ("yes", "true"):
         croissant["isLiveDataset"] = True
 
-    # Creator
     creator = metadata.get("creator")
     if creator:
         if isinstance(creator, dict) and _is_valid(creator.get("name", "")):
@@ -158,7 +206,6 @@ def _build_croissant(metadata: dict) -> dict:
         elif isinstance(creator, str) and _is_valid(creator):
             croissant["creator"] = {"@type": "Organization", "name": creator}
 
-    # Data modality inference
     desc = (metadata.get("description") or "").lower()
     if any(k in desc for k in ("text", "nlp", "language", "corpus", "math")):
         modality = ["cro:TextData"]
@@ -168,7 +215,6 @@ def _build_croissant(metadata: dict) -> dict:
         modality = ["cro:TabularData"]
     croissant["cro:dataModality"] = modality
 
-    # RAI metadata block — include ALL 20 RAI fields
     rai_metadata = {}
     for key, _ in RAI_FIELDS:
         if _is_valid(metadata.get(key)):
@@ -181,29 +227,18 @@ def _build_croissant(metadata: dict) -> dict:
     return croissant
 
 
-def _format_grouped(metadata: dict) -> dict:
-    """Group extracted metadata for display."""
-    general = {}
-    for key, desc in GENERAL_FIELDS:
-        general[key] = metadata.get(key)
-    rai = {}
-    for key, desc in RAI_FIELDS:
-        rai[key] = metadata.get(key)
-    return {"General Fields (10)": general, "RAI Fields (20)": rai}
-
-
 # ---------------------------------------------------------------------------
 # Core extraction function
 # ---------------------------------------------------------------------------
 
 
-def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str, api_key: str):
+def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str, api_key: str, progress=gr.Progress()):
     """Run extraction pipeline and return results for all output tabs."""
 
     # Resolve paper text from PDF upload or pasted text
     if pdf_file is not None:
+        progress(0.1, desc="Reading PDF...")
         try:
-            # gr.File returns a filepath string in Gradio 5+
             file_path = pdf_file if isinstance(pdf_file, str) else pdf_file.name
             paper_text = _extract_text_from_pdf(file_path)
         except Exception as e:
@@ -214,6 +249,8 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     if not api_key or not api_key.strip():
         raise gr.Error("Please provide your API key.")
 
+    progress(0.15, desc="Preparing prompt...")
+
     # Combine paper + optional card text
     combined = paper_text.strip()
     if card_text and card_text.strip():
@@ -222,11 +259,15 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     user_prompt = USER_PROMPT_TEMPLATE % combined
 
     # Call the selected model
+    progress(0.2, desc=f"Calling {model_name}...")
     try:
         if model_name == "Claude Sonnet 4.5":
             import anthropic
 
-            client = anthropic.Anthropic(api_key=api_key.strip())
+            client = anthropic.Anthropic(
+                api_key=api_key.strip(),
+                base_url="https://api.anthropic.com",
+            )
             response = client.messages.create(
                 model="claude-sonnet-4-5-20250929",
                 max_tokens=4096,
@@ -265,6 +306,7 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
         raise gr.Error(f"API error: {msg[:300]}")
 
     # Parse response
+    progress(0.8, desc="Parsing response...")
     try:
         metadata = _parse_json_response(raw)
     except (json.JSONDecodeError, IndexError) as e:
@@ -275,13 +317,13 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
         metadata.setdefault(key, None)
 
     # Build outputs
-    grouped = _format_grouped(metadata)
+    progress(0.9, desc="Building outputs...")
+    coverage_md = _compute_coverage(metadata)
+    general_table = _build_field_table(metadata, GENERAL_FIELDS)
+    rai_table = _build_field_table(metadata, RAI_FIELDS)
     croissant = _build_croissant(metadata)
 
-    return (
-        json.dumps(grouped, indent=2, ensure_ascii=False),
-        json.dumps(croissant, indent=2, ensure_ascii=False),
-    )
+    return coverage_md, general_table, rai_table, croissant
 
 
 # ---------------------------------------------------------------------------
@@ -315,10 +357,10 @@ CroissantMiner uses Large Language Models to extract structured metadata from ac
 *Research demo. Review extracted metadata before use.*
 """
 
-with gr.Blocks(
-    title="CroissantMiner",
-    theme=gr.themes.Soft(),
-) as demo:
+_INITIAL_GENERAL_TABLE = [[k, desc, "—"] for k, desc in GENERAL_FIELDS]
+_INITIAL_RAI_TABLE = [[k, desc, "—"] for k, desc in RAI_FIELDS]
+
+with gr.Blocks(title="CroissantMiner") as demo:
     gr.Markdown("# CroissantMiner\n*Automated RAI Metadata Extraction for ML Dataset Papers*")
     gr.Markdown(
         "> **Research demo.** Review extracted metadata before use. "
@@ -326,6 +368,7 @@ with gr.Blocks(
     )
 
     with gr.Row():
+        # ===== LEFT COLUMN: Inputs =====
         with gr.Column(scale=1):
             with gr.Tabs():
                 with gr.Tab("Upload PDF"):
@@ -356,24 +399,39 @@ with gr.Blocks(
             )
             extract_btn = gr.Button("Extract Metadata", variant="primary")
 
+        # ===== RIGHT COLUMN: Outputs =====
         with gr.Column(scale=1):
             with gr.Tabs():
-                with gr.Tab("Extracted Metadata"):
-                    metadata_output = gr.Code(
-                        label="30 fields (General + RAI)",
-                        language="json",
-                        lines=25,
+                with gr.Tab("Extracted Fields"):
+                    coverage_output = gr.Markdown(
+                        value="### Extraction Coverage: 0/30 fields (0%)\n\n**General:** 0/10 &nbsp;|&nbsp; **RAI:** 0/20"
                     )
+                    with gr.Accordion("General Fields", open=True):
+                        general_df = gr.Dataframe(
+                            value=_INITIAL_GENERAL_TABLE,
+                            headers=["Field", "Description", "Extracted Value"],
+                            datatype=["str", "str", "str"],
+                            column_count=(3, "fixed"),
+                            wrap=True,
+                            interactive=False,
+                        )
+                    with gr.Accordion("RAI Fields", open=False):
+                        rai_df = gr.Dataframe(
+                            value=_INITIAL_RAI_TABLE,
+                            headers=["Field", "Description", "Extracted Value"],
+                            datatype=["str", "str", "str"],
+                            column_count=(3, "fixed"),
+                            wrap=True,
+                            interactive=False,
+                        )
+
                 with gr.Tab("Croissant JSON-LD"):
-                    croissant_output = gr.Code(
-                        label="Croissant JSON-LD",
-                        language="json",
-                        lines=25,
-                    )
+                    croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
                     download_btn = gr.DownloadButton(
                         label="Download Croissant JSON-LD",
                         visible=False,
                     )
+
                 with gr.Tab("About"):
                     gr.Markdown(ABOUT_MD)
 
@@ -381,20 +439,19 @@ with gr.Blocks(
     extract_btn.click(
         fn=extract_metadata,
         inputs=[pdf_input, paper_input, card_input, model_selector, api_key_input],
-        outputs=[metadata_output, croissant_output],
+        outputs=[coverage_output, general_df, rai_df, croissant_output],
     )
 
     # Enable download when croissant output is populated
-    def _make_download(croissant_json: str):
-        if not croissant_json or not croissant_json.strip():
-            return gr.DownloadButton(visible=False)
-        import tempfile
+    def _make_download(croissant_dict):
+        if not croissant_dict:
+            return gr.update(visible=False)
         tmp = tempfile.NamedTemporaryFile(
             mode="w", suffix="_croissant.json", delete=False, prefix="croissantminer_"
         )
-        tmp.write(croissant_json)
+        tmp.write(json.dumps(croissant_dict, indent=2, ensure_ascii=False))
         tmp.close()
-        return gr.DownloadButton(label="Download Croissant JSON-LD", value=tmp.name, visible=True)
+        return gr.update(label="Download Croissant JSON-LD", value=tmp.name, visible=True)
 
     croissant_output.change(
         fn=_make_download,
@@ -410,8 +467,4 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    import inspect
-    launch_kwargs = {}
-    if "ssr_mode" in inspect.signature(demo.launch).parameters:
-        launch_kwargs["ssr_mode"] = False
-    demo.launch(**launch_kwargs)
+    demo.launch(theme=gr.themes.Soft(), ssr_mode=False)
