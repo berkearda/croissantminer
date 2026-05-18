@@ -5,8 +5,16 @@ HuggingFace Space Demo (Gradio)
 
 import json
 import re
+import sys
 import tempfile
+from pathlib import Path
+
 import gradio as gr
+
+# Make the croissantminer package importable (for the ReAct agent).
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 # ---------------------------------------------------------------------------
 # Prompts (canonical source: croissantminer/config.py)
@@ -16,13 +24,30 @@ import gradio as gr
 import importlib.util as _ilu
 _spec = _ilu.spec_from_file_location(
     "croissantminer.config",
-    str(__import__("pathlib").Path(__file__).resolve().parent.parent / "croissantminer" / "config.py"),
+    str(_REPO_ROOT / "croissantminer" / "config.py"),
 )
 _config_mod = _ilu.module_from_spec(_spec)
 _spec.loader.exec_module(_config_mod)
 SYSTEM_PROMPT = _config_mod.SYSTEM_PROMPT
 USER_PROMPT_TEMPLATE = _config_mod.USER_PROMPT_TEMPLATE
-del _ilu, _spec, _config_mod
+del _spec, _config_mod
+
+
+# Register the react_agent subpackage WITHOUT executing the parent
+# croissantminer/__init__.py (which imports scipy/scikit-learn that aren't
+# in this Space's requirements.txt). Submodules can then use relative imports.
+def _load_react_agent():
+    _react_dir = _REPO_ROOT / "croissantminer" / "react_agent"
+    _pkg_spec = _ilu.spec_from_file_location(
+        "react_agent_pkg",
+        str(_react_dir / "__init__.py"),
+        submodule_search_locations=[str(_react_dir)],
+    )
+    _pkg = _ilu.module_from_spec(_pkg_spec)
+    sys.modules["react_agent_pkg"] = _pkg
+    _pkg_spec.loader.exec_module(_pkg)
+    from react_agent_pkg.agent import run_agent  # noqa: E402
+    return run_agent
 
 
 # ---------------------------------------------------------------------------
@@ -152,20 +177,49 @@ def _compute_coverage(metadata: dict) -> str:
     )
 
 
+def _format_value_md(val) -> str:
+    """Render an extracted value as markdown — empty values get a muted dash."""
+    if val is None or not _is_valid(val):
+        return '<span style="color:#9aa0a6">—</span>'
+    if isinstance(val, str):
+        return val
+    if isinstance(val, dict):
+        return val.get("name") or json.dumps(val, ensure_ascii=False)
+    return str(val)
+
+
+def _build_field_cards_md(metadata: dict, fields: list) -> str:
+    """Render fields as a vertical list of cards: name + description + value.
+
+    Replaces the cramped 3-column gr.Dataframe — values get full width and prose
+    fields wrap naturally.
+    """
+    blocks = []
+    for key, desc in fields:
+        val = metadata.get(key)
+        is_filled = _is_valid(val)
+        accent = "#5a4fcf" if is_filled else "#cccccc"
+        value_md = _format_value_md(val)
+        blocks.append(
+            f"<div style=\"border-left:3px solid {accent}; padding:8px 14px; "
+            f"margin:6px 0; background:#fafafa; border-radius:4px;\">"
+            f"<div style=\"display:flex; justify-content:space-between; align-items:baseline;\">"
+            f"<code style=\"font-weight:600; color:#1a1a1a;\">{key}</code>"
+            f"<span style=\"font-size:0.8em; color:#666;\">{desc}</span>"
+            f"</div>"
+            f"<div style=\"margin-top:6px; line-height:1.5; color:#333; "
+            f"white-space:pre-wrap;\">{value_md}</div>"
+            f"</div>"
+        )
+    return "".join(blocks)
+
+
 def _build_field_table(metadata: dict, fields: list) -> list:
-    """Build a table of [Field, Description, Value] rows for gr.Dataframe."""
+    """Legacy dataframe builder — kept for backwards compatibility but unused."""
     rows = []
     for key, desc in fields:
         val = metadata.get(key)
-        if val is None or not _is_valid(val):
-            display_val = "—"
-        elif isinstance(val, str):
-            display_val = val
-        elif isinstance(val, dict):
-            display_val = val.get("name", json.dumps(val, ensure_ascii=False))
-        else:
-            display_val = str(val)
-        rows.append([key, desc, display_val])
+        rows.append([key, desc, _format_value_md(val)])
     return rows
 
 
@@ -261,6 +315,33 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     # Call the selected model
     progress(0.2, desc=f"Calling {model_name}...")
     try:
+        if model_name.startswith("ReAct v3"):
+            # Agentic ReAct loop — variable turn count (~3-8), ~30-180s.
+            import anthropic
+
+            run_agent = _load_react_agent()
+            client = anthropic.Anthropic(api_key=api_key.strip())
+            progress(0.25, desc="Running ReAct agent (~3-8 turns, can take 1-3 min)...")
+            result = run_agent(
+                paper_text=combined,
+                client=client,
+                max_turns=20,
+                backbone_key="sonnet-4-6",
+                prompt_variant="v3",
+                trace=False,
+            )
+            # AgentResult.extracted is already a 30-key dict matching the schema —
+            # skip the JSON-parse step below.
+            metadata = dict(result.extracted)
+            progress(0.85, desc="Building outputs...")
+            for key in ALL_FIELD_KEYS:
+                metadata.setdefault(key, None)
+            coverage_md = _compute_coverage(metadata)
+            croissant = _build_croissant(metadata)
+            general_md = _build_field_cards_md(metadata, GENERAL_FIELDS)
+            rai_md = _build_field_cards_md(metadata, RAI_FIELDS)
+            return coverage_md, general_md, rai_md, croissant
+
         if model_name == "Claude Sonnet 4.5":
             import anthropic
 
@@ -319,11 +400,11 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     # Build outputs
     progress(0.9, desc="Building outputs...")
     coverage_md = _compute_coverage(metadata)
-    general_table = _build_field_table(metadata, GENERAL_FIELDS)
-    rai_table = _build_field_table(metadata, RAI_FIELDS)
     croissant = _build_croissant(metadata)
 
-    return coverage_md, general_table, rai_table, croissant
+    general_md = _build_field_cards_md(metadata, GENERAL_FIELDS)
+    rai_md = _build_field_cards_md(metadata, RAI_FIELDS)
+    return coverage_md, general_md, rai_md, croissant
 
 
 # ---------------------------------------------------------------------------
@@ -357,89 +438,105 @@ CroissantMiner uses Large Language Models to extract structured metadata from ac
 *Research demo. Review extracted metadata before use.*
 """
 
-_INITIAL_GENERAL_TABLE = [[k, desc, "—"] for k, desc in GENERAL_FIELDS]
-_INITIAL_RAI_TABLE = [[k, desc, "—"] for k, desc in RAI_FIELDS]
+_INITIAL_GENERAL_MD = _build_field_cards_md({}, GENERAL_FIELDS)
+_INITIAL_RAI_MD = _build_field_cards_md({}, RAI_FIELDS)
+
+CUSTOM_CSS = """
+.gradio-container { max-width: 1100px !important; margin: 0 auto !important; }
+#extract-btn button { font-size: 1.05em; padding: 12px; }
+.field-card-list { max-height: 65vh; overflow-y: auto; padding-right: 8px; }
+"""
 
 with gr.Blocks(title="CroissantMiner") as demo:
-    gr.Markdown("# CroissantMiner\n*Automated RAI Metadata Extraction for ML Dataset Papers*")
+    gr.Markdown("# 🥐 CroissantMiner")
     gr.Markdown(
-        "> **Research demo.** Review extracted metadata before use. "
+        "*Automated RAI metadata extraction for ML dataset papers.* "
+        "Research demo — review extracted metadata before use. "
         "Your API key is sent directly to the model provider and is not stored."
     )
 
-    with gr.Row():
-        # ===== LEFT COLUMN: Inputs =====
-        with gr.Column(scale=1):
-            with gr.Tabs():
-                with gr.Tab("Upload PDF"):
-                    pdf_input = gr.File(
-                        file_types=[".pdf"],
-                        label="Upload dataset paper PDF",
-                    )
-                with gr.Tab("Paste Text"):
-                    paper_input = gr.Textbox(
-                        label="Paste paper text",
-                        placeholder="Paste the full text of a dataset paper here...",
-                        lines=14,
-                    )
-            card_input = gr.Textbox(
-                label="Paste dataset card text (optional)",
-                placeholder="Optional: paste HuggingFace dataset card or README...",
-                lines=5,
-            )
-            model_selector = gr.Dropdown(
-                choices=["Claude Sonnet 4.5", "GPT-4o-mini"],
-                value="Claude Sonnet 4.5",
-                label="Model",
-            )
-            api_key_input = gr.Textbox(
-                label="API Key",
-                placeholder="sk-... or your Anthropic key",
-                type="password",
-            )
-            extract_btn = gr.Button("Extract Metadata", variant="primary")
-
-        # ===== RIGHT COLUMN: Outputs =====
-        with gr.Column(scale=1):
-            with gr.Tabs():
-                with gr.Tab("Extracted Fields"):
-                    coverage_output = gr.Markdown(
-                        value="### Extraction Coverage: 0/30 fields (0%)\n\n**General:** 0/10 &nbsp;|&nbsp; **RAI:** 0/20"
-                    )
-                    with gr.Accordion("General Fields", open=True):
-                        general_df = gr.Dataframe(
-                            value=_INITIAL_GENERAL_TABLE,
-                            headers=["Field", "Description", "Extracted Value"],
-                            datatype=["str", "str", "str"],
-                            column_count=(3, "fixed"),
-                            wrap=True,
-                            interactive=False,
+    # ===== INPUTS (compact, full width) =====
+    with gr.Group():
+        with gr.Row():
+            with gr.Column(scale=2):
+                with gr.Tabs():
+                    with gr.Tab("Upload PDF"):
+                        pdf_input = gr.File(
+                            file_types=[".pdf"],
+                            label="Upload dataset paper PDF",
+                            height=120,
                         )
-                    with gr.Accordion("RAI Fields", open=False):
-                        rai_df = gr.Dataframe(
-                            value=_INITIAL_RAI_TABLE,
-                            headers=["Field", "Description", "Extracted Value"],
-                            datatype=["str", "str", "str"],
-                            column_count=(3, "fixed"),
-                            wrap=True,
-                            interactive=False,
+                    with gr.Tab("Paste Text"):
+                        paper_input = gr.Textbox(
+                            label="Paste paper text",
+                            placeholder="Paste the full text of a dataset paper here...",
+                            lines=6,
                         )
+                card_input = gr.Textbox(
+                    label="Paste dataset card text (optional)",
+                    placeholder="Optional: paste HuggingFace dataset card or README...",
+                    lines=3,
+                )
+            with gr.Column(scale=1):
+                model_selector = gr.Dropdown(
+                    choices=[
+                        "Claude Sonnet 4.5",
+                        "GPT-4o-mini",
+                        "ReAct v3 (Sonnet 4.6) — agentic, slower",
+                    ],
+                    value="Claude Sonnet 4.5",
+                    label="Model",
+                )
+                api_key_input = gr.Textbox(
+                    label="API Key",
+                    placeholder="sk-... or your Anthropic key",
+                    type="password",
+                )
+                with gr.Row(elem_id="extract-btn"):
+                    extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
 
-                with gr.Tab("Croissant JSON-LD"):
-                    croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
-                    download_btn = gr.DownloadButton(
-                        label="Download Croissant JSON-LD",
-                        visible=False,
-                    )
+    # ===== OUTPUTS (full width below) =====
+    coverage_output = gr.Markdown(
+        value="### Extraction Coverage: 0 / 30 fields (0%)\n\n**General:** 0/10  |  **RAI:** 0/20"
+    )
 
-                with gr.Tab("About"):
-                    gr.Markdown(ABOUT_MD)
+    with gr.Tabs():
+        with gr.Tab("Extracted Fields"):
+            with gr.Accordion("General Fields (10)", open=True):
+                general_md_box = gr.HTML(
+                    value=f'<div class="field-card-list">{_INITIAL_GENERAL_MD}</div>',
+                )
+            with gr.Accordion("Responsible AI Fields (20)", open=True):
+                rai_md_box = gr.HTML(
+                    value=f'<div class="field-card-list">{_INITIAL_RAI_MD}</div>',
+                )
 
-    # Wire up extraction
+        with gr.Tab("Croissant JSON-LD"):
+            croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
+            download_btn = gr.DownloadButton(
+                label="Download Croissant JSON-LD",
+                visible=False,
+            )
+
+        with gr.Tab("About"):
+            gr.Markdown(ABOUT_MD)
+
+    # Wrap the per-section markdown in the scroll container before sending to UI
+    def _wrap_outputs(coverage_md, general_md, rai_md, croissant):
+        return (
+            coverage_md,
+            f'<div class="field-card-list">{general_md}</div>',
+            f'<div class="field-card-list">{rai_md}</div>',
+            croissant,
+        )
+
+    def _extract_and_wrap(*args):
+        return _wrap_outputs(*extract_metadata(*args))
+
     extract_btn.click(
-        fn=extract_metadata,
+        fn=_extract_and_wrap,
         inputs=[pdf_input, paper_input, card_input, model_selector, api_key_input],
-        outputs=[coverage_output, general_df, rai_df, croissant_output],
+        outputs=[coverage_output, general_md_box, rai_md_box, croissant_output],
     )
 
     # Enable download when croissant output is populated
@@ -467,4 +564,4 @@ with gr.Blocks(title="CroissantMiner") as demo:
     )
 
 if __name__ == "__main__":
-    demo.launch(theme=gr.themes.Soft(), ssr_mode=False)
+    demo.launch(theme=gr.themes.Soft(), css=CUSTOM_CSS, ssr_mode=False)
