@@ -186,9 +186,353 @@ def _estimate_cost(in_tok: int, out_tok: int, cache_write: int = 0, cache_read: 
     )
 
 
+def _estimate_cost_for(backbone_key: str, in_tok: int, out_tok: int) -> float:
+    """Per-backbone cost estimate using BACKBONE_PRICES (cache columns ignored
+    for non-Anthropic providers — no cache-token billing applies)."""
+    p = BACKBONE_PRICES.get(backbone_key, BACKBONE_PRICES["sonnet-4-5"])
+    return in_tok / 1_000_000 * p["in"] + out_tok / 1_000_000 * p["out"]
+
+
+def _build_user_message(paper_text: str, dataset_id: str | None) -> str:
+    """Shared user message body, identical wording across all providers."""
+    paper_in_context = paper_text[:MAX_PAPER_CHARS_IN_CONTEXT]
+    truncation_note = (
+        f"\n[Note: paper text truncated to first {MAX_PAPER_CHARS_IN_CONTEXT:,} "
+        f"chars; full text available via search_paper.]"
+        if len(paper_text) > MAX_PAPER_CHARS_IN_CONTEXT else ""
+    )
+    target_line = f"\n\nDataset: {dataset_id}" if dataset_id else ""
+    return (
+        "Extract the 30 Croissant metadata fields from the paper below. "
+        "Work through the fields and call `extract_field` / `mark_null` for each. "
+        "Use `search_paper` for targeted lookups (it indexes the full paper, "
+        "including any content beyond the excerpt shown here)."
+        f"{target_line}\n\n"
+        "<paper>\n"
+        f"{paper_in_context}"
+        f"\n</paper>{truncation_note}"
+    )
+
+
+def _effective_system_prompt(prompt_variant: str) -> str:
+    return (
+        ANTI_NULL_PREFIX_FOR_REACT + SYSTEM_PROMPT
+        if prompt_variant in ("v2", "v4") else SYSTEM_PROMPT
+    )
+
+
+def _tools_to_openai_format(anthropic_tools: list[dict]) -> list[dict]:
+    """Anthropic tool schema -> OpenAI function-calling format."""
+    return [
+        {
+            "type": "function",
+            "function": {
+                "name": t["name"],
+                "description": t["description"],
+                "parameters": t["input_schema"],
+            },
+        }
+        for t in anthropic_tools
+    ]
+
+
+def _tools_to_google_format(anthropic_tools: list[dict]) -> list[dict]:
+    """Anthropic tool schema -> Gemini REST functionDeclarations format."""
+    return [
+        {
+            "name": t["name"],
+            "description": t["description"],
+            "parameters": t["input_schema"],
+        }
+        for t in anthropic_tools
+    ]
+
+
+def _run_loop_openai(
+    state: ToolState,
+    paper_text: str,
+    *,
+    dataset_id: str | None,
+    model_id: str,
+    backbone_key: str,
+    prompt_variant: str,
+    max_turns: int,
+    max_tokens: int,
+    temperature: float,
+    retries: int,
+    trace: bool,
+) -> tuple[dict, list[dict], dict]:
+    """ReAct loop on OpenAI Chat Completions with tool_calls.
+
+    Returns (final_extraction, trace_log, meta).
+    """
+    from openai import OpenAI
+    client = OpenAI()
+    tools_oa = _tools_to_openai_format(TOOL_SCHEMAS)
+    messages: list[dict] = [
+        {"role": "system", "content": _effective_system_prompt(prompt_variant)},
+        {"role": "user", "content": _build_user_message(paper_text, dataset_id)},
+    ]
+
+    total_in_tok = 0
+    total_out_tok = 0
+    trace_log: list[dict] = []
+    turns = 0
+    stop_reason: str | None = None
+    response_model: str | None = None
+
+    while turns < max_turns:
+        turns += 1
+        last_err = None
+        for attempt in range(retries):
+            try:
+                resp = client.chat.completions.create(
+                    model=model_id,
+                    messages=messages,
+                    tools=tools_oa,
+                    max_completion_tokens=max_tokens,
+                )
+                break
+            except Exception as e:
+                last_err = e
+                time.sleep(2.0 ** attempt)
+        else:
+            raise AgentError(f"OpenAI API failed after {retries} retries: {last_err}") from last_err
+
+        msg = resp.choices[0].message
+        finish_reason = resp.choices[0].finish_reason
+        response_model = resp.model
+        total_in_tok += resp.usage.prompt_tokens
+        total_out_tok += resp.usage.completion_tokens
+
+        assistant_msg: dict[str, Any] = {"role": "assistant", "content": msg.content or ""}
+        if msg.tool_calls:
+            assistant_msg["tool_calls"] = [
+                {
+                    "id": tc.id,
+                    "type": "function",
+                    "function": {"name": tc.function.name, "arguments": tc.function.arguments or "{}"},
+                }
+                for tc in msg.tool_calls
+            ]
+        messages.append(assistant_msg)
+
+        turn_record: dict[str, Any] = {
+            "turn": turns,
+            "stop_reason": finish_reason,
+            "input_tokens": resp.usage.prompt_tokens,
+            "output_tokens": resp.usage.completion_tokens,
+            "blocks": [],
+        }
+
+        if not msg.tool_calls:
+            stop_reason = finish_reason
+            if trace and msg.content:
+                turn_record["blocks"].append({"type": "text", "text": msg.content})
+                trace_log.append(turn_record)
+            break
+
+        if trace and msg.content:
+            turn_record["blocks"].append({"type": "text", "text": msg.content})
+
+        for tc in msg.tool_calls:
+            try:
+                tool_input = json.loads(tc.function.arguments) if tc.function.arguments else {}
+            except json.JSONDecodeError:
+                tool_input = {}
+            output_str = dispatch(state, tc.function.name, tool_input)
+            messages.append({
+                "role": "tool",
+                "tool_call_id": tc.id,
+                "content": output_str,
+            })
+            if trace:
+                turn_record["blocks"].append({
+                    "type": "tool_use",
+                    "name": tc.function.name,
+                    "input": tool_input,
+                    "output_preview": output_str[:400],
+                })
+
+        if trace:
+            trace_log.append(turn_record)
+
+    meta = {
+        "model": response_model or model_id,
+        "num_turns": turns,
+        "num_tool_calls": sum(state.tool_call_counts.values()),
+        "tool_call_counts": dict(state.tool_call_counts),
+        "total_input_tokens": total_in_tok,
+        "total_output_tokens": total_out_tok,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cost_usd": round(_estimate_cost_for(backbone_key, total_in_tok, total_out_tok), 4),
+        "stop_reason": stop_reason or "tool_loop_max_turns",
+        "hit_turn_cap": turns >= max_turns and stop_reason is None,
+        "fields_decided": len(state.fields_decided()),
+    }
+    final: dict[str, Any] = {f: None for f in sorted(CANONICAL_FIELDS)}
+    for f, v in state.extracted.items():
+        final[f] = v
+    return final, trace_log, meta
+
+
+def _run_loop_google(
+    state: ToolState,
+    paper_text: str,
+    *,
+    dataset_id: str | None,
+    model_id: str,
+    backbone_key: str,
+    prompt_variant: str,
+    max_turns: int,
+    max_tokens: int,
+    temperature: float,
+    retries: int,
+    trace: bool,
+) -> tuple[dict, list[dict], dict]:
+    """ReAct loop on Gemini REST API with functionCall/functionResponse parts."""
+    import os
+    import requests
+
+    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    if not api_key:
+        raise AgentError("GEMINI_API_KEY or GOOGLE_API_KEY env var required for Gemini backbone")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent"
+    fn_decls = _tools_to_google_format(TOOL_SCHEMAS)
+    system_prompt = _effective_system_prompt(prompt_variant)
+    user_msg = _build_user_message(paper_text, dataset_id)
+
+    # Conversation state in Gemini format: list of "content" objects, each
+    # with role ("user" | "model") and parts (text | functionCall | functionResponse).
+    contents: list[dict] = [
+        {"role": "user", "parts": [{"text": user_msg}]},
+    ]
+
+    gen_config: dict[str, Any] = {"temperature": temperature, "maxOutputTokens": max_tokens}
+    if model_id.startswith("gemini-3"):
+        gen_config["thinkingConfig"] = {"thinkingLevel": "low"}
+
+    total_in_tok = 0
+    total_out_tok = 0
+    trace_log: list[dict] = []
+    turns = 0
+    stop_reason: str | None = None
+    response_model = model_id
+
+    while turns < max_turns:
+        turns += 1
+        payload = {
+            "systemInstruction": {"parts": [{"text": system_prompt}]},
+            "contents": contents,
+            "tools": [{"functionDeclarations": fn_decls}],
+            "generationConfig": gen_config,
+        }
+        last_err = None
+        for attempt in range(retries):
+            try:
+                resp = requests.post(url, params={"key": api_key}, json=payload, timeout=180)
+                if resp.status_code != 200:
+                    raise RuntimeError(f"Gemini {resp.status_code}: {resp.text[:300]}")
+                data = resp.json()
+                break
+            except Exception as e:
+                last_err = e
+                time.sleep(2.0 ** attempt)
+        else:
+            raise AgentError(f"Google API failed after {retries} retries: {last_err}") from last_err
+
+        usage = data.get("usageMetadata", {})
+        total_in_tok += usage.get("promptTokenCount", 0)
+        total_out_tok += usage.get("candidatesTokenCount", 0)
+
+        candidates = data.get("candidates", [])
+        if not candidates:
+            raise AgentError(f"Gemini returned no candidates: {json.dumps(data)[:300]}")
+        cand = candidates[0]
+        parts = cand.get("content", {}).get("parts", []) or []
+        finish_reason = cand.get("finishReason", "STOP")
+
+        # Append assistant turn verbatim to keep conversation history valid
+        contents.append({"role": "model", "parts": parts})
+
+        function_calls: list[dict] = []
+        text_parts: list[str] = []
+        for p in parts:
+            if "functionCall" in p:
+                function_calls.append(p["functionCall"])
+            elif "text" in p:
+                text_parts.append(p["text"])
+
+        turn_record: dict[str, Any] = {
+            "turn": turns,
+            "stop_reason": finish_reason,
+            "input_tokens": usage.get("promptTokenCount", 0),
+            "output_tokens": usage.get("candidatesTokenCount", 0),
+            "blocks": [],
+        }
+
+        if not function_calls:
+            stop_reason = finish_reason
+            if trace:
+                for txt in text_parts:
+                    turn_record["blocks"].append({"type": "text", "text": txt})
+                trace_log.append(turn_record)
+            break
+
+        if trace:
+            for txt in text_parts:
+                turn_record["blocks"].append({"type": "text", "text": txt})
+
+        # Build user turn with one functionResponse part per call
+        fr_parts: list[dict] = []
+        for fc in function_calls:
+            fc_name = fc.get("name", "")
+            fc_args = fc.get("args", {}) or {}
+            output_str = dispatch(state, fc_name, fc_args)
+            fr_parts.append({
+                "functionResponse": {
+                    "name": fc_name,
+                    "response": {"result": output_str},
+                }
+            })
+            if trace:
+                turn_record["blocks"].append({
+                    "type": "tool_use",
+                    "name": fc_name,
+                    "input": fc_args,
+                    "output_preview": output_str[:400],
+                })
+
+        contents.append({"role": "user", "parts": fr_parts})
+
+        if trace:
+            trace_log.append(turn_record)
+
+    meta = {
+        "model": response_model,
+        "num_turns": turns,
+        "num_tool_calls": sum(state.tool_call_counts.values()),
+        "tool_call_counts": dict(state.tool_call_counts),
+        "total_input_tokens": total_in_tok,
+        "total_output_tokens": total_out_tok,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cost_usd": round(_estimate_cost_for(backbone_key, total_in_tok, total_out_tok), 4),
+        "stop_reason": stop_reason or "tool_loop_max_turns",
+        "hit_turn_cap": turns >= max_turns and stop_reason is None,
+        "fields_decided": len(state.fields_decided()),
+    }
+    final: dict[str, Any] = {f: None for f in sorted(CANONICAL_FIELDS)}
+    for f, v in state.extracted.items():
+        final[f] = v
+    return final, trace_log, meta
+
+
 def run_agent(
     paper_text: str,
-    client: anthropic.Anthropic,
+    client: anthropic.Anthropic | None,
     *,
     dataset_id: str | None = None,
     max_turns: int = 20,
@@ -200,7 +544,37 @@ def run_agent(
     backbone_key: str = "sonnet-4-5",
     prompt_variant: str = "v1",
 ) -> AgentResult:
-    """Run the ReAct loop on one paper's text and return extracted metadata."""
+    """Run the ReAct loop on one paper's text and return extracted metadata.
+
+    Provider dispatch: backbone_key starting with 'gpt-' uses OpenAI,
+    'gemini-' uses Google Gemini REST, everything else stays on Anthropic.
+    """
+    state = ToolState(paper_text=paper_text)
+
+    if backbone_key.startswith("gpt-"):
+        final, trace_log, meta = _run_loop_openai(
+            state, paper_text,
+            dataset_id=dataset_id, model_id=model_id, backbone_key=backbone_key,
+            prompt_variant=prompt_variant, max_turns=max_turns,
+            max_tokens=max_tokens, temperature=temperature, retries=retries, trace=trace,
+        )
+        return AgentResult(
+            extracted=final, null_reasons=dict(state.null_reasons), meta=meta,
+            trace=trace_log if trace else [],
+        )
+    if backbone_key.startswith("gemini-"):
+        final, trace_log, meta = _run_loop_google(
+            state, paper_text,
+            dataset_id=dataset_id, model_id=model_id, backbone_key=backbone_key,
+            prompt_variant=prompt_variant, max_turns=max_turns,
+            max_tokens=max_tokens, temperature=temperature, retries=retries, trace=trace,
+        )
+        return AgentResult(
+            extracted=final, null_reasons=dict(state.null_reasons), meta=meta,
+            trace=trace_log if trace else [],
+        )
+
+    # Anthropic path (unchanged from original implementation)
     state = ToolState(paper_text=paper_text)
     # Paper is injected into the first user message so it lives at a stable
     # cache-prefix position from turn 1. Mark read_full_paper as already called
