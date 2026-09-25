@@ -59,7 +59,7 @@ Each table in the paper can be reproduced with a single command:
 | Table 5: Field accuracy | `python scripts/run_ablations.py --compare prompt` | Per-field breakdown |
 | Table 6: Statistical tests | `python -c "from croissantminer.metrics import run_all_significance_tests; run_all_significance_tests('evaluation_outputs')"` | Bootstrap CIs, McNemar's test |
 
-Full step-by-step reproduction guide: [docs/REPRODUCTION.md](docs/REPRODUCTION.md)
+Reproduction guide: being rewritten for the camera-ready (the old 8-paper pilot guide is archived at [docs/archive/2026-03-04_annotation/REPRODUCTION.md](docs/archive/2026-03-04_annotation/REPRODUCTION.md)).
 
 ## Project Structure
 
