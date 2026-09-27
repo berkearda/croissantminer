@@ -500,7 +500,8 @@ def load_audit_tasks() -> pd.DataFrame:
 # their prompt is locked across the family, no iteration possible.
 AGENTIC_SYSTEMS = frozenset({
     "agentic_v2_sonnet_4_5", "agentic_lev_sonnet_4_5",
-    "agentic_react_sonnet_4_5", "agentic_specialist_sonnet_4_5",
+    "agentic_react_sonnet_4_5", "agentic_react_sonnet_4_6",
+    "agentic_specialist_sonnet_4_5",
     "agentic_v2_gpt5_4_full", "agentic_v2_gemini_3_1_pro",
     "agentic_v2_llama4_scout",
     "agentic_lev_gpt5_4_full", "agentic_lev_gemini_3_1_pro",
