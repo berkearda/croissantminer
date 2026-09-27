@@ -44,6 +44,12 @@ def main():
     p.add_argument("--save-trace", action="store_true", help="Save a reasoning trace for every paper (not just a sample).")
     p.add_argument("--trace-sample", type=int, default=5, help="When --save-trace is not set, still save N sampled traces (first N papers).")
     p.add_argument("--limit", type=int, help="Run only the first N papers (for testing).")
+    p.add_argument("--backbone", default="sonnet-4-6",
+                   choices=["sonnet-4-5", "sonnet-4-6", "gpt-5.4", "gpt-5.4-mini", "gemini-3.1-pro"],
+                   help="Agent backbone (default: sonnet-4-6, non-seed Anthropic).")
+    p.add_argument("--prompt-variant", default="v1",
+                   choices=["v1", "v2", "v3", "v4", "v5"],
+                   help="v1=baseline; v2=+anti-null prefix (Fix A); v3=+verify-correct (Fix C); v4=v2+v3 compound; v5=+multi-aspect.")
     args = p.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -77,6 +83,8 @@ def main():
                 max_turns=args.max_turns,
                 save_trace=save_trace,
                 overwrite=args.overwrite,
+                backbone_key=args.backbone,
+                prompt_variant=args.prompt_variant,
             )
         except Exception as e:
             print(f"EXCEPTION {type(e).__name__}: {e}")
