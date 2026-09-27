@@ -14,7 +14,6 @@ import anthropic
 import PyPDF2
 
 from .agent import AgentResult, run_agent
-from .audit import audit_extractions
 from .schemas import coerce_nulls
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,10 +23,21 @@ if str(ROOT) not in sys.path:
 from validation.validate_extraction import validate_extraction  # noqa: E402
 
 RAW_DIR = ROOT / "data" / "raw"
-EXTRACTIONS_DIR = ROOT / "data" / "extractions" / "agentic_react_sonnet_4_6"
+EXTRACTIONS_DIR = ROOT / "data" / "extractions" / "react_agent"  # legacy default
 TRACES_DIR = EXTRACTIONS_DIR / "_traces"
 FAILURES_PATH = EXTRACTIONS_DIR / "_failures.json"
 COST_LOG_PATH = EXTRACTIONS_DIR / "_cost_log.json"
+
+
+def _output_dir_for(backbone_key: str, prompt_variant: str) -> Path:
+    """Phase 0 fix: route output to agentic_react_<backbone-slug>[_<variant>].
+
+    backbone_key like 'sonnet-4-6' → slug 'sonnet_4_6'.
+    Variant 'v1' is round-0 (no suffix); 'v2'/'v3'/'v4'/'v5' append.
+    """
+    slug = backbone_key.replace("-", "_").replace(".", "_")
+    suffix = "" if prompt_variant == "v1" else f"_{prompt_variant}"
+    return ROOT / "data" / "extractions" / f"agentic_react_{slug}{suffix}"
 
 
 _REF_HEADING_RE = re.compile(
@@ -55,10 +65,6 @@ def extract_pdf_text(pdf_path: Path) -> str:
         reader = PyPDF2.PdfReader(f)
         pages = [(page.extract_text() or "") for page in reader.pages]
     raw = "\n".join(pages)
-    # PyPDF2 occasionally emits lone UTF-16 surrogates (especially on CJK
-    # papers) that the Anthropic API rejects with UnicodeEncodeError.
-    # Round-trip through utf-8 with errors="replace" drops them safely.
-    raw = raw.encode("utf-8", errors="replace").decode("utf-8")
     raw = re.sub(r"\r\n?", "\n", raw)
     raw = re.sub(r"\n{3,}", "\n\n", raw)
 
@@ -123,25 +129,33 @@ def extract_paper(
     max_turns: int = 20,
     save_trace: bool = False,
     overwrite: bool = False,
+    backbone_key: str = "sonnet-4-5",
+    prompt_variant: str = "v1",
 ) -> dict[str, Any] | None:
     """Run the ReAct agent on one paper and save the extraction.
 
-    Returns the saved extraction dict, or None on validation / runtime failure.
+    Phase 0 fix (2026-05-02): adds backbone_key + prompt_variant params,
+    routes output to per-config dir. Default 'sonnet-4-5' / 'v1' preserves
+    legacy behaviour.
     """
-    EXTRACTIONS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = EXTRACTIONS_DIR / f"{ds_id}.json"
+    out_dir = _output_dir_for(backbone_key, prompt_variant)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{ds_id}.json"
     if out_path.exists() and not overwrite:
         return json.loads(out_path.read_text())
 
-    pdf_path = RAW_DIR / f"{ds_id}.pdf"
-    if not pdf_path.exists():
-        _append_failure(ds_id, "pdf_missing", str(pdf_path))
-        return None
-
+    # Phase 0 fix (2026-05-02 audit): use shared get_paper_text helper for
+    # arxiv-id-named PDFs and reference stripping consistency. Falls through
+    # to ds_id.pdf if the helper finds nothing.
+    sys.path.insert(0, str(ROOT))
+    from scripts._agentic_helpers import get_paper_text  # noqa: E402
     try:
-        paper_text = extract_pdf_text(pdf_path)
+        paper_text = get_paper_text(ds_id)
     except Exception as e:
         _append_failure(ds_id, "pdf_extract_failed", f"{type(e).__name__}: {e}")
+        return None
+    if not paper_text:
+        _append_failure(ds_id, "pdf_missing", f"data/raw/{ds_id}.pdf or arxiv variant")
         return None
 
     if not paper_text or len(paper_text) < 500:
@@ -151,6 +165,12 @@ def extract_paper(
     if client is None:
         client = anthropic.Anthropic()
 
+    # Resolve backbone → model_id for the API call.
+    sys.path.insert(0, str(ROOT))
+    from scripts._agentic_helpers import resolve_backbone  # noqa: E402
+    bb = resolve_backbone(backbone_key)
+    model_id = bb["model_id"]
+
     t0 = time.time()
     try:
         result: AgentResult = run_agent(
@@ -159,30 +179,17 @@ def extract_paper(
             dataset_id=ds_id,
             max_turns=max_turns,
             trace=True,
+            model_id=model_id,
+            backbone_key=backbone_key,
+            prompt_variant=prompt_variant,
         )
     except Exception as e:
         _append_failure(ds_id, "agent_raised", f"{type(e).__name__}: {e}")
         return None
     elapsed = time.time() - t0
 
-    # Per-field LLM audit pass: each non-null RAI field is reviewed in isolation
-    # by a separate Haiku call that sees only (field, value, evidence_quote).
-    # The auditor either KEEPs the value or NULLs it.
-    audit = audit_extractions(
-        extracted=result.extracted,
-        evidence=result.evidence,
-        client=client,
-        rai_only=True,
-    )
-    final_null_reasons = dict(result.null_reasons)
-    final_extracted = dict(result.extracted)  # all 30 keys, None for un-set
-    for f, decision in audit.decisions.items():
-        if decision == "null":
-            final_extracted[f] = None  # keep the key, blank the value
-            final_null_reasons[f] = audit.null_reasons.get(f, "audit: not supported")
-
     # Post-process: coerce string-nulls → None.
-    extraction = coerce_nulls(final_extracted)
+    extraction = coerce_nulls(result.extracted)
 
     # Build the saved payload: 30 fields + _meta.
     payload = dict(extraction)
@@ -191,15 +198,7 @@ def extract_paper(
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "elapsed_sec": round(elapsed, 2),
         "pdf_chars": len(paper_text),
-        "null_reasons": final_null_reasons,
-        "evidence": result.evidence,
-        "audit": {
-            "decisions": audit.decisions,
-            "n_calls": audit.n_calls,
-            "input_tokens": audit.input_tokens,
-            "output_tokens": audit.output_tokens,
-            "cost_usd": audit.cost_usd,
-        },
+        "null_reasons": result.null_reasons,
     }
 
     # Validate (use the stripped 30-field dict, not the one with _meta).
@@ -207,7 +206,7 @@ def extract_paper(
     if not ok:
         _append_failure(ds_id, "schema_invalid", errors)
         # Still save the payload under a .invalid suffix so we can debug.
-        bad_path = EXTRACTIONS_DIR / f"{ds_id}.invalid.json"
+        bad_path = out_dir / f"{ds_id}.invalid.json"
         bad_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, default=str))
         return None
 

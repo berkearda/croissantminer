@@ -18,12 +18,53 @@ from .schemas import CANONICAL_FIELDS, CORE_FIELDS, FIELD_DEFINITIONS, RAI_FIELD
 from .tools import TOOL_SCHEMAS, MAX_PAPER_CHARS_IN_CONTEXT, ToolState, dispatch
 
 
-MODEL_ID = "claude-sonnet-4-6"
-# Pricing as of 2026-Q2 for Claude Sonnet 4.6 (USD per 1M tokens).
+MODEL_ID = "claude-sonnet-4-5-20250929"
+# Pricing as of 2026-Q2 for Claude Sonnet 4.5 (USD per 1M tokens).
 PRICE_INPUT_PER_MTOK = 3.00
 PRICE_OUTPUT_PER_MTOK = 15.00
 PRICE_CACHE_WRITE_PER_MTOK = 3.75  # 1.25x input
 PRICE_CACHE_READ_PER_MTOK = 0.30   # 0.1x input
+
+
+# Phase 0 fix (2026-05-02 audit, decisions.md AM2): per-backbone pricing
+# table for non-seed backbones. Used by run_agent when backbone_key != default.
+BACKBONE_PRICES: dict = {
+    "sonnet-4-5":     {"in": 3.0,  "out": 15.0,  "cache_w": 3.75, "cache_r": 0.30},
+    "sonnet-4-6":     {"in": 3.0,  "out": 15.0,  "cache_w": 3.75, "cache_r": 0.30},
+    "gpt-5.4":        {"in": 1.25, "out": 10.0,  "cache_w": 1.25, "cache_r": 0.0},  # OpenAI: no per-call cache pricing in same way
+    "gpt-5.4-mini":   {"in": 0.15, "out": 0.60,  "cache_w": 0.15, "cache_r": 0.0},
+    "gemini-3.1-pro": {"in": 1.25, "out": 10.0,  "cache_w": 1.25, "cache_r": 0.0},
+}
+
+
+# Anti-null-bias prefix (Fix A from V2 iteration). Variants v2, v4.
+ANTI_NULL_PREFIX_FOR_REACT = """\
+CRITICAL — DEFAULT TO NULL WHEN UNCERTAIN.
+
+Many Croissant fields are rarely documented in dataset papers. If the paper
+does NOT explicitly discuss a field, mark_null. Do NOT generate plausible-
+sounding content. Do NOT infer from related content. EVERY non-null
+extract_field call must be supported by a sentence in the paper that you
+saw via search_paper or in the initial paper context.
+
+Below is your full agent specification. Apply the rules above to it.
+============================================================
+
+"""
+
+
+# Verify+correct turn (Fix C). Variants v3, v4. Appended as a final user
+# message after Phase 2 ends, before Phase 3 wraps up.
+VERIFY_CORRECT_TURN = """\
+You have completed bulk extraction (Phase 1) and gap-filling (Phase 2).
+
+VERIFY+CORRECT PHASE: review every field you marked null. For each null:
+  - If the paper TRULY does not discuss the field, keep it null.
+  - If you missed a section that discusses it, search now and extract.
+  - If you extracted something but cannot point to a paper sentence
+    supporting it, change it to null (do NOT keep hallucinated content).
+
+After this verify pass, do NOT make further changes."""
 
 
 def _field_definitions_block() -> str:
@@ -50,32 +91,12 @@ For each remaining undecided field, use tools to find it — again, BATCH the ca
 - `search_huggingface(name)` if license / url / publisher are still unclear and the dataset is plausibly on HuggingFace.
 - After results arrive, batch the resulting `extract_field` / `mark_null` calls in the NEXT turn.
 
-## PHASE 3 — Single-turn self-review + normalization (turn 5)
-
-You stored an `evidence_quote` alongside every non-null extraction in
-Phase 1 / Phase 2 (the tool validated each quote is real paper text).
-In this single turn, re-read your own (field, value, evidence_quote)
-records — they're in your context as the tool inputs you sent.
-
-Batch ALL of the following calls in parallel:
-
-  - `mark_null(field, "value goes beyond evidence on review")` for any
-    field where your value claims more than the evidence_quote actually
-    supports. Examples that should be nulled:
-      * value contains specific numbers/named tools/exact procedures that
-        the quote does not state
-      * value applies to the dataset itself but the quote describes a
-        method/training/evaluation that uses the dataset (Guardrail A)
-      * value is a multi-clause claim but the quote only supports one
-        clause — mark_null and let the field be sparse rather than wrong
-
-  - `verify_url(url)` once per extracted URL. If 4xx/5xx, mark null.
-  - `lookup_spdx(text)` on raw license text; overwrite if matched.
+## PHASE 3 — Verification & normalization (final turn, ~5)
+Polish the extracted values:
+- `verify_url(url)` once per extracted URL to confirm it's live. If it's 4xx/5xx, re-extract or mark null.
+- `lookup_spdx(text)` on the raw license text to get an SPDX identifier; overwrite the `license` field with the SPDX id if a match is found.
 
 Then stop with a short text reply (no tool call).
-
-Reviewers penalize hallucination more than missing fields. Be honest
-in this self-review — it's the only place misattribution gets caught.
 
 ## Hard extraction rules (DO NOT RELAX)
 1. **Accuracy first.** Only extract what the paper states or what tool outputs verify. Never invent plausible-sounding values that contradict the paper.
@@ -102,26 +123,20 @@ in this self-review — it's the only place misattribution gets caught.
 ## CRITICAL: Always batch tool calls in parallel
 Every turn, issue as many tool calls as you can in a single response. Serial one-at-a-time behavior burns turns and causes failures.
 
-**Every `extract_field` MUST include an `evidence_quote`** — verbatim 1–3
-sentences from the paper that support the value. The tool validates the quote
-appears in the paper (5+ consecutive words match) and rejects fabrications.
-If you cannot quote real paper text for a value, use `mark_null` instead.
-
-**Good (Phase 1 example — parallel calls in one turn):**
+**Good (Phase 1 example — 16 parallel calls in one turn):**
 ```
-extract_field(name, "MMLU",
-              evidence_quote="We introduce a new test, MMLU, to measure ..."),
-extract_field(datePublished, "2021",
-              evidence_quote="ICLR 2021 ... we release MMLU"),
-extract_field(rai:dataCollectionType, "Manual Human Curator",
-              evidence_quote="Each question was hand-written by a graduate student"),
-mark_null(isLiveDataset, "static benchmark; no live updates discussed"),
-mark_null(rai:annotatorDemographics, "annotator demographics not described in paper"),
-...
+extract_field(name, "MMLU"), extract_field(description, "..."), extract_field(creator, "..."),
+extract_field(citeAs, "..."), extract_field(datePublished, "2021"), extract_field(inLanguage, "en"),
+extract_field(url, "https://github.com/hendrycks/test"), extract_field(publisher, "UC Berkeley"),
+extract_field(rai:dataCollection, "..."), extract_field(rai:dataCollectionType, "Manual Human Curator"),
+mark_null(isLiveDataset, "not stated"), mark_null(license, "not discussed"),
+mark_null(rai:dataAnnotationPlatform, "no platform mentioned"),
+mark_null(rai:annotatorDemographics, "not described"),
+mark_null(rai:dataImputationProtocol, "not applicable"),
+mark_null(rai:dataReleaseMaintenancePlan, "no plan described")
 ```
 
-**Bad:** calling `extract_field` without `evidence_quote` (the tool will
-reject the call), or quoting a paraphrase rather than verbatim paper text.
+**Bad:** `extract_field(name, ...)` alone in turn 1, `extract_field(description, ...)` alone in turn 2, etc.
 
 ## 30 fields to extract
 {_field_definitions_block()}
@@ -129,7 +144,7 @@ reject the call), or quoting a paraphrase rather than verbatim paper text.
 ## Output discipline
 - `extract_field` values must be strings (or lists/dicts only where the field genuinely needs structure).
 - Never pass the string "null" / "None" / "N/A" as a value — use `mark_null` instead.
-- 20-turn cap is a safety net — plan to finish in 4–5 turns (Phase 1: 1, Phase 2: 2-3, Phase 3: 1).
+- 20-turn cap is a safety net — plan to finish in 4–6 turns.
 """
 
 
@@ -137,7 +152,6 @@ reject the call), or quoting a paraphrase rather than verbatim paper text.
 class AgentResult:
     extracted: dict[str, Any]
     null_reasons: dict[str, str]
-    evidence: dict[str, str]
     meta: dict[str, Any]
     trace: list[dict[str, Any]] = field(default_factory=list)
 
@@ -182,6 +196,9 @@ def run_agent(
     temperature: float = 0.0,
     retries: int = 3,
     trace: bool = True,
+    model_id: str = MODEL_ID,
+    backbone_key: str = "sonnet-4-5",
+    prompt_variant: str = "v1",
 ) -> AgentResult:
     """Run the ReAct loop on one paper's text and return extracted metadata."""
     state = ToolState(paper_text=paper_text)
@@ -241,9 +258,14 @@ def run_agent(
     response_model: str | None = None
 
     # Cache the (large, constant) system prompt across turns + across papers.
+    # Variants v2/v4 prepend the anti-null-bias guard (Fix A).
+    effective_system = (
+        ANTI_NULL_PREFIX_FOR_REACT + SYSTEM_PROMPT
+        if prompt_variant in ("v2", "v4") else SYSTEM_PROMPT
+    )
     system_blocks = [{
         "type": "text",
-        "text": SYSTEM_PROMPT,
+        "text": effective_system,
         "cache_control": {"type": "ephemeral"},
     }]
 
@@ -255,7 +277,7 @@ def run_agent(
         for attempt in range(retries):
             try:
                 resp = client.messages.create(
-                    model=MODEL_ID,
+                    model=model_id,
                     max_tokens=max_tokens,
                     temperature=temperature,
                     system=system_blocks,
@@ -360,7 +382,6 @@ def run_agent(
     return AgentResult(
         extracted=final,
         null_reasons=dict(state.null_reasons),
-        evidence=dict(state.evidence),
         meta=meta,
         trace=trace_log if trace else [],
     )

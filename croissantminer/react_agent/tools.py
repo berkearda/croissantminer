@@ -20,7 +20,7 @@ from urllib.parse import urlparse
 
 import requests
 
-from .schemas import CANONICAL_FIELDS, FIELD_DEFINITIONS
+from .schemas import CANONICAL_FIELDS
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -32,9 +32,7 @@ from .schemas import CANONICAL_FIELDS, FIELD_DEFINITIONS
 class ToolState:
     paper_text: str
     paragraphs: list[str] = field(default_factory=list)
-    paper_word_grams: set = field(default_factory=set)  # 5-grams for evidence validation
     extracted: dict[str, Any] = field(default_factory=dict)
-    evidence: dict[str, str] = field(default_factory=dict)  # field -> supporting paper quote
     null_reasons: dict[str, str] = field(default_factory=dict)
     read_full_paper_called: bool = False
     tool_call_counts: Counter = field(default_factory=Counter)
@@ -131,10 +129,9 @@ TOOL_SCHEMAS: list[dict] = [
     {
         "name": "extract_field",
         "description": (
-            "Store an extracted value for one of the 30 Croissant metadata fields, "
-            "ALONG WITH the verbatim paper text that supports it. The supporting "
-            "quote is validated against the paper at call time — fabricated quotes "
-            "are rejected. If you cannot point to real paper text, use mark_null."
+            "Store an extracted value for one of the 30 Croissant metadata fields. "
+            "Call this once per field when you have identified the correct value. "
+            "Values must be accurate (no hallucination) and taken from the paper or verified tool output."
         ),
         "input_schema": {
             "type": "object",
@@ -148,17 +145,8 @@ TOOL_SCHEMAS: list[dict] = [
                     "description": "Extracted value (string, or list/dict for structured fields). "
                                    "Never pass 'null' / 'N/A' / '' as a string — use mark_null instead.",
                 },
-                "evidence_quote": {
-                    "type": "string",
-                    "description": (
-                        "Verbatim 1-3 sentences from the paper that support the value. "
-                        "Must contain at least 5 consecutive words present in the paper "
-                        "(case-insensitive). The tool stores this alongside value and "
-                        "rejects extractions where no real paper text is quoted."
-                    ),
-                },
             },
-            "required": ["field", "value", "evidence_quote"],
+            "required": ["field", "value"],
         },
     },
     {
@@ -240,7 +228,7 @@ TOOL_SCHEMAS: list[dict] = [
 # limit for Claude Sonnet 4.5. search_paper still indexes the full paper_text,
 # so no information is lost — the agent just has to use search_paper for anything
 # past the truncation point.
-MAX_PAPER_CHARS_IN_CONTEXT = 200_000  # ITER 5 / FREEZE — 200K is the empirical sweet spot. Iter 6 (800K) → 0.622 mean (-0.06); iter 7 (800K + section filter) → 0.649; iter 8 (400K) → 0.641. The cap forces the agent's attention onto the dataset-relevant first ~50K tokens; the 10/102 papers that exceed 200K still extract well via search_paper for the truncated tail.
+MAX_PAPER_CHARS_IN_CONTEXT = 350_000  # ~90K tokens average, ~120K worst case
 
 
 def _h_read_full_paper(state: ToolState) -> dict:
@@ -282,63 +270,15 @@ def _h_search_paper(state: ToolState, query: str) -> dict:
     }
 
 
-EVIDENCE_NGRAM = 5  # 5-word window for verbatim evidence-quote validation
-
-
-def _evidence_ngrams(text: str, n: int = EVIDENCE_NGRAM) -> set[tuple[str, ...]]:
-    """Build all n-grams of normalized lowercase word tokens for verbatim matching."""
-    toks = _tokenize(text)
-    if len(toks) < n:
-        return set()
-    return {tuple(toks[i:i + n]) for i in range(len(toks) - n + 1)}
-
-
-def _quote_in_paper(quote: str, state: ToolState) -> bool:
-    """True if at least one EVIDENCE_NGRAM-word run of the quote appears verbatim in the paper.
-
-    Lowercases and tokenizes both, so it tolerates whitespace/punctuation
-    differences from PDF parsing artifacts but rejects fabricated text.
-    """
-    if not state.paper_word_grams:
-        state.paper_word_grams = _evidence_ngrams(state.paper_text)
-    quote_grams = _evidence_ngrams(quote)
-    if not quote_grams:
-        return False
-    return bool(quote_grams & state.paper_word_grams)
-
-
-def _h_extract_field(state: ToolState, field: str, value: Any, evidence_quote: str = "") -> dict:
+def _h_extract_field(state: ToolState, field: str, value: Any) -> dict:
     if field not in CANONICAL_FIELDS:
         return {"error": f"Unknown field '{field}'. Must be one of the 30 canonical fields."}
-    if not evidence_quote or not str(evidence_quote).strip():
-        return {
-            "error": (
-                f"extract_field for '{field}' requires evidence_quote — paste 1-3 "
-                f"verbatim sentences from the paper that support the value. "
-                f"If no supporting text exists, use mark_null instead."
-            )
-        }
-    if not _quote_in_paper(str(evidence_quote), state):
-        return {
-            "error": (
-                f"evidence_quote for '{field}' does not appear verbatim in the paper "
-                f"(no {EVIDENCE_NGRAM}-word run matches). Either paste a real "
-                f"~{EVIDENCE_NGRAM}+ word phrase from the paper, or call mark_null "
-                f"if no supporting text exists."
-            )
-        }
-    overwrote = False
     if field in state.fields_decided():
-        overwrote = True
+        prev = state.extracted.get(field) or f"(null: {state.null_reasons.get(field)})"
+        return {"warning": f"Field '{field}' was already set to {prev!r}. Overwriting.", "overwrote": True}
     state.extracted[field] = value
-    state.evidence[field] = str(evidence_quote)[:600]
     state.null_reasons.pop(field, None)
-    return {
-        "ok": True,
-        "field": field,
-        "overwrote": overwrote,
-        "progress": state.progress(),
-    }
+    return {"ok": True, "field": field, "progress": state.progress()}
 
 
 def _h_mark_null(state: ToolState, field: str, reason: str) -> dict:

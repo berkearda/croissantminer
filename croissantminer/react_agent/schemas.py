@@ -4,6 +4,8 @@ Re-exports CANONICAL_FIELDS from validation.validate_extraction so there's
 a single source of truth across extraction, validation, and evaluation.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 import sys
 

@@ -5,14 +5,49 @@ HuggingFace Space Demo (Gradio)
 
 import json
 import re
+import sys
+import tempfile
+from pathlib import Path
+
 import gradio as gr
-from croissantminer.pdf.reader import extract_text_from_pdf as _canonical_extract_text
-from croissantminer.pdf.processor import clean_text as _canonical_clean_text
+
+# Make the croissantminer package importable (for the ReAct agent).
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
 # ---------------------------------------------------------------------------
 # Prompts (canonical source: croissantminer/config.py)
+# Loaded directly to avoid heavy __init__.py imports (anthropic, scipy, etc.)
 # ---------------------------------------------------------------------------
 
-from croissantminer.config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location(
+    "croissantminer.config",
+    str(_REPO_ROOT / "croissantminer" / "config.py"),
+)
+_config_mod = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_config_mod)
+SYSTEM_PROMPT = _config_mod.SYSTEM_PROMPT
+USER_PROMPT_TEMPLATE = _config_mod.USER_PROMPT_TEMPLATE
+del _spec, _config_mod
+
+
+# Register the react_agent subpackage WITHOUT executing the parent
+# croissantminer/__init__.py (which imports scipy/scikit-learn that aren't
+# in this Space's requirements.txt). Submodules can then use relative imports.
+def _load_react_agent():
+    _react_dir = _REPO_ROOT / "croissantminer" / "react_agent"
+    _pkg_spec = _ilu.spec_from_file_location(
+        "react_agent_pkg",
+        str(_react_dir / "__init__.py"),
+        submodule_search_locations=[str(_react_dir)],
+    )
+    _pkg = _ilu.module_from_spec(_pkg_spec)
+    sys.modules["react_agent_pkg"] = _pkg
+    _pkg_spec.loader.exec_module(_pkg)
+    from react_agent_pkg.agent import run_agent  # noqa: E402
+    return run_agent
 
 
 # ---------------------------------------------------------------------------
@@ -78,7 +113,7 @@ URL: https://github.com/openai/grade-school-math
 Published: October 2021
 Language: English"""
 
-EXAMPLE_CARD = ""  # No dataset card for example
+EXAMPLE_CARD = ""
 
 # ---------------------------------------------------------------------------
 # Helper utilities
@@ -105,17 +140,87 @@ def _parse_json_response(text: str) -> dict:
         text = text.split("```json", 1)[1].split("```", 1)[0].strip()
     elif "```" in text:
         text = text.split("```", 1)[1].split("```", 1)[0].strip()
-    return json.loads(text)
+    raw = json.loads(text)
+    # Normalize keys: the prompt uses sc:/cr: prefixes but internal keys don't
+    normalized = {}
+    for k, v in raw.items():
+        if k.startswith("sc:"):
+            normalized[k[3:]] = v
+        elif k.startswith("cr:"):
+            normalized[k[3:]] = v
+        else:
+            normalized[k] = v
+    return normalized
 
 
 def _extract_text_from_pdf(file_path: str) -> str:
-    """Extract text from a PDF file using PyMuPDF."""
-    doc = fitz.open(file_path)
-    pages = []
-    for page in doc:
-        pages.append(page.get_text())
+    """Extract text from a PDF file using PyMuPDF (imported lazily)."""
+    import pymupdf
+    doc = pymupdf.open(file_path)
+    pages = [page.get_text() for page in doc]
     doc.close()
     return "\n".join(pages)
+
+
+def _compute_coverage(metadata: dict) -> str:
+    """Compute extraction coverage and return a Markdown summary."""
+    general_filled = sum(1 for k, _ in GENERAL_FIELDS if _is_valid(metadata.get(k)))
+    rai_filled = sum(1 for k, _ in RAI_FIELDS if _is_valid(metadata.get(k)))
+    total_filled = general_filled + rai_filled
+    total = len(GENERAL_FIELDS) + len(RAI_FIELDS)
+    pct = int(100 * total_filled / total)
+
+    return (
+        f"### Extraction Coverage: {total_filled}/{total} fields ({pct}%)\n\n"
+        f"**General:** {general_filled}/{len(GENERAL_FIELDS)} &nbsp;|&nbsp; "
+        f"**RAI:** {rai_filled}/{len(RAI_FIELDS)}"
+    )
+
+
+def _format_value_md(val) -> str:
+    """Render an extracted value as markdown — empty values get a muted dash."""
+    if val is None or not _is_valid(val):
+        return '<span style="color:#9aa0a6">—</span>'
+    if isinstance(val, str):
+        return val
+    if isinstance(val, dict):
+        return val.get("name") or json.dumps(val, ensure_ascii=False)
+    return str(val)
+
+
+def _build_field_cards_md(metadata: dict, fields: list) -> str:
+    """Render fields as a vertical list of cards: name + description + value.
+
+    Replaces the cramped 3-column gr.Dataframe — values get full width and prose
+    fields wrap naturally.
+    """
+    blocks = []
+    for key, desc in fields:
+        val = metadata.get(key)
+        is_filled = _is_valid(val)
+        accent = "#5a4fcf" if is_filled else "#cccccc"
+        value_md = _format_value_md(val)
+        blocks.append(
+            f"<div style=\"border-left:3px solid {accent}; padding:8px 14px; "
+            f"margin:6px 0; background:#fafafa; border-radius:4px;\">"
+            f"<div style=\"display:flex; justify-content:space-between; align-items:baseline;\">"
+            f"<code style=\"font-weight:600; color:#1a1a1a;\">{key}</code>"
+            f"<span style=\"font-size:0.8em; color:#666;\">{desc}</span>"
+            f"</div>"
+            f"<div style=\"margin-top:6px; line-height:1.5; color:#333; "
+            f"white-space:pre-wrap;\">{value_md}</div>"
+            f"</div>"
+        )
+    return "".join(blocks)
+
+
+def _build_field_table(metadata: dict, fields: list) -> list:
+    """Legacy dataframe builder — kept for backwards compatibility but unused."""
+    rows = []
+    for key, desc in fields:
+        val = metadata.get(key)
+        rows.append([key, desc, _format_value_md(val)])
+    return rows
 
 
 def _build_croissant(metadata: dict) -> dict:
@@ -135,19 +240,16 @@ def _build_croissant(metadata: dict) -> dict:
         "license": metadata.get("license") if _is_valid(metadata.get("license")) else "unknown",
     }
 
-    # Optional top-level fields
     for key in ("datePublished", "inLanguage", "url", "publisher", "citeAs"):
         if _is_valid(metadata.get(key)):
             croissant[key] = metadata[key]
 
-    # isLiveDataset
     is_live = metadata.get("isLiveDataset", "")
     if isinstance(is_live, bool):
         croissant["isLiveDataset"] = is_live
     elif isinstance(is_live, str) and is_live.lower() in ("yes", "true"):
         croissant["isLiveDataset"] = True
 
-    # Creator
     creator = metadata.get("creator")
     if creator:
         if isinstance(creator, dict) and _is_valid(creator.get("name", "")):
@@ -158,7 +260,6 @@ def _build_croissant(metadata: dict) -> dict:
         elif isinstance(creator, str) and _is_valid(creator):
             croissant["creator"] = {"@type": "Organization", "name": creator}
 
-    # Data modality inference
     desc = (metadata.get("description") or "").lower()
     if any(k in desc for k in ("text", "nlp", "language", "corpus", "math")):
         modality = ["cro:TextData"]
@@ -168,7 +269,6 @@ def _build_croissant(metadata: dict) -> dict:
         modality = ["cro:TabularData"]
     croissant["cro:dataModality"] = modality
 
-    # RAI metadata block — include ALL 20 RAI fields
     rai_metadata = {}
     for key, _ in RAI_FIELDS:
         if _is_valid(metadata.get(key)):
@@ -181,29 +281,18 @@ def _build_croissant(metadata: dict) -> dict:
     return croissant
 
 
-def _format_grouped(metadata: dict) -> dict:
-    """Group extracted metadata for display."""
-    general = {}
-    for key, desc in GENERAL_FIELDS:
-        general[key] = metadata.get(key)
-    rai = {}
-    for key, desc in RAI_FIELDS:
-        rai[key] = metadata.get(key)
-    return {"General Fields (10)": general, "RAI Fields (20)": rai}
-
-
 # ---------------------------------------------------------------------------
 # Core extraction function
 # ---------------------------------------------------------------------------
 
 
-def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str, api_key: str):
+def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str, api_key: str, progress=gr.Progress()):
     """Run extraction pipeline and return results for all output tabs."""
 
     # Resolve paper text from PDF upload or pasted text
     if pdf_file is not None:
+        progress(0.1, desc="Reading PDF...")
         try:
-            # gr.File returns a filepath string in Gradio 5+
             file_path = pdf_file if isinstance(pdf_file, str) else pdf_file.name
             paper_text = _extract_text_from_pdf(file_path)
         except Exception as e:
@@ -214,6 +303,8 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     if not api_key or not api_key.strip():
         raise gr.Error("Please provide your API key.")
 
+    progress(0.15, desc="Preparing prompt...")
+
     # Combine paper + optional card text
     combined = paper_text.strip()
     if card_text and card_text.strip():
@@ -222,11 +313,42 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
     user_prompt = USER_PROMPT_TEMPLATE % combined
 
     # Call the selected model
+    progress(0.2, desc=f"Calling {model_name}...")
     try:
+        if model_name.startswith("ReAct v3"):
+            # Agentic ReAct loop — variable turn count (~3-8), ~30-180s.
+            import anthropic
+
+            run_agent = _load_react_agent()
+            client = anthropic.Anthropic(api_key=api_key.strip())
+            progress(0.25, desc="Running ReAct agent (~3-8 turns, can take 1-3 min)...")
+            result = run_agent(
+                paper_text=combined,
+                client=client,
+                max_turns=20,
+                backbone_key="sonnet-4-6",
+                prompt_variant="v3",
+                trace=False,
+            )
+            # AgentResult.extracted is already a 30-key dict matching the schema —
+            # skip the JSON-parse step below.
+            metadata = dict(result.extracted)
+            progress(0.85, desc="Building outputs...")
+            for key in ALL_FIELD_KEYS:
+                metadata.setdefault(key, None)
+            coverage_md = _compute_coverage(metadata)
+            croissant = _build_croissant(metadata)
+            general_md = _build_field_cards_md(metadata, GENERAL_FIELDS)
+            rai_md = _build_field_cards_md(metadata, RAI_FIELDS)
+            return coverage_md, general_md, rai_md, croissant
+
         if model_name == "Claude Sonnet 4.5":
             import anthropic
 
-            client = anthropic.Anthropic(api_key=api_key.strip())
+            client = anthropic.Anthropic(
+                api_key=api_key.strip(),
+                base_url="https://api.anthropic.com",
+            )
             response = client.messages.create(
                 model="claude-sonnet-4-5-20250929",
                 max_tokens=4096,
@@ -265,6 +387,7 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
         raise gr.Error(f"API error: {msg[:300]}")
 
     # Parse response
+    progress(0.8, desc="Parsing response...")
     try:
         metadata = _parse_json_response(raw)
     except (json.JSONDecodeError, IndexError) as e:
@@ -275,13 +398,13 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, model_name: str,
         metadata.setdefault(key, None)
 
     # Build outputs
-    grouped = _format_grouped(metadata)
+    progress(0.9, desc="Building outputs...")
+    coverage_md = _compute_coverage(metadata)
     croissant = _build_croissant(metadata)
 
-    return (
-        json.dumps(grouped, indent=2, ensure_ascii=False),
-        json.dumps(croissant, indent=2, ensure_ascii=False),
-    )
+    general_md = _build_field_cards_md(metadata, GENERAL_FIELDS)
+    rai_md = _build_field_cards_md(metadata, RAI_FIELDS)
+    return coverage_md, general_md, rai_md, croissant
 
 
 # ---------------------------------------------------------------------------
@@ -315,86 +438,117 @@ CroissantMiner uses Large Language Models to extract structured metadata from ac
 *Research demo. Review extracted metadata before use.*
 """
 
-with gr.Blocks(
-    title="CroissantMiner",
-    theme=gr.themes.Soft(),
-) as demo:
-    gr.Markdown("# CroissantMiner\n*Automated RAI Metadata Extraction for ML Dataset Papers*")
+_INITIAL_GENERAL_MD = _build_field_cards_md({}, GENERAL_FIELDS)
+_INITIAL_RAI_MD = _build_field_cards_md({}, RAI_FIELDS)
+
+CUSTOM_CSS = """
+.gradio-container { max-width: 1100px !important; margin: 0 auto !important; }
+#extract-btn button { font-size: 1.05em; padding: 12px; }
+.field-card-list { max-height: 65vh; overflow-y: auto; padding-right: 8px; }
+"""
+
+with gr.Blocks(title="CroissantMiner") as demo:
+    gr.Markdown("# 🥐 CroissantMiner")
     gr.Markdown(
-        "> **Research demo.** Review extracted metadata before use. "
+        "*Automated RAI metadata extraction for ML dataset papers.* "
+        "Research demo — review extracted metadata before use. "
         "Your API key is sent directly to the model provider and is not stored."
     )
 
-    with gr.Row():
-        with gr.Column(scale=1):
-            with gr.Tabs():
-                with gr.Tab("Upload PDF"):
-                    pdf_input = gr.File(
-                        file_types=[".pdf"],
-                        label="Upload dataset paper PDF",
-                    )
-                with gr.Tab("Paste Text"):
-                    paper_input = gr.Textbox(
-                        label="Paste paper text",
-                        placeholder="Paste the full text of a dataset paper here...",
-                        lines=14,
-                    )
-            card_input = gr.Textbox(
-                label="Paste dataset card text (optional)",
-                placeholder="Optional: paste HuggingFace dataset card or README...",
-                lines=5,
-            )
-            model_selector = gr.Dropdown(
-                choices=["Claude Sonnet 4.5", "GPT-4o-mini"],
-                value="Claude Sonnet 4.5",
-                label="Model",
-            )
-            api_key_input = gr.Textbox(
-                label="API Key",
-                placeholder="sk-... or your Anthropic key",
-                type="password",
-            )
-            extract_btn = gr.Button("Extract Metadata", variant="primary")
+    # ===== INPUTS (compact, full width) =====
+    with gr.Group():
+        with gr.Row():
+            with gr.Column(scale=2):
+                with gr.Tabs():
+                    with gr.Tab("Upload PDF"):
+                        pdf_input = gr.File(
+                            file_types=[".pdf"],
+                            label="Upload dataset paper PDF",
+                            height=120,
+                        )
+                    with gr.Tab("Paste Text"):
+                        paper_input = gr.Textbox(
+                            label="Paste paper text",
+                            placeholder="Paste the full text of a dataset paper here...",
+                            lines=6,
+                        )
+                card_input = gr.Textbox(
+                    label="Paste dataset card text (optional)",
+                    placeholder="Optional: paste HuggingFace dataset card or README...",
+                    lines=3,
+                )
+            with gr.Column(scale=1):
+                model_selector = gr.Dropdown(
+                    choices=[
+                        "Claude Sonnet 4.5",
+                        "GPT-4o-mini",
+                        "ReAct v3 (Sonnet 4.6) — agentic, slower",
+                    ],
+                    value="Claude Sonnet 4.5",
+                    label="Model",
+                )
+                api_key_input = gr.Textbox(
+                    label="API Key",
+                    placeholder="sk-... or your Anthropic key",
+                    type="password",
+                )
+                with gr.Row(elem_id="extract-btn"):
+                    extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
 
-        with gr.Column(scale=1):
-            with gr.Tabs():
-                with gr.Tab("Extracted Metadata"):
-                    metadata_output = gr.Code(
-                        label="30 fields (General + RAI)",
-                        language="json",
-                        lines=25,
-                    )
-                with gr.Tab("Croissant JSON-LD"):
-                    croissant_output = gr.Code(
-                        label="Croissant JSON-LD",
-                        language="json",
-                        lines=25,
-                    )
-                    download_btn = gr.DownloadButton(
-                        label="Download Croissant JSON-LD",
-                        visible=False,
-                    )
-                with gr.Tab("About"):
-                    gr.Markdown(ABOUT_MD)
+    # ===== OUTPUTS (full width below) =====
+    coverage_output = gr.Markdown(
+        value="### Extraction Coverage: 0 / 30 fields (0%)\n\n**General:** 0/10  |  **RAI:** 0/20"
+    )
 
-    # Wire up extraction
+    with gr.Tabs():
+        with gr.Tab("Extracted Fields"):
+            with gr.Accordion("General Fields (10)", open=True):
+                general_md_box = gr.HTML(
+                    value=f'<div class="field-card-list">{_INITIAL_GENERAL_MD}</div>',
+                )
+            with gr.Accordion("Responsible AI Fields (20)", open=True):
+                rai_md_box = gr.HTML(
+                    value=f'<div class="field-card-list">{_INITIAL_RAI_MD}</div>',
+                )
+
+        with gr.Tab("Croissant JSON-LD"):
+            croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
+            download_btn = gr.DownloadButton(
+                label="Download Croissant JSON-LD",
+                visible=False,
+            )
+
+        with gr.Tab("About"):
+            gr.Markdown(ABOUT_MD)
+
+    # Wrap the per-section markdown in the scroll container before sending to UI
+    def _wrap_outputs(coverage_md, general_md, rai_md, croissant):
+        return (
+            coverage_md,
+            f'<div class="field-card-list">{general_md}</div>',
+            f'<div class="field-card-list">{rai_md}</div>',
+            croissant,
+        )
+
+    def _extract_and_wrap(*args):
+        return _wrap_outputs(*extract_metadata(*args))
+
     extract_btn.click(
-        fn=extract_metadata,
+        fn=_extract_and_wrap,
         inputs=[pdf_input, paper_input, card_input, model_selector, api_key_input],
-        outputs=[metadata_output, croissant_output],
+        outputs=[coverage_output, general_md_box, rai_md_box, croissant_output],
     )
 
     # Enable download when croissant output is populated
-    def _make_download(croissant_json: str):
-        if not croissant_json or not croissant_json.strip():
-            return gr.DownloadButton(visible=False)
-        import tempfile
+    def _make_download(croissant_dict):
+        if not croissant_dict:
+            return gr.update(visible=False)
         tmp = tempfile.NamedTemporaryFile(
             mode="w", suffix="_croissant.json", delete=False, prefix="croissantminer_"
         )
-        tmp.write(croissant_json)
+        tmp.write(json.dumps(croissant_dict, indent=2, ensure_ascii=False))
         tmp.close()
-        return gr.DownloadButton(label="Download Croissant JSON-LD", value=tmp.name, visible=True)
+        return gr.update(label="Download Croissant JSON-LD", value=tmp.name, visible=True)
 
     croissant_output.change(
         fn=_make_download,
@@ -410,8 +564,4 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    import inspect
-    launch_kwargs = {}
-    if "ssr_mode" in inspect.signature(demo.launch).parameters:
-        launch_kwargs["ssr_mode"] = False
-    demo.launch(**launch_kwargs)
+    demo.launch(theme=gr.themes.Soft(), css=CUSTOM_CSS, ssr_mode=False)
