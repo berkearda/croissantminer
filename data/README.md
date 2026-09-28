@@ -2,14 +2,14 @@
 
 Everything needed to recompute the paper's tables without API calls. The benchmark PDFs are not
 redistributed (see `scripts/download_papers.py`), and the silver annotations are on the
-[Hugging Face dataset](https://huggingface.co/datasets/croissantminer/croissantminer).
+[Hugging Face dataset](https://huggingface.co/datasets/bearda/croissantminer).
 
 | Path | Contents |
 |---|---|
 | `annotations/gold.parquet` | Human gold for the 102 benchmark datasets x 30 fields (3,060 cells): `gold_value`, `gold_method` (how the value was settled: unanimous, majority, adjudicated or audit-corrected), rater counts and agreement. Senior adjudication by two authors is labelled `A_Mubashara` / `A_Berke` and `adjudicated_berke`; the Hugging Face release uses `A_senior_01` / `A_senior_02` and `adjudicated_senior_02` for the same cells. |
 | `annotations/iaa.parquet` | Per-field inter-annotator agreement (Krippendorff's alpha, Gwet's AC1, raw agreement, bootstrap CIs) |
 | `annotations/audit_set_200.parquet`, `annotations/audit_sheet_R1_done.xlsx`, `R2`, `R3` | Human audit of the LLM judge on 200 RAI cells. R1 and R2 rated all cells; R3 rated the cells where they disagreed. `evaluation/audit_report.py` reads the sheets and converts their rating scale. |
-| `annotations/croissant.json` | Croissant description of the review-time dataset release; an updated version ships with the next dataset release |
+| `annotations/croissant.json` | Croissant description of the review-time dataset release; the current one is on [Hugging Face](https://huggingface.co/datasets/bearda/croissantminer) (v1.1) |
 | `judged/judge_scores_v2min_glm5.parquet` | GLM-5 judge verdicts behind the paper (`score`: 1 correct, 2 partially correct, 3 wrong) |
 | `judged/judge_scores_v2min_glm5_gapfill_2026-09.parquet`, `..._lev_rerun_2026-09.parquet` | Verdicts added for the camera-ready: cells that had no verdict, and the Locator-Extractor (Gemini) re-run |
 | `judged/judge_scores_glm_5.parquet` | Verdicts under an earlier judge prompt, used only to compare judge versions |

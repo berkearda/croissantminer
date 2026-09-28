@@ -3,7 +3,7 @@
 Code for **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets**
 (NeurIPS 2026, Evaluations and Datasets Track).
 
-Paper: arXiv link follows · [Dataset](https://huggingface.co/datasets/croissantminer/croissantminer) · [Demo](https://huggingface.co/spaces/bearda/croissantminer)
+Paper: arXiv link follows · [Dataset](https://huggingface.co/datasets/bearda/croissantminer) · [Demo](https://huggingface.co/spaces/bearda/croissantminer)
 
 CroissantMiner is a benchmark and a set of systems for extracting [Croissant](https://github.com/mlcommons/croissant)
 metadata from ML dataset papers. The benchmark covers all 30 fields of the Croissant 1.1 schema: 10 core fields
