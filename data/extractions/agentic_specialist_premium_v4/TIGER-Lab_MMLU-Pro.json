@@ -1,0 +1,80 @@
+{
+  "dataset_id": "TIGER-Lab_MMLU-Pro",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MMLU-Pro",
+    "description": "MMLU-Pro is an enhanced multi-task language understanding benchmark designed to extend the original MMLU by integrating more challenging, reasoning-focused questions and expanding the answer choice set from four to ten options. It spans 14 diverse domains including mathematics, physics, chemistry, law, engineering, psychology, and health, encompassing over 12,000 questions. The dataset eliminates trivial and noisy questions from MMLU and incorporates questions from additional sources such as TheoremQA, SciBench, and STEM websites.",
+    "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+    "license": "MIT License",
+    "creator": "Yubo Wang (University of Waterloo); Xueguang Ma (University of Waterloo); Ge Zhang (University of Waterloo); Yuansheng Ni (University of Waterloo); Abhranil Chandra (University of Waterloo); Shiguang Guo (University of Waterloo); Weiming Ren (University of Waterloo); Aaran Arulraj (University of Waterloo); Xuan He (University of Waterloo); Ziyan Jiang (University of Waterloo); Tianle Li (University of Waterloo); Max Ku (University of Waterloo); Kai Wang (University of Toronto); Alex Zhuang (University of Waterloo); Rongqi Fan (University of Waterloo); Xiang Yue (Carnegie Mellon University); Wenhu Chen (University of Waterloo)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, Wenhu Chen. MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark. 38th Conference on Neural Information Processing Systems (NeurIPS 2024) Track on Datasets and Benchmarks. arXiv:2406.01574.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by integrating questions from four sources: (1) the original MMLU dataset, filtered to remove trivial and erroneous questions; (2) a STEM website (stemez.com) providing high-quality STEM problems; (3) TheoremQA, a dataset of human-annotated theorem-based questions; and (4) SciBench, a dataset of advanced science questions from college exams. GPT-4-Turbo was used to extract short answers and generate additional distractor options, and expert reviewers verified correctness and removed problematic questions.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Original MMLU dataset (57 subject categories); STEM website (stemez.com) problem statements with solutions; TheoremQA dataset (questions with brief answers); SciBench dataset (college-level science exam questions)",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Two-phase expert review process: Phase 1 involved experts verifying the accuracy of each answer, removing questions unsuitable for multiple-choice format, and discarding questions lacking necessary information or requiring non-textual elements. Phase 2 involved human experts reviewing options flagged by Gemini-1.5-Pro as potential false negatives to ensure distractors were indeed incorrect and distinct from the correct answer. Additionally, expert annotators analyzed 120 randomly selected erroneous GPT-4o predictions to determine underlying causes of mispredictions using expert judgment.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo (used to extract short answers from solutions, generate distractor options, and augment four-option MCQs to ten-option MCQs); Gemini-1.5-Pro (used to re-evaluate all answer options to identify potential false negatives); Llama-2-7B, Llama-2-7B-Chat, Llama-2-13B, Llama-2-13B-Chat, Mistral-7B, Gemma-7B, Yi-6B, Yi-6B-Chat (used to filter out questions answered correctly by more than four models as 'too easy')",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The multiple-choice format may not capture the depth of comprehension and creative response generation as effectively as open-ended answers, which better reflect real-world scenarios; MMLU-Pro exclusively focuses on language models and does not include assessments for multi-modal models, limiting its applicability in scenarios requiring synthesis of visual, auditory, and textual data",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating and benchmarking large language models on multi-task language understanding and reasoning across diverse domains; tracking progress in AI language capabilities; distinguishing nuanced differences in model capabilities",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions answered correctly by more than four out of eight models (Llama-2-7B, Llama-2-7B-Chat, Llama-2-13B, Llama-2-13B-Chat, Mistral-7B, Gemma-7B, Yi-6B, Yi-6B-Chat) were considered 'too easy' and excluded. Answer options were expanded from four to ten by using GPT-4-Turbo to generate six additional plausible but incorrect distractors for each question. For questions from the STEM Website and TheoremQA, GPT-4-Turbo was used to extract short answers and generate three additional distractor options to convert them into multiple-choice format.",
+    "rai:dataPreprocessingProtocol": "The original 57 MMLU subject categories were merged into 14 broader categories. Questions requiring non-textual elements (images or tables), questions lacking sufficient information, and questions unsuitable for multiple-choice format (e.g., proof problems, true/false, open-ended) were removed. Expert reviewers verified answer correctness and removed incorrectly answered questions. Gemini-1.5-Pro was used to identify false negative options (correct options misclassified as distractors), followed by human expert review to confirm distractors were incorrect and distinct from the correct answer. Extracted answers from STEM Website and TheoremQA were manually compared with solutions to remove questions where extracted answers were incomplete or incorrect."
+  },
+  "usage": {
+    "input_tokens": 224493,
+    "output_tokens": 1953
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45043,
+        "output_tokens": 614
+      },
+      "collection": {
+        "input_tokens": 44933,
+        "output_tokens": 279
+      },
+      "annotation": {
+        "input_tokens": 44982,
+        "output_tokens": 411
+      },
+      "impact": {
+        "input_tokens": 44979,
+        "output_tokens": 266
+      },
+      "processing": {
+        "input_tokens": 44556,
+        "output_tokens": 383
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 84586,
+      "output_tokens": 202
+    },
+    "timestamp": "2026-05-02T18:11:28.047394+00:00",
+    "elapsed_seconds": 56.6
+  }
+}

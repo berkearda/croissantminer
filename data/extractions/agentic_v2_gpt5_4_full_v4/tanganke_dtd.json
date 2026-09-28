@@ -1,0 +1,259 @@
+{
+  "dataset_id": "tanganke_dtd",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "Prompted Textures Dataset (PTD)",
+    "description": "A dataset of 246,285 texture images across 56 texture classes generated from prompts using Stable Diffusion and refined through frequency analysis, patch variance filtering, and CLIP scoring.",
+    "url": "https://zenodo.org/records/15359142",
+    "license": null,
+    "creator": "Blaine Hoak and Patrick McDaniel",
+    "publisher": "Zenodo",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by constructing texture prompts from descriptor combinations, generating images with Stable Diffusion, regenerating images flagged by the NSFW filter, excluding flagged images from release, and then refining the generated images through three filtering stages.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consisted of generated images produced from 96,768 unique text prompts using Stable Diffusion, with 5 non-flagged images generated per prompt before refinement.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "A three-stage refinement process was applied: frequency filtering to remove object-like images, patch variance filtering to eliminate homogeneous images, and CLIP score filtering to retain images aligned with prompts. Flagged NSFW images were excluded from the final dataset.",
+    "rai:dataAnnotationProtocol": "Human evaluation was conducted with 9 participants who each rated 100 images on overall quality and how well the image represented the provided descriptor, using a 1 to 5 scale.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors analyzed mean human quality and representativeness scores across refinement stages and compared human representative scores with CLIP scores, finding improvement at each refinement step and alignment between human scores and CLIP scores.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "CLIP",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset is presented as a resource for advancing interpretability, bias analysis, and robustness in machine learning, and for studying texture bias and model trustworthiness.",
+    "rai:dataBiases": "The paper discusses texture bias in models and notes that the dataset can be used to uncover texture-object associations and measure how models rely on texture information.",
+    "rai:dataLimitations": "The generation process is affected by NSFW safety filtering, and there is room for improvement in generating more structured textures.",
+    "rai:dataUseCases": "The dataset is intended for texture-based research and applications, including measuring texture bias, uncovering texture-object associations, interpretability, bias analysis, robustness, and broad texture-based tasks."
+  },
+  "usage": {
+    "input_tokens": 20235,
+    "output_tokens": 2371
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-21T12:12:15.201802Z",
+    "git_commit": "328ec12",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These adaptations allow us to create the Prompted Textures Dataset (PTD), a dataset of 246,285 texture images across 56 texture classes."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These adaptations allow us to create the Prompted Textures Dataset (PTD), a dataset of 246,285 texture images across 56 texture classes."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "On Synthetic Texture Datasets: Challenges, Creation, and Curation\nBlaine Hoak,*and Patrick McDaniela"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2409.10297v3 [cs.CV] 9 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Prompts are structured by combining one word from each category in standard English adjective order:"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After applying these three filtering stages, our refined Prompted Textures Dataset (PTD) contains 246,285 images, balanced across all texture classes and meeting our quality standards for textural content and prompt alignment."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our approach takes place in three steps. First, we produce texture-specific prompts to serve as the basis for our texture generation, where we apply combinations of artistically-informed descriptors across a wide range of texture classes to enable controlled diversity of textures. Second, we use our constructed prompts as inputs to Stable Diffusion model pipelines, which we adapt based on unique challenges we uncover that arise from safety filters sensitivity to texture data, to produce the corresponding texture images. Finally, to yield higher-quality and more texture-like images, we perform a three stage refinement process consisting of frequency analysis, patch variance filtering, and CLIP scoring to filter down the images."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Second, we use our constructed prompts as inputs to Stable Diffusion model pipelines, which we adapt based on unique challenges we uncover that arise from safety filters sensitivity to texture data, to produce the corresponding texture images."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This enumeration produces prompts such as “photorealistic randomized vivid red polka-dotted texture,” resulting in 96,768 unique prompts for generating our texture images.\nAfter generating 5 (not flagged) images per prompt, we have a total of 483,840 images before additional refinement."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure that our Prompted Textures Dataset (PTD) maintains high quality, diversity, and alignment with prompts, we apply a multi-stage refinement process. This process consists of three filtering steps, each targeting different aspects of image quality: (1) frequency filtering to remove object-like images, (2) patch variance filtering to eliminate homogeneous images, and (3) CLIP score filtering to ensure alignment with the prompts.\nWhile we found no explicit content in flagged images, we excluded these images from further analysis for ethical reasons and did not release them as part of our dataset."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For our human evaluation, we recruited 9 participants to evaluate the images. Each participant was shown 100 images in random order and asked two questions for each image: (1) How would you rate the overall quality of the image? and (2) How well does the image represent the provided descriptor? Participants were asked to supply a rating on a scale of 1 to 5, with 1 being the worst and 5 being the best, for each of these questions for every image."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In Table 2 we show the results of the human evaluation. Here, we take the mean quality and representative scores, provided by our human evaluators, across the images at different stages of the refinement process.\nGiven the alignment we observed in the previous results between human assigned representative scores and CLIP scores, which we further validate in Figure 7."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The images for the image sets provided to the participants were selected randomly from the dataset, but we ensured there were no duplicate images between or within the sets, meaning that we evaluated 900 unique images from our dataset."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the final refinement stage, we use CLIP-based filtering to ensure that the remaining images are well-aligned with their descriptive prompts. CLIP scores, which measure cosine similarity between text and image embeddings, provide a metric for representativeness."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These new metrics and findings open up new possibilities towards studying texture bias and its impact on model trustworthiness, and would not have been possible without the Prompted Texture Dataset that we introduce in this work.\nThis work demonstrates that generative models, when carefully adapted, can yield extensive, versatile datasets for texture analysis, contributing valuable resources for advancing interpretability, bias analysis, and robustness in machine learning."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Texture bias refers to a model’s affinity to learn, and be biased towards, texture information rather than shape information [12].\nFinally, we analyzed the use of the Prompted Texture Dataset in newly developed methods for measuring texture bias and found that the PTD uncovers useful and sensible texture-object associations, and thus is an effective dataset for measuring texture bias."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This filtering issue proved substantial, with up to 60% of our initial generated images being flagged as NSFW.\nThis indicates that while the refinement process enhances general quality, there is room for improvement in generating more structured textures."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This multi-stage refinement process enables PTD to serve as a high-quality, representative dataset for texture-based research and applications.\nBy leveraging the Prompted Textures Dataset, the new TAV metric was able to identify real textures present in images and subsequently measure texture bias by quantifying how predictions changed in the presence of different textures."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.049,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [],
+    "elapsed_seconds": 30.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 1
+  }
+}

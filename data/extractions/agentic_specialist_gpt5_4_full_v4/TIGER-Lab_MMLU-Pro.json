@@ -1,0 +1,80 @@
+{
+  "dataset_id": "TIGER-Lab_MMLU-Pro",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "MMLU-Pro",
+    "description": "MMLU-Pro is an enhanced benchmark for proficient-level multi-discipline language understanding and reasoning. It spans 14 diverse domains and contains 12,032 multiple-choice questions, extending MMLU by adding more challenging reasoning-focused questions, expanding answer choices from four to ten, and removing trivial and noisy questions.",
+    "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+    "license": "MIT License",
+    "creator": "Yubo Wang; Xueguang Ma; Ge Zhang; Yuansheng Ni; Abhranil Chandra; Shiguang Guo; Weiming Ren; Aaran Arulraj; Xuan He; Ziyan Jiang; Tianle Li; Max Ku; Kai Wang; Alex Zhuang; Rongqi Fan; Xiang Yue; Wenhu Chen",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, and Wenhu Chen. MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark. NeurIPS 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by reviewing the original MMLU dataset, merging its 57 subject categories into 14 broader categories, filtering out questions judged too easy using eight models, and then incorporating questions from the STEM Website, TheoremQA, and SciBench.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Questions that lacked sufficient textual information to derive a conclusive answer, required non-textual elements like images or tables, or were unsuitable for a multiple-choice format were discarded during expert review.",
+    "rai:dataCollectionRawData": "Original MMLU questions; selected high-quality STEM problems from the STEM Website; questions from TheoremQA; and advanced science questions from SciBench derived from college exams.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The expert review process comprised two phases: experts verified the accuracy of each answer, removed questions unsuitable for a multiple-choice format, and discarded questions lacking necessary information or requiring non-textual elements like images or tables; then Gemini-1.5-Pro re-evaluated all answer options to identify potential false negatives, and human experts reviewed these identified options to ensure distractors were incorrect and distinct from the correct answer. The paper also states that expert annotators analyzed 120 randomly selected erroneous GPT-4o predictions to determine underlying causes using their expert judgment.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Questions answered correctly by more than four of eight models were considered \"too easy\" and excluded. In expert review, Gemini-1.5-Pro identified potential false negative options, after which human experts removed each false negative option while keeping the correct answer and suitable distractors. For error analysis, expert annotators categorized 120 randomly selected GPT-4o errors into causes such as reasoning errors, lack of specific knowledge, and calculation errors.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo; Gemini-1.5-Pro",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The MMLU-Pro dataset remains constrained by the limitations of the multiple-choice format, which may not capture the depth of comprehension and creative response generation as effectively as open-ended answers; MMLU-Pro exclusively focuses on language models and does not include assessments for multi-modal models, limiting its applicability in scenarios requiring synthesis of visual, auditory, and textual data",
+    "rai:dataSocialImpact": "MMLU-Pro is presented as a valuable tool for advancing our understanding of AI language capabilities and for pushing the boundaries of what language models can achieve",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluating large language models on multi-task language understanding and reasoning; tracking progress toward expert-level intelligence in language models; assessing deeper and more complex reasoning skills and professional-level problem-solving; comparing diverse LLMs on a more challenging, discriminative, and reliable benchmark",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was manipulated post-collection by filtering out questions from MMLU that were answered correctly by more than four of eight models as “too easy,” excluding trivial and erroneous questions, incorporating questions from additional sources, converting STEM Website and TheoremQA items into multiple-choice format with GPT-4-Turbo by extracting short answers and generating three distractors, augmenting options from four to ten using GPT-4-Turbo to add six plausible distractors, and removing false negative options and bad questions during expert review.",
+    "rai:dataPreprocessingProtocol": "The dataset was preprocessed by merging the original 57 MMLU subject categories into 14 broader categories, manually comparing solutions with GPT-4-Turbo-extracted answers to remove questions where extracted answers were incomplete or incorrect, and discarding questions unsuitable for multiple-choice format, questions lacking sufficient textual information, and questions requiring non-textual elements like images or tables."
+  },
+  "usage": {
+    "input_tokens": 195858,
+    "output_tokens": 1597
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 39425,
+        "output_tokens": 315
+      },
+      "collection": {
+        "input_tokens": 39207,
+        "output_tokens": 344
+      },
+      "annotation": {
+        "input_tokens": 39209,
+        "output_tokens": 284
+      },
+      "impact": {
+        "input_tokens": 39158,
+        "output_tokens": 233
+      },
+      "processing": {
+        "input_tokens": 38859,
+        "output_tokens": 421
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 73168,
+      "output_tokens": 469
+    },
+    "timestamp": "2026-05-22T11:13:23.514349+00:00",
+    "elapsed_seconds": 31.2
+  }
+}

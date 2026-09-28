@@ -1,0 +1,80 @@
+{
+  "dataset_id": "nebius_SWE-rebench",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "SWE-rebench",
+    "description": "A public dataset comprising over 21,000 interactive Python-based software engineering tasks extracted from diverse GitHub repositories. It is designed to train and benchmark agents in diverse executable environments.",
+    "url": "https://huggingface.co/datasets/nebius/SWE-rebench",
+    "license": null,
+    "creator": "Ibragim Badertdinov (Nebius); Alexander Golubev (Nebius); Maksim Nekrashevich (Nebius); Anton Shevtsov (Nebius); Simon Karasik (Nebius); Andrei Andriushchenko (Nebius); Maria Trofimova (Nebius); Daria Litvintseva (Nebius); Boris Yangel (Nebius)",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, Boris Yangel. SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents. 39th Conference on Neural Information Processing Systems (NeurIPS 2025) Track on Datasets and Benchmarks.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Data was collected by downloading JSON archives of public events from the GitHub Archive to extract issue details and metadata, and by cloning relevant Python GitHub repositories to local storage to access full commit histories and pull requests.",
+    "rai:dataCollectionType": "Software Collection",
+    "rai:dataCollectionMissingData": "Some pull requests had unavailable head_commits due to branch deletion after merging, and approximately 5% of task instances lacked version tags from the git tag command.",
+    "rai:dataCollectionRawData": "Raw data consists of JSON archives of public GitHub events from the GitHub Archive and full commit histories from cloned Python GitHub repositories.",
+    "rai:dataCollectionTimeframe": "up to May 1, 2025",
+    "rai:dataAnnotationProtocol": "A fine-tuned Qwen 2.5-72B-Instruct model was used to automatically predict three binary quality labels (Issue Clarity, Task Complexity, and Test Patch Correctness) for each task instance based on the issue description, canonical solution patch, and test patch.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen 2.5-72B-Instruct",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue; limited exclusively to Python; reliance on heuristics and LLM-driven interpretations cannot fully replicate nuanced human judgment, containing errors and decreasing quality of the datasets.",
+    "rai:dataSocialImpact": "The benchmark may accelerate the development of increasingly autonomous AI systems in software engineering, bringing potential risks such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and benchmarking software engineering agents in diverse executable environments; reinforcement learning of SWE agents at scale; building a contamination-free benchmark for agentic software engineering.",
+    "rai:dataReleaseMaintenancePlan": "The dataset and benchmark are continuously updated with a continuous supply of fresh tasks using an automated pipeline to maintain a contamination-free evaluation process.",
+    "rai:dataImputationProtocol": "For task instances where the git tag command does not provide a version (approximately 5% of tasks), a unique version is assigned so that each of them uses its own environment.",
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Project versions are normalized to major.minor format. The dataset is filtered to include only resolved issues with merged pull requests affecting 1 to 15 files, and tasks must pass execution-based installation verification. The benchmark subset is further curated from the larger dataset by filtering for clean test execution, patch size, problem statement length, English language, recency, assessed difficulty, and test case count."
+  },
+  "usage": {
+    "input_tokens": 201637,
+    "output_tokens": 17799
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 43359,
+        "output_tokens": 5689
+      },
+      "collection": {
+        "input_tokens": 29183,
+        "output_tokens": 2103
+      },
+      "annotation": {
+        "input_tokens": 43174,
+        "output_tokens": 2745
+      },
+      "impact": {
+        "input_tokens": 43121,
+        "output_tokens": 2980
+      },
+      "processing": {
+        "input_tokens": 42800,
+        "output_tokens": 4282
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55934,
+      "output_tokens": 7716
+    },
+    "timestamp": "2026-05-28T11:08:39.594743+00:00",
+    "elapsed_seconds": 181.3
+  }
+}

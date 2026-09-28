@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_ai2_arc",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "ARC (AI2 Reasoning Challenge)",
+    "description": "The ARC dataset consists of 7,787 natural, grade-school science questions authored for standardized tests, partitioned into a Challenge Set (2,590 questions) and an Easy Set (5,197 questions). The Challenge Set contains only questions answered incorrectly by both a retrieval-based algorithm and a word co-occurrence algorithm. The dataset is accompanied by the ARC Corpus, a collection of 14 million science-related sentences relevant to the questions.",
+    "url": "http://data.allenai.org/arc",
+    "license": null,
+    "creator": "Peter Clark; Isaac Cowhey; Oren Etzioni; Tushar Khot; Ashish Sabharwal; Carissa Schoenick; Oyvind Tafjord (Allen Institute for Artificial Intelligence)",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2018",
+    "inLanguage": "en",
+    "citeAs": "Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord. Think you have Solved Question Answering? Try ARC, the AI2 Reasoning Challenge. arXiv:1803.05457v1 [cs.AI], 14 Mar 2018.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Questions were collected through several months of extensive search and investigation, drawing from a variety of standardized test sources including state assessments, national assessments, and an anonymous content partner. The ARC Corpus was assembled by using a major search engine to run a large series of automatically constructed search queries (instantiating 100 hand-written templates for 80 science topics), collecting the top documents from each search, de-duplicating them, stripping to text, and chunking into sentences. The corpus was then augmented with the AristoMini corpus.",
+    "rai:dataCollectionType": "Document analysis; Web Scraping; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Natural science questions authored for standardized tests from sources including ACTAAP, AIMS, Alaska Dept Ed, MCAS, NY Regents, TIMSS, and others (see Table 7); web documents retrieved via a major search engine using automatically constructed queries; the AristoMini corpus containing Wiktionary definitions, Simple Wikipedia science articles, and additional science sentences from the web.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Questions answered correctly by simple retrieval or word co-occurrence algorithms are excluded from the Challenge Set, meaning the Challenge Set is biased toward questions that are hard for those specific baseline methods; 'mineral' co-occurs unusually frequently with several incorrect answer options, illustrating corpus-level co-occurrence biases that affect solver performance",
+    "rai:dataLimitations": "The Challenge Set partition only approximates the informal goal of containing 'hard' questions, as it is defined operationally by failure of two specific baseline solvers; large portions of standardized tests can be easily solved by simple AI methods; scores on mixed datasets can be dominated by performance on easy questions, masking lack of progress on hard questions; the ARC Corpus IR score on Challenge questions is near random, reflecting a limitation of the IR methodology rather than corpus coverage; the question-to-assertion conversion can produce non-grammatical sentences",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Encouraging AI research in advanced question answering requiring knowledge and reasoning beyond retrieval-style tasks; benchmarking and evaluating QA systems including neural models; training and evaluation of models requiring multi-hop reasoning, commonsense knowledge, and deeper text comprehension",
+    "rai:dataReleaseMaintenancePlan": "The ARC Dataset, Corpus, three baseline neural models (DecompAttn, BiDAF, and DGEM), and a leaderboard are all publicly available at http://data.allenai.org/arc; the leaderboard accepts new submissions and displays up-to-date results",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The ARC dataset was partitioned into a Challenge Set and an Easy Set based on whether questions were answered incorrectly by both a retrieval-based (IR) algorithm and a word co-occurrence (PMI) algorithm. Questions answered correctly by either algorithm were placed in the Easy Set, while those answered incorrectly by both were placed in the Challenge Set.",
+    "rai:dataPreprocessingProtocol": "The ARC Corpus was created by collecting top documents from search engine queries, de-duplicating them, stripping document content down to text only, and chunking the resulting text into sentences. The corpus was then augmented with the AristoMini corpus. For the entailment baseline models, retrieved sentences were filtered to remove long sentences (>300 characters), sentences with negation, and noisy sentences."
+  },
+  "usage": {
+    "input_tokens": 129751,
+    "output_tokens": 1503
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 26095,
+        "output_tokens": 385
+      },
+      "collection": {
+        "input_tokens": 25985,
+        "output_tokens": 324
+      },
+      "annotation": {
+        "input_tokens": 26057,
+        "output_tokens": 154
+      },
+      "impact": {
+        "input_tokens": 26006,
+        "output_tokens": 411
+      },
+      "processing": {
+        "input_tokens": 25608,
+        "output_tokens": 229
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64609,
+      "output_tokens": 170
+    },
+    "timestamp": "2026-05-02T18:14:10.187978+00:00",
+    "elapsed_seconds": 48.7
+  }
+}

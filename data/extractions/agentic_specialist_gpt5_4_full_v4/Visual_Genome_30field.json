@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "Visual Genome is a dataset for connecting language and vision through dense image annotations. It contains over 100K images annotated with objects, attributes, relationships, region descriptions, scene graphs, and question-answer pairs to support comprehensive scene understanding and reasoning.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna (Stanford University); Yuke Zhu (Stanford University); Oliver Groth (Dresden University of Technology); Justin Johnson (Stanford University); Kenji Hata (Stanford University); Joshua Kravitz (Stanford University); Stephanie Chen (Stanford University); Yannis Kalantidis (Yahoo Inc.); Li-Jia Li (Snapchat Inc.); David A. Shamma (Yahoo Inc.); Michael S. Bemstein (Stanford University); Li Fei-Fei (Stanford University)",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bemstein, and Li Fei-Fei. Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations. arXiv:1602.07332v1, 2016.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The first release of the Visual Genome dataset uses 108,249 images from the intersection of the YFCC100M and MS-COCO. Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk, with workers creating region descriptions and bounding boxes for images and the dataset collected over the course of 6 months after 15 months of experimentation and iteration on the data representation.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Some region descriptions did not yield graph data because they contained no objects; the paper states that descriptions like \"it is a sunny day\" have no region graphs associated with them and workers were asked not to generate graphs for such descriptions.",
+    "rai:dataCollectionRawData": "108,249 images from the intersection of the YFCC100M and MS-COCO; these are real-world, non-iconic images uploaded onto Flickr by users.",
+    "rai:dataCollectionTimeframe": "6 months",
+    "rai:dataAnnotationProtocol": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk; workers drew three bounding boxes and wrote three region descriptions per image, repeated until 50 descriptions were collected, with BLEU-score checks to prevent repeated or overly common descriptions and a coverage requirement for boxes; workers then extracted objects from each description and grounded them with tight bounding boxes, using previously extracted objects and Stanford dependency parser noun suggestions; workers added attributes to objects and relationships between object pairs from the description to form region graphs; workers confirmed whether overlapping object boxes referred to the same object when constructing scene graphs; workers also wrote freeform and region-based question-answer pairs under rules to start with question words, avoid ambiguity/speculation, and be precise; all data then went through verification, with majority voting for all components except objects and rapid judgments for object verification.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "New region descriptions were programmatically filtered using BLEU score thresholds against prior image-specific and global descriptions; scene graphs were formed by merging region graphs and merging objects whose boxes overlapped, with worker confirmation for overlapping pairs; verification used majority voting with three unique workers and acceptance when at least two marked an annotation correct, while objects were verified with rapid judgments; canonicalization mappings were also sent to workers for verification and correction among five synset options.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "93.02% United States; 1.29% Philippines; 1.13% Kenya; 0.94% India; 0.50% Russia; 0.47% Canada; 2.65% others; majority aged 25 to 34; youngest 18; oldest 68; 54.15% male; 45.85% female",
+    "rai:machineAnnotationTools": "Stanford dependency parser; Stanford NLP tools",
+    "rai:dataBiases": "The dataset is somewhat biased towards images of people; Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images; 93.02% of workers contributed from the United States",
+    "rai:dataLimitations": "The images are from the intersection of MS-COCO and YFCC100M; The dataset is somewhat biased towards images of people; The mappings are not perfect and still contain some ambiguity",
+    "rai:dataSocialImpact": "Each HIT was designed such that workers manage to earn anywhere between $6-$8 per hour if they work continuously, in line with ethical research standards on Mechanical Turk",
+    "rai:personalSensitiveInformation": "The images are real-world, non-iconic images that were uploaded onto Flickr by users",
+    "rai:dataUseCases": "training and benchmarking the next generation of computer models for comprehensive scene understanding; image search; question answering; robotic interactions; semantic image retrieval; image captioning; visual question answering; relationship extraction",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We canonicalize the objects, attributes, relationships, and noun phrases in region descriptions and questions answer pairs to WordNet synsets. The scene graph is the union of all region graphs and contains all objects, attributes, and relationships from each region description. We merge nodes from region graphs that correspond to the same object; for example, man and person in two different region graphs might refer to the same object in the image. We say that objects from different graphs refer to the same object if their bounding boxes have an overlap over union of 0.8. Before merging two objects, we ask workers to confirm that a pair of objects with significant overlap are indeed the same object.",
+    "rai:dataPreprocessingProtocol": "We calculate the most similar descriptions using BLEU scores between pairs of sentences. When a worker writes a new description, we programmatically enforce that it has not been repeated by using BLEU score thresholds set to 0.7 to ensure that it is dissimilar to descriptions from both previously written descriptions for that image and the top 100 most common written descriptions of all images in the dataset. We use Stanford's dependency parser to extract nouns automatically and send them to the workers as suggestions. We use the Stanford NLP tools to extract the noun phrases from the region descriptions and QAs. We normalize each attribute based on morphology (stemming). For relationships, we ignore all prepositions as they are not recognized by WordNet. All Visual Genome data go through a verification stage as soon as they are annotated; this stage helps eliminate incorrectly labeled objects, attributes, and relationships and helps remove region descriptions and questions and answers that might be correct but are vague, subjective, or opinionated."
+  },
+  "usage": {
+    "input_tokens": 231986,
+    "output_tokens": 1884
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 49235,
+        "output_tokens": 320
+      },
+      "collection": {
+        "input_tokens": 49013,
+        "output_tokens": 369
+      },
+      "annotation": {
+        "input_tokens": 36124,
+        "output_tokens": 385
+      },
+      "impact": {
+        "input_tokens": 48949,
+        "output_tokens": 264
+      },
+      "processing": {
+        "input_tokens": 48665,
+        "output_tokens": 546
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 51436,
+      "output_tokens": 471
+    },
+    "timestamp": "2026-05-22T11:14:08.082003+00:00",
+    "elapsed_seconds": 44.6
+  }
+}

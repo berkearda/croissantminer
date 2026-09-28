@@ -1,0 +1,289 @@
+{
+  "dataset_id": "lmms-lab_POPE",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "POPE (Polling-based Object Probing Evaluation)",
+    "description": "POPE is an object hallucination evaluation benchmark for large vision-language models that converts hallucination evaluation into a binary classification task by prompting LVLMs with simple Yes-or-No questions about objects in images. It includes three sampling strategies (random, popular, and adversarial settings) to probe whether models hallucinate objects.",
+    "url": "https://huggingface.co/datasets/lmms-lab/POPE",
+    "license": null,
+    "creator": "Yifan Li, Yifan Du, Kun Zhou, Jinpeng Wang, Wayne Xin Zhao, Ji-Rong Wen",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was constructed by selecting 500 images from the MSCOCO validation set, generating polling-based yes/no questions about object presence using ground-truth annotations and three sampling strategies (random, popular, adversarial) for negative objects. SEEM was also used to automatically annotate images from MSCOCO, A-OKVQA, and GQA for extended evaluation.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images and ground-truth object annotations from the MSCOCO validation set, as well as images from A-OKVQA and GQA datasets. Segmentation results were also generated using the SEEM automatic segmentation tool.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Ground-truth objects are extracted either from human annotations or with automatic segmentation tools. Negative sampling is conducted for nonexistent objects under Random/Popular/Adversarial settings. Ground-truth and nonexistent objects are formulated into question templates to poll LVLMs.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Evaluation uses F1 Score and accuracy metrics; performance of LVLMs consistently decreases from random to popular to adversarial settings, consistent with findings about hallucination of frequently appearing and co-occurring objects.",
+    "rai:annotationsPerItem": "6 questions per image (3 ground-truth objects and 3 nonexistent objects)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SEEM (automatic segmentation tool) used for automatic annotation of ground-truth objects",
+    "rai:dataBiases": "The object distributions of visual instructions affect object hallucination in LVLMs. Evaluation results might be affected by the corresponding data distribution.",
+    "rai:dataLimitations": "The evaluation focuses only on object hallucination and cannot measure overall LVLM performance. Models are evaluated on a subset of validation data. The matching-based method may fail when LVLMs don't explicitly answer 'Yes' or 'No'. Automatic segmentation tool annotations may be inconsistent with human annotations. Only a small number of LVLMs are compared.",
+    "rai:dataSocialImpact": "Object hallucination in LVLMs hinders their safe use in real-world deployment and can harm user experiences.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset (POPE) is intended for evaluating object hallucination in Large Vision-Language Models (LVLMs), specifically for testing whether models generate objects inconsistent with ground-truth images.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Negative (nonexistent) objects are sampled using three strategies: random sampling, popular sampling (frequently occurring objects), and adversarial sampling (objects likely to be hallucinated).",
+    "rai:dataPreprocessingProtocol": "Ground-truth objects are extracted from human annotations and segmentation masks; polling-based yes/no questions are constructed from these objects for evaluation."
+  },
+  "usage": {
+    "input_tokens": 25704,
+    "output_tokens": 2594
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:00:26.213589Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we further design a polling-based query method called POPE for better evaluation of object hallucination"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The basic idea is to convert the evaluation of hallucination into a binary classification task by prompting LVLMs with simple Yes-or-No short questions about the probing objects (e.g., Is there a car in the image?). We show that such a method is more stable and flexible."
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yifan Li1,3∗, Yifan Du1,3∗, Kun Zhou2∗, Jinpeng Wang4, Wayne Xin Zhao2,3†and Ji-Rong Wen1, 2,3"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2305.10355v3 [cs.CV] 26 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "prompting LVLMs with simple Yes-or-No short questions about the probing objects (e.g., Is there a car in the image?)"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we further design a polling-based query method called POPE for better evaluation of object hallucination. Experiment results show that our POPE can evaluate object hallucination in a more stable and flexible way."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We randomly select 500 images with more than... We adopt SEEM (Zou et al., 2023) to annotate images from three datasets (i.e., MSCOCO, A-OKVQA (Schwenk et al., 2022) and GQA (Hudson and Manning, 2019)) and build POPE based on the segmentation results."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate all the LVLMs with POPE built on the validation set of MSCOCO (Lin et al., 2014). We randomly select 500 images with more than..."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate all the LVLMs with POPE built on the validation set of MSCOCO (Lin et al., 2014)... we adopt SEEM (Zou et al., 2023) to annotate images from three datasets (i.e., MSCOCO, A-OKVQA (Schwenk et al., 2022) and GQA (Hudson and Manning, 2019))"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given an input image, POPE first extracts ground-truth objects in the image either from human annotations or with the help of automatic segmentation tools like SEEM. Then, POPE conducts negative sampling for nonexistent objects in the image under Random/Popular/Adversarial settings. Finally, the ground-truth objects and nonexistent objects are formulated into question templates to poll LVLMs."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The results are presented in Table 3, where we can obtain a similar conclusion as in Table 1 that InstructBLIP performs the best, while LLaVA, MultiModal-GPT and mPLUG-Owl suffer more severe hallucination problem, whose F1 Score are below 70."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "3 ground-truth objects in the annotations and construct 6 questions for each image (i.e., l = 6)."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "POPE first extracts ground-truth objects in the image either from human annotations or with the help of automatic segmentation tools like SEEM."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we empirically revealed that the object distributions of the visual instructions would affect the object hallucination of LVLMs... The reported results might be affected by the corresponding data distribution, though we have carefully set up the experiments."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we only focus on the object hallucination problem in LVLMs, while do not consider other aspects... we have to evaluate all models on a part of the validation set for each dataset... LVLMs may occasionally fail to provide answers explicitly containing these words... the objects would be annotated based on the label set by the tool, which may be inconsistent with the collected human annotations... this work has only compared a small number of LVLMs, without including some recently released or closed-source ones."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The hallucination phenomenon hinders the safe use of LVLMs in real-world deployment... it is generally believed that the hallucination would degrade the model performance and greatly harm the user experiences in real-world applications."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we proposed a polling-based query method called POPE, to provide an improved evaluation approach for the object hallucination of LVLMs... we systematically evaluate the issue of object hallucination in existing LVLMs, which refers to generating contents that are inconsistent with ground-truth objects in the given image."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Random: dog, apple, … Popular: table, knife, … Adversarial: surfboard, … sampling ... Negative Nonexistent objects"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Human annotation ... Segmentation Ground-truth objects ... person, chair, umbrella, sand, sea, … ... Polling questions Q: Is there a person in the image? A: Yes."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.116,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11652,
+        "tokens_in": 3802,
+        "tokens_out": 541
+      },
+      "collection": {
+        "section_chars": 8608,
+        "tokens_in": 3302,
+        "tokens_out": 507
+      },
+      "annotation": {
+        "section_chars": 4286,
+        "tokens_in": 1622,
+        "tokens_out": 542
+      },
+      "impact": {
+        "section_chars": 13809,
+        "tokens_in": 4816,
+        "tokens_out": 628
+      },
+      "processing": {
+        "section_chars": 2660,
+        "tokens_in": 1066,
+        "tokens_out": 224
+      }
+    },
+    "enrichments": [
+      "url"
+    ],
+    "elapsed_seconds": 46.7,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 11096,
+      "output_tokens": 152
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

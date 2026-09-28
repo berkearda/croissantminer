@@ -1,0 +1,289 @@
+{
+  "dataset_id": "allenai_winogrande",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "WINOGRANDE",
+    "description": "A large-scale dataset of 44k pronoun resolution problems inspired by the Winograd Schema Challenge, designed to improve both scale and hardness through crowdsourcing and systematic bias reduction using the AFLITE algorithm.",
+    "url": "https://huggingface.co/datasets/allenai/winogrande",
+    "license": null,
+    "creator": "Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, Yejin Choi",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "WINOGRANDE problems were collected via crowdsourcing on Amazon Mechanical Turk (AMT). Workers wrote twin sentences meeting WSC requirements, primed by randomly chosen anchor words from WikiHow articles. Each question was validated by three distinct crowd workers. An adversarial filtering algorithm (AFLITE) was then applied to systematically reduce dataset biases.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Invalid questions were discarded. 68% of collected questions (53k) were deemed valid after validation; the remaining 32% were discarded. Additionally, 6k instances used for fine-tuning RoBERTa were discarded from the final dataset.",
+    "rai:dataCollectionRawData": "77k questions (38k twin sentence pairs) collected from Amazon Mechanical Turk workers, inspired by Winograd Schema Challenge problems, using anchor words from WikiHow articles as creative prompts.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Validation by a distinct set of three crowd workers per question. A question is valid if: (1) majority of three workers choose the correct answer, (2) they agree the two answer options are unambiguous, and (3) the question cannot be answered by word association. Workers met minimum AMT qualifications: 99% approval rate, 5k approvals. Reward was $0.03 per sentence validation.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "68% of questions (53k out of 77k) were deemed valid after majority-vote validation; invalid questions were discarded. Dataset-specific biases were further addressed using the AFLITE algorithmic bias reduction method.",
+    "rai:annotationsPerItem": "3 validators per question",
+    "rai:annotatorDemographics": "Workers met minimum AMT qualifications: 99% approval rate and 5,000 approvals",
+    "rai:machineAnnotationTools": "RoBERTa fine-tuned on a small subset of the dataset (RoBERTaembed) used to pre-compute embeddings for AFLITE bias reduction; ensemble of logistic regression classifiers used to identify and discard biased instances.",
+    "rai:dataBiases": "The dataset may contain spurious dataset-specific biases introduced by crowdworkers who subconsciously repeat similar problem-crafting strategies. Word-association biases and annotation artifacts are known issues. The paper introduces AFLITE, an adversarial filtering algorithm, to mitigate such biases. Gender bias is also evaluated using Winogender diagnostics.",
+    "rai:dataLimitations": "Results on existing commonsense benchmarks may overestimate the true capabilities of machine intelligence, as models might be solving problems for the wrong reasons by relying on spurious statistical patterns. The dataset, while debiased, may still contain residual annotation artifacts.",
+    "rai:dataSocialImpact": "The dataset highlights the risk of overestimating AI commonsense reasoning capabilities, which has broader implications for how AI progress is measured and reported. It also addresses gender bias in NLP models, showing that fine-tuning on WINOGRANDE reduces gender gap compared to other datasets.",
+    "rai:personalSensitiveInformation": "Gender information is present in the dataset as part of the Winogender diagnostics, which measures gender bias by examining pronoun gender and occupation majority gender.",
+    "rai:dataUseCases": "The dataset is intended for training, testing, and validation of commonsense reasoning models, as well as transfer learning to related benchmarks. It can serve as a resource for commonsense knowledge transfer.",
+    "rai:dataReleaseMaintenancePlan": "The paper suggests that benchmarks should be dynamic and evolve together with the evolving state-of-the-art, implying a need for ongoing updates, but no specific versioning or maintenance plan is explicitly described.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "AFLITE algorithm applied to reduce dataset-specific biases by filtering instances whose RoBERTa embeddings are strongly predictive of the correct answer. An ensemble of linear classifiers trained on random subsets determines whether embeddings are indicative of the label; such instances are discarded iteratively. Additionally, 31k filtered-out problems are released as supplementary training data.",
+    "rai:dataPreprocessingProtocol": "Crowdsourced questions validated by three distinct workers; a question deemed valid if (1) majority chose correct answer, (2) answer options are unambiguous, and (3) question cannot be answered by simple word association. 68% of questions (53k) passed validation; invalid questions discarded. 6k instances used to fine-tune RoBERTa for embedding computation, then discarded from final dataset."
+  },
+  "usage": {
+    "input_tokens": 28670,
+    "output_tokens": 3227
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:41:42.589244Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce WINOGRANDE, a large-scale dataset of 44k problems, inspired by the original WSC design"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce WINOGRANDE, a large-scale dataset of 44k problems, inspired by the original WSC design, but adjusted to improve both the scale and the hardness of the dataset. The key steps of the dataset construction consist of (1) a carefully designed crowdsourcing procedure, followed by (2) systematic bias reduction using a novel AFLITE algorithm"
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, Yejin Choiy Allen Institute for Artificial Intelligence"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Allen Institute for Artificial IntelligenceyUniversity of Washington"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1907.10641v2 [cs.CL] 21 Nov 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "WSC problems are constructed as pairs (called twin) of nearly identical questions with two answer choices... Examples (1)-(3) are drawn from WSC"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a large-scale dataset of 44k problems"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT). Workers are asked to write twins sentences (as shown in Table 1) that meet the requirements for WSC problems (e.g., avoiding word association, non-zero but small edit distance)."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT). Workers are asked to write twins sentences that meet the requirements for WSC problems."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As a result, 68% of the questions (53k) were deemed valid and we discarded the invalid questions... We discard the 6k instances from the final dataset."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In total, we collected 77k questions (i.e., 38k twins)... workers were instructed to randomly pick an anchor word(s) from a randomly assigned WikiHow article."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We validate each collected question through a distinct set of three crowd workers. Following a rigorous process, a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous... and (3) the question cannot be answered simply by word association... For each sentence validation, workers were paid $0.03."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect WINOGRANDE problems via crowdsourcing on Amazon Mechanical Turk (AMT)."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As a result, 68% of the questions (53k) were deemed valid and we discarded the invalid questions. While our crowdsourcing procedure addresses some amount of instance-level biases like word association, it is still possible that the constructed dataset has dataset-specific biases."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We validate each collected question through a distinct set of three crowd workers."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The workers met minimum qualification in AMT: 99% approval rate, 5k approvals."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use RoBERTa (Liu et al. 2019) fine-tuned on a small subset of the dataset... We use RoBERTaembed to pre-compute the embeddings for the rest of the instances (47k) as the input for AFLITE. Next, we use an ensemble of linear classifiers (logistic regressions) trained on random subsets of the data to determine whether the representation used in RoBERTaembed is strongly indicative of the correct answer option."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Trichelair et al. (2018) have reported word-association (13.5% of the cases) as well as other types of dataset-speciﬁc biases. While such biases and annotation artifacts are not apparent for individual instances, they get introduced in the dataset as problem authors subconsciously repeat similar problem-crafting strategies."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "these results might also indicate the extent to which spurious dataset biases are prevalent in existing datasets, which runs the risk of overestimating the true capabilities of machine intelligence on commonsense reasoning."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In parallel, we also emphasize the potential risk of overestimating the performance of the state-of-the-art methods on the existing commonsense benchmarks; these models might be solving the problems right for the wrong reasons, by relying on spurious statistical patterns (annotation artifacts)."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Winogender is designed as diagnostics for checking whether a model (and/or training corpora) suffers from gender bias. The bias is measured by the difference in accuracy between the cases where the pronoun gender matches the occupation's majority gender."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "using WINOGRANDE as a resource, we demonstrate effective transfer learning and achieve state-of-the-art results on several related benchmarks... This signiﬁcant improvement on an unrelated task indicates that WINOGRANDE can serve as a resource for commonsense knowledge transfer."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we now need AI algorithms to compose challenges that are hard enough for AI, which requires dynamic datasets that evolve together with the evolving state-of-the-art."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use an ensemble of linear classiﬁers (logistic regressions) trained on random subsets of the data to determine whether the representation used in RoBERTaembed is strongly indicative of the correct answer option. If so, we discard the corresponding instances and proceed iteratively... We also release 31k problems that are ﬁltered out by AFLITE for additional training set"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous... and (3) the question cannot be answered simply by word association... 68% of the questions (53k) were deemed valid and we discarded the invalid questions... we use 6k instances (5k for training and 1k for validation) from the dataset... We discard the 6k instances from the ﬁnal dataset."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "evidence_count": 25,
+      "evidence_coverage": 96.2,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.1344,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11839,
+        "tokens_in": 3614,
+        "tokens_out": 491
+      },
+      "collection": {
+        "section_chars": 10773,
+        "tokens_in": 3306,
+        "tokens_out": 515
+      },
+      "annotation": {
+        "section_chars": 9073,
+        "tokens_in": 3382,
+        "tokens_out": 727
+      },
+      "impact": {
+        "section_chars": 8131,
+        "tokens_in": 2717,
+        "tokens_out": 823
+      },
+      "processing": {
+        "section_chars": 9943,
+        "tokens_in": 3240,
+        "tokens_out": 451
+      }
+    },
+    "enrichments": [
+      "url"
+    ],
+    "elapsed_seconds": 55.9,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 12411,
+      "output_tokens": 220
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

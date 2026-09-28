@@ -1,0 +1,289 @@
+{
+  "dataset_id": "allenai_math_qa",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "MathQA",
+    "description": "A large-scale dataset of 37k English multiple-choice math word problems covering multiple math domain categories, annotated with operation programs corresponding to each problem. It enhances the AQuA dataset with fully-specified operational programs using a new operation-based representation language.",
+    "url": "https://math-qa.github.io/math-QA/",
+    "license": "Apache-2.0",
+    "creator": "Aida Amini, Saadia Gabriel, Shanchuan Lin, Rik Koncel-Kedziorski, Yejin Choi, Hannaneh Hajishirzi",
+    "publisher": "University of Washington",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by annotating problems from the AQuA dataset with formal operation programs using a dynamic crowd-sourcing annotation platform. Annotators iteratively selected operations and arguments, with quality control strategies including accuracy thresholds and validation by at least 2 out of 3 validators.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Problems that are unsolvable, near-duplicates with incorrect solutions, or require reasoning not yet modeled by neural networks were excluded. Only 61% of automatically annotated problems passed human validation, so automatic annotations were not included.",
+    "rai:dataCollectionRawData": "The AQuA-RAT dataset, which provides over 100K GRE- and GMAT-level multiple-choice math word problems with rationales across a wide range of domains.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowd workers annotated math word problems with formal operation programs using a dynamic annotation platform. Annotators sequentially selected operations and arguments, with intermediate results calculated automatically. Quality control included random evaluation through pre-defined test questions with an accuracy threshold; annotations from annotators dropping below the threshold were marked untrusted. A validation strategy required at least 2 out of 3 validators to rank a program as valid.",
+    "rai:dataAnnotationPlatform": "Figure Eight (https://www.figure-eight.com)",
+    "rai:dataAnnotationAnalysis": "Validation accuracy of 94.64% across categories. Expert evaluation of 500 problems showed 92% of annotations are valid, with 87% agreement between expert validation and crowdsourcing validation. Agreement between human annotators on categorization was 84%, and their agreement with the model was 74.5%.",
+    "rai:annotationsPerItem": "At least 3 validators per item (2 out of 3 required to mark as valid)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "An automatic dynamic programming approach was experimented with to generate operation programs using numbers in AQuA rationales, but was not included in the final dataset due to noise (only 61% passed human validation).",
+    "rai:dataBiases": "The AQuA dataset contains statistical bias that the proposed representation language can help reduce.",
+    "rai:dataLimitations": "The AQuA dataset contains significant noise including problems with incorrect solutions, problems unsolvable without brute-force enumeration, and rationales missing required solution steps. The dataset also includes currently unsolvable problems such as sequence and high-order polynomial problems.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is suited for training deep-learning models to solve math word problems, as well as testing and validating sequence-to-program models for mathematical reasoning.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Annotation expansion using Levenshtein distance to find similar problems, replace numeric values with generic numbers, and expand annotations. Dataset randomly split 80/12/8% for training/dev/test.",
+    "rai:dataPreprocessingProtocol": "Dynamic annotation platform used to annotate math word problems with formal operation programs. Quality control through pre-defined test questions with accuracy thresholds; annotations below threshold labeled as untrusted. Alignment validation requiring at least 2 out of 3 validators to rank a program as valid (94.64% validation accuracy). Automatic annotation via dynamic programming was excluded due to noise."
+  },
+  "usage": {
+    "input_tokens": 23264,
+    "output_tokens": 2582
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:38:59.456840Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our new dataset, MathQA, significantly enhances the AQuA dataset with fully-specified operational programs"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a new large-scale, diverse dataset of 37k English multiple-choice math word problems covering multiple math domain categories by modeling operation programs corresponding to word problems in the AQuA dataset"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available at: https://math-qa.github.io/math-QA/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Aida Amini1, Saadia Gabriel1, Shanchuan Lin1, Rik Koncel-Kedziorski1, Yejin Choi1,2, and Hannaneh Hajishirzi1,2"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1University of Washington"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.13319v1 [cs.CL] 30 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a new large-scale, diverse dataset of 37k English multiple-choice math word problems"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use problems in the AQuA dataset and carefully annotate those problems with formal operation programs... We use crowdsourcing to carefully align problems with operation programs."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We design a dynamic annotation platform to annotate math word problems with formal operation programs... We take advantage of the annotation platform in Figure Eight. The annotators are randomly evaluated through a pre-defined set of test questions."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Due to the noise in the rationales, only 61% of those problems pass our human validation... To maintain interpretability of operation paths, we did not include automatic annotations from our dataset and focus on operation programs derived by crowdsourcing."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We choose the 2017 AQUA-RAT dataset to demonstrate use of our representation language on an existing large-scale math word problem solving dataset. The AQuA provides over 100K GRE- and GMAT-level math word problems."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We dynamically evaluate and employ high-quality annotators through a collection of quality-control questions... The annotators are randomly evaluated through a pre-deﬁned set of test questions, and they have to maintain an accuracy threshold to be able to continue their annotations... at least 2 out of 3 validators should rank the operation program as valid for it to be selected."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We take advantage of the annotation platform in Figure Eight."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The validation accuracy is 94.64% across categories... Our expert evaluation of the annotation procedure for a collection of 500 problems shows that 92% of the annotations are valid. Additionally, it has 87% agreement between the expert validation and the crowd sourcing validation task."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "at least 2 out of 3 validators should rank the operation program as valid for it to be selected."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also experimented with an automatic dynamic programming approach to annotation that generates operation programs for problems using numbers in the AQuA rationales. Due to the noise in the rationales, only 61% of those problems pass our human validation... we did not include automatic annotations from our dataset and focus on operation programs derived by crowdsourcing."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our representation language provides an extra layer of supervision that can be used to reduce the influence of statistical bias in datasets like AQuA."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "there is a significant amount of unwanted noise in the dataset, including problems with incorrect solutions, problems that are unsolvable without brute-force enumeration of solutions, and rationales that contain few or none of the steps required to solve the corresponding problem."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The scale and diversity of this dataset makes it particularly suited for use in training deep-learning models to solve word problems."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We find closely similar problems, replace numeric values with generic numbers, and expand annotations to cover more problems from the AQuA dataset. For similarity, we use Levenshtein distance with a threshold of 4 words in edit distance. Our dataset consists of 37k problems which are randomly split in (80/12/8)% training/dev/test problems."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The annotators are randomly evaluated through a pre-defined set of test questions, and they have to maintain an accuracy threshold to be able to continue their annotations. If an annotator's accuracy drops below a threshold, their previous annotations are labeled as untrusted... at least 2 out of 3 validators should rank the operation program as valid for it to be selected. The validation accuracy is 94.64% across categories."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 21,
+      "evidence_coverage": 91.3,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.1085,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 7361,
+        "tokens_in": 2326,
+        "tokens_out": 488
+      },
+      "collection": {
+        "section_chars": 13031,
+        "tokens_in": 3983,
+        "tokens_out": 491
+      },
+      "annotation": {
+        "section_chars": 12382,
+        "tokens_in": 3817,
+        "tokens_out": 657
+      },
+      "impact": {
+        "section_chars": 4492,
+        "tokens_in": 1758,
+        "tokens_out": 393
+      },
+      "processing": {
+        "section_chars": 6972,
+        "tokens_in": 2147,
+        "tokens_out": 371
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 43.8,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 9233,
+      "output_tokens": 182
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

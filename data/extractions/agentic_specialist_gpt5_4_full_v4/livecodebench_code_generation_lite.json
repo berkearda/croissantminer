@@ -1,0 +1,80 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "LiveCodeBench is a holistic and contamination-free benchmark for evaluating large language models for code. It collects coding problems over time from contests on LeetCode, AtCoder, and CodeForces, and evaluates models across four scenarios: code generation, self-repair, code execution, and test output prediction.",
+    "url": "https://livecodebench.github.io/",
+    "license": null,
+    "creator": "Naman Jain; King Han; Alex Gu; Wen-Ding Li; Fanjia Yan; Tianjun Zhang; Sida I. Wang; Armando Solar-Lezama; Koushik Sen; Ion Stoica",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida I. Wang, Armando Solar-Lezama, Koushik Sen, and Ion Stoica. 2024. LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code. arXiv:2403.07974.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Problems were curated from three coding competition websites—LeetCode, AtCoder, and CodeForces—using HTML scrapers to collect problems and corresponding metadata from contests. The authors parsed problem descriptions, excluded problems with images and those unsuitable for grading by input-output examples, collected ground-truth solutions and test cases when directly available, and associated each problem with its contest date as release date.",
+    "rai:dataCollectionType": "Web Scraping; Document analysis; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "For LeetCode, the hidden tests are not directly available. For CodeForces, complete tests are not provided on the platform because long tests are truncated.",
+    "rai:dataCollectionRawData": "Raw/source data included problem statements, corresponding metadata, contest dates, ground-truth solutions, test cases, public tests, user solutions, starter code, difficulty labels or ratings, and example test inputs from LeetCode, AtCoder, and CodeForces contest websites.",
+    "rai:dataCollectionTimeframe": "May 2023 to May 2024",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "LiveCodeBench code generation scenario currently hosts over 400 instances from problems released between May and February; to account for contamination in DeepSeek, the final evaluations use only 349 problems, which might add noise due to problem set samples; other scenarios would have similar performance variations, so the authors recommend exercising proper judgement when comparing models with small performance differences; newer models with more recent cutoff dates might only have access to a smaller evaluation set; LiveCodeBench currently only focuses on Python, which might not provide enough signal about model capabilities in other languages; performance can vary due to prompting choices because prompts are not tuned across models or only minimally adjusted; LiveCodeBench currently focuses on competition problems from three platforms and may not be representative of the most general notion of LLM programming capabilities or real-world open-ended software development",
+    "rai:dataSocialImpact": "These tasks are not just additional bookkeeping; they are crucial parts of the software development process and contribute to improving the quality, maintainability, and reliability of the code.",
+    "rai:personalSensitiveInformation": "The benchmark scrapes only publicly visible problem statements, ground-truth solutions, and test cases from competition websites, avoiding any data collection that is paywalled or requires login or interaction with the website.",
+    "rai:dataUseCases": "evaluating LLMs for code; contamination-free evaluation of code LLMs using time-segmented problems; evaluating broader code-related capabilities including code generation, self-repair, code execution, and test output prediction; comparing models trained at different times by measuring performance on problems released after model cutoff dates",
+    "rai:dataReleaseMaintenancePlan": "LiveCodeBench is a continuously updated benchmark that collects new problems over time; the framework will keep updating with new problems, scenarios, and models; the authors will release all prompts and model completions for further community analysis, along with a general toolkit for adding new scenarios and models",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "They use the release date to filter problems based on time windows, and for newer models only consider problems released after the model’s cutoff date; they also exclude harder problems above certain difficulty thresholds and classify problems into Easy, Medium, and Hard.",
+    "rai:dataPreprocessingProtocol": "To ensure quality and consistency, they parse mathematical formulas and exclude problems with images; exclude problems not suitable for grading by input-output examples, such as those accepting multiple correct answers or requiring construction of data structures; for code execution they apply compile-time and runtime filters to ensure samples are reasonable and manually inspect them; they also threshold the number of collected inputs to 100 for efficient grading."
+  },
+  "usage": {
+    "input_tokens": 199155,
+    "output_tokens": 1583
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 42565,
+        "output_tokens": 250
+      },
+      "collection": {
+        "input_tokens": 29940,
+        "output_tokens": 216
+      },
+      "annotation": {
+        "input_tokens": 42365,
+        "output_tokens": 96
+      },
+      "impact": {
+        "input_tokens": 42284,
+        "output_tokens": 680
+      },
+      "processing": {
+        "input_tokens": 42001,
+        "output_tokens": 341
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 49560,
+      "output_tokens": 533
+    },
+    "timestamp": "2026-05-22T11:27:59.059948+00:00",
+    "elapsed_seconds": 41.2
+  }
+}

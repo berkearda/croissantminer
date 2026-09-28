@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Rowan_hellaswag",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "HellaSwag",
+    "description": "HellaSwag is a new challenge dataset for commonsense natural language inference. It contains 70k multiple-choice problems with longer contexts and adversarially filtered machine-generated wrong endings, built from ActivityNet captions and WikiHow articles to be easy for humans but difficult for state-of-the-art models.",
+    "url": "https://rowanzellers.com/hellaswag",
+    "license": null,
+    "creator": "Rowan Zellers; Ari Holtzman; Yonatan Bisk; Ali Farhadi; Yejin Choi",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin Choi. 2019. HellaSwag: Can a Machine Really Finish Your Sentence? arXiv:1905.07830v1.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled from two sources: video captions from the ActivityNet Captions dataset and scraped context/follow-up paragraphs from WikiHow. The authors scraped 80k context and follow-up paragraphs from WikiHow and used only ActivityNet captions from the original SWAG sources. They then constructed examples using Adversarial Filtering to select machine-generated wrong endings.",
+    "rai:dataCollectionType": "Secondary Data analysis; Web Scraping; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Video captions and activity labels from the ActivityNet Captions dataset, and context and follow-up paragraphs from WikiHow how-to articles.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Humans validated the adversarially filtered machine-generated endings: crowd workers were given a context and six ending choices, of which one was the true ending and the other five were from AF, and machine-written endings rated as realistic were replaced with new samples; workers completed the same multiple-choice task for human evaluation, and a qualification HIT was used to filter workers.",
+    "rai:dataAnnotationPlatform": "Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "The authors collected how likely each ending was, replaced machine-written endings that workers rated as realistic, aggregated worker performance using estimated probabilities for each answer choice, kept the three wrong endings workers least preferred along with the right ending, selected the best contexts with highest worker agreement/probability of choosing the true answer, and combined five workers' predictions by majority vote for human evaluation.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OpenAI GPT; BERT-Large",
+    "rai:dataBiases": "Models trained on SWAG largely learn to pick up on dataset-specific distributional biases; SWAG endings contain biases in the endings themselves; when humans write endings, they introduce subtle yet strong class-conditional biases known as annotation artifacts; past work also showed unwanted social biases induced when humans write the endings, in terms of gender and race",
+    "rai:dataLimitations": "ActivityNet proves difficult for humans (60%) before additional human filtering; machine performance slips an additional 5% when evaluated on examples that cover novel concepts from the same domain; BERT still struggles on HellaSwag, especially on zero-shot categories, with performance dropping roughly 5% on the test fold; some contexts had ground-truth answers that workers did not like, so the authors kept only the best 25k ActivityNet examples and best 45k WikiHow examples",
+    "rai:dataSocialImpact": "The dataset construction sheds light on the inner workings of deep pretrained models and suggests a path forward for NLP research in which benchmarks co-evolve with the evolving state-of-the-art in an adversarial way, so as to present ever-harder challenges",
+    "rai:personalSensitiveInformation": "WikiHow contexts cover topics including \"how to survive a bank robbery\"",
+    "rai:dataUseCases": "a new benchmark for commonsense natural language inference; a challenging testbed for commonsense reasoning; evaluating a model’s ability to generalize to new situations using in-domain and zero-shot evaluation sets; physically situated commonsense reasoning",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was constructed with Adversarial Filtering, where generated wrong endings were massively oversampled from a language model and easy-to-classify generations were iteratively replaced with adversarial ones; during human validation, machine-written endings rated as realistic were replaced with new samples, and the authors kept the 25k best ActivityNet contexts and the 45k best WikiHow contexts.",
+    "rai:dataPreprocessingProtocol": "For HellaSwag, the authors scraped 80k context and follow-up paragraphs from WikiHow, with each context and follow-up limited to at most three sentences, and for the final dataset they filtered examples through human validation by removing or replacing machine-generated endings judged realistic, then kept the best 25k ActivityNet contexts and 45k WikiHow contexts based on worker agreement."
+  },
+  "usage": {
+    "input_tokens": 139608,
+    "output_tokens": 1121
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 28181,
+        "output_tokens": 218
+      },
+      "collection": {
+        "input_tokens": 27967,
+        "output_tokens": 164
+      },
+      "annotation": {
+        "input_tokens": 27946,
+        "output_tokens": 213
+      },
+      "impact": {
+        "input_tokens": 27895,
+        "output_tokens": 324
+      },
+      "processing": {
+        "input_tokens": 27619,
+        "output_tokens": 202
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67148,
+      "output_tokens": 164
+    },
+    "timestamp": "2026-05-22T10:09:40.405016+00:00",
+    "elapsed_seconds": 25.0
+  }
+}

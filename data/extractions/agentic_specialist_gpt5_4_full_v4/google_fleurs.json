@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_fleurs",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "FLEURS",
+    "description": "FLEURS is the Few-shot Learning Evaluation of Universal Representations of Speech benchmark, an n-way parallel speech dataset in 102 languages built on top of the machine translation FLoRes-101 benchmark. It contains approximately 12 hours of speech supervision per language and can be used for speech tasks including automatic speech recognition, speech language identification, translation, and retrieval.",
+    "url": "https://tensorflow.org/datasets/catalog/xtreme_s",
+    "license": null,
+    "creator": "Alexis Conneau; Min Ma; Simran Khanuja; Yu Zhang; Vera Axelrod; Siddharth Dalmia; Jason Riesa; Clara Rivera; Ankur Bapna",
+    "publisher": "Google",
+    "datePublished": "2022",
+    "inLanguage": "af, am, ar, hy, as, ast, az, be, bn, bs, bg, my, yue, ca, ceb, hr, cs, da, nl, en, et, tg, fi, fr, ff, gl, lg, ka, de, el, gu, ha, he, hi, hu, is, ig, id, ga, it, ja, jv, kea, kam, kn, kk, km, ko, ky, lo, lv, ln, lt, luo, lb, mk, ms, ml, mt, cmn, mi, mr, mn, ne, nso, nb, ny, oc, or, om, ps, fa, pl, pt, pa, ro, ru, sr, sn, sd, sk, sl, so, ckb, es, sw, sv, tg, ta, te, th, tr, uk, umb, ur, uz, vi, cy, wo, xh, yo, zu",
+    "citeAs": "Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera, and Ankur Bapna. FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech. arXiv:2205.12446, 2022.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Built on top of the FLoRes-101 dataset by using its dev and devtest sets of translated sentences; for each sentence in 102 languages, the authors collected three recordings from three different native speakers, then had additional workers evaluate whether each recording matched the input sentence and discarded invalid recordings.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated, leaving between zero and three recordings per sentence in the final dataset.",
+    "rai:dataCollectionRawData": "FLoRes-101 dev and devtest sentences, originally extracted from English Wikipedia and translated into 101 languages by human translators, plus the collected speech recordings for each sentence in 102 languages.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "For each sentence in the 102 languages, the authors collected three recordings by three different native speakers, with a sex-ratio balance of at least 30/70% when possible; after recording, each recording was evaluated by additional workers to assess whether it corresponded to the input sentence, and invalid recordings were discarded.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Each recording was evaluated by additional workers to assess whether the recording corresponds to the input sentence, and invalid recordings were discarded, leaving between zero and three recordings per sentence in the final dataset.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "native speakers; sex ratio of at least 30/70%, when possible",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The first version of the dataset has about 21.5% of sentences missing because none of the three recordings were validated; the dataset imposes a balance in terms of sex ratio of at least 30/70%, when possible",
+    "rai:dataLimitations": "In the first version of the dataset, about 21.5% of the sentences are missing because none of the three recordings were validated; Training a giant model from scratch on the FLEURS dataset will easily overfit; A large fraction of languages unseen in pre-training observed worse-than-average CER due to very limited supervised data; Retrieval performance shows a steep degradation on CJK languages, anticipated to be the result of tokenization mismatch between the fine-tuning and the pre-training regime",
+    "rai:dataSocialImpact": "The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding; We hope this dataset will catalyze research in few-shot understanding in many languages, enabling progress towards building speech technologies for everyone",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Automatic Speech Recognition (ASR); Speech Language Identification (Speech LangID); Translation; Retrieval; Speech-to-Text and Speech-to-Speech Translation; Multilingual Speech-to-Speech and Speech-to-Text Retrieval; evaluation of speech recognition, translation, classification and retrieval methods",
+    "rai:dataReleaseMaintenancePlan": "We plan to fill these gaps in the future versions of the dataset",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Invalid recordings are discarded, leaving us between zero and three recordings per sentence in the final dataset.",
+    "rai:dataPreprocessingProtocol": "We apply NFC and then FST normalization to each sentence, lower-case, normalize and remove punctuations. We also split words into characters, and define the token as word boundaries."
+  },
+  "usage": {
+    "input_tokens": 140329,
+    "output_tokens": 1490
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 28325,
+        "output_tokens": 472
+      },
+      "collection": {
+        "input_tokens": 28102,
+        "output_tokens": 222
+      },
+      "annotation": {
+        "input_tokens": 28095,
+        "output_tokens": 180
+      },
+      "impact": {
+        "input_tokens": 28053,
+        "output_tokens": 329
+      },
+      "processing": {
+        "input_tokens": 27754,
+        "output_tokens": 287
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 69939,
+      "output_tokens": 577
+    },
+    "timestamp": "2026-05-22T11:26:08.947979+00:00",
+    "elapsed_seconds": 31.2
+  }
+}

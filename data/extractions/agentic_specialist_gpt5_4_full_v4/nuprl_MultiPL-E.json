@@ -1,0 +1,80 @@
+{
+  "dataset_id": "nuprl_MultiPL-E",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "MultiPL-E",
+    "description": "MultiPL-E is a system for translating unit test-driven code generation benchmarks from Python into other programming languages. Using MultiPL-E, the authors extend the HumanEval and MBPP benchmarks to 18 additional programming languages, creating parallel multilingual benchmarks for evaluating neural code generation models.",
+    "url": "github.com/nuprl/MultiPL-E",
+    "license": null,
+    "creator": "Federico Cassano; John Gouwar; Daniel Nguyen; Sydney Nguyen; Luna Phipps-Costin; Donald Pinckney; Ming-Ho Yee; Yangtian Zi; Carolyn Jane Anderson; Molly Q Feldman; Arjun Guha; Michael Greenberg; Abhinav Jangda",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Federico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, Arjun Guha, Michael Greenberg, and Abhinav Jangda. MultiPL-E: A Scalable and Extensible Approach to Benchmarking Neural Code Generation. arXiv:2208.08227, 2022.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was assembled by translating two existing Python code generation benchmarks, HumanEval and MBPP, into 18 additional programming languages using a suite of compilers; the original Python datasets were manually cleaned, and versions for other programming languages and prompt variations were produced by the compilers.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "The MultiPL-HumanEval dataset excludes 3 of the 164 original problems.",
+    "rai:dataCollectionRawData": "The raw/source data were the original Python HumanEval and MBPP benchmarks; the paper states that the original data for both datasets is publicly available.",
+    "rai:dataCollectionTimeframe": "2022-05 to 2022-10",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The (translated) benchmarks may not be representative of the kinds of problems that programmers typically solve in each language; performance on benchmarks may not accurately represent real-world performance; code generation models are sensitive to small changes in how prompts are designed, and pass rates on individual languages could be improved with more language-specific effort; the quality of generated code is sensitive to decisions about how to sample completions, and settings optimal for Python may not be best for other programming languages; a handful of benchmarks cannot be easily translated using the MultiPL-E approach, including excluded HumanEval problems with Python helper functions, modified randomized tests, and problems with untranslatable types for certain typed languages; the approach can be generalized only to languages that have natural analogues for the Python data types used in the benchmarks, so C and SQL are not included",
+    "rai:dataSocialImpact": "We hope this evaluation work will help the many software engineers that do not use Python to assess the feasibility of code generation models for their work and to understand the language factors that may affect model performance; our evaluation therefore shows that contemporary code generation models may be useful even for developers working with less commonly used programming languages; we hope that our in-depth, parallel evaluation of a large set of languages will be a useful guide for developers weighing whether the utility of code generation tools in their project context",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluate the performance of code generation models; evaluate three state-of-the-art code generation models on translated benchmarks across programming languages; evaluate other LLMs of code, or potentially improve their performance",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly available at https://github.com/nuprl/MultiPL-E; the original authors will be supporting/hosting/maintaining the dataset; any identified and confirmed errors will be acknowledged as part of the repository; the dataset will be updated; older versions of the dataset will continue to be supported/hosted/maintained",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The authors modify the original benchmarks after collection: they remove the assertions from MBPP prompts so they can be used as hidden unit tests, mechanically augment every MBPP prompt with a function signature based on the name and arity implied by the assertions, exclude 3 HumanEval benchmarks that have Python helper functions in their prompt, modify 2 HumanEval benchmarks to use unit tests instead of randomized testing, and introduce type annotations to the few HumanEval benchmarks that do not have them.",
+    "rai:dataPreprocessingProtocol": "The paper describes cleaning and preparation steps including manually cleaning the original Python datasets, standardizing examples to the Python doctest format, automatically rephrasing comments to replace Python-specific terminology, adding missing type annotations, formatting examples to use docstrings consistently, and changing random tests into unit tests in two problems."
+  },
+  "usage": {
+    "input_tokens": 241784,
+    "output_tokens": 1365
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 51147,
+        "output_tokens": 290
+      },
+      "collection": {
+        "input_tokens": 38240,
+        "output_tokens": 156
+      },
+      "annotation": {
+        "input_tokens": 50950,
+        "output_tokens": 110
+      },
+      "impact": {
+        "input_tokens": 50869,
+        "output_tokens": 438
+      },
+      "processing": {
+        "input_tokens": 50578,
+        "output_tokens": 371
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 50689,
+      "output_tokens": 282
+    },
+    "timestamp": "2026-05-22T11:37:06.445565+00:00",
+    "elapsed_seconds": 32.4
+  }
+}

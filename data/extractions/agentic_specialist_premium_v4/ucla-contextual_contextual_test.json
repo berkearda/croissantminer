@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ucla-contextual_contextual_test",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "CONTEXTUAL",
+    "description": "CONTEXTUAL is a context-sensitive text-rich visual reasoning dataset consisting of 506 human-crafted instruction-response pairs for evaluating large multimodal models. It covers eight real-world visual scenarios (time reading, shopping, navigation, abstract scenes, mobile application, webpages, infographics, and miscellaneous natural scenes) and requires models to jointly reason over embedded text and visual elements in images, rather than relying solely on OCR-based text recognition.",
+    "url": "https://con-textual.github.io/",
+    "license": null,
+    "creator": "Rohan Wadhawan (University of California Los Angeles); Hritik Bansal (University of California Los Angeles); Kai-Wei Chang (University of California Los Angeles); Nanyun Peng (University of California Los Angeles)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Rohan Wadhawan, Hritik Bansal, Kai-Wei Chang, Nanyun Peng. CONTEXTUAL: Evaluating Context-Sensitive Text-Rich Visual Reasoning in Large Multimodal Models. Proceedings of the 41st International Conference on Machine Learning, Vienna, Austria. PMLR 235, 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Images were sourced from six different sources: LAION-5B (via keyword search using CLIP-retrieval UI) for Time, Shopping, Navigation, and Abstract categories; the Rico Dataset for Application Usage; web screenshots scraped from links provided by the Open WebText Initiative for Web Usage; and test sets of existing VQA datasets (InfographicVQA, STVQA, ESTVQA) for Infographic and Miscellaneous Natural Scenes. Human-written instruction-response pairs were then annotated by the authors following collection guidelines, with verification by Amazon Mechanical Turk workers.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "LAION-5B images retrieved via CLIP-retrieval UI; Rico Dataset (66,000 UI screens from 9,300 Android apps); website screenshots from Open WebText Initiative links; test set images from InfographicVQA, STVQA, and ESTVQA datasets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Dataset annotation was conducted in three stages: (1) images were shortlisted via manual filtering or heuristic-based OCR filtering; (2) authors were divided into two groups, each annotating four visual categories by writing instruction-response pairs following provided annotation guidelines; (3) MTurk workers (mutually exclusive from those used for human baseline and evaluation) verified correctness of each sample, finding 96% correctly annotated, after which each author group cross-reviewed the other group's samples. Human performance baseline was collected by having MTurk workers who passed a qualification test write accurate responses for all instruction-image pairs. Human evaluation was conducted by MTurk workers who rated predicted responses as acceptable or not given the image, instruction, and reference response.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For dataset verification, samples flagged as incorrect by MTurk workers were filtered out and cross-reviewed by author groups. For human evaluation, each predicted response was independently rated by three annotators, and majority vote among the three determined the final acceptance decision.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "Mainly from the US",
+    "rai:machineAnnotationTools": "PaddleOCR (PP-OCRv4, PaddlePaddle); GPT-4V (used to generate synthetic instruction-response pairs)",
+    "rai:dataBiases": "Human annotators for the human performance baseline were mainly from the US, so the linguistic diversity and writing style of human responses would change with different social groups; a similar argument applies to human evaluation of model responses",
+    "rai:dataLimitations": "The dataset cannot be solved without precise visual perception, as augmented LLM approaches achieve very low performance; the dataset is relatively small (506 samples); human baseline reflects primarily US annotators, limiting generalizability across social groups; future human evaluation would benefit from annotators from more diverse regions",
+    "rai:dataSocialImpact": "The authors aimed to ensure that images, human-written instructions, and reference responses are not offensive to any social group; they acknowledge that existing multimodal models can generate harmful responses despite safeguard filters; qualitative analysis did not reveal apparent harmful or privacy-sensitive information in model responses; the dataset is intended to benefit real-world applications such as assisting the visually impaired in navigating text-rich scenes",
+    "rai:personalSensitiveInformation": "The authors did not observe any apparent harmful and privacy sensitive information in the model responses; no explicit discussion of personal or sensitive information being present, collected, or redacted from the dataset itself",
+    "rai:dataUseCases": "Evaluating context-sensitive text-rich visual reasoning capabilities of large multimodal models; benchmarking foundation models on joint reasoning over embedded text and visual context in images; supporting development of next-generation large multimodal models",
+    "rai:dataReleaseMaintenancePlan": "A subset of 100 samples will be released as a validation set with reference responses, while reference responses for the remaining 406 samples will be kept hidden; a continuously updated leaderboard with recent LMMs will be maintained",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "For Application Usage, Web Usage, Infographic, and Miscellaneous Natural Scenes categories, heuristic-based filtering was applied using PaddleOCR (PP-OCRv4) to detect text in images, and the top 500 images with the highest number of words were selected. For Time, Shopping, Navigation, and Abstract categories, manual filtering was performed to guarantee suitability for annotation. Incorrect samples (4% flagged by MTurk workers) were filtered out after a verification stage."
+  },
+  "usage": {
+    "input_tokens": 268856,
+    "output_tokens": 1626
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 60421,
+        "output_tokens": 370
+      },
+      "collection": {
+        "input_tokens": 60307,
+        "output_tokens": 318
+      },
+      "annotation": {
+        "input_tokens": 44094,
+        "output_tokens": 333
+      },
+      "impact": {
+        "input_tokens": 44090,
+        "output_tokens": 416
+      },
+      "processing": {
+        "input_tokens": 59944,
+        "output_tokens": 189
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 48554,
+      "output_tokens": 89
+    },
+    "timestamp": "2026-05-02T19:08:46.462727+00:00",
+    "elapsed_seconds": 50.3
+  }
+}

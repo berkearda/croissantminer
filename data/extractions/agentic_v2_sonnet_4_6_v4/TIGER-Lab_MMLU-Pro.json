@@ -1,0 +1,259 @@
+{
+  "dataset_id": "TIGER-Lab_MMLU-Pro",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "MMLU-Pro",
+    "description": "MMLU-Pro is a comprehensive benchmark designed for proficient-level multi-discipline language understanding and reasoning, spanning 14 diverse domains including mathematics, physics, chemistry, law, engineering, psychology, and health, encompassing over 12,000 questions. It extends the original MMLU benchmark by integrating more challenging, reasoning-focused questions, expanding the choice set from four to ten options, and eliminating trivial and noisy questions.",
+    "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+    "license": "MIT",
+    "creator": "Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo, Weiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, Tianle Li, Max Ku, Kai Wang, Alex Zhuang, Rongqi Fan, Xiang Yue, Wenhu Chen (University of Waterloo, University of Toronto, Carnegie Mellon University)",
+    "publisher": "NeurIPS 2024",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "arXiv:2406.01574",
+    "isLiveDataset": true,
+    "rai:dataCollection": "The dataset integrates questions from four sources: (1) Original MMLU Questions adapted from the original MMLU dataset with trivial and erroneous questions removed; (2) the STEM Website, providing selected high-quality STEM problems from online platforms; (3) TheoremQA, featuring high-quality, human-annotated questions; and (4) SciBench, which includes advanced science questions derived from college exams.",
+    "rai:dataCollectionType": "Secondary Data analysis, Web Scraping, Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Questions sourced from: (1) Original MMLU dataset, (2) STEM Website (stemez.com), (3) TheoremQA dataset, and (4) SciBench dataset.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Options were augmented from four to ten using GPT-4-Turbo, introducing six additional plausible distractor choices. GPT-4-Turbo was also used to extract short answers from solutions for STEM Website and TheoremQA questions and generate three additional distractors.",
+    "rai:dataPreprocessingProtocol": "Initial filtering merged 57 MMLU subject categories into 14 broader categories and removed overly simple questions (those answered correctly by more than four of eight evaluated models). Questions requiring non-textual elements (images, tables), lacking sufficient information, or unsuitable for multiple-choice format were removed. False negative options were identified and removed by human experts.",
+    "rai:dataAnnotationProtocol": "Two-phase expert review process: Phase 1 involves experts verifying the accuracy of each answer, removing questions unsuitable for multiple-choice format, and discarding questions lacking necessary information or requiring non-textual elements. Phase 2 uses Gemini-1.5-Pro to identify potential false negatives, followed by human expert review to ensure distractors are incorrect and distinct from the correct answer.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Issues identified during expert review were categorized into three types: Incorrect Answers (e.g., 350 from MMLU, 483 from STEM Website), False Negative Options (e.g., 1953 from MMLU, 293 from STEM Website), and Bad Questions (e.g., 385 from MMLU, 862 from STEM Website). In the final dataset, 83% of questions have ten options, 17% have fewer, and the average options count per question is 9.47.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo (for answer extraction, distractor generation, and option augmentation), Gemini-1.5-Pro (for false negative option identification)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "MMLU-Pro remains constrained by the limitations of the multiple-choice format, which may not capture the depth of comprehension and creative response generation as effectively as open-ended answers. Additionally, MMLU-Pro exclusively focuses on language models and does not include assessments for multi-modal models.",
+    "rai:dataUseCases": "Testing and benchmarking of large language models on multi-task language understanding and reasoning across 14 diverse domains. The benchmark is designed to evaluate model performance, discriminate between model capabilities, and track progress in the field."
+  },
+  "usage": {
+    "input_tokens": 57260,
+    "output_tokens": 3238
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:24:30.023535Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces MMLU-Pro, an enhanced dataset designed to extend the mostly knowledge-driven MMLU benchmark by integrating more challenging, reasoning-focused questions and expanding the choice set from four to ten options."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MMLU-Pro: a comprehensive benchmark designed for proficient-level multi-discipline language understanding and reasoning. MMLU-Pro spans 14 diverse domains including mathematics, physics, chemistry, law, engineering, psychology, and health, encompassing over 12,000 questions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Please visit our leaderboard at https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Additionally, the MMLU-Pro dataset itself is licensed under the MIT License, ensuring broad usability and distribution rights under similar conditions."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Yubo Wang∗,1Xueguang Ma∗,1Ge Zhang,1Yuansheng Ni,1Abhranil Chandra, 1Shiguang Guo,1Weiming Ren,1Aaran Arulraj,1Xuan He,1Ziyan Jiang,1Tianle Li, 1Max Ku,2Kai Wang,1Alex Zhuang,1Rongqi Fan,3Xiang Yue,1Wenhu Chen∗ 1University of Waterloo,2University of Toronto,3Camegie Mellon University"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "38th Conference on Neural Information Processing Systems (NeurIPS 2024) Track on Datasets and Benchmarks."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "38th Conference on Neural Information Processing Systems (NeurIPS 2024) Track on Datasets and Benchmarks. arXiv:2406.01574v6 [cs.CL] 6 Nov 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MMLU-Pro spans 14 diverse domains including mathematics, physics, chemistry, law, engineering, psychology, and health, encompassing over 12,000 questions"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2406.01574v6 [cs.CL] 6 Nov 2024"
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It integrates questions from several sources: (1) Original MMLU Questions, which form the core of our dataset and include questions adapted from the original MMLU dataset with trivial and erroneous questions removed; (2) the STEM Website, providing selected high-quality STEM problems from online platforms; (3) TheoremQA, featuring high-quality, human-annotated questions that necessitate the application of theorems for resolution; and (4) SciBench, which includes advanced science questions derived from college exams."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It integrates questions from several sources: (1) Original MMLU Questions... (2) the STEM Website, providing selected high-quality STEM problems from online platforms; (3) TheoremQA, featuring high-quality, human-annotated questions... (4) SciBench, which includes advanced science questions derived from college exams."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It integrates questions from several sources: (1) Original MMLU Questions... (2) the STEM Website... (3) TheoremQA... and (4) SciBench, which includes advanced science questions derived from college exams."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We enhance the question options from four to ten using GPT-4-Turbo, introducing six additional choices. These are not merely quantitative additions; rather, they serve as plausible distractors that necessitate discerning reasoning for correct selection."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset construction begins with a comprehensive review of the original MMLU dataset, which we streamline by merging the previous 57 subject categories into 14 broader categories... We employ eight models: Llama-2-7B, Llama-2-7B-Chat, Llama-2-13B, Llama-2-13B-Chat, Mistral-7B, Gemma-7B, Yi-6B, and Yi-6B-Chat. Each model is evaluated on the MMLU, and questions answered correctly by more than four models are considered as 'too easy' and subsequently excluded from consideration. Using this criterion, a total of 5,886 questions are filtered out across the various subjects."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Phase 1: Verification of Correctness and Appropriateness involves experts verifying the accuracy of each answer, removing questions unsuitable for a multiple-choice format, and discarding questions that lack necessary information or require non-textual elements like images or tables. Phase 2: Ensuring Distractor Validity involves the Gemini-1.5-Pro model re-evaluating all answer options to identify potential false negatives... Subsequently, human experts rigorously review these identified options to ensure that actual distractors are indeed incorrect and distinctly different from the correct answer."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In Table 1, we present a distribution of issues identified during the expert review process... In our dataset, 83% have ten options, 17% have fewer, and the average options count per question is 9.47."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We utilize GPT-4-Turbo to extract short answers from the solutions, serving as the correct answer options. We also generate three additional distractors for each question... We enhance the question options from four to ten using GPT-4-Turbo... Phase 2: Ensuring Distractor Validity involves the Gemini-1.5-Pro model re-evaluating all answer options to identify potential false negatives."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MMLU-Pro dataset, while enhancing the complexity of MMLU by incorporating more challenging, reasoning-focused questions, remains constrained by the limitations of the multiple-choice format. This format may not capture the depth of comprehension and creative response generation as effectively as open-ended answers, which better reflect real-world scenarios. Additionally, MMLU-Pro exclusively focuses on language models and does not include assessments for multi-modal models, limiting its applicability in scenarios requiring synthesis of visual, auditory, and textual data."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our assessments confirm that MMLU-Pro is a more discriminative benchmark to better track progress in the field... MMLU-Pro is a more discriminative benchmark to better track progress in the field."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.942
+    },
+    "cost_usd": 0.2203,
+    "split": "test",
+    "corrections_applied": 4,
+    "enrichments": [],
+    "elapsed_seconds": 62.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 3
+  }
+}

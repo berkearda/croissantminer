@@ -1,0 +1,80 @@
+{
+  "dataset_id": "tau_commonsense_qa",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "CommonsenseQA",
+    "description": "CommonsenseQA is a multiple-choice question answering dataset for commonsense reasoning based on ConceptNet. The paper states that it contains 12,247 questions created by crowd workers, with five candidate answers per question, to test commonsense knowledge beyond simple associations.",
+    "url": "www.tau-nlp.org/commonsenseqa",
+    "license": null,
+    "creator": "Alon Talmor; Jonathan Herzig; Nicholas Lourie; Jonathan Berant",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Alon Talmor, Jonathan Herzig, Nicholas Lourie, and Jonathan Berant. 2019. CommonsenseQA: A Question Answering Challenge Targeting Commonsense Knowledge.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by extracting subgraphs and triplets from ConceptNet, then using Amazon Mechanical Turk workers to author multiple-choice commonsense questions for each question set, add distractors, and verify question quality. The authors also queried Google Search for each question-answer pair to retrieve web snippets as additional context.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Web API",
+    "rai:dataCollectionMissingData": "Only questions verified by at least one worker that answered correctly were used, which filtered out 15% of the questions.",
+    "rai:dataCollectionRawData": "ConceptNet triplets and subgraphs were used as the source knowledge base, and Google Search result snippets were retrieved for each question and candidate answer as textual context.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Amazon Mechanical Turk workers generated and validated commonsense multiple-choice questions: for each question set, workers saw one question concept and three answer concepts and were asked to formulate three questions containing the question concept, each with one designated answer concept as the correct answer but not the other two; they were instructed to avoid simple surface clues, then add two additional incorrect answers per question, and a disjoint trained group of workers verified each question by marking it unanswerable or choosing the right answer; only annotators with at least 75% of formulated questions passing verification were accepted.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Each question was verified by 2 workers, and only questions verified by at least one worker that answered correctly were used.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Questions in COMMONSENSEQA have a different nature compared to prior QA benchmarks, where questions are authored given an input text; Investigations of commonsense datasets, and of natural language datasets more generally, have revealed the difficulty in creating benchmarks that measure the understanding of a program rather than its ability to take advantage of distributional biases, and to model the annotation process",
+    "rai:dataLimitations": "Using snippets does not lead to high performance, hinting that they do not carry a lot of useful information; We observe that the accuracy of BERT-LARGE is expected to be roughly 75% assuming 100k examples, still substantially lower than human performance",
+    "rai:dataSocialImpact": "We hope that this dataset facilitates future work in incorporating commonsense knowledge into NLU systems",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "a challenging new dataset for commonsense question answering; aims to test commonsense knowledge; facilitates future work in incorporating commonsense knowledge into NLU systems",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "After collecting candidate questions, the authors filtered the dataset by verification: each question was checked by two workers, and only questions verified by at least one worker who answered correctly were kept, filtering out 15% of the questions. They also created train/development/test splits in two ways: a random 80/10/10 split and a question-concept split with disjoint question concepts.",
+    "rai:dataPreprocessingProtocol": "They filtered ConceptNet triplets by removing general relations or relations already well-explored in NLP, filtering triplets where one concept is more than four words or not in English, and filtering triplets where the edit distance between the two concepts is too low; they also filtered out 15% of authored questions during verification, keeping only questions verified by at least one worker who answered correctly."
+  },
+  "usage": {
+    "input_tokens": 111561,
+    "output_tokens": 1177
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 22570,
+        "output_tokens": 182
+      },
+      "collection": {
+        "input_tokens": 22348,
+        "output_tokens": 334
+      },
+      "annotation": {
+        "input_tokens": 22343,
+        "output_tokens": 211
+      },
+      "impact": {
+        "input_tokens": 22292,
+        "output_tokens": 235
+      },
+      "processing": {
+        "input_tokens": 22008,
+        "output_tokens": 215
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55556,
+      "output_tokens": 342
+    },
+    "timestamp": "2026-05-22T12:36:06.779647+00:00",
+    "elapsed_seconds": 27.8
+  }
+}

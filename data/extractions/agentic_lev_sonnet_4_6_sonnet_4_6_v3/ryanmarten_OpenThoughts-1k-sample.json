@@ -1,0 +1,287 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "OpenThoughts3",
+    "description": "OpenThoughts3-1.2M is a 1.2 million example open-source SFT dataset for training reasoning models, containing 850,000 math, 250,000 code, and 100,000 science datapoints generated using QwQ-32B as a teacher model. It is the culmination of 1,000+ controlled experiments systematically investigating each step of a data generation pipeline including question sourcing, filtering, deduplication, and answer generation.",
+    "url": "https://openthoughts.ai",
+    "license": null,
+    "creator": "Etash Guha, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, Marianna Nezhurina, Jean Mercat, Trung Vu, Zayne Sprague, and others from Stanford University, University of Washington, BespokeLabs.ai, Toyota Research Institute, UC Berkeley, UT Austin, UCLA, JSC, LAION, NYU, UNC Chapel Hill, ASU, Lila Sciences, Cornell Tech, TUM, Open-Sci Collective",
+    "publisher": "OpenThoughts project",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were sourced through three strategies: (1) Fully synthetic – an LLM generates questions with little-to-no seed material; (2) Semi-synthetic – an LLM uses existing data sources such as CommonCrawl or FineWeb as seeds to form questions; (3) Non-synthetic – humans write the questions from online forums, contests, chatbot interactions, and other sources. Responses were generated using DeepSeek-R1 for each question. The pipeline includes filtering, deduplication, random sampling, and multiple answer generation.",
+    "rai:dataCollectionType": "Secondary Data analysis, Web Scraping, Software Collection",
+    "rai:dataCollectionMissingData": "For sources that produce fewer datapoints, questions are repeated until the desired amount is reached.",
+    "rai:dataCollectionRawData": "Raw data includes questions from StackExchange forums (CodeGolf, CodeReview, Physics, Biology, StackOverflow), competitive programming platforms (CodeForces, OpenCodeReasoning), math competition problem sets (NuminaMath, AIME), GitHub commits, organic chemistry PDFs and textbooks, Wikipedia science articles, ArXiv biology papers, FineWeb science text, and various existing ML datasets across code, math, and science domains.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Automated annotation using teacher LLMs (QwQ-32B, DeepSeek-R1, Claude 3.7, Phi-4-Reasoning-Plus) to generate reasoning traces/answers for math, code, and science questions. Multiple answers generated per question (1×, 4×, or 16×). Questions filtered, deduplicated, and randomly sampled before annotation.",
+    "rai:dataAnnotationPlatform": "DeepSeek API (for pipeline experiments); proprietary GPU clusters (H100/GH200 nodes for QwQ-32B annotation)",
+    "rai:dataAnnotationAnalysis": "Ablation studies comparing teacher models (QwQ-32B, DeepSeek-R1, Phi-4-Reasoning-Plus, Claude 3.7) on downstream benchmark performance; verification strategies (extraction-based math verification, LLM-generated unit tests, majority consensus filtering) evaluated but found not to improve over no filtering; deduplication levels and multiple answer sampling combinations swept across domains.",
+    "rai:annotationsPerItem": "16 answers per question (final pipeline choice for all domains)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "QwQ-32B (primary teacher model), DeepSeek-R1, Phi-4-Reasoning-Plus-14B, Claude 3.7 (with thinking mode); GPT-4o-mini used for LLM-generated unit test verification for code",
+    "rai:dataBiases": "The dataset focuses on math, code, and science domains, which may introduce domain-specific biases. The pipeline selects strategies that maximize overall average benchmark performance rather than optimizing for each domain individually, which may bias results toward certain domains.",
+    "rai:dataLimitations": "The dataset does not cover reinforcement learning data, staged SFT, or curriculum learning. Limited question diversity has relatively little impact if answer diversity is high, but this interaction across different domains, dataset sizes, and model scales is unknown. The pipeline did not explore RL datasets.",
+    "rai:dataSocialImpact": "The paper includes a safety analysis of OpenThinker models to ensure they refuse unsafe requests while complying with benign ones, indicating awareness of potential misuse of enhanced reasoning capabilities.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for supervised fine-tuning (SFT) of reasoning models in math, code, and science domains. It can be used for training open-data reasoning models.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Question filtering using LLM-based methods (difficulty-based filtering with GPT-4o-mini for code, response length filtering with GPT-4.1-mini for math and science); deduplication (exact match and fuzzy deduplication using Normalized Indel similarity via LCS); multiple answer sampling per question (1×, 4×, or 16×); mixing of question sources (top-N datasets); decontamination against evaluation sets using Indel similarity (75% threshold) and N-gram similarity (N=13); answer filtering experiments (random, shortest/longest answers, majority consensus, FastText, GPT verification, non-English removal, long paragraph removal) — ultimately no answer filtering was applied.",
+    "rai:dataPreprocessingProtocol": "Questions sourced from math, code, and science domains; question filtering via fastText classifiers, difficulty scores, and embedding distance; decontamination against evaluation sets using Normalized Indel similarity (LCS-based, 75% threshold) and N-gram similarity (N=13, Qwen2-7B-Instruct tokenizer); exact and fuzzy deduplication of math and science questions using Indel similarity."
+  },
+  "usage": {
+    "input_tokens": 131331,
+    "output_tokens": 4086
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:16:28.622444Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we develop a simple, scalable, and highly performant pipeline, as shown in Figure 2. We scale up this pipeline to produce OpenThoughts3-1.2M"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenThoughts3-1.2M, our 1.2 million-sized dataset. OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All of our datasets and models are available on openthoughts.ai."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Etash Guha*1,2, Ryan Marten*3, Sedrick Keh*4, Negin Raoof*5, Georgios Smymis*6, Hritik Bansalζ7, Marianna Nezhurinaζ8,9,16, Jean Mercatζ4, Trung Vuζ3, Zayne Spragueζ6..."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the goal of the OpenThoughts project is to create open-source datasets for training reasoning models"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2506.04178v2 [cs.LG] 5 Jun 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Removing Non-English Answers"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenThoughts3-1.2M, our 1.2 million-sized dataset. OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We can broadly categorize our question sourcing techniques into three types: (1) Fully synthetic – an existing LLM generates questions with little-to-no seed material... (2) Semi-synthetic – an LLM uses existing data sources such as CommonCrawl or FineWeb... (3) Non-synthetic – humans write the questions... We use DeepSeek-R1 to generate responses for each question, even if a pre-existing answer exists."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our experiments cover 27 different question sources for code questions, 21 sources for math, and 14 sources for science... Examples include StackExchange and ShareGPTCode. These questions often arise from online forums, contests, chatbot interactions, and other sources."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For sources that produce fewer datapoints, we repeat the questions until we reach the desired amount."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "StackExchange CodeGolf... OpenCodeReasoning... AI-MO/NuminaMath-1.5 (Number of Questions: 853K): Scanned math problems from competition math problem sources... Organic Chemistry PDF Pipeline (Number of Questions: 46.2K): LLM extracted organic chemistry questions from SCP PDFs and more Organic Chemistry Textbooks... StackExchange Physics (Number of Questions: 547K): Questions from https://physics.stackexchange.com"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our full dataset begins with sourcing many questions in math, code, and science domains. The next step is filtering those questions, deduplicating the math and science questions, randomly sampling questions, and then generating multiple answers for each question."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Throughout the pipeline experiments, annotating each 31,600-size dataset cost roughly $300 in API costs through the DeepSeek API. Annotating OpenThoughts3-1.2M with QwQ-32B required 22,000 H100 GPU hours on 16 1xNvidia GH200 nodes."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Across all domains, using QwQ-32B as a teacher model outperforms all other teacher models, yielding an average accuracy improvement of 1.9% and 2.6% over using DeepSeek-R1 as a teacher for code and math, respectively... Filtering answers did not improve over not filtering at all."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our final pipeline uses 16× answers per question for all domains. It uses exact deduplication for math and science and no deduplication for code."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "using QwQ-32B as a teacher model outperforms all other teacher models... we use GPT4o-mini to (1) detect which answers contain Python code and (2) generate a standalone, executable unit test for each Python instance."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In each step of our pipeline, we selected strategies that maximized overall average benchmark performance, rather than optimizing for each domain individually. This choice assumes some level of cross-domain transfer; for instance, training on math data improves science performance."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work has several limitations. We did not explore datasets for reinforcement learning, a standard training regime for building reasoning models. Within the SFT realm, we did not explore the use of staged SFT or curriculum learning to further improve performance."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As we enhance the reasoning capabilities of open-source models, we aim to ensure that our models refuse to respond to unsafe requests while complying with benign requests. To this end, we evaluate the safety capabilities of Openthinker models on the following benchmarks"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenThoughts3-1.2M, a state-of-the-art open-data SFT reasoning dataset, composed of science, math, and code data. Our final model, OpenThinker3-7B, trained on this data, is the SOTA open-data reasoning model at its model scale."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The next step is filtering those questions, deduplicating the math and science questions, randomly sampling questions, and then generating multiple answers for each question... We use difficulty-based filtering with GPT-4o-mini for code questions, and response length filtering with GPT-4.1-mini for math and science questions... Our final pipeline uses 16× answers per question for all domains. It uses exact deduplication for math and science and no deduplication for code... We do not perform answer filtering because no filtering strategy outperformed the baseline."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We perform decontamination against our evaluation sets, via two separate criteria. The first method used is Indel similarity... We consider a similarity of 75% between our two strings to indicate contamination... Our second method is an N-gram-based similarity metric... we first tokenize both the training and the evaluation sample using the same tokenizer as the Qwen2-7B-Instruct model... for N = 13."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 23,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.4553,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 48267,
+        "tokens_in": 15186,
+        "tokens_out": 744
+      },
+      "collection": {
+        "section_chars": 58465,
+        "tokens_in": 19282,
+        "tokens_out": 688
+      },
+      "annotation": {
+        "section_chars": 30523,
+        "tokens_in": 9675,
+        "tokens_out": 748
+      },
+      "impact": {
+        "section_chars": 14258,
+        "tokens_in": 4544,
+        "tokens_out": 592
+      },
+      "processing": {
+        "section_chars": 60000,
+        "tokens_in": 17878,
+        "tokens_out": 564
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 76.5,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 64766,
+      "output_tokens": 750
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

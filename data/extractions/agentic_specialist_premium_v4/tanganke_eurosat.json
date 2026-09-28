@@ -1,0 +1,80 @@
+{
+  "dataset_id": "tanganke_eurosat",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "EuroSAT",
+    "description": "EuroSAT is a novel dataset based on Sentinel-2 satellite images covering 13 spectral bands, consisting of 10 land use and land cover classes with 27,000 labeled and geo-referenced image patches of 64x64 pixels. The dataset is designed for benchmarking land use and land cover classification using deep learning methods and is distributed in both RGB and multi-spectral versions.",
+    "url": "https://github.com/phelber/eurosat",
+    "license": null,
+    "creator": "Patrick Helber (TU Kaiserslautern, DFKI); Benjamin Bischke (TU Kaiserslautern, DFKI); Andreas Dengel (TU Kaiserslautern, DFKI); Damian Borth (DFKI)",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": null,
+    "citeAs": "Patrick Helber, Benjamin Bischke, Andreas Dengel, Damian Borth. Introducing EuroSAT: A Novel Dataset and Deep Learning Benchmark for Land Use and Land Cover Classification. In Geoscience and Remote Sensing Symposium (IGARSS), 2018 IEEE International. IEEE, 2018.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Satellite images were downloaded from Amazon S3 from the Sentinel-2A satellite. Images were selected based on coverage of European cities listed in the European Urban Atlas, distributed across 34 European countries, with preference for low cloud cover. Images were recorded across all seasons to maximize variance. From these satellite images, 64x64 pixel patches were extracted and manually checked multiple times, with mislabeled images and images covered by snow or ice removed.",
+    "rai:dataCollectionType": "Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Images with clouds, snow, ice, dead pixels, or mislabeling were identified during manual checking and discarded from the dataset. The dataset also does not include atmospheric correction, which can result in images with a color cast.",
+    "rai:dataCollectionRawData": "Multi-spectral satellite images acquired by the Sentinel-2A satellite, downloaded via Amazon S3. Images cover 13 spectral bands and are associated with European cities in the European Urban Atlas, spanning 34 European countries.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The authors manually checked all 27,000 image patches multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice. Labels were assigned based on 10 land use and land cover classes defined according to the European Urban Atlas mapping guide.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset distribution is influenced by the number of represented cities per country in the European Urban Atlas; the dataset covers only European cities distributed over 34 countries",
+    "rai:dataLimitations": "The proposed dataset has not received atmospheric correction, which can result in images with a color cast; the patch-based classification system does not allow a finely graduated per-pixel segmentation; the dataset uses a 10 times lower spatial resolution than some benchmark datasets; existing benchmark datasets are not suitable for real-world Sentinel-2 Earth observation applications",
+    "rai:dataSocialImpact": "The classification system can be used for detecting deforestation, which is a main contributor to climate change, and for noticing illegal clearing of forests; applications in agriculture, disaster recovery, climate change, urban development, and environmental monitoring can be realized",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Land use and land cover classification; training and evaluation of deep neural networks for satellite image classification; land use and land cover change detection; improving and keeping geographical maps up-to-date; monitoring Earth's land surfaces on a large scale",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Bands with a lower spatial resolution than 10 meters per pixel were upsampled to 10 meters per pixel using cubic-spline interpolation for the band evaluation experiments. For the comparative evaluation, RGB color space images were computed by combining the red (B04), green (B03), and blue (B02) spectral bands. Band combination images (color-infrared and shortwave-infrared) were also constructed from individual spectral bands for benchmarking purposes.",
+    "rai:dataPreprocessingProtocol": "Image patches were manually checked multiple times and mislabeled images as well as images full of snow or ice were removed. Satellite images with a low cloud level were selected during acquisition. Bands with a lower spatial resolution were upsampled to 10 meters per pixel using cubic-spline interpolation for band evaluation experiments. RGB color space images were computed by combining the red (B04), green (B03), and blue (B02) bands for comparative evaluation."
+  },
+  "usage": {
+    "input_tokens": 129208,
+    "output_tokens": 1457
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 25987,
+        "output_tokens": 361
+      },
+      "collection": {
+        "input_tokens": 25875,
+        "output_tokens": 291
+      },
+      "annotation": {
+        "input_tokens": 25935,
+        "output_tokens": 207
+      },
+      "impact": {
+        "input_tokens": 25899,
+        "output_tokens": 316
+      },
+      "processing": {
+        "input_tokens": 25512,
+        "output_tokens": 282
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64341,
+      "output_tokens": 325
+    },
+    "timestamp": "2026-05-02T19:03:54.870784+00:00",
+    "elapsed_seconds": 50.3
+  }
+}

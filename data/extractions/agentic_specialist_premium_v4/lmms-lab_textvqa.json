@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_textvqa",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "TextVQA",
+    "description": "TextVQA is a Visual Question Answering dataset containing 45,336 questions on 28,408 images sourced from Open Images that require reading and reasoning about text in the image to answer. Each question-image pair has 10 ground truth answers provided by human annotators. The dataset is designed to benchmark VQA models on their ability to read text embedded in natural everyday scene images.",
+    "url": "https://textvqa.org",
+    "license": null,
+    "creator": "Amanpreet Singh; Vivek Natarajan; Meet Shah; Yu Jiang; Xinlei Chen; Dhruv Batra; Devi Parikh; Marcus Rohrbach",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Amanpreet Singh, Vivek Natarajan, Meet Shah, Yu Jiang, Xinlei Chen, Dhruv Batra, Devi Parikh, Marcus Rohrbach. Towards VQA Models That Can Read. arXiv:1904.08920, 2019.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Images were sourced from Open Images v3 dataset by selecting categories likely to contain text (e.g., billboard, traffic sign, whiteboard). Category weights were determined by running the Rosetta OCR system on 100 random images per category and computing average OCR box counts. A three-stage crowdsourcing pipeline was used: (1) annotators flagged images without text, filtering down to 28,408 images; (2) annotators provided 1-2 questions per image requiring reading the text to answer; (3) 10 answers were collected per question from human annotators.",
+    "rai:dataCollectionType": "Manual Human Curator; Secondary Data analysis; Web API",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images from the Open Images v3 dataset, specifically from categories that tend to contain text such as billboard, traffic sign, and whiteboard. Training and validation images were drawn from Open Images' training set; test images from Open Images' test set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Three-stage crowdsourcing pipeline: (1) annotators identified images without text using a forced-choice yes/no flag; (2) annotators provided 1-2 questions per image requiring reading text to answer, with instructions to ensure questions require reading and reasoning about text; (3) 10 answers were collected per question with quality control options (no text in image, not a question, answering doesn't require reading text, unanswerable). Bad annotators were identified and filtered using hand-crafted questions with known correct answers. Questions were removed where a majority of workers marked quality-control flags.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Questions were removed where a majority of workers marked any of the four quality-control flags. Bad annotators were identified and filtered using hand-crafted questions with known correct answers. Agreement analysis: all 10 annotators agree on the most common answer for 22.8% of questions; 3 or more annotators agree on the most common answer for 97.9% of questions.",
+    "rai:annotationsPerItem": "10",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Rosetta OCR system",
+    "rai:dataBiases": "The dataset does not have significant biases with respect to images and questions (as evidenced by low question-only and image-only baseline accuracies); however, the model trained on it shows a bias toward predicting 'new york' for city-related questions, and 'yes' is the most common answer (majority answer for 4.71% of the dataset)",
+    "rai:dataLimitations": "8.9% of TextVQA questions can only be answered by combining multiple OCR tokens, which the current model cannot handle; the OCR system fails at detecting text that is rotated, unstructured (e.g., a scribble), or partially occluded; the dataset contains questions collected from sighted humans rather than visually impaired users; 58% of VizWiz questions are unanswerable making it challenging to study the problem systematically",
+    "rai:dataSocialImpact": "The dataset is motivated by the needs of visually impaired users, for whom up to 21% of questions asked of assistive devices involve reading and reasoning about text in images; progress on TextVQA is intended to improve assistive technology for the visually impaired",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmarking and training VQA models that can read and reason about text in images; encouraging research on improving text detection and recognition in unconstrained environments; evaluating progress on answering questions about everyday images that involve reading text, particularly for applications aiding visually impaired users",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was split into train, validation, and test sets with sizes 34,602, 5,000, and 5,734 respectively. Questions collected from Open Images v3's training set were randomly split into training and validation sets with no image overlap between sets. Two answer vocabularies were created: a short answer vocabulary (SA) of size 3,996 containing answers appearing at least twice in the training set, and a large answer vocabulary (LA) containing the 8,000 most frequent answers, to give fair comparison to models without the copy mechanism.",
+    "rai:dataPreprocessingProtocol": "Images were selected from Open Images v3 by running the Rosetta OCR system on 100 random images per category to compute average OCR boxes, then sampling images weighted by normalized per-category OCR box counts. In the first annotation stage, annotators flagged images that did not contain text; filtering those out (along with noisy annotator data) resulted in 28,408 images. In the answer collection stage, questions were removed where a majority of workers marked them as having no text in the image, not being a question, not requiring reading, or being unanswerable. Hand-crafted questions with known correct answers were used to identify and filter out bad annotators."
+  },
+  "usage": {
+    "input_tokens": 167425,
+    "output_tokens": 1748
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 33632,
+        "output_tokens": 325
+      },
+      "collection": {
+        "input_tokens": 33526,
+        "output_tokens": 298
+      },
+      "annotation": {
+        "input_tokens": 33554,
+        "output_tokens": 343
+      },
+      "impact": {
+        "input_tokens": 33550,
+        "output_tokens": 435
+      },
+      "processing": {
+        "input_tokens": 33163,
+        "output_tokens": 347
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 78573,
+      "output_tokens": 266
+    },
+    "timestamp": "2026-05-02T18:46:34.685747+00:00",
+    "elapsed_seconds": 53.0
+  }
+}

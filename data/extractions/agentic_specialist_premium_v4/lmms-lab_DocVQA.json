@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_DocVQA",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "DocVQA",
+    "description": "DocVQA is a large-scale dataset for Visual Question Answering on document images, consisting of 50,000 questions defined on 12,767 document images sourced from the UCSF Industry Documents Library. The dataset covers a wide variety of document types and content, and questions are categorized by reasoning type to support analysis of document understanding models.",
+    "url": "http://docvqa.org",
+    "license": null,
+    "creator": "Minesh Mathew (CVIT, IIIT Hyderabad, India); Dimosthenis Karatzas (Computer Vision Center, UAB, Spain); C.V. Jawahar (CVIT, IIIT Hyderabad, India)",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Minesh Mathew, Dimosthenis Karatzas, and C.V. Jawahar. DocVQA: A Dataset for VQA on Document Images. arXiv:2007.00398v3, 2021.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Document images were sourced from the UCSF Industry Documents Library by downloading documents from different collections and hand-picking pages. Questions and answers were collected using a web-based annotation tool with remote workers in a three-stage process: stage 1 collected question-answer pairs, stage 2 verified answers and assigned question types, and stage 3 involved author review of mismatched answers.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": "Majority of documents in the UCSF Industry Documents Library are binarized, which degraded image quality. The authors tried to minimize binarized images in DocVQA to avoid poor image quality being a bottleneck for VQA. Additionally, some documents had unknown dates (labeled as 'date not known' in the year-wise distribution).",
+    "rai:dataCollectionRawData": "Documents from the UCSF Industry Documents Library (https://www.industrydocuments.ucsf.edu/), spanning 5 industries (tobacco, food, drug, fossil fuel, chemical) and a variety of document types including letters, forms, reports, memos, tables, and more.",
+    "rai:dataCollectionTimeframe": "Documents span from as early as 1900 to as recent as 2018",
+    "rai:dataAnnotationProtocol": "Annotation was conducted in three stages by remote workers using a web-based annotation tool. Stage 1: workers were shown a document image and asked to define up to 10 question-answer pairs, entering answers verbatim from the document. Stage 2: a different worker was shown the image and questions (without stage 1 answers), required to enter answers independently, assign one or more question types to each question, and flag questions with language issues or ambiguity. Stage 3: if no answers from stage 1 matched any answers from stage 2, the question was sent for review by the authors, who could edit questions and answers or accept/reject them. Human performance was measured by collecting answers from volunteers at the authors' institution.",
+    "rai:dataAnnotationPlatform": "Web-based annotation tool (custom, as shown in appendix screen grabs)",
+    "rai:dataAnnotationAnalysis": "If none of the answers from stage 1 exactly matched any answers from stage 2, the question was sent for third-stage review by the authors. Questions flagged as invalid or having serious language issues in stage 2 were excluded from the dataset.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Commercial OCR application (used to extract OCR tokens for experiments and upper bound analysis)",
+    "rai:dataBiases": "Majority of documents are from the 1960-2000 period; dataset overrepresents food and nutrition related collections due to higher availability of non-binarized images; most documents originate from only 5 industries (tobacco, food, drug, fossil fuel, chemical)",
+    "rai:dataLimitations": "Models need to improve specifically on questions where understanding structure of the document is crucial; OCR errors can result in wrong answers even when models correctly ground questions; the copy mechanism in LoRRA can copy only one OCR token and cannot output an answer which is a combination of two or more OCR tokens; majority of documents are from the 1960-2000 period; binarized images were minimized but some remain due to image quality concerns",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset contains document images from the UCSF Industry Documents Library, which include named entities such as names of people, institutions, and places appearing in answers and OCR tokens; no explicit discussion of redaction or exclusion of personal information is provided",
+    "rai:dataUseCases": "Visual Question Answering on document images; inspiring a purpose-driven approach in document image analysis and recognition research; training and evaluation of models that simultaneously use visual and textual cues for answering questions on document images",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Binarized images were minimized to avoid poor image quality as a bottleneck. Pages with tables, forms, lists, and figures were prioritized over pages with only running text. Questions flagged as inapt due to language issues or ambiguity were excluded from the dataset. Questions where none of the answers from stage 1 matched any answers from stage 2 were sent for a third-stage review, where they were either accepted (after editing if necessary) or ignored. OCR tokens were serialized into a single string in top-left to bottom-right order, separated by spaces, to prepare data in SQuAD-style format for BERT fine-tuning, with answer spans approximated by finding the first match of the answer string in the serialized OCR string."
+  },
+  "usage": {
+    "input_tokens": 151347,
+    "output_tokens": 1686
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30421,
+        "output_tokens": 323
+      },
+      "collection": {
+        "input_tokens": 30296,
+        "output_tokens": 352
+      },
+      "annotation": {
+        "input_tokens": 30333,
+        "output_tokens": 364
+      },
+      "impact": {
+        "input_tokens": 30353,
+        "output_tokens": 402
+      },
+      "processing": {
+        "input_tokens": 29944,
+        "output_tokens": 245
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 75400,
+      "output_tokens": 341
+    },
+    "timestamp": "2026-05-02T18:40:59.578429+00:00",
+    "elapsed_seconds": 52.2
+  }
+}

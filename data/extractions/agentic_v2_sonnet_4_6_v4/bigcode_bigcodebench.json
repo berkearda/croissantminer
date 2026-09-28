@@ -1,0 +1,259 @@
+{
+  "dataset_id": "bigcode_bigcodebench",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "BigCodeBench",
+    "description": "BigCodeBench is a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks. It includes a natural-language-oriented variant called BigCodeBench-Instruct that automatically transforms original docstrings into short instructions with essential information. The benchmark evaluates LLMs on diverse function calls and complex instruction following for practical programming tasks.",
+    "url": "https://bigcode-bench.github.io/",
+    "license": "Apache-2.0",
+    "creator": "BigCode community / Terry Yue Zhuo et al. (Monash University, CSIRO's Data61, Singapore Management University, and others)",
+    "publisher": "BigCode community / Hugging Face",
+    "datePublished": "2024-06",
+    "inLanguage": "en",
+    "citeAs": "Terry Yue Zhuo et al. BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions. ICLR 2025.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was constructed through a three-stage human-LLM collaboration process: (1) Data Synthesis using GPT-4 with seed examples from ODEX; (2) Semi-automatic Program Refactoring and Test Case Generation using GPT-4 Code Interpreter with human annotators; (3) Human Curation involving examination, pre-evaluation, and cross-checking. The construction was progressively contributed by 20 authors as annotators over one year.",
+    "rai:dataCollectionType": "Manual Human Curator, Software Collection, Experiments",
+    "rai:dataCollectionMissingData": "During the post-processing of the annotated data, a significant number of test cases were incomplete because GPT-4 often omits partial content when writing long contexts into files. After removing all invalid programs via program analysis, 1,223 refactored programming tasks with paired test cases remained.",
+    "rai:dataCollectionRawData": "Seed examples from ODEX (a benchmark containing intent-paired code skeletons from Stack Overflow) were used as the basis for data synthesis. GPT-4 API was used to synthesize programming tasks from these seeds.",
+    "rai:dataCollectionTimeframe": "April 2023 to May 2024 (construction); June 2024 (initial release)",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To mitigate model biases, an obfuscation and perturbation process was applied: semantic-rich program entry points were replaced with dummy function names, and natural language descriptions in docstrings were perturbed using the back-translation method of NL-Augmenter. Programs were then validated with an abstract syntax tree parser.",
+    "rai:dataPreprocessingProtocol": "After data synthesis, programs were validated with an abstract syntax tree parser. Invalid programs were removed via program analysis. Unused imported modules were removed via program analysis. The confirmed programming tasks were validated by automated test workflows in GitHub Container Registry.",
+    "rai:dataAnnotationProtocol": "The benchmark was annotated through a three-stage process: (1) Data Synthesis: GPT-4 synthesized tasks from ODEX seed examples with 2-shot in-context demonstrations; (2) Semi-automatic Program Refactoring: 13 human annotators used GPT-4 Code Interpreter to refactor programs and generate test cases, each assigned 100 randomly sampled tasks based on their preferences; (3) Human Curation: manual examination, pre-evaluation with GPT-3.5-Turbo, and cross-checking by 7 additional annotators. BigCodeBench-Instruct prompts were inspected by 5 authors who did not participate in previous stages.",
+    "rai:dataAnnotationPlatform": "GPT-4 Code Interpreter (web-based, backed by a Linux-based virtual environment)",
+    "rai:dataAnnotationAnalysis": "The lead annotator evaluated solutions from 11 annotators on 33 randomly sampled finalized task prompts, finding that 97% (32 out of 33) of sampled tasks can pass all test cases. Branch coverage of 99% was achieved on average across test cases.",
+    "rai:annotationsPerItem": "At least 5 test cases per task (average 5.6)",
+    "rai:annotatorDemographics": "20 annotators total. Age: 18-25: 25% (5/20), 26-35: 70% (14/20), 36-45: 5% (1/20). Experience in Python Programming: 1-3 years: 5% (1/20), 3-5 years: 20% (4/20), 5+ years: 75% (15/20). Academic Background: Bachelor: 5% (1/20), Master: 20% (4/20), PhD: 75% (15/20).",
+    "rai:machineAnnotationTools": "GPT-4 API (model version gpt-4-0613) for data synthesis and program refactoring; GPT-3.5-Turbo API (model version gpt-3.5-turbo-1106) for pre-evaluation; NL-Augmenter for back-translation perturbation; abstract syntax tree parser for program validation; GitHub Container Registry for automated test workflows",
+    "rai:dataReleaseMaintenancePlan": "The dataset is managed and maintained by the BigCode community. It is hosted on Hugging Face. Updates will be made to correct labeling errors, add new instances, or delete instances, with results updated on the leaderboard and website. Contributions can be made via GitHub pull requests. Contact: terry.zhuo@monash.edu and contact@bigcode-project.org.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "LLMs may favor their own generations (self-preference bias), which can make model evaluation unfair. The benchmark mitigates this with obfuscation and perturbation of program entry points and docstrings. Additionally, the first language of some annotators is not English, which can introduce inaccurate expressions to task prompts.",
+    "rai:dataLimitations": "1) Python-only: cannot be easily extended to other programming languages. 2) Potential saturation by strong models. 3) Some flaky test cases due to unstable network connections or random states. 4) Test coverage does not guarantee correct assessment of all LLM-generated code. 5) Limited to common libraries; does not cover emerging or domain-specific libraries. 6) Libraries may become obsolete or updated over time. 7) Only covers common programming tasks, not out-of-distribution scenarios.",
+    "rai:dataUseCases": "The dataset is intended for evaluating (testing/benchmarking) the capability of LLMs to solve practical programming tasks using diverse function calls and following complex instructions. It supports two evaluation scenarios: (1) Code Completion (BigCodeBench-Complete) and (2) Instruction to Code (BigCodeBench-Instruct). It is not recommended for repository-level agent evaluation or as a training dataset."
+  },
+  "usage": {
+    "input_tokens": 111696,
+    "output_tokens": 4021
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:35:22.799949Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce BigCodeBench, a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce BigCodeBench, a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks. To evaluate LLMs rigorously, each task encompasses 5.6 test cases with an average branch coverage of 99%."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://bigcode-bench.github.io/"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is distributed under the Apache-2.0 license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Terry Yue Zhuo1,2,3 ... 1Monash University 2CSIRO's Data61 3Singapore Management University ... contact@bigcode-project.org"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset will be managed and maintained by the BigCode community (https://www.bigcode-project.org/). The evaluation dataset will be released to the public, and hosted on Hugging Face."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "06/2024 Initial BigCodeBench Release."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we confirm that all communications during the annotation process are in mainstream English (en-US)."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published as a conference paper at ICLR 2025"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes. If we include more tasks or find any errors, we will correct the dataset hosted on Hugging Face and update the results in the leaderboard accordingly. It will be updated on our website."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The construction is progressively contributed by 20 authors as annotators for one year in total, with 75% of them having more than 5 years of experience in Python programming."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To construct massive, high-quality programming tasks, we propose a novel framework that uses collaboration between LLMs and human experts to build a rigorous execution-based benchmark, BigCodeBench."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During the post-processing of the annotated data, we observe that a significant number of test cases were incomplete. This issue arises because GPT-4 often omits partial content when writing long contexts into files. After removing all invalid programs via program analysis, we end up with 1,223 refactored programming tasks with paired test cases."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use seed examples from ODEX (Wang et al., 2023c), a benchmark containing intent-paired code skeletons from Stack Overflow. We use the GPT-4 API, the strongest LLM at the time of data sourcing, to synthesize the programming tasks."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "04/2023 - 05/2023 Project Initiation. 06/2023 - 07/2023 Benchmark Construction — Data Synthesis. 07/2023 - 11/2023 Benchmark Construction — Semi-automatic Program Refactoring and Testing Case Generation. 12/2023 - 04/2024 Benchmark Construction — Human Curation... 06/2024 Initial BigCodeBench Release."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We mitigate the model biases with an obfuscation and perturbation process. We first replace the semantic-rich program entry points with dummy function names. In addition, we perturb the natural language descriptions in docstrings with the back-translation method of NL-Augmenter (Dhole et al., 2023), inspired by ReCode (Wang et al., 2023a). After validating the post-processed programs with an abstract syntax tree parser, we collected 4,718 function-level programming samples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After validating the post-processed programs with an abstract syntax tree parser, we collected 4,718 function-level programming samples... After removing all invalid programs via program analysis, we end up with 1,223 refactored programming tasks with paired test cases... we remove unused imported modules via program analysis... The confirmed programming tasks are finally validated by the automated test workflows in GitHub Container Registry, where the test cases are automatically run against the task implementations in a configured sandbox environment."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We engage 13 authors as human annotators (including the lead annotator) for this step, assigning each annotator 100 randomly sampled programming tasks based on their preferences of code topics... 7 additional annotators refine and finalize the data annotated by others... For quality control, 5 authors who do not participate in previous stages inspect the randomly sampled prompts and their corresponding ground-truth solutions."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we utilize the Code Interpreter session in the web-based GPT-4, which is back-ended by a Linux-based virtual environment with pre-installed Python packages."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we randomly assign 33 finalized task prompts to the 11 annotators (the lead annotator was excluded; one annotator was unavailable at the time), to write the solutions. The lead annotator conducts the evaluation of the solutions, finding that 97% (32 out of 33) of sampled tasks can pass all test cases."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "each task encompasses 5.6 test cases with an average branch coverage of 99%... be paired with at least five test cases encapsulated in the unittest framework"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Age: 18-25: 25% (5/20), 26-35: 70% (14/20), 36-45: 5% (1/20). Experience in Python Programming (Years): 1-3: 5% (1/20), 3-5: 20% (4/20), 5+: 75% (15/20). Academic Background: Bachelor: 5% (1/20), Master: 20% (4/20), PhD: 75% (15/20)."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the GPT-4 API, the strongest LLM at the time of data sourcing, to synthesize the programming tasks... We choose GPT-3.5-Turbo API to generate solutions based on the examined task prompts... we perturb the natural language descriptions in docstrings with the back-translation method of NL-Augmenter... After validating the post-processed programs with an abstract syntax tree parser... The confirmed programming tasks are finally validated by the automated test workflows in GitHub Container Registry."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes. If we include more tasks or find any errors, we will correct the dataset hosted on Hugging Face and update the results in the leaderboard accordingly. It will be updated on our website... For dataset contributions and evaluation modifications, the most efficient way to reach us is via GitHub pull requests."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As previous studies have shown that LLMs favor their own generations (Zheng et al., 2024a; Panickssery et al., 2024), such phenomena can make the model evaluation unfair. We mitigate the model biases with an obfuscation and perturbation process... We note that the first language of some annotators is not English, which can introduce some inaccurate expressions to the task prompts in BigCodeBench."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "One of the main limitations is that BigCodeBench is Python-only and cannot be easily extended to other programming languages... During the execution-based evaluation, we notice that some test cases are flaky... While we achieve high test coverage for the ground-truth solutions in BigCodeBench, it does not guarantee that any code generated by LLMs will be correctly assessed against existing test cases... Current BigCodeBench only covers the common libraries and daily programming tasks."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset aims to provide a thorough assessment of the capability of solving programming tasks... We assess two common programming scenarios: (1) Code Completion (BigCodeBench-Complete), which evaluates the capability of code generation based on the structured docstrings; and (2) Instruction to Code (BigCodeBench-Instruct), which evaluates the ability to complete programming tasks based on natural-language-oriented (NL-oriented) instructions."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 27,
+      "fields_null": 3,
+      "fields_verified": 27,
+      "fields_uncertain": 0,
+      "evidence_count": 27,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.3954,
+    "split": "dev",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 76.5,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

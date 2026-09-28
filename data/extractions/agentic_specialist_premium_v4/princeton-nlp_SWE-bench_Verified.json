@@ -1,0 +1,80 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SWE-Bench+",
+    "description": "SWE-Bench+ is an enhanced coding benchmark dataset for evaluating LLMs on real-world GitHub issues, comprising 548 task instances collected from 11 Python repositories. It addresses limitations of the original SWE-bench by including only issues created after LLM training cutoff dates (November 2023 to August 2024) and excluding issues that contain solution details in their reports or comments.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan; Haoran Xue; Mohammad Mahdi Mohajer; Elijah N norom; Gias Uddin; Song Wang",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, Song Wang. SWE-Bench+: Enhanced Coding Benchmark for LLMs. arXiv:2410.06992v2 [cs.SE], 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "SWE-Bench+ was collected by following the same data collection methodology as the original SWE-Bench dataset using their open-source scripts. Issues were gathered from 11 of the original 12 GitHub Python repositories (excluding Django, which moved issue tracking off GitHub). Only issues created after October 2023 were collected to avoid data leakage relative to LLM training cutoff dates. The same filtering process as SWE-Bench was applied (attribute filtering and execution filtering), and instances with solution details in the issue report were manually removed.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world GitHub issues and their corresponding pull requests from 11 widely used Python repositories (same 12 as SWE-Bench except Django). Source data includes issue descriptions, comments, pull request code changes, and associated test cases from GitHub.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataAnnotationProtocol": "Three authors independently performed patch validation by comparing model-generated patches to gold patches, examining files and lines changed, reviewing issue descriptions, and evaluating implementation styles and intentions. Disagreements were resolved through broader discussion involving all authors. Authors also manually reviewed all collected instances to eliminate those with clear solution details in the issue report.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Disagreements among the three independent annotators were resolved through broader discussion involving all authors.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "32.67% of successful patches in SWE-bench involve solution leakage (solutions directly provided in issue reports or comments); over 94% of SWE-bench instances were created before LLM training cutoff dates, posing potential data leakage bias; weak test cases inflate resolution rates across all SWE-bench variants",
+    "rai:dataLimitations": "SWE-bench Full, Lite, and Verified all suffer from solution leakage and weak test cases that do not adequately verify patch correctness; over 94% of SWE-bench instances predate LLM training cutoff dates, risking data leakage; SWE-bench+ still contains weak test cases that persist as a challenge; Django was excluded from SWE-bench+ as its issues are tracked outside GitHub; token limits caused some models (Claude-based) to exceed limits before completing experiments on all 548 SWE-bench+ instances",
+    "rai:dataSocialImpact": "Inflated resolution rates on SWE-bench raise concerns about the reliability of LLM evaluations in software engineering, potentially misleading researchers and practitioners about the true capabilities of LLMs in resolving real-world software issues",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating LLM capabilities in resolving real-world GitHub software issues; benchmarking LLM-based automated program repair and code generation tools; providing a more rigorous and accurate evaluation framework for assessing LLMs in software development",
+    "rai:dataReleaseMaintenancePlan": "The SWE-bench+ dataset is released on Zenodo (https://zenodo.org/records/13879453) to help other researchers replicate and extend the study; the authors note they are working on merging SWE-bench+ into the SWE-bench project repository",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Issues with solution leakage (where solutions were directly provided in issue reports or comments) were filtered out from the dataset. Only issues created after October 2023 (after the training cut-off dates of GPT-3.5, GPT-4, and GPT-4o) were collected to prevent data leakage. The same attribute filtering and execution filtering processes from the original SWE-Bench methodology were applied, retaining only issues that resolve a problem, contribute tests, install successfully, and have PRs that pass all tests.",
+    "rai:dataPreprocessingProtocol": "Issues were filtered using attribute filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and their PRs pass all tests. Issues created after October 2023 were collected to avoid data leakage. Instances with clear solution details in the issue report were manually removed."
+  },
+  "usage": {
+    "input_tokens": 145605,
+    "output_tokens": 1574
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 29271,
+        "output_tokens": 334
+      },
+      "collection": {
+        "input_tokens": 29154,
+        "output_tokens": 296
+      },
+      "annotation": {
+        "input_tokens": 29204,
+        "output_tokens": 200
+      },
+      "impact": {
+        "input_tokens": 29174,
+        "output_tokens": 476
+      },
+      "processing": {
+        "input_tokens": 28802,
+        "output_tokens": 268
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 72513,
+      "output_tokens": 236
+    },
+    "timestamp": "2026-05-02T18:58:19.873770+00:00",
+    "elapsed_seconds": 50.9
+  }
+}

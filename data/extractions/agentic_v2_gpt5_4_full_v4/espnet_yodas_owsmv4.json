@@ -1,0 +1,259 @@
+{
+  "dataset_id": "espnet_yodas_owsmv4",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "cleaned YODAS",
+    "description": "A higher-quality subset of the YODAS ASR dataset created through a scalable data-cleaning pipeline, containing 166k hours of speech in 75 languages.",
+    "url": "https://www.wavlab.org/activities/2024/owsm/",
+    "license": "Creative Commons license",
+    "creator": "Yifan Peng, Muhammad Shakeel, Yui Sudo, William Chen, Jinchuan Tian, Chyi-Jiunn Lin, Shinji Watanabe",
+    "publisher": "International Speech Communication Association (ISCA)",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Yifan Peng, Muhammad Shakeel, Yui Sudo, William Chen, Jinchuan Tian, Chyi-Jiunn Lin, and Shinji Watanabe. \"OWSM v4: Improving Open Whisper-Style Speech Models via Data Scaling and Cleaning.\" Interspeech 2025. DOI: 10.21437/Interspeech.2025-1062.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was derived from raw YODAS, a large-scale web-crawled dataset, and cleaned through a three-step pipeline: resegmentation with CTC segmentation, LID-based filtering, and CTC-score-based filtering.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw YODAS ASR dataset with unsegmented long-form recordings, text transcriptions, and timestamps crawled from the web.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "The preprocessing pipeline realigned audio and text using CTC segmentation, segmented long-form recordings into utterances of at most 30 seconds, removed non-speech-only utterances, filtered utterances whose original language label did not match both text-based and audio-based LID predictions, and removed utterances with low-quality audio-text alignments based on CTC confidence scores.",
+    "rai:dataAnnotationProtocol": "The raw data included text transcriptions annotated with start and end timestamps; the cleaned dataset further assigned each short utterance a CTC confidence score for alignment quality.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The paper identifies annotation errors in raw YODAS, including mismatched language labels and audio-text misalignment, and analyzes alignment quality using CTC confidence scores and language-label agreement from text and audio LID models.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OWSM-CTC v3.2 model, fastText, and SpeechBrain ECAPA-TDNN",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The dataset has a highly imbalanced language distribution, with English making up the largest share and many other languages underrepresented.",
+    "rai:dataLimitations": "The raw YODAS data contains incorrect language labels and audio-text misalignments, and the cleaned dataset still has highly imbalanced language distribution with many languages underrepresented.",
+    "rai:dataUseCases": "Training ASR models and supporting multilingual ASR and LID; the cleaned YODAS data was used alongside previous OWSM data to train OWSM v4 models."
+  },
+  "usage": {
+    "input_tokens": 23911,
+    "output_tokens": 2218
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-01T23:57:14.757076Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "By applying it to YODAS, we create an ASR dataset with 166k hours of audio in 75 languages."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Applying it to the raw YODAS ASR dataset, we create a higher-quality subset with 166k hours of speech in 75 languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1https://www.wavlab.org/activities/2024/owsm/"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work enhances OWSM by integrating YODAS, a large-scale web-crawled dataset with a Creative Commons license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yifan Peng1, Muhammad Shakeel2, Yui Sudo2, William Chen1, Jinchuan Tian1, Chyi-Jiunn Lin1, Shinji Watanabe1"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Interspeech 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To advance open academic research, we will publicly release our data-cleaning scripts, the curated YODAS dataset, training code, pre-trained models, and training logs."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 1 illustrates our data-cleaning pipeline consisting of the following three steps."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work enhances OWSM by integrating YODAS, a large-scale web-crawled dataset with a Creative Commons license."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "YODAS provides unsegmented long-form recordings, each of them is accompanied by a list of text transcriptions annotated with start and end timestamps."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Following realignment, the long-form audio recordings are segmented into shorter utterances, each with a maximum duration of 30 seconds. Utterances that consist exclusively of non-speech elements, such as music, are removed. We retain only those utterances for which the original language label matches both the predicted language from the text and the predicted language from the audio. The final step removes utterances with low-quality audio-text alignments, as indicated by the CTC score calculated in Section 2.1.1."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "YODAS provides unsegmented long-form recordings, each of them is accompanied by a list of text transcriptions annotated with start and end timestamps. Additionally, after CTC segmentation, each short utterance is assigned a confidence score, which quantifies the alignment quality between the audio and the corresponding text."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The raw YODAS data has not undergone a rigorous cleaning process and may contain annotation errors [24]. Common issues include mismatched language labels and misalignment between audio and text."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For this purpose, we employ the publicly available OWSM-CTC v3.2 model. Specifically, the text-based LID model is sourced from fastText [32, 33], while the spoken LID model is based on ECAPA-TDNN, developed by SpeechBrain [34]."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Similar to the raw YODAS data, the distribution across languages is highly imbalanced. English constitutes the largest share, whereas many other languages continue to be underrepresented."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We reveal that large-scale web-crawled data contains incorrect language labels and audio-text misalignments. Similar to the raw YODAS data, the distribution across languages is highly imbalanced. English constitutes the largest share, whereas many other languages continue to be underrepresented."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Furthermore, we train a new series of OWSM v4 models using this curated dataset alongside existing OWSM data."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 85.0,
+      "avg_confidence": 0.927
+    },
+    "cost_usd": 0.0521,
+    "split": "dev",
+    "corrections_applied": 7,
+    "enrichments": [],
+    "elapsed_seconds": 28.3,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 4
+  }
+}

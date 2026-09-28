@@ -1,0 +1,80 @@
+{
+  "dataset_id": "chcorbi_helvipad",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "HELVIPAD",
+    "description": "HELVIPAD is a real-world dataset for omnidirectional stereo depth estimation. It contains paired top-bottom 360° images with corresponding depth and disparity maps, captured with two omnidirectional cameras and a synchronized LiDAR sensor across indoor and outdoor scenes under varied lighting conditions. The dataset comprises 39,553 labeled frames from 29 video sequences, and the authors also provide an augmented training set with increased label density via depth completion.",
+    "url": "https://vita-epfl.github.io/Helvipad/",
+    "license": null,
+    "creator": "Mehdi Zayene; Jannik Endres; Albias Havolli; Charles Corbiere; Salim Cherkaoui; Alexandre Kontouli; Alexandre Alahi",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": "Mehdi Zayene, Jannik Endres, Albias Havolli, Charles Corbiere, Salim Cherkaoui, Alexandre Kontouli, and Alexandre Alahi. HELVIPAD: A Real-World Dataset for Omnidirectional Stereo Depth Estimation. arXiv:2411.18335, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected using a custom-built rig mounted on a remotely controlled robot chassis, equipped with two Ricoh Theta V 360° cameras in a top-bottom setup and an Ouster OS1-64 LiDAR sensor, and recorded as video sequences across indoor and outdoor scenes on a university campus.",
+    "rai:dataCollectionType": "Direct measurement; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Ground-truth depth labels from the raw LiDAR projections were sparse and covered only a fraction of image pixels; the paper states labeled pixels increased from 12% to 61% after depth completion, and notes exclusion of regions with insufficient nearby LiDAR points such as sky areas.",
+    "rai:dataCollectionRawData": "Raw data consist of synchronized top and bottom equirectangular camera images and corresponding LiDAR point clouds captured by two Ricoh Theta V cameras and an Ouster OS1-64 LiDAR sensor.",
+    "rai:dataCollectionTimeframe": "2023-12-06 to 2024-02",
+    "rai:dataAnnotationProtocol": "Depth and disparity labels were created automatically by projecting LiDAR point clouds onto equirectangular images; additionally, a fully automated depth completion pipeline interpolated depth on spherical grid points using temporally aggregated point clouds and filtered points with high uncertainty or insufficient nearby measurements.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The optimized rotation and translation parameters were obtained by minimizing projection error with BFGS; depth completion labels were produced by weighted averaging of k-nearest neighbors and filtering query points exceeding an uncertainty criterion or an out-of-distribution threshold; the pipeline was validated by splitting each LiDAR point cloud into training and test sets and computing depth estimation metrics on the test set.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LiDAR point cloud projection onto equirectangular images; depth completion pipeline; BFGS; KISS-ICP",
+    "rai:dataBiases": "The data exhibits an exponential decay in pixel percentage with increasing depth, correlating with the decrease in LiDAR precision over longer distances; depth completion increases the density of low-range depth values, particularly within the 0–10 meter range, tending to enrich the representation of closer objects in the dataset",
+    "rai:dataLimitations": "Indoor-trained models show a clear limitation in generalizing to outdoor scenes, particularly at night; the depth completion approach is limited for fast-moving objects like cars; depth completion does not provide labels for pixels at object boundaries and it is challenging to ascertain the precise locations of such boundaries based on depth data alone",
+    "rai:dataSocialImpact": "To safely deploy learning systems in real-world settings, it is essential to assess their ability to generalize to unseen or underrepresented conditions, like outdoor environments at night.",
+    "rai:personalSensitiveInformation": "The dataset was collected in dynamic human environments capturing human pedestrian activity, and the recorded scenes include pedestrians.",
+    "rai:dataUseCases": "developing and benchmarking omnidirectional depth estimation models; assessing the robustness of depth estimation methods to diverse lighting conditions and depth ranges; robotic navigation and exploration in complex indoor environments",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Additionally, we provide an augmented training set with an increased label density by using depth completion.",
+    "rai:dataPreprocessingProtocol": "After cropping unnecessary regions (sky, ground), the resulting dataset comprises 39,553 paired images with their corresponding depth and disparity maps, at a resolution of 1920×512 pixels."
+  },
+  "usage": {
+    "input_tokens": 182509,
+    "output_tokens": 1456
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 36764,
+        "output_tokens": 278
+      },
+      "collection": {
+        "input_tokens": 36537,
+        "output_tokens": 412
+      },
+      "annotation": {
+        "input_tokens": 36539,
+        "output_tokens": 231
+      },
+      "impact": {
+        "input_tokens": 36480,
+        "output_tokens": 273
+      },
+      "processing": {
+        "input_tokens": 36189,
+        "output_tokens": 262
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67484,
+      "output_tokens": 567
+    },
+    "timestamp": "2026-05-22T11:20:19.045784+00:00",
+    "elapsed_seconds": 36.7
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "SWE-Gym_SWE-Gym",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "SWE-Gym",
+    "description": "SWE-Gym is a training environment for software engineering agents containing 2,438 real-world Python task instances. Each instance comprises a Python codebase with an executable runtime environment, unit tests, and a natural language task description sourced from GitHub issues.",
+    "url": null,
+    "license": null,
+    "creator": "Jiayi Pan (UC Berkeley); Xingyao Wang (UIUC); Graham Neubig (CMU); Navdeep Jaitly (Apple); Heng Ji (UIUC); Alane Suhr (UC Berkeley); Yizhe Zhang (Apple)",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": "Jiayi Pan, Xingyao Wang, Graham Neubig, Navdeep Jaitly, Heng Ji, Alane Suhr, Yizhe Zhang. Training Software Engineering Agents and Verifiers with SWE-Gym. Proceedings of the 42nd International Conference on Machine Learning, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Data was collected by using SEART GitHub search to identify Python repositories created before July 1, 2022, with over 500 stars, 300 lines of code, 500 pull requests, and 100 contributors. SWE-Bench's instance extraction script was then used to convert these repositories into task instances corresponding to GitHub issues, repository snapshots, and unit tests.",
+    "rai:dataCollectionType": "Software Collection; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world software engineering tasks sourced from pull requests and GitHub issues in popular open-source Python repositories, including natural language issue descriptions, repository snapshots, and unit tests.",
+    "rai:dataCollectionTimeframe": "Up to July 1, 2022",
+    "rai:dataAnnotationProtocol": "We manually configure dependencies for each task instance using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot at the time of issue creation. Annotations are done by a subset of the authors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "We then use SWE-Bench's execution-based validation script to ensure that the gold patch (the human-submitted code diff) passes more unit tests than the original code.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "gpt-4o-2024-08-06; claude-3-5-sonnet-20241022",
+    "rai:dataBiases": "The task distribution across repositories exhibits a long-tail pattern, with tasks associated with pandas comprising nearly one-third of the total; repeated sampling also introduces a bias toward easier tasks.",
+    "rai:dataLimitations": "The dataset is limited by its environment diversity, including the number of repositories, types of tasks, and programming languages.",
+    "rai:dataSocialImpact": "Improving automated software engineering capabilities could increase developer productivity and accessibility, but may impact software engineering jobs, require careful consideration around code ownership and licensing, and could potentially be misused to automate the creation of malicious code.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training software engineering (SWE) agents; training verifier models to enable inference-time scaling.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We cap the number of successful trajectories per instance at two and balance the data by subsampling failure cases to match the same number of successful ones.",
+    "rai:dataPreprocessingProtocol": "After validation and filtering out failed instances, we obtained 2,438 unit-test-validated instances. Similar to SWE-Bench Lite, this subset excludes tasks that require editing more than one file, tasks with poorly described problem statements, those with excessively complex ground-truth code diffs, and tests focused on error message validation."
+  },
+  "usage": {
+    "input_tokens": 190352,
+    "output_tokens": 1446
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 38310,
+        "output_tokens": 474
+      },
+      "collection": {
+        "input_tokens": 38146,
+        "output_tokens": 209
+      },
+      "annotation": {
+        "input_tokens": 38110,
+        "output_tokens": 243
+      },
+      "impact": {
+        "input_tokens": 38058,
+        "output_tokens": 217
+      },
+      "processing": {
+        "input_tokens": 37728,
+        "output_tokens": 303
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 76574,
+      "output_tokens": 523
+    },
+    "timestamp": "2026-05-27T18:59:28.330146+00:00",
+    "elapsed_seconds": 144.1
+  }
+}

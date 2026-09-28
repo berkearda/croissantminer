@@ -1,0 +1,80 @@
+{
+  "dataset_id": "nebius_SWE-rebench",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-rebench",
+    "description": "SWE-rebench is a public dataset of more than 21,000 interactive Python-based software engineering tasks collected automatically from real-world GitHub repositories. It is designed to support training and benchmarking of software engineering agents in diverse executable environments, particularly for reinforcement learning-based approaches.",
+    "url": "https://huggingface.co/datasets/nebius/SWE-rebench",
+    "license": null,
+    "creator": "Ibragim Badertdinov (Nebius); Alexander Golubev (Nebius); Maksim Nekrashevich (Nebius); Anton Shevtsov (Nebius); Simon Karasik (Nebius); Andrei Andriushchenko (Nebius); Maria Trofimova (Nebius); Daria Litvintseva (Nebius); Boris Yangel (Nebius)",
+    "publisher": "Nebius",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, and Boris Yangel. SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents. arXiv:2505.20411v2, 2025.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was collected through a fully automated pipeline that mined software engineering tasks from GitHub repositories by downloading GitHub Archive event data, cloning relevant GitHub repositories with full commit histories, linking issues to pull requests, and filtering selected issue-PR pairs to retain verifiable Python task instances.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection",
+    "rai:dataCollectionMissingData": "The git tag command provides a version for approximately 95% of task instances. We assign a unique version to the rest of the tasks, so that each one of them uses its own environment.",
+    "rai:dataCollectionRawData": "Raw input data were downloaded from GitHub Archive and GitHub. GitHub Archive provided daily JSON archives of public GitHub events, including issue descriptions, discussions, linked pull requests, creation dates, labels, pull request merge status, last commit, and discussions. GitHub repositories were cloned with their full commit histories to local storage.",
+    "rai:dataCollectionTimeframe": "issues created before 2025-05-01",
+    "rai:dataAnnotationProtocol": "We fine-tune an instruction-following model using human annotations from SWE-bench Verified to predict Issue Clarity, Task Complexity, and Test Patch Correctness; for each of the over 3,800 examples, the model receives the issue description, the canonical solution patch, and the test patch as input and is prompted to predict one of three binary quality labels, with each label trained independently using a 75/25 training/validation split.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The model is trained to predict each label independently using a 75/25 training/validation split (total 413 validation examples), and performance is analyzed with accuracy, weighted F1-score, precision, and recall on the validation set.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen 2.5-72B-Instruct",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "the emphasis on scalability introduces trade-offs, particularly a reduced ability to manually curate and verify the quality and clarity of each individual task; the LLM-based approach to generating installation instructions was validated on a limited set of 18 repositories and may not capture every project's subtleties; the automated task quality assessment cannot fully replicate nuanced human judgment, thus containing errors and decreasing quality of the datasets; the fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue, which can lead to lower absolute success rates compared to manually curated benchmarks; the initial release of SWE-rebench is limited exclusively to Python, restricting its immediate applicability to other language ecosystems",
+    "rai:dataSocialImpact": "it may also accelerate the development of increasingly autonomous AI systems in software engineering; this progress brings potential risks, such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities; the authors state that fostering openness, decontaminated evaluations, and rigorous benchmarking practices helps mitigate these concerns and contributes to responsible advancement of the field",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "suitable for reinforcement learning of SWE agents at scale; designed to train and benchmark agents in diverse executable environments; support rigorous, model-centric evaluation of LLM-based agents; particularly suitable for training and evaluating LLM-based agents",
+    "rai:dataReleaseMaintenancePlan": "a public SWE-rebench leaderboard that offers continuously updated, decontaminated, and standardized evaluations for LLM-based agents; the pipeline is designed for continuous collection of software engineering tasks from open-source repositories; future work includes keeping the SWE-rebench benchmark up-to-date by maintaining evaluation process on fresh tasks for existing models, evaluating a wider range of LLMs, and sharing detailed performance analyses with the community",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "After preliminary filtering, task instances are grouped by project versions inferred from git tags and normalized to major.minor format; for each version group, the base_commit of the task with the most recent base_commit date is selected so tasks in that group share a common environment. Tasks without inferred versions are assigned unique versions so each uses its own environment. The benchmark subset is then constructed by selecting 294 executable tasks from 169 repositories using additional filtering criteria.",
+    "rai:dataPreprocessingProtocol": "In the first stage, we download raw input data from multiple origins, merge them, and perform preliminary filtering. We then link issues with pull requests that mention resolving them in their title or description, applying filters to select instances where: the issue is from a Python repository with a permissive license; the issue is marked as resolved; the PR is merged into the main branch; the PR is not linked to multiple issues; the issue description is longer than 10 characters; the PR must introduces or modifies tests and includes code changes beyond test files; changes affect 1 to 15 files. For each selected pull request, the overall patch is divided into two components: a solution patch, containing changes to non-test files intended to address the issue, and a test patch, comprising only changes to test files. They also refine test directive generation by filtering out deleted files from test directives, run tests multiple times and exclude instances that fail in at least one run, and freeze and record all dependency versions after the first successful environment setup for reproducibility."
+  },
+  "usage": {
+    "input_tokens": 188275,
+    "output_tokens": 1493
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 40566,
+        "output_tokens": 304
+      },
+      "collection": {
+        "input_tokens": 27042,
+        "output_tokens": 211
+      },
+      "annotation": {
+        "input_tokens": 40356,
+        "output_tokens": 222
+      },
+      "impact": {
+        "input_tokens": 40297,
+        "output_tokens": 400
+      },
+      "processing": {
+        "input_tokens": 40014,
+        "output_tokens": 356
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 53170,
+      "output_tokens": 176
+    },
+    "timestamp": "2026-05-22T11:36:34.066043+00:00",
+    "elapsed_seconds": 35.0
+  }
+}

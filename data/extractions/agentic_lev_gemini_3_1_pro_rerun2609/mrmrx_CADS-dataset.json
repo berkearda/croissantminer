@@ -1,0 +1,280 @@
+{
+  "dataset_id": "mrmrx_CADS-dataset",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "CADS-dataset",
+    "description": "A large-scale dataset of 22,022 CT volumes with complete annotations for 167 anatomical structures, designed for whole-body CT segmentation.",
+    "url": "https://huggingface.co/datasets/mrmrx/CADS-dataset",
+    "license": "other",
+    "creator": "Murong Xu, Tamaz Amiranashvili, Femando Navarro, Maksym Fritsak, Ibrahim Ethem Hamamci, Suprosanna Shit, Bastian Wittmann, Sezgin Er, Sebastian M. Christ, Ezequiel de la Rosa, Julian Deseoe, Robert Graf, Hendrik M¨ oller, Anjany Sekuboyina, Jan C. Peeken, Sven Becker, Giulia Baldini, Johannes Haubold, Felix Nensa, Ren´ e Hosch, Nikhil Mirajkar, Saad Khalid, Stefan Zachow, Marc-Andr´ e Weber, Georg Langs, Jakob Wasserthal, Mehmet Kemal Ozdemir, Andrey Fedorov, Ron Kikinis, Stephanie Tanadini-Lang, Jan S. Kirschke, Stephanie E. Combs, and Bjoem Menze",
+    "publisher": null,
+    "datePublished": null,
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was aggregated from diverse sources including medical imaging challenges, public repositories, existing large-scale datasets, and two new hospital CT collections. Additional manual annotations were also provided by medical professionals.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "CT scans covering key anatomical regions throughout the body (brain, head-and-neck, thorax, abdomen, pelvis, and femur), including both annotated and unannotated scans, as well as specific head and abdominal CT scans.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Automated annotation pipeline using pseudo-labeling, iterative model refinement, shape-guided quality control, and multi-strategy label fusion, followed by structure-specific refinements.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Automated outlier detection using neural implicit functions, ensemble selection mechanism, and systematic slice-by-slice expert review of 3D segmentation masks.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Experienced clinical radiation oncologist",
+    "rai:machineAnnotationTools": "Specialized region-specific models for pseudo-labeling and neural implicit functions for shape-based outlier detection.",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset's automated quality control excludes low-quality segmentations, which may inadvertently remove atypical anatomical variations caused by pathological conditions. Additionally, facial features are anonymized, preventing detailed facial analysis, and certain structures (e.g., brain mask, optic chiasm, heart, rectum, trachea, vena cava) lack precise delineation.",
+    "rai:dataSocialImpact": "The dataset and framework aim to improve clinical workflows by streamlining radiation treatment planning, enabling automated organ volume quantification, and facilitating large-scale population studies across diverse demographics.",
+    "rai:personalSensitiveInformation": "The dataset includes geographic information spanning 16 countries. Sensitive attributes such as facial features are intentionally anonymized to protect patient privacy.",
+    "rai:dataUseCases": "The dataset is intended for training robust whole-body segmentation models, as well as supporting anatomical landmark detection, cross-modality registration, anatomy-guided synthesis, longitudinal organ tracking, personalized anatomical modeling, and radiation treatment planning.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was partitioned into non-overlapping training and test sets, with validation data drawn exclusively from the training split to ensure independence of the hold-out test sets.",
+    "rai:dataPreprocessingProtocol": "A three-step preprocessing pipeline was used: 1) reorienting images to the standard RAS convention, 2) resampling to a uniform 1.5 mm isotropic resolution, and 3) simplifying affine transformation matrices by removing rotation and translation components. Additionally, a Gaussian filter was applied to facial regions to protect patient privacy."
+  },
+  "usage": {
+    "input_tokens": 43447,
+    "output_tokens": 2557
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:48:49.073401Z",
+    "git_commit": "ede26c8",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CADS-dataset : A large-scale collection of 22 ,022 CT volumes with full annotations for 167 anatomical structures"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "At its core is a large-scale dataset of 22 ,022 CT volumes with complete annotations for 167 anatomical structures, representing a significant advancement in both scale and coverage"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our CADS-dataset, comprising paired CT volumes and curated whole-body annotations, is publicly accessible via https://huggingface.co/datasets/mrmrx/CADS-dataset."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Murong Xu1,2,†,∗,Tamaz Amiranashvili1,7,†,Femando Navarro1,†,Maksym Fritsak3,4,Ibrahim Ethem Hamamci1,2,Suprosanna Shit1,2,Bastian Wittmann1,Sezgin Er6,Sebastian M. Christ3,Ezequiel de la Rosa1, Julian Deseoe1,5,Robert Graf8,9,Hendrik M¨ oller8,9,Anjany Sekuboyina1,8,Jan C. Peeken10,11,12,Sven Becker13,14,Giulia Baldini13,14,Johannes Haubold13,14,Felix Nensa13,14,Ren´ e Hosch13,14,Nikhil Mirajkar18,19, Saad Khalid19,Stefan Zachow20,Marc-Andr´ e Weber15,Georg Langs16,Jakob Wasserthal17,Mehmet Kemal Ozdemir6,Andrey Fedorov21,Ron Kikinis21,Stephanie Tanadini-Lang3,Jan S. Kirschke8, Stephanie E. Combs10,11,12, and Bjoem Menze1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We aggregate our dataset from diverse sources, including medical imaging challenges (e.g., Grand Challenge [36], MICCAI challenges [37]) and public repositories such as The Cancer Imaging Archive (TCIA) [35]... We further enhance the dataset with two new CT collections."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We aggregate our dataset from diverse sources, including medical imaging challenges (e.g., Grand Challenge [36], MICCAI challenges [37]) and public repositories such as The Cancer Imaging Archive (TCIA) [35]."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our selection criteria focus on CT scans that cover key anatomical regions throughout the body, including the brain, head-and-neck, thorax, abdomen, pelvis, and femur. To maximize data diversity and scale, we do not restrict our collection to annotated scans."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our automated annotation methodology is grounded in pseudo-labeling... We employ self-training through iterative model refinement, shape-guided quality control of segmentations, and fusion of the best-performing annotations from multiple segmentation approaches."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To ensure annotation quality, we implement two key safeguards: automated outlier detection of pseudolabels in shape space using neural implicit functions... Clinical acceptability was determined through a systematic, slice-by-slice review of the 3D segmentation masks by a clinical radiation oncologist."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conduct a systematic expert review led by an experienced radiation oncologist (5.5 years in practice)."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These specialized models then perform whole-body pseudo-labeling to propagate annotations across the remaining unlabeled scans... automated outlier detection of pseudolabels in shape space using neural implicit functions"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A primary limitation of our approach concerns the exclusion strategy in our shape-based quality assessment. By directly excluding segmentations identified as low-quality from the training process, we potentially eliminate cases involving pathological conditions that present atypical anatomical variations... Several regions require refinement... Due to privacy considerations, facial features are intentionally anonymized, limiting applications requiring detailed facial analysis."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CADS’ clinical potential spans multiple domains: in radiation oncology, it can streamline treatment planning through rapid organ delineation; in diagnostic radiology, it can enable automated organ volume quantification and detection of subtle anatomical changes; and for research applications, it can facilitate large-scale studies across diverse populations and conditions."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The geographic diversity of the dataset spans 16 countries across multiple continents... Due to privacy considerations, facial features are intentionally anonymized, limiting applications requiring detailed facial analysis."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The CADS-dataset offers an immediate opportunity to unlock their full potential through training on comprehensive, high-quality data... On the technical side, it can support anatomical landmark detection, cross-modality registration, and anatomy-guided synthesis. For clinical applications, it enables a wide range of uses including longitudinal organ tracking, personalized anatomical modeling, radiation treatment planning, and large-scale population studies."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For rigorous evaluation, we partition these scans into non-overlapping training and test sets (Supplementary Table A.3). All model development decisions, including hyperparameter tuning and architecture selection, rely exclusively on validation data from the training split, ensuring complete independence of the hold-out test sets throughout development."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We implement a three-step pipeline: First, we reorient all images to the standard RAS (Right-Anterior-Superior) convention. Second, we resample to a uniform 1.5 mm isotropic resolution... Third, we simplify the original affine transformation matrices by removing rotation and translation components... For patient privacy in newly acquired hospital head CT scans, we apply a Gaussian filter (σ = 5 voxels at 1.5 mm spacing) to facial regions."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.0799,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 53524,
+        "tokens_in": 12164,
+        "tokens_out": 851
+      },
+      "collection": {
+        "section_chars": 4861,
+        "tokens_in": 1530,
+        "tokens_out": 385
+      },
+      "annotation": {
+        "section_chars": 60000,
+        "tokens_in": 14271,
+        "tokens_out": 404
+      },
+      "impact": {
+        "section_chars": 60000,
+        "tokens_in": 14314,
+        "tokens_out": 573
+      },
+      "processing": {
+        "section_chars": 4478,
+        "tokens_in": 1168,
+        "tokens_out": 344
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 92.2
+  }
+}

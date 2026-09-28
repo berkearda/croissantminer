@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "OpenThoughts3-1.2M",
+    "description": "OpenThoughts3-1.2M is an open-source dataset for training reasoning models. It contains 1.2 million question-response pairs across math, code, and science domains, generated using QwQ-32B as a teacher model.",
+    "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M",
+    "license": null,
+    "creator": "Etash Guha; Ryan Marten; Sedrick Keh; Negin Raoof; Georgios Smymis; Hritik Bansal; Marianna Nezhurina; Jean Mercat; Trung Vu; Zayne Sprague; Ashima Suvama; Benjamin Feuer; Liangyu Chen; Zaid Khan; Eric Frankel; Sachin Grover; Caroline Choi; Niklas Muennighoff; Shiye Su; Wanjia Zhao; John Yang; Shreyas Pimpalgaonkar; Kartik Sharma; Charlie Cheng-Jie Ji; Yichuan Deng; Sarah Pratt; Vivek Ramanujan; Jon Saad-Falcon; Jeffrey Li; Achal Dave; Alon Albalak; Kushal Arora; Blake Wulfe; Chinmay Hegde; Greg Durrett; Sewoong Oh; Mohit Bansal; Saadia Gabriel; Aditya Grover; Kai-Wei Chang; Vaishaal Shankar; Aaron Gokaslan; Mike A. Merrill; Tatsunori Hashimoto; Yejin Choi; Jenia Jitsev; Reinhard Heckel; Maheswaran Sathiamoorthy; Alexandros G. Dimakis; Ludwig Schmidt",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Etash Guha, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, et al. Data Recipes for Reasoning Models. arXiv preprint arXiv:2506.04178, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by sourcing questions from existing datasets, online forums, and textbooks across math, code, and science domains. Specifically, questions were sourced from OpenMath-2-Math, StackExchange CodeGolf, OpenCodeReasoning, StackExchange Physics, and Organic Chemistry PDFs, and then responses were generated using teacher models like DeepSeek-R1 and QwQ-32B.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw source data includes prior datasets and forums such as OpenMath-2-Math, OpenCodeReasoning, StackExchange CodeGolf, StackExchange Physics, as well as organic chemistry textbooks and PDFs (including SCP-116k).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Questions across math, code, and science domains were annotated by teacher LLMs to generate reasoning traces and final answers. The pipeline involved filtering questions by LLM-labeled difficulty or response length, and sampling 16 answers per question from the teacher model.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Various answer filtering techniques were explored, including majority consensus, LLM verification, and fastText classifiers, but the final dataset retains all generated answers without filtering, applying exact deduplication for math and science questions.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "QwQ-32B; DeepSeek-R1; GPT-4o-mini; Claude 3.7; fastText; Math-Verify",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "We did not explore datasets for reinforcement learning, a standard training regime for building reasoning models. Within the SFT realm, we did not explore the use of staged SFT or curriculum learning to further improve performance.",
+    "rai:dataSocialImpact": "Supervised fine-tuning on reasoning inadvertently degrades the pre-existing safety alignment of models, leading to higher harmfulness scores and a clear trade-off between reasoning capabilities and safety.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training reasoning models via supervised fine-tuning (SFT).",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was manipulated through synthetic and semi-synthetic question generation strategies, as well as augmenting examples by sampling multiple answers per question (16x) from the teacher model.",
+    "rai:dataPreprocessingProtocol": "Preprocessing steps included filtering questions by LLM-labeled difficulty or response length, applying exact match deduplication for math and science domains, and decontaminating the dataset by removing samples with high similarity to evaluation benchmarks."
+  },
+  "usage": {
+    "input_tokens": 418427,
+    "output_tokens": 19582
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 83916,
+        "output_tokens": 7372
+      },
+      "collection": {
+        "input_tokens": 83770,
+        "output_tokens": 2982
+      },
+      "annotation": {
+        "input_tokens": 83717,
+        "output_tokens": 4179
+      },
+      "impact": {
+        "input_tokens": 83681,
+        "output_tokens": 2224
+      },
+      "processing": {
+        "input_tokens": 83343,
+        "output_tokens": 2825
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 81024,
+      "output_tokens": 7278
+    },
+    "timestamp": "2026-05-28T11:37:29.068612+00:00",
+    "elapsed_seconds": 221.4
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MathLLMs_VoiceAssistant-Eval",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "VoiceAssistant-Eval",
+    "description": "VoiceAssistant-Eval is a comprehensive benchmark of 10,497 curated examples spanning 13 task categories designed to assess AI assistants across listening, speaking, and viewing. It includes tasks covering natural sounds, music, spoken dialogue, multi-turn dialogue, role-play voice imitation, and heterogeneous images, evaluating response content quality, speech quality, and their consistency.",
+    "url": "https://arxiv.org/abs/2509.22651",
+    "license": "MIT",
+    "creator": "Ke Wang; Houxing Ren; Zimu Lu; Mingjie Zhan; Hongsheng Li",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ke Wang, Houxing Ren, Zimu Lu, Mingjie Zhan, Hongsheng Li. VoiceAssistant-Eval: Benchmarking AI Assistants Across Listening, Speaking, and Viewing. arXiv:2509.22651, 2025.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected by extracting diverse visual and auditory inputs from 37 (later stated as 47) existing datasets, including natural sounds, music, dialogue, and various images. For role-play voice personalization, texts from RoleBench were used and 100 distinct roles were selected with three representative audio clips per role. Text instructions were converted to speech using three TTS models (F5-TTS, ChatTTS, Dia-1.6B), with quality filtering via UTMOS and transcription via Whisper to retain lowest word error rate samples.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Source data drawn from 47 datasets spanning audio understanding (e.g., LibriSpeech, Common Voice, Clotho, AudioCaps, VocalSound, SLURP, MELD, VoxCeleb1, Fisher, SpokenWOZ, IEMOCAP, AVQA, MusicCaps, MTG-Jamendo, MUSICA-VQA, FMA, CochlScene, TUT2017, AudioGrounding, RAVDESS, JL Corpus, MyST, Nsynth), text (e.g., RoleBench, AlpacaEval, BIG-Bench Hard, GSM8K, CommonsenseQA, FollowBench, BeaverTails-Eval, AdvBench, IFEval, MT-Bench-101, MT Bench, STORAL), and vision (MMMU). Also includes VocalBench, VoiceBench, SD-Eval, AIR-Bench, MEAD, VCTK, CoVoST 2, SpeechInstructBench, MMSU, and Inserter datasets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human curators reviewed candidate items using a web-based curation tool, assigning Good or Bad verdicts across three passes: (1) media integrity (audio/image present, decodable, audible, visible); (2) task well-posedness (prompt clarity, input-task alignment); (3) answer validity (reference answers consistent with prompt and media). Suspected duplicates flagged by lexical overlap and Levenshtein distance were manually reviewed and removed. Approximately 10% of candidates were discarded. Additionally, 593 error cases from Qwen2.5-Omni-7B were manually examined for error analysis.",
+    "rai:dataAnnotationPlatform": "Custom lightweight web-based curation tool (described in Appendix J)",
+    "rai:dataAnnotationAnalysis": "Human evaluation of Qwen2.5-Omni-7B outputs was conducted on a 10% random sample (1,050 examples) from each of the 13 tasks; Pearson correlation between automated (gpt-oss-20b) scores and human judgments was 0.92 overall (range 0.73–1.00), with an overall agreement rate of 96.1%. Evaluation stability was assessed by repeating scoring 10 times on the same 1,050 examples.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "gpt-oss-20b (content quality evaluation with 13 task-specific prompts); emotion2vec (emotion probability scoring for speaking emotion task); UTMOS Strong / Saeki et al. 2022 (speech quality scoring, MOS prediction); Whisper-Large-v3 (speech transcription for consistency evaluation and WER computation); Wespeaker (speaker similarity scoring for role-play task); Qwen2.5-72B-Instruct (text rewriting for TTS preprocessing); F5-TTS, ChatTTS, Dia-1.6B (speech synthesis for question audio); lexical overlap and Levenshtein distance (deduplication)",
+    "rai:dataBiases": "The dataset may carry biases from its source data and design choices; questions and contexts are drawn from academic or synthetic sources which might not reflect the full richness or fairness concerns of real deployments; the role-play subset uses a fixed set of 100 roles and associated style prompts which may encode stereotypes or omit important user personas; all prompts and evaluations are in English except for five Chinese roles in the role-play task, limiting linguistic diversity",
+    "rai:dataLimitations": "The dataset is monolingual (English, with only five Chinese roles), which may not capture the full variability of real user interactions and may not generalize to diverse linguistic settings; the range of proprietary models evaluated is limited to a single system (GPT-4o-Audio) due to cost and access constraints; evaluation relies on automated measures and GPT-based scoring which may introduce noise and bias; video-audio integration and continuous audio-visual streaming tasks are beyond the scope of the benchmark; the benchmark evaluates models in an offline, static manner and does not measure reaction time, handling of partial utterances, barge-in, or error recovery; the dataset should not be used for training models for cheating",
+    "rai:dataSocialImpact": "The benchmark includes role-play voice imitation and speaker similarity evaluation, raising risks of identity spoofing, harassment, and fraud; the authors prohibit training or releasing models intended to reproduce identifiable speakers without documented consent, require downstream users to implement consent gating and watermarking or traceability of synthetic audio, and provide safety cards describing acceptable use, known risks, and red-team tests for voice cloning abuse; a data governance process for auditing and removal is maintained; these measures aim to enable research on personalization while minimizing harms related to impersonation, privacy violations, and unequal performance across demographics; results reveal that safety alignment and robustness vary widely across models, with some smaller or unaligned models nearly failing on both fronts",
+    "rai:personalSensitiveInformation": "The benchmark includes role-play voice imitation tasks using speaker audio clips, raising concerns about identifiable speaker voices; the authors emphasize strict consent, provenance, and anti-impersonation safeguards and prohibit training or releasing models intended to reproduce identifiable speakers without documented consent",
+    "rai:dataUseCases": "Intended for researchers to evaluate voice assistants across listening, speaking, and viewing abilities; intended to facilitate future studies in the area of voice-first AI assistants; intended to guide the development of next-generation multimodal models and track progress toward expert AI assistants",
+    "rai:dataReleaseMaintenancePlan": "The dataset and evaluation code will be publicly released under an MIT license; the authors will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Balanced sampling was applied to equalize category representation across the 13 task categories after categorization.",
+    "rai:dataPreprocessingProtocol": "A multi-stage curation process was applied: (1) Deduplication using lexical overlap and Levenshtein distance to flag and manually remove duplicate questions, resulting in 15,359 samples; (2) Validation to exclude incomplete or unsuitable instances including entries with corrupted images, silent audio, ill-posed prompts, and demonstrably incorrect answers, discarding approximately 10% of candidates; (3) Categorization assigning remaining problems to 13 predefined task categories based on source metadata. For speech synthesis, texts were preprocessed by replacing special image tokens with descriptive phrases, rewriting text using Qwen2.5-72B-Instruct for TTS suitability (e.g., converting mathematical expressions and numbers to spoken form), and rephrasing multiple-choice options for readability. Synthesized audio was evaluated with UTMOS Strong and regenerated until scores surpassed 3.8, then transcribed with Whisper-Large-v3 and filtered by lowest word error rate."
+  },
+  "usage": {
+    "input_tokens": 407831,
+    "output_tokens": 2279
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 85295,
+        "output_tokens": 286
+      },
+      "collection": {
+        "input_tokens": 85193,
+        "output_tokens": 507
+      },
+      "annotation": {
+        "input_tokens": 85219,
+        "output_tokens": 525
+      },
+      "impact": {
+        "input_tokens": 67308,
+        "output_tokens": 654
+      },
+      "processing": {
+        "input_tokens": 84816,
+        "output_tokens": 307
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 71439,
+      "output_tokens": 81
+    },
+    "timestamp": "2026-05-02T18:00:27.417837+00:00",
+    "elapsed_seconds": 75.0
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "dataset_id": "ceval_ceval-exam",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "C-E VAL",
+    "description": "A comprehensive Chinese evaluation suite of 13,948 multiple-choice exam questions across 52 disciplines and four difficulty levels, with an accompanying hard subset for advanced reasoning.",
+    "url": "https://cevalbenchmark.com",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Yuzhen Huang; Yuzhuo Bai; Zhihao Zhu; Junlei Zhang; Jinghan Zhang; Tangjun Su; Junteng Liu; Chuancheng Lv; Yikai Zhang; Jiayi Lei; Yao Fu; Maosong Sun; Junxian He",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "zh",
+    "citeAs": "@Article{Tuncel2023ReflectionsOT,\n author = {Yunus Tuncel},\n booktitle = {Journal of Posthumanism},\n journal = {Journal of Posthumanism},\n title = {Reflections on Trash-humanism as Performed by Jaime del Val},\n year = {2023}\n}\n",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Questions were collected from real-world Chinese exams across middle school, high school, college, and professional levels, primarily from mock exams online, plus some university past exams and authorized graduate entrance mock questions.",
+    "rai:dataCollectionType": "Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Mock exams on the internet, past exam questions from top universities in China shared by students, and mock questions for the national graduate entrance exam from the Weipu website; data came mainly as PDF or Microsoft Word documents and a minor fraction as web pages.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were standardized to exactly four choices by eliminating questions with fewer than four options and randomly dropping incorrect choices for questions with more than four options; questions were then split into development, validation, and test sets.",
+    "rai:dataPreprocessingProtocol": "PDF documents were processed into text; questions were parsed automatically when possible and otherwise manually by the authors into a structured format; complex mathematical notation was manually converted into standard LaTeX; standard preprocessing included deduplication and cleaning; questions then underwent several rounds of human validation and LaTeX syntax checking.",
+    "rai:dataAnnotationProtocol": "Authors carefully annotated parsed documents into the final structured format, and for development explanations they first prompted GPT-4 to generate step-by-step explanations and then manually revised them to obtain final explanations.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Questions underwent several rounds of human validation by the authors.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The benchmark is intended to help analyze strengths and shortcomings of foundation models and foster their development for Chinese users.",
+    "rai:dataBiases": "The paper notes that English benchmarks tend to exhibit geographical biases toward the domestic knowledge of the regions that produce them.",
+    "rai:dataLimitations": "C-E VAL is not a complete evaluation of LLMs; other abilities and aspects beyond accuracy, including API reasoning/calling, safety, bias, and robustness, are not covered.",
+    "rai:dataUseCases": "Evaluation benchmark for foundation models in Chinese; can be used as a whole or as subsets to assess specific model abilities, with development split for few-shot evaluation, validation for hyperparameter tuning, and test via leaderboard submission."
+  },
+  "usage": {
+    "input_tokens": 21758,
+    "output_tokens": 2507
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:14:06.040876Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present C-E VAL, the first comprehensive Chinese evaluation suite designed to assess advanced knowledge and reasoning abilities of foundation models in a Chinese context."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "C-E VAL consists of 13948 multiple-choice exam questions spanning 52 diverse disciplines, ranging from humanities to science and engineering, as depicted in Figure 1. The questions are collected from four difficulty levels: middle school, high school, college, and professional tests. Along with C-E VAL, we introduce C-E VAL HARD as an accompanied benchmark, a subset of particularly challenging subjects in C-E VAL that demands highly advanced reasoning abilities to solve, such as advanced mathematics and college physics."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://cevalbenchmark.com"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yuzhen Huang∗1Yuzhuo Bai∗2Zhihao Zhu1Junlei Zhang1Jinghan Zhang1 Tangjun Su1Junteng Liu1Chuancheng Lv2Yikai Zhang1Jiayi Lei1 Yao Fu3Maosong Sun2Junxian He†4"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "37th Conference on Neural Information Processing Systems (NeurIPS 2023) Track on Datasets and Benchmarks.arXiv:2305.08322v3 [cs.CL] 6 Nov 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, these modem benchmarks primarily target English language, resulting in limited understanding of LLMs’ capabilities in other languages. In this work, we focus on evaluating the advanced abilities of foundation models in a Chinese context, one of the most widely spoken language in the world."
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Instead, users are required to submit their model predictions to https://cevalbenchmark.com to automatically obtain the test accuracy, where a public leaderboard is maintained. Users have the option to include their submission results in the live leaderboard, depending on their own preference."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Therefore, we construct C-E VAL from real-world, challenging human exams in China that are used to assess humans’ abilities from multiple dimensions. Data sources: The primary source of our data is mock exams freely available on the intemet. In addition, a portion of the college-level questions are past exam questions from top universities in China, publicly shared by the students. A minor fraction of college questions are mock questions for the national graduate entrance exam, sourced from the Weipu website – these questions are not freely available to the public, and we have obtained their authorization to include around 2000 such questions into C-E VAL."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data sources: The primary source of our data is mock exams freely available on the intemet. In addition, a portion of the college-level questions are past exam questions from top universities in China, publicly shared by the students."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data sources: The primary source of our data is mock exams freely available on the intemet. In addition, a portion of the college-level questions are past exam questions from top universities in China, publicly shared by the students. A minor fraction of college questions are mock questions for the national graduate entrance exam, sourced from the Weipu website. Data Processing: The collected data come in various formats, primarily as PDF or Microsoft Word documents and a minor fraction as web pages."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the questions in C-E VAL are processed to include exactly four choices. Most of the original questions were accompanied by four choices already, and we eliminate questions with fewer than four options and randomly drop incorrect choices for questions with more than four options. We process at least around 200 questions for each subject, and randomly split the questions into a development set, a validation set, and a test set within each subject."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "PDF documents are initially processed into text. All questions are subsequently parsed – automatically when possible, and otherwise manually by the authors – into a structured format, as exemplified in Figure 2. For subjects with complex mathematical notations such as many subjects in the STEM category, we manually convert them into standard L ATEX formats, similar to Hendrycks et al. (2021b); Taylor et al. (2022). All questions also go through the standard data preprocessing pipeline, such as deduplication and cleaning. Following this, the questions undergo several rounds of human validation by the authors, and all the L ATEX notations are ensured to be complied without syntax errors."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These documents are subsequently parsed and carefully annotated by the authors to obtain the final structured format, a process that often involves complex LATEX equation conversion for certain subjects. Specifically, we first prompt GPT-4 to generate step-by-step explanation to explain the ground-truth answer, then we manually revise the generated explanations to obtain the final explanations."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Following this, the questions undergo several rounds of human validation by the authors, and all the L ATEX notations are ensured to be complied without syntax errors."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Specifically, we first prompt GPT-4 to generate step-by-step explanation to explain the ground-truth answer, then we manually revise the generated explanations to obtain the final explanations."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We anticipate C-E VAL will help analyze important strengths and shortcomings of foundation models, and foster their development and growth for Chinese users."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In contrast, English benchmarks tend to exhibit geographical biases towards the domestic knowledge of the regions that produce them."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also note that, C-E VAL, along with all the English-language benchmarks, is far from perfect for LLM evaluation. There are many other abilities such as reasoning over and calling APIs, as well as multiple aspects that extend beyond accuracy, including safety, bias, and robustness."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In addition to its use as a whole, we envision C-E VAL as a suite of benchmarks, subsets of which could be separately utilized to assess certain model abilities of interest and analyze important strengths and limitations of foundation models. The development split per subject consists of five exemplars to facilitate few-shot evaluation. The validation and test set are created with a 1:9 ratio, where the validation set is intended to be used for hyperparameter tuning. Instead, users are required to submit their model predictions to https://cevalbenchmark.com to automatically obtain the test accuracy, where a public leaderboard is maintained."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 90.5,
+      "avg_confidence": 0.926
+    },
+    "cost_usd": 0.0523,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [
+      "license",
+      "citeAs"
+    ],
+    "elapsed_seconds": 31.5,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

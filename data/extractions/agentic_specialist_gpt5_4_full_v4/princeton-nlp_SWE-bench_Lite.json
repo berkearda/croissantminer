@@ -1,0 +1,80 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Lite",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "SWE-bench is an evaluation framework for language models consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given an issue description and a codebase snapshot, models must generate a patch that resolves the issue and passes repository tests. The paper also describes a training dataset, SWE-bench-train, comprising 19,000 non-testing task instances from 37 repositories.",
+    "url": "swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez (Princeton University; Princeton Language and Intelligence); John Yang (Princeton University; Princeton Language and Intelligence); Alexander Wettig (Princeton University; Princeton Language and Intelligence); Shunyu Yao (Princeton University; Princeton Language and Intelligence); Kexin Pei (University of Chicago); Ofir Press (Princeton University; Princeton Language and Intelligence); Karthik Narasimhan (Princeton University; Princeton Language and Intelligence)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? Published as a conference paper at ICLR 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "SWE-bench was constructed by collecting pull requests from popular open-source Python repositories on GitHub, then creating task instances from merged pull requests that resolve GitHub issues and modify test files, followed by execution-based filtering to keep instances with fail-to-pass tests and no installation or runtime errors. For SWE-bench-train, the authors followed the same collection procedure on an additional 37 popular Python package repositories, but did not require pull requests to contribute test changes.",
+    "rai:dataCollectionType": "Web API; Software Collection; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The source data consists of pull requests, GitHub issues, commit messages, comments, codebase snapshots at base commits, and pull request patch diffs from open-source GitHub repositories. Appendix A states that from a list of the top 5,000 most downloaded PyPI libraries during August 2023, the authors selected packages, identified their GitHub repositories, and collected all pull requests for these repositories via the GitHub developer API.",
+    "rai:dataCollectionTimeframe": "August 2023",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The paper states that SWE-bench's filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection.",
+    "rai:dataLimitations": "SWE-bench task instances are all in Python; relying solely on execution-based code testing is insufficient to guarantee reliable performance of model generations, as automated code generations from LMs can frequently be less comprehensive, efficient, or readable compared to human-written solutions.",
+    "rai:dataSocialImpact": "A potential future of machine-automated software engineering raises important questions regarding AI safety, including how to ensure AI-generated code is faithful to human intents and what guardrails might be needed when human objectives are misinterpreted by code agents; the authors hope SWE-bench can serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering.",
+    "rai:personalSensitiveInformation": "During the collection or evaluation processes, we do not collect information about GitHub users, and the SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website.",
+    "rai:dataUseCases": "an evaluation framework for studying language models on real-world software engineering problems; a benchmark for evaluating the next generation of language models in a realistic software engineering setting; a training dataset essential for advancing open model development in this challenging domain; a level playing field to compare approaches ranging from retrieval and long-context models to decision-making agents; a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering",
+    "rai:dataReleaseMaintenancePlan": "the benchmark can be continuously updated with new task instances using a collection process that requires minimal human intervention; for the dataset release, the authors plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, the experimental results, the training data used for fine-tuning SWE-Llama models, and the SWE-Llama model weights, along with documentation and communication channels for feedback",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Through these stages of filtering, the original 90,000 PRs are filtered down to the 2,294 task instances which comprise SWE-bench. We also create a Lite subset of 300 instances from SWE-bench that have been sampled to be more self-contained, with a focus on evaluating functional bug fixes. For memory efficiency, we fine-tune only the weights of the attention sublayer using LoRA, and exclude training sequences with more than 30,000 tokens, reducing the effective size of the training corpus to 10,000 instances.",
+    "rai:dataPreprocessingProtocol": "To form the problem statement, each issue’s title and body are added together and then concatenated with the next issue’s if there are multiple. After concatenating these components’ text data, we first remove any Markdown-style comments. To create the tests T, we first identify every unique block within the patch, then pick out and conglomerate blocks with file paths that contain testing-related keywords (e.g. “tests”, “testing”). The remaining blocks are merged to form the solution δ."
+  },
+  "usage": {
+    "input_tokens": 269482,
+    "output_tokens": 1859
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 54151,
+        "output_tokens": 318
+      },
+      "collection": {
+        "input_tokens": 53930,
+        "output_tokens": 270
+      },
+      "annotation": {
+        "input_tokens": 53954,
+        "output_tokens": 105
+      },
+      "impact": {
+        "input_tokens": 53865,
+        "output_tokens": 722
+      },
+      "processing": {
+        "input_tokens": 53582,
+        "output_tokens": 444
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 66907,
+      "output_tokens": 661
+    },
+    "timestamp": "2026-05-22T11:39:45.091422+00:00",
+    "elapsed_seconds": 34.6
+  }
+}

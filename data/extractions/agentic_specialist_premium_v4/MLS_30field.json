@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS)",
+    "description": "Multilingual LibriSpeech (MLS) is a large multilingual corpus for speech research derived from read audiobooks from LibriVox. It consists of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages (German, Dutch, Spanish, French, Portuguese, Italian, Polish). The dataset also includes language models and baseline ASR models for all languages.",
+    "url": "http://www.openslr.org",
+    "license": null,
+    "creator": "Vineel Pratap; Qiantong Xu; Anuroop Sriram; Gabriel Synnaeve; Ronan Collobert",
+    "publisher": null,
+    "datePublished": "2020",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert. \"MLS: A Large-Scale Multilingual Dataset for Speech Research.\" arXiv:2012.03411, December 22, 2020.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was assembled by downloading audiobooks from LibriVox using data preparation tools from the LibriLight open source library. Text sources for the audiobooks were downloaded from domains including gutenberg.org, archive.org, ccel.org, and hathitrust.org, using automated parsers and manual approaches (copying text from browser, extracting from PDF/EPUB files, writing HTML parsers). For books with invalid or redirected links, alternate text sources were manually searched online.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Text sources for some audiobooks were unavailable due to invalid links or pages redirecting to incorrect locations, particularly for the spiegel.de domain which accounts for 1/3 of German audio data. The diversity of domains for non-English languages made it difficult to write automated parsers for all sources.",
+    "rai:dataCollectionRawData": "LibriVox audiobooks (read audiobooks in 8 languages: English, German, Dutch, Spanish, French, Portuguese, Italian, Polish) and corresponding book text sources from Project Gutenberg (gutenberg.org), archive.org, ccel.org, hathitrust.org, projekt-gutenberg.de, zeno.org, and other online sources. Audio was originally at 48kHz.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human transcribers listened to audio files while looking at the generated transcripts and were asked to correct any 'clear and obvious' errors in the development and test sets. This human verification workflow was applied to ensure high quality transcriptions.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "WER between the generated transcript (GT) and human rated transcript (HRT) was computed to measure the quality of corrections, with GT treated as hypothesis and HRT as reference.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "wav2letter@anywhere (streaming inference for audio segmentation and pseudo-label generation); TDS Convolutions with ASG loss (acoustic models for pseudo-label generation); beam-search decoding with 4-gram language model (pseudo-label generation); SVM gender classifier trained on LibriSpeech speakers; Smith-Waterman alignment (transcript retrieval); KenLM (language model training)",
+    "rai:dataBiases": "The dataset is derived from read audiobooks (LibriVox), which skews toward a read-speech style rather than conversational or spontaneous speech; English is heavily overrepresented (~44.5K hours) compared to other languages (~6K hours total across 7 languages); Polish has a very high out-of-vocabulary rate of 13.39% in the language model, reflecting limited text coverage for that language",
+    "rai:dataLimitations": "Polish language model has a 13.39% OOV rate which negatively impacts WER when performing LM decoding with constrained lexicon; pseudo labels used in transcript retrieval may not always have the correct transcription of the audio; candidate transcripts with WER between pseudo label and candidate transcript greater than 40% are filtered out but remaining transcripts may still contain errors",
+    "rai:dataSocialImpact": "The authors believe the large transcribed dataset will open new avenues in ASR and Text-To-Speech (TTS) research and will promote open research in large-scale training of ASR systems and in multilingual ASR.",
+    "rai:personalSensitiveInformation": "In-house video data used for training acoustic models for audio segmentation is completely de-identified; only the audio part of the videos is used.",
+    "rai:dataUseCases": "Automatic Speech Recognition (ASR) research and benchmarking; Text-To-Speech (TTS) research; multilingual ASR training; low-resource ASR training benchmarking",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Limited supervision train sets were created by sampling subsets of speakers and audio (10-hour, 1-hour, and six 10-minute sets) to create standard benchmarks for low-resource training. SpecAugment was used for data augmentation during model training, applying two frequency masks and ten time masks.",
+    "rai:dataPreprocessingProtocol": "Audio was downsampled from 48kHz to 16kHz. Long audio files were segmented into 10-20 second segments based on silence intervals. Text normalization included NFKC normalization, removal of punctuation, subscripts/superscripts, emojis, and escape symbols, removal of end-of-line hyphens, and filtering of characters outside a language-specific valid unicode character list. Candidate transcripts with WER greater than 40% between the candidate transcript and pseudo label were filtered out. Books with corrupted metadata, multiple speakers, or duplicate versions were removed. For language model data, books overlapping with development and test sets were filtered by edit distance on titles and 5-gram overlap. Numbers in matched text were replaced with aligned words from pseudo labels, and heuristics were applied to handle rare hyphenated and apostrophe-containing words. Human transcribers corrected clear and obvious errors in development and test set transcripts."
+  },
+  "usage": {
+    "input_tokens": 109933,
+    "output_tokens": 1730
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 22144,
+        "output_tokens": 348
+      },
+      "collection": {
+        "input_tokens": 22017,
+        "output_tokens": 349
+      },
+      "annotation": {
+        "input_tokens": 22068,
+        "output_tokens": 292
+      },
+      "impact": {
+        "input_tokens": 22051,
+        "output_tokens": 399
+      },
+      "processing": {
+        "input_tokens": 21653,
+        "output_tokens": 342
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 54676,
+      "output_tokens": 215
+    },
+    "timestamp": "2026-05-02T17:56:20.161843+00:00",
+    "elapsed_seconds": 53.7
+  }
+}

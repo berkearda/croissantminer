@@ -1,0 +1,289 @@
+{
+  "dataset_id": "google_boolq",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "BoolQ",
+    "description": "BoolQ (Boolean Questions) is a reading comprehension dataset of 16,000 naturally occurring yes/no questions, each paired with a Wikipedia paragraph containing the answer. The questions are generated in unprompted and unconstrained settings, often querying complex, non-factoid information requiring difficult entailment-like inference.",
+    "url": "https://goo.gl/boolq",
+    "license": "cc-by-sa-3.0",
+    "creator": "Christopher Clark, Kenton Lee, Ming-Wei Chang, Tom Kwiatkowski, Michael Collins, Kristina Toutanova",
+    "publisher": "Google AI Language",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions are gathered from anonymized, aggregated queries to the Google search engine. Queries likely to be yes/no questions are heuristically identified by selecting queries where the first word is in a manually constructed set of indicator words and are of sufficient length. Questions are only kept if a Wikipedia page is returned as one of the first five results. Human annotators then label question/article pairs in a three-step process: deciding if the question is good, finding a passage within the document that contains enough information to answer the question, and marking whether the answer is 'yes' or 'no'. The pipeline follows the Natural Questions (NQ) method with an additional filtering step to focus on yes/no questions.",
+    "rai:dataCollectionType": "Web Scraping, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Annotators can mark questions as 'not answerable' if the Wikipedia article does not contain the requested information.",
+    "rai:dataCollectionRawData": "Anonymized, aggregated queries to the Google search engine paired with Wikipedia pages returned as one of the first five search results.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Three authors labelled 110 randomly chosen examples to assess annotation quality. Disagreements were resolved by mutual agreement among authors. The dataset uses singly-annotated examples in training/dev/test sets. An author also categorized 200 questions into topic types.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Answer annotations reached 90% accuracy compared to gold-standard labels. Of disagreements, six were ambiguous/debatable cases and five were annotator errors.",
+    "rai:annotationsPerItem": "1 annotation per item (singly-annotated), except for 110 quality-check examples which received labels from 3 authors",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset has a natural filtering effect where factoid questions are rare, and negation is rarely present in passages and questions, which may limit the diversity of question types covered.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training, development, and evaluation of yes/no reading comprehension and question answering models, including transfer learning and fine-tuning experiments.",
+    "rai:dataReleaseMaintenancePlan": "The dataset has been updated at least once since initial release, though no formal maintenance plan is described.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Combined 13k questions from the NQ pipeline with 3k yes/no questions from the NQ training set (total 16k), then split into 3.2k dev, 3.2k test, and 9.4k train sets, ensuring NQ questions are always in the train set.",
+    "rai:dataPreprocessingProtocol": "Questions filtered to yes/no type using heuristic indicator words and length thresholds; only kept if a Wikipedia page appeared in top 5 search results; annotators filtered for comprehensible, unambiguous, factual questions; questions paired with selected passage (not full document) to reduce ambiguity and limit input size; non-answerable questions excluded."
+  },
+  "usage": {
+    "input_tokens": 22239,
+    "output_tokens": 2325
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:52:28.755831Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We build a reading comprehension dataset, BoolQ, of such questions"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow the data collection method used by Natural Questions (NQ) to gather 16,000 naturally occurring yes/no questions into a dataset we call BoolQ (for Boolean Questions). Each question is paired with a paragraph from Wikipedia that an independent annotator has marked as containing the answer."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present our data and code at https://goo.gl/boolq"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Christopher Clark∗1, Kenton Lee†, Ming-Wei Chang†, Tom Kwiatkowski† Michael Collins†2, Kristina Toutanova†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "†Google AI Language"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.10044v1 [cs.CL] 24 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We build a reading comprehension dataset, BoolQ, of such questions... Each question is paired with a paragraph from Wikipedia"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow the data collection method used by Natural Questions (NQ) to gather 16,000 naturally occurring yes/no questions into a dataset we call BoolQ"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow the data collection method used by Natural Questions (NQ) (Kwiatkowski et al., 2019) to gather 16,000 naturally occurring yes/no questions... Questions are gathered from anonymized, aggregated queries to the Google search engine."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine... Annotators label question/article pairs in a three-step process."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotators can mark questions as 'not answerable' if the Wikipedia article does not contain the requested information."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine... Questions are only kept if a Wikipedia page is returned as one of the first five results."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "three of the authors labelled 110 randomly chosen examples. If there was a disagreement, the authors conferred and selected a single answer by mutual agreement... we elected to use singly-annotated examples in the training/dev/test sets in order to be able to gather a larger dataset."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the answer annotations reached 90% accuracy compared to the gold-standard labels. Of the cases where the answer annotation differed from the gold-standard, six were ambiguous or debatable cases, and five were errors where the annotator misunderstood the passage."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we elected to use singly-annotated examples in the training/dev/test sets in order to be able to gather a larger dataset"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we notice factoid questions that ask about simple properties of entities, such as 'Was Obama born in 1962?', are rare... both the passages and questions rarely include negation."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We have introduced BoolQ, a new reading comprehension dataset of naturally occurring yes/no questions... We find training models on our train set alone to be relatively ineffective... we follow the recent trend in NLP of using transfer learning."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Note the dataset has been updated since we carried out this analysis, so it might be slightly out-of-date."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We combine 13k questions gathered from this pipeline with an additional 3k questions with yes/no answers from the NQ training set to reach a total of 16k questions. We split these questions into a 3.2k dev set, 3.2k test set, and 9.4k train set, ensuring questions from NQ are always in the train set."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Queries that are likely to be yes/no questions are heuristically identified: we found selecting queries where the first word is in a manually constructed set of indicator words and are of sufficient length, to be effective. Questions are only kept if a Wikipedia page is returned as one of the first five results... we only use questions that were marked as having a yes/no answer, and pair each question with the selected passage instead of the entire document. This helps reduce ambiguity..."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.1016,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 12406,
+        "tokens_in": 3816,
+        "tokens_out": 507
+      },
+      "collection": {
+        "section_chars": 7514,
+        "tokens_in": 2556,
+        "tokens_out": 503
+      },
+      "annotation": {
+        "section_chars": 5576,
+        "tokens_in": 1968,
+        "tokens_out": 449
+      },
+      "impact": {
+        "section_chars": 4542,
+        "tokens_in": 1873,
+        "tokens_out": 340
+      },
+      "processing": {
+        "section_chars": 3552,
+        "tokens_in": 1358,
+        "tokens_out": 405
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 38.6,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 10668,
+      "output_tokens": 121
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

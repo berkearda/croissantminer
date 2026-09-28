@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_winogrande",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "WinoGrande",
+    "description": "WinoGrande is a large-scale dataset of 44k Winograd Schema Challenge-inspired pronoun resolution problems designed to improve both the scale and hardness of commonsense reasoning evaluation. It was collected via crowdsourcing and then debiased using the AFLITE algorithm to reduce dataset-specific biases.",
+    "url": "http://winogrande.allenai.org",
+    "license": null,
+    "creator": "Keisuke Sakaguchi; Ronan Le Bras; Chandra Bhagavatula; Yejin Choi",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, and Yejin Choi. 2019. WinoGrande: An Adversarial Winograd Schema Challenge at Scale. arXiv:1907.10641v2.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected via crowdsourcing on Amazon Mechanical Turk, where workers wrote twin Winograd-style sentences using randomly assigned WikiHow articles as topic prompts and anchor words; each collected question was then validated by a separate set of three crowd workers, and valid questions were retained.",
+    "rai:dataCollectionType": "Manual Human Curator; Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Crowd-written twin sentences collected on Amazon Mechanical Turk, with workers using randomly assigned WikiHow articles and anchor words from those articles as prompts.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "WINOGRANDE problems were collected via crowdsourcing on Amazon Mechanical Turk, where workers wrote twin sentences meeting WSC-style requirements, including avoiding word association, using randomly assigned anchor words from WikiHow articles, keeping sentence length between 15 and 30 words, and maintaining at least 70% word overlap; each collected question was then validated by a distinct set of three crowd workers and deemed valid if a majority chose the correct answer, agreed the options were unambiguous, and agreed it could not be answered by word association.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "A question was deemed valid if the majority of three workers chose the correct answer option, agreed that the two answer options were unambiguous, and agreed that the question could not be answered simply by word association; invalid questions were discarded.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "AFLITE; RoBERTa fine-tuned on a small subset of the dataset; ensemble of linear classifiers (logistic regressions)",
+    "rai:dataBiases": "WSC questions are prone to incidental biases; word-association (13.5% of the cases) as well as other types of dataset-specific biases; structural pattern where the sentiment between the answer option and the target pronoun are highly correlated",
+    "rai:dataLimitations": "WINOGRANDE debiased questions are not always twins because AFLITE can filter out only one of the twin sentences; the language used in WINOGRANDE reflects the more diverse and noisy language used by crowds",
+    "rai:dataSocialImpact": "The paper raises a concern that spurious dataset biases in commonsense benchmarks run the risk of overestimating the true capabilities of machine intelligence on commonsense reasoning; it emphasizes the importance of algorithmic bias reduction in existing and future benchmarks to mitigate such overestimation",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "benchmark for evaluating commonsense reasoning; resource for transfer learning on related commonsense benchmarks",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The key steps of the dataset construction consist of (1) a carefully designed crowdsourcing procedure, followed by (2) systematic bias reduction using a novel AFLITE algorithm that generalizes human-detectable word associations to machine-detectable embedding associations. Following a rigorous process, a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous and (3) the question cannot be answered simply by word association ... As a result, 68% of the questions (53k) were deemed valid and we discarded the invalid questions. After applying the AFLITE algorithm, we obtain a debiased dataset of 12,282 instances split into training (9,248), development (1,267), and test (1,767) sets. We also release 31k problems that are filtered out by AFLITE for additional training set and resource.",
+    "rai:dataPreprocessingProtocol": "Workers were instructed to keep twin sentence length in between 15 and 30 words while maintaining at least 70% word overlap between a pair of twins. Following a rigorous process, a question is deemed valid if (1) the majority of the three workers chooses the correct answer option, (2) they agree that the two answer options are unambiguous and (3) the question cannot be answered simply by word association ... As a result, 68% of the questions (53k) were deemed valid and we discarded the invalid questions. First, WINOGRANDE is formatted as a fill-in-the-blank problem where the blank corresponds to the mention of one of the two names in the context."
+  },
+  "usage": {
+    "input_tokens": 130801,
+    "output_tokens": 1392
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 26418,
+        "output_tokens": 211
+      },
+      "collection": {
+        "input_tokens": 26204,
+        "output_tokens": 146
+      },
+      "annotation": {
+        "input_tokens": 26191,
+        "output_tokens": 252
+      },
+      "impact": {
+        "input_tokens": 26140,
+        "output_tokens": 223
+      },
+      "processing": {
+        "input_tokens": 25848,
+        "output_tokens": 560
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 65176,
+      "output_tokens": 309
+    },
+    "timestamp": "2026-05-22T11:17:21.084762+00:00",
+    "elapsed_seconds": 28.4
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Idavidrein_gpqa",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "GPQA",
+    "description": "GPQA is a challenging dataset of 448 multiple-choice questions written by domain experts in biology, physics, and chemistry. The questions are designed to be extremely difficult: PhD-level experts reach 65% accuracy while highly skilled non-expert validators only reach 34% accuracy despite unrestricted internet access. The dataset is intended to support scalable oversight research for AI systems.",
+    "url": "https://github.com/idavidrein/gpqa/",
+    "license": null,
+    "creator": "David Rein (New York University; Cohere); Betty Li Hou (New York University); Asa Cooper Stickland (New York University); Jackson Petty (New York University); Richard Yuanzhe Pang (New York University); Julien Dirani (New York University); Julian Michael (New York University); Samuel R. Bowman (New York University; Anthropic, PBC)",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": "David Rein, Betty Li Hou, Asa Cooper Stickland, Jackson Petty, Richard Yuanzhe Pang, Julien Dirani, Julian Michael, and Samuel R. Bowman. GPQA: A Graduate-Level Google-Proof Q&A Benchmark. arXiv:2311.12022, 2023.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were solicited from 61 contractors hired through Upwork who have or are pursuing PhDs in biology, physics, or chemistry. Contractors wrote multiple-choice questions in their domain of expertise, which then went through expert validation (two rounds), question revision, and non-expert validation (three validators per question). Workers received base payments and performance-based bonuses.",
+    "rai:dataCollectionType": "Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": "On the extended set of 546 questions, 1.4% of expert validations do not include the feedback questions after answering that are used to evaluate post-hoc agreement, whether the validator has sufficient expertise to answer the question, and how hard they believe the question is.",
+    "rai:dataCollectionRawData": "Original multiple-choice questions written by PhD-level domain experts in biology, physics, and chemistry, including answer choices, explanations of why the correct answer is correct and why other options are plausible but wrong, and subdomain labels. Questions were written by contractors on the Upwork platform.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "61 contractors hired through Upwork (PhD holders or current PhD students in biology, physics, or chemistry) wrote multiple-choice questions in their domain of expertise, provided correct answers and explanations, and labeled subdomains. Each question went through: (1) first expert validation by another in-domain PhD expert who answered the question and gave detailed feedback; (2) question revision by the original writer based on that feedback; (3) second expert validation by another in-domain PhD expert; (4) non-expert validation by three PhD-level validators from different domains who spent at least 15 minutes (average 37 minutes) attempting each question with unrestricted internet access (excluding LLM assistants). Expert validators also provided post-hoc agreement ratings after seeing the correct answer. AI tools were explicitly forbidden for all participants.",
+    "rai:dataAnnotationPlatform": "Upwork",
+    "rai:dataAnnotationAnalysis": "Questions were filtered into subsets based on expert and non-expert validator accuracy: the main set (GPQA) requires at least 1/2 expert validators to agree and at most 2/3 non-experts to answer correctly; the diamond set requires 2/2 experts to agree and at most 1/3 non-experts to answer correctly. Expert agreement was defined as answering correctly initially or, after seeing the correct answer, clearly explaining their mistake or demonstrating understanding of the explanation. The 191 cases of second expert validator errors were manually categorized into 8 fine-grained buckets (grouped as good, unsure, bad) to assess question objectivity. Post-hoc agreement rates and calibration curves (ECE) were also computed for expert and non-expert validators.",
+    "rai:annotationsPerItem": "2 expert validators and 3 non-expert validators per question",
+    "rai:annotatorDemographics": "PhD holders or current PhD students in biology, physics, or chemistry; proficient or fluent in English; preferentially selected individuals with high ratings on Upwork; no enforced representation of any particular region or demographics",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Experts were sourced through Upwork with no enforcement of representation of any particular region or demographics, which could contribute to biases in the forms of expertise included in the dataset, or the topics and content included in the questions; the language used in the questions may be biased—for instance, workers defaulted to masculine pronouns when referring to scientists, instead of more inclusive gender-neutral pronouns",
+    "rai:dataLimitations": "Small size of only 448 examples in the main set, making it not ideal for model training and providing limited statistical power for accuracy comparisons; non-expert accuracy numbers will likely not directly translate to realistic settings and future scalable oversight experiments should independently measure non-expert accuracy on GPQA; the dataset is an imperfect proxy for supervising superhuman AI systems to answer questions that no human can currently answer; there may have been cases where some non-expert validators had expertise in areas close to a question's subdomain, which would artificially inflate non-expert accuracies",
+    "rai:dataSocialImpact": "The dataset is intended to help develop scalable oversight methods that enable humans to supervise AI systems whose outputs may be difficult to verify, addressing risks like hallucination and sycophancy in settings where annotators cannot determine whether LLM output is correct; the authors request that examples from the dataset not be revealed in plain text or images online to reduce the risk of leakage into foundation model training corpora",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluation of AI systems on graduate-level scientific questions; scalable oversight experiments to develop oversight protocols for supervising superhuman AI systems; testing human–AI interaction protocols such as debate, market-making, and recursive reward modeling",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was filtered post-collection to create curated subsets: GPQA (main set, 448 questions) excludes questions where both expert validators answered incorrectly and all three non-expert validators answered correctly. GPQA Diamond (198 questions) includes only questions where both experts answered correctly and the majority of non-experts answered incorrectly. Questions where the second expert validator answered incorrectly but clearly described their mistake or demonstrated understanding were added back to the main or diamond sets based on manual categorization of feedback. Additionally, 18 questions were removed to form a small unreleased held-out set, and questions from individuals suspected of using ChatGPT or whose questions showed a negative expertise gap were retroactively removed.",
+    "rai:dataPreprocessingProtocol": "Questions were tokenized using OpenAI's open-source byte-pair encoding tokenizer (tiktoken) to compute token lengths. Answer-only fine-tuning experiments were conducted with randomized answer choice ordering to check for spurious features. Expert validations with missing feedback values were excluded from the analysis in Section 3. Answers were extracted from model responses using simple regex matching phrases like 'answer is', 'answer:', etc."
+  },
+  "usage": {
+    "input_tokens": 243605,
+    "output_tokens": 1953
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 48876,
+        "output_tokens": 380
+      },
+      "collection": {
+        "input_tokens": 48757,
+        "output_tokens": 298
+      },
+      "annotation": {
+        "input_tokens": 48785,
+        "output_tokens": 503
+      },
+      "impact": {
+        "input_tokens": 48794,
+        "output_tokens": 463
+      },
+      "processing": {
+        "input_tokens": 48393,
+        "output_tokens": 309
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 78408,
+      "output_tokens": 93
+    },
+    "timestamp": "2026-05-02T17:52:32.224540+00:00",
+    "elapsed_seconds": 66.1
+  }
+}

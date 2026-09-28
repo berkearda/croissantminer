@@ -1,0 +1,80 @@
+{
+  "dataset_id": "WINGNUS_ACL-OCL",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "ACL OCL",
+    "description": "A scholarly corpus derived from the ACL Anthology to assist open scientific research in the computational linguistics domain. It contains 73,285 papers and 210K figures, providing metadata, structured full texts, citation graphs, and links to the Semantic Scholar academic graph.",
+    "url": "https://huggingface.co/datasets/WINGNUS/ACL-OCL",
+    "license": null,
+    "creator": "Shaurya Rohatgi (Pennsylvania State University); Yanxia Qin (National University of Singapore); Benjamin Aw (National University of Singapore); Niranjana Unnithan (National University of Singapore); Min-Yen Kan (National University of Singapore)",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en, la, gu",
+    "citeAs": "Shaurya Rohatgi, Yanxia Qin, Benjamin Aw, Niranjana Unnithan, Min-Yen Kan. The ACL OCL Corpus: Advancing Open Science in Computational Linguistics. arXiv:2305.14996v2 [cs.CL] 2023.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Crawlers were designed to fetch PDF documents and metadata from the ACL Anthology website. This data was then enhanced using the Semantic Scholar Graph API to fetch additional information, and by crawling published papers and topics from online CL conference websites.",
+    "rai:dataCollectionType": "Web Scraping; Web API",
+    "rai:dataCollectionMissingData": "Certain fields are only valid on a portion of the papers; for example, only 16.8% of OCL papers have an arxiv_paper_id. Additionally, the S2AG Graph API does not provide full texts of the articles.",
+    "rai:dataCollectionRawData": "PDF files and metadata from the ACL Anthology website, and data from the Semantic Scholar Academic Graph (S2AG).",
+    "rai:dataCollectionTimeframe": "1952 to September 2022",
+    "rai:dataAnnotationProtocol": "Papers were automatically annotated with language and one of 21 objective research topics (silver labels) using machine prediction models trained on a subset of 2,545 papers with ground-truth topics crawled from conference websites.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "language detection toolkit; SciBERT; SPECTER",
+    "rai:dataBiases": "English is the most dominant language processed in the ACL OCL; numerous languages remain underrepresented.",
+    "rai:dataLimitations": "Inherent limitations of the GROBID toolkit influence the quality of full texts, causing issues like incorrect metadata, missing section names, merged paragraphs, mixing of footnotes with texts, misidentifying texts as table captions, and struggling with extraction of tables, figures, and in-line equations; it is a small-scale collection focusing specifically on peer-reviewed and open-access CL papers and does not include sources beyond the ACL Anthology; it is an unlabeled resource lacking annotations for specific tasks.",
+    "rai:dataSocialImpact": "Building scholarly corpora for open research accelerates scientific progress and promotes reproducibility in research by providing researchers with accessible and standardized data resources.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Topic analyses and topic-aided tasks; document-level terminology detection; coreference resolution; pre-training scientific large language models or fine-tuning a general LLM; building scientific assistants; summarization and related work generation; information/knowledge extraction tasks; examining modifications made to pre-print versions; analyzing historical language change; construction of a knowledge graph; multimodal research tasks.",
+    "rai:dataReleaseMaintenancePlan": "The dataset undergoes annual updates, during which papers recently added to the ACL Anthology are downloaded and processed by monitoring changes in URLs.",
+    "rai:dataImputationProtocol": "Missing topic labels were inferred and integrated as silver-labeled topic information using a pre-trained language model-based topic classification method. Additionally, a language detection toolkit was used to automatically detect and add the language field for each document, and Semantic Scholar's API was used to fetch external information such as citation data.",
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "PDF files longer than 50 pages were removed. Full texts were extracted from PDF files using GROBID, and figures and tables were extracted using PDFFigures."
+  },
+  "usage": {
+    "input_tokens": 128133,
+    "output_tokens": 15451
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 28625,
+        "output_tokens": 2702
+      },
+      "collection": {
+        "input_tokens": 14605,
+        "output_tokens": 2107
+      },
+      "annotation": {
+        "input_tokens": 28448,
+        "output_tokens": 4503
+      },
+      "impact": {
+        "input_tokens": 28389,
+        "output_tokens": 3161
+      },
+      "processing": {
+        "input_tokens": 28066,
+        "output_tokens": 2978
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55318,
+      "output_tokens": 5682
+    },
+    "timestamp": "2026-05-28T08:02:40.336870+00:00",
+    "elapsed_seconds": 183.2
+  }
+}

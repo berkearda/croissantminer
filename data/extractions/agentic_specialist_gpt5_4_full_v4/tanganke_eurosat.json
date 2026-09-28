@@ -1,0 +1,80 @@
+{
+  "dataset_id": "tanganke_eurosat",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "EuroSAT",
+    "description": "EuroSAT is a land use and land cover classification dataset based on Sentinel-2 satellite images. It consists of 27,000 labeled and geo-referenced image patches across 10 classes and covers 13 spectral bands; the paper states that RGB and multi-spectral versions are released.",
+    "url": "https://github.com/phelber/eurosat",
+    "license": null,
+    "creator": "Patrick Helber; Benjamin Bischke; Andreas Dengel; Damian Borth",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": null,
+    "citeAs": "Patrick Helber, Benjamin Bischke, Andreas Dengel, Damian Borth. EuroSAT: A Novel Dataset and Deep Learning Benchmark for Land Use and Land Cover Classification. arXiv:1709.00029v2, 2019.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was constructed by downloading Sentinel-2A satellite images via Amazon S3, selecting images associated with cities covered in the European Urban Atlas across 34 European countries, preferring images with low cloud level, and creating 27,000 geo-referenced image patches from the obtained satellite images.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Sentinel-2A multi-spectral satellite images provided in the Copernicus Earth observation program, downloaded via Amazon S3, associated with cities covered in the European Urban Atlas.",
+    "rai:dataCollectionTimeframe": "all over the year",
+    "rai:dataAnnotationProtocol": "Based on satellite images associated with cities covered in the European Urban Atlas, the authors created 27,000 georeferenced image patches for 10 land use and land cover classes and manually checked all images multiple times, correcting the ground truth by sorting out mislabeled images as well as images full of snow or ice.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The ground truth was corrected by manually checking all 27,000 images multiple times and sorting out mislabeled images as well as images full of snow or ice.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The distribution is influenced by the number of represented cities per country in the European Urban Atlas; the classifier sometimes confuses the agricultural land classes as well as the classes highway and river.",
+    "rai:dataLimitations": "The dataset has not received atmospheric correction, which can result in images with a color cast; The classifier sometimes confuses the agricultural land classes as well as the classes highway and river; A classification system trained with 64x64 image patches does not allow a finely graduated per-pixel segmentation",
+    "rai:dataSocialImpact": "The resulting classification system opens a gate towards a number of Earth observation applications; The presented examples are particularly of interest in urban area development, nature protection or sustainable development; deforestation is a main contributor to climate change, therefore the detection of deforested land is of particular interest",
+    "rai:personalSensitiveInformation": "The dataset consists of labeled and geo-referenced Sentinel-2 satellite image patches.",
+    "rai:dataUseCases": "land use and land cover classification; detecting land use and land cover changes; assisting in improving geographical maps; monitoring Earth’s land surfaces on a large scale",
+    "rai:dataReleaseMaintenancePlan": "The geo-referenced dataset EuroSAT is made publicly available at https://github.com/phelber/eurosat.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We manually checked all 27,000 images multiple times and corrected the ground truth by sorting out mislabeled images as well as images full of snow or ice.",
+    "rai:dataPreprocessingProtocol": "Bands with a lower spatial resolution have been upsampled to 10 meters per pixel using cubic-spline interpolation."
+  },
+  "usage": {
+    "input_tokens": 116464,
+    "output_tokens": 1417
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 23555,
+        "output_tokens": 205
+      },
+      "collection": {
+        "input_tokens": 23328,
+        "output_tokens": 281
+      },
+      "annotation": {
+        "input_tokens": 23338,
+        "output_tokens": 177
+      },
+      "impact": {
+        "input_tokens": 23263,
+        "output_tokens": 527
+      },
+      "processing": {
+        "input_tokens": 22980,
+        "output_tokens": 227
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 58009,
+      "output_tokens": 645
+    },
+    "timestamp": "2026-05-22T11:43:40.029123+00:00",
+    "elapsed_seconds": 31.4
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "OpenGVLab_MVBench",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MVBench",
+    "description": "MVBench is a comprehensive Multi-modal Video understanding Benchmark covering 20 challenging video tasks that cannot be effectively solved with a single frame. It is designed to evaluate the temporal understanding capabilities of Multi-modal Large Language Models (MLLMs), using a static-to-dynamic method to define temporal tasks and automatically converting public video annotations into multiple-choice QA pairs. The benchmark comprises 200 multiple-choice QA pairs per task, drawn from 11 public video datasets spanning diverse domains and scenes.",
+    "url": "https://github.com/OpenGVLab/Ask-Anything",
+    "license": null,
+    "creator": "Kunchang Li; Yali Wang; Yinan He; Yizhuo Li; Yi Wang; Yi Liu; Zun Wang; Jilan Xu; Guo Chen; Ping Luo; Limin Wang; Yu Qiao",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Kunchang Li, Yali Wang, Yinan He, Yizhuo Li, Yi Wang, Yi Liu, Zun Wang, Jilan Xu, Guo Chen, Ping Luo, Limin Wang, Yu Qiao. MVBench: A Comprehensive Multi-modal Video Understanding Benchmark. arXiv:2311.17005, 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Videos were selected from 11 existing public video datasets covering diverse domains and scenes. Public video annotations from these datasets were automatically converted into multiple-choice QA pairs using ChatGPT, guided by temporal task definitions. Data filtration criteria were applied for video diversity, temporal sensitivity (intermediate duration primarily 5s–35s), and question difficulty.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Videos and annotations from 11 public datasets: STAR, PAXION, Moments in Time V1 (MiT V1), FunQA, CLEVRER, Perception Test, Charades-STA, MoVQA, NTU RGB+D, VLN-CE, and TVQA.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Video annotations from 11 public datasets were automatically converted into multiple-choice QA pairs guided by temporal task definitions. For tasks requiring question generation, ChatGPT was used to generate questions based on task definitions. Answer options were constructed via template-based construction (from ground-truth annotations) or LLM-based generation (ChatGPT converts open-ended QAs into multiple-choice format). Answer options were randomly sampled (3 to 5 per question), shuffled, and checked for similar and reasonable text lengths using an LLM.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "ChatGPT (for question generation and option generation); UMT-L/16 (for generating top-6 action predictions as option candidates for Fine-grained Action task)",
+    "rai:dataBiases": "The benchmark uses multiple-choice QA format instead of open-ended answers specifically to avoid biased scoring by LLMs; evaluation fairness is guaranteed with ground-truth video annotations to avoid LLM scoring bias",
+    "rai:dataLimitations": "MVBench relies predominantly on the visual encoder rather than LLM capacity; current MLLMs have difficulty generalizing to localization and counting tasks in the absence of related tuning data; there is a minimal source gap between instruction data and MVBench (CLEVRER in instruction data has similar questions as Moving Attribute and Counterfactual Inference tasks, and Action Antonym videos are from SthSthV2 while antonym labels are from PAXION, so evaluation is not strictly out-domain); visual information alone may not be sufficient for complex cognition tasks such as egocentric navigation and episodic reasoning, and inclusion of other modalities such as depth and audio could prove beneficial",
+    "rai:dataSocialImpact": "The benchmark is intended to advance temporal understanding in MLLMs for broader open-world multi-modal understanding; the authors note that existing MLLMs are far from satisfactory in temporal understanding, which motivates development of better video MLLMs",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Comprehensive evaluation of temporal understanding capabilities of Multi-modal Large Language Models (MLLMs); benchmarking MLLMs on 20 challenging video tasks requiring temporal perception and cognition; training and evaluation of video MLLMs via instruction tuning",
+    "rai:dataReleaseMaintenancePlan": "Full results on MVBench can be found at https://huggingface.co/spaces/OpenGVLab/MVBench_Leaderboard; all models and data are available at https://github.com/OpenGVLab/Ask-Anything",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Answer options are randomly sampled (3 to 5) from available candidates and shuffled to strengthen evaluation robustness. For Fine-grained Action, answer candidates are randomly sampled from top-6 predictions of UMT-L/16. For Moving Count, the original answer is randomly shifted. For Moving Attribute, candidates are randomly selected from a predefined set. For Action Antonym, options include the correct action, its opposite action, and a not-sure choice. LLM (ChatGPT) is used to convert open-ended QAs into multiple-choice format for the Unexpected Action task. LLM is also used to ensure all answer options within a question have similar and reasonable text lengths. For STAR, video clip start or end points are randomly shifted to increase difficulty. For CLEVRER, questions requiring more than a threshold number of conditions are excluded to adjust difficulty.",
+    "rai:dataPreprocessingProtocol": "Videos are filtered for temporal sensitivity by eliminating short clips with negligible motion and extremely long videos with overly complicated contexts, selecting videos with intermediate duration primarily ranging from 5s to 35s. For STAR, data is filtered by duration and split type (e.g., Duration in (5,22), Data in Prediction). For CLEVRER, questions with program length >= 11 conditions are excluded. For FunQA, QA pairs are filtered by length constraints per subset. For Action Localization (Charades-STA), videos are filtered by total duration > 15s and segment duration in (5,8)s, and certain question patterns are excluded. For Egocentric Navigation (VLN-CE), trajectories are filtered by movement distance and turning angle criteria. For Episodic Reasoning (TVQA), duration is filtered to (25,40)s. Subtitles are excluded from TVQA inputs. Questions requiring audio are excluded from State Change task."
+  },
+  "usage": {
+    "input_tokens": 256602,
+    "output_tokens": 1913
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 51471,
+        "output_tokens": 390
+      },
+      "collection": {
+        "input_tokens": 51357,
+        "output_tokens": 265
+      },
+      "annotation": {
+        "input_tokens": 51406,
+        "output_tokens": 300
+      },
+      "impact": {
+        "input_tokens": 51388,
+        "output_tokens": 490
+      },
+      "processing": {
+        "input_tokens": 50980,
+        "output_tokens": 468
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 86605,
+      "output_tokens": 282
+    },
+    "timestamp": "2026-05-02T18:04:12.891980+00:00",
+    "elapsed_seconds": 71.2
+  }
+}

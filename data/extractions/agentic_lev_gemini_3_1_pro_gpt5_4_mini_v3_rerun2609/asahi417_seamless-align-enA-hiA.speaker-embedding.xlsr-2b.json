@@ -1,0 +1,287 @@
+{
+  "dataset_id": "asahi417_seamless-align-enA-hiA.speaker-embedding.xlsr-2b",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "SeamlessAlign",
+    "description": "A multimodal corpus of automatically aligned speech translations. It is described as the largest open dataset for multimodal translation to date, created through parallel data mining over raw audio and text corpora.",
+    "url": "https://github.com/facebookresearch/seamless_communication",
+    "license": null,
+    "creator": "Seamless Communication, Loïc Barrault, Yu-An Chung, Mariano Coria Meglioli, David Dale, Ning Dong, Paul-Ambroise Duquenne, Hady Elsahar, Hongyu Gong, Kevin Heffeman, John Hoffman, Christopher Klaiber, Pengwei Li, Daniel Licht, Jean Maillard, Alice Rakotoarison, Kaushik Ram Sadagopan, Guillaume Wenzek, Ethan Ye, Bapi Akula, Peng-Jen Chen, Naji El Hachem, Brian Ellis, Gabriel Mejia Gonzalez, Justin Haaheim, Prangthip Hansanti, Russ Howes, Bemie Huang, Min-Jae Hwang, Hirofumi Inaguma, Somya Jain, Elahe Kalbassi, Amanda Kallet, Ilia Kulikov, Janice Lam, Daniel Li, Xutai Ma, Ruslan Mavlyutov, Benjamin Peloquin, Mohamed Ramadan, Abinesh Ramakrishnan, Anna Sun, Kevin Tran, Tuan Tran, Igor Tufanov, Vish Vogeti, Carleigh Wood, Yilin Yang, Bokai Yu, Pierre Andrews, Can Balioglu, Marta R. Costa-jussà, Onur Celebi, Maha Elbayad, Cynthia Gao, Francisco Guzmán, Justine Kao, Ann Lee, Alexandre Mourachko, Juan Pino, Sravya Popuri, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, Paden Tomasello, Changhan Wang, Jeff Wang, Skyler Wang",
+    "publisher": "Meta AI",
+    "datePublished": "2023-10-25",
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "We started with 4 million hours of raw audio from a publicly available repository of crawled web data, deduplicated audio file URLs, downloaded the audio files, resampled them at 16KHz, filtered out non-speech data with an audio event detection model, split audio into shorter overlapping segments with VAD, applied speech language identification, and mined translation pairs by projecting speech and text corpora into a common embedding space. On the text side, we relied entirely on the same dataset deployed in NLLB.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "For evaluation data, languages may not have recordings for all 350 sentences and not all three speaker recordings may be present; the paper also filtered out audio longer than 30 seconds.",
+    "rai:dataCollectionRawData": "4 million hours of raw audio from a publicly available repository of crawled web data, plus the same sentence-segmented text dataset drawn from NLLB.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "XSTS annotation and calibration process: during annotation, 3 annotators examined each source-target audio pair (or audio-text pair) and evaluated the item for semantic similarity using the XSTS protocol. Prior to annotating, all annotators went through monolingual English practice evaluations with score justifications. More than 3 (up to 30) annotators were used per language pair; each sentence pair was shown to 3 annotators assigned essentially randomly, with calibration set items intermixed. If the 3 annotators disagreed by 2 or more score values, 2 additional annotators evaluated the item again. The median score over annotators was taken. For MOS, a standard Mean Opinion Score protocol was used to evaluate naturalness, quality of sound, and clarity of speech.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Calibration and robustness checks were used: calibration set items were included, language-level scores were calibrated using the mean score on the calibration set, and the moderated calibration methodology was applied. The calibration process was found to reduce language-level annotator biases and improve correlation with automatic metrics. Annotator crews out of calibration could be identified and excluded or retrained.",
+    "rai:annotationsPerItem": "3 annotators per item initially; 5 annotators for items with disagreement of 2 or more score values",
+    "rai:annotatorDemographics": "Monolingual English annotators for practice evaluations; no other demographics reported.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The paper reports added toxicity and gender bias in model outputs. It notes that SeamlessM4T \"overgeneralizes to masculine forms when translating from neutral terms (with an average preference of ∼10%)\" and that different languages show different toxicity distributions across demographic axes, with some languages' toxicity concentrated in particular axes.",
+    "rai:dataLimitations": "The paper states that toxicity and gender imbalance detection rely on string-matching/word-list methods with known limitations: they can over-detect context-dependent terms, depend on precise tokenization, and ASR-before-matching can cause false negatives, especially for eng–X directions. It also says the gender-bias analysis uses a limited set of 30 nouns and may not generalize to other noun sets.",
+    "rai:dataSocialImpact": "The paper says the work could improve accessibility and world-readiness by enabling multilingual speech translation, helping people communicate and learn in low-proficiency languages. It also frames the system as a step toward safer deployment by evaluating toxicity and bias and motivating mitigation efforts.",
+    "rai:personalSensitiveInformation": "The paper discusses demographic attributes used in bias/toxicity analysis, including gender, age, race/ethnicity, religion, sexual orientation, socioeconomic class, nationality, cultural characteristics, body type, and political ideologies.",
+    "rai:dataUseCases": "The dataset/model outputs are used for evaluation of S2TT, S2ST, ASR, T2TT, and zero-shot T2ST. The paper also says the released models, inference code, and fine-tuning recipes are intended for the community, and that the tools can be used to create aligned speech data.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For mining purposes, we followed an over-segmentation approach: used a Voice Activity Detection (VAD) model to split audio files into shorter segments, created several possible overlapping splits of each segment, and left the choice of the optimal split to the mining algorithm.",
+    "rai:dataPreprocessingProtocol": "Text data used the same sources, cleaning, and filtering steps as NLLB. Audio data were deduplicated by URL, downloaded, resampled at 16 kHz, filtered to remove non-speech with an audio event detection model, and audio longer than 30 seconds was filtered out."
+  },
+  "usage": {
+    "input_tokens": 112631,
+    "output_tokens": 3097
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:08:22.848434Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we created a multimodal corpus of automatically aligned speech translations, dubbed SeamlessAlign"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we created a multimodal corpus of automatically aligned speech translations, dubbed SeamlessAlign"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "all contributions in this work—including models, inference code, finetuning recipes ... and metadata to recreate the unfiltered 470,000 hours of SeamlessAlign —are open-sourced and accessible at https://github.com/facebookresearch/seamless_communication"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Seamless Communication, Loïc Barrault∗, Yu-An Chung∗, Mariano Coria Meglioli∗, David Dale∗, Ning Dong∗, ... Skyler Wang†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Meta AI,‡INRIA,§UC Berkeley"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2308.11596v3 [cs.CL] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we created a multimodal corpus of automatically aligned speech translations of more than 470,000 hours, dubbed SeamlessAlign"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data... we deduplicated the audio file URLs found in the repository, downloaded the audio files, and resampled at 16KHz... filtered out the non-speech data... we used an open Voice Activity Detection (VAD) model... our speech LID model... projected into a common embedding space, in which mining was performed to identify translation pairs”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“each language may not have a recording for all 350 sentences and that for those sentences that do have recordings, not all three speaker recordings may be present” and “We filtered out all audio longer than 30 seconds”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We start with 4 million hours of raw audio originating from a publicly available repository of crawled web data” and “On the text side, we used the same sentence-segmented dataset drawn from NLLB”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“During annotation, 3 annotators examined each source-target audio pair (or audio-text pair) and evaluated the item for semantic similarity using the XSTS protocol.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The calibration process was found to reduce language-level annotator biases and has been shown to improve correlation with automatic metrics as a result.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“each evaluated sentence pair was shown to 3 annotators” and “2 additional annotators evaluated the same item again, bringing the total to 5 evaluator scores for those items.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“all annotators went through a set of monolingual English ‘practice’ evaluations”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"SeamlessM4T overgeneralizes to masculine forms when translating from neutral terms (with an average preference of ∼10%)\"; \"different languages differ in their distributions of toxic terms as a function of demographic axes\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"we used string-matching techniques that present known limitations\"; \"the two main limitations of word list-based detectors are (1) their tendency to over-detect terms that are only toxic in specific contexts, and (2) their reliance on precise tokenization\"; \"the use of a specific and limited set of 30 nouns ... does not guarantee that results can be generalized\""
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Made with the goal of promoting accessibility\"; \"advancements in text-based machine translation have given rise to tools that help individuals communicate and learn in languages where proficiency is low\"; \"we hope to motivate future work targeting mitigation efforts\""
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"demographic axes\" and the listed categories: \"ability age body_type characteristics cultural gender_and_sex nationality ... political_ideologies race_ethnicity religion sexual_orientation socioeconomic_class\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We evaluated our models on all four supervised tasks (T2TT, ASR, S2TT, and S2ST) as well as the zero-shot task of text-to-speech translation (T2ST)\"; \"including model weights ... inference code and fine-tuning recipes\"; \"Tools for creating aligned speech data\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we followed the over-segmentation approach... First, we used an open Voice Activity Detection (VAD) model ... to split audio files into shorter segments. Subsequently... we created several possible overlapping splits of each segment and left the choice of the optimal split to the mining algorithm"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The same data sources, cleaning, and filtering steps are used... we deduplicated the audio file URLs found in the repository, downloaded the audio files, and resampled at 16KHz. Subsequently, we filtered out the non-speech data with a bespoke audio event detection (AED) model... We filtered out all audio longer than 30 seconds"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 22,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0188,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 52909,
+        "tokens_in": 14266,
+        "tokens_out": 772
+      },
+      "collection": {
+        "section_chars": 31485,
+        "tokens_in": 9344,
+        "tokens_out": 502
+      },
+      "annotation": {
+        "section_chars": 32038,
+        "tokens_in": 9536,
+        "tokens_out": 524
+      },
+      "impact": {
+        "section_chars": 52944,
+        "tokens_in": 15981,
+        "tokens_out": 718
+      },
+      "processing": {
+        "section_chars": 2737,
+        "tokens_in": 925,
+        "tokens_out": 314
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 28.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 62579,
+      "output_tokens": 267
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ceval_ceval-exam",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "C-Eval",
+    "description": "C-Eval is the first comprehensive Chinese evaluation suite designed to assess advanced knowledge and reasoning abilities of foundation models in a Chinese context. It comprises 13,948 multiple-choice questions spanning 52 diverse disciplines across four difficulty levels: middle school, high school, college, and professional. It is accompanied by C-Eval Hard, a subset of 8 challenging subjects requiring advanced reasoning abilities.",
+    "url": "https://github.com/hkust-nlp/ceval",
+    "license": null,
+    "creator": "Yuzhen Huang; Yuzhuo Bai; Zhihao Zhu; Junlei Zhang; Jinghan Zhang; Tangjun Su; Junteng Liu; Chuancheng Lv; Yikai Zhang; Jiayi Lei; Yao Fu; Maosong Sun; Junxian He",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "zh",
+    "citeAs": "Yuzhen Huang, Yuzhuo Bai, Zhihao Zhu, Junlei Zhang, Jinghan Zhang, Tangjun Su, Junteng Liu, Chuancheng Lv, Yikai Zhang, Jiayi Lei, Yao Fu, Maosong Sun, and Junxian He. C-Eval: A Multi-Level Multi-Discipline Chinese Evaluation Suite for Foundation Models. 37th Conference on Neural Information Processing Systems (NeurIPS 2023) Track on Datasets and Benchmarks. arXiv:2305.08322.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Questions were collected from mock exams and small-scale local exams freely available on the internet, past exam questions from top Chinese universities publicly shared by students, and a portion of mock questions for the national graduate entrance exam sourced from the Weipu website (with authorization). Data came primarily as PDF or Microsoft Word documents and a minor fraction as web pages.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Mock exams and small-scale local exams freely available on the internet (primarily as PDF or Microsoft Word documents and a minor fraction as web pages); past exam questions from top Chinese universities publicly shared by students; mock questions for the national graduate entrance exam from the Weipu website (https://kaoyan.cqvip.com).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Questions were parsed from PDF and Word documents automatically when possible and otherwise manually by the authors into a structured format; LATEX equations were manually converted to standard format; questions underwent deduplication, cleaning, and several rounds of human validation by the authors; dev set exemplars were annotated with chain-of-thought explanations by first prompting GPT-4 to generate step-by-step explanations, then manually revising them (Yuzhen Huang, Yuzhuo Bai, and Junxian He performed the manual revision)",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "GPT-4-generated explanations were manually revised by authors (Yuzhen Huang, Yuzhuo Bai, and Junxian He) to obtain final explanations; collected data was cross-validated by the team of authors",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4 (used to generate step-by-step chain-of-thought explanations for development set exemplars)",
+    "rai:dataBiases": "English benchmarks tend to exhibit geographical biases towards the domestic knowledge of the regions that produce them; C-EVAL is designed for Chinese context and may reflect biases toward Chinese cultural, historical, and legal knowledge",
+    "rai:dataLimitations": "C-EVAL, along with all English-language benchmarks, is far from perfect for LLM evaluation; many other abilities such as reasoning over and calling APIs are not covered; multiple aspects beyond accuracy including safety, bias, and robustness are not assessed; exam questions from national tests may inadvertently be crawled and incorporated into LLM pretraining, leading to potential data leakage issues (mitigated but not eliminated); the validation set comprises fewer than 30 questions per subject on average, so tracking accuracy on a specific subject may not yield significant insights",
+    "rai:dataSocialImpact": "The authors anticipate C-EVAL will help analyze important strengths and shortcomings of foundation models, and foster their development and growth for Chinese users; the benchmark is intended to guide developers to understand the abilities of their models from multiple dimensions and facilitate the growth of foundation models for Chinese users",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating advanced knowledge and reasoning abilities of foundation models in a Chinese context; assessing LLMs in zero-shot and few-shot answer-only and chain-of-thought settings; benchmarking LLMs across STEM, humanities, social science, and other domains at multiple difficulty levels; hyperparameter tuning using the validation split; few-shot chain-of-thought evaluation using development split exemplars with explanations",
+    "rai:dataReleaseMaintenancePlan": "Ground-truth labels of the development and validation splits are released publicly; test split labels are kept private and users must submit model predictions to https://cevalbenchmark.com to obtain test accuracy; a public leaderboard is maintained on the website",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For questions with more than four options, incorrect choices were randomly dropped to reduce to exactly four options. For the development split, explanation data was generated by prompting GPT-4 to produce step-by-step explanations for ground-truth answers, which were then manually revised by the authors.",
+    "rai:dataPreprocessingProtocol": "PDF documents were initially processed into text. Questions were parsed automatically when possible, and otherwise manually, into a structured format. Complex mathematical notations were manually converted into standard LaTeX formats. Questions with fewer than four options were eliminated. All questions went through deduplication and cleaning. LaTeX notations were verified to compile without syntax errors. Questions were randomly split into development, validation, and test sets within each subject at a 1:9 ratio for validation and test."
+  },
+  "usage": {
+    "input_tokens": 206080,
+    "output_tokens": 1729
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 41371,
+        "output_tokens": 441
+      },
+      "collection": {
+        "input_tokens": 41257,
+        "output_tokens": 266
+      },
+      "annotation": {
+        "input_tokens": 41306,
+        "output_tokens": 324
+      },
+      "impact": {
+        "input_tokens": 41266,
+        "output_tokens": 479
+      },
+      "processing": {
+        "input_tokens": 40880,
+        "output_tokens": 219
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 84268,
+      "output_tokens": 190
+    },
+    "timestamp": "2026-05-02T18:21:07.553666+00:00",
+    "elapsed_seconds": 56.2
+  }
+}

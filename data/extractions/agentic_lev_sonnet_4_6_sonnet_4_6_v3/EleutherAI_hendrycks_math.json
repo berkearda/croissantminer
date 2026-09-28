@@ -1,0 +1,289 @@
+{
+  "dataset_id": "EleutherAI_hendrycks_math",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "MATH",
+    "description": "A dataset of 12,500 challenging competition mathematics problems (7,500 training and 5,000 test) from competitions including AMC 10, AMC 12, and AIME. Each problem includes a full step-by-step solution and a final boxed answer, tagged by difficulty (1-5) and spanning seven subjects including Prealgebra, Algebra, Number Theory, Counting and Probability, Geometry, Intermediate Algebra, and Precalculus.",
+    "url": "https://aops.com/community/c3158_usa_contests",
+    "license": "MIT",
+    "creator": "Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric Tang, Dawn Song, Jacob Steinhardt",
+    "publisher": "NeurIPS 2021",
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The MATH dataset consists of 12,500 problems from high school math competitions, carefully curated by the competition mathematics community. Problems are tagged by difficulty from 1 to 5 and span seven subjects.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Problems from high school math competitions, tagged by difficulty (1 to 5) and spanning seven subjects including geometry (with diagrams specified in Asymptote language).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human evaluation on a sample of 20 problems from the MATH test set; participants had 1 hour to work on problems and must perform calculations by hand. All participants are university students with varying mathematical backgrounds.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "University students with varying levels of mathematical interest and ability, ranging from a student who does not like mathematics (40% accuracy) to a three-time IMO gold medalist (90% accuracy).",
+    "rai:machineAnnotationTools": "Automatic answer assessment using exact match with formatting normalization rules and the \\boxed{} delimiter to parse and compare generated answers against ground truth.",
+    "rai:dataBiases": "The dataset is sourced from US mathematics competitions (AMC 10, AMC 12, AIME), which may reflect a bias toward the mathematical problem-solving style and curriculum of the United States.",
+    "rai:dataLimitations": "Models achieve very low accuracy (3-6.9%) on MATH, and scaling alone is insufficient to solve it. Models can generate plausible but logically incorrect step-by-step solutions. Geometry figures encoded in Asymptote may not be processable by all model types. Even 40% accuracy would raise concerns about cheating on homework.",
+    "rai:dataSocialImpact": "Achieving strong performance on MATH could have broad practical and intellectual significance given mathematics' wide applicability. However, even moderate accuracy (40%) could enable academic dishonesty such as cheating on homework.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "MATH is intended for benchmarking mathematical problem-solving ability of ML models (testing/evaluation). AMPS is intended as a pretraining corpus to teach models the fundamentals of mathematics. Models can also be fine-tuned on MATH's step-by-step solutions to learn to generate answer derivations and explanations.",
+    "rai:dataReleaseMaintenancePlan": "The Khan Academy subset of AMPS can be regenerated using code from github.com/Khan/khan-exercises/. No explicit versioning, deprecation, or maintenance plan is described for MATH or AMPS.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Khan Academy data is upsampled by a factor of 5 and Mathematica data is downsampled by a factor of 2 during pretraining to account for the large difference in dataset sizes. During fine-tuning, models are trained with an equal mix of final answer and full solution sequences.",
+    "rai:dataPreprocessingProtocol": "Numbers are tokenized so that one digit is processed at a time. T5's tokenizer was found to remove many LaTeX symbols and was not used. Models are fine-tuned to predict both final answers and full step-by-step solutions."
+  },
+  "usage": {
+    "input_tokens": 56330,
+    "output_tokens": 2631
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:16:47.015037Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce MATH, a new dataset of 12,500 challenging competition mathematics problems"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mathematics Aptitude Test of Heuristics dataset, abbreviated MATH, has 12,500 problems (7,500 training and 5,000 test). With this many training problems, models can learn many useful heuristics for problem solving. Each problem has a step-by-step solution and a final boxed answer."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Many of these problems can be collected from aops.com/community/c3158_usa_contests"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dan Hendrycks UC Berkeley, Collin Burns UC Berkeley, Saurav Kadavath UC Berkeley, Akul Arora UC Berkeley, Steven Basart UChicago, Eric Tang UC Berkeley, Dawn Song UC Berkeley, Jacob Steinhardt UC Berkeley"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2103.03874v2 [cs.LG] 8 Nov 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Problems and solutions are consistently formatted using LaTeX and the Asymptote vector graphics language"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Mathematics Aptitude Test of Heuristics dataset, abbreviated MATH, has 12,500 problems (7,500 training and 5,000 test)."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our MATH dataset is carefully curated by the competition mathematics community and contains competition-level problems that are difficult."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our MATH dataset is carefully curated by the competition mathematics community and contains competition-level problems that are difficult."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the MATH dataset, which consists of 12,500 problems from high school math competitions... MATH problems are tagged by difficulty from 1 to 5, and span seven subjects including geometry, where diagrams can be specified in text with the Asymptote language."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To provide a rough but informative comparison to human-level performance, we randomly sampled 20 problems from the MATH test set and gave them to humans. We artificially require that the participants have 1 hour to work on the problems and must perform calculations by hand. All participants are university students."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "One participant who does not like mathematics got 8/20 = 40% correct. A participant ambivalent toward mathematics got 13/20. Two participants who like mathematics got 14/20 and 15/20. A participant who got a perfect score on the AMC 10 exam and attended USAMO several times got 18/20. A three-time IMO gold medalist got 18/20 = 90%."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Due to design choices in MATH, we can assess the answers generated by a model automatically, even though the space of model outputs is combinatorially large. Automatic assessment starts by determining the beginning and end of the answer... we can consequently evaluate a model's output by parsing what is inside the \\boxed{} command and comparing that with the ground truth answer."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The MATH dataset consists of problems from mathematics competitions including the AMC 10, AMC 12, AIME, and more... These competitions span decades and assess the mathematical problem-solving ability of the best young mathematical talent in the United States."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Even 40% would accuracy for a machine learning model would be impressive but have ramifications for cheating on homework... accuracy remains relatively low, even with enormous Transformer models... simply increasing budgets and model parameter counts will be impractical for achieving strong mathematical reasoning if scaling trends continue."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Even 40% would accuracy for a machine learning model would be impressive but have ramifications for cheating on homework... solving the MATH dataset with machine learning would be of profound practical and intellectual significance."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce MATH, a new dataset of 12,500 challenging competition mathematics problems... To facilitate future research and increase accuracy on MATH, we also contribute a large auxiliary pretraining dataset... Each problem in MATH has a full step-by-step solution which can be used to teach models to generate answer derivations and explanations."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The exercises can be regenerated using code from github.com/Khan/khan-exercises/."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During pretraining, we upsample Khan Academy data by a factor of 5 and we downsample Mathematica by a factor of 2 to account for the large difference in dataset sizes... we train with an equal mix of \"⟨P⟩Final Answer: <Answer>\" and \"⟨P⟩Full Solution: <Step-by-Step Solution>\" sequences."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our GPT-2 models tokenizes numbers so that one digit is processed at a time... T5's tokenizer removes many LATEX symbols, so after a broad hyperparameter sweep lasting two weeks, its performance was not competitive."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.2085,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20198,
+        "tokens_in": 5911,
+        "tokens_out": 629
+      },
+      "collection": {
+        "section_chars": 3777,
+        "tokens_in": 1586,
+        "tokens_out": 307
+      },
+      "annotation": {
+        "section_chars": 42115,
+        "tokens_in": 12085,
+        "tokens_out": 537
+      },
+      "impact": {
+        "section_chars": 42115,
+        "tokens_in": 12138,
+        "tokens_out": 704
+      },
+      "processing": {
+        "section_chars": 2297,
+        "tokens_in": 1047,
+        "tokens_out": 337
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 49.5,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 23563,
+      "output_tokens": 117
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

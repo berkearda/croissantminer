@@ -1,0 +1,80 @@
+{
+  "dataset_id": "truthfulqa_truthful_qa",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "TruthfulQA",
+    "description": "TruthfulQA is a benchmark comprising 817 questions spanning 38 categories (including health, law, finance, and politics) designed to measure whether language models generate truthful answers in the zero-shot setting. The questions were crafted to elicit imitative falsehoods—false answers that models learn from imitating human texts—and each question includes sets of true and false reference answers along with supporting sources.",
+    "url": "https://github.com/sylinrl/TruthfulQA",
+    "license": null,
+    "creator": "Stephanie Lin (University of Oxford); Jacob Hilton (OpenAI); Owain Evans (University of Oxford)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Stephanie Lin, Jacob Hilton, and Owain Evans. \"TruthfulQA: Measuring How Models Mimic Human Falsehoods.\" arXiv:2109.07958v2 [cs.CL], 8 May 2022.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were written by the authors using an adversarial procedure: they wrote questions that some humans would answer falsely, tested them on GPT-3-175B, and filtered out questions the model consistently answered correctly. An additional set of unfiltered questions was written based on experience from the filtered phase without further model testing. Reference answers were drawn from Wikipedia and other reliable sources, supplemented by internet searches for common misconceptions, superstitions, and conspiracies.",
+    "rai:dataCollectionType": "Manual Human Curator; Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Wikipedia pages and other publicly available reliable sources used to derive true reference answers; internet searches for common misconceptions, superstitions, and conspiracies used to derive false reference answers.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The authors carried out all human evaluations of model-generated answers for truthfulness and informativeness using a fixed procedure: evaluators were blinded to the model name and prompt; they assigned one of 13 qualitative labels (e.g., 'mostly true', 'mixed true/false', 'contradiction') that map to scalar truth scores; scalar scores were thresholded at 0.5 for binary true/false; answers were verified against reliable sources where appropriate. A validator checked 100 randomly sampled reference answer pairs and a participant answered 250 randomly sampled questions as a human baseline.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Scalar truth scores were averaged across questions to produce model-level truthfulness scores; scores were also thresholded at 0.5 for binary true/false reporting. Disagreement between the external validator and the authors' labels was estimated at 7% (validator task) and 6% (participant task); 43 questions (5.3%) were modified to reduce ambiguity based on this analysis.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-judge: a GPT-3-6.7B model fine-tuned via the OpenAI API to classify answers as true or false (achieving 90–96% validation accuracy); a parallel GPT-3-6.7B model fine-tuned to evaluate informativeness; PEGASUS-based paraphrasing model (tuner007/pegasus_paraphrase) used to auto-generate paraphrased questions",
+    "rai:dataBiases": "Questions were constructed adversarially using GPT-3-175B as the target model, which may mean the benchmark exploits weaknesses specific to that model family rather than imitative falsehoods in general; the adversarial filtering procedure may have introduced biases toward questions that fool larger models",
+    "rai:dataLimitations": "TruthfulQA does not cover long-form generation (e.g. news articles) or interactive settings (e.g. extended chat with an adversarial human); questions were not collected from a deployed system and hence may over- or underestimate truthfulness for a deployed system; strong performance on TruthfulQA does not imply that a model will be equally truthful in a specialized domain; the benchmark is intended only for the zero-shot setting and few-shot performance would overstate the truthfulness of a model on real-world tasks; questions may exploit non-imitative weaknesses in addition to imitative falsehoods; there is an estimated 2-6% rate of disagreement in evaluations",
+    "rai:dataSocialImpact": "Models generated many false answers that mimic popular misconceptions and have the potential to deceive humans; non-truthful models could cause deception and distrust at scale; models could be used to deceive humans via disinformation or fraud; accidental misuse of deployed models making false statements could lead to deception and distrust; in applications like medical or legal advice, lack of truthfulness blocks positive applications; truthful models would be harder to deploy for deceptive uses; the authors argue TruthfulQA is unlikely to be useful for constructing deceptive models for malicious purposes because a deceptive model needs to produce false answers infrequently and with extreme specificity, neither of which TruthfulQA facilitates",
+    "rai:personalSensitiveInformation": "The dataset consists of general-knowledge questions written by the authors and does not contain personal or sensitive information about individuals",
+    "rai:dataUseCases": "Measuring whether a language model is truthful in generating answers to questions in the zero-shot setting; providing a benchmark and tools to test the behavior of models expected to be truthful; evaluating both general-purpose and specialized language models for robustness of truthfulness; training and validating automated evaluation metrics (GPT-judge) for truthfulness and informativeness",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were constructed using an adversarial procedure: 437 questions were written to elicit false answers from humans, tested on GPT-3-175B, and filtered out if the model consistently answered correctly across multiple random samples at nonzero temperatures ('filtered' questions). An additional 380 questions were written based on experience with the target model but without further testing ('unfiltered' questions). The final benchmark combines both filtered and unfiltered questions. Paraphrases of TruthfulQA questions were also generated for experimental purposes to test robustness of model responses.",
+    "rai:dataPreprocessingProtocol": "Questions that the target model (GPT-3-175B) consistently answered correctly when multiple random samples were generated at nonzero temperatures were filtered out. After validation, 43 questions (5.3% of the total) were modified to make them less ambiguous. Paraphrases of TruthfulQA questions were auto-generated using a PEGASUS-based paraphrasing model, then filtered and edited to ensure that the meaning of the question was preserved."
+  },
+  "usage": {
+    "input_tokens": 306935,
+    "output_tokens": 1902
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 61530,
+        "output_tokens": 305
+      },
+      "collection": {
+        "input_tokens": 61424,
+        "output_tokens": 247
+      },
+      "annotation": {
+        "input_tokens": 61462,
+        "output_tokens": 434
+      },
+      "impact": {
+        "input_tokens": 61458,
+        "output_tokens": 608
+      },
+      "processing": {
+        "input_tokens": 61061,
+        "output_tokens": 308
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 82138,
+      "output_tokens": 363
+    },
+    "timestamp": "2026-05-02T19:07:56.195954+00:00",
+    "elapsed_seconds": 68.4
+  }
+}

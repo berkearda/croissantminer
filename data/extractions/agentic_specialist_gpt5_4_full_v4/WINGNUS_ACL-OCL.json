@@ -1,0 +1,80 @@
+{
+  "dataset_id": "WINGNUS_ACL-OCL",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "ACL OCL",
+    "description": "ACL OCL is a scholarly corpus derived from the ACL Anthology to assist open scientific research in computational linguistics. It integrates and enhances previous versions of the ACL Anthology by providing metadata, PDF files, citation graphs, structured full texts with sections, figures, and links to Semantic Scholar, spanning 73,285 papers from 1952 to September 2022 alongside 210K figures.",
+    "url": "https://huggingface.co/datasets/WINGNUS/ACL-OCL",
+    "license": null,
+    "creator": "Shaurya Rohatgi (Pennsylvania State University); Yanxia Qin (National University of Singapore); Benjamin Aw (National University of Singapore); Niranjana Unnithan (National University of Singapore); Min-Yen Kan (National University of Singapore)",
+    "publisher": "HuggingFace",
+    "datePublished": "2023",
+    "inLanguage": null,
+    "citeAs": "Shaurya Rohatgi, Yanxia Qin, Benjamin Aw, Niranjana Unnithan, and Min-Yen Kan. 2023. The ACL OCL Corpus: Advancing Open Science in Computational Linguistics.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The corpus was built by crawling PDF files and metadata from the ACL Anthology website, removing PDF files longer than 50 pages, extracting full text from the PDFs, extracting figures and tables from PDF files, and enriching papers with additional information from the Semantic Scholar Academic Graph via its Graph API. Annual updates download and process newly added ACL Anthology papers by monitoring URL changes.",
+    "rai:dataCollectionType": "Web Scraping; Web API; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "The paper notes collection/extraction gaps: full-text extraction failed mostly for papers between 2000 and 2015, and some fields are only available for part of the corpus, e.g., only 16.8% of OCL papers have an arXiv paper ID.",
+    "rai:dataCollectionRawData": "PDF documents and metadata from the ACL Anthology website, plus additional paper information from the Semantic Scholar Academic Graph accessed through its Graph API.",
+    "rai:dataCollectionTimeframe": "1952 to 2022-09",
+    "rai:dataAnnotationProtocol": "Topic labels were obtained by crawling published papers from several online CL conferences between 2020 and 2022 together with their conference-provided topics, then aligning those papers with ACL OCL to create the STop dataset of 2,545 documents in 21 topics used as ground-truth labels for training and testing topic classification.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BART-large-MNLI; TF-IDF; Yake!; SciBERT; SPECTER",
+    "rai:dataBiases": "English is the most dominant language processed in the ACL OCL; numerous languages remain underrepresented; even among languages in the same language group, there is a significant disparity in coverage",
+    "rai:dataLimitations": "The OCL corpus is a small-scale collection of documents specifically focusing on peer-reviewed and open-access CL papers; it is not a comprehensive corpus like S2ORC, since it does not include any other sources beyond the ACL Anthology; full-text quality is affected by PDF extraction issues such as missing section names, merged paragraphs, mixing of footnotes with texts, misidentifying texts as table captions, and struggles with extraction of tables, figures, and in-line equations; the OCL corpus is an unlabeled resource, lacking annotations for specific tasks that require labels",
+    "rai:dataSocialImpact": "Building scholarly corpora for open research accelerates scientific progress and promotes reproducibility in research by providing researchers with accessible and standardized data resources",
+    "rai:personalSensitiveInformation": "The dataset includes metadata and full texts parsed from papers, including fields such as authors and DOI number.",
+    "rai:dataUseCases": "open scientific research in the Computational Linguistics domain; observing temporal topic trends in computational linguistics; document-level information extraction tasks; section-wise tasks such as related work generation; multimodal research such as figure caption generation; metadata analysis and bibliographic research within the CL domain",
+    "rai:dataReleaseMaintenancePlan": "The dataset undergoes annual updates, during which we download and process papers recently added to the ACL Anthology; we plan to update OCL by year to keep it alive",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We remove PDF files longer than 50 pages, which are mostly conference volume introductions or handbooks.",
+    "rai:dataPreprocessingProtocol": "After an extensive comparison with open-source toolkits such as PDFBox and pdfminer.six, we use GROBID for the full-text extraction from PDF files. We take the S2ORC-JSON format used by Lo et al. (2020) and Wang et al. (2020) for our full-text schema. Due to the limitations of GROBID in formatting information extraction such as figures, we extract figures and tables from PDF files using PDFFigures (Clark and Diwala, 2016). In response, the OCL uses the metadata from ACL Anthology."
+  },
+  "usage": {
+    "input_tokens": 133376,
+    "output_tokens": 1466
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 26928,
+        "output_tokens": 257
+      },
+      "collection": {
+        "input_tokens": 26711,
+        "output_tokens": 358
+      },
+      "annotation": {
+        "input_tokens": 26727,
+        "output_tokens": 177
+      },
+      "impact": {
+        "input_tokens": 26647,
+        "output_tokens": 335
+      },
+      "processing": {
+        "input_tokens": 26363,
+        "output_tokens": 339
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64976,
+      "output_tokens": 524
+    },
+    "timestamp": "2026-05-22T11:14:50.866782+00:00",
+    "elapsed_seconds": 42.8
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MSCOCO_30field",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Microsoft COCO: Common Objects in Context",
+    "description": "MS COCO is a large-scale dataset for object detection and segmentation containing 91 common object categories with 2.5 million labeled instances in 328,000 images. Images depict complex everyday scenes with objects in their natural context, annotated with per-instance segmentation masks. The dataset was designed to advance scene understanding by addressing non-iconic object views, contextual reasoning, and precise 2D localization.",
+    "url": "http://mscoco.org/",
+    "license": null,
+    "creator": "Tsung-Yi Lin (Cornell NYC Tech); Michael Maire (Toyota Technological Institute at Chicago); Serge Belongie (Cornell NYC Tech); Lubomir Bourdev (Facebook AI Research); Ross Girshick (Microsoft Research); James Hays (Brown University); Pietro Perona (California Institute of Technology); Deva Ramanan (University of California at Irvine); C. Lawrence Zitnick (Microsoft Research); Piotr Dollár (Facebook AI Research)",
+    "publisher": null,
+    "datePublished": "2015",
+    "inLanguage": "en",
+    "citeAs": "T. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollár, and C. L. Zitnick, \"Microsoft COCO: Common Objects in Context,\" arXiv:1405.0312v3 [cs.CV], 21 Feb 2015.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Images were collected from Flickr by searching for pairwise combinations of object categories and scene-object category pairs to obtain non-iconic images. An Amazon Mechanical Turk (AMT) filtering task was used to remove invalid or iconic images from candidate sets. At most 5 photos taken by a single photographer within a short time window were downloaded. In rare cases where enough images could not be found, single-category searches were used with explicit filtering to remove iconic images.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; Web API",
+    "rai:dataCollectionMissingData": "Segmentations were not collected for 11 of the 91 categories in the 2014 release: hat, shoe, eyeglasses (too many instances), mirror, window, door, street sign (ambiguous and difficult to label), plate, desk (confusion with other categories), blender, and hair brush (too few instances).",
+    "rai:dataCollectionRawData": "Images sourced from Flickr using keyword searches for pairs of object categories and scene-object category pairs. Candidate categories were derived from PASCAL VOC, frequently used words denoting visually identifiable objects, WordNet, LabelMe, SUN dataset, and a free recall experiment with young children.",
+    "rai:dataCollectionTimeframe": "2014 to 2015",
+    "rai:dataAnnotationProtocol": "Amazon Mechanical Turk (AMT) workers annotated images through a three-stage pipeline: (1) category labeling, where 8 workers per image used a hierarchical interface to identify which of 91 object categories were present by dragging icons onto instances; (2) instance spotting, where 8 workers per image placed crosses on all instances of each identified category (up to 10 per worker); (3) instance segmentation, where a single worker segmented each object instance using a modified OpenSurfaces interface, after passing a mandatory per-category training task (approximately 1 in 3 workers passed). Segmentations were then verified by 3 to 5 workers; those not receiving at least 4 of 5 favorable votes were discarded and re-queued. Workers consistently producing poor segmentations had all their work discarded. Dense crowds of objects (more than 10–15 instances) were labeled as a single 'crowd' segment.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT); modified OpenSurfaces segmentation interface",
+    "rai:dataAnnotationAnalysis": "For category labeling, a category was considered present if any of the 8 AMT workers indicated it; worker precision and recall were analyzed by comparing AMT workers to seven expert annotators (co-authors), with ground truth computed via majority vote of experts. A leave-one-out evaluation was also performed on a larger set. For segmentation verification, each segmentation was shown to 3 workers initially; if any marked it bad, 2 additional workers reviewed it, and segmentations without at least 4 of 5 favorable votes were discarded. Workers below a precision threshold had all jobs rejected.",
+    "rai:annotationsPerItem": "8 workers per image for category labeling and instance spotting; 1 worker per instance for segmentation; 3 to 5 workers per segmentation for verification",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Dataset images were collected from Flickr, which tends to have fewer iconic images; pairwise object category queries were used to reduce iconic image bias; the authors note that datasets containing more non-iconic images generalize better",
+    "rai:dataLimitations": "Only 'thing' categories are labeled, not 'stuff' categories (sky, street, grass), which may limit contextual information; 11 categories were omitted from the 2014 release due to too many instances, ambiguity, difficulty of labeling, or too few instances; after 10-15 instances of a category per image, remaining instances are marked as 'crowds' and ignored in evaluation; including difficult non-iconic images during training may not always help and may act as noise for models not rich enough to capture appearance variability",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and evaluation of object detection algorithms; training and evaluation of instance segmentation algorithms; benchmarking contextual reasoning between objects; precise 2D localization of objects in natural scenes; scene understanding research",
+    "rai:dataReleaseMaintenancePlan": "The dataset was split into two roughly equal parts; the first half was released in 2014 and the second half was planned for release in 2015; the authors state 'MS COCO will evolve and grow over time; up to date information is available online' and that they are actively exploring adding various additional annotations",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Near-duplicate images were explicitly removed across dataset splits using a near-duplicate detection algorithm. Images were grouped by photographer and date taken to minimize cross-split overlap. The dataset was split into train, validation, and test sets (approximately 1/2 train, 1/4 val, 1/4 test). For the 2014 release, the dataset was limited to 80 of the 91 categories, excluding 11 categories due to issues such as too many instances, ambiguity, difficulty of labeling, confusion with other categories, or too few instances.",
+    "rai:dataPreprocessingProtocol": "Near-duplicate images were explicitly removed (detected with [43]) and images were grouped by photographer and date taken to minimize near-duplicates across splits. An AMT filtering task was used to remove invalid or iconic images from candidate image sets. Poor-quality segmentations were discarded after a verification stage in which segmentations not receiving at least 4 of 5 favorable votes were removed and the corresponding instances added back to the pool of unsegmented objects. Workers who consistently produced poor segmentations had all their work discarded. Categories for which obtaining a large number of instances (greater than 5,000) was difficult were removed. Eleven categories were omitted from the 2014 release due to issues such as too many instances, ambiguity, difficulty of labeling, confusion with other categories, or too few instances."
+  },
+  "usage": {
+    "input_tokens": 149273,
+    "output_tokens": 2067
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30005,
+        "output_tokens": 410
+      },
+      "collection": {
+        "input_tokens": 29886,
+        "output_tokens": 348
+      },
+      "annotation": {
+        "input_tokens": 29926,
+        "output_tokens": 527
+      },
+      "impact": {
+        "input_tokens": 29920,
+        "output_tokens": 400
+      },
+      "processing": {
+        "input_tokens": 29536,
+        "output_tokens": 382
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 69311,
+      "output_tokens": 254
+    },
+    "timestamp": "2026-05-02T17:59:12.420010+00:00",
+    "elapsed_seconds": 62.1
+  }
+}

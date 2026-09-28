@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google-research-datasets_natural_questions",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Natural Questions",
+    "description": "Natural Questions is a question answering dataset consisting of real anonymized, aggregated queries issued to the Google search engine paired with Wikipedia pages and annotated long and short answers, or null when no answer is present. The public release contains 307,373 training examples with single annotations, 7,830 development examples with 5-way annotations, and 7,842 sequestered test examples with 5-way annotations.",
+    "url": "https://ai.google.com/research/NaturalQuestions",
+    "license": "CC-BY 4.0",
+    "creator": "Tom Kwiatkowski; Jennimaria Palomaki; Olivia Redfield; Michael Collins; Ankur Parikh; Chris Alberti; Danielle Epstein; Illia Polosukhin; Jacob Devlin; Kenton Lee; Kristina Toutanova; Llion Jones; Matthew Kelcey; Ming-Wei Chang; Andrew M. Dai; Jakob Uszkoreit; Quoc Le; Slav Petrov",
+    "publisher": "Google Research",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein, Illia Polosukhin, Jacob Devlin, Kenton Lee, Kristina Toutanova, Llion Jones, Matthew Kelcey, Ming-Wei Chang, Andrew M. Dai, Jakob Uszkoreit, Quoc Le, and Slav Petrov. 2019. Natural Questions: A Benchmark for Question Answering Research. Transactions of the Association for Computational Linguistics, 7:453–466. https://doi.org/10.1162/tacl_a_00276",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Questions were sampled from real anonymized, aggregated queries issued to the Google search engine, restricted to queries of 8 words or more that matched heuristic patterns, then kept only when a Wikipedia page appeared in the top 5 search results; the resulting (question, Wikipedia page) pairs were used as dataset inputs.",
+    "rai:dataCollectionType": "Web API; Document analysis; User-generated content data",
+    "rai:dataCollectionMissingData": "Both the long and short answer can be NULL if no viable candidates exist on the Wikipedia page.",
+    "rai:dataCollectionRawData": "Real anonymized, aggregated Google Search queries and Wikipedia pages returned in the top 5 Google search results for those queries.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "An annotator was presented with a question and a Wikipedia page and completed three stages in succession: deciding whether the question was good or bad, selecting the earliest HTML bounding box containing enough information to infer the answer as the long answer or marking no answer, and selecting the entity or set of entities within the long answer as the short answer or flagging yes, no, or no short answer; annotation was performed using a custom annotation interface by a pool of around 50 annotators, comprehensive guidelines were developed, and annotation quality was constantly monitored.",
+    "rai:dataAnnotationPlatform": "custom annotation interface",
+    "rai:dataAnnotationAnalysis": "The public release includes single annotations for training and 5-way annotations for development and test; quality was evaluated post hoc by four experts who independently judged correctness and then met to reach a consensus judgment, and the paper also analyzed 25-way annotations on a subset to study variability.",
+    "rai:annotationsPerItem": "1; 5; 25",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Google Cloud NLP API",
+    "rai:dataBiases": "there may be biases in this choice",
+    "rai:dataLimitations": "We focus on longer queries as they are more complex, and are thus a more challenging test for deep NLU; We focus on Wikipedia as it is a very important source of factual information, and we believe that stylistically it is similar to other sources of factual information on the Web; however, like any data set there may be biases in this choice.",
+    "rai:dataSocialImpact": "Open-domain question answering (QA) is a benchmark task in natural language understanding (NLU), which has significant utility to users.",
+    "rai:personalSensitiveInformation": "Questions consist of real anonymized, aggregated queries issued to the Google search engine.",
+    "rai:dataUseCases": "QA research; evaluating the performance of question answering systems; large-scale end-to-end training data for the QA problem",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were filtered from the Google query stream using simple heuristics, restricted to queries of 8 words or more, and only kept when a Wikipedia page appeared in the top 5 search results; for development and test, the dataset used 5-way annotations, and for a subset of examples the authors collected 24 additional annotations to create 25-way annotated data.",
+    "rai:dataPreprocessingProtocol": "Simple heuristics are used to filter questions from the query stream. From these queries, we sample a subset that either: 1. start with \"who\", \"when\", or \"where\" directly followed by: a) a finite form of \"do\" or a modal verb; or b) a finite form of \"be\" or \"have\" with a verb in some later position; 2. start with \"who\" directly followed by a verb that is not a finite form of \"be\"; 3. contain multiple entities as well as an adjective, adverb, verb, or determiner; 4. contain a categorical noun phrase immediately preceded by a preposition or relative clause; 5. end with a categorical noun phrase, and do not contain a preposition or relative clause. We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results."
+  },
+  "usage": {
+    "input_tokens": 140014,
+    "output_tokens": 1419
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 28259,
+        "output_tokens": 375
+      },
+      "collection": {
+        "input_tokens": 28041,
+        "output_tokens": 290
+      },
+      "annotation": {
+        "input_tokens": 28036,
+        "output_tokens": 243
+      },
+      "impact": {
+        "input_tokens": 27977,
+        "output_tokens": 194
+      },
+      "processing": {
+        "input_tokens": 27701,
+        "output_tokens": 317
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 68629,
+      "output_tokens": 298
+    },
+    "timestamp": "2026-05-22T11:24:21.847468+00:00",
+    "elapsed_seconds": 30.9
+  }
+}

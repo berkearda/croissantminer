@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MathVista_30field",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MathVista",
+    "description": "MathVista is a benchmark designed to evaluate mathematical reasoning of foundation models in visual contexts. It consists of 6,141 examples derived from 28 existing multimodal datasets involving mathematics and 3 newly created datasets (IQTest, FunctionQA, and PaperQA), covering diverse mathematical reasoning types and visual contexts such as geometry diagrams, charts, natural images, and scientific figures.",
+    "url": "https://mathvista.github.io",
+    "license": null,
+    "creator": "Pan Lu; Hritik Bansal; Tony Xia; Jiacheng Liu; Chunyuan Li; Hannaneh Hajishirzi; Hao Cheng; Kai-Wei Chang; Michel Galley; Jianfeng Gao",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Pan Lu, Hritik Bansal, Tony Xia, Jiacheng Liu, Chunyuan Li, Hannaneh Hajishirzi, Hao Cheng, Kai-Wei Chang, Michel Galley, and Jianfeng Gao. MathVista: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts. Published as a conference paper at ICLR 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "MathVista was assembled by collecting examples from 28 existing multimodal datasets (9 math-targeted QA datasets and 19 VQA datasets) and creating 3 new datasets (IQTest, FunctionQA, PaperQA). For existing MathQA datasets, examples and annotations were collected directly. For VQA datasets, heuristic rules were used to automatically select math-related examples, followed by manual labeling by three expert annotators. The three new datasets were manually annotated by graduate students in STEM fields. IQTest sourced puzzle test figures from online learning platforms; FunctionQA used functional plots; PaperQA sourced academic paper figures from Huggingface papers released in August 2023.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Web Scraping",
+    "rai:dataCollectionMissingData": "Only 85.6% of examples have annotations, as annotations were sourced from original data providers and not all source datasets included them.",
+    "rai:dataCollectionRawData": "28 existing multimodal datasets (9 MathQA datasets including Geometry3K, GeoQA+, GEOS, UniGeo, CLEVR-Math, IconQA, TabMWP, SciBench, TheoremQA; and 19 VQA datasets including ChartQA, FigureQA, DVQA, MapQA, PlotQA, DocVQA, AI2D, ScienceQA, TQA, A-OKVQA, KVQA, ParsVQA-Caps, TextVQA, VizWiz, VQA2.0, PMC-VQA, VQA-RAD, Super-CLEVR, VQA-AS); puzzle test figures from online learning platforms; functional plots; and academic paper figures from Huggingface (https://huggingface.co/papers).",
+    "rai:dataCollectionTimeframe": "PaperQA sourced from papers released in August 2023; Multimodal Bard evaluated September 8–10, 2023; GPT-4V evaluated October 7–15, 2023",
+    "rai:dataAnnotationProtocol": "Three expert annotators (graduate students in STEM fields) independently labeled VQA examples to determine if they involve mathematical reasoning, using detailed instructions and examples. For the three new datasets (IQTest, FunctionQA, PaperQA), questions were manually annotated by graduate students in STEM fields and refined through a rigorous review process with three reviewers per dataset. Expert annotators also manually labeled mathematical reasoning categories for 1,000 examples to verify automatic annotation quality. Human performance baseline was established using Amazon Mechanical Turk workers with high school diploma or higher, completing 5 questions within 20 minutes after passing qualification examples.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk; custom annotation GUI tools (shown in Figures 22, 23, 24)",
+    "rai:dataAnnotationAnalysis": "Majority voting among three annotators was used to finalize VQA math-relevance labels. Inter-annotator agreement was measured using Fleiss Kappa score (0.775) for math-relevance labeling. For the three new datasets, inter-annotation consistency rate was 99.2% (only 6 of 736 questions had disagreements), resolved through discussion among the entire review team. For mathematical reasoning category annotation, 94.1% exact match and 98.79% individual label agreement between automatic and human annotations.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "Graduate students in STEM fields (for new dataset annotation and reasoning category verification); Amazon Mechanical Turk workers with high school diploma or higher, more than 5,000 HIT tasks completed, acceptance score higher than 0.99 (for human performance baseline)",
+    "rai:machineAnnotationTools": "Heuristic rules for automatic selection of math-related VQA examples (keyword/numeric answer filtering); GPT-4 for answer extraction from model responses (>99.5% accuracy on 200-example preliminary study); EasyOCR for OCR text detection; Multimodal Bard for image caption generation",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Dataset coverage may have gaps in representation of certain types of mathematical problems and visuals; focus on mathematical reasoning within visual contexts spanning specific domains like science and college-level math makes scalability and generalizability to other domains a concern; only 85.6% of examples have annotations due to heterogeneity of sources; annotations lack a unified format and structure; some false positive examples may remain after automatic filtration; benchmark focused exclusively on the most recent and prominent models given rapid development in foundation models",
+    "rai:dataSocialImpact": "MathVista is intended to facilitate the development of general-purpose AI agents capable of tackling mathematically intensive and visually rich real-world tasks, with applications in educational disciplines, logical queries about statistical data, and theorem proving and scientific discovery in advanced research fields.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating mathematical reasoning capabilities of foundation models (LLMs and LMMs) in visual contexts; model development validation using the testmini subset; benchmarking research progress of LLMs and LMMs on rigorous reasoning tasks; facilitating development of mathematical reasoning systems in visually intensive scenarios",
+    "rai:dataReleaseMaintenancePlan": "Answer labels for the test set will not be publicly released to prevent data contamination; an online evaluation platform will be maintained; the authors are committed to maintaining the datasets, such as refining potential data noise, in response to community feedback; the leaderboard will be evolved in response to new models.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For VQA datasets not originally math-targeted, heuristic rules were used to automatically select examples likely to involve mathematical reasoning (e.g., numeric answers or quantity words in questions), yielding 4,949 candidates. Three expert annotators then manually labeled these examples using majority voting to determine if they involve mathematical reasoning, and each source dataset was limited to up to 400 examples to ensure balanced representation. For the testmini subset, a stratified sampling strategy was applied: first randomly sampling questions with a threshold of 4 per source dataset, then randomly sampling remaining questions proportional to each source dataset's share in the entire set, to maintain a distribution closely resembling the whole set.",
+    "rai:dataPreprocessingProtocol": "For VQA datasets, heuristic rules were used to automatically select examples likely to involve mathematical reasoning: examples with numeric answers or those containing quantity words in the questions were selected. This automatic filtration yielded 4,949 VQA-format examples. Three expert annotators then manually labeled these examples using majority voting to determine if they involve mathematical reasoning, and each source dataset was limited to up to 400 examples to ensure balanced representation. For the newly created datasets (IQTest, FunctionQA, PaperQA), all questions were manually annotated by graduate students in STEM fields and refined through a rigorous review process with three reviewers per dataset and a two-step annotation consistency check. For the testmini subset, a sampling strategy was applied: first randomly sampling questions with a threshold of 4 per source dataset, then randomly sampling remaining questions proportional to each source dataset's share in the entire set. Several quality checks were also conducted to address unidentified errors."
+  },
+  "usage": {
+    "input_tokens": 426147,
+    "output_tokens": 2217
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 91983,
+        "output_tokens": 376
+      },
+      "collection": {
+        "input_tokens": 75378,
+        "output_tokens": 542
+      },
+      "annotation": {
+        "input_tokens": 75392,
+        "output_tokens": 481
+      },
+      "impact": {
+        "input_tokens": 91888,
+        "output_tokens": 386
+      },
+      "processing": {
+        "input_tokens": 91506,
+        "output_tokens": 432
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 49355,
+      "output_tokens": 227
+    },
+    "timestamp": "2026-05-02T18:01:37.954263+00:00",
+    "elapsed_seconds": 70.5
+  }
+}

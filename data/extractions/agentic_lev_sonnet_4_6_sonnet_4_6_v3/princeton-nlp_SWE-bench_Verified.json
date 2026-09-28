@@ -1,0 +1,287 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "SWE-Bench+",
+    "description": "SWE-Bench+ is an enhanced coding benchmark dataset for evaluating LLMs on software engineering tasks, created by collecting GitHub issues from Python repositories that were created after the training cutoff dates of LLMs and ensuring issues do not contain solutions in their reports or comments.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, Song Wang",
+    "publisher": "York University",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "SWE-bench+ was created by following the same data collection methodology as SWE-bench, but filtering out issues with answer leakage problems and collecting only issues created after LLM training cut-off dates to avoid data leakage.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "GitHub issues and pull requests from software repositories, including issue descriptions, code changes, and test cases.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataAnnotationProtocol": "Manual review of patches by researchers: comparing gold patches to model-generated patches by examining files changed, lines changed, and code changes; identifying eight patterns in generated fixes by reviewing issue reports, corresponding tests, and available discussions",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SWE-Agent+GPT-4 used to generate patches; evaluation logs used to filter instances where all tests passed",
+    "rai:dataBiases": "The dataset suffers from potential data leakage issues, as 94% of instances in SWE-bench and their pull requests were created prior to the training cut-off dates of the LLMs. Additionally, issues with answer leakage (solutions outlined directly in issue reports or comments) and weak test cases introduce biases in evaluation.",
+    "rai:dataLimitations": "The original SWE-bench dataset has significant limitations including solution leakage (32.67% of resolved instances had solutions outlined in issue reports or comments), weak test cases (31.08% of resolved instances had tests too weak to catch incorrect patches), and potential data leakage due to issues predating LLM training cut-off dates. These undermine the reliability of model assessments.",
+    "rai:dataSocialImpact": "The dataset and its enhancement (SWE-bench+) aim to provide more reliable benchmarks for evaluating LLM capabilities in software engineering, which has implications for how AI coding tools are assessed and deployed in real-world software development.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for evaluating and testing LLM capabilities in resolving software issues, including bug fixing and feature implementation. SWE-bench+ is specifically designed for more rigorous and accurate evaluation, free from solution leakage and data leakage concerns.",
+    "rai:dataReleaseMaintenancePlan": "SWE-bench+ has been released on Zenodo. Future work is planned to improve test case robustness and explore more effective strategies for filtering data.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Issues with answer leakage were filtered out, and only issues created after the models' training cut-off dates (starting 2023-11-01) were collected to create SWE-bench+.",
+    "rai:dataPreprocessingProtocol": "Filtering instances by evaluation logs to identify resolved issues (all tests passed), comparing gold patches to model patches (files changed, lines changed, code changes), and identifying patterns in generated fixes by reviewing issue reports, tests, and issue discussions."
+  },
+  "usage": {
+    "input_tokens": 29687,
+    "output_tokens": 2498
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:13:12.376242Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present an enhancement of SWE-bench Full, which we call SWE-bench+"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created SWE-bench+ by collecting GitHub issues that were created after the training cutoff dates of the LLMs to prevent the potential data leakage problem. We also ensure that the issues collected do not contain solutions in their reports or comments."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we release the dataset of SWE-bench+ to help other researchers replicate and extend our study3. 3https://zenodo.org/records/13879453"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, Song Wang Lassonde School of Engineering York University"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Lassonde School of Engineering York University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2410.06992v2 [cs.SE] 10 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper is written in English and the dataset consists of GitHub issues from Python repositories"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we gathered issues from the period of 2023-11-01 to 2024-08-22"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench+ dataset is created by following the same data collection methodology described in the SWE-Bench dataset; except we filtered out issues with answer leakage problems."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench+ dataset is created by following the same data collection methodology described in the SWE-Bench dataset; except we filtered out issues with answer leakage problems."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset contains 2,294 complex issues from GitHub... Each input for an issue consists of a description and a pull request with a reference to the corresponding buggy code repository."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we opted to collect data starting a month after the most recent model's cut-off date. To the end, we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we performed a patch validation study by comparing the gold patches (i.e., original) to the model patches (i.e., generated). We did this by comparing the files changed, the lines changed, and the code changes made in the fixes (both original and generated). Third, we determined eight patterns in the generated fixes by reviewing the issue reports, the corresponding tests, and the available discussions of issues"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we picked issues claimed as resolved by SWE-Agent+GPT-4. We did this by filtering only the instances with evaluation logs showing that all tests passed."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the dataset can also suffer from potential data leak issues. This is because 94% of the instances in SWE-bench and their pull requests were created prior to the training cut-off dates of the LLMs, meaning that all issue reports in the full SWE-bench dataset may have been exposed to the LLMs during their training phases, raising concerns about potential data leakage."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our study identified significant limitations in the original SWE-Bench dataset, particularly issues with solution leakage and weak test cases, which undermined the reliability of previous model assessments."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench+ establishes a more reliable framework for assessing the true capabilities of LLMs in software development, offering insights into how these models can be better developed and evaluated."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench aka Software Engineering Benchmark dataset is created to systematically evaluate the capabilities of an LLM in resolving software issues... we release the dataset of SWE-bench+ to help other researchers replicate and extend our study."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we release the dataset of SWE-bench+ to help other researchers replicate and extend our study. https://zenodo.org/records/13879453... Future work should focus on improving the test case robustness in SWE-Bench+ and exploring more effective strategies for filtering data to further minimize biases and inaccuracies."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-bench+ dataset is created by following the same data collection methodology described in the SWE-Bench dataset; except we filtered out issues with answer leakage problems... we opted to collect data starting a month after the most recent model's cut-off date. To the end, we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, we picked issues claimed as resolved by SWE-Agent+GPT-4. We did this by filtering only the instances with evaluation logs showing that all tests passed. Second, we performed a patch validation study by comparing the gold patches (i.e., original) to the model patches (i.e., generated). We did this by comparing the files changed, the lines changed, and the code changes made in the fixes."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1265,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 17343,
+        "tokens_in": 5543,
+        "tokens_out": 525
+      },
+      "collection": {
+        "section_chars": 10775,
+        "tokens_in": 3749,
+        "tokens_out": 371
+      },
+      "annotation": {
+        "section_chars": 7417,
+        "tokens_in": 2660,
+        "tokens_out": 375
+      },
+      "impact": {
+        "section_chars": 14363,
+        "tokens_in": 4744,
+        "tokens_out": 767
+      },
+      "processing": {
+        "section_chars": 7417,
+        "tokens_in": 2527,
+        "tokens_out": 350
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 47.8,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 10464,
+      "output_tokens": 110
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "dataset_id": "baber_piqa",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "PIQA (Physical Interaction: Question Answering)",
+    "description": "PIQA is a benchmark dataset for physical commonsense reasoning in natural language. Given a physical goal expressed in natural language, a model must choose the most sensible solution from two options. The dataset is inspired by instructables.com and focuses on everyday situations with a preference for atypical solutions.",
+    "url": "http://yonatanbisk.com/piqa",
+    "license": null,
+    "creator": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, Yejin Choi",
+    "publisher": "Association for the Advancement of Artificial Intelligence (AAAI)",
+    "datePublished": "2019-11-26",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected through crowdsourced annotation where annotators were prompted with links to instructables.com. Annotators were asked to glance at instructions from an instructable and construct two component tasks, articulating a physical goal and a valid solution, plus a permutation of their solution that makes it invalid. The dataset was further cleaned of basic artifacts using the AFLite algorithm to handle spurious biases.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Instructions from instructables.com, a crowdsourced collection of instructions for doing everything from cooking to car repair, where users provide images or videos detailing each step and a list of tools required.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Annotators were prompted with links to instructables.com to inspire goal-solution pairs. They wrote a physical goal, a valid solution, and an invalid 'trick' solution. Qualification HITs were run prior to main annotation requiring >80% accuracy on well-formed examples. Data was collected in batches and validated by other annotators for correctness. Users with low agreement were de-qualified. Examples with low agreement during validation were removed from the dataset.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (MTurk), based on references to HITs and turkerview.com",
+    "rai:dataAnnotationAnalysis": "Examples with low agreement were removed from the dataset. Sentence length distributions and vocabulary overlap between correct and incorrect solutions were analyzed to check for spurious biases.",
+    "rai:annotationsPerItem": "Multiple annotators validated each item; items with low inter-annotator agreement were removed",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Spacy tokenizer and GPT BPE tokenizer were used for dataset analysis; RoBERTa was used for bias/spurious correlation analysis",
+    "rai:dataBiases": "The dataset may reflect reporting bias, as commonsense physical properties are rarely directly reported in language. The dataset was cleaned of basic artifacts using the AFLite algorithm to reduce annotator biases.",
+    "rai:dataLimitations": "The dataset is limited to physical commonsense knowledge expressible in language, and learning about the world from language alone is considered limiting. Models may 'match' humans by fine-tuning on in-domain data, but this does not reflect true physical understanding.",
+    "rai:dataSocialImpact": "The dataset aims to advance AI toward physical commonsense understanding, which is critical for applications such as robots that interact with the world and understand natural language.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for evaluating and benchmarking language representations on physical commonsense knowledge, probing deep pretrained language models, and eliciting further research into building language representations that capture details of the real world.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Annotators were prompted with links to instructables to flatten the distribution of referenced objects and reduce reporting bias; annotators were asked to provide a permutation to their own solution which makes it invalid to create incorrect solution pairs.",
+    "rai:dataPreprocessingProtocol": "Edit distance computed over tokenized and lowercased strings with punctuation removed, using a cost of 1 for edits, insertions, and deletions."
+  },
+  "usage": {
+    "input_tokens": 28538,
+    "output_tokens": 2590
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:43:48.940532Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce the task of physical commonsense reasoning and a corresponding benchmark dataset Physical Interaction: Question Answering or PIQA"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Physical Interaction: Question Answering, or PIQA to evaluate language representations on their knowledge of physical commonsense. We focus on everyday situations with a preference for atypical solutions. Our dataset is inspired by instructables.com"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "http://yonatanbisk.com/piqa"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, Yejin Choi"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Copyright c⃝2020, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1911.11641v1 [cs.CL] 26 Nov 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce the task of physical commonsense reasoning and a corresponding benchmark dataset Physical Interaction: Question Answering or PIQA"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is further cleaned of basic artifacts using the AFLite algorithm introduced in (Sakaguchi et al. 2020; Sap et al. 2019) which is an improvement on adversarial filtering"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "annotators were asked to glance at the instructions of an instructable and pull out or have it inspire them to construct two component tasks. They would then articulate the goal (often centered on atypical materials) and how to achieve it. In addition, we asked them to provide a permutation to their own solution which makes it invalid"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect data with how-to instructions as a scaffold... annotators were asked to glance at the instructions of an instructable and pull out or have it inspire them to construct two component tasks."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The instructables website is a crowdsourced collection of instructions for doing everything from cooking to car repair. In most cases, users provide images or videos detailing each step and a list of tools that will be required."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Additional HITs (not shown) were run for qualification prior to this stage and validation afterwards... Annotators had to successfully (>80%) identify which were well formed to participate in the main HIT. Data was collected in batches of several thousand triples and validated by other annotators for correctness. Users with low agreement were de-qualed."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotator pay averaged > 15$/hr according to both self-reporting on turkerview.com and our timing calculations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During validation, examples with low agreement were removed from the data... Figure 4 shows a plot of the correct and incorrect sequence lengths... the two distributions are nearly identical. We also analyzed the overlap in the vocabulary and find that in all cases (noun, verb, adjective, and adverb) we see at least an 85% overlap between words used in correct and incorrect solutions."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data was collected in batches of several thousand triples and validated by other annotators for correctness. Users with low agreement were de-qualed."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our goals, as tokenized by Spacy, average 7.8 words... Figure 4 shows a plot of the correct and incorrect sequence lengths (as tokenized by the GPT BPE tokenizer)"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "due to issues of reporting bias, these commonsense properties - facts like 'it is a bad idea to apply eyeshadow with a toothpick' are rarely directly reported... The dataset is further cleaned of basic artifacts using the AFLite algorithm"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Future research, may 'match' humans on our dataset by finding a large source of in-domain data and fine-tuning heavily, but this is very much not the point. Philosophically, knowledge should be learned from interaction with the world to eventually be communicated with language."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we hypothesize that modeling physical commonsense knowledge is a major challenge on the road to true AI-completeness, including robots that interact with the world and understand natural language."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Physical Interaction: Question Answering, or PIQA to evaluate language representations on their knowledge of physical commonsense... our goal is to elicit further research into building language representations that capture details of the real world."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address this, and flatten the distribution of referenced objects (see Figure 5), we prompt the annotations with links to instructables... In addition, we asked them to provide a permutation to their own solution which makes it invalid, often subtly (Figure 3)."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compute edit distance over tokenized and lowercased strings with punctuation removed. We use a cost of 1 for edits, insertions, and deletions."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 22,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1245,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 13240,
+        "tokens_in": 3918,
+        "tokens_out": 575
+      },
+      "collection": {
+        "section_chars": 17502,
+        "tokens_in": 5106,
+        "tokens_out": 438
+      },
+      "annotation": {
+        "section_chars": 15179,
+        "tokens_in": 4478,
+        "tokens_out": 642
+      },
+      "impact": {
+        "section_chars": 6597,
+        "tokens_in": 2222,
+        "tokens_out": 555
+      },
+      "processing": {
+        "section_chars": 12065,
+        "tokens_in": 3532,
+        "tokens_out": 252
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 46.2,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 9282,
+      "output_tokens": 128
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

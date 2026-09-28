@@ -1,0 +1,261 @@
+{
+  "dataset_id": "google_boolq",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "BoolQ",
+    "description": "A reading comprehension dataset of naturally occurring yes/no questions, where each example consists of a question, a Wikipedia paragraph, the article title, and a yes/no answer.",
+    "url": "https://goo.gl/boolq",
+    "license": "cc-by-sa-3.0",
+    "creator": "Christopher Clark, Kenton Lee, Ming-Wei Chang, Tom Kwiatkowski, Michael Collins, Kristina Toutanova",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were collected from anonymized, aggregated Google search queries, filtered heuristically for likely yes/no questions, retained when a Wikipedia page appeared in the top five results, and then processed by human annotators who judged question quality, selected an answer-containing passage, and labeled the answer yes or no.",
+    "rai:dataCollectionType": "Passive Data Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": "Annotators could mark questions as not answerable when the Wikipedia article did not contain the requested information, and only questions marked as having a yes/no answer were used.",
+    "rai:dataCollectionRawData": "Anonymized, aggregated Google search queries and Wikipedia pages/articles.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Likely yes/no queries were heuristically identified using indicator words and sufficient length; only questions with a Wikipedia result in the top five were kept; only questions marked as good and having a yes/no answer were used; each question was paired with the selected passage rather than the full document.",
+    "rai:dataAnnotationProtocol": "Human annotators labeled question/article pairs in three steps: determine whether the question is good, find a passage containing enough information to answer it or mark it not answerable, and then label the answer as yes or no.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Annotation quality was assessed by having three authors label 110 randomly chosen examples, resolving disagreements by mutual agreement to create gold-standard labels; answer annotations achieved 90% accuracy against these gold labels, with disagreements due to ambiguity or annotator misunderstanding.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The dataset is slightly class imbalanced toward yes answers, and question topic/type correlates with the likelihood of a yes answer.",
+    "rai:dataLimitations": "The dataset uses only questions marked as having yes/no answers and pairs them with selected passages instead of full documents, which may reduce ambiguity but limits document-level context; some annotations were ambiguous or erroneous; and the analysis may be slightly out of date because the dataset was updated.",
+    "rai:dataUseCases": "Reading comprehension and yes/no question answering; the task is to take a question and passage as input and return yes or no as output. The dataset is split into train, dev, and test sets."
+  },
+  "usage": {
+    "input_tokens": 21017,
+    "output_tokens": 2447
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:18:40.838687Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We gather 16,000 naturally occurring yes/no questions into a dataset we call BoolQ (for Boolean Questions)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We build a reading comprehension dataset, BoolQ, of such questions, and show that they are unexpectedly challenging. An example in our dataset consists of a question, a paragraph from a Wikipedia article, the title of the article, and an answer, which is either “yes” or “no”."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present our data and code at https://goo.gl/boolq ."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Christopher Clark∗1, Kenton Lee†, Ming-Wei Chang†, Tom Kwiatkowski† Michael Collins†2, Kristina Toutanova†"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.10044v1 [cs.CL] 24 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine. Questions are only kept if a Wikipedia page is retumed as one of the first five results"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We split these questions into a 3.2k dev set, 3.2k test set, and 9.4k train set"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine. Queries that are likely to be yes/no questions are heuristically identified: we found selecting queries where the first word is in a manually constructed set of indicator words and are of sufficient length, to be effective. Questions are only kept if a Wikipedia page is retumed as one of the first five results, in which case the question and Wikipedia page are given to a human annotator for further processing. Annotators label question/article pairs in a three-step process."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine. Annotators label question/article pairs in a three-step process."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotators can mark questions as “not answerable” if the Wikipedia article does not contain the requested information. Note that, unlike in NQ, we only use questions that were marked as having a yes/no answer"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions are gathered from anonymized, aggregated queries to the Google search engine. Questions are only kept if a Wikipedia page is retumed as one of the first five results"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Queries that are likely to be yes/no questions are heuristically identified: we found selecting queries where the first word is in a manually constructed set of indicator words and are of sufficient length, to be effective. Questions are only kept if a Wikipedia page is retumed as one of the first five results. Note that, unlike in NQ, we only use questions that were marked as having a yes/no answer, and pair each question with the selected passage instead of the entire document."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotators label question/article pairs in a three-step process. First, they decide if the question is good, meaning it is comprehensible, unambiguous, and requesting factual information. Next, for good questions, annotators find a passage within the document that contains enough information to answer the question. Annotators can mark questions as “not answerable” if the Wikipedia article does not contain the requested information. Finally, annotators mark whether the question’s answer is “yes” or “no”."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "First, in order to assess annotation quality, three of the authors labelled 110 randomly chosen examples. If there was a disagreement, the authors conferred and selected a single answer by mutual agreement. We call the resulting labels “gold-standard” labels. On the 110 selected examples, the answer annotations reached 90% accuracy compared to the gold-standard labels. Of the cases where the answer annotation differed from the gold-standard, six were ambiguous or debatable cases, and five were errors where the annotator misunderstood the passage."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since the agreement was sufficiently high, we elected to use singly-annotated examples in the training/dev/test sets in order to be able to gather a larger dataset."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Yes” answers are slightly more common (62.31% in the train set). We do find a correlation between the nature of the question and the likelihood of a “yes” answer."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Note that, unlike in NQ, we only use questions that were marked as having a yes/no answer, and pair each question with the selected passage instead of the entire document. This helps reduce ambiguity. Of the cases where the answer annotation differed from the gold-standard, six were ambiguous or debatable cases, and five were errors where the annotator misunderstood the passage. Note the dataset has been updated since we carried out this analysis, so it might be slighly out-of-date."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The task is then to take a question and passage as input, and to retum “yes” or “no” as output. We split these questions into a 3.2k dev set, 3.2k test set, and 9.4k train set"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 94.7,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0507,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 29.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 3
+  }
+}

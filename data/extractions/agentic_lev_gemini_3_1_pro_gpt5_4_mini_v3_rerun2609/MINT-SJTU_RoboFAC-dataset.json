@@ -1,0 +1,289 @@
+{
+  "dataset_id": "MINT-SJTU_RoboFAC-dataset",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "RoboFAC dataset",
+    "description": "A large-scale and diverse dataset for question-answering on robot failure videos, covering 16 tasks and 53 scenes in simulation and real-world environments. It contains erroneous manipulation trajectories and QA pairs for task understanding, failure analysis, and failure correction.",
+    "url": "https://github.com/MINT-SJTU/RoboFAC",
+    "license": "MIT",
+    "creator": "Weifeng Lu, Minghao Ye, Zewei Ye, Ruihan Tao, Shuo Yang, Bo Zhao",
+    "publisher": null,
+    "datePublished": "2025-05-25",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was constructed from simulation and real-world robotic manipulation data. In simulation, the authors collected failure trajectories for 14 tasks in ManiSkill, using objects from YCB and scenes from ReplicaCAD and AI2-THOR, generating failures by replacing expert policies with erroneous code snippets. In the real world, they collected data for 6 tasks via teleoperation using the SO-100 robotic arm. Each video was paired with a textual description, and the raw data were annotated into video-based QA samples.",
+    "rai:dataCollectionType": "Experiments",
+    "rai:dataCollectionMissingData": "During simulation data collection, motion planning occasionally failed, producing trajectories that did not match the textual descriptions; the authors manually cleaned the data and retained approximately 75% of the collected data.",
+    "rai:dataCollectionRawData": "Raw data consisted of failure videos/trajectories and corresponding textual descriptions, plus some successful trajectories. The dataset includes 8,960 simulated failure trajectories, 480 real-world failure trajectories, 1,160 successful simulated trajectories, and 122 successful real-world trajectories.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "For each sample, the reference answer is generated based on the textual description associated with the video. For five question types—task identification, task planning, failure detection, failure identification, and failure locating—the reference answers can be directly extracted from the corresponding textual description. For the remaining three types—failure explanation, high-level correction, and low-level correction—they utilize both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers. All outputs from GPT-4o were manually reviewed and corrected. The prompt instructs GPT-4o to explain the failure, give high-level correction instructions, and give low-level correction instructions, with no specific numerical values in the explanations.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "All outputs from GPT-4o were manually reviewed and corrected to ensure annotation quality.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4o",
+    "rai:dataBiases": "The dataset is described as large-scale and diverse, but no specific bias sources or skew are discussed in the provided section.",
+    "rai:dataLimitations": "The current integration into the VLA-controlled robotic system is not yet seamless. The model was applied exclusively to the VLA model in this work, and future work is needed for more natural automated correction delivery and for hierarchical policies.",
+    "rai:dataSocialImpact": "The section does not explicitly discuss broader social impacts; it only notes potential improvements toward automated robotic failure recovery data collection and better correction strategies.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for robotic failure analysis and correction, including task understanding, failure analysis, and failure correction based on robot video. The model is evaluated on a benchmark and can be used as an external critic in real-world VLA control tasks.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To prevent models from overfitting to failure patterns, we also collect 1,160 successful trajectories from simulation and 122 successful trajectories from real-world executions.",
+    "rai:dataPreprocessingProtocol": "Manually performed thorough data cleaning and retained approximately 75% of the collected data."
+  },
+  "usage": {
+    "input_tokens": 45747,
+    "output_tokens": 2178
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T00:59:17.869806Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first construct a large-scale and diverse dataset of robotic failures ( RoboFAC dataset )"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first construct a large-scale and diverse dataset of robotic failures ( RoboFAC dataset ) covering robotic tasks of varying complexity in both simulated and real-world environments"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our model and dataset are publicly available at https://github.com/MINT-SJTU/RoboFAC ."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Weifeng Lu∗1,2Minghao Ye∗1,3Zewei Ye∗1Ruihan Tao1Shuo Yang3Bo Zhao†1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2505.12224v3 [cs.RO] 25 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vision-Language-Action (VLA) models have recently advanced robotic manipulation"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first construct a large-scale and diverse dataset of robotic failures ( RoboFAC dataset )"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Simulation Data. ... we collect the simuluation data for 14 robotic tasks in the ManiSkill environment ...” and “To generate failure data, we replace the original expert policy with a code snippet that generates an erroneous trajectory...” and “Real-World Data. We collected real-world data for 6 tasks ... Data collection is performed via teleoperation using the SO-100 robotic arm.” and “We annotate the raw data to construct video-based QA samples...”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we collect the simuluation data for 14 robotic tasks...” and “Data collection is performed via teleoperation using the SO-100 robotic arm.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Given the motion planning for the robotic arm occasionally failed, resulting in trajectories that did not align with the corresponding textual descriptions, we manually performed thorough data cleaning and retained approximately 75% of the collected data.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The RoboFAC dataset includes a total of 8,960 failure trajectories in the simulated environment and 480 failure trajectories in the real world. ... we also collect 1,160 successful trajectories from simulation and 122 successful trajectories from real-world executions.” and “During data collection, we record each robotic failure video along with a corresponding descriptive text.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For each sample, the reference answer is generated based on the textual description associated with the video... For the remaining three types... we utilize both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers... all outputs from GPT-4o were manually reviewed and corrected.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To ensure annotation quality, all outputs from GPT-4o were manually reviewed and corrected.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For the failure explanation, high-level correction, and low-level correction questions, we employed GPT-4o to annotate the data.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a large-scale and diverse robotic failure dataset"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our current integration of the model into the VLA-controlled robotic system is not yet seamless... apply our model exclusively to the VLA model in this work. However, for hierarchical policies, more targeted correction strategies could be designed"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Such improvements could enable the development of a fully automated system for collecting robotic failure recovery data."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "specifically developed for robotic failure analysis and correction, which is capable of Task Understanding, Failure Analysis, and Failure Correction based on robot video... the model can effectively improve the success rate when integrated as an external critic in real-world VLA control tasks"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To prevent models from overfitting to failure pattems, we also collect 1,160 successful trajectories from simulation and 122 successful trajectories from real-world executions."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we manually performed thorough data cleaning and retained approximately 75% of the collected data."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.0082,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 19899,
+        "tokens_in": 4635,
+        "tokens_out": 464
+      },
+      "collection": {
+        "section_chars": 34060,
+        "tokens_in": 7986,
+        "tokens_out": 549
+      },
+      "annotation": {
+        "section_chars": 7557,
+        "tokens_in": 1982,
+        "tokens_out": 414
+      },
+      "impact": {
+        "section_chars": 9711,
+        "tokens_in": 3819,
+        "tokens_out": 404
+      },
+      "processing": {
+        "section_chars": 34060,
+        "tokens_in": 7856,
+        "tokens_out": 172
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 22.3,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 19469,
+      "output_tokens": 175
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

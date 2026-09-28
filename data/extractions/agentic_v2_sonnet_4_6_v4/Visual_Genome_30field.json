@@ -1,0 +1,259 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "A large-scale dataset of images densely annotated with region descriptions, objects, attributes, relationships, region graphs, scene graphs, and question-answer pairs, designed to enable cognitive computer vision tasks such as image description and question answering. Contains over 100K images with an average of 21 objects, 18 attributes, and 18 pairwise relationships per image, all canonicalized to WordNet synsets.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei",
+    "publisher": null,
+    "datePublished": "2016-02-23",
+    "inLanguage": "en",
+    "citeAs": "Krishna, R., Zhu, Y., Groth, O., Johnson, J., Hata, K., Kravitz, J., Chen, S., Kalantidis, Y., Li, L.-J., Shamma, D. A., Bernstein, M. S., & Fei-Fei, L. (2016). Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations. arXiv:1602.07332.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk. The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation. Approximately 800,000 Human Intelligence Tasks (HITs) were launched on AMT, where each HIT involved creating descriptions, questions and answers, or region graphs.",
+    "rai:dataCollectionType": "Web Scraping, Manual Human Curator, User-generated content data",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "108,249 images from the intersection of the YFCC100M (100 million Flickr images) and MS-COCO (328,000 images) datasets. These images are real-world, non-iconic images uploaded onto Flickr by users.",
+    "rai:dataCollectionTimeframe": "Approximately 6 months of data collection after 15 months of experimentation",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Region descriptions were filtered using BLEU score thresholds (0.7) to ensure diversity. Objects were extracted using Stanford's dependency parser combined with crowdsourcing. Scene graphs were constructed by merging region graph objects with bounding box overlap over union of 0.8. All objects, attributes, and relationships were canonicalized to WordNet synsets. For experiments, attributes were lowercased, lemmatized, and stripped of excess whitespace.",
+    "rai:dataAnnotationProtocol": "Annotations were collected via Amazon Mechanical Turk in multiple stages: (1) Workers drew bounding boxes and wrote region descriptions; (2) Workers extracted objects from descriptions and drew bounding boxes; (3) Workers extracted attributes and relationships to form region graphs; (4) Workers created question-answer pairs (freeform and region-based); (5) All annotations were verified using majority voting (3 workers per annotation, at least 2 must agree) or rapid judgments for objects. Canonicalization of concepts to WordNet synsets was also verified by AMT workers.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Majority voting was used for most components: three unique workers voted on each annotation, and an annotation was included if at least two agreed. Rapid judgments were used for object verification. BLEU score thresholds were used to enforce diversity in region descriptions. Canonicalization precision and recall were evaluated on held-out test sets (Objects: 88.0% precision, 98.5% recall; Attributes: 85.7% precision, 95.9% recall; Relationships: 92.9% precision, 88.5% recall).",
+    "rai:annotationsPerItem": "3 workers per annotation for verification via majority voting; average of 42 region descriptions per image; average of 17 QA pairs per image",
+    "rai:annotatorDemographics": "Over 33,000 unique workers. Geographic distribution: United States 93.02%, Philippines 1.29%, Kenya 1.13%, India 0.94%, Russia 0.50%, Canada 0.47%, Others 2.65%. Age: majority between 25-34 years old, youngest 18, oldest 68. Gender: 54.15% male, 45.85% female.",
+    "rai:machineAnnotationTools": "Stanford NLP dependency parser (Manning et al., 2014) was used to extract nouns and noun phrases; word2vec (Mikolov et al., 2013) was used for semantic analysis of descriptions.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The dataset is somewhat biased towards images of people and towards certain sports (skiing, surfboarding) due to the image source. Workers were predominantly from the United States (93.02%).",
+    "rai:dataLimitations": "Canonicalization mappings are not perfect and still contain some ambiguity. The dataset contains a long-tail distribution of answers. Current models are unable to reason about complex images as shown by low accuracy in region description generation.",
+    "rai:dataUseCases": "Training and benchmarking computer vision models for: object detection, attribute prediction, relationship prediction, region description generation, visual question answering, dense image captioning, semantic image retrieval, image understanding evaluation, and knowledge representation."
+  },
+  "usage": {
+    "input_tokens": 64546,
+    "output_tokens": 3298
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:25:28.766036Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present the Visual Genome dataset to enable the modeling of such relationships."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset contains over 100K images where each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects. We canonicalize the objects, attributes, relationships, and noun phrases in region descriptions and questions answer pairs to WordNet synsets."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Further visualizations, API, and additional information on the Visual Genome dataset can be found online: https://visualgenome.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bemstein, Li Fei-Fei"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1602.07332v1 [cs.CV] 23 Feb 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collect dense annotations of objects, attributes, and relationships within each image... region descriptions and questions answer pairs to WordNet synsets."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1602.07332v1 [cs.CV] 23 Feb 2016"
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veried entirely by crowd workers from Amazon Mechanical Turk... The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation. Approximately 800,000 Human Intelligence Tasks (HITs) were launched on AMT, where each HIT involved creating descriptions, questions and answers, or region graphs."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first release of the Visual Genome dataset uses 108,249 images from the intersection of the YFCC100M (Thomee et al., 2016) and MS-COCO (Lin et al., 2014)... Visual Genome was collected and veried entirely by crowd workers from Amazon Mechanical Turk."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first release of the Visual Genome dataset uses 108,249 images from the intersection of the YFCC100M (Thomee et al., 2016) and MS-COCO (Lin et al., 2014)... These images are real-world, non-iconic images that were uploaded onto Flickr by users."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset was collected over the course of 6 months after 15 months of experimentation and iteration on the data representation."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we programmatically enforce that it has not been repeated by using BLEU score thresholds set to 0.7... we also use Stanford's dependency parser (Manning et al., 2014) to extract nouns automatically... We say that objects from different graphs refer to the same object if their bounding boxes have an overlap over union of 0.8... we map all objects, attributes, relationships, and noun phrases in region descriptions and QAs to synsets in WordNet (Miller, 1995)."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Verication is conducted using two separate strategies: majority voting (Snow et al., 2008) and rapid judgments (Krishna et al., 2016). All components of the dataset except objects are veried using majority voting. Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veried entirely by crowd workers from Amazon Mechanical Turk. We used Amazon Mechanical Turk (AMT) as our primary source of annotations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct... Precision Recall: Objects 88.0 98.5, Attributes 85.7 95.9, Relationships 92.9 88.5"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct... our dataset contains on average a total of 42 region descriptions per image... On average, every image has 17 QA pairs."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Overall, a total of over 33,000 unique workers contributed to the dataset... 93.02% of workers contributed from the United States... The majority of our workers were between the ages of 25 and 34 years old. Our youngest contributor was 18 years old and the oldest was 68 years old. We also had a near-balanced split of 54.15% male and 45.85% female workers."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also use Stanford's dependency parser (Manning et al., 2014) to extract nouns automatically and send them to the workers as suggestions... We use Stanford NLP tools (Manning et al., 2014) to extract the noun phrases from the region descriptions and QAs."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is somewhat biased towards images of people, as Figure 13 shows... Certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in our images... 93.02% of workers contributed from the United States."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These mappings are not perfect and still contain some ambiguity... The objectively low accuracy in both cases illustrates that current models are unable to reason about complex images."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we introduce the Visual Genome dataset with the aim of training and benchmarking the next generation of computer models for comprehensive scene understanding... numerous perceptual and cognitive tasks can be tackled... attributes, relationships, region descriptions, and question answer pairs."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.2431,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 58.3,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

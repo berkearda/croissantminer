@@ -1,0 +1,80 @@
+{
+  "dataset_id": "truthfulqa_truthful_qa",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "TruthfulQA",
+    "description": "TruthfulQA is a benchmark for measuring whether a language model gives truthful answers to questions. It comprises 817 questions spanning 38 categories, designed to elicit imitative falsehoods, with true and false reference answers and supporting sources for each question.",
+    "url": "https://github.com/sylinrl/TruthfulQA",
+    "license": null,
+    "creator": "Stephanie Lin (University of Oxford); Jacob Hilton (OpenAI); Owain Evans (University of Oxford)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Stephanie Lin, Jacob Hilton, and Owain Evans. 2022. TruthfulQA: Measuring How Models Mimic Human Falsehoods. arXiv:2109.07958v2.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "TruthfulQA was assembled by the authors as a benchmark of 817 questions. All questions were written by the authors and designed to elicit imitative falsehoods. The authors first wrote questions that some humans would answer falsely, tested them on GPT-3-175B, and filtered out questions that the model consistently answered correctly, producing 437 filtered questions. They then wrote 380 additional unfiltered questions expected to cause false answers. For validation, they recruited two external researchers: one validator reviewed a random sample of 100 questions with reference answers, and one participant answered 250 randomly sampled questions with internet access.",
+    "rai:dataCollectionType": "Manual Human Curator; Experiments",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of benchmark questions written by the authors, along with sets of true and false reference answers and a source supporting the answers such as a Wikipedia page. For validation, additional raw data included validator judgments on 100 sampled questions and participant answers to 250 sampled questions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The questions and reference answers in TruthfulQA were written by the authors; to estimate disagreement with their evaluations, they recruited two external researchers: a validator who was shown 100 sampled questions with one true and one false reference answer per question and asked to decide which answer was true and describe disagreements, and a participant who answered 250 randomly sampled questions with a suggested time of 2 minutes per question and access to the internet; the authors also carried out human evaluations of model answers using a fixed procedure with 13 qualitative labels for truthfulness and a similar label-based process for informativeness, with answers verified against reliable sources where appropriate.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The validator disagreed on 7% of questions; following the evaluation procedure, the authors marked 6% of the participant's answers as false; in human evaluation, qualitative labels were mapped to scalar truth scores, and scalar truth scores were thresholded at 0.5 for a binary true/false split.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-judge; GPT-info",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "TruthfulQA is intended only for the zero-shot setting; the questions were designed to be “adversarial” in the sense of testing for a weakness in the truthfulness of language models rather than testing models on a useful task; some questions may exploit non-imitative weaknesses; if a model performs well, we cannot conclude that it will be equally truthful on other kinds of tasks; TruthfulQA does not cover long-form generation or interactive settings; the questions were not collected from a deployed system and may over- or underestimate truthfulness for a deployed system; strong performance on TruthfulQA does not imply that a model will be truthful in a specialized domain; people may disagree with some evaluations and the authors estimate roughly 2-6% disagreement",
+    "rai:dataSocialImpact": "Deployed models making false statements could lead to deception and distrust; lack of clear evidence of truthfulness may block positive applications such as medical or legal advice; models that generate plausible false statements could be used to deceive humans via disinformation or fraud; truthful models could contribute to areas like medicine, law, science, and engineering, while non-truthful models could cause deception and distrust at scale; the authors claim TruthfulQA is unlikely to be useful for constructing deceptive models for malicious purposes",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "benchmark to measure whether a language model is truthful in generating answers to questions; test the behavior of models that are expected to be truthful; useful benchmark for both general-purpose and specialized models",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "TruthfulQA questions were constructed using an adversarial procedure with GPT-3-175B as the target model: the authors wrote questions and \"filtered out questions that the model consistently answered correctly when multiple random samples were generated at nonzero temperatures,\" producing 437 \"filtered\" questions, and then wrote 380 additional \"unfiltered\" questions.",
+    "rai:dataPreprocessingProtocol": "Based on validator and participant feedback, the authors \"modified 43 of our questions (5.3% of the total) to make them less ambiguous.\""
+  },
+  "usage": {
+    "input_tokens": 280380,
+    "output_tokens": 1312
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 56331,
+        "output_tokens": 191
+      },
+      "collection": {
+        "input_tokens": 56117,
+        "output_tokens": 244
+      },
+      "annotation": {
+        "input_tokens": 56111,
+        "output_tokens": 270
+      },
+      "impact": {
+        "input_tokens": 56060,
+        "output_tokens": 363
+      },
+      "processing": {
+        "input_tokens": 55761,
+        "output_tokens": 244
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 73235,
+      "output_tokens": 217
+    },
+    "timestamp": "2026-05-22T12:37:14.705674+00:00",
+    "elapsed_seconds": 35.5
+  }
+}

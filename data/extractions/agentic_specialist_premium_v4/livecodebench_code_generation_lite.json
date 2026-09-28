@@ -1,0 +1,80 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "LiveCodeBench is a comprehensive and contamination-free benchmark for evaluating large language models on code-related tasks. It collects new problems over time from coding contests on LeetCode, AtCoder, and CodeForces, tagging each with a release date to enable time-windowed evaluation. Beyond code generation, it covers self-repair, code execution, and test output prediction scenarios, hosting over 500 problems published between May 2023 and May 2024.",
+    "url": "https://livecodebench.github.io/",
+    "license": null,
+    "creator": "Naman Jain; King Han; Alex Gu; Wen-Ding Li; Fanjia Yan; Tianjun Zhang; Sida I. Wang; Armando Solar-Lezama; Koushik Sen; Ion Stoica",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida I. Wang, Armando Solar-Lezama, Koushik Sen, and Ion Stoica. LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code. arXiv:2403.07974, 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "HTML scrapers were written for LeetCode, AtCoder, and CodeForces to collect problems and corresponding metadata from weekly and biweekly contests. Problems, public tests, ground truth solutions, difficulty ratings, and contest dates were collected. For LeetCode, starter code and auto-grader failing tests were also collected. For AtCoder, both public and hidden tests were directly collected. For CodeForces, test case generators were semi-automatically constructed. Only publicly visible portions of websites were scraped, avoiding paywalled or login-required content.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Hidden tests for LeetCode problems are not directly available on the platform, requiring generator-based test input generation as a substitute. For CodeForces, complete tests are not provided on the platform as long tests are truncated.",
+    "rai:dataCollectionRawData": "Problem statements, ground truth solutions, test cases, difficulty ratings, and contest dates scraped from three competition platforms: LeetCode (weekly and biweekly contests), AtCoder (abc beginner round contests), and CodeForces (Division 3 and Division 4 contests). Additionally, a large pool of approximately 2000 correct human-submitted solutions was collected from LeetCode for the code execution scenario.",
+    "rai:dataCollectionTimeframe": "May 2023 to May 2024",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo (used to generate test input generators for problems where hidden tests were not directly available)",
+    "rai:dataBiases": "Models trained on LeetCode problems before their cutoff dates show inflated performance due to contamination; fine-tuned open-access models appear to overfit to HumanEval, with performances not generalizing to LiveCodeBench problems",
+    "rai:dataLimitations": "Benchmark size is limited (349 problems after contamination filtering), leading to estimated 1–1.5% performance variation; newer models with more recent cutoff dates have access to even smaller evaluation sets; currently focuses only on Python, not other programming languages; problems are sourced only from competition platforms and may not be representative of real-world software development or general LLM programming capabilities; prompt robustness is not fully tuned across models, potentially causing performance variance; LiveCodeBench is recommended as a starting point and should be supplemented with domain-specific evaluations",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Holistic and contamination-free evaluation of LLMs for code, covering code generation, self-repair, code execution, and test output prediction; detecting and avoiding benchmark contamination; comparing model performances across time windows; evaluating and comparing base models, instruction-tuned models, open-access and closed-access models on coding capabilities",
+    "rai:dataReleaseMaintenancePlan": "LiveCodeBench will keep updating with new problems, scenarios, and models; authors plan to add other competition platforms for problem collection and supplement with an unreleased private test set for model evaluation; all prompts and model completions will be released for community analysis along with a general toolkit for adding new scenarios and models",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For the Code Execution scenario, a large pool of approximately 2000 correct human-submitted solutions from LeetCode was collected, then filtered using compile-time and runtime filters to remove programs with multiple nested loops, complex numerical computations, and large numbers of execution steps, resulting in 479 samples from 85 problems. For test collection, when hidden tests were not directly available, GPT-4-Turbo was used to generate test inputs via LLM-based input generators that sample inputs based on problem specifications using in-context learning. A small fraction of failing tests from the platform was also collected for more recent problems to allow adversarial test collection. Problem difficulty ratings from competition platforms were used to filter out problems above a certain difficulty threshold and to classify problems as Easy, Medium, and Hard for balanced difficulty distribution.",
+    "rai:dataPreprocessingProtocol": "Problems were collected via HTML scrapers from LeetCode, AtCoder, and CodeForces. Mathematical formulas were parsed and problems with images were excluded. Problems not suitable for grading by input-output examples (e.g., those accepting multiple correct answers or requiring construction of data structures) were excluded. Problems were filtered by difficulty rating to exclude those above a certain threshold. For the code execution scenario, compile-time and runtime filters were applied: code length between 100 and 500 characters, no syntax errors, all necessary imports included, no floating point operations, true division, or exp, other integer operations must have at least one argument ≤3, string and list operations must have at least one argument with length ≤3, must finish running in 2 seconds, and must have a reasonable number of steps (under 1000 Python bytecode operations)."
+  },
+  "usage": {
+    "input_tokens": 228470,
+    "output_tokens": 1790
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 48620,
+        "output_tokens": 390
+      },
+      "collection": {
+        "input_tokens": 34589,
+        "output_tokens": 343
+      },
+      "annotation": {
+        "input_tokens": 48575,
+        "output_tokens": 189
+      },
+      "impact": {
+        "input_tokens": 48535,
+        "output_tokens": 433
+      },
+      "processing": {
+        "input_tokens": 48151,
+        "output_tokens": 435
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55623,
+      "output_tokens": 330
+    },
+    "timestamp": "2026-05-02T18:39:05.692365+00:00",
+    "elapsed_seconds": 55.3
+  }
+}

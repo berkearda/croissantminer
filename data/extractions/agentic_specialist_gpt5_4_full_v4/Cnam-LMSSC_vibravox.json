@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Cnam-LMSSC_vibravox",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Vibravox",
+    "description": "Vibravox is a GDPR-compliant dataset of French speech captured with five body-conduction audio sensors and a reference airborne microphone. It contains 45 hours per sensor of speech samples and physiological sounds recorded by 188 participants under different acoustic conditions, with annotations about recording conditions and linguistic transcriptions.",
+    "url": "https://huggingface.co/datasets/Cnam-LMSSC/vibravox",
+    "license": "Creative Commons Attribution 4.0 International license",
+    "creator": "Julien Hauret; Malo Olivier; Thomas Joubaud; Christophe Langrenne; Sarah Poirée; Véronique Zimpfer; Éric Bavu",
+    "publisher": "HuggingFace",
+    "datePublished": "2024",
+    "inLanguage": "fr",
+    "citeAs": "Julien Hauret, Malo Olivier, Christophe Langrenne, Sarah Poirée, and Éric Bavu. vibravox (revision 071945b). 2024. https://huggingface.co/datasets/Cnam-LMSSC/vibravox",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected by recording participants wearing six audio sensors simultaneously under a controlled protocol. Each participant completed four consecutive recording steps: reading French Wikipedia sentences in quiet conditions, remaining silent in spatialized noisy conditions, remaining silent in quiet conditions, and reading in noisy conditions. The authors designed the recording protocol, assembled the hardware, and built dedicated software for controlled data acquisition.",
+    "rai:dataCollectionType": "Direct measurement; Experiments; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "A total of 30,568 sentences were initially collected from 200 participants in the speech-clean subset, but 188 participants were retained after post-processing, with 28,471 sentences kept. The paper states that mispronounced sentences, sensors shifting from their initial positions, occasional sensor malfunctions, or instances where a microphone was inadvertently left unequipped led to data inconsistencies, and that 6% of participants and 6.8% of pronounced sentences were excluded.",
+    "rai:dataCollectionRawData": "Raw/source data included simultaneous audio recordings from five body-conduction sensors and one airborne headset microphone recorded at 48 kHz and 32 bits; participant reading text sourced from the French Wikipedia subset of Common Voice; and ambient noise excerpts, with a significant proportion sourced from AudioSet plus in-house recordings of concerts and street events in 3rd and 5th order ambisonics.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The dataset includes linguistic transcriptions generated from normalized French Wikipedia text; the corresponding phonetic transcription was generated using the CoML lab phonemizer, and for words where the phonemizer produced unwanted language switches, a phase of manual phonetic transcription was performed for unrecognized words such as \"algorithme\".",
+    "rai:dataAnnotationPlatform": "CoML lab phonemizer",
+    "rai:dataAnnotationAnalysis": "A series of three automatic filters was applied to retain only sentences with correct pronunciation and sufficiently high SNR: Phoneme Error Rate was computed as the Levenshtein distance between the phonetic labeled transcription and the phonetic transcription derived from Whisper output, and samples were kept only if PER < 10%, SNR > 1.5 dB, and Lspeech50 exceeded mean silence level.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "97F/91M participants retained in the released dataset; split counts: train 77F/72M, validation 9F/9M, test 11F/10M",
+    "rai:machineAnnotationTools": "CoML lab phonemizer; whisper-timestamped model; Whisper",
+    "rai:dataBiases": "A deliberate effort was made to recruit a diverse and gender-balanced group of participants.",
+    "rai:dataLimitations": "Existing BCM datasets still exhibit several notable limitations: they often lack the necessary scale and diversity to comprehensively cover the full range of acoustic scenarios encountered in real-world applications; absence of publicly available BCM datasets in French; problems with signal quality, including noise and artifacts; limited variety of sensors making it difficult to generalize results across different recording environments and equipment configurations; for Vibravox, some participants’ ear canal was too small for the rigid in-ear microphone to achieve proper acoustic sealing; the speech-noisy subset primarily serves testing purposes, as it lacks a clean reference under such conditions; EBEN enhancement had a detrimental impact on speaker verification performance",
+    "rai:dataSocialImpact": "The dataset offers considerable potential across various applications, particularly in improving communication in noisy environments; it could support the development of robust communication systems for real-world applications.",
+    "rai:personalSensitiveInformation": "The dataset is compliant with GDPR; informed consent was obtained, and data were anonymized and encrypted during storage and analysis; the speechless-clean samples can be valuable for tasks such as heart rate tracking and contain physiological sounds; speaker verification is described as a biometric authentication method that uses a person’s voice to confirm their identity.",
+    "rai:dataUseCases": "speech recognition; speech enhancement; speaker verification; bandwidth extension; developing voice commands; monitoring vital signs, including heart rate; generating synthetic datasets with realistic physiological and sensor-inherent noise captured by body-conduction audio sensors",
+    "rai:dataReleaseMaintenancePlan": "The continued availability of these resources is likely to facilitate further advances and innovations in body-conducted speech technology.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset is then split by speaker, with 80% of male and female speakers in the training set, 10% in the development/validation set, and 10% in the test set. This ensures that all utterances from a given speaker are grouped together, preventing any speaker overlap between splits.",
+    "rai:dataPreprocessingProtocol": "To enhance audio data quality, a 20 Hz high-pass filter is uniformly applied to each acquisition channel, effectively attenuating low-frequency noise and artifacts. The textual data was further filtered to produce a simplified dataset with a minimum number of textual and phonemic symbols and to minimize pronunciation uncertainty. To create this simplified dataset, we applied textual filters that excluded most proper names, retaining only common first names, French town or region names, and country names. Moreover, utterances containing numbers, Greek letters, mathematical symbols, or syntactic errors were carefully removed. Once the unwanted sentences were removed, we applied common text normalization operations, such as lowercasing text and removing punctuation except for apostrophes. In order to ensure that our dataset would allow for meaningful error analysis between sensors across multiple speech processing tasks, we applied a series of three automatic filters to remove utterances with obvious deficiencies. We retained only sentences with correct pronunciation and a sufficiently high SNR. The first filter discards any audio samples where PER[j] > 10%. The second filter is employed to verify that the sensor is functioning correctly, specifically by examining the ratio between speech and silence energy levels on a given sample. The last filter is designed to detect any potential sensitivity drift on the sensors. Only speech-clean samples that pass the three filters are added to the Vibravox dataset. Note that if a sample j passes all filters, it is not immediately added to the dataset. Instead, the timestamps generated by Voice Activity Detection (VAD) are extended by 0.6 seconds on both sides. In rare cases where the adjusted start or end timestamps exceed the original audio boundaries, the audio is trimmed by 15 ms on the affected side. This approach helps eliminate unwanted artifacts, such as mouse clicks at segment edges, while ensuring more reliable capture of vocal segments without discarding valid speech."
+  },
+  "usage": {
+    "input_tokens": 205222,
+    "output_tokens": 2198
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 41299,
+        "output_tokens": 234
+      },
+      "collection": {
+        "input_tokens": 41085,
+        "output_tokens": 590
+      },
+      "annotation": {
+        "input_tokens": 41080,
+        "output_tokens": 268
+      },
+      "impact": {
+        "input_tokens": 41021,
+        "output_tokens": 353
+      },
+      "processing": {
+        "input_tokens": 40737,
+        "output_tokens": 753
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64432,
+      "output_tokens": 690
+    },
+    "timestamp": "2026-05-22T09:58:03.228504+00:00",
+    "elapsed_seconds": 43.9
+  }
+}

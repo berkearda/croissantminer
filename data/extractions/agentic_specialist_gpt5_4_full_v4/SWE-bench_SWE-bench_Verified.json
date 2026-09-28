@@ -1,0 +1,80 @@
+{
+  "dataset_id": "SWE-bench_SWE-bench_Verified",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "SWE-bench is an evaluation framework for language models consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given an issue description and a codebase snapshot, models generate a patch that is evaluated against real tests to determine whether the issue is resolved.",
+    "url": "swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez (Princeton University; Princeton Language and Intelligence); John Yang (Princeton University; Princeton Language and Intelligence); Alexander Wettig (Princeton University; Princeton Language and Intelligence); Shunyu Yao (Princeton University; Princeton Language and Intelligence); Kexin Pei (University of Chicago); Ofir Press (Princeton University; Princeton Language and Intelligence); Karthik Narasimhan (Princeton University; Princeton Language and Intelligence)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? Published as a conference paper at ICLR 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The benchmark was constructed by collecting pull requests from popular open-source Python repositories on GitHub, then selecting merged pull requests that resolve a GitHub issue and modify test files, and finally filtering candidates by executing tests before and after applying the pull request changes.",
+    "rai:dataCollectionType": "Web API; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Pull requests, GitHub issues, commit messages, repository codebases at each pull request's base commit, and test and solution patches from open-source GitHub repositories; for repository selection, the authors started from a list of the top 5,000 most downloaded PyPI libraries during August 2023 and collected pull requests for selected repositories via the GitHub developer API.",
+    "rai:dataCollectionTimeframe": "August 2023",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The paper states that SWE-bench's filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection.",
+    "rai:dataLimitations": "SWE-bench task instances are all in Python; the experiments establish only baseline simple and straightforward approaches and do not constrain future methodologies; relying solely on execution-based code testing is insufficient to guarantee reliable performance because automated code generations can be less comprehensive, efficient, or readable than human-written solutions",
+    "rai:dataSocialImpact": "A potential future of machine-automated software engineering raises important questions for AI safety, including how to ensure AI-generated code is faithful to human intents and what guardrails might be needed when human objectives are misinterpreted by code agents; the authors hope SWE-bench can serve as a testbed for designing safe, robust measures toward aligned, verifiable, and safe AI-driven software engineering",
+    "rai:personalSensitiveInformation": "The authors state that they do not collect information about GitHub users, and that SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website",
+    "rai:dataUseCases": "evaluating language models in a realistic software engineering setting; advancing open model development in repository-scale software engineering via the SWE-bench-train dataset; serving as a testbed to compare approaches such as retrieval, long-context models, and decision-making agents for code; designing safe, robust measures toward aligned, verifiable, and safe AI-driven software engineering",
+    "rai:dataReleaseMaintenancePlan": "The benchmark can be continuously updated with new task instances using the collection process with minimal human intervention; for the dataset release, the authors plan to open source the SWE-bench task instances, collection and evaluation infrastructure, experimental results, training data, and SWE-Llama model weights, with documentation and communication channels for feedback",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The original 90,000 PRs are filtered down to the 2,294 task instances which comprise SWE-bench. Candidate tasks are created by selecting merged PRs that (1) resolve a GitHub issue and (2) make changes to the test files of the repository. They further filter out task instances without at least one test where its status changes from a fail to pass, and filter out instances that result in installation or runtime errors. For SWE-bench Lite, they create a subset of 300 instances from SWE-bench that have been sampled to be more self-contained, with a focus on evaluating functional bug fixes. For training, they exclude training sequences with more than 30,000 tokens, reducing the effective size of the training corpus to 10,000 instances.",
+    "rai:dataPreprocessingProtocol": "To form the problem statement, they concatenate issue titles, bodies, and comments created before the PR’s initial commit, first remove any Markdown-style comments, and then look through the remaining text for references to issue numbers. During retrieval they make a slight augmentation to the documents by prepending files’ contents with their file paths to better enable retrieval based on filenames that may be mentioned directly in the issue."
+  },
+  "usage": {
+    "input_tokens": 269477,
+    "output_tokens": 1922
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 54146,
+        "output_tokens": 286
+      },
+      "collection": {
+        "input_tokens": 53930,
+        "output_tokens": 354
+      },
+      "annotation": {
+        "input_tokens": 53954,
+        "output_tokens": 110
+      },
+      "impact": {
+        "input_tokens": 53865,
+        "output_tokens": 696
+      },
+      "processing": {
+        "input_tokens": 53582,
+        "output_tokens": 476
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 66902,
+      "output_tokens": 813
+    },
+    "timestamp": "2026-05-22T11:12:12.838151+00:00",
+    "elapsed_seconds": 47.1
+  }
+}

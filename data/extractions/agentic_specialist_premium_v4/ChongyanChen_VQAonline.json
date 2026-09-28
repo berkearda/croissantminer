@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "VQAonline is a Visual Question Answering dataset sourced from the Stack Exchange online question answering platform, containing 64,696 examples each with an authentic natural language question, image, context, and an answer validated by the person who asked the question. It spans 105 diverse topics and is the first VQA dataset in which all contents originate from an authentic use case end to end. Answers are notably long, with a mean of 173 words, distinguishing it from prior VQA datasets.",
+    "url": "https://vqaonline.github.io/",
+    "license": "cc-by-sa 4.0",
+    "creator": "Chongyan Chen (University of Texas at Austin); Mengchen Liu (Microsoft); Noel Codella (Microsoft); Yunsheng Li (Microsoft); Lu Yuan (Microsoft); Danna Gurari (University of Texas at Austin; University of Colorado Boulder)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, and Danna Gurari. Fully Authentic Visual Question Answering Dataset from Online Communities. arXiv:2311.15562v4 [cs.CV], 17 Jul 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by scraping data from the online question-answering platform Stack Exchange. The publicly-available Stack Exchange data archive (hosted at https://archive.org/details/stackexchange in XML format) was downloaded and filtered to collect examples containing a natural language question (post title), a natural language context (post body), an image (via URL link), and at least one accepted answer. Only examples from 105 topical sites were retained, and filtering steps removed low-quality posts (score ≤ 0), posts with multiple images or GIF, posts with visual answers, and posts where the image URL could not be downloaded.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Some visual questions were excluded because the image could not be downloaded from the provided URL link, reducing the dataset from 65,849 to 64,696 visual questions.",
+    "rai:dataCollectionRawData": "Stack Exchange archive in XML format, hosted at https://archive.org/details/stackexchange, containing user-posted questions (titles), contextual descriptions (body text), images (via URL links), and answers from 105 topical Stack Exchange sites. The raw candidate pool started at 330,705 visual questions before filtering.",
+    "rai:dataCollectionTimeframe": "August 2010 to November 2022",
+    "rai:dataAnnotationProtocol": "Two annotation tasks were performed. (1) User intention annotation: crowdworkers were shown each visual question, context, and answer and asked to assign one primary intent category from a taxonomy of 8 categories (advice, evidence, identification, instruction, opinion, reason, verification, other). Workers received one-on-one Zoom training, a qualifying test, and written instructions with definitions and two examples per category. (2) Human evaluation of model-generated answers: ten domain experts (each with at least a Master's degree in a relevant field) were each assigned 20 VQAs from their topic and asked to rate six model-generated answers per VQA as incorrect (0), partially correct (0.5), or correct (1) using a home-grown web-based interface. Experts received one-on-one training sessions. Additionally, two authors annotated user intention categories across four rounds to develop and refine the taxonomy, resolving disagreements through discussion.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk; home-grown web-based interface (for domain expert evaluation)",
+    "rai:dataAnnotationAnalysis": "For user intention annotation: two independent crowdworkers (A and B) annotated each of 105 VQAs; when they disagreed (25 out of 105 cases), a third worker (C) broke the tie by selecting one of the two provided labels, yielding a majority vote label. For taxonomy development, agreement accuracy and Cohen's kappa were tracked across four rounds (agreement accuracy improved from 53.3% to 87.5%; Cohen's kappa from 45.24% to 84.69%). For domain expert evaluation, mean human ratings per model were computed across 200 VQAs and Pearson and Spearman correlations with quantitative metrics were calculated.",
+    "rai:annotationsPerItem": "2 to 3",
+    "rai:annotatorDemographics": "Crowdworkers for user intention: located in the United States, completed more than 500 HITs with over 95% approval rating on Amazon Mechanical Turk. Domain experts for model evaluation: located in the United States (to ensure English proficiency), each with at least a Master's degree in a field related to their assigned VQA topic.",
+    "rai:machineAnnotationTools": "GPT-3.5 (used via zero-shot prompting to bootstrap initial user intention categories); DeepSolo (used to detect text presence in images); LLaMA2 (used to automatically rate model-generated answer correctness as 0, 0.5, or 1)",
+    "rai:dataBiases": "The dataset may poorly represent people in poverty-stricken areas since VQAs are posted by Stack Exchange users with access to mobile devices and Internet; the geographic representation of Stack Exchange is unbalanced, with more from countries like US, India, Europe and less from countries like Egypt",
+    "rai:dataLimitations": "Answers are considerably longer (mean of 173 words) and incompatible with standard VQA evaluation metrics; most benchmarked models are believed to have been trained on Stack Exchange data, potentially giving them an unfair advantage; GPT-4V reproducibility is a major concern due to its proprietary nature; the dataset may poorly represent people in poverty-stricken areas; geographic representation is unbalanced",
+    "rai:dataSocialImpact": "Improved models designed for VQAonline can benefit real-world applications including other community question answering platforms, learning assistance VQA tools for children, virtual assistants, visual dialog and query, as well as visual search and browsing",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmarking and improving VQA models; few-shot learning; evaluating evaluation metrics for lengthy textual answers; facilitating research on multilingual VQA and text VQA; supporting community question answering platforms, learning assistance VQA tools for children, virtual assistants, visual dialog and query, and visual search and browsing; exploring the hallucination issue in authentic use cases",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset supports few-shot learning through training, validation, and test splits created by randomly selecting from each of the 105 topics 7 examples for training and 3 examples for validation for topics with at least 20 examples. The remaining examples form the test set of 63,746 examples.",
+    "rai:dataPreprocessingProtocol": "The dataset underwent several filtering steps: (1) removed visual questions without an accepted answer (reducing from 330,705 to 165,766); (2) removed visual questions with scores of 0 or less for either the question or answer (reducing to 119,177); (3) excluded visual questions with multiple images or GIFs (reducing to 85,573); (4) removed visual questions with visual answers (reducing to 65,849); (5) removed examples for which the image could not be downloaded from the provided URL link (resulting in a final dataset of 64,696 visual questions); and (6) converted all images to PNG format for data format consistency."
+  },
+  "usage": {
+    "input_tokens": 227435,
+    "output_tokens": 2027
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 51262,
+        "output_tokens": 370
+      },
+      "collection": {
+        "input_tokens": 37089,
+        "output_tokens": 337
+      },
+      "annotation": {
+        "input_tokens": 37103,
+        "output_tokens": 613
+      },
+      "impact": {
+        "input_tokens": 51184,
+        "output_tokens": 414
+      },
+      "processing": {
+        "input_tokens": 50797,
+        "output_tokens": 293
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 42088,
+      "output_tokens": 148
+    },
+    "timestamp": "2026-05-02T17:45:28.758577+00:00",
+    "elapsed_seconds": 61.9
+  }
+}

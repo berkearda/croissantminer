@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "OpenBookQA is an open book question answering dataset consisting of 5,957 4-way multiple-choice questions and a set of 1,326 elementary-level science facts that serve as the \"open book.\" The questions are designed to require combining a core science fact with additional common knowledge to answer novel situations.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": null,
+    "creator": "Todor Mihaylov (Allen Institute for Artificial Intelligence; Heidelberg University); Peter Clark (Allen Institute for Artificial Intelligence); Tushar Khot (Allen Institute for Artificial Intelligence); Ashish Sabharwal (Allen Institute for Artificial Intelligence)",
+    "publisher": null,
+    "datePublished": "2018",
+    "inLanguage": "en",
+    "citeAs": "Todor Mihaylov, Peter Clark, Tushar Khot, and Ashish Sabharwal. 2018. Can a Suit of Armor Conduct Electricity? A New Dataset for Open Book Question Answering. arXiv:1809.02789v1.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled through a multi-stage crowdsourcing pipeline starting from a set of core science facts. Workers were shown a random science fact, asked to think of a second common fact, create a multiple-choice question with one correct and three incorrect answers, pass automated checks and hardness filtering against baseline solvers, and then have the question answered by five new crowdworkers; questions answered correctly by at least 4 of 5 workers were kept. The core fact was then associated with the question, and the worker-provided second fact was added as auxiliary data. The core fact set itself was created by taking a subset of WorldTree facts marked as central and further filtering them to those general enough to apply to multiple situations.",
+    "rai:dataCollectionType": "Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "The paper states that the worker-provided second facts were often incomplete, over-complete, or only distantly related to the question.",
+    "rai:dataCollectionRawData": "A subset of the WorldTree corpus was used for the core fact set, specifically from 2287 WorldTree facts marked as central, filtered down to 1326 facts. The collected dataset consists of 5957 multiple-choice questions, 1326 core science facts, and about 6000 additional worker-provided second facts.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A multi-stage crowdsourcing process was used: a worker was shown a random science fact, asked to think of a second common fact that could be combined with it, create a new 4-way multiple-choice question with one correct answer and three incorrect choices, pass system checks for answer-choice uniformity and hardness against an IR solver and a word-association solver, then the question was shown to 5 new crowd-workers for answering; questions with at least 4 of 5 correct were kept, answer choices were randomly shuffled, and the Dev and Test splits were further filtered by an in-house expert.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Questions were retained only if at least 4 out of 5 crowd-workers answered correctly; answer choices were randomly shuffled to reduce bias; Dev and Test were further filtered by an in-house expert.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": "workers from North America; 'masters' level qualification",
+    "rai:machineAnnotationTools": "information retrieval solver; word association based solver",
+    "rai:dataBiases": "human bias in any crowdsourced dataset",
+    "rai:dataLimitations": "In 21% of the analyzed cases, the crowdsourced question tests for a fact that does not necessarily need the original science fact; the additional facts K should not be viewed as gold additional facts, or as a substitute for broad common knowledge; the second facts were often incomplete, over-complete, or only distantly related to the question",
+    "rai:dataSocialImpact": "To encourage further research on this new task, for each Train and Dev question OpenBookQA also includes the core fact as intermediate supervision signal, which may be viewed as a partial explanation",
+    "rai:personalSensitiveInformation": "Crowd-workers were from North America and had a 'masters' level qualification.",
+    "rai:dataUseCases": "assessing human understanding of a subject; evaluating question answering systems that combine provided science facts with broad common knowledge; encouraging further research on open book question answering and multi-hop reasoning",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was created with a multi-stage process that included using an automatic filter to ensure hardness for retrieval and association based systems, a crowd filter to ensure answerability by a lay person, an expert filter to ensure higher quality in Dev and Test sets, discarding questions if fewer than 4 of 5 workers answered correctly, and randomly shuffling answer choices to avoid unintended bias.",
+    "rai:dataPreprocessingProtocol": "The authors filtered the initial set of 2287 WorldTree facts down to 1326 facts that appeared general enough to be applicable to multiple situations, and the system verified generated questions passed basic checks such as having exactly 4 answer choices, no negation words, and uniform answer choice length."
+  },
+  "usage": {
+    "input_tokens": 135782,
+    "output_tokens": 1570
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30268,
+        "output_tokens": 242
+      },
+      "collection": {
+        "input_tokens": 30046,
+        "output_tokens": 545
+      },
+      "annotation": {
+        "input_tokens": 15780,
+        "output_tokens": 223
+      },
+      "impact": {
+        "input_tokens": 29990,
+        "output_tokens": 223
+      },
+      "processing": {
+        "input_tokens": 29698,
+        "output_tokens": 337
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 56952,
+      "output_tokens": 494
+    },
+    "timestamp": "2026-05-22T11:16:20.463346+00:00",
+    "elapsed_seconds": 30.3
+  }
+}

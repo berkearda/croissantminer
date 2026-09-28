@@ -1,0 +1,287 @@
+{
+  "dataset_id": "common-canvas_commoncatalog-cc-by",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "CommonCatalog",
+    "description": "A dataset of roughly 70 million Creative-Commons-licensed (CC) images paired with high-quality synthetic captions generated using a pre-trained BLIP-2 model. It was curated to train text-to-image generative models as an alternative to web-scraped datasets like LAION-2B.",
+    "url": "https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md",
+    "license": "Creative Commons",
+    "creator": "Aaron Gokaslan, A. Feder Cooper, Jasmine Collins, Landan Seguin, Austin Jacobson, Mihir Patel, Jonathan Frankle, Cory Stephenson, Volodymyr Kuleshov",
+    "publisher": "Cornell Tech and Databricks Mosaic",
+    "datePublished": "2023-10-25",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Creative-Commons-licensed images were sourced from YFCC100M, and synthetic captions were generated using a pre-trained BLIP-2 OPT2.5B model. Images were center-cropped and resized to a maximum of 512x512 pixels for captioning, while native resolution was retained for training.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "YFCC100M Creative-Commons images, consisting of roughly 70 million usable CC images (26 million commercial, 67 million non-commercial), most lacking alt-text captions. Synthetic captions were generated using BLIP-2 OPT2.5B.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Qualitative analysis and quantitative CLIP Score comparison between BLIP-2 synthetic captions and ground-truth alt-text captions, finding BLIP-2 captions are higher quality but less diverse",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BLIP-2 OPT2.5B model used to generate synthetic captions for CC images",
+    "rai:dataBiases": "The YFCC100M data used in CommonCatalog is about a decade old, meaning its CC images are not as current as those in LAION-2B. Additionally, synthetic captions generated via BLIP-2 (telephoning) may introduce biases from the pre-trained captioning model.",
+    "rai:dataLimitations": "CommonCatalog is limited in size (~70M commercial, ~25M non-commercial images) compared to LAION-2B (~2B images), uses synthetically generated captions rather than original human-written captions, and the underlying image data is outdated (~decade old). Models trained on it underperform in some categories like faces.",
+    "rai:dataSocialImpact": "The dataset is designed to address copyright concerns in training generative AI models by using only Creative-Commons-licensed images, providing a path forward for legally safer T2I model training amid ongoing copyright litigation.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training text-to-image generative models (latent diffusion models). The dataset is intended as a copyright-safer alternative to web-scraped datasets like LAION-2B for training T2I models.",
+    "rai:dataReleaseMaintenancePlan": "The CommonCatalog dataset and trained CommonCanvas models are released publicly. Future plans include augmenting CommonCatalog with Creative-Commons images from other sources.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Synthetic captions were generated for CC images using the pre-trained BLIP-2 OPT2.5B model. Images were divided into commercial (CommonCatalog-C) and non-commercial (CommonCatalog-NC) subsets based on license type. Non-derivative (ND) licensed images were excluded.",
+    "rai:dataPreprocessingProtocol": "Images were center-cropped and resized to a maximum size of 512x512 pixels for the captioning step. At training time, all images remain in their native resolution. VAE and text encoder latents were pre-computed over the entire training dataset."
+  },
+  "usage": {
+    "input_tokens": 32388,
+    "output_tokens": 2679
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:47:08.901024Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Curate CommonCatalog, a dataset of roughly 70 million open-licensed CC images, for which we use telephoning to generate accompanying high-quality synthetic captions (Section 4)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Curate CommonCatalog, a dataset of roughly 70 million open-licensed CC images, for which we use telephoning to generate accompanying high-quality synthetic captions (Section 4)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Release our CommonCatalog dataset of CC images and synthetic captions along with our trained CommonCanvas model at https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images"
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Aaron Gokaslan, A. Feder Cooper, Jasmine Collins, Landan Seguin, Austin Jacobson, Mihir Patel, Jonathan Frankle, Cory Stephenson, Volodymyr Kuleshov"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Cornell Tech ... 2Databricks Mosaic"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2310.16825v1 [cs.CV] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "high-quality synthetic captions paired with curated CC images"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our models, data, and code at https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Based on these preliminary results, we captioned all of the YFCC100M Creative-Commons images, which required about 1,120 GPU A100 hours. To do so, we center-cropped and resized all of the images to a maximum size of 512x512 pixels."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "YFCC100M contains 100 million images... we captioned all of the YFCC100M Creative-Commons images"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CommonCatalog contains roughly 70 million NC CC-images, of which a subset of approximately 25 million images can also be used commercially... CC images rarely have the alt-text captions necessary to train a T2I model like Stable Diffusion"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we found that the resulting BLIP-2 caption is often qualitatively more descriptive than the corresponding LAION-2B ground-truth alt-text caption... This finding is corroborated by Nguyen et al. [42], which shows quantitatively (in terms of CLIP Score) that BLIP-2 captions are higher quality than ground-truth captions, at the cost of caption diversity."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we chose to use the pre-trained BLIP-2 OPT2.5B model for synthesizing CommonCatalog's captions [34]... we captioned all of the YFCC100M Creative-Commons images, which required about 1,120 GPU A100 hours."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our CommonCanvas models under-perform in some categories, like faces... An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "US courts have yet to definitively rule if this is permissible under copyright law... In this work, we study the following natural question: Is it possible to efficiently produce a high-quality T2I model by training only on Creative-Commons-licensed data?"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We curate CommonCatalog, a dataset of roughly 70 million open-licensed CC images, for which we use telephoning to generate accompanying high-quality synthetic captions... Train and evaluate CommonCanvas, a suite of LDM architectures trained on CommonCatalog."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Release our CommonCatalog dataset of CC images and synthetic captions along with our trained CommonCanvas model at https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md... in the future, we plan to augment CommonCatalog with Creative-Commons images from other sources, as well as test larger CommonCanvas model architectures."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we captioned all of the YFCC100M Creative-Commons images... We exclude images with non-derivative (ND) licenses. The remaining images can be further divided into those that can be used for commercial (C) purposes and those that cannot (non-commercial/ NC)."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we center-cropped and resized all of the images to a maximum size of 512x512 pixels. We perform these transformations because captioning images at native resolution would be very expensive. At training time of the diffusion model, all images remain in their native resolution."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1373,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 16148,
+        "tokens_in": 4777,
+        "tokens_out": 636
+      },
+      "collection": {
+        "section_chars": 15626,
+        "tokens_in": 4590,
+        "tokens_out": 447
+      },
+      "annotation": {
+        "section_chars": 14953,
+        "tokens_in": 4310,
+        "tokens_out": 374
+      },
+      "impact": {
+        "section_chars": 16315,
+        "tokens_in": 5460,
+        "tokens_out": 739
+      },
+      "processing": {
+        "section_chars": 11841,
+        "tokens_in": 3420,
+        "tokens_out": 350
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 54.0,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 9831,
+      "output_tokens": 133
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

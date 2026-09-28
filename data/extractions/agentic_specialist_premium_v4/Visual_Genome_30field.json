@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "Visual Genome is a dataset of over 108,000 images densely annotated with region descriptions, objects, attributes, relationships, region graphs, scene graphs, and question-answer pairs. Each image contains an average of 21 objects, 18 attributes, 18 pairwise relationships, 42 region descriptions, and 17 question-answer pairs. All objects, attributes, relationships, and noun phrases are canonicalized to WordNet synsets to enable structured, language-grounded visual understanding.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna; Yuke Zhu; Oliver Groth; Justin Johnson; Kenji Hata; Joshua Kravitz; Stephanie Chen; Yannis Kalantidis; Li-Jia Li; David A. Shamma; Michael S. Bernstein; Li Fei-Fei",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei. Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations. arXiv:1602.07332, 2016.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Images were sourced from the intersection of YFCC100M and MS-COCO datasets (108,249 images originally uploaded to Flickr by users). Dense annotations (region descriptions, objects, attributes, relationships, region graphs, scene graphs, and question-answer pairs) were collected via Amazon Mechanical Turk (AMT) using a multi-stage crowdsourcing pipeline with over 33,000 unique workers completing approximately 800,000 Human Intelligence Tasks (HITs).",
+    "rai:dataCollectionType": "Web API; Secondary Data analysis; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "108,249 real-world, non-iconic images from the intersection of YFCC100M (Thomee et al., 2016) and MS-COCO (Lin et al., 2014), originally uploaded to Flickr by users.",
+    "rai:dataCollectionTimeframe": "6 months of data collection after 15 months of experimentation and iteration",
+    "rai:dataAnnotationProtocol": "Crowd workers from Amazon Mechanical Turk annotated images with region descriptions (bounding boxes + descriptive phrases), objects (bounding boxes extracted from descriptions), attributes, relationships, region graphs, scene graphs, and question-answer pairs (freeform and region-based). Workers were instructed to draw bounding boxes satisfying coverage and quality requirements, write diverse descriptions using BLEU score thresholds to enforce dissimilarity, and follow rules for QA pairs (start with one of seven Ws, avoid ambiguous/speculative questions, be precise). Verification was conducted via majority voting (three workers per annotation, at least two must agree) for all components except objects, which used rapid judgments. Canonicalization mappings to WordNet synsets were also verified by workers choosing among five synset options.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "All annotations went through a verification stage. Most components (attributes, relationships, region descriptions, QAs) were verified using majority voting: three unique workers voted on each annotation, and an annotation was accepted if at least two out of three workers confirmed it as factually correct. Objects were verified using rapid judgments (an interface inspired by rapid serial visual processing). Canonicalization mappings were verified by workers selecting the best synset from five options. Precision and recall scores were computed on held-out samples of 200 items for objects, attributes, and relationships.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "Geographic location: 93.02% United States, 1.29% Philippines, 1.13% Kenya, 0.94% India, 0.50% Russia, 0.47% Canada; Age: majority between 25 and 34 years old, youngest 18, oldest 68; Gender: 54.15% male, 45.85% female",
+    "rai:machineAnnotationTools": "Stanford dependency parser (Manning et al., 2014) used to automatically extract nouns as suggestions for object extraction; Stanford NLP tools used to extract noun phrases for canonicalization; BLEU score computed programmatically to enforce description diversity; word2vec used for semantic analysis of descriptions",
+    "rai:dataBiases": "The dataset is somewhat biased towards images of people; certain sports (skiing, surfboarding) are overrepresented due to a bias towards these sports in the image source; 93.02% of crowd workers contributed from the United States",
+    "rai:dataLimitations": "Canonicalization mappings are not perfect and still contain some ambiguity; relationship classification accuracy is low due to high intra-class variability; current models are unable to reason about complex images as shown by objectively low accuracy in region description generation",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and benchmarking computer vision models for comprehensive scene understanding; image search; visual question answering; robotic interactions; dense image captioning; relationship extraction; semantic image retrieval; action recognition; image understanding evaluation",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Co-reference chains were built by merging objects from different region graphs that referred to the same entity; objects with bounding box overlap-over-union of 0.8 or higher were merged into a single node in the scene graph, confirmed by crowd workers. BLEU score thresholds (0.7) were used to enforce diversity in region descriptions by preventing repetition both within an image and globally across the dataset. Region-based QA pairs were selectively collected only for regions with large areas (more than 5k pixels) and long phrases (more than 4 words) to balance freeform and region-based question types.",
+    "rai:dataPreprocessingProtocol": "Region descriptions were filtered using BLEU score thresholds (set to 0.7) to ensure dissimilarity from previously written descriptions for the same image and from the top 100 most common global descriptions. Objects were deduplicated by merging co-referenced bounding boxes with an intersection over union overlap of 0.8 or higher, confirmed by crowd workers. Scene graph nodes from different region graphs referring to the same object were merged using a 0.9 intersection over union threshold. All objects, attributes, and relationships were canonicalized to WordNet synsets using Stanford NLP tools for noun phrase extraction, morphological stemming for attributes, and sentence frame matching for verbs, supplemented by hand-crafted mapping rules (30 for objects, 15 for attributes, 20 for relationships), with AMT workers verifying and correcting mappings. For the region description generation experiment, region descriptions were preprocessed by removing all non-alphanumeric characters, lowercasing, and stripping excess whitespace. For attribute and relationship prediction experiments, attributes and relationships were lowercased, lemmatized, and stripped of excess whitespace, and classes were downsampled to a maximum of 500 instances per category."
+  },
+  "usage": {
+    "input_tokens": 253014,
+    "output_tokens": 1968
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 53550,
+        "output_tokens": 392
+      },
+      "collection": {
+        "input_tokens": 53425,
+        "output_tokens": 292
+      },
+      "annotation": {
+        "input_tokens": 39494,
+        "output_tokens": 513
+      },
+      "impact": {
+        "input_tokens": 53472,
+        "output_tokens": 284
+      },
+      "processing": {
+        "input_tokens": 53073,
+        "output_tokens": 487
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55712,
+      "output_tokens": 277
+    },
+    "timestamp": "2026-05-02T18:12:27.077061+00:00",
+    "elapsed_seconds": 59.0
+  }
+}

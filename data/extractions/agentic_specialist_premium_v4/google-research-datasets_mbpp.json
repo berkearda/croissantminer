@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google-research-datasets_mbpp",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Mostly Basic Programming Problems (MBPP)",
+    "description": "The Mostly Basic Programming Problems (MBPP) dataset contains 974 short Python programming tasks designed to be solvable by entry-level programmers. Each task includes a natural language description, a ground-truth Python function solution, and three test cases for semantic correctness. The dataset was crowd-sourced and includes a hand-verified edited subset of 426 problems.",
+    "url": "https://github.com/google-research/google-research/tree/master/mbpp",
+    "license": null,
+    "creator": "Jacob Austin; Augustus Odena; Maxwell Nye; Maarten Bosma; Henryk Michalewski; David Dohan; Ellen Jiang; Carrie Cai; Michael Terry; Quoc Le; Charles Sutton (Google Research)",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Jacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and Charles Sutton. Program Synthesis with Large Language Models. arXiv:2108.07732v1 [cs.PL], 16 Aug 2021.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The MBPP dataset was collected by crowd-sourcing to an internal pool of crowdworkers with basic Python knowledge, who were asked to write a short problem statement, a single self-contained Python function solving the problem, and three test cases. A subset was manually inspected, edited, and pruned by the authors. The MathQA-Python dataset was derived from the existing MathQA dataset by translating ground-truth programs from a domain-specific language into Python.",
+    "rai:dataCollectionType": "User-generated content data; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "45% of MathQA problems were removed because the code did not evaluate to the declared numerical answer, leaving 23,914 problems after filtration.",
+    "rai:dataCollectionRawData": "For MBPP: problem statements, Python functions, and test cases written by internal crowdworkers. For MathQA-Python: the MathQA dataset (Amini et al., 2019), which contains mathematical word problems, multiple-choice answers, and programs in a domain-specific language.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowdworkers with basic Python knowledge were asked to write a short problem statement, a single self-contained Python function solving the problem, and three test cases checking semantic correctness, along with a ground-truth solution passing all three tests. Participants were instructed to write concrete descriptions, self-contained code, and to avoid printing results. A subset of questions was then manually inspected, edited, and pruned by the authors to ensure standard function signatures, unambiguous descriptions, and accurate test cases.",
+    "rai:dataAnnotationPlatform": "Google Colab (used for data collection from crowdworkers)",
+    "rai:dataAnnotationAnalysis": "Authors manually examined problems where model responses on sanitized and unsanitized data differed, categorizing edits to problem text, test cases, or both. Programmatic checks verified all reference code passes tests under Python 3.6. A subset of 100 questions was analyzed to quantify the effect of curation on model performance.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Internal pool of crowdworkers with basic knowledge of Python",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Large language models can learn undesirable (e.g. biased) behavior from unlabeled training data; models have not been treated for safety",
+    "rai:dataLimitations": "Benchmark programs are short and simple, and the programs solved by the model are the shortest and simplest among them, so the benchmark has not captured the breadth and complexity of program synthesis; models often solve tasks with only one or two out of 80 samples; models cannot predict the outputs of programs on simple inputs; approximately 12% of what is counted as solutions would fail adversarially generated test cases; few-shot performance is highly sensitive to the specific prompt examples chosen; overlap between MBPP and pre-training data is small but not zero (3.3% of problems had more than half their lines matched in pre-training data); MathQA-Python required filtering 45% of problems to keep only those for which code evaluates to the declared numerical answer",
+    "rai:dataSocialImpact": "The models have not been treated for safety, hence additional analysis of model outputs for potential harms is necessary before use in practice; large language models can reveal training data as well as sensitive information in the training data; these risks may be increased for interactive use-cases; the energy cost and carbon footprint of pre-training are 451MWh and 26 tCO2e respectively; in the near term, such systems could augment human programmers collaboratively, and could make programming more widely accessible, empowering more people to interact with technology to meet their needs",
+    "rai:personalSensitiveInformation": "Models can reveal training data as well as sensitive information in the training data",
+    "rai:dataUseCases": "Evaluating the ability of large language models to synthesize short Python programs from natural language descriptions; benchmarking few-shot and fine-tuning program synthesis performance; studying human-model collaboration for interactive code generation; evaluating semantic grounding of language models via program execution prediction",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For MathQA-Python, the dataset was filtered to keep only problems for which the code evaluates to the declared numerical answer, removing 45% of problems, resulting in 23,914 problems. The pre-training dataset somewhat oversampled web pages containing code, such as programming question and answer sites. For MBPP, 10 problems were held out for few-shot prompting, 500 for testing, 374 for fine-tuning, and the rest for validation. A subset of 426 hand-verified (edited) questions was produced by manually inspecting, editing, and pruning the original crowd-sourced questions.",
+    "rai:dataPreprocessingProtocol": "For MathQA-Python, the dataset was filtered to keep only problems for which the code evaluates to the declared numerical answer, removing 45% of problems, resulting in 23914 problems. For MBPP, problems were programmatically checked to ensure all reference code passes all tests under Python 3.6. A subset of MBPP questions was manually inspected, edited, and pruned to yield 426 hand-verified questions, ensuring standard Python function signatures, unambiguous descriptions, and accurate test cases. Pre-training data was tokenized into BPE tokens using the SentencePiece library with a vocabulary of 32K tokens."
+  },
+  "usage": {
+    "input_tokens": 244801,
+    "output_tokens": 1843
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 49113,
+        "output_tokens": 365
+      },
+      "collection": {
+        "input_tokens": 48994,
+        "output_tokens": 307
+      },
+      "annotation": {
+        "input_tokens": 49032,
+        "output_tokens": 308
+      },
+      "impact": {
+        "input_tokens": 49018,
+        "output_tokens": 499
+      },
+      "processing": {
+        "input_tokens": 48644,
+        "output_tokens": 364
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67204,
+      "output_tokens": 244
+    },
+    "timestamp": "2026-05-02T18:29:23.564063+00:00",
+    "elapsed_seconds": 63.5
+  }
+}

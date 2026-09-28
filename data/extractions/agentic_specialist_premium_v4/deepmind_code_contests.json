@@ -1,0 +1,80 @@
+{
+  "dataset_id": "deepmind_code_contests",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "CodeContests",
+    "description": "CodeContests is a competitive programming dataset for training and evaluation of code generation models. It combines problems, solutions, and test cases scraped from the Codeforces platform with existing public datasets (Description2Code and CodeNet), and includes both correct and incorrect human submissions in C++, Python, and Java. The dataset uses a strict temporal split to prevent data leakage and adds generated test cases to reduce false positive rates.",
+    "url": "https://github.com/deepmind/code_contests",
+    "license": null,
+    "creator": "Yujia Li; David Choi; Junyoung Chung; Nate Kushman; Julian Schrittwieser; Rémi Leblond; Tom Eccles; James Keeling; Felix Gimeno; Agustin Dal Lago; Thomas Hubert; Peter Choy; Cyprien de Masson d'Autume; Igor Babuschkin; Xinyun Chen; Po-Sen Huang; Johannes Welbl; Sven Gowal; Alexey Cherepanov; James Molloy; Daniel J. Mankowitz; Esme Sutherland Robson; Pushmeet Kohli; Nando de Freitas; Koray Kavukcuoglu; Oriol Vinyals (DeepMind)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Yujia Li, David Choi, Junyoung Chung, Nate Kushman, Julian Schrittwieser, Rémi Leblond, Tom Eccles, James Keeling, Felix Gimeno, Agustin Dal Lago, Thomas Hubert, Peter Choy, Cyprien de Masson d'Autume, Igor Babuschkin, Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey Cherepanov, James Molloy, Daniel J. Mankowitz, Esme Sutherland Robson, Pushmeet Kohli, Nando de Freitas, Koray Kavukcuoglu, and Oriol Vinyals. Competition-Level Code Generation with AlphaCode. arXiv:2203.07814, 2022.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The pre-training dataset was collected from a snapshot of selected public GitHub repositories. The fine-tuning dataset (CodeContests) was assembled by scraping problems, solutions, and test cases from the Codeforces platform, and by incorporating existing public competitive programming datasets (Description2Code and CodeNet).",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "The Codeforces platform does not display full test cases when they are longer than approximately 400 characters, so complete hidden test cases were not readily available for many problems.",
+    "rai:dataCollectionRawData": "Public GitHub repositories (code files in C++, C#, Go, Java, JavaScript, Lua, PHP, Python, Ruby, Rust, Scala, and TypeScript); Codeforces platform (problem descriptions, metadata, correct and incorrect human submissions in C++, Python, and Java, example tests, and hidden test cases); Description2Code dataset (Caballero et al., 2016); CodeNet dataset (Puri et al., 2021).",
+    "rai:dataCollectionTimeframe": "GitHub snapshot taken on 2021-07-14; CodeContests training data publicly released on or before 2021-07-14; validation problems from 2021-07-15 to 2021-09-20; test problems published after 2021-09-21",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Code generation models are prone to reproducing the deficiencies and biases of their training data; programs can contain culture and location-specific assumptions about names, addresses, or time, excluding underrepresented users; bias can also lead to low quality code that perpetuates bugs or the use of outdated APIs",
+    "rai:dataLimitations": "False positive rate of 4% remains in CodeContests (incorrect submissions marked correct); 46% slow positive rate where correct but algorithmically inefficient solutions are accepted; evaluation susceptible to accepting correct but slow solutions especially for high difficulty problems; problems with multiple correct outputs are judged against a single correct output which can underestimate model performance; interactive problems are not explicitly handled; 6.3% of problems failed to generate the full set of 200 generated tests due to complex input formats",
+    "rai:dataSocialImpact": "Good code generation models have the potential to have a positive, transformative impact on society, with applications including computer science education, developer tooling, and making programming more accessible; however, code generation tools could be used by bad actors to create new versions of malware or help them avoid detection by security software; tools that improve developer productivity would also improve the productivity of developers writing malicious code; competitive programming code generation models could give users unfair advantages in programming competitions or technical interviews; training large-scale models requires significant compute (hundreds of petaFLOPS days); as programming becomes more accessible and code generation automates some simple tasks, there could be increased supply and decreased demand for programmers; longer term, coding capabilities could lead to systems that can recursively write and improve themselves",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and evaluation of code generation models for competitive programming; benchmarking program synthesis systems; fine-tuning large language models on competitive programming problems",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Additional test cases were generated by mutating existing test inputs (applying bit flips to binary inputs, randomly incrementing or decrementing integers, and swapping and changing characters in strings). Mutated inputs were verified by running 30 correct solutions on them and checking that all solutions produce the same output. This process was run on each problem for a maximum of 10 CPU hours or 200 generated tests.",
+    "rai:dataPreprocessingProtocol": "For the GitHub pre-training dataset: files larger than 1 MB or with lines longer than 1000 characters were filtered out, and duplicate files were removed (ignoring whitespace). For the CodeContests fine-tuning dataset: duplicate problems were removed (ignoring whitespace) and submissions for duplicate problems were merged; duplicate submissions were removed (ignoring whitespace); C++ submissions were cleaned to compile with the project compiler and sandboxes (e.g., adding 'int' in front of main()), formatted using clang-format, includes replaced with #include <bits/stdc++.h>, and preprocessor directives and typedefs expanded; all Python and C++ solutions were executed on all test cases and removed in order: submissions passing no tests, tests where less than 10% of remaining submissions produce non-empty outputs, and submissions passing less than 10% of remaining tests. Problems in the validation and test splits with insufficient test coverage were filtered out, keeping only problems with at least 5 hidden or generated test cases resulting in at least 2 different outputs."
+  },
+  "usage": {
+    "input_tokens": 357063,
+    "output_tokens": 1976
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 74405,
+        "output_tokens": 613
+      },
+      "collection": {
+        "input_tokens": 60042,
+        "output_tokens": 333
+      },
+      "annotation": {
+        "input_tokens": 74371,
+        "output_tokens": 173
+      },
+      "impact": {
+        "input_tokens": 74323,
+        "output_tokens": 478
+      },
+      "processing": {
+        "input_tokens": 73922,
+        "output_tokens": 379
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 56951,
+      "output_tokens": 170
+    },
+    "timestamp": "2026-05-02T18:26:02.262935+00:00",
+    "elapsed_seconds": 71.1
+  }
+}

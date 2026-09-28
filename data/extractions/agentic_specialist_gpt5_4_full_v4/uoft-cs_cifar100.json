@@ -1,0 +1,80 @@
+{
+  "dataset_id": "uoft-cs_cifar100",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "CIFAR-10; CIFAR-100",
+    "description": "The paper introduces two labeled subsets of the tiny images dataset: CIFAR-10, with 6000 images in each of 10 classes, and CIFAR-100, with 600 images in each of 100 non-overlapping classes. These datasets consist of 32x32 color images collected from the web and were created to provide reliable labels for object recognition experiments.",
+    "url": null,
+    "license": null,
+    "creator": "Alex Krizhevsky",
+    "publisher": "Canadian Institute for Advanced Research",
+    "datePublished": "2009",
+    "inLanguage": "en",
+    "citeAs": "Alex Krizhevsky. Learning Multiple Layers of Features from Tiny Images. April 8, 2009.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by searching the web for images of every non-abstract English noun in WordNet, using several search engines including Google, Flickr, and AltaVista, and keeping roughly the first 3000 results for each search term. For the labeled subsets, students were paid to filter images from the tiny images dataset for target classes and their WordNet hyponyms.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Web images returned for WordNet noun search terms from search engines including Google, Flickr, and AltaVista; for CIFAR-10 and CIFAR-100, images from the tiny images dataset found with class names and their WordNet hyponyms as search terms.",
+    "rai:dataCollectionTimeframe": "over the span of six months",
+    "rai:dataAnnotationProtocol": "Students were paid to label a subset of the tiny images dataset by filtering out mislabeled images from search-term and WordNet hyponym results for assigned classes; labelers were instructed to reject images not belonging to the class, line drawings, and images with more than one prominent instance, while allowing partial occlusion or unusual viewpoints, and every submitted label was personally verified by the authors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Every label submitted by the labelers was personally verified by the authors; duplicate images were removed by comparing images with the L2 norm and using a rejection threshold liberal enough to capture not just perfect duplicates but also re-saved JPEGs and the like.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": "students",
+    "rai:machineAnnotationTools": "L2 norm",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The tiny images dataset has no reliable class labels and the search-term labels are extremely unreliable due to the nature of online image search technology; reconstruction error is not a very good measure of how well the model's probability distribution matches that of the data, because it depends heavily on how fast the Markov chain mixes; the larger two-layer model had a strong tendency to overfit and was slow and cumbersome to train",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "unsupervised training of deep generative models; object recognition experiments; training and evaluating object classification models on the CIFAR-10 dataset",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "They created labeled subsets from the Tiny Images dataset by filtering out mislabeled images, removed duplicate images using an L2-norm threshold liberal enough to capture not just perfect duplicates but also re-saved JPEGs, and finally divided the dataset into training and test sets with a randomly selected 5000 images from each class assigned to training.",
+    "rai:dataPreprocessingProtocol": "After collecting images for each search term, they removed perfect duplicates and images in which an excessively large portion of the pixels were white; the images were downscaled to 32x32; they applied ZCA whitening as a preprocessing step; and they also deleted the 1000 least significant principal components from the dataset by setting those entries of the diagonal matrix to zero."
+  },
+  "usage": {
+    "input_tokens": 237226,
+    "output_tokens": 1372
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 47711,
+        "output_tokens": 188
+      },
+      "collection": {
+        "input_tokens": 47480,
+        "output_tokens": 407
+      },
+      "annotation": {
+        "input_tokens": 47465,
+        "output_tokens": 186
+      },
+      "impact": {
+        "input_tokens": 47438,
+        "output_tokens": 188
+      },
+      "processing": {
+        "input_tokens": 47132,
+        "output_tokens": 403
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 91241,
+      "output_tokens": 540
+    },
+    "timestamp": "2026-05-22T12:38:28.013232+00:00",
+    "elapsed_seconds": 42.7
+  }
+}

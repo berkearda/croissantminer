@@ -1,0 +1,261 @@
+{
+  "dataset_id": "google_IFEval",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "IFEval (Instruction-Following Eval)",
+    "description": "IFEval is a straightforward and easy-to-reproduce evaluation benchmark for large language models focused on a set of 'verifiable instructions' such as 'write in more than 400 words' and 'mention the keyword of AI at least 3 times'. It identifies 25 types of verifiable instructions and constructs around 500 prompts, with each prompt containing one or more verifiable instructions.",
+    "url": "https://github.com/google-research/google-research/tree/master/instruction_following_eval",
+    "license": "Apache-2.0",
+    "creator": "Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Siddhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, Le Hou (Google and Yale University)",
+    "publisher": "Google",
+    "datePublished": "2023-11-14",
+    "inLanguage": "en",
+    "citeAs": "arXiv:2311.07911",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Prompts were generated through few-shot prompting and manual curation. The process involved four steps: generating base prompts with randomly selected verifiable instructions, using few-shot prompting to identify and remove illogical prompts, rephrasing prompts to increase diversity, and manually checking and editing each rephrased prompt.",
+    "rai:dataCollectionType": "Manual Human Curator, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Prompts were synthetically generated using few-shot prompting with LLMs, combined with manual curation by the authors. The dataset consists of 541 prompts each containing one or more of 25 types of verifiable instructions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Prompts were filtered for illogical combinations using few-shot prompting, then rephrased for diversity, and finally manually checked and edited one by one.",
+    "rai:dataAnnotationProtocol": "Instruction-following verification is performed programmatically using deterministic heuristics. A strict metric checks exact compliance, while a loose metric applies transformations (e.g., removing markdown font modifiers, removing first/last lines) to reduce false negatives.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The strict metric may produce false negatives (e.g., markdown-formatted responses not matching plain string checks). The loose metric reduces false negatives by applying transformations but may introduce false positives.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The current implementation can be improved by increasing the diversity and quantity of verifiable instructions and extending to multi-modal use cases. Very few instructions are 100% verifiable objectively and automatically, as edge cases exist where it is hard to determine if an instruction is followed.",
+    "rai:dataUseCases": "Testing and evaluation of instruction-following ability of large language models. The benchmark is designed for automatic, reproducible, and unbiased evaluation of LLMs."
+  },
+  "usage": {
+    "input_tokens": 73934,
+    "output_tokens": 2078
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:44:36.233218Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Instruction-Following Eval (IFEval) for large language models."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "IFEval is a straightforward and easy-to-reproduce evaluation benchmark. It focuses on a set of 'verifiable instructions' such as 'write in more than 400 words' and 'mention the keyword of AI at least 3 times'. We identified 25 types of those verifiable instructions and constructed around 500 prompts, with each prompt containing one or more verifiable instructions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our code and data can be found at https://github.com/google-research/google-research/tree/master/instruction_following_eval"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jeffrey Zhou§∗Tianjian Lu♮Swaroop Mishra♮Siddhartha Brahma♮ Sujoy Basu♮Yi Luan♮Denny Zhou♮Le Hou♮† ♮Google§Yale University"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "♮Google§Yale University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.07911v1 [cs.CL] 14 Nov 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Examples of such instructions are: 'write 450 to 500 words', 'your entire output should be in JSON output'"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.07911v1 [cs.CL] 14 Nov 2023"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We further create a set of 541 prompts, with each prompt containing one or multiple verifiable instructions."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We alleviate these problems by creating our prompts through four steps. First, we generate a set of base prompts with one to three randomly selected verifiable instructions appended to the end of each prompt. Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we apply another few-shot prompting based approach to rephrase each prompt... Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we describe how we generate prompts using few-shot prompting, and manual curation. All generated prompts are listed in Appendix 6."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For a given response resp and a verifiable instruction inst, we define the function that verifies if the instruction is followed or not... We use Equation 1 to compute the instruction following accuracy, and refer to it as the strict metric... we compute a loose accuracy score of instruction following... We transform each response using every of the following transformation functions: 1. Remove commonly seen font modifiers in the markdown syntax... 2. Remove the first line of the response... 3. Remove the last line of the response..."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we found that there are still false negatives. For example, for a given verifiable instruction of 'end your email with: P.S. I do like the cake', a language model may follow the instruction by ending the email with 'P.S. **I do like the cake**' which has markdown tags... Although this loose instruction-following verification process reduces false negatives, it is likely to introduce false positives."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "It is important to note that while we focus on verifiable instructions, very few instructions are 100% verifiable objectively and automatically – there always exist edge cases where it is hard to determine if an instruction is followed... the current implementation of IFEval can be improved across many fronts. In particular: 1. Increase the diversity and quantity of verifiable instructions. 2. Extend to multi-modal use cases."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose IFEval: Instruction-Following Eval, a benchmark to evaluate the instruction following ability of LLMs using a set of prompts containing verifiable instructions. These verifiable instructions are atomic instructions for which one can use a simple, interpretable, and deterministic program to verify if corresponding responses follow the instructions or not."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.253,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 38.2,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "dataset_id": "Rowan_hellaswag",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "HellaSwag",
+    "description": "HellaSwag is a commonsense natural language inference benchmark dataset of 70k problems constructed via Adversarial Filtering (AF), where a series of discriminators iteratively select adversarial machine-generated wrong answers. Questions are trivial for humans (>95% accuracy) but challenging for state-of-the-art models (~48%). The dataset combines ActivityNet Captions and WikiHow articles as source data.",
+    "url": "https://rowanzellers.com/hellaswag",
+    "license": null,
+    "creator": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, Yejin Choi (University of Washington and Allen Institute for Artificial Intelligence)",
+    "publisher": "Association for Computational Linguistics (ACL)",
+    "datePublished": "2019-05-19",
+    "inLanguage": "en",
+    "citeAs": "Zellers et al. (2019). HellaSwag: Can a Machine Really Finish Your Sentence? arXiv:1905.07830",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected from two sources: ActivityNet Captions (video captions with activity labels) and WikiHow articles (how-to paragraphs). Wrong answer endings were machine-generated using a language model (OpenAI GPT) and then filtered adversarially using BERT-Large as a discriminator. Human crowd workers validated the data by rating the realism of machine-generated endings.",
+    "rai:dataCollectionType": "Web Scraping, Manual Human Curator, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "ActivityNet Captions dataset (video captions with activity labels) and WikiHow articles (how-to paragraphs scraped from the WikiHow website).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Adversarial Filtering (AF) is applied iteratively: a classifier is trained on a dummy training set to discriminate real vs. generated endings, then easy-to-classify generated endings in the test set are replaced with adversarial ones. This process repeats until discriminator accuracy converges.",
+    "rai:dataPreprocessingProtocol": "Each context has at most three sentences, as do the follow-ups. For ActivityNet, several rounds of human filtering were performed to increase human agreement to 94%. The 25k best ActivityNet contexts and 45k best WikiHow contexts were kept based on worker agreement. Zero-shot evaluation sets were crafted using category labels.",
+    "rai:dataAnnotationProtocol": "Crowd workers were given a context and six ending choices (one true ending, five from AF) and asked to rate how realistic each ending is. Machine-written endings rated as realistic were replaced with new samples. Multiple rounds of annotation were performed to ensure high human agreement. Human performance was measured by asking five independent crowd workers to solve the same four-way multiple choice problems, with predictions combined via majority vote.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Human agreement was tracked across annotation rounds. ActivityNet started with lower human accuracy (60%) and was improved to 94% through multiple rounds of filtering. WikiHow started near-trivial for humans (93.5%). The gap between human and BERT performance was monitored across annotation rounds.",
+    "rai:annotationsPerItem": "5 annotators per item for human performance evaluation",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OpenAI GPT (for generating wrong endings), BERT-Large (as adversarial discriminator)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Prior human-written NLI datasets introduce annotation artifacts (subtle class-conditional biases). SWAG's machine-generated endings contained distributional stylistic patterns that BERT could exploit. HellaSwag was designed to remove these artifacts via adversarial filtering, though the paper notes that unwanted social biases (gender, race) can be induced when humans write endings.",
+    "rai:dataLimitations": "Model performance drops roughly 5% on zero-shot categories, suggesting models do not generalize well to novel activities or how-to categories. The dataset may become solvable by future more powerful models, requiring a new iteration. The Goldilocks zone of text complexity may shift as generation and discrimination models improve.",
+    "rai:dataUseCases": "Benchmark for commonsense natural language inference (NLI); evaluation of deep pretrained models; testing generalization to zero-shot categories; training, validation, and testing of NLI models."
+  },
+  "usage": {
+    "input_tokens": 24064,
+    "output_tokens": 2845
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:20:43.567137Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We achieve this via Adversarial Filtering (AF), a data collection paradigm wherein a series of discriminators iteratively select an adversarial set of machine-generated wrong answers... the resulting dataset of 70k problems is easy for humans (95.6% accuracy), yet challenging for machines (~50%)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Dataset and code at https://rowanzellers.com/hellaswag."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Rowan Zellers Ari Holtzman Yonatan Bisk Ali Farhadi~ Yejin Choi~ Paul G. Allen School of Computer Science & Engineering, University of Washington ~Allen Institute for Artificial Intelligence"
+      },
+      "publisher": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.07830v1 [cs.CL] 19 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We scrape 80k context and follow-up paragraphs from WikiHow... ActivityNet Captions dataset"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1905.07830v1 [cs.CL] 19 May 2019"
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We scrape 80k context and follow-up paragraphs from WikiHow... We start by including video captions from the ActivityNet Captions dataset... During human validation, crowd workers are given a context and six ending choices, of which one is the true ending, and the other five are from AF."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We scrape 80k context and follow-up paragraphs from WikiHow... During human validation, crowd workers are given a context and six ending choices... Potential candidates of incorrect answers were massively oversampled from a language model trained on in-domain data, and then selected using an ensemble of adversaries."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We start by including video captions from the ActivityNet Captions dataset (Krishna et al., 2017)... We next consider a new and challenging testbed for commonsense reasoning: completing how-to articles from WikiHow, an online how-to manual. We scrape 80k context and follow-up paragraphs from WikiHow."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "On each iteration, a new classifier is trained on a dummy training set Dtrain to replace easily-classified negative endings on the dummy test set Dtest with adversarial endings. This process is repeated iteratively, to obtain a challenging dataset regardless of the final split."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each context has at most three sentences, as do the follow-ups... we keep the 25k best ActivityNet contexts (i.e. those with highest agreement among workers) and the 45k best WikiHow contexts."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During human validation, crowd workers are given a context and six ending choices, of which one is the true ending, and the other five are from AF. On each iteration, we replace machine-written endings that the worker rated as realistic with new samples... we compare human performance with that of BERT on a random 80%/20% split... We compare all models to human performance by asking five independent crowd workers to solve the same four-way multiple choice problems; their predictions are combined via majority vote."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thank the Mechanical Turk workers for their great work during dataset collection."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For HellaSwag, we ensure high human agreement through several rounds of annotation. By collecting how likely each ending is we can filter false negative endings – machine generations that sound realistic – and replace them with true negatives. On both subdatasets, BERT performance increases during validation, but the gap to human performance remains wide."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compare all models to human performance by asking five independent crowd workers to solve the same four-way multiple choice problems; their predictions are combined via majority vote."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To make this dataset robust to deep pretrained models, we use a trifecta of state-of-the-art generators (Radford et al., 2018), state-of-the-art discriminators (BERT), and high quality source text."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Prior work (e.g. Gururangan et al., 2018; Poliak et al., 2018) has found that when humans write the endings to NLI questions, they introduce subtle yet strong class-conditional biases known as annotation artifacts... these biases simply inflate model performance, but past work has also shown that are unwanted social biases induced when humans write the endings, in terms of gender and race (Rudinger et al., 2015)."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Performance drops roughly 5% on the test fold, which suggests that the finetuning is not enough for BERT to learn to generalize to novel activities or how-to categories... What happens when HellaSwag gets solved? We believe the answer is simple: crowdsource another dataset, with the same exact format, and see where models fail."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use Adversarial Filtering (AF), a data-collection paradigm in which a series of discriminators is used to select a challenging set of generated wrong answers... In total, there are 70k dataset examples... We evaluate the difficulty of HellaSwag using a variety of strong baselines, with and without massive pretraining."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.1149,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "elapsed_seconds": 55.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

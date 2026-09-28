@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Cnam-LMSSC_vibravox",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Vibravox",
+    "description": "Vibravox is a GDPR-compliant dataset of French speech and physiological sounds recorded by 188 participants using five body-conduction audio sensors (two in-ear microphones, two bone conduction vibration pickups, and a laryngophone) plus an airborne reference microphone. The corpus contains approximately 45 hours per sensor of recordings under different acoustic conditions imposed by a high-order ambisonics 3D spatializer, with four subsets covering clean and noisy speech and speechless conditions. Annotations include recording condition metadata, text transcriptions, and phonetic transcriptions.",
+    "url": "https://huggingface.co/datasets/Cnam-LMSSC/vibravox",
+    "license": "Creative Commons Attribution 4.0 International",
+    "creator": "Julien Hauret (Conservatoire national des arts et métiers, HESAM Université); Malo Olivier (Conservatoire national des arts et métiers, HESAM Université); Christophe Langrenne (Conservatoire national des arts et métiers, HESAM Université); Sarah Poirée (Conservatoire national des arts et métiers, HESAM Université); Éric Bavu (Conservatoire national des arts et métiers, HESAM Université); Thomas Joubaud (French-German Research Institute of Saint-Louis); Véronique Zimpfer (French-German Research Institute of Saint-Louis)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "fr",
+    "citeAs": "J. Hauret, M. Olivier, C. Langrenne, S. Poirée, and É. Bavu, \"vibravox (revision 071945b),\" 2024. [Online]. Available: https://huggingface.co/datasets/Cnam-LMSSC/vibravox",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Audio recordings were collected from 200 participants (188 retained after post-processing) who wore six simultaneous audio sensors (five body-conduction sensors and one airborne reference microphone) during controlled recording sessions. Participants read sentences from a filtered French Wikipedia subset of Common Voice for 15 minutes (speech-clean), remained silent in a noisy environment for ~2.5 minutes (speechless-noisy), remained silent in complete silence for 54 seconds (speechless-clean), and spoke in a noisy environment for 54 seconds (speech-noisy). Ambient noise was broadcast via a 56-loudspeaker spherical array 3D spatializer. Noise excerpts were sourced from Audio Set and in-house ambisonic recordings of concerts and street events.",
+    "rai:dataCollectionType": "Physical data collection; Direct measurement; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Some audio clips had shortcomings including mispronounced sentences, sensors shifting from initial positions, occasional sensor malfunctions, and instances where a microphone was inadvertently left unequipped. In some cases, a participant's ear canal was too small for the rigid in-ear microphone to achieve proper acoustic sealing. Out of 200 participants, 188 were retained, and 6.8% of pronounced sentences were excluded.",
+    "rai:dataCollectionRawData": "Simultaneous six-channel audio recordings captured at 48 kHz and 32-bit resolution using a Zoom F8n field recorder. Sensors included a Shure WH20XLR headset microphone, Knowles BU23173-000 forehead accelerometer, Knowles FG-23329-P07 soft in-ear microphone, Knowles SPH1642HT5H rigid in-ear microphone, iXradio XVTM822D-D35 laryngophone, and AKG C411 temple vibration pickup. Text stimuli were drawn from the French Wikipedia subset of Common Voice. Ambient noise samples were sourced from Audio Set and in-house 3rd and 5th order ambisonic recordings of concerts and street events.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Phonetic transcriptions were generated automatically using the CoML lab text phonemizer; words unrecognized by the phonemizer required manual phonetic transcription (e.g., 'algorithme'). Post-processing used automatic filters (Whisper-based PER, SNR, and sensitivity drift checks) to remove low-quality recordings. Recording sessions were monitored and validated by the research team during data collection.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Automatic filters applied three criteria to each sample: PER < 10% (Levenshtein distance between labeled and Whisper-derived phonetic transcription), SNR > 1.5 dB (speech vs. silence energy ratio per sensor), and Lspeech_50 > Lsilence_50 (sensitivity drift check). Samples passing all three filters were retained; 6% of participants and 6.8% of sentences were discarded.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "whisper-timestamped (Whisper-based speech-to-text with dynamic time warping for word timestamps, used for VAD and PER computation); CoML lab text phonemizer (IPA phonetic transcription)",
+    "rai:dataBiases": "The dataset is only available in French, restricting research primarily to French-language data; the existing BCM datasets often lack the necessary scale and diversity to comprehensively cover the full range of acoustic scenarios encountered in real-world applications; the transfer function between a reference microphone and a body-conducted microphone is speaker-dependent and phoneme-dependent",
+    "rai:dataLimitations": "Existing BCM datasets often lack the necessary scale and diversity to comprehensively cover the full range of acoustic scenarios encountered in real-world applications; absence of publicly available BCM datasets in French restricts research primarily to languages covered by existing resources; problems persist with signal quality including noise and artifacts; variety of sensors used in existing datasets remains limited; some cases where a participant's ear canal was too small for the rigid in-ear microphone to achieve proper acoustic sealing were not caught by filters; the speech-noisy subset primarily serves testing purposes as it lacks a clean reference under noisy conditions; the assumption that the Lombard effect does not occur means reported signal-to-external-noise ratios represent a lower bound on actual values",
+    "rai:dataSocialImpact": "The dataset is intended to advance research in body-conducted speech capture for robust communication in noisy environments, including military operations and industrial settings; speaker verification using body-conducted sensors opens potential applications in access control and intelligence gathering in military domains; the rich biometric data (heart rate, breathing) captured by body-conduction sensors could aid in battlefield forensics, revealing emotional states and tracking life signals during critical events",
+    "rai:personalSensitiveInformation": "The dataset is compliant with the General Data Protection Regulation (GDPR); all necessary measures were taken to protect the privacy and rights of participants, including obtaining informed consent, clearly communicating the purpose of data collection, and ensuring anonymization and encryption of data during storage and analysis",
+    "rai:dataUseCases": "Training and evaluation of deep learning models for speech enhancement (bandwidth extension) using body-conduction microphones; training and evaluation of automatic speech recognition (speech-to-phonemes) models; training and evaluation of speaker verification models; developing voice commands; monitoring vital signs including heart rate using the speechless-clean subset; generating synthetic datasets with realistic physiological and sensor-inherent noise captured by body-conduction audio sensors",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For speech enhancement in quiet conditions, light data augmentation was applied including speed perturbation, pitch shifting, and time masking (implemented in Torchaudio). For noisy condition experiments, the speechless-noisy subset was dynamically mixed with the speech-clean subset to create synthetically mixed training data. For speech-to-phonemes in noisy conditions, an aggressive data augmentation strategy was applied to prevent overfitting given the small speech-noisy training set (1 hour 34 minutes). For speaker verification noisy condition testing, speech-clean recordings were statically mixed with speechless-noisy recordings to simulate noisy conditions.",
+    "rai:dataPreprocessingProtocol": "A 20 Hz high-pass filter was uniformly applied to each acquisition channel during recording. Textual data was filtered to exclude proper names (retaining only common first names, French town/region names, and country names), and utterances containing numbers, Greek letters, mathematical symbols, or syntactic errors were removed. Common text normalization operations were applied including lowercasing and removing punctuation except apostrophes. Phonetic transcriptions were generated using the IPA phonemizer, with manual phonetic transcription for unrecognized words. Post-collection, three automatic filters were applied to the speech-clean subset: (1) discarding samples with Phoneme Error Rate > 10%, (2) discarding samples where SNR[i,j] = Lspeech_50 - Lsilence_50 <= 1.5 dB, and (3) discarding samples where Lspeech_50 <= mean Lsilence_50 per sensor. VAD timestamps were extended by 0.6 seconds on both sides, with audio trimmed by 15 ms on affected sides if boundaries were exceeded. Out of 200 participants, 188 were retained and 28,471 of 30,568 sentences were kept. The dataset was split by speaker with 80% in training, 10% in validation, and 10% in test sets, stratified by gender."
+  },
+  "usage": {
+    "input_tokens": 227506,
+    "output_tokens": 2476
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45649,
+        "output_tokens": 497
+      },
+      "collection": {
+        "input_tokens": 45534,
+        "output_tokens": 544
+      },
+      "annotation": {
+        "input_tokens": 45585,
+        "output_tokens": 359
+      },
+      "impact": {
+        "input_tokens": 45568,
+        "output_tokens": 568
+      },
+      "processing": {
+        "input_tokens": 45170,
+        "output_tokens": 508
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 70974,
+      "output_tokens": 187
+    },
+    "timestamp": "2026-05-02T17:46:47.151057+00:00",
+    "elapsed_seconds": 78.4
+  }
+}

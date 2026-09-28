@@ -1,0 +1,80 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "HumanEval is a hand-written evaluation dataset of 164 original programming problems for synthesizing Python functions from docstrings. Each problem includes a function signature, docstring, body, and unit tests, and the dataset is released to benchmark functional correctness of code generation models.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": null,
+    "creator": null,
+    "publisher": "OpenAI",
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Chen, M., Tworek, J., Jun, H., Yuan, Q., Ponde de Oliveira Pinto, H., Kaplan, J., Edwards, H., Burda, Y., Joseph, N., Brockman, G., Ray, A., Puri, R., Krueger, G., Petrov, M., Khlaaf, H., Sastry, G., Mishkin, P., Chan, B., Gray, S., Ryder, N., Pavlov, M., Power, A., Kaiser, L., Bavarian, M., Winter, C., Tillet, P., Petroski Such, F., Cummings, D., Plappert, M., Chantzis, F., Bames, E., Herbert-Voss, A., Hebgen Guss, W., Nichol, A., Paino, A., Tezak, N., Tang, J., Babuschkin, I., Balaji, S., Jain, S., Saunders, W., Hesse, C., Carr, A. N., Leike, J., Achiam, J., Misra, V., Morikawa, E., Radford, A., Knight, M., Brundage, M., Murati, M., Mayer, K., Welinder, P., McGrew, B., Amodei, D., McCandlish, S., Sutskever, I., & Zaremba, W. (2021). Evaluating Large Language Models Trained on Code. arXiv:2107.03374.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub, containing unique Python files under 1 MB.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "For the continuous-integration-derived problems, the paper notes collection gaps: they collected only about 40,000 functions because not all functions accept inputs and return outputs, and many runtime-captured objects could not be pickled and restored outside the sandbox unless the project was installed.",
+    "rai:dataCollectionRawData": "54 million public software repositories hosted on GitHub, containing 179 GB of unique Python files under 1 MB.",
+    "rai:dataCollectionTimeframe": "2020-05",
+    "rai:dataAnnotationProtocol": "sample docstrings by hand, considering a docstring correct if it uniquely and accurately specifies the code body",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For docstring generation evaluation, sample docstrings were graded by hand and considered correct if they uniquely and accurately specified the code body; incorrect unit tests generated with the docstring were ignored, and copied code bodies were not counted as correct.",
+    "rai:annotationsPerItem": "10",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Codex can be prompted in ways that generate racist, denigratory, and otherwise harmful outputs as code comments; Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics",
+    "rai:dataLimitations": "Codex is not sample efficient to train; Codex can recommend syntactically incorrect or undefined code, and can invoke functions, variables, and attributes that are undefined or outside the scope of the codebase; Codex struggles to parse through increasingly long and higher-level or system-level specifications; as the number of chained building blocks in the docstring increases, model performance decreases exponentially; Codex can make mistakes binding operations to variables, especially when the number of operations and variables in the docstring is large; Codex does not always produce code that is aligned with user intent",
+    "rai:dataSocialImpact": "Codex could help onboard users to new codebases, reduce context switching for experienced coders, enable non-programmers to write specifications and have Codex draft implementations, and aid in education and exploration; one key risk is over-reliance on generated outputs, which could particularly affect novice programmers and could have significant safety implications depending on the context; Codex may suggest insecure code; Codex can generate racist, denigratory, and otherwise harmful outputs and code structures reflecting stereotypes; code generation may have economic and labor market impacts by increasing programmer productivity and affecting software-related labor markets; Codex could be misused to aid cybercrime, though the authors believe current models do not materially lower the barrier to entry for malware development; Codex has an energy footprint from both training and inference",
+    "rai:personalSensitiveInformation": "Sensitive data present in source code are liable to be predicted by the model; because Codex is trained on public repositories, the authors consider any sensitive data present in the training data to have already been compromised",
+    "rai:dataUseCases": "generating standalone Python functions from docstrings; evaluate functional correctness and measure the problem-solving capabilities of models on HumanEval; autocomplete tool use where a user provides a prompt and the system returns a single completion; describe the intent behind generated code via docstring generation",
+    "rai:dataReleaseMaintenancePlan": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For supervised fine-tuning, they curated training problems from competitive programming websites and from repositories with continuous integration, then filtered the curated problems by using Codex-12B to generate 100 samples per problem and removing tasks for which no samples passed the unit tests; they also reran this verification several times to remove stateful or non-deterministic problems.",
+    "rai:dataPreprocessingProtocol": "The training dataset was collected from public GitHub repositories and filtered to remove files likely auto-generated, files with average line length greater than 100, files with maximum line length greater than 1000, and files containing a small percentage of alphanumeric characters. The code lexer was also based on the GPT-3 text tokenizer with an additional set of tokens for representing whitespace runs of different lengths."
+  },
+  "usage": {
+    "input_tokens": 259552,
+    "output_tokens": 2089
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 52167,
+        "output_tokens": 449
+      },
+      "collection": {
+        "input_tokens": 51945,
+        "output_tokens": 363
+      },
+      "annotation": {
+        "input_tokens": 51954,
+        "output_tokens": 153
+      },
+      "impact": {
+        "input_tokens": 51881,
+        "output_tokens": 916
+      },
+      "processing": {
+        "input_tokens": 51605,
+        "output_tokens": 208
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 62602,
+      "output_tokens": 933
+    },
+    "timestamp": "2026-05-22T11:38:17.217700+00:00",
+    "elapsed_seconds": 37.9
+  }
+}

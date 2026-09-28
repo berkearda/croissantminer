@@ -1,0 +1,80 @@
+{
+  "dataset_id": "SWE-bench_SWE-bench_Verified",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "SWE-bench is an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase and a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. The benchmark also includes a training dataset (SWE-bench-train) of 19,000 non-testing task instances from 37 repositories, and a Lite subset of 300 instances for more efficient evaluation.",
+    "url": "https://swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez; John Yang; Alexander Wettig; Shunyu Yao; Kexin Pei; Ofir Press; Karthik Narasimhan",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? Published as a conference paper at ICLR 2024. arXiv:2310.06770v3.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Pull requests were collected from 12 popular open-source Python repositories on GitHub using the GitHub developer API. Repositories were selected from the top 100 most downloaded PyPI packages (based on August 2023 download data). Collected PRs were filtered through attribute-based criteria (merged status, resolves a GitHub issue, introduces new tests) and execution-based validation (installation success, fail-to-pass test existence). A training dataset was similarly collected from an additional 37 popular Python repositories.",
+    "rai:dataCollectionType": "Web API; Software Collection",
+    "rai:dataCollectionMissingData": "In approximately half of the instances with the 27,000-token context limit, BM25 retrieves none of the oracle files. Additionally, some task instances contain embedded image links in issue text (e.g., 32% of matplotlib and 10% of seaborn instances), which cannot be processed by text-only models, representing a gap in available information at collection/evaluation time. The paper also notes that during collection and evaluation, no information about GitHub users is collected beyond what is offered via the public API and website.",
+    "rai:dataCollectionRawData": "Merged pull requests and associated GitHub issues from 12 popular open-source Python repositories (e.g., astropy, django, flask, matplotlib, pylint, pytest, requests, scikit-learn, seaborn, sphinx, sympy, xarray), collected via the GitHub developer API. Approximately 90,000 PRs were scraped in total before filtering down to 2,294 task instances.",
+    "rai:dataCollectionTimeframe": "Repositories selected based on top PyPI downloads during August 2023; PR collection timeframe not otherwise explicitly bounded",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "SWE-bench's filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection (explicitly stated by authors); some repositories naturally feature more instances with images (e.g., 32% of matplotlib and 10% of seaborn instances contain embedded images) compared to just 2% of all instances, which may disadvantage models without multimodal capabilities",
+    "rai:dataLimitations": "SWE-bench task instances are all in Python; coverage of other programming languages is absent; relying solely on execution-based testing is insufficient to guarantee reliable performance of model generations, as automated code generations can frequently be less comprehensive, efficient, or readable compared to human-written solutions; some task instances include embedded images in issue text that current text-only baselines cannot process",
+    "rai:dataSocialImpact": "A potential future of machine-automated software engineering raises important questions about AI Safety, including how to ensure AI-generated code is faithful to human intents and what guardrails might be in place when human objectives are misinterpreted by code agents; the authors hope SWE-bench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering",
+    "rai:personalSensitiveInformation": "During the collection or evaluation processes, no information about GitHub users is collected; SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website; no human subject participation, crowdsourcing, or recruitment of human task workers is involved",
+    "rai:dataUseCases": "Evaluating language models on real-world software engineering tasks (resolving GitHub issues); benchmarking retrieval and long-context models, decision-making agents, and tool-augmented LMs; training open models for repository-scale code editing via the SWE-bench-train dataset; serving as a testbed for designing safe and aligned AI-driven software engineering systems",
+    "rai:dataReleaseMaintenancePlan": "The authors plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, experimental results, training data used for fine-tuning SWE-Llama models, and SWE-Llama model weights; they will provide ample documentation for each component and put in place communication channels for soliciting feedback; the collection process can be continuously updated with new task instances from new repositories and programming languages with minimal human intervention",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The training dataset (SWE-bench-train) was constructed from 19,000 issue-PR pairs collected from 37 additional Python repositories, with the set of repositories kept disjoint from the evaluation benchmark to eliminate data contamination. Training sequences with more than 30,000 tokens were excluded, reducing the effective training corpus to 10,000 instances. The SWE-bench Lite subset of 300 instances was sampled from the full benchmark to be more self-contained, focusing on functional bug fixes, covering 11 of the original 12 repositories.",
+    "rai:dataPreprocessingProtocol": "Pull requests were filtered through a multi-stage pipeline: (1) attribute-based filtering selecting only merged PRs that resolve a GitHub issue and contribute test file changes; (2) execution-based filtering removing instances that fail installation, cannot apply patches, or produce runtime errors, and retaining only instances with at least one fail-to-pass test; (3) removal of task instances where tests invoke newly created functions or classes first introduced in the solution patch; (4) removal of instances with ImportError or AttributeError in pre-solution logs. For the training set (SWE-bench-train), PRs were not required to contribute test changes, and training sequences exceeding 30,000 tokens were excluded, reducing the effective training corpus to 10,000 instances. Problem statements were formed by aggregating issue titles, bodies, and comments created before the PR's initial commit, with Markdown-style comments removed. For sparse retrieval, file contents were augmented by prepending file paths to document text."
+  },
+  "usage": {
+    "input_tokens": 311700,
+    "output_tokens": 1971
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 62484,
+        "output_tokens": 371
+      },
+      "collection": {
+        "input_tokens": 62367,
+        "output_tokens": 429
+      },
+      "annotation": {
+        "input_tokens": 62450,
+        "output_tokens": 159
+      },
+      "impact": {
+        "input_tokens": 62384,
+        "output_tokens": 592
+      },
+      "processing": {
+        "input_tokens": 62015,
+        "output_tokens": 420
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 76763,
+      "output_tokens": 480
+    },
+    "timestamp": "2026-05-02T18:09:37.040148+00:00",
+    "elapsed_seconds": 68.2
+  }
+}

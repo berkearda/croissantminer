@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_textvqa",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "TextVQA",
+    "description": "TextVQA contains 45,336 questions asked by humans on 28,408 images from the Open Images dataset that require reading and reasoning about text in the image to answer.",
+    "url": "https://textvqa.org",
+    "license": null,
+    "creator": "Amanpreet Singh; Vivek Natarajan; Meet Shah; Yu Jiang; Xinlei Chen; Dhruv Batra; Devi Parikh; Marcus Rohrbach",
+    "publisher": null,
+    "datePublished": "2019-05-13",
+    "inLanguage": "en",
+    "citeAs": "Amanpreet Singh, Vivek Natarajan, Meet Shah, Yu Jiang, Xinlei Chen, Dhruv Batra, Devi Parikh, Marcus Rohrbach. Towards VQA Models That Can Read. arXiv:1904.08920v2 [cs.CL] 13 May 2019",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Images were sampled from the Open Images v3 dataset using category weights based on OCR bounding box frequency. A three-stage crowdsourcing pipeline was then used where human annotators filtered out images without text, wrote questions requiring reading the text, and provided answers.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images from the Open Images v3 dataset.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A three-stage crowdsourcing pipeline where annotators first identified images without text, then provided 1-2 questions per image requiring reading text to answer, and finally provided answers. Quality control included filtering questions flagged by a majority of workers and using hand-crafted questions with known answers to identify and filter out bad annotators.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Questions flagged by a majority of workers as invalid (e.g., no text, not a question, unanswerable) were removed, and the most common (majority) answer among the annotators was used.",
+    "rai:annotationsPerItem": "10",
+    "rai:annotatorDemographics": "sighted",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset does not have significant biases w.r.t. images and questions.",
+    "rai:dataLimitations": "The OCR model fails at detecting text that is rotated, unstructured (e.g., a scribble), or partially occluded; the model can only produce one OCR token as the predicted answer, meaning it cannot answer the 8.9% of TextVQA questions that require combining multiple OCR tokens; the OCR system sometimes fails to detect text in images that actually contain it.",
+    "rai:dataSocialImpact": "The dataset addresses a specific skill in Visual Question Answering that is important for applications involving aiding visually impaired users with their assistive devices.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmark progress along directions complementary to VQA 2.0; Encourage research on improving text detection and recognition in unconstrained environments; Enable VQA models to read and reason about text in images.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Images that did not contain text and noisy data from annotators were filtered out. Questions where a majority of workers marked flags (no text in image, not a question, answering doesn't require reading text, or unanswerable) were removed. Additionally, hand-crafted questions with known correct answers were used to identify and filter out bad annotators."
+  },
+  "usage": {
+    "input_tokens": 156864,
+    "output_tokens": 15363
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 31602,
+        "output_tokens": 3034
+      },
+      "collection": {
+        "input_tokens": 31456,
+        "output_tokens": 2734
+      },
+      "annotation": {
+        "input_tokens": 31403,
+        "output_tokens": 3036
+      },
+      "impact": {
+        "input_tokens": 31366,
+        "output_tokens": 3649
+      },
+      "processing": {
+        "input_tokens": 31037,
+        "output_tokens": 2910
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 73581,
+      "output_tokens": 4681
+    },
+    "timestamp": "2026-05-28T10:10:28.969808+00:00",
+    "elapsed_seconds": 181.9
+  }
+}

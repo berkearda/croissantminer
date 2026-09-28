@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "OpenThoughts3-1.2M",
+    "description": "OpenThoughts3-1.2M is a 1.2 million-sized open-data supervised fine-tuning reasoning dataset built for training reasoning models. It contains question-response pairs across math, code, and science, with 850,000 math, 250,000 code, and 100,000 science datapoints.",
+    "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M",
+    "license": null,
+    "creator": "Etash Guha; Ryan Marten; Sedrick Keh; Negin Raoof; Georgios Smymis; Hritik Bansal; Marianna Nezhurina; Jean Mercat; Trung Vu; Zayne Sprague; Ashima Suvama; Benjamin Feuer; Liangyu Chen; Zaid Khan; Eric Frankel; Sachin Grover; Caroline Choi; Niklas Muennighoff; Shiye Su; Wanjia Zhao; John Yang; Shreyas Pimpalgaonkar; Kartik Sharma; Charlie Cheng-Jie Ji; Yichuan Deng; Sarah Pratt; Vivek Ramanujan; Jon Saad-Falcon; Jeffrey Li; Achal Dave; Alon Albalak; Kushal Arora; Blake Wulfe; Chinmay Hegde; Greg Durrett; Sewoong Oh; Mohit Bansal; Saadia Gabriel; Aditya Grover; Kai-Wei Chang; Vaishaal Shankar; Aaron Gokaslan; Mike A. Merrill; Tatsunori Hashimoto; Yejin Choi; Jenia Jitsev; Reinhard Heckel; Maheswaran Sathiamoorthy; Alexandros G. Dimakis; Ludwig Schmidt",
+    "publisher": "open-thoughts",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Etash Guha, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, Marianna Nezhurina, Jean Mercat, Trung Vu, Zayne Sprague, Ashima Suvama, Benjamin Feuer, Liangyu Chen, Zaid Khan, Eric Frankel, Sachin Grover, Caroline Choi, Niklas Muennighoff, Shiye Su, Wanjia Zhao, John Yang, Shreyas Pimpalgaonkar, Kartik Sharma, Charlie Cheng-Jie Ji, Yichuan Deng, Sarah Pratt, Vivek Ramanujan, Jon Saad-Falcon, Jeffrey Li, Achal Dave, Alon Albalak, Kushal Arora, Blake Wulfe, Chinmay Hegde, Greg Durrett, Sewoong Oh, Mohit Bansal, Saadia Gabriel, Aditya Grover, Kai-Wei Chang, Vaishaal Shankar, Aaron Gokaslan, Mike A. Merrill, Tatsunori Hashimoto, Yejin Choi, Jenia Jitsev, Reinhard Heckel, Maheswaran Sathiamoorthy, Alexandros G. Dimakis, Ludwig Schmidt. Data Recipes for Reasoning Models. arXiv:2506.04178, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by sourcing questions from existing datasets and public forums, generating additional questions with LLMs for some sources, filtering and deduplicating questions, randomly sampling questions, and then generating multiple answers per question with teacher models to build OpenThoughts3-1.2M.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection; User-generated content data",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw/source data included questions from existing datasets and public sources across math, code, and science. The final pipeline uses OpenMath-2-Math for math, StackExchange CodeGolf and OpenCodeReasoning for code, and StackExchange Physics plus an Organic Chemistry PDF pipeline for science. The paper also states that the Organic Chemistry PDF pipeline starts from SCP PDFs alongside organic chemistry textbooks, solution manuals, and more organic chemistry textbooks.",
+    "rai:dataCollectionTimeframe": "2025-01-22",
+    "rai:dataAnnotationProtocol": "The dataset is created by generating question-response pairs with teacher models: \"we use DeepSeek-R1 to generate responses for each question\"; later, \"we use QwQ-32B as the teacher model.\" The pipeline also includes automated question filtering and answer filtering experiments, e.g., \"Difficulty-based filtering asks an LLM (GPT-4o-mini) to assess the difficulty of each question,\" \"response length filtering asks an LLM to respond to each question directly, then selects the questions with the longest LLM-generated responses,\" and they \"explore three levels of sampling multiple answers per question, at 1×, 4×, and 16×.\"",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The paper describes how machine-generated annotations were analyzed and selected: \"we select the best-performing strategy based on downstream performance\"; for multiple answers they \"sweep all combinations of deduplication levels (none, fuzzy, exact) and sampling multiple answers (1×, 4×, 16×)\" and in answer filtering they test methods including \"majority consensus filtering\" where \"Ask GPT-4o-mini to return a list of indices of responses that agree with the majority.\"",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "DeepSeek-R1; QwQ-32B; GPT-4o-mini; GPT-4.1-mini; GPT-4.1-nano; gemini/gemini-2.0-flash-lite-preview-02-05; fastText; text-embedding-3-large; GPT-4o; OpenThinker-7B; Math-Verify",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "We did not explore datasets for reinforcement learning, a standard training regime for building reasoning models; Within the SFT realm, we did not explore the use of staged SFT or curriculum learning to further improve performance; In each step of our pipeline, we selected strategies that maximized overall average benchmark performance, rather than optimizing for each domain individually; it’s unclear whether such transfer persists once domains are mixed",
+    "rai:dataSocialImpact": "Supervised fine-tuning on reasoning inadvertently degrades the pre-existing safety alignment of Qwen2.5 models; OpenThinker3-7B was trained without any explicit safety-tuning or alignment-focused data, which likely contributes to its degraded safety performance; Future work on the OpenThoughts would benefit from incorporating safety-specific datasets to mitigate these risks while preserving their strong reasoning capabilities",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "create open-source datasets for training reasoning models; create state-of-the-art open reasoning datasets; build reasoning capabilities in math, code, and science; supervised fine-tuning of reasoning models",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The pipeline applies post-collection manipulations including mixing questions from top-performing sources, filtering questions to retain a high-quality subset, exact or fuzzy deduplication of questions, sampling multiple answers per question at 1×, 4×, or 16×, answer filtering experiments, and decontamination against evaluation benchmarks by removing samples with high similarity. The final pipeline uses 16× answers per question for all domains, exact deduplication for math and science, no deduplication for code, and removes contaminated samples with high similarity to benchmarks.",
+    "rai:dataPreprocessingProtocol": "The paper describes preprocessing steps including deduplicating questions using exact match deduplication or fuzzy deduplication based on threshold-based string similarity / normalized Indel similarity, and decontaminating datasets against benchmarks by removing samples with high similarity using normalized Indel similarity and N-gram-based similarity criteria."
+  },
+  "usage": {
+    "input_tokens": 389066,
+    "output_tokens": 1971
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 78065,
+        "output_tokens": 683
+      },
+      "collection": {
+        "input_tokens": 77855,
+        "output_tokens": 222
+      },
+      "annotation": {
+        "input_tokens": 77849,
+        "output_tokens": 389
+      },
+      "impact": {
+        "input_tokens": 77798,
+        "output_tokens": 265
+      },
+      "processing": {
+        "input_tokens": 77499,
+        "output_tokens": 412
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 75776,
+      "output_tokens": 313
+    },
+    "timestamp": "2026-05-22T11:42:06.309156+00:00",
+    "elapsed_seconds": 41.1
+  }
+}

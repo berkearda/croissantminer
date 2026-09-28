@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_DocVQA",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "DocVQA",
+    "description": "DocVQA is a dataset for visual question answering on document images. It consists of 50,000 questions defined on 12,000+ document images, with questions and answers grounded in real documents and designed to require understanding of text, layout, structure, tables, forms, figures, and other visual cues.",
+    "url": "docvqa.org",
+    "license": null,
+    "creator": "Minesh Mathew; Dimosthenis Karatzas; C.V. Jawahar",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Minesh Mathew, Dimosthenis Karatzas, and C.V. Jawahar. DocVQA: A Dataset for VQA on Document Images. arXiv:2007.00398v3, 2021.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Document images were downloaded from different collections in the UCSF Industry Documents Library, and pages were hand picked from these documents for use in the dataset. The final set of images was drawn from pages of 6,071 industry documents. Questions and answers were collected on the selected document images with the help of remote workers using a web-based annotation tool.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "During the second annotation stage, if a worker found a question inapt owing to language issues or ambiguity, the question could be flagged and such questions were not included in the dataset.",
+    "rai:dataCollectionRawData": "Documents from the UCSF Industry Documents Library; the final images were drawn from pages of 6,071 industry documents spanning five industries.",
+    "rai:dataCollectionTimeframe": "1900 to 2018",
+    "rai:dataAnnotationProtocol": "Questions and answers on selected document images were collected with remote workers using a web-based annotation tool in three stages: in stage 1, workers saw a document image and defined at most 10 question-answer pairs, were encouraged to add more than one ground truth answer when warranted, and were instructed to ask questions answerable using text present in the image and to enter the answer verbatim from the document; in stage 2, another worker saw the image and first-stage questions but not the first-stage answers, entered answers, assigned one or more question types to each question, and could flag inapt questions due to language issues or ambiguity; if no first-stage answer exactly matched any second-stage answer, the item went to stage 3 where the authors reviewed, edited if necessary, and either accepted or ignored the question-answer.",
+    "rai:dataAnnotationPlatform": "Web based annotation tool",
+    "rai:dataAnnotationAnalysis": "The second stage verified first-stage data; questions flagged as inapt owing to language issues or ambiguity were excluded; if none of the answers entered in the first stage matched exactly with any of the answers from the second stage, the question was sent to a third-stage review by the authors, who could edit the question-answer and then accept or ignore it.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": "a few volunteers from our institution",
+    "rai:machineAnnotationTools": "a commercial OCR application; a commercial OCR solution",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Majority of documents in the library are binarized and the binarization has taken on a toll on the image quality; answers are a substring of the serialized OCR output for around 76% of the questions in both validation and test splits; OCR substring upper bound can produce false matches such as matching \"2\" inside \"2020\" or \"2pac\"; no OCR is perfect and OCR errors resulted in wrong answers although the models manage to ground the questions correctly",
+    "rai:dataSocialImpact": "We introduce a new data set and an associated VQA task with the aim to inspire a “purpose-driven” approach in document image analysis and recognition research; This could drive methods that use the low-level cues (text, layout, arrangements) and high-level goals (purpose, relationship, domain knowledge) in solving problems of practical importance",
+    "rai:personalSensitiveInformation": "The dataset includes named entities such as names of people, institutions and places.",
+    "rai:dataUseCases": "Visual Question Answering on document images; evaluating and developing methods for document image understanding that answer natural language questions using textual and visual cues",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The data is split randomly in an 80-10-10 ratio to train, validation and test splits.",
+    "rai:dataPreprocessingProtocol": "We downloaded documents from different collections and hand picked pages from these documents for use in the dataset. We tried to minimize binarized images in DocVQA since we did not want poor image quality to be a bottleneck for VQA. We also prioritized pages with tables, forms, lists and figures over pages which only have running text. During the second stage, if the worker finds a question inapt owing to language issues or ambiguity, an option to flag the question was provided. Such questions are not included in the dataset."
+  },
+  "usage": {
+    "input_tokens": 120360,
+    "output_tokens": 1271
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 26998,
+        "output_tokens": 202
+      },
+      "collection": {
+        "input_tokens": 13436,
+        "output_tokens": 179
+      },
+      "annotation": {
+        "input_tokens": 26771,
+        "output_tokens": 317
+      },
+      "impact": {
+        "input_tokens": 26727,
+        "output_tokens": 280
+      },
+      "processing": {
+        "input_tokens": 26428,
+        "output_tokens": 293
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 53285,
+      "output_tokens": 230
+    },
+    "timestamp": "2026-05-22T11:29:16.743965+00:00",
+    "elapsed_seconds": 46.0
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ybisk_piqa",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "PIQA",
+    "description": "PIQA (Physical Interaction: Question Answering) is a benchmark dataset for evaluating physical commonsense reasoning in natural language understanding systems. It consists of over 16,000 training QA pairs (plus ~2K development and ~3K test) in a two-choice question answering format, where models must select the most physically sensible solution to a given everyday goal. The dataset was inspired by instructables.com and uses adversarial filtering to remove annotation artifacts.",
+    "url": "http://yonatanbisk.com/piqa",
+    "license": null,
+    "creator": "Yonatan Bisk; Rowan Zellers; Ronan Le Bras; Jianfeng Gao; Yejin Choi",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, and Yejin Choi. PIQA: Reasoning about Physical Commonsense in Natural Language. AAAI 2020. arXiv:1911.11641.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Annotators were recruited via Amazon Mechanical Turk (MTurk) and prompted with links to instructables.com to inspire goal-solution pairs. Annotators were asked to glance at an instructable, construct a physical goal and a valid solution, and then provide a 'trick' (an invalid but plausible-sounding alternative solution). Data was collected in batches and validated by other annotators. AFLite was applied to remove annotation artifacts.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Instructions and how-to content from instructables.com, a crowdsourced collection of instructions for cooking, crafting, car repair, and other physical tasks. Annotators used these as seeds to generate goal-solution pairs across six categories: costume, outside, craft, home, food, and workshop.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Annotators were given links to instructables.com as inspiration and asked to provide: (1) a physical goal, (2) a valid solution, and (3) a 'trick' (a plausible but incorrect solution). A qualification HIT required annotators to achieve >80% accuracy on well-formed and underspecified goal-solution pairs before participating in the main HIT. Data was collected in batches and validated by other annotators for correctness; annotators with low agreement were de-qualified. Examples with low agreement during validation were removed. An interface with a diff button was provided to highlight differences between solutions. Annotators were paid >$15/hr.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (HITs)",
+    "rai:dataAnnotationAnalysis": "Examples with low agreement were removed from the dataset. Human performance on the development set was calculated by majority vote. AFLite algorithm was applied to remove annotation artifacts and stylistic biases by training BERT-Large on 5,000 examples and using an ensemble of linear classifiers to discard instances whose embeddings were highly indicative of the correct label.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "AFLite (adversarial filtering algorithm using BERT-Large embeddings and ensemble of linear classifiers); spaCy (tokenization and POS tagging); GPT BPE tokenizer",
+    "rai:dataBiases": "Reporting bias causes commonsense physical properties to be rarely directly reported in text, limiting what models can learn from language alone; annotators tended toward prototypical solutions and kitchen/garage tools rather than the full range of everyday objects, which was addressed by prompting with instructables; annotation artifacts were reduced using the AFLite algorithm",
+    "rai:dataLimitations": "Examples requiring expert-level domain knowledge (e.g., special woodworking terminology) were removed as they fall outside commonsense; the dataset is collected entirely in English; automated methods trained on large web crawls may eventually surpass human performance by finding large in-domain data sources, which is explicitly noted as not the intended point of the benchmark",
+    "rai:dataSocialImpact": "The authors state that physical commonsense reasoning is a major challenge on the road to true AI-completeness, including robots that interact with the world and understand natural language, and that the goal is to build language representations useful beyond the NLP community",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmarking and evaluating progress in physical commonsense understanding in natural language models; probing the physical knowledge of pretrained language models; providing insight and a benchmark for progress towards language representations that capture knowledge traditionally only seen or experienced, to enable construction of language models useful beyond the NLP community",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was processed using the AFLite algorithm to remove annotation artifacts and stylistic biases. AFLite discards instances whose feature representations are collectively highly indicative of the target label, using an ensemble of linear classifiers trained on random subsets of BERT-Large embeddings to perform unsupervised data bias reduction. Train, development, and test folds were automatically produced by AFLite.",
+    "rai:dataPreprocessingProtocol": "Examples with low annotator agreement were removed from the data during validation. Data was collected in batches and validated by other annotators for correctness; users with low agreement were de-qualified. Examples were tokenized using Spacy and the GPT BPE tokenizer. The longest 1% of examples were removed from length distribution analysis. During model experiments, examples were truncated at 150 tokens, affecting 1% of the data."
+  },
+  "usage": {
+    "input_tokens": 119594,
+    "output_tokens": 1608
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 24069,
+        "output_tokens": 337
+      },
+      "collection": {
+        "input_tokens": 23963,
+        "output_tokens": 284
+      },
+      "annotation": {
+        "input_tokens": 23989,
+        "output_tokens": 375
+      },
+      "impact": {
+        "input_tokens": 23987,
+        "output_tokens": 368
+      },
+      "processing": {
+        "input_tokens": 23586,
+        "output_tokens": 244
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 59507,
+      "output_tokens": 119
+    },
+    "timestamp": "2026-05-02T19:10:29.682823+00:00",
+    "elapsed_seconds": 51.1
+  }
+}

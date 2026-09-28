@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_fleurs",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "FLEURS",
+    "description": "FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is an n-way parallel speech dataset in 102 languages built on top of the FLoRes-101 machine translation benchmark, with approximately 12 hours of speech supervision per language. It contains natural human speech recordings with high quality transcripts and can be used for tasks including Automatic Speech Recognition, Speech Language Identification, Translation, and Retrieval.",
+    "url": "https://huggingface.co/datasets/google/xtreme_s",
+    "license": null,
+    "creator": "Alexis Conneau (Meta AI Research); Min Ma (Google Research); Simran Khanuja (Google Research); Yu Zhang (Google Research); Vera Axelrod (Google Research); Siddharth Dalmia (Carnegie Mellon University); Jason Riesa (Google Research); Clara Rivera (Google Research); Ankur Bapna (Google Research)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "af, am, ar, hy, as, ast, az, be, bn, bs, bg, my, yue, ca, ceb, hr, cs, da, nl, en, et, tg, fi, fr, ff, gl, lg, ka, de, el, gu, ha, he, hi, hu, is, ig, id, ga, it, ja, jv, kea, kam, kn, kk, km, ko, ky, lo, lv, ln, lt, luo, lb, mk, ms, ml, mt, cmn, mi, mr, mn, ne, nso, nb, ny, oc, or, om, ps, fa, pl, pt, pa, ro, ru, sr, sn, sd, sk, sl, so, ckb, es, sw, sv, tg, ta, te, th, tr, uk, umb, ur, uz, vi, cy, wo, xh, yo, zu",
+    "citeAs": "Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera, Ankur Bapna. \"FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech.\" arXiv:2205.12446, 2022.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was built on top of the FLoRes-101 benchmark. The dev and devtest sets of FLoRes-101 (2009 sentences total) were used as source text. For each sentence in 102 languages, three recordings were collected from three different native speakers, with a target sex ratio balance of at least 30/70% when possible. Each recording was then evaluated by additional workers to assess whether it corresponded to the input sentence; invalid recordings were discarded.",
+    "rai:dataCollectionType": "Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "About 21.5% of sentences are missing in the first version of the dataset because none of the three recordings for those sentences were validated.",
+    "rai:dataCollectionRawData": "FLoRes-101 benchmark dev and devtest sets, containing 2009 sentences extracted from English Wikipedia and translated into 101 languages by human translators.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Native speakers recorded sentences from the FLoRes-101 dataset in 102 languages; three different native speakers recorded each sentence with a target sex ratio balance of at least 30/70%. After recording, each recording was evaluated by additional workers to assess whether it corresponds to the input sentence; invalid recordings were discarded.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Recordings that did not correspond to the input sentence were discarded after evaluation by additional workers; approximately 21.5% of sentences were missing because none of the three recordings were validated.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "Native speakers of each language; sex ratio balanced to at least 30/70% when possible",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Results are much better on the Western European group than on other groups like Sub-Saharan African or South Asian, which can be explained in part due to the larger amounts of unlabeled data in WE languages from MLS and VoxPopuli; about 21.5% of sentences are missing because none of the three recordings were validated",
+    "rai:dataLimitations": "About 21.5% of sentences are missing in the first version because none of the three recordings were validated; the dataset covers only ~12 hours of speech supervision per language; speakers are different among train and dev/test sets, requiring care to avoid overfitting on speaker ID for LangID; no data augmentation is applied; some languages (e.g., Odia) are unrepresented in the tokenizer used by baseline models",
+    "rai:dataSocialImpact": "The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding, with the hope of enabling progress towards building speech technologies for everyone",
+    "rai:personalSensitiveInformation": "The dataset consists of read speech recordings by native speakers; speakers are disjoint between train/dev and test sets, and a sex ratio balance of at least 30/70% was imposed during recording. No personal or sensitive information about speakers is described as being collected or included beyond these demographic constraints.",
+    "rai:dataUseCases": "Automatic Speech Recognition (ASR); Speech Language Identification (Speech LangID); Speech-to-Text and Speech-to-Speech Translation; Multilingual Speech-to-Speech and Speech-to-Text Retrieval; evaluation of data-efficient multilingual pre-trained representations of speech and text",
+    "rai:dataReleaseMaintenancePlan": "The authors plan to fill gaps (missing ~21.5% of sentences) in future versions of the dataset",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "No data augmentations were applied to the collected recordings (e.g., SpecAugment, speed perturbation, simulated reverberation). The dataset maintains a balance in terms of sex ratio of at least 30/70% per language when possible. The paper notes that about 21.5% of sentences are missing due to failed validation, with plans to fill these gaps in future versions.",
+    "rai:dataPreprocessingProtocol": "Text transcripts were preprocessed by applying NFC normalization followed by FST normalization, lowercasing, normalizing and removing punctuations, and splitting words into characters with a token for word boundaries. Three versions of each sentence are provided: the original raw transcript (SRC_RAW), the preprocessed version (SRC_NORM), and a character-based version (SRC_CHAR). Invalid recordings (those not validated as corresponding to the input sentence) were discarded. All segments were kept within 30 seconds. The speech sampling rate is 16kHz."
+  },
+  "usage": {
+    "input_tokens": 161594,
+    "output_tokens": 1870
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 32478,
+        "output_tokens": 620
+      },
+      "collection": {
+        "input_tokens": 32351,
+        "output_tokens": 266
+      },
+      "annotation": {
+        "input_tokens": 32391,
+        "output_tokens": 227
+      },
+      "impact": {
+        "input_tokens": 32373,
+        "output_tokens": 466
+      },
+      "processing": {
+        "input_tokens": 32001,
+        "output_tokens": 291
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 80502,
+      "output_tokens": 260
+    },
+    "timestamp": "2026-05-02T18:33:12.985375+00:00",
+    "elapsed_seconds": 59.7
+  }
+}

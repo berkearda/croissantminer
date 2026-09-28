@@ -1,0 +1,289 @@
+{
+  "dataset_id": "ceval_ceval-exam",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "C-EVAL",
+    "description": "A comprehensive Chinese evaluation suite for foundation models. It contains multiple-choice questions across four difficulty levels and 52 disciplines, and includes a harder subset called C-EVAL HARD.",
+    "url": "https://github.com/hkust-nlp/ceval",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Yuzhen Huang, Yuzhuo Bai, Zhihao Zhu, Junlei Zhang, Jinghan Zhang, Tangjun Su, Junteng Liu, Chuancheng Lv, Yikai Zhang, Jiayi Lei, Yao Fu, Maosong Sun, Junxian He",
+    "publisher": "NeurIPS 2023 Track on Datasets and Benchmarks",
+    "datePublished": "2023-11-06",
+    "inLanguage": "zh",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The primary source of the data is mock exams freely available on the internet. In addition, some college-level questions are past exam questions from top universities in China, publicly shared by students, and a minor fraction are mock questions for the national graduate entrance exam sourced from the Weipu website. The collected materials were parsed from PDF/Microsoft Word documents and some web pages, then automatically or manually structured, deduplicated, cleaned, and human-validated by the authors.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Questions with fewer than four options were eliminated, and for questions with more than four options, incorrect choices were randomly dropped.",
+    "rai:dataCollectionRawData": "Multiple-choice exam questions from mock exams, past university exam questions, and mock national graduate entrance exam questions; the source materials were mainly PDF or Microsoft Word documents, with a minor fraction as web pages.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Questions were parsed into a structured format automatically when possible and otherwise manually by the authors; complex mathematical notations were manually converted into standard LATEX; all questions underwent several rounds of human validation by the authors; for explanation data, GPT-4 first generated step-by-step explanations and these were then human annotated/revised to produce high-quality explanation data.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Human validation was performed in several rounds, and LATEX notations were checked to ensure they compiled without syntax errors.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4 was used to generate step-by-step explanations for the development split.",
+    "rai:dataBiases": "The benchmark is described as challenging and intended for a Chinese context, but the authors note it is still incomplete and that broader evaluation should consider other aspects such as safety, bias, and robustness.",
+    "rai:dataLimitations": "The benchmark is far from perfect for LLM evaluation and does not cover many abilities beyond accuracy, such as reasoning over APIs and other non-accuracy aspects.",
+    "rai:dataSocialImpact": "The paper frames the benchmark as helping developers prepare LLMs for more complex scenarios and making progress on evaluation in a Chinese context.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluation of LLMs, specifically as a challenging evaluation suite/benchmark; the text implies use for testing model capabilities rather than training.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The development split exemplars were annotated with explanations for few-shot chain-of-thought settings, and GPT-4 was prompted to generate step-by-step explanations for the development split.",
+    "rai:dataPreprocessingProtocol": "PDF documents were processed into text; questions were parsed into a structured format; complex mathematical notations were manually converted into standard LaTeX; questions were filtered to exactly four choices by eliminating those with fewer than four options and randomly dropping incorrect choices for questions with more than four options; deduplication and cleaning were applied; human validation ensured LaTeX syntax correctness; typos and incorrect formats from PDF documents were fixed."
+  },
+  "usage": {
+    "input_tokens": 26775,
+    "output_tokens": 2226
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:09:08.781439Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present C-EVAL, the first comprehensive Chinese evaluation suite designed to assess advanced knowledge and reasoning abilities of foundation models in a Chinese context."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "C-EVAL comprises multiple-choice questions across four difficulty levels: middle school, high school, college, and professional. The questions span 52 diverse disciplines... C-EVAL is accompanied by C-EVAL HARD, a subset of very challenging subjects"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The C-EVAL data and evaluation code are available at https://github.com/hkust-nlp/ceval."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yuzhen Huang∗1Yuzhuo Bai∗2Zhihao Zhu1Junlei Zhang1Jinghan Zhang1 Tangjun Su1Junteng Liu1Chuancheng Lv2Yikai Zhang1Jiayi Lei1 Yao Fu3Maosong Sun2Junxian He†4"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "37th Conference on Neural Information Processing Systems (NeurIPS 2023) Track on Datasets and Benchmarks."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2305.08322v3 [cs.CL] 6 Nov 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we focus on evaluating the advanced abilities of foundation models in a Chinese context"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present C-EVAL, the first comprehensive Chinese evaluation suite"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The primary source of our data is mock exams freely available on the intemet. In addition, a portion of the college-level questions are past exam questions from top universities in China, publicly shared by the students. A minor fraction of college questions are mock questions for the national graduate entrance exam, sourced from the Weipu website”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The primary source of our data is mock exams freely available on the intemet. In addition, a portion of the college-level questions are past exam questions from top universities in China”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we eliminate questions with fewer than four options and randomly drop incorrect choices for questions with more than four options.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The collected data come in various formats, primarily as PDF or Microsoft Word documents and a minor fraction as web pages.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“All questions are subsequently parsed – automatically when possible, and otherwise manually by the authors – into a structured format”; “we manually convert them into standard LATEX formats”; “the questions undergo several rounds of human validation by the authors”; “we first prompt GPT-4 to generate step-by-step explanation ... then we”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the questions undergo several rounds of human validation by the authors, and all the LATEX notations are ensured to be complied without syntax errors.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we first prompt GPT-4 to generate step-by-step explanation to explain the ground-truth answer”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“C-EVAL, along with all the English-language benchmarks, is far from perfect for LLM evaluation... including safety, bias, and robustness.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“C-EVAL, along with all the English-language benchmarks, is far from perfect for LLM evaluation. There are many other abilities such as reasoning over and calling APIs, as well as multiple aspects that extend beyond accuracy”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“guiding developers in preparing LLMs to function in more complex scenarios... made important progress on this direction particularly in a Chinese context.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the creation of C-EVAL, a challenging evaluation suite.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“These dev exemplars are also annotated with explanations to enable few-shot chain-of-thought settings” and “we first prompt GPT-4 to generate step-by-step explanation”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“PDF documents are initially processed into text” “All questions are subsequently parsed … into a structured format” “we manually convert them into standard LATEX formats” “we eliminate questions with fewer than four options and randomly drop incorrect choices for questions with more than four options” “standard data preprocessing pipeline, such as deduplication and cleaning” “all the LATEX notations are ensured to be complied without syntax errors” “fixing typos/incorrect formats of the questions from PDF documents”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.0054,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11485,
+        "tokens_in": 3325,
+        "tokens_out": 572
+      },
+      "collection": {
+        "section_chars": 17870,
+        "tokens_in": 4802,
+        "tokens_out": 428
+      },
+      "annotation": {
+        "section_chars": 2766,
+        "tokens_in": 993,
+        "tokens_out": 366
+      },
+      "impact": {
+        "section_chars": 12747,
+        "tokens_in": 4271,
+        "tokens_out": 379
+      },
+      "processing": {
+        "section_chars": 2766,
+        "tokens_in": 877,
+        "tokens_out": 328
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 22.7,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 12507,
+      "output_tokens": 153
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

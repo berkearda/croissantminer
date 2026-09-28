@@ -1,0 +1,80 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "SWE-Bench+",
+    "description": "An enhanced benchmark dataset for evaluating large language models on real-world software issues. It contains 548 GitHub issues collected between November 2023 and August 2024, specifically filtered to prevent data leakage and remove issues with solutions in their descriptions.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan; Haoran Xue; Mohammad Mahdi Mohajer; Elijah Nnorom; Gias Uddin; Song Wang",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": null,
+    "citeAs": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah Nnorom, Gias Uddin, Song Wang. SWE-Bench+: Enhanced Coding Benchmark for LLMs. arXiv:2410.06992v2, 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was created by collecting GitHub issues and pull requests from 12 Python repositories using open-source scripts from the SWE-Bench study, specifically targeting issues created after the training cut-off dates of evaluated LLMs.",
+    "rai:dataCollectionType": "Software Collection; User-generated content data",
+    "rai:dataCollectionMissingData": "The Django project was excluded from the collection because its issues are now tracked outside of GitHub.",
+    "rai:dataCollectionRawData": "Real-world GitHub issues and their corresponding pull requests from 12 Python repositories.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataAnnotationProtocol": "Three authors independently performed a patch validation study by comparing gold and generated patches, examining files and lines changed, reviewing issue descriptions, and evaluating implementation styles and intentions. They also manually checked instances to eliminate those with clear solution details.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Disagreements among the three independent annotators were resolved through a broader discussion involving all the authors.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The original SWE-bench dataset suffers from solution leakage (solutions provided in issue reports), weak test cases that fail to catch incorrect or incomplete fixes, and data leakage (issues created before LLM training cut-off dates); the refined SWE-Bench+ dataset resolves data and solution leakage, but the issue with weak test cases persists.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Systematically evaluating the capabilities of Large Language Models (LLMs) in resolving real-world software issues and generating accurate patches.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Once the issues were collected, we applied the same filtering process described in the SWE-Bench study. This included using attribute filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and their PRs pass all tests. We then manually check all the instances to eliminate all the instances with a clear solution details in the issue report."
+  },
+  "usage": {
+    "input_tokens": 120550,
+    "output_tokens": 12887
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 27014,
+        "output_tokens": 3551
+      },
+      "collection": {
+        "input_tokens": 13476,
+        "output_tokens": 1711
+      },
+      "annotation": {
+        "input_tokens": 26834,
+        "output_tokens": 2276
+      },
+      "impact": {
+        "input_tokens": 26782,
+        "output_tokens": 2827
+      },
+      "processing": {
+        "input_tokens": 26444,
+        "output_tokens": 2522
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 53382,
+      "output_tokens": 4696
+    },
+    "timestamp": "2026-05-28T11:27:34.280068+00:00",
+    "elapsed_seconds": 130.8
+  }
+}

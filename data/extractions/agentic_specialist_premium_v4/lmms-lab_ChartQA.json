@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_ChartQA",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "ChartQA",
+    "description": "ChartQA is a large-scale benchmark for question answering about charts, covering 9,608 human-written questions (ChartQA-H) and 23,111 machine-generated questions (ChartQA-M) derived from human-written chart summaries. The dataset consists of 20,882 real-world charts curated from four online sources (Statista, Pew Research, Our World in Data, and OECD), focusing on visual and logical reasoning questions involving arithmetic and compositional operations.",
+    "url": "https://github.com/vis-nlp/ChartQA",
+    "license": null,
+    "creator": "Ahmed Masry (York University); Do Xuan Long (Nanyang Technological University); Jia Qing Tan (Nanyang Technological University); Shafiq Joty (Nanyang Technological University; Salesforce Research); Enamul Hoque (York University)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Ahmed Masry, Do Xuan Long, Jia Qing Tan, Shafiq Joty, and Enamul Hoque. 2022. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning. arXiv:2203.10244.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Charts were crawled from four online sources: Statista, Pew Research, Our World In Data (OWID), and OECD. For Statista, OWID, and OECD, underlying data tables, metadata, SVG files, and associated text descriptions were also extracted. For Pew, only chart images were crawled. Human-authored QA pairs were collected via Amazon Mechanical Turk (AMT). Machine-generated QA pairs were produced by fine-tuning a T5 model on human-written chart summaries from Statista.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": "For the Pew Research dataset, the underlying data tables were not available, so only chart images were crawled.",
+    "rai:dataCollectionRawData": "Chart images, SVG files, metadata, and data tables from Statista (statista.com), Pew Research (pewresearch.org), Our World In Data (ourworldindata.org), and OECD (oecd.org). Human-written chart summaries from Statista were used as source text for machine-generated QA pairs.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Amazon Mechanical Turk (AMT) crowdworkers were asked to provide two QA pairs per chart image, focusing on compositional questions (involving at least two mathematical/logical operations) and visual questions (referring to visual attributes such as color, height, and length of graphical marks). Workers with an acceptance rate of 95% and at least 5000 completed HITs were selected, and a pre-test was administered to further filter qualified workers. Each chart's questions were then answered by a second annotator; if both answers matched exactly, the answer was accepted as correct; otherwise, answers were manually checked to select the final correct answer.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Agreement between crowdworkers was measured by exact match, yielding 61.04% agreement overall. A manual check on 500 random samples found 78.55% agreement when accounting for typos and lexical variations. For the machine-generated (ChartQA-M) test set, 1,250 QA pairs were manually analyzed and 86.64% were found to be complete, answerable, and correct; the test set was also manually cleaned by removing invalid questions.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": "Amazon Mechanical Turk workers with an acceptance rate of 95% and total accomplished HITs of 5000; workers were further filtered via a pre-test to select best qualified workers; compensated based on US minimum wage ($7.25 USD per hour) at time of annotation",
+    "rai:machineAnnotationTools": "T5 model fine-tuned on SQuAD for answer extraction and answer-aware question generation from human-written chart summaries",
+    "rai:dataBiases": "Politics is a common topic among all sources but particularly in the Pew dataset where nearly half of charts are about U.S. Politics & Policy (45.4%); bar charts are the most common chart type and are overrepresented relative to line and pie charts",
+    "rai:dataLimitations": "Current approaches for automatic data extraction are modular and combine deep learning and rule-based methods which are error-prone; models cannot effectively handle nested arithmetic operations; VL-T5 cannot effectively capture multiple references to chart elements; performance decreases for pie charts due to higher data extraction errors; models may generate incorrect outputs and cannot be guaranteed to be correct all the time; evaluation metrics for chart data extraction do not take extracted textual tokens into consideration",
+    "rai:dataSocialImpact": "Models can be abused to mislead the public about the charts content and implications.",
+    "rai:personalSensitiveInformation": "Annotations from Amazon Mechanical Turk workers were anonymized to protect their privacy.",
+    "rai:dataUseCases": "Benchmark for training and evaluating Chart Question Answering systems involving visual and logical reasoning over real-world charts; serving as a starting point for others to address challenges in visual and logical reasoning over charts",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were augmented by fine-tuning a pre-trained T5 model on the SQuAD QA dataset and applying it to human-written chart summaries from Statista to automatically generate additional QA pairs (ChartQA-M). Two T5 models were used: one for answer extraction and one for answer-aware question generation. Invalid questions were filtered using a heuristic that removed questions whose answers could not be found in the chart data table. The test set of the machine-generated dataset was also manually cleaned by removing invalid questions.",
+    "rai:dataPreprocessingProtocol": "Charts were crawled from four online sources (Statista, Pew Research, OWID, OECD). Underlying data tables, metadata, SVG files, and associated text descriptions were extracted where available. Bounding box information for chart elements was extracted from SVG files. For human-authored QA pairs, answers from two annotators were compared by exact match; mismatches were manually reviewed to select the correct answer. Workers were filtered by requiring an acceptance rate of 95% and at least 5000 completed HITs, and a pre-test was administered to select qualified workers."
+  },
+  "usage": {
+    "input_tokens": 171393,
+    "output_tokens": 1815
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 34434,
+        "output_tokens": 387
+      },
+      "collection": {
+        "input_tokens": 34315,
+        "output_tokens": 338
+      },
+      "annotation": {
+        "input_tokens": 34344,
+        "output_tokens": 428
+      },
+      "impact": {
+        "input_tokens": 34349,
+        "output_tokens": 354
+      },
+      "processing": {
+        "input_tokens": 33951,
+        "output_tokens": 308
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 76936,
+      "output_tokens": 217
+    },
+    "timestamp": "2026-05-02T18:40:07.386649+00:00",
+    "elapsed_seconds": 61.7
+  }
+}

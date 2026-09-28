@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MathLLMs_VoiceAssistant-Eval",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "VoiceAssistant-Eval",
+    "description": "VoiceAssistant-Eval is a comprehensive benchmark designed to assess AI assistants across listening, speaking, and viewing. It comprises 10,497 curated examples spanning 13 task categories, including natural sounds, music, spoken dialogue, multi-turn dialogue, role-play imitation, and heterogeneous images, to evaluate general-purpose voice assistants.",
+    "url": null,
+    "license": "MIT",
+    "creator": "Ke Wang; Houxing Ren; Zimu Lu; Mingjie Zhan; Hongsheng Li",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ke Wang, Houxing Ren, Zimu Lu, Mingjie Zhan, and Hongsheng Li. VoiceAssistant-Eval: Benchmarking AI Assistants Across Listening, Speaking, and Viewing. arXiv:2509.22651v1, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was assembled by extracting diverse visual and auditory inputs from existing datasets. The Listening subset collects source data from 23 audio understanding datasets and converts collected text instructions into audio. The Speaking subset uses role profiles and question texts from RoleBench and other source data from 22 datasets, including 11 text datasets and 11 audio datasets. The Viewing subset selects MMMU as the source dataset.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "They filter out incomplete or inappropriate items, including cases with missing or broken audio or images, as well as instances with ill-posed questions or incorrect answers. Approximately 10% of candidates are removed during this stage.",
+    "rai:dataCollectionRawData": "Source data come from existing datasets: 23 audio understanding datasets for Listening, RoleBench plus 22 datasets including 11 text datasets and 11 audio datasets for Speaking, and MMMU for Viewing.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "In data curation, suspected duplicate questions flagged by lexical overlap and Levenshtein distance were manually reviewed and removed; the remaining problems were then assigned to 13 predefined task categories primarily based on source metadata.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen2.5-72B-Instruct; UTMOS Strong; Whisper-Large-v3; gpt-oss-20b; emotion2vec; UTMOS; Wespeaker",
+    "rai:dataBiases": "VoiceAssistant-Eval may carry biases from its source data and design choices; The questions and contexts are drawn from academic or synthetic sources (e.g., existing datasets and rewritten instructions), which might not reflect the full richness or fairness concerns of real deployments; The role-play subset uses a fixed set of 100 roles and associated style prompts. These roles may encode stereotypes or omit important user personas.",
+    "rai:dataLimitations": "The dataset, though sizable (10.5K curated QA items), may still be limited in diversity; Although we include five Chinese roles in the role-play task, all other prompts and evaluations are in English; This monolingual focus may not capture the full variability of real user interactions; The range of models evaluated in our study is limited; due to cost and access constraints, we include only a single proprietary system (GPT-4o-Audio) in our experiments; our evaluation methodology has limitations; We rely on automated measures and GPT-based scoring, which, while efficient, may introduce noise and bias; The GPT judge may favor certain phrasings, overlook nuanced errors, or fail to capture all aspects of human preferences; there remain gaps in task coverage and scenario realism; video-audio integration and continuous audio-visual streaming tasks are beyond the scope of this benchmark; VoiceAssistant-Eval evaluates models in an offline, static manner, which might not capture certain practical deployment factors; Our current evaluation does not measure reaction time, the ability to handle partial utterances, or how well a model can manage barge-in (user interruption) and error recovery.",
+    "rai:dataSocialImpact": "We believe it will be instrumental in developing next-generation multimodal models and in tracking progress toward truly expert AI assistants; These measures aim to enable research on personalization while minimizing harms related to impersonation, privacy violations, and unequal performance across demographics.",
+    "rai:personalSensitiveInformation": "the benchmark includes role-play voice imitation and speaker similarity evaluation; we prohibit training or releasing models intended to reproduce identifiable speakers without documented consent",
+    "rai:dataUseCases": "evaluating general AI assistants across listening, speaking, and viewing; developing next-generation multimodal models; tracking progress toward truly expert AI assistants; researchers to use this dataset to better evaluate voice assistants and, consequently, facilitate future studies in this area",
+    "rai:dataReleaseMaintenancePlan": "we will release both the dataset and evaluation code used in this work; We will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The remaining examples are mapped to 13 task categories, and we apply balanced sampling to equalize category representation.",
+    "rai:dataPreprocessingProtocol": "We preprocess the texts to ensure high synthesis quality: we replace special tokens (e.g., “<image1>”) with descriptive phrases, use Qwen2.5-72B-Instruct to rewrite the text so it is more suitable for TTS, and rephrase multiple-choice options for better readability. We also de-duplicate the content using a combination of lexical overlap and edit-distance matching, and filter out incomplete or inappropriate items, including cases with missing or broken audio or images, as well as instances with ill-posed questions or incorrect answers."
+  },
+  "usage": {
+    "input_tokens": 352769,
+    "output_tokens": 1694
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 73874,
+        "output_tokens": 203
+      },
+      "collection": {
+        "input_tokens": 73652,
+        "output_tokens": 455
+      },
+      "annotation": {
+        "input_tokens": 73668,
+        "output_tokens": 171
+      },
+      "impact": {
+        "input_tokens": 58271,
+        "output_tokens": 509
+      },
+      "processing": {
+        "input_tokens": 73304,
+        "output_tokens": 356
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 61359,
+      "output_tokens": 550
+    },
+    "timestamp": "2026-05-22T10:05:39.599011+00:00",
+    "elapsed_seconds": 38.8
+  }
+}

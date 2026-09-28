@@ -1,0 +1,261 @@
+{
+  "dataset_id": "lmms-lab_EgoLife",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "EgoLife Dataset",
+    "description": "A 300-hour egocentric, interpersonal, multiview, and multimodal daily life dataset collected over one week with six participants living together. It includes egocentric video from Meta Aria glasses, synchronized third-person-view video from 15 GoPro cameras, mmWave radar data, audio transcripts, visual-audio narrations, and a QA benchmark (EgoLifeQA) for long-context life-oriented question answering.",
+    "url": "https://egolife-ai.github.io/",
+    "license": "MIT",
+    "creator": "The EgoLife Team (led by Jingkang Yang, LMMs-Lab, NTU S-Lab)",
+    "publisher": null,
+    "datePublished": "2025-03-05",
+    "inLanguage": "zh, en",
+    "citeAs": "arXiv:2503.03803",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Six volunteers lived together for one week in a custom-designed environment (EgoHouse), recording approximately 8 hours of egocentric multimodal video daily using Meta Aria glasses. 15 GoPro cameras provided third-person perspectives, and millimeter-wave radars provided spatial and motion data. Participants performed daily activities including discussions, shopping, cooking, socializing, and entertainment.",
+    "rai:dataCollectionType": "Physical data collection, Direct measurement, Passive Data Collection",
+    "rai:dataCollectionMissingData": "During data upload periods (approximately one hour every three hours), participants were instructed to remain in their rooms and limit activities, creating gaps in the recorded footage.",
+    "rai:dataCollectionRawData": "Egocentric video and multimodal signals from Meta Aria glasses (6 participants), third-person video from 15 GoPro cameras, and spatial/motion data from 2 mmWave radar devices. Data includes video, audio, IMU, and gaze signals.",
+    "rai:dataCollectionTimeframe": "Seven days (one week); Beijing session. A one-day session in Milan was also conducted.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Data underwent synchronization of multi-source data (video, audio, IMU) from Aria glasses and GoPro cameras using EgoSync codebase. Privacy protection was applied via EgoBlur (blurring faces, license plates, sensitive screen content; muting sensitive audio). Dense captioning was performed via EgoCaption and transcription via EgoTranscript. mmWave data was processed using CFAR detection algorithm.",
+    "rai:dataAnnotationProtocol": "Transcript annotations: audio tracks merged, speech recognition applied, diarization algorithm used to differentiate speakers, then manually reviewed and refined per participant. Caption annotations: videos split into 5-minute clips slowed to 0.8x speed, annotators provided continuous narrations, converted to text, reviewed, then merged using GPT-4o-mini into coherent captions, expanded with frames and transcripts by GPT-4o into visual-audio captions, verified by human annotators. EgoLifeQA: GPT-4o generated ~100K QA candidates per participant from visual-audio captions; annotators filtered to ~1K high-quality questions per participant, then refined to 500 QA per participant with distractors for multiple-choice format.",
+    "rai:dataAnnotationPlatform": "CapCut (ByteDance video editing software with dubbing functions)",
+    "rai:dataAnnotationAnalysis": "AI-generated QA candidates (100K per participant) served as filtering and inspiration tools for human annotators; only questions requiring information from at least 5 minutes prior were retained, with preference for longer dependencies and strong real-world relevance. Annotators also indicated whether audio was required and specified look-back time (certification length).",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4o (visual-audio caption generation and QA candidate generation), GPT-4o-mini (merging narration phrases into captions), Whisper (speech recognition for transcripts), open-source diarization algorithm (speaker diarization)",
+    "rai:dataReleaseMaintenancePlan": "The project is ongoing with plans to expand to more languages, locations, and activities. An annotation team partnership will continue for future EgoLife versions. A Milan dataset (EgoLife-Milan) has been collected and will be detailed in an upcoming EgoLife blog series.",
+    "rai:personalSensitiveInformation": "Faces of participants and bystanders, vehicle license plates, sensitive screen content (passwords, personal data), and sensitive audio segments were collected but subsequently anonymized/blurred/muted.",
+    "rai:dataSocialImpact": "EgoButler and EgoLifeQA could enhance human-AI interaction for personalized assistance, support daily activities and contextual reminders (especially for elderly or those with cognitive challenges), facilitate learning and skill development in educational/professional settings. Privacy and ethical considerations must be addressed to ensure user autonomy and trust.",
+    "rai:dataBiases": "The dataset is limited to a single language (primarily Chinese) and a single scenario (one house, one week), sacrificing some generalizability. The dataset currently covers only six participants.",
+    "rai:dataLimitations": "Limited to primarily Chinese language and a single scenario/location (Beijing house). Only six participants. Short recording gaps occur every three hours during data upload. EgoGPT struggles with speech understanding (laughter, emotions) and identity recognition over time. EgoRAG lacks multi-step reasoning and iterative refinement.",
+    "rai:dataUseCases": "Training and fine-tuning egocentric video-language models (EgoGPT trained on EgoIT-99K and EgoLife data); benchmarking/testing long-context egocentric QA systems (EgoLifeQA); development of personalized AI life assistants; research in long-duration activity understanding, interpersonal dynamics, multimodal sensing, and human behavior recognition."
+  },
+  "usage": {
+    "input_tokens": 84913,
+    "output_tokens": 3815
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:54:11.414171Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conducted a comprehensive data collection study where six participants lived together for one week, continuously recording their daily activities...This effort resulted in the EgoLife Dataset, a comprehensive 300-hour egocentric, interpersonal, multiview, and multimodal daily life dataset with intensive annotation."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This effort resulted in the EgoLife Dataset, a comprehensive 300-hour egocentric, interpersonal, multiview, and multimodal daily life dataset with intensive annotation. Leveraging this dataset, we introduce EgoLifeQA, a suite of long-context, life-oriented question-answering tasks designed to provide meaningful assistance in daily life."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Please visit the EgoLife webpage (https://egolife-ai.github.io/) for additional annotation examples and qualitative results."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Jingkang Yang (LMMs-Lab, NTU S-Lab) served as the project lead and director of the entire initiative, overseeing all aspects from the conception of the EgoLife project to its execution."
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2503.03803v1 [cs.CV] 5 Mar 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary language of the EgoLife dataset is Chinese. All the annotations (transcripts, captions, QAs) are primarily in Chinese and translated into English."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2503.03803v1 [cs.CV] 5 Mar 2025"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TheEgoLife dataset is a comprehensive collection of ultra-long, multi-participant video recordings captured from both first-person and third-person perspectives, enriched with synchronized multimodal signal data. This ongoing project aims to document human daily activities in natural environments."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The EgoLife dataset was collected over a seven-day period with six volunteers residing in a custom-designed environment, called the EgoHouse. Each participant wore Meta Aria glasses and captured multimodal egocentric videos. To enhance the dataset with third-person perspectives, 15 strategically placed GoPro cameras recorded the participants' activities from multiple angles. Additionally, millimeter-wave radars provided spatial and motion data."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each participant wore Meta Aria glasses and captured multimodal egocentric videos. To enhance the dataset with third-person perspectives, 15 strategically placed GoPro cameras recorded the participants' activities from multiple angles. Additionally, millimeter-wave radars provided spatial and motion data, supporting synchronized, comprehensive multimodal analysis of daily events and interactions."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Due to storage limitations, recordings are structured into three-hour segments. To maintain data continuity, the glasses are collected every three hours for data upload and storage clearance, a process that takes approximately one hour. During this period, participants are instructed to remain in their rooms and limit their activities to resting or non-essential tasks to prevent logic disruptions in the recorded footage."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each participant wore Meta Aria glasses and captured multimodal egocentric videos. To enhance the dataset with third-person perspectives, 15 strategically placed GoPro cameras recorded the participants' activities from multiple angles. Additionally, millimeter-wave radars provided spatial and motion data."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The EgoLife dataset was collected over a seven-day period with six volunteers residing in a custom-designed environment... Beijing: Data was collected over seven days, capturing 40+ hours of daily activities... Milan: A one-day session capturing approximately 6 hours of activity."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The pipeline synchronizes multi-source data (video, audio, IMU) from Aria glasses and GoPro cameras using EgoSync codebase, processes them through privacy protection (EgoBlur), dense captioning (EgoCaption), and transcription (EgoTranscript) modules... In the post-process of mmWave data, we used the constant false alarm rate (CFAR) detection algorithm to detect dynamic target signals within background noise while distinguishing them from static environmental signals."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We started transcript annotation after synchronizing all the egocentric videos, merging audio tracks from six participants into one, and applying speech recognition to generate initial timestamped transcripts... The captioning tool is a video editing software with dubbing functions. We split all the videos into 5-minute clips, which were slowed to 0.8× speed, allowing annotators to provide continuous, detailed narrations... We crafted prompts for each type and fed 'visual-audio captions' into GPT-4o in batches, generating around 100K timestamped questions per participant... After a rigorous selection and refinement process, we filtered the 100K QA candidates down to 1K high-quality questions per participant—less than 1% of the original pool—for further meticulous revision. This final round of curation resulted in a carefully crafted set of 500 QA per participant."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The captioning tool is a video editing software with dubbing functions [92]... [92] ByteDance. Capcut, 2024. Mobile application software."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Rather than serving as final annotations, these questions acted as a filtering and inspiration tool for annotators, helping them identify valuable instances. Only questions requiring information from at least five minutes prior were retained, with a preference for those demanding longer dependencies and strong real-world relevance... Additionally, they annotated whether audio was required to answer the question and specified the look-back time (certification length) necessary for retrieving the correct answer."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Using GPT-4o-mini, we merged related phrases into 25K 'merged captions'... summarized by GPT-4o... We crafted prompts for each type and fed 'visual-audio captions' into GPT-4o in batches, generating around 100K timestamped questions per participant... applying speech recognition [90] to generate initial timestamped transcripts. Using an open-source diarization algorithm [91], we differentiated the speakers."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This ongoing project aims to document human daily activities in natural environments... Finding a reliable annotation team took two months and five trials, and this partnership will continue for future EgoLife versions... the Milan dataset has been collected and will be detailed in the upcoming EgoLife blog series."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Blurring of faces and identifiers: All participant faces were blurred to anonymize identities. Additionally, bystanders' faces and vehicle license plates appearing in the footage were thoroughly blurred. Audio muting: Sensitive audio segments containing private or potentially identifiable information were muted to ensure privacy. Screen privacy: Frames containing sensitive screen content, such as mobile or computer screens, were reviewed, and any private information was blurred."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The development of EgoButler and the EgoLifeQA dataset holds significant potential to enhance human-AI interaction, particularly in personalized assistance and context-aware applications... EgoButler could support daily activities, personal organization, and contextual reminders, improving quality of life, especially for individuals needing consistent support, such as the elderly or those with cognitive challenges."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As the first step toward a realistic egocentric life assistant, we intentionally started with a narrow setting to build a strong foundation, sacrificing some generalizability (e.g., single language/scenario)."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "As the first step toward a realistic egocentric life assistant, we intentionally started with a narrow setting to build a strong foundation, sacrificing some generalizability (e.g., single language/scenario)... EgoGPT's speech understanding remains incomplete. It struggles to understand human laughter and emotions... Identity recognition is another challenge... EgoRAG complements EgoGPT by retrieving long-context evidence, but its retrieval mechanism lacks multi-step reasoning."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These captions serve two main purposes: training EgoGPT and automatically generating QA candidates for the next section... By releasing our datasets, models, and benchmarks, we aim to stimulate further research in egocentric AI assistants... TheEgoLife dataset is a comprehensive collection of ultra-long, multi-participant video recordings...advancing research in human behavior recognition, multimodal signal analysis, and human-machine interaction."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 25,
+      "fields_null": 5,
+      "fields_verified": 25,
+      "fields_uncertain": 0,
+      "evidence_count": 24,
+      "evidence_coverage": 96.0,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.312,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 80.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 1
+  }
+}

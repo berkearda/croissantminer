@@ -1,0 +1,288 @@
+{
+  "dataset_id": "bezirganyan_LUMA",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "LUMA",
+    "description": "A multimodal dataset with audio, image, and textual data from 50 classes, designed for learning from uncertain data and benchmarking multimodal learning algorithms. It extends CIFAR-10/100 with audio samples from three corpora and text generated using Gemma-7B, and supports controlled injection of uncertainty and out-of-distribution samples.",
+    "url": "https://github.com/bezirganyan/LUMA",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier",
+    "publisher": "ACM SIGIR ’25",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data. In Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR ’25), July 13–18, 2025, Padua, Italy. ACM, New York, NY, USA, 10 pages. https://doi.org/10.1145/3726302.3730302",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "73 additional recordings of pronunciations belonging to 4 classes (\"roses\", \"telephone\", \"whale\", \"wolf\") were voluntarily contributed by our colleagues, which were anonymized, trimmed, and added to the dataset. From these corpora, we used the following rule to extract the samples: we extended our class label set with plural forms, iterated over all aligned transcripts, and extracted the corresponding audio sample for any word in the set. Most of the audio data is collected from forced alignments, and some samples are from voluntary contributions.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Misaligned audio segments could introduce additional noise; very noisy samples or samples with a strong accent were removed through automatic validation and manual validation of false negatives.",
+    "rai:dataCollectionRawData": "Audio recordings / pronunciations from corpora with aligned transcripts, including 73 volunteered recordings for four classes; the extracted raw samples were audio segments corresponding to words in the label set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Manual labeling of audio samples using Label Studio. Annotators answered the prompt: \"Is the audio saying the word below? (An extra ’s’ or ’es’ in the pronunciation is okay.)\" with \"Yes\" or \"No\". The annotators were colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge. Two annotations were collected per sample; samples with conflicting annotations were rejected and only samples where both annotators confirmed validity were accepted.",
+    "rai:dataAnnotationPlatform": "Label Studio",
+    "rai:dataAnnotationAnalysis": "71.61% annotation agreement; samples with conflicting annotations were rejected; accepted samples only when both annotators confirmed validity.",
+    "rai:annotationsPerItem": "2 annotations per sample",
+    "rai:annotatorDemographics": "Colleagues who were M.Sc. and PhD students, and professors, with advanced to fluent English knowledge.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Uncertainty can be introduced on demand via data diversity control, sample-level noise, label corruption, and injection of out-of-distribution (OOD) samples. Data diversity is controlled by extracting deep features and sampling points from a categorical distribution based on inverse distance to class centers. Sample noise is added to audio, text, and image modalities using background noise, NLP noise types, and image perturbations. Label noise is injected by randomly altering labels of selected samples based on deep-feature similarity. OOD samples are taken from classes not present in the training data.",
+    "rai:dataPreprocessingProtocol": "A clean version of the dataset was compiled from the collected image, text, and audio samples with minimal uncertainty. For diversity control, deep features were extracted using Wav2Vec for audio, BERT for text, and VGG-11 for images."
+  },
+  "usage": {
+    "input_tokens": 24441,
+    "output_tokens": 2174
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-01T22:58:01.035900Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We propose LUMA, a unique multimodal dataset...”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a multimodal dataset specifically designed for learning from uncertain data” and “It extends the well-known CIFAR 10/100 dataset with audio samples extracted from three audio corpora, and text data generated using the Gemma-7B Large Language Model (LLM).”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The code and instructions for downloading and processing the dataset can be found at: https://github.com/bezirganyan/LUMA.”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier.”"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The definitive Version of Record was published in Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR ’25)”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“SIGIR ’25, Padua, Italy” and “©2025 Copyright held by the owner/author(s).”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper is written in English; no explicit language code is stated."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“ACM Reference Format: Grigor Bezirganyan, Sana Sellami, Laure Berti-Équille, and Sébastien Fournier. 2025. LUMA: A Benchmark Dataset for Learning from Uncertain and Multimodal Data. ... https://doi.org/10.1145/3726302.3730302”"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“LUMA is also available as a Python package including the functions for generating multiple variants of the dataset...” and “The code and instructions for downloading and processing the dataset can be found at: https://github.com/bezirganyan/LUMA.”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“73 additional recordings ... were voluntarily contributed by our colleagues, which were anonymized, trimmed, and added to the dataset.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From these corpora, we used the following rule to extract the samples... we iterated over all aligned transcripts, and for any word included in the formed set, we extracted the corresponding audio sample.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Since most of the audio data is collected from forced alignments, it is possible to have misaligned audio segments, which could introduce additional noise to the dataset... To remove such extreme cases in audio samples, we performed an automatic validation of the samples. Then, we filtered out the false negatives with manual validation for the negative predictions.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“73 additional recordings of pronunciations... were voluntarily contributed... and added to the dataset.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We opted for Label Studio [31] to build the labeling interface... The interface provided the audio sample, with the prompt ‘Is the audio saying the word below? (An extra ’s’ or ’es’ in the pronunciation is okay.)’ and answer options of ‘Yes’ or ‘No’. We asked our colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge to annotate the samples. In total, we collected 2 annotations per sample... Samples with conflicting annotations were rejected.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We opted for Label Studio [31] to build the labeling interface.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We got 71.61% annotation agreement and accepted 5,027 samples, where both annotators confirmed the validity of the sample. Samples with conflicting annotations were rejected.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“In total, we collected 2 annotations per sample, from 17 annotators.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We asked our colleagues (M.Sc. and PhD students, and professors) with advanced to fluent English knowledge to annotate the samples.”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we prioritized flexibility, offering multiple options for controlling uncertainty through adjustable parameters such as data diversity, sample-level noise, label corruption, and the injection of out-of-distribution (OOD) samples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first compiled a clean version of the dataset with minimal uncertainty."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.005,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 22666,
+        "tokens_in": 5544,
+        "tokens_out": 759
+      },
+      "collection": {
+        "section_chars": 12463,
+        "tokens_in": 3492,
+        "tokens_out": 450
+      },
+      "annotation": {
+        "section_chars": 4080,
+        "tokens_in": 1339,
+        "tokens_out": 500
+      },
+      "impact": {
+        "section_chars": 21002,
+        "skipped_unlikely": true
+      },
+      "processing": {
+        "section_chars": 9889,
+        "tokens_in": 2781,
+        "tokens_out": 285
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 23.5,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 11285,
+      "output_tokens": 180
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 1
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_POPE",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "POPE",
+    "description": "POPE (Polling-based Object Probing Evaluation) is an evaluation dataset and method for assessing object hallucination in Large Vision-Language Models (LVLMs) by prompting them with simple Yes-or-No questions about probing objects.",
+    "url": null,
+    "license": null,
+    "creator": "Yifan Li (Renmin University of China); Yifan Du (Renmin University of China); Kun Zhou (Renmin University of China); Jinpeng Wang (Meituan Group); Wayne Xin Zhao (Renmin University of China); Ji-Rong Wen (Renmin University of China)",
+    "publisher": null,
+    "datePublished": "2023-10-26",
+    "inLanguage": "en",
+    "citeAs": "Yifan Li, Yifan Du, Kun Zhou, Jinpeng Wang, Wayne Xin Zhao, Ji-Rong Wen. Evaluating Object Hallucination in Large Vision-Language Models. arXiv:2305.10355v3, 2023.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The evaluation dataset was assembled by randomly sampling images from the validation sets of existing datasets (MSCOCO, A-OKVQA, and GQA) and constructing polling questions based on ground-truth objects obtained from human annotations or automatic segmentation tools, alongside nonexistent objects sampled via random, popular, or adversarial strategies.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Images and annotations from the validation sets of the MSCOCO, A-OKVQA, and GQA datasets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Images from MSCOCO, A-OKVQA, and GQA were annotated using the SEEM automatic segmentation tool to extract objects, which were then used to construct Yes/No polling questions.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SEEM",
+    "rai:dataBiases": "The visual instruction datasets share an unbalanced object distribution where top frequent objects occupy a major part of the dataset.",
+    "rai:dataLimitations": "The evaluation task cannot measure the overall performance of LVLMs; evaluated on only a part of the validation set which might be affected by data distribution; the matching-based method may fail if LVLMs do not explicitly output Yes/No; automatic segmentation tool labels may be inconsistent with human annotations; only a small number of LVLMs were compared.",
+    "rai:dataSocialImpact": "Object hallucination hinders the safe use of LVLMs in real-world deployment and may result in unexpected consequences, such as autonomous driving systems making wrong decisions leading to serious safety issues.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Stable, fair and flexible object hallucination evaluation of LVLMs.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": "For datasets without annotations, the SEEM automatic segmentation tool was used to infer missing object labels and annotate images to build the evaluation dataset.",
+    "rai:dataManipulationProtocol": "The ratio between ground-truth and nonexistent objects was set as 1:1 for label balance. Nonexistent objects were sampled using three strategies: Random Sampling, Popular Sampling (selecting the top-k most frequent objects in the dataset), and Adversarial Sampling (ranking objects by co-occurring frequencies with ground-truth objects and selecting the top-k frequent ones).",
+    "rai:dataPreprocessingProtocol": "The evaluation dataset was filtered to only consider the 80 objects appearing in the MSCOCO segmentation challenge, and the authors randomly selected 500 images with more than 3 ground-truth objects in the annotations."
+  },
+  "usage": {
+    "input_tokens": 166718,
+    "output_tokens": 19403
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 33577,
+        "output_tokens": 2615
+      },
+      "collection": {
+        "input_tokens": 33427,
+        "output_tokens": 2628
+      },
+      "annotation": {
+        "input_tokens": 33382,
+        "output_tokens": 5650
+      },
+      "impact": {
+        "input_tokens": 33330,
+        "output_tokens": 4004
+      },
+      "processing": {
+        "input_tokens": 33002,
+        "output_tokens": 4506
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 78898,
+      "output_tokens": 9619
+    },
+    "timestamp": "2026-05-28T10:01:37.531773+00:00",
+    "elapsed_seconds": 218.2
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "OpenBookQA is a multiple-choice question answering dataset modeled after open book exams, consisting of approximately 6000 4-way multiple-choice questions paired with a set of 1326 elementary level science facts. The dataset requires combining an open book science fact with broad common knowledge to answer questions probing novel situations. It is designed to assess deeper understanding and multi-hop reasoning rather than simple fact retrieval.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": null,
+    "creator": "Todor Mihaylov; Peter Clark; Tushar Khot; Ashish Sabharwal",
+    "publisher": null,
+    "datePublished": "2018",
+    "inLanguage": "en",
+    "citeAs": "Todor Mihaylov, Peter Clark, Tushar Khot, and Ashish Sabharwal. 2018. Can a Suit of Armor Conduct Electricity? A New Dataset for Open Book Question Answering. arXiv:1809.02789v1 [cs.CL].",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were generated via a multi-stage crowdsourcing pipeline using Amazon Mechanical Turk. Workers were shown a science fact from the open book, asked to think of a second common fact, then write a 4-way multiple-choice question. Questions passed automatic hardness filters (IR solver and word association solver) and a crowd answerability filter (5 workers per question). Dev and Test splits were further filtered by an in-house expert. The open book facts were sourced from the WorldTree corpus.",
+    "rai:dataCollectionType": "Web API; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "TableILP did not answer 24% of the OpenBookQA questions due to missing knowledge in its knowledge tables. Additionally, 2183 out of 8140 collected questions were discarded during the crowdsourcing answerability filter step.",
+    "rai:dataCollectionRawData": "The open book of 1326 science facts was drawn from a subset of the WorldTree corpus (Jansen et al., 2018), specifically from 2287 facts marked as 'central' in at least one explanation, further filtered to those applicable to multiple situations. Crowdsourced questions were generated based on these facts via Amazon Mechanical Turk.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowd-workers (Amazon Mechanical Turk, North America, masters-level qualification) were shown a random science fact and asked to: (1) think of a second common fact combinable with it, (2) write a question-answer pair and extend it into a 4-way multiple-choice question with 3 incorrect choices, (3) verify the question passes basic checks, (4) verify the question is hard for IR and word-association solvers, and (5) answer questions written by other workers to verify answerability (at least 4 out of 5 workers must answer correctly). Dev and Test splits were further filtered by an in-house expert for higher quality.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Questions were deemed answerable if at least 4 out of 5 crowd-workers answered correctly; otherwise discarded. Human performance was estimated using Hoeffding's Inequality applied to the 5 worker judgments per question from the generation step, reported as a conservative lower bound. Additional validation was performed on 100 randomly chosen questions from each split with 5 new annotations.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": "Workers from North America; masters-level qualification on Amazon Mechanical Turk",
+    "rai:machineAnnotationTools": "IR solver (Clark et al., 2016); word association solver (Turney, 2017) — used to automatically filter out questions answerable by these systems during the generation pipeline",
+    "rai:dataBiases": "Inevitable human bias in crowdsourced answer choices: workers generally start with the correct answer and then create three incorrect ones, which tend to be homogeneous or share common properties uncharacteristic of the correct answer; choice 'A' was the correct answer in 69% of questions before random shuffling; a plausible answer detector ignoring the question achieves ~50% accuracy, highlighting annotation artifacts",
+    "rai:dataLimitations": "The open book F is generally insufficient by itself to answer questions; 21% of analyzed questions test for a fact that does not necessarily need the original science fact; the authored second facts K are often incomplete, over-complete, or only distantly related to the question and should not be viewed as gold additional facts; the dataset is limited to elementary level science; retrieval of the right knowledge remains an open challenge; even oracle models with gold facts reach only ~76% accuracy due to noisy facts and non-trivial reasoning requirements",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmarking open book question answering systems that combine a provided set of core science facts with broad common knowledge; evaluating multi-hop reasoning capabilities of QA systems; training and evaluation of neural QA models on elementary level science questions",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Answer choices of each question were randomly shuffled after generation to avoid unintended bias (choice 'A' was the correct answer in 69% of questions before shuffling). Questions where fewer than 4 out of 5 crowd-workers answered correctly were discarded. The Dev and Test splits were further filtered by an in-house expert to ensure higher quality.",
+    "rai:dataPreprocessingProtocol": "Questions were filtered using an information retrieval solver and a word association based solver to ensure hardness: questions were kept only if neither solver answered correctly and the top 3 IR retrieved sentences were insufficient to answer the question. Basic checks were applied including requiring exactly 4 answer choices, excluding negation words, and enforcing uniform answer choice length (all choices with at most 3 or at least 4 words). The core fact set F was filtered from 2287 WorldTree facts marked as 'central' down to 1326 facts deemed general enough to be applicable to multiple situations."
+  },
+  "usage": {
+    "input_tokens": 152673,
+    "output_tokens": 1671
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 33901,
+        "output_tokens": 311
+      },
+      "collection": {
+        "input_tokens": 33782,
+        "output_tokens": 343
+      },
+      "annotation": {
+        "input_tokens": 17741,
+        "output_tokens": 367
+      },
+      "impact": {
+        "input_tokens": 33831,
+        "output_tokens": 386
+      },
+      "processing": {
+        "input_tokens": 33418,
+        "output_tokens": 264
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64136,
+      "output_tokens": 104
+    },
+    "timestamp": "2026-05-02T18:15:54.885332+00:00",
+    "elapsed_seconds": 51.9
+  }
+}

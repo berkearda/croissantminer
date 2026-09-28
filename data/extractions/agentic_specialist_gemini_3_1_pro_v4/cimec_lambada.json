@@ -1,0 +1,80 @@
+{
+  "dataset_id": "cimec_lambada",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "LAMBADA is a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task. It consists of a collection of narrative passages where the target word is guessable by human subjects exposed to the whole passage, but not if they only see the last sentence.",
+    "url": "http://clic.cimec.unitn.it/lambada/",
+    "license": null,
+    "creator": "Denis Papemo; Germán Kruszewski; Angeliki Lazaridou; Quan Ngoc Pham; Raffaella Bemardi; Sandro Pezzelle; Marco Baroni; Gemma Boleda; Raquel Femández",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Denis Papemo, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bemardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Femández. The LAMBADA dataset: Word prediction requiring a broad discourse context. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics, pages 1525–1534, 2016.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Passages were extracted from the Book Corpus, filtered using language models to remove easily guessable words, and then evaluated by human subjects via CrowdFlower to ensure the target word could only be guessed using the broader discourse context.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The Book Corpus (Zhu et al., 2015), which contains unpublished novels.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human subjects evaluated passages in three steps: first, one subject guessed the target word from the whole passage; if correct, a second subject did the same; if both were correct, up to 10 subjects tried to guess the word from the target sentence only, with 3 guesses allowed per sentence.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "Passages were included in the dataset only if two consecutive subjects exactly matched the missing word using the broad context, and no subject out of ten was able to guess it based on the local sentence context alone.",
+    "rai:annotationsPerItem": "12",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "pre-trained recurrent neural network (RNN); standard 4-gram model; RNN; feed-forward model",
+    "rai:dataBiases": "Proper nouns are hugely overrepresented, while verbs, adjectives, and adverbs are rare; contains quoted direct speech significantly more often than the input items.",
+    "rai:dataLimitations": "Standard language models are bound to fail on it by design because passages were filtered to exclude those where simple language models could predict the upcoming word.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The corpus was filtered to remove potentially offensive material using a stop word list.",
+    "rai:dataUseCases": "Evaluate general-purpose models in terms of how they fare on broad-context understanding.",
+    "rai:dataReleaseMaintenancePlan": "The development set and training corpus are available for download; the test set will be made available at the time of a planned public competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "The corpus underwent duplicate removal and filtering out of potentially offensive material with a stop word list. Passages were further filtered to exclude those easily guessed by standard language models (target word probability >=0.00175), and items were discarded through a crowdsourcing pipeline based on human guessing performance."
+  },
+  "usage": {
+    "input_tokens": 111612,
+    "output_tokens": 13387
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 22550,
+        "output_tokens": 2640
+      },
+      "collection": {
+        "input_tokens": 22410,
+        "output_tokens": 1789
+      },
+      "annotation": {
+        "input_tokens": 22340,
+        "output_tokens": 3412
+      },
+      "impact": {
+        "input_tokens": 22321,
+        "output_tokens": 3100
+      },
+      "processing": {
+        "input_tokens": 21991,
+        "output_tokens": 2446
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55576,
+      "output_tokens": 5119
+    },
+    "timestamp": "2026-05-28T08:35:07.081507+00:00",
+    "elapsed_seconds": 147.7
+  }
+}

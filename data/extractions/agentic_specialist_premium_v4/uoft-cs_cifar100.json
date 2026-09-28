@@ -1,0 +1,80 @@
+{
+  "dataset_id": "uoft-cs_cifar100",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "CIFAR-10 / CIFAR-100",
+    "description": "CIFAR-10 is a labeled subset of the 80 million tiny images dataset containing 6000 examples each of 10 classes of objects (60,000 images total). CIFAR-100 contains 600 examples each of 100 non-overlapping classes organized into 20 superclasses. Both datasets consist of 32x32 colour images collected and manually verified for use in object recognition experiments.",
+    "url": null,
+    "license": null,
+    "creator": "Alex Krizhevsky",
+    "publisher": null,
+    "datePublished": "2009",
+    "inLanguage": "en",
+    "citeAs": "Alex Krizhevsky, \"Learning Multiple Layers of Features from Tiny Images,\" Technical Report, April 8, 2009.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The tiny images dataset was assembled by colleagues at MIT and NYU by searching the web for images of every non-abstract English noun in the WordNet lexical database, using several search engines including Google, Flickr, and Altavista, keeping roughly the first 3000 results per search term. For the labeled CIFAR-10 and CIFAR-100 subsets, paid students examined images found under relevant search terms (and their WordNet hyponyms) and filtered out mislabeled images.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator",
+    "rai:dataCollectionMissingData": "The tiny images dataset had no reliable class labels, which made it hard to use for object recognition experiments. The search term used to find each image provided only a rough, extremely unreliable label due to the nature of online image search technology. The dataset contained only about 3000 images per search term, requiring labelers to also examine images found under hyponym search terms to gather enough examples per class.",
+    "rai:dataCollectionRawData": "Web images retrieved via Google, Flickr, and Altavista search engines, queried using every non-abstract English noun in the WordNet lexical database. Images were downscaled to 32x32 colour format. The dataset totals 80 million images across 79,000 search terms.",
+    "rai:dataCollectionTimeframe": "The tiny images dataset was collected over a span of six months (exact dates not specified). The CIFAR-100 dataset was described as only very recently completed at the time of writing (April 2009).",
+    "rai:dataAnnotationProtocol": "Students were paid a fixed hourly rate to label a subset of the tiny images dataset. Each labeler was given a class and asked to examine images found with that class (and its WordNet hyponyms) as the search term, then reject images that did not belong to the assigned class. Criteria included: the class name should be a likely answer to 'What is in this picture?', the image should be photo-realistic (line drawings rejected), only one prominent instance of the object, and partial occlusion or unusual viewpoints were acceptable. The authors personally verified every label submitted by the labelers.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors personally verified every label submitted by the labelers. Duplicate images were removed by comparing images with the L2 norm using a rejection threshold liberal enough to capture re-saved JPEGs and near-duplicates.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Students",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The search term used to find an image provides it with a rough label, although it is extremely unreliable due to the nature of online image search technology",
+    "rai:dataLimitations": "There are no reliable class labels in the original tiny images dataset, which makes it hard to use for object recognition experiments; the labeled subsets (CIFAR-10 and CIFAR-100) are limited in size (6000 images per class for CIFAR-10, 600 images per class for CIFAR-100)",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Unsupervised training of deep generative models; object recognition experiments; pre-training layers of features for classification",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was manipulated in several ways: (1) Images were divided into 25 overlapping 8x8 patches plus a 26th globally subsampled 8x8 patch for patch-based RBM training. (2) Multiple RBMs trained on patches were merged into a single large RBM with 7800 hidden units by combining weights and initializing cross-patch weights to zero. (3) For the CIFAR-10 labeled subset, 5000 images per class were randomly selected for training and 1000 for testing. (4) A second-layer RBM was trained on the hidden unit activation probabilities of the first-layer RBM to learn higher-level features.",
+    "rai:dataPreprocessingProtocol": "Images were preprocessed using ZCA whitening (multiplying the data matrix by a whitening matrix to remove second-order correlations). The 1000 least-significant principal components were deleted by setting the corresponding entries of the diagonal matrix D to zero. For the labeled CIFAR-10 subset, duplicate images were removed by comparing images with the L2 norm using a rejection threshold liberal enough to capture not just perfect duplicates but also re-saved JPEGs. Mislabeled images were filtered out by human labelers. Images were downscaled to 32x32. For patch-based training, 32x32 images were divided into 25 non-overlapping 8x8 patches plus a 26th globally subsampled 8x8 patch."
+  },
+  "usage": {
+    "input_tokens": 254455,
+    "output_tokens": 1616
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 51044,
+        "output_tokens": 260
+      },
+      "collection": {
+        "input_tokens": 50917,
+        "output_tokens": 408
+      },
+      "annotation": {
+        "input_tokens": 50965,
+        "output_tokens": 287
+      },
+      "impact": {
+        "input_tokens": 50964,
+        "output_tokens": 257
+      },
+      "processing": {
+        "input_tokens": 50565,
+        "output_tokens": 404
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 97728,
+      "output_tokens": 401
+    },
+    "timestamp": "2026-05-02T19:09:38.586851+00:00",
+    "elapsed_seconds": 52.1
+  }
+}

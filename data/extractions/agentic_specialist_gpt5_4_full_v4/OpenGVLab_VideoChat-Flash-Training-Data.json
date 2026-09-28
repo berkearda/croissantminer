@@ -1,0 +1,80 @@
+{
+  "dataset_id": "OpenGVLab_VideoChat-Flash-Training-Data",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "LongVid",
+    "description": "LongVid is a large-scale long video instruction-tuning dataset introduced in the paper for long video model training. It comprises 114,228 long videos and 3,444,849 question-answering pairs across five task types, built from sources including Ego4D, HowTo100M, HD-VILA, and MiraData to support diverse long video scenarios.",
+    "url": "https://github.com/OpenGVLab/VideoChat-Flash",
+    "license": null,
+    "creator": "Xinhao Li; Yi Wang; Jiashuo Yu; Xiangyu Zeng; Yuhan Zhu; Haian Huang; Jianfei Gao; Kunchang Li; Yinan He; Chenting Wang; Yu Qiao; Yali Wang; Limin Wang",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": "Xinhao Li, Yi Wang, Jiashuo Yu, Xiangyu Zeng, Yuhan Zhu, Haian Huang, Jianfei Gao, Kunchang Li, Yinan He, Chenting Wang, Yu Qiao, Yali Wang, and Limin Wang. VideoChat-Flash: Hierarchical Compression for Long-Context Video Modeling. arXiv:2501.00574, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "LongVid was constructed by leveraging existing datasets including Ego4D, HowTo100M, HD-VILA, and MiraData, and by filtering consecutive segments that can be regrouped into long video sequences.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The videos of LongVid are curated from 4 open-source video datasets: Ego4D, HowTo100M, HD-VILA, and MiraData. For data curation, the authors utilize existing high-quality short video captions from Panda-70M for HD-VILA, CosMo for HowTo100M, Ego4D-HCap for Ego4D, and the original high-quality captions provided in MiraData.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "To build LongVid, the authors generated dense event labels for each long video by using existing high-quality short video captions, filtering consecutive segments that can be regrouped into a long video sequence, constructing event labels with corresponding timestamps, directly using existing event-level annotations for some datasets, and extracting the major event from captions using an LLM for others; they then constructed long-video QA pairs based on video captions, event labels, and timestamps, and for the Multi-Hop Needle in a Video Haystack benchmark they inserted reasoning paths composed of multiple images into videos using MS-COCO human-annotated captions and question-answer pairs.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LLM; Qwen-72b",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Compression of visual content inevitably leads to the loss of detailed information; Previous NIAH-Video evaluation can suffer from information leakage and is insufficient for assessing complex reasoning ability",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "LongVid is built from datasets including Ego4D, which contains egocentric videos; the MH-NIAH-Video benchmark uses images sourced from MS-COCO with human-annotated captions and question-answer pairs.",
+    "rai:dataUseCases": "long-context video modeling in multimodal large language models; processing movies, documentaries, and online video streams; video captioning; temporal grounding; event relation recognition; scene relation recognition; video event counting",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For Single-Hop NIAH, they source a long video, sample frames uniformly from it, then add needles (indicating images) into the sampled image sequence at different positions. For Multi-Hop NIAH, they insert a reasoning path composed of multiple images into the video haystack, with each image having a random insertion position and textual clues, and they also insert multiple wrong reasoning paths simultaneously while inserting the correct reasoning path.",
+    "rai:dataPreprocessingProtocol": "To build LongVid, they filter the consecutive segments that can be regroup into a long video sequence, then construct a sequence of event labels with their corresponding timestamps for every long video based on their captions; for some datasets they directly use existing event-level annotations as event labels, while for others they extract the major event from the caption using an LLM. For HD-VILA, they filter consecutive video segments that can be re-constructed into more than 60s long videos."
+  },
+  "usage": {
+    "input_tokens": 204453,
+    "output_tokens": 1319
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 41150,
+        "output_tokens": 298
+      },
+      "collection": {
+        "input_tokens": 40927,
+        "output_tokens": 191
+      },
+      "annotation": {
+        "input_tokens": 40928,
+        "output_tokens": 217
+      },
+      "impact": {
+        "input_tokens": 40877,
+        "output_tokens": 206
+      },
+      "processing": {
+        "input_tokens": 40571,
+        "output_tokens": 407
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 80463,
+      "output_tokens": 375
+    },
+    "timestamp": "2026-05-22T10:08:37.192301+00:00",
+    "elapsed_seconds": 29.5
+  }
+}

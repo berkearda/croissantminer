@@ -1,0 +1,80 @@
+{
+  "dataset_id": "tencent_ArtifactsBenchmark",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "ArtifactsBench",
+    "description": "ArtifactsBench is a benchmark for evaluating LLMs on interactive visual artifacts. It contains 1,825 executable queries across nine domains and uses automated multimodal evaluation with staged screenshots and checklist-guided judging to assess visual fidelity, interaction dynamics, and code quality.",
+    "url": "https://artifactsbenchmark.github.io",
+    "license": null,
+    "creator": "Tencent Hunyuan Team",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": "Tencent Hunyuan Team. ArtifactsBench: Bridging the Visual-Interactive Gap in LLM Code Generation Evaluation. arXiv:2507.04952v2, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was constructed through a multi-stage pipeline that aggregated candidate tasks from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots, then filtered, de-duplicated, rewrote, calibrated, and validated them.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Candidate tasks were aggregated from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Checklist generation & calibration: each query is paired with a 10-dimension checklist; they \"LLM-draft and then human-refine for specificity and screenability,\" with a \"10% manually curated seed\" and \"Cohen’s κ≥0.8 among annotators\"; for validation, they ran a \"double-blind study on 280 queries and 6 models, judged by multiple front-end engineers,\" where samples were randomized and \"the final human ground-truth score represents the median of the individual annotators’ ratings.\"",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The \"final human ground-truth score represents the median of the individual annotators’ ratings\"; agreement between automated referee and humans is measured by pairwise consistency rate (Pair ACC), counting pairs where MLLM referee and human judges agree on rank ordering; the checklist seed calibration \"achieves Cohen’s κ≥0.8 among annotators.\"",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "multiple engineers with extensive front-end development experience",
+    "rai:machineAnnotationTools": "Hunyuan-Turbos; Gemini-2.5-Pro",
+    "rai:dataBiases": "Single-multimodal-referee evaluations can suffer from hallucination, prompt sensitivity, limited awareness of engineering/code quality, and version drift; minor discrepancies are observed in fine-grained scoring of certain complex interactive tasks, reflecting potential cognitive biases in how different MLLMs interpret long-horizon interaction logic and dynamic visual feedback.",
+    "rai:dataLimitations": "For highly complex, long-horizon, or state-dependent interactions, the discrete sampling of screenshots at fixed intervals may not fully capture the fluidity, correctness, and robustness of the entire interactive experience; ArtifactsBench currently focuses on evaluating the quality of the final artifact generated in a single turn from a given prompt and does not assess an LLM’s capability to iteratively refine an artifact, debug its own code, or plan and execute a multi-step development process",
+    "rai:dataSocialImpact": "The benchmark is intended to provide the community with a scalable and accurate tool to accelerate the development of user-centric generative models",
+    "rai:personalSensitiveInformation": "The query quality filtering aims to select high-quality, practical, complete, and privacy-free queries and avoid sensitive personal information such as phone numbers, addresses, or other identifiable details",
+    "rai:dataUseCases": "evaluating LLMs on interactive visual artifacts; evaluating an LLM’s ability to transform multimodal instructions into high-quality, executable interactive visual artifacts across diverse prompts; providing a scalable and accurate tool to accelerate the development of user-centric generative models",
+    "rai:dataReleaseMaintenancePlan": "We release dataset specs, checklist templates, evaluation scripts, and referee settings",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Automated filters drop incomplete, non-visual, license-violating, duplicate, trivial, or non-interactive items; flagged items are re-authored or discarded; experts rewrite prompts for clarity/completeness/executability, LLM rewriting adds diverse styles, humans verify; tasks solved only by brittle hacks are revised or removed; difficulty is assigned post hoc by aggregated performance of 30+ models to enforce a 30%/40%/30% split, stable under leave-family-out resampling.",
+    "rai:dataPreprocessingProtocol": "Two-stage de-duplication and contamination control is applied: MinHash plus semantic similarity over prompts, checklists, and normalized DOM/CSS/JS, and screenshot perceptual hashing to catch visually near-identical artifacts; automated filters also drop incomplete, non-visual, license-violating, duplicate, trivial, or non-interactive items."
+  },
+  "usage": {
+    "input_tokens": 163130,
+    "output_tokens": 1510
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 32890,
+        "output_tokens": 172
+      },
+      "collection": {
+        "input_tokens": 32671,
+        "output_tokens": 147
+      },
+      "annotation": {
+        "input_tokens": 32656,
+        "output_tokens": 266
+      },
+      "impact": {
+        "input_tokens": 32598,
+        "output_tokens": 545
+      },
+      "processing": {
+        "input_tokens": 32315,
+        "output_tokens": 380
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 69020,
+      "output_tokens": 534
+    },
+    "timestamp": "2026-05-22T12:36:39.212989+00:00",
+    "elapsed_seconds": 32.4
+  }
+}

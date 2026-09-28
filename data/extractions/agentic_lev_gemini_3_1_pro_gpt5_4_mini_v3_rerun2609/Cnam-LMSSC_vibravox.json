@@ -1,0 +1,289 @@
+{
+  "dataset_id": "Cnam-LMSSC_vibravox",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "Vibravox",
+    "description": "A dataset of French speech captured with five body-conduction audio sensors, including two in-ear microphones, two bone conduction vibration pickups, a laryngophone, and an airborne reference microphone. It contains speech samples, physiological sounds, recording-condition annotations, and linguistic transcriptions.",
+    "url": "https://HuggingFace",
+    "license": "CC-BY-4.0",
+    "creator": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poirée, Véronique Zimpfer, and Éric Bavu",
+    "publisher": "Elsevier Speech Communication",
+    "datePublished": null,
+    "inLanguage": "fr",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was built through a controlled recording protocol: the authors designed and implemented the recording setup, assembled hardware, and recorded 200 participants (188 retained after post-processing). Each participant completed four consecutive steps: reading French Wikipedia sentences in quiet, remaining silent in noisy and quiet conditions, and speaking in noisy conditions. Recordings were captured simultaneously from six sensors, then post-processed with automatic filters for pronunciation quality, sensor function, and sensitivity drift.",
+    "rai:dataCollectionType": "Experiments",
+    "rai:dataCollectionMissingData": "Missing or deficient recordings were removed by automatic post-processing filters. Clips with mispronunciations, sensor shifts, sensor malfunctions, or missing microphones were discarded; only samples passing pronunciation, SNR, and sensor-drift checks were kept.",
+    "rai:dataCollectionRawData": "Raw data consisted of simultaneous audio recordings from six sensors: a headset microphone, forehead accelerometer, in-ear soft foam microphone, in-ear rigid earpiece microphone, throat microphone, and temple vibration pickup. The speech text came from the French Wikipedia subset of Common Voice, and noisy conditions used 3D-spatialized ambient noise, including AudioSet noise and in-house ambisonic recordings.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Linguistic transcriptions were created from text prompts, with phonetic transcription generated using the CoML lab text phonemizer and manual phonetic transcription for unrecognized words. During recording, transcriptions were retained for speech-clean utterances. Post-processing used automatic filters based on Whisper-timestamped outputs and phoneme error rate to remove utterances with mispronunciations or low-quality labels.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Annotation quality was analyzed using Phoneme Error Rate (PER) computed with Levenshtein distance between labeled phonetic transcriptions and Whisper-derived phonetic transcriptions; samples with PER > 10% were discarded.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Whisper-timestamped was used to generate estimated phonetic transcriptions and word timestamps for filtering; the CoML lab text phonemizer was used to generate phonetic transcriptions.",
+    "rai:dataBiases": "A deliberate effort was made to recruit a diverse and gender-balanced group of participants to increase representativeness and inclusivity.",
+    "rai:dataLimitations": "The dataset is highly curated and was built through a protracted process involving equipment construction, software development, participant recording, and data filtering. It was found to improve speech enhancement and phoneme transcription but have a detrimental impact on speaker verification performance, so it may not be suitable for uses where speaker verification is the primary goal.",
+    "rai:dataSocialImpact": "The release is intended to drive progress in body-conducted speech analysis and support the development of robust communication systems for real-world applications.",
+    "rai:personalSensitiveInformation": "The study involved participant data and explicitly considered gender balance; it also mentions GDPR protections for personal data, informed consent, anonymization, and encryption.",
+    "rai:dataUseCases": "The dataset is publicly available and can be used for speech enhancement, speech-to-phonemes, and speaker verification.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was split by speaker into train/validation/test sets (80%/10%/10%), with all utterances from a given speaker kept together; after filtering, all audio recordings for the three other subsets were added if the corresponding speech-clean subset was not empty.",
+    "rai:dataPreprocessingProtocol": "Audio was post-filtered to remove low-quality utterances using three automatic filters: discard samples with phoneme error rate above 10%, with signal-to-noise ratio below 1.5 dB, or with speech level not exceeding silence level; VAD timestamps were extended by 0.6 s on both sides and trimmed by 15 ms when needed. Text was simplified by filtering out proper names, numbers, Greek letters, mathematical symbols, and syntactic errors, then lowercased and punctuation removed except apostrophes."
+  },
+  "usage": {
+    "input_tokens": 50171,
+    "output_tokens": 2603
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T00:55:58.381750Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox is a dataset compliant with the General Data Protection Regulation (GDPR)"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Vibravox is a dataset ... containing audio recordings using five different body-conduction audio sensors ... The Vibravox corpus contains 45 hours per sensor of speech samples and physiological sounds ... Annotations about the recording conditions and linguistic transcriptions are also included in the corpus."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Download page ... Vibravox (ours) [39] ... HuggingFace"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Julien Hauret, Malo Olivier, Thomas Joubaud, Christophe Langrenne, Sarah Poir ´ee, V ´eronique Zimpfer, and ´Eric Bavu"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SUBMITTED TO ELSEVIER SPEECH COMMUNICATION"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "French"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We designed and implemented a recording protocol, assembled the necessary hardware, and built dedicated software to ensure a controlled and high-quality data acquisition setup.” / “The recording process consists of four steps that are performed consecutively for each participant” / “A total of 200 participants contributed to the dataset, with 188 retained after post-processing”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The recording process consists of four steps that are performed consecutively for each participant” / “For the speech-noisy and speechless-noisy subsets, audio recordings were obtained from sensors worn by participants”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Mispronounced sentences, sensors shifting from their initial positions, occasional sensor malfunctions, or instances where a microphone was inadvertently left unequipped led to some data inconsistencies.” / “we applied a series of three automatic filters to remove utterances with obvious deficiencies” / “Only speech-clean samples that pass the three filters are added to the Vibravox dataset.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The Vibravox corpus contains 45 hours per sensor of speech samples and physiological sounds recorded by 188 participants” / “The text utilized for participant readings originates from the French Wikipedia subset of Common Voice” / “A significant proportion of the noise excerpts were sourced from the Audio Set”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From this normalized text, we also generated the corresponding phonetic transcription using the International Phonetic Alphabet (IPA)... This operation was done with the text phonemizer of the CoML lab... A phase of manual phonetic transcription was then necessary for these unrecognized words” and “The first filter discards any audio samples where PER[j] > 10%. This addresses potential discrepancies between the labeled transcription and actual pronunciation, ensuring high-quality labels for the speech-to-phonemes task.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“PER[j]: Phoneme Error Rate is computed... using the Levenshtein distance between the phonetic labeled transcription and the phonetic transcription derived from Whisper’s output” and “The first filter discards any audio samples where PER[j] > 10%.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The whisper-timestamped model constitutes a key component of our indicator extraction process... By aligning the transcription with the raw waveform” and “we also generated the corresponding phonetic transcription... This operation was done with the text phonemizer of the CoML lab.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "to increase the representativeness and inclusivity of the dataset, a deliberate effort was made to recruit a diverse and gender-balanced group of participants."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This highly curated dataset... has necessitated the achievement of several milestones... the filtering of data"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hope this release will drive progress in body-conducted speech analysis and support the development of robust communication systems for real-world applications."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a deliberate effort was made to recruit a diverse and gender-balanced group of participants"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Using Vibravox has proven to yield satisfactory results in Speech Enhancement, Speech-to-Phonemes and Speaker Verification"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The dataset is then split by speaker, with 80% of male and female speakers in the training set, 10% in the development/validation set, and 10% in the test set. This ensures that all utterances from a given speaker are grouped together, preventing any speaker overlap between splits.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we applied a series of three automatic filters to remove utterances with obvious deficiencies” ... “The first filter discards any audio samples where PER[j]>10%.” ... “SNR[i, j] = Lspeech50[i, j]−Lsilence50[i, j]>1.5 dB” ... “the filter checks that Lspeech50[i, j]>Lsilence50[i].” ... “the timestamps generated by Voice Activity Detection (VAD) are extended by 0.6 seconds on both sides... the audio is trimmed by 15 ms” ... “This textual data was further filtered... excluded most proper names... utterances containing numbers, Greek letters, mathematical symbols, or syntactic errors were carefully removed... we applied common text normalization operations, such as lowercasing text and removing punctuation except for apostrophes.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.0091,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 15989,
+        "tokens_in": 4007,
+        "tokens_out": 444
+      },
+      "collection": {
+        "section_chars": 36070,
+        "tokens_in": 8693,
+        "tokens_out": 578
+      },
+      "annotation": {
+        "section_chars": 36070,
+        "tokens_in": 8679,
+        "tokens_out": 511
+      },
+      "impact": {
+        "section_chars": 2360,
+        "tokens_in": 907,
+        "tokens_out": 418
+      },
+      "processing": {
+        "section_chars": 36070,
+        "tokens_in": 8563,
+        "tokens_out": 474
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 24.6,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 19322,
+      "output_tokens": 178
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

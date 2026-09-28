@@ -1,0 +1,259 @@
+{
+  "dataset_id": "lmms-lab_Video-MME",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Video-MME",
+    "description": "Video-MME is a comprehensive Multi-Modal Evaluation benchmark for MLLMs in video analysis, featuring 900 videos across 6 visual domains and 30 subfields, with 2,700 manually annotated multiple-choice QA pairs. It covers short, medium, and long videos (11 seconds to 1 hour), and integrates multi-modal inputs including video frames, subtitles, and audios.",
+    "url": "https://video-mme.github.io",
+    "license": null,
+    "creator": "Chaoyou Fu, Yuhan Dai, Yongdong Luo, Lei Li, Shuhuai Ren, Renrui Zhang, Zihan Wang, Chenyu Zhou, Yunhang Shen, Mengdan Zhang, Peixian Chen, Yanwei Li, Shaohui Lin, Sirui Zhao, Ke Li, Tong Xu, Xiawu Zheng, Enhong Chen, Caifeng Shan, Ran He, Xing Sun",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "arXiv:2405.21075",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Videos were manually collected from YouTube across 6 key domains and 30 fine-grained categories. For each category, videos with varying duration lengths (short <2 minutes, medium 4-15 minutes, and long 30-60 minutes) were collected along with corresponding subtitles (if provided) and audios.",
+    "rai:dataCollectionType": "Manual Human Curator, Web Scraping",
+    "rai:dataCollectionMissingData": "Not all videos have subtitles; 744 out of 900 videos have subtitles while all 900 have audios.",
+    "rai:dataCollectionRawData": "Videos sourced from YouTube across 6 key domains (Knowledge, Film & Television, Sports Competition, Life Record, Artistic Performance, and Multilingual) with 30 fine-grained categories.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "QA pairs that could be answered solely based on textual questions (without video content) were filtered out. Text-only questions were provided to Gemini 1.5 Pro, and pairs answerable without video were returned to annotators for revision.",
+    "rai:dataAnnotationProtocol": "Annotators with strong English proficiency and extensive research experience in vision-language learning thoroughly viewed each entire video and created three multiple-choice questions (each with four candidate options) per video. Each QA pair was then reviewed by a different annotator to verify clarity, logical consistency, and correctness of the answer. QA pairs answerable without video content were filtered out.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Statistical analysis shows that Gemini 1.5 Pro achieves less than 15% accuracy in the text-only setup, underscoring the robustness of the video content-based requirement. The distribution of options (A/B/C/D) follows a near-uniform distribution (25.1/27.2/25.3/22.4%), ensuring an unbiased evaluation.",
+    "rai:annotationsPerItem": "3 QA pairs per video",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Performance declines as video duration increases for all models, suggesting limitations in processing longer sequences. Open-source models fix the number of input frames (e.g., 8 frames), resulting in excessively sparse information density for longer videos.",
+    "rai:dataUseCases": "Evaluation/benchmarking of Multimodal Large Language Models (MLLMs) on video understanding tasks, applicable to both image and video MLLMs."
+  },
+  "usage": {
+    "input_tokens": 22991,
+    "output_tokens": 2179
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:56:52.022863Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Video-MME, the first-ever full-spectrum, Multi-Modal Evaluation benchmark of MLLMs in Video analysis."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we meticulously curate a dataset of 900 videos across various scenarios, and annotate a set of 2,700 high-quality multiple-choice questions (3 per video) to foster a robust evaluation."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Project page: https://video-mme.github.io"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Chaoyou Fu, Yuhan Dai, Yongdong Luo, Lei Li, Shuhuai Ren, Renrui Zhang, Zihan Wang, Chenyu Zhou, Yunhang Shen, Mengdan Zhang, Peixian Chen, Yanwei Li, Shaohui Lin, Sirui Zhao, Ke Li, Tong Xu, Xiawu Zheng, Enhong Chen, Caifeng Shan, Ran He, Xing Sun"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2405.21075v3 [cs.CV] 30 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we recruit annotators with strong English proficiency and extensive research experience in vision-language learning."
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2405.21075v3 [cs.CV] 30 May 2025"
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first establish a domain hierarchy for sourcing raw videos from YouTube... For each category, we collect videos with varying duration lengths, including short (<2 minutes), medium (4-15 minutes), and long videos (30-60 minutes). Besides, we also obtain corresponding meta-information such as subtitles (if provided) and audios for in-depth investigation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "all the videos and annotations are manually collected and curated... we first establish a domain hierarchy for sourcing raw videos from YouTube."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The resulting dataset consists of 900 videos, including 744 videos with subtitles and all 900 with audios."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first establish a domain hierarchy for sourcing raw videos from YouTube. We identify 6 key domains: Knowledge, Film & Television, Sports Competition, Life Record, and Multilingual, informed by popular trends on YouTube."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we provide the text-only questions to Gemini 1.5 Pro and filter out QA pairs that can be answered solely based on the textual questions... Questions that do not meet this criterion are returned to the original annotator for revision."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we recruit annotators with strong English proficiency and extensive research experience in vision-language learning. Specifically, each annotator is tasked with thoroughly viewing the entire video, then iteratively creating three relevant questions, each accompanied by four candidate options... each QA pair undergoes examination by a different annotator to verify that (i) the language expression is clear and precise; (ii) the question is answerable with logically consistent candidate options, and the designated correct answer is appropriate."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Statistical analysis shows that Gemini 1.5 Pro achieves less than 15% accuracy in the text-only setup, underscoring the robustness of the video content-based requirement... the distribution of the options (A/B/C/D) follows a near-uniform distribution (25.1/27.2/25.3/22.4%), ensuring an unbiased evaluation."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "each annotator is tasked with thoroughly viewing the entire video, then iteratively creating three relevant questions, each accompanied by four candidate options, contributing to a total of 2,700 QA pairs."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a decline in MLLM performance is observed as video duration increases for all models... existing open-sourced models fix the number of input frames, e.g., 8 frames, resulting in excessively sparse information density as the video length increases."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce Video-MME, the first-ever full-spectrum, Multi-Modal Evaluation benchmark of MLLMs in Video analysis... Our benchmark is also available to advanced image-based models by extending their input to multi-frame images."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.942
+    },
+    "cost_usd": 0.1017,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [],
+    "elapsed_seconds": 37.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

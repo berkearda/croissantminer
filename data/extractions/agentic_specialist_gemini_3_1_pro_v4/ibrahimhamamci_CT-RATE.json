@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "CT-RATE is a public dataset that pairs 25,692 non-contrast 3D chest CT scans from 21,304 unique patients with their corresponding radiology reports.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": null,
+    "creator": "Ibrahim Ethem Hamamci; Sezgin Er; Chenyu Wang; Furkan Almas; Ayse Gulnihan Simsek; Sewal Nil Esirgun; Irem Dogan; Omer Faruk Durugol; Benjamin Hou; Suprosanna Shit; Weicheng Dai; Murong Xu; Hadrien Reynaud; Muhammed Furkan Dasdelen; Bastian Wittmann; Tamaz Amiranashvili; Enis Simsar; Mehmet Simsar; Emine Bensu Erdemir; Abdullah Alanbay; Anjany Sekuboyina; Berkan Lafci; Ahmet Kaplan; Zhiyong Lu; Malgorzata Polacin; Bemhard Kainz; Christian Bluethgen; Kayhan Batmanghelich; Mehmet Kemal Ozdemir; Bjoem Menze",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ibrahim Ethem Hamamci. CT-RATE: Paired chest CT volumes and radiology reports. https://huggingface.co/datasets/ibrahimhamamci/CT-RATE. 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was curated by incorporating non-contrast chest CT volumes and corresponding radiology text reports from the Istanbul Medipol University Mega Hospital database.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "The external validation dataset RAD-ChestCT lacks corresponding radiology text reports.",
+    "rai:dataCollectionRawData": "Non-contrast 3D chest CT volumes and corresponding radiology text reports from the Istanbul Medipol University Mega Hospital database.",
+    "rai:dataCollectionTimeframe": "May 2015 to January 2023",
+    "rai:dataAnnotationProtocol": "1,000 reports were manually annotated by merging findings and impression sections to create a multi-label dataset identifying 18 abnormalities. Conditions not referenced in either section were considered absent, and similar conditions were grouped.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "RadBERT-RoBERTa-4m; Llama 3.1 8B; TotalSegmentator",
+    "rai:dataBiases": "Biases inherent to our single-institution dataset may influence our self-supervised training. Although we curate a large and diverse set of volume-report pairs, the data originates from a single geographic and clinical setting, which may limit the generalizability of our models to other populations.",
+    "rai:dataLimitations": "Data originates from a single geographic and clinical setting; CT-CLIP depends on the specific terminology used in reports and the choice of prompts; evaluation of CT-CHAT faces limitations due to the lack of pretrained 3D medical multimodal AI assistants for benchmarking; current models are limited to chest CT volumes; models are far from ready for clinical deployment.",
+    "rai:dataSocialImpact": "AI has the potential to address this challenge by efficiently identifying pathologies, reducing the workload on radiologists, and potentially saving lives in situations where immediate radiological expertise is not available. The open-source release lays the groundwork for future innovations in medical AI and improved patient care.",
+    "rai:personalSensitiveInformation": "All chest CT volumes, associated metadata, and radiology text reports are anonymized to remove all personal information pertaining to patients and medical professionals, including date-related information and patient-doctor identifiers.",
+    "rai:dataUseCases": "Multi-abnormality detection; case retrieval (volume-to-volume and report-to-volume retrieval); visual question-answering; radiology report generation",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "A visual question-answering (VQA) dataset of over 2.7 million question-answer pairs was synthetically generated from the radiology reports and PubMed articles using the Llama 3.1 large language model and rule-based approaches.",
+    "rai:dataPreprocessingProtocol": "Reports were anonymized using regular expressions to remove personal information, translated from Turkish to English, and manually reviewed. CT volumes involving contrast material or non-chest body parts were excluded. Volume orientation was standardized, and metadata was anonymized. Volumes were resized to uniform spacing (0.75 mm x/y, 1.5 mm z), center-cropped or padded to 480x480x240 resolution, converted to Hounsfield Unit (HU) values, clipped to a range of -1000 to 1000, and normalized to a range of -1 to 1."
+  },
+  "usage": {
+    "input_tokens": 315671,
+    "output_tokens": 17992
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 53807,
+        "output_tokens": 2724
+      },
+      "collection": {
+        "input_tokens": 65603,
+        "output_tokens": 3393
+      },
+      "annotation": {
+        "input_tokens": 65569,
+        "output_tokens": 2716
+      },
+      "impact": {
+        "input_tokens": 65507,
+        "output_tokens": 4524
+      },
+      "processing": {
+        "input_tokens": 65185,
+        "output_tokens": 4635
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 47229,
+      "output_tokens": 7560
+    },
+    "timestamp": "2026-05-28T09:33:24.845963+00:00",
+    "elapsed_seconds": 320.3
+  }
+}

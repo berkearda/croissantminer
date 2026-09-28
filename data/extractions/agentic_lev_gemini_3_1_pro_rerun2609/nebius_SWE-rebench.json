@@ -1,0 +1,280 @@
+{
+  "dataset_id": "nebius_SWE-rebench",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "SWE-rebench",
+    "description": "A public dataset of over 21,000 interactive Python-based software engineering tasks designed to train and benchmark agents in diverse executable environments.",
+    "url": "https://huggingface.co/datasets/nebius/SWE-rebench",
+    "license": "CC-BY-4.0",
+    "creator": "Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, Boris Yangel",
+    "publisher": "Nebius",
+    "datePublished": null,
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The data collection process involves downloading raw data from GitHub and GitHub Archive, filtering pull requests linked to resolved issues, grouping tasks by project versions, using an LLM to generate environment setup instructions, and performing execution-based installation verification to confirm task solvability.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "If a project version cannot be inferred from git tags, a unique version is assigned to the task. If the head commit is unavailable (e.g., due to branch deletion), the pipeline falls back to the merge commit.",
+    "rai:dataCollectionRawData": "Raw data consists of GitHub repository clones with full commit histories, and GitHub Archive event data containing issue descriptions, discussions, linked pull requests, and metadata.",
+    "rai:dataCollectionTimeframe": "Issues created before May 1, 2025.",
+    "rai:dataAnnotationProtocol": "Automated task quality assessment where an LLM is fine-tuned on existing human annotations to predict labels such as complexity, relevance, and correctness.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Classification quality report (Precision, Recall, F1) comparing the fine-tuned model's predictions against a validation set.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen 2.5-72B-Instruct",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset's automated pipeline relies on heuristics and LLM-driven interpretations, which can result in imperfectly described or unsolvable tasks, lowering absolute success rates compared to manually curated benchmarks. Additionally, the initial release is restricted entirely to the Python programming language.",
+    "rai:dataSocialImpact": "The benchmark could accelerate the creation of highly autonomous AI software engineering systems, introducing risks like overreliance on AI-generated code and the potential misuse of agents to introduce software vulnerabilities.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for training (especially via reinforcement learning) and benchmarking/evaluating LLM-based software engineering agents in interactive, executable environments.",
+    "rai:dataReleaseMaintenancePlan": "The dataset and its associated leaderboard are continuously updated with fresh tasks to provide decontaminated evaluations and keep the benchmark up-to-date.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "The data preprocessing pipeline includes filtering out deleted files from test directives, recording error outputs for optional filtering, and applying specific filtering criteria to select well-defined tasks of manageable complexity."
+  },
+  "usage": {
+    "input_tokens": 49816,
+    "output_tokens": 2202
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:52:47.442676Z",
+    "git_commit": "ede26c8",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we construct SWE-rebench, a public dataset comprising over 21,000 interactive Python-based SWE tasks"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-rebench, a public dataset of more than 21,000 interactive Python-based SWE tasks, designed to train and benchmark agents in diverse executable environments, particularly suitable for reinforcement leaming-based approaches."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Available on Hugging Face Datasets: https://huggingface.co/datasets/nebius/SWE-rebench"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibragim Badertdinov∗ NebiusAlexander Golubev∗ Nebius Maksim Nekrashevich NebiusAnton Shevtsov NebiusSimon Karasik NebiusAndrei Andriushchenko Nebius Maria Trofimova NebiusDaria Litvintseva NebiusBoris Yangel Nebius"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ibragim Badertdinov∗ Nebius... [all authors affiliated with Nebius]; Available on Hugging Face Datasets: https://huggingface.co/datasets/nebius/SWE-rebench"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a novel, automated, and scalable pipeline to continuously extract real-world interactive SWE tasks from diverse GitHub repositories."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the first stage, we download raw input data from multiple origins, merge them, and perform preliminary filtering. ... We then link issues with pull requests that mention resolving them ... We group these task instances by project versions ... We employ an agentless approach ... to generate candidate environment setup instructions. ... To confirm task solvability and the integrity of the provided tests, we perform execution-based installation verification."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary sources for our data are GitHub Archive [Grigorik, 2011] and GitHub. ... we download raw input data from multiple origins, merge them, and perform preliminary filtering."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The git tag command provides a version for approximately 95% of task instances. We assign a unique version to the rest of the tasks, so that each one of them uses its own environment. ... If head_commit is unavailable (e.g., due to branch deletion after merge), we fall back to merge_commit and record this choice in the task metadata."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary sources for our data are GitHub Archive [Grigorik, 2011] and GitHub. ... we collect detailed data about issues: issue description, discussion, linked pull requests, and metadata such as creation date and labels. ... We clone relevant GitHub repositories with their full commit histories to our local storage."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To initiate the dataset building process, we download approximately 450,000 pull requests linked to issues created before May 1, 2025."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the automated task quality assessment (Section 2.4), where an LLM is fine-tuned on SWE-bench Verified task labels to predict complexity and relevance"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Table 4 provides a detailed classification quality report, comparing the performance of our fine-tuned model against the vanilla Qwen 2.5-72B-Instruct model on the validation set."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we fine-tuned a Qwen 2.5-72B-Instruct model using human annotations from SWE-bench Verified to predict three quality assessment labels: Test Patch Correctness, Task Complexity, and Issue Clarity."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Automated task quality assessment: While we employ automated quality assessment, the fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue. This can lead to lower absolute success rates compared to manually curated benchmarks. \n• Limited language diversity: The initial release of SWE-rebench is limited exclusively to Python, restricting its immediate applicability to other language ecosystems."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "...it may also accelerate the development of increasingly autonomous AI systems in software engineering. This progress brings potential risks, such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-rebench, a public dataset of more than 21,000 interactive Python-based SWE tasks, designed to train and benchmark agents in diverse executable environments, particularly suitable for reinforcement learning-based approaches."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A public SWE-rebench leaderboard that offers continuously updated, decontaminated, and standardized evaluations for LLM-based agents... As the leaderboard is continuously updated, the current set of evaluated models can be found on the leaderboard website."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our refinement filters out deleted files from test directives. [...] The SWE-rebench benchmark subset, used for evaluating LLM-based agents as described in Section 3, is curated from the larger SWE-rebench dataset by applying a series of specific filtering criteria. These filters are designed to select tasks that are well-defined, of manageable complexity for current models, and ensure a consistent evaluation environment."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0843,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 44422,
+        "tokens_in": 9899,
+        "tokens_out": 568
+      },
+      "collection": {
+        "section_chars": 54683,
+        "tokens_in": 14354,
+        "tokens_out": 574
+      },
+      "annotation": {
+        "section_chars": 15932,
+        "tokens_in": 4997,
+        "tokens_out": 347
+      },
+      "impact": {
+        "section_chars": 43151,
+        "tokens_in": 11410,
+        "tokens_out": 512
+      },
+      "processing": {
+        "section_chars": 30457,
+        "tokens_in": 9156,
+        "tokens_out": 201
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 77.5
+  }
+}

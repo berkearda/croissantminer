@@ -1,0 +1,290 @@
+{
+  "dataset_id": "MathLLMs_VoiceAssistant-Eval",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "VoiceAssistant-Eval",
+    "description": "A comprehensive benchmark for evaluating AI assistants across listening, speaking, and viewing. It contains 10,497 curated examples spanning 13 task categories and includes tasks for natural sounds, music, spoken dialogue, voice imitation, multi-turn dialogue, and multimodal vision-audio understanding.",
+    "url": "https://huggingface.co/datasets/MathLLMs/VoiceAssistant-Eval",
+    "license": "MIT",
+    "creator": "Ke Wang, Houxing Ren, Zimu Lu, Mingjie Zhan, Hongsheng Li",
+    "publisher": null,
+    "datePublished": "2025-09-26",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "VoiceAssistant-Eval is organized into three main subsets: Listening, Speaking, and Viewing. The authors collect source data from 23 audio understanding datasets, 22 datasets for spoken-interaction tasks (including text and audio datasets), and MMMU for the viewing subset. The collected text instructions are converted into audio, and role profiles/question texts are reused for role-playing tasks.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Source datasets spanning audio understanding, spoken interaction, and visual tasks, including datasets such as MMMU, VocalBench, AlpacaEval, RoleBench, AudioCaps, LibriSpeech, VCTK, CommonVoice, and others; the benchmark includes audio clips, spoken interactions, and images.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human judges independently evaluated 10% of the model’s responses from each of the 13 tasks (1050 examples) to verify alignment with human preferences. For curation, curators reviewed items in a web-based tool and assigned a Good or Bad verdict with optional notes, using three passes: media integrity, task well-posedness, and answer validity.",
+    "rai:dataAnnotationPlatform": "A lightweight web-based curation tool.",
+    "rai:dataAnnotationAnalysis": "Agreement between automated model-based evaluation and human judgments was analyzed using Pearson correlation coefficients and agreement rates; overall correlation was 0.92 and overall agreement rate was 96.1%.",
+    "rai:annotationsPerItem": "Independently evaluated by human judges; number of judges per item not specified.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "gpt-oss-20b was used as the automated model-based evaluation scheme.",
+    "rai:dataBiases": "The benchmark may carry biases from its source data and design choices; the questions and contexts are drawn from academic or synthetic sources, and the fixed set of 100 roles may encode stereotypes or omit important user personas. The monolingual focus may also limit diversity and fairness across linguistic settings.",
+    "rai:dataLimitations": "The dataset may be limited in diversity despite being sizable; most prompts and evaluations are in English, so it may not generalize well to more diverse linguistic settings. The benchmark also has limited model coverage, relies on automated measures and GPT-based scoring that may introduce noise and bias, lacks some task scenarios such as continuous audio-visual streaming, and is evaluated offline rather than in real-time interactive settings.",
+    "rai:dataSocialImpact": "The paper highlights potential harms from misuse such as identity spoofing, harassment, fraud, privacy violations, and unequal performance across demographics, and frames the benchmark as supporting fairer and more capable multi-modal AI systems.",
+    "rai:personalSensitiveInformation": "The dataset involves voice/speaker-related information and role-play voice imitation, speaker similarity evaluation, and consent/provenance safeguards; it also references demographics and user personas, but does not explicitly list attributes like age or gender as collected fields.",
+    "rai:dataUseCases": "Intended for evaluating voice assistants and benchmarking listening, speaking, and viewing capabilities; not supposed to be used for training models for cheating. The paper also recommends consent gating, watermarking/traceability for synthetic audio, and safety cards for acceptable use and abuse testing.",
+    "rai:dataReleaseMaintenancePlan": "The dataset and code will be publicly available under an MIT license. The authors will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To increase speaker diversity, we reuse the 300 role audio clips from the role-play task as prompt audio; we also sample data from the categorized problems to balance the ratio of different tasks.",
+    "rai:dataPreprocessingProtocol": "Texts were preprocessed by replacing image references with descriptive phrases, rewriting text for TTS readability and accurate pronunciation of numbers/math, and rephrasing multiple-choice options; data quality was improved through deduplication, validation, and categorization, including removing corrupted images, silent audio, ill-posed prompts, and incorrect answers."
+  },
+  "usage": {
+    "input_tokens": 85450,
+    "output_tokens": 2633
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:01:10.672272Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We introduce VoiceAssistant-Eval, a comprehensive benchmark designed to assess AI assistants across listening, speaking, and viewing.”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“VoiceAssistant-Eval comprises 10,497 curated examples spanning 13 task categories.” / “These tasks include natural sounds, music, and spoken dialogue for listening; multi-turn dialogue, role-play imitation, and various scenarios for speaking; and highly heterogeneous images for viewing.”"
+      },
+      "url": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Ke Wang1,∗ Houxing Ren1,∗ Zimu Lu1 Mingjie Zhan2,† Hongsheng Li1,3,†”"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“arXiv:2509.22651v1 [cs.CL] 26 Sep 2025”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper is written in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Code and data will be released at this page.” / “we will release both the dataset and evaluation code used in this work.”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We collect source data from 23 audio understanding datasets... The collected text instructions are then converted into audio.” / “Other source data are from 22 datasets...” / “For role-playing, we use the role profiles and question texts from RoleBench.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We collect source data from 23 audio understanding datasets...” / “Other source data are from 22 datasets...”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Table 8: Overview of the source datasets included in our benchmark...” / “This subset contains a wide variety of images...” / “This subset comprises spoken-interaction tasks...”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“These responses are then independently evaluated by human judges.” “Curators review each item on a single screen... and then assign a Good or Bad verdict, along with optional notes.” “Manual review proceeds in three quick passes: (1) Media integrity... (2) Task well-posedness... (3) Answer validity...”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we build a lightweight web-based curation tool that standardizes quality checks across modalities.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“All reported Pearson correlation coefficients... (ranging from 0.73 to 1.00, with an overall correlation of 0.92)” “The overall agreement rate is 96.1%.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“These responses are then independently evaluated by human judges.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“our automated model-based evaluation scheme (using gpt-oss-20b (OpenAI et al., 2025))”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“VoiceAssistant-Eval may carry biases from its source data and design choices... The role-play subset uses a fixed set of 100 roles and associated style prompts. These roles may encode stereotypes or omit important user personas.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the dataset, though sizable (10.5K curated QA items), may still be limited in diversity... all other prompts and evaluations are in English... might not fully generalize to more diverse linguistic settings... our evaluation methodology has limitations... may introduce noise and bias... video-audio integration and continuous audio-visual streaming tasks are beyond the scope... our current evaluation does not measure reaction time... barge-in (user interruption) and error recovery.”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To mitigate misuse risks (e.g., identity spoofing, harassment, fraud)... minimizing harms related to impersonation, privacy violations, and unequal performance across demographics.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“because the benchmark includes role-play voice imitation and speaker similarity evaluation... minimize harms related to impersonation, privacy violations, and unequal performance across demographics.”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The VoiceAssistant-Eval dataset is not supposed to be used... for training models for cheating. We intend for researchers to use this dataset to better evaluate voice assistants... require downstream users to implement consent gating and watermarking or traceability of synthetic audio; (iii) provide ‘safety cards’ that describe acceptable use, known risks, and red-team tests for voice cloning abuse.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the VoiceAssistant-Eval and code for result reproduction will be publicly available... The VoiceAssistant-Eval data and our open-source code are under an MIT license... We will maintain a data governance process for auditing and removal and reserve the right to update assets if consent or licensing concerns arise.”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To increase speaker diversity, we reuse the 300 role audio clips from the role-play task as prompt audio. ... (4) Sampling: We sample data from the categorized problems to balance the ratio of different tasks."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We preprocess the texts to ensure high synthesis quality: 1. Image references: We replace special tokens (e.g., “<image1>”) with descriptive phrases... 2. Text rewriting: We use Qwen2.5-72B-Instruct ... to rewrite the text so it is more suitable for TTS... 3. Multiple-Choice Questions: We rephrase the options for better readability. ... We improve data quality through a four-stage curation process: (1) Deduplication... (2) Validation: We exclude incomplete or unsuitable instances, including entries with corrupted images, silent audio, ill-posed prompts, and demonstrably incorrect answers. (3) Categorization..."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "evidence_count": 22,
+      "evidence_coverage": 91.7,
+      "avg_confidence": 0.929
+    },
+    "cost_usd": 0.0144,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 54928,
+        "tokens_in": 15479,
+        "tokens_out": 464
+      },
+      "collection": {
+        "section_chars": 10723,
+        "tokens_in": 3627,
+        "tokens_out": 366
+      },
+      "annotation": {
+        "section_chars": 6484,
+        "tokens_in": 2007,
+        "tokens_out": 457
+      },
+      "impact": {
+        "section_chars": 7256,
+        "tokens_in": 1882,
+        "tokens_out": 788
+      },
+      "processing": {
+        "section_chars": 5740,
+        "tokens_in": 1828,
+        "tokens_out": 360
+      }
+    },
+    "enrichments": [
+      "license",
+      "url"
+    ],
+    "elapsed_seconds": 24.4,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 60627,
+      "output_tokens": 198
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

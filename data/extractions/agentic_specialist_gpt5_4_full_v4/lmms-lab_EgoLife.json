@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_EgoLife",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "EgoLife",
+    "description": "EgoLife is a comprehensive 300-hour egocentric, interpersonal, multiview, and multimodal daily life dataset with intensive annotation. It was collected from six participants living together for one week while continuously recording daily activities using AI glasses, along with synchronized third-person-view video references.",
+    "url": "https://egolife-ai.github.io/",
+    "license": null,
+    "creator": "The EgoLife Team",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "zh, en",
+    "citeAs": "The EgoLife Team. EgoLife: Towards Egocentric Life Assistant. arXiv:2503.03803, 2025.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The EgoLife dataset was collected over a seven-day period with six volunteers residing in a custom-designed environment called the EgoHouse. Each participant wore Meta Aria glasses and captured multimodal egocentric videos, while 15 strategically placed GoPro cameras recorded activities from multiple angles and millimeter-wave radars provided spatial and motion data. Participants were asked to organize an Earth Day party on the second-to-last day, and activities included meetings, rehearsals, cooking, decorating, shopping, and sightseeing, with recording permission obtained in locations like shopping malls.",
+    "rai:dataCollectionType": "Experiments; Direct measurement",
+    "rai:dataCollectionMissingData": "Due to storage limitations, recordings are structured into three-hour segments. To maintain data continuity, the glasses are collected every three hours for data upload and storage clearance, a process that takes approximately one hour. During this period, participants are instructed to remain in their rooms and limit their activities to resting or non-essential tasks to prevent logic disruptions in the recorded footage.",
+    "rai:dataCollectionRawData": "First-person video from 6 Aria glasses, third-person video from 15 GoPro cameras, and synchronized multimodal signal data including millimeter-wave radars; each data instance includes first-person video from AI glasses, third-person video from fixed indoor cameras, and synchronized multimodal signal data, including millimeter-wave radars and WiFi signals.",
+    "rai:dataCollectionTimeframe": "seven days",
+    "rai:dataAnnotationProtocol": "Transcript annotation started after synchronizing all egocentric videos, merging audio tracks from six participants into one, applying speech recognition to generate initial timestamped transcripts, and using an open-source diarization algorithm to differentiate speakers; the 50-hour transcript was then reviewed for accuracy, after which the audio was split into six participant-specific tracks and reviewers refined each track to keep only speech audible to each participant. For caption annotations, videos were split into 5-minute clips and slowed to 0.8× speed so annotators could provide continuous detailed narrations covering actions, interactions, and environmental details; the narration was transcribed to text and reviewed and corrected for synchronized, time-aligned descriptions. For EgoLifeQA, GPT-4o-generated timestamped questions were provided to annotators as SRT files to filter and inspire selection, and after rigorous selection and refinement annotators revised questions, generated distractors for multiple-choice questions, and annotated whether audio was required and the look-back time.",
+    "rai:dataAnnotationPlatform": "CapCut; SRT files",
+    "rai:dataAnnotationAnalysis": "Initial narration phrases were merged into coherent sentences using GPT-4o-mini, then expanded with representative frames and transcripts and summarized by GPT-4o into visual-audio captions, which were verified by human annotators. For QA annotation, around 100K AI-generated questions per participant were filtered so that only questions requiring information from at least five minutes prior were retained, then reduced to 1K high-quality questions per participant for further meticulous revision, resulting in a final set of 500 QA per participant.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "speech recognition [90]; open-source diarization algorithm [91]; transcription tool; GPT-4o-mini; GPT-4o",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "existing datasets like Epic-Kitchen and Ego4D are limited by relatively short recording durations and a predominantly monographic perspective; we intentionally started with a narrow setting to build a strong foundation, sacrificing some generalizability (e.g., single language/scenario); audio-only information might not be adequate to solve EgoLifeQA; EgoGPT’s speech understanding remains incomplete; identity recognition is another challenge; since it was fine-tuned on EgoLife Day-1, it tends to overfit to early observations; EgoRAG’s retrieval mechanism lacks multi-step reasoning and performs a single-pass search without iterative refinement or step-by-step reasoning",
+    "rai:dataSocialImpact": "The development of EgoButler and the EgoLifeQA dataset holds significant potential to enhance human-AI interaction, particularly in personalized assistance and context-aware applications; EgoButler could support daily activities, personal organization, and contextual reminders, improving quality of life, especially for individuals needing consistent support, such as the elderly or those with cognitive challenges; however, as this technology integrates more deeply into personal spaces, it is essential to address privacy and ethical considerations to ensure user autonomy and trust; safeguards for data privacy and transparency in AI decision-making processes will be key to its positive societal reception",
+    "rai:personalSensitiveInformation": "All participant faces were blurred to anonymize identities; bystanders’ faces and vehicle license plates appearing in the footage were thoroughly blurred; sensitive audio segments containing private or potentially identifiable information were muted; frames containing sensitive screen content, such as mobile or computer screens, were reviewed, and any private information was blurred, for example visible screens displaying passwords or personal data underwent detailed masking processes",
+    "rai:dataUseCases": "developing state-of-the-art multimodal egocentric AI assistants; long-context, life-oriented question-answering tasks designed to provide meaningful assistance in daily life by addressing practical questions such as recalling past relevant events, monitoring health habits, and offering personalized recommendations; support research in human behavior recognition, multimodal signal analysis, and human-machine interaction",
+    "rai:dataReleaseMaintenancePlan": "this partnership will continue for future EgoLife versions",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The initial annotations, or “narrations,” consisted of 361K brief, subtitle-like phrases, averaging 2.65 seconds per narration. Using GPT-4o-mini, we merged related phrases into 25K “merged captions,” forming coherent sentences aligned with specific video segments. These captions were then expanded by pairing them with representative frames (sampled at 1 FPS) and corresponding transcripts, summarized by GPT-4o. This process transformed the “merged captions” into “visual-audio captions,” which are enriched with both visual and speech context and verified by human annotators. We crafted prompts for each type and fed “visual-audio captions” into GPT-4o in batches, generating around 100K timestamped questions per participant. Only questions requiring information from at least five minutes prior were retained, with a preference for those demanding longer dependencies and strong real-world relevance. After a rigorous selection and refinement process, we filtered the 100K QA candidates down to 1K high-quality questions per participant—less than 1% of the original pool—for further meticulous revision. This final round of curation resulted in a carefully crafted set of 500 QA per participant.",
+    "rai:dataPreprocessingProtocol": "A rigorous data cleaning process was implemented to ensure synchronization, participant privacy, and readiness for annotation and data release. We started transcript annotation after synchronizing all the egocentric videos, merging audio tracks from six participants into one, and applying speech recognition to generate initial timestamped transcripts. Using an open-source diarization algorithm, we differentiated the speakers and produced a preliminary transcript with overlapping conversations. This 50-hour transcript was then reviewed for accuracy. Afterward, we split the audio into six tracks, one for each participant. Reviewers refined each track, keeping only the speech audible to each participant. The dataset underwent rigorous data cleaning to ensure quality and remove any sensitive or low-quality segments. All identifiable faces and sensitive license plates were blurred, and audio containing sensitive topics was muted. Multimodal signal data, including radar and WiFi, were extracted and aligned with video data. Video and signal data from multiple sources were synchronized using timestamps for cohesive analysis. Audio was processed to mute sensitive information and enhance clarity for Q&A annotations."
+  },
+  "usage": {
+    "input_tokens": 235688,
+    "output_tokens": 2412
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 50276,
+        "output_tokens": 161
+      },
+      "collection": {
+        "input_tokens": 35650,
+        "output_tokens": 290
+      },
+      "annotation": {
+        "input_tokens": 50055,
+        "output_tokens": 395
+      },
+      "impact": {
+        "input_tokens": 49995,
+        "output_tokens": 815
+      },
+      "processing": {
+        "input_tokens": 49712,
+        "output_tokens": 751
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 57543,
+      "output_tokens": 696
+    },
+    "timestamp": "2026-05-22T11:30:07.802330+00:00",
+    "elapsed_seconds": 51.1
+  }
+}

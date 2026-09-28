@@ -1,0 +1,287 @@
+{
+  "dataset_id": "lmms-lab_ScienceQA",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "ScienceQA",
+    "description": "ScienceQA is a large-scale multimodal multiple choice dataset containing 21,208 science questions collected from elementary and high school science curricula, covering natural science, social science, and language science. Each example includes a question, multiple choices, multimodal contexts, a correct answer, a lecture, and an explanation to support chain-of-thought reasoning.",
+    "url": "https://scienceqa.github.io",
+    "license": null,
+    "creator": "Pan Lu, Swaroop Mishra, Tony Xia, Liang Qiu, Kai-Wei Chang, Song-Chun Zhu, Oyvind Tafjord, Peter Clark, Ashwin Kalyan",
+    "publisher": "NeurIPS 2022",
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were sourced from IXL Learning, an online K-12 education platform. Original science problems were downloaded and individual components (questions, hints, images, options, answers, lectures, solutions) were extracted using heuristic rules. Invalid questions were manually removed, answer options were shuffled, and semi-automated scripts were used to reformat lectures and solutions. A data exploration tool was developed to review examples, and incorrect annotations were manually revised by experts.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Invalid questions (those with only one choice, faulty data, or duplicates) were manually removed. If multiple correct answers applied, only one correct answer was kept.",
+    "rai:dataCollectionRawData": "Science problems from IXL Learning, an online K-12 education platform aligned with California Common Core Content Standards, including questions, hints, images, options, answers, lectures, and solutions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Amazon Mechanical Turk workers answered test questions and evaluated model-generated explanations. For human performance study: 4,241 test questions split into 425 batches of 10, with 5 training questions as exam examples per batch; workers needed to correctly answer 4/5 exam questions to qualify. For explanation evaluation: workers rated explanations on relevance, correctness, and completeness; batches of 10 assigned to 3 workers each; majority vote used for final scores.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Majority vote used to determine human scores for each explanation. Blind studies conducted to verify dataset robustness, showing results close to random chance for Q only and CI only conditions.",
+    "rai:annotationsPerItem": "3 workers per batch for both human performance study and explanation evaluation",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "VIT-GPT2 image captioning model used to generate captions for images in the dataset",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Existing datasets fail to provide annotations for the answers, or are restricted to the textual-only modality, small scales, and limited domain diversity. ScienceQA addresses these but is collected from elementary and high school science curricula, which may limit generalization beyond that scope.",
+    "rai:dataSocialImpact": "The dataset aims to improve AI interpretability and multi-hop reasoning in science education contexts, potentially benefiting educational AI systems that can explain their reasoning to students.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for training, validation, and testing of multimodal multiple-choice science question answering models, as well as for benchmarking multi-hop reasoning ability and interpretability of AI systems. It supports few-shot learning and fine-tuning of large language models.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": "Questions without any context have their context text replaced with an empty string.",
+    "rai:dataManipulationProtocol": "For human performance study, test questions were shuffled and split into batches of 10, with randomly added training questions as exam examples. Workers who failed to correctly answer 4 out of 5 exam examples were eliminated. For GPT-3 experiments, in-context examples were selected using random seeds across four trials.",
+    "rai:dataPreprocessingProtocol": "For language models, newline separators (\\n) in text are replaced with \\\\n when encoding inputs. Image captions are generated using a captioning model (vit-gpt2-image-captioning) with maximum caption length of 16, 4 beams, and maximum 512 output tokens. VQA baselines use a maximum of 100 input words or tokens."
+  },
+  "usage": {
+    "input_tokens": 34920,
+    "output_tokens": 2756
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:01:15.635386Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present Science Question Answering (SCIENCEQA), a new benchmark that consists of ∼21k multimodal multiple choice questions"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SCIENCEQA is collected from elementary and high school science curricula, and contains 21,208 examples along with lectures and explanations. Different from existing datasets, SCIENCEQA has richer domain diversity from three different subjects: natural science, social science, and language science."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The data and code are available at https://scienceqa.github.io"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Pan Lu, Swaroop Mishra, Tony Xia, Liang Qiu, Kai-Wei Chang, Song-Chun Zhu, Oyvind Tafjord, Peter Clark, Ashwin Kalyan"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "36th Conference on Neural Information Processing Systems (NeurIPS 2022)."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "36th Conference on Neural Information Processing Systems (NeurIPS 2022). arXiv:2209.09513v2 [cs.CL] 17 Oct 2022"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SCIENCEQA is collected from elementary and high school science curricula"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SCIENCEQA is collected from elementary and high school science curricula, and contains 21,208 examples"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions in the SCIENCEQA dataset are sourced from open resources managed by IXL Learning, an online learning platform curated by experts in the field of K-12 education... we downloaded the original science problems and then extracted individual components (e.g. questions, hints, images, options, answers, lectures, and solutions) from them based on heuristic rules."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we downloaded the original science problems and then extracted individual components (e.g. questions, hints, images, options, answers, lectures, and solutions) from them based on heuristic rules."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We manually removed invalid questions, such as questions that have only one choice, questions that contain faulty data, and questions that are duplicated... If there were multiple correct answers that applied, we kept only one correct answer."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions in the SCIENCEQA dataset are sourced from open resources managed by IXL Learning, an online learning platform curated by experts in the field of K-12 education. The dataset includes problems that align with California Common Core Content Standards."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A total of 4,241 test questions were shuffled and split into 425 batches, with each batch having 10 questions... Only workers who correctly answer 4 out of the 5 exam examples or more are qualified for the human performance study... The workers were asked to decide whether the proposed explanation is relevant, correct, and complete... the human scores for each explanation were determined by taking a majority vote."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we used Amazon Mechanical Turk (AMT) to crowd source answers to the test set"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the human scores for each explanation were determined by taking a majority vote... The results achieved in blind studies of Q only and CI only are close to random chance, showing that the SCIENCEQA dataset is robust and reliable in distribution."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Each set of 15 questions was then assigned to 3 AMT workers... Prediction outputs that contain textual explanations were grouped into batches of 10, each assigned to 3 workers for evaluation."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use the tool to generate captions for the images in the dataset. The maximum length of generated captions is 16, the number of beams is 4... https://huggingface.co/nlpconnect/vit-gpt2-image-captioning"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "existing datasets fail to provide annotations for the answers, or are restricted to the textual-only modality, small scales, and limited domain diversity"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the goal of SCIENCE QA is to aid development of a reliable model that is capable of generating a coherent chain of thought when arriving at the correct answer to reveal the multi-step reasoning process"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We randomly split the dataset into training, validation, and test splits with a ratio of 60:20:20. Each split has 12,726, 4,241, and 4,241 examples, respectively."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For questions without any context, the context text is replaced with an empty string."
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A total of 4,241 test questions were shuffled and split into 425 batches, with each batch having 10 questions... For each batch, we also randomly added five training questions as exam examples... Only workers who correctly answer 4 out of the 5 exam examples or more are qualified for the human performance study."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For language models, the newline separators (\\n) in the text are replaced with \\\\n when encoding the inputs... We use the tool to generate captions for the images in the dataset. The maximum length of generated captions is 16, the number of beams is 4, and the maximum number of output tokens is 512... For VQA baselines, we set the maximum number of input words or tokens as 100."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 23,
+      "fields_null": 7,
+      "fields_verified": 23,
+      "evidence_count": 23,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1461,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11111,
+        "tokens_in": 3464,
+        "tokens_out": 586
+      },
+      "collection": {
+        "section_chars": 7946,
+        "tokens_in": 2564,
+        "tokens_out": 541
+      },
+      "annotation": {
+        "section_chars": 9007,
+        "tokens_in": 2996,
+        "tokens_out": 637
+      },
+      "impact": {
+        "section_chars": 20345,
+        "tokens_in": 6725,
+        "tokens_out": 410
+      },
+      "processing": {
+        "section_chars": 7964,
+        "tokens_in": 2596,
+        "tokens_out": 454
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 49.1,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 16575,
+      "output_tokens": 128
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

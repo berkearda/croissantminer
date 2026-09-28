@@ -1,0 +1,80 @@
+{
+  "dataset_id": "sci-benchmark_self-contradictory",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Self-Contradictory Instructions (SCI)",
+    "description": "Self-Contradictory Instructions (SCI) is a multimodal benchmark for evaluating large multimodal models on detecting conflicting instructions. It comprises 20,000 self-contradictory instructions, evenly distributed between language-language and vision-language paradigms, covering 8 tasks.",
+    "url": "https://huggingface.co/datasets/sci-benchmark/self-contradictory",
+    "license": null,
+    "creator": "Jin Gao (Shanghai Jiao Tong University); Lei Gan (Fudan University); Yuankai Li (Fudan University); Yixin Ye (Shanghai Jiao Tong University); Dequan Wang (Shanghai Jiao Tong University; Shanghai Artificial Intelligence Laboratory)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Jin Gao, Lei Gan, Yuankai Li, Yixin Ye, and Dequan Wang. Dissecting Dissonance: Benchmarking Large Multimodal Models Against Self-Contradictory Instructions. arXiv:2408.01091v2, 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was constructed using an automatic dataset creation framework, AutoCreate, which starts from a small batch of manually input seeds and iteratively uses generators, decorators, and cleaners, with human experts and LLMs double-checking quality; for one task, SemanticConflict, images were retrieved from the ImageNet dataset.",
+    "rai:dataCollectionType": "Manual Human Curator; Software Collection; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "A small batch of manually input seeds and, for SemanticConflict, images retrieved from the ImageNet dataset (including the ImageNet-1k validation set).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "SCI was created with an automatic dataset creation framework (AutoCreate) using programs and large language models; a small batch of manually input seeds was used, generators/decorators/cleaners produced conflicting instruction examples, and both human experts and LLMs double-checked quality, with human experts rigorously checking the final AutoCreate-generated dataset and manually selecting SCI-Base and SCI-Core subsets.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Generated data were filtered by a cleaner, double-checked by human experts and LLMs for quality, and manually refined/selected into SCI-Base (10%) and SCI-Core (1%) subsets.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Large Language Models (LLMs); ImageNet dataset",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "we only include language-language and vision-language paradigms; no fine-grained control is introduced to determine the conflict degree; we do not provide a detailed study on the attention mechanism of large multimodal models when confronted with conflict instructions",
+    "rai:dataSocialImpact": "It provides researchers and practitioners with a standardized platform to assess and enhance LMMs’ ability to navigate conflicting instructions, advancing human-computer interaction and communication technologies; The AutoCreate framework facilitates the creation of diverse instruction datasets, promoting inclusivity in AI research; By improving dissonance detection, our approach boosts LMM performance and fosters trust and reliability in AI systems, essential for societal integration",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluate Large Multimodal Models (LMMs) regarding their ability to detect conflicting commands; assess and enhance LMMs’ ability to navigate conflicting instructions",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The cleaner removes data that does not meet quality standards; for V-L conflicts, the image caption is modified to introduce a conflict; FigureConflict manipulates the numerical data by changing the maximum value to the minimum value; GeometricConflict modifies a phrase to refer to a non-existent object; SemanticConflict substitutes the correct label in the questions with some similar but different objects; subsets SCI-Core and SCI-Base are selected manually from SCI-All.",
+    "rai:dataPreprocessingProtocol": "The Cleaner removes data that does not meet quality standards, and the resulting high-quality dataset is then refined to extract new seeds for re-entry into the seed pool."
+  },
+  "usage": {
+    "input_tokens": 164959,
+    "output_tokens": 1263
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 33244,
+        "output_tokens": 258
+      },
+      "collection": {
+        "input_tokens": 33030,
+        "output_tokens": 163
+      },
+      "annotation": {
+        "input_tokens": 33038,
+        "output_tokens": 222
+      },
+      "impact": {
+        "input_tokens": 32973,
+        "output_tokens": 235
+      },
+      "processing": {
+        "input_tokens": 32674,
+        "output_tokens": 385
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 68979,
+      "output_tokens": 464
+    },
+    "timestamp": "2026-05-22T11:42:35.414165+00:00",
+    "elapsed_seconds": 29.1
+  }
+}

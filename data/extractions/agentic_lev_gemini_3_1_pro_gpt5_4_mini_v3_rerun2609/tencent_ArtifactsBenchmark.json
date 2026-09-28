@@ -1,0 +1,287 @@
+{
+  "dataset_id": "tencent_ArtifactsBenchmark",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "ArtifactsBench",
+    "description": "A benchmark and automated multimodal evaluation paradigm for visual code generation and interactive visual artifacts. It curates 1,825 executable tasks across nine domains and evaluates outputs using staged screenshots plus checklist-guided MLLM judging.",
+    "url": "https://artifactsbenchmark.github.io",
+    "license": "CC-BY-NC-4.0",
+    "creator": "Tencent Hunyuan Team",
+    "publisher": null,
+    "datePublished": "2025-07-08",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was built through a multi-stage construction pipeline that aggregated candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots; items were then filtered, de-duplicated, rewritten, calibrated, and validated by experts and humans, with standardized execution and screenshot capture.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and screenshots used for LLM visual-to-query; the pipeline also uses normalized DOM/CSS/JS, prompts, checklists, and screenshots for filtering and calibration.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Experts rewrite prompts for clarity/completeness/executability; LLM rewriting adds diverse styles; humans verify. Difficulty is assigned post hoc by aggregated performance of 30+ models. Sub-categories are tagged by a lightweight classifier with human spot-checks. Checklists are LLM-drafted and then human-refined for specificity and screenability. A 10% manually curated seed anchors calibration and achieves Cohen’s κ ≥0.8 among annotators.",
+    "rai:dataAnnotationPlatform": "Playwright / headless Chromium",
+    "rai:dataAnnotationAnalysis": "Cohen’s κ ≥ 0.8 among annotators; difficulty calibration is validated by aggregated performance of 30+ models and stable under leave-family-out resampling.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "A lightweight classifier for sub-category tagging; LLM rewriting/drafting for prompts and checklists.",
+    "rai:dataBiases": "The benchmark shows performance differences across model families and difficulty tiers, and the authors note that results may be influenced by the choice of referee model and by the limited dataset used for distillation.",
+    "rai:dataLimitations": "ArtifactsBench evaluates dynamic behavior using discrete screenshots at fixed intervals, which may miss complex long-horizon or state-dependent interactions. It also focuses on single-turn final artifacts rather than agentic, iterative development, and the benchmark is not yet saturated on the hardest tasks.",
+    "rai:dataSocialImpact": "The paper frames the benchmark as useful for improving evaluation of visual code generation and real-world software engineering, but does not discuss broader societal harms or benefits beyond research and development utility.",
+    "rai:personalSensitiveInformation": "The appendix includes a privacy-oriented evaluation prompt that explicitly mentions avoiding sensitive personal information such as phone numbers and addresses, but the dataset itself is not described as collecting personal sensitive attributes.",
+    "rai:dataUseCases": "The dataset is intended for automated evaluation of LLM-generated visual code, including benchmarking, human validation of referee models, and supporting future training/evaluation workflows. The paper also mentions releasing dataset specs, checklist templates, evaluation scripts, and referee settings.",
+    "rai:dataReleaseMaintenancePlan": "The paper states that dataset specifications, checklist templates, evaluation scripts, and referee settings are released, and notes version stability between a preview and stable Gemini referee; however, it does not provide an explicit maintenance, update timeframe, or deprecation policy for the dataset itself.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": null
+  },
+  "usage": {
+    "input_tokens": 31355,
+    "output_tokens": 1971
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:44:15.688050Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we introduce ArtifactsBench, a benchmark and automated, multimodal evaluation paradigm for visual code generation.”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we introduce ArtifactsBench, a benchmark and automated, multimodal evaluation paradigm for visual code generation” and “We curate 1,825 diverse tasks”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We open-source ArtifactsBench ... at https://artifactsbenchmark.github.io”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Tencent Hunyuan Team”"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“2025-07-08”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper is written in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper describes a benchmark with a fixed curated set of “1,825 diverse tasks” and does not indicate ongoing updates."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our pipeline ... is designed to ensure ... clean and traceable provenance ...” and “Sourcing & filtering. We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We aggregate candidates from expert showcases, open SVG/web-snippet datasets, web case studies, and LLM visual-to-query from screenshots.” and “MinHash + semantic similarity over prompts, checklists, and normalized DOM/CSS/JS; ... screenshot perceptual hashing”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Experts rewrite for clarity/completeness/executability; LLM rewriting adds diverse styles; humans verify. ... Sub-categories are tagged by a lightweight classifier with human spot-checks ... We LLM-draft and then human-refine ... A 10% manually curated seed anchors calibration and achieves Cohen’s κ ≥0.8 among annotators"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We standardize execution with headless Chromium (Playwright) at 1024 × 768 resolution"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "achieves Cohen’s κ ≥0.8 among annotators; the seed is reused as few-shot references to keep difficulty high and rubrics consistent ... stable under leave-family-out resampling"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Sub-categories are tagged by a lightweight classifier with human spot-checks ... We LLM-draft and then human-refine for specificity and screenability"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“top-tier proprietary multimodal systems currently maintain in this challenging domain” and “distillation on a limited dataset may be insufficient”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“capturing and analyzing a sequence of screenshots at fixed intervals” ... “may not fully capture the fluidity, correctness, and robustness” ... “currently focuses on evaluating the quality of the final artifact generated in a single turn” ... “our benchmark remains far from saturation”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“These agentic capabilities are crucial for tackling real-world software engineering challenges”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Privacy: Does the question avoid requesting or involving any sensitive personal information, such as phone numbers, addresses, or other identifiable details?”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“ArtifactsBench represents a significant step forward in the automated evaluation of LLM-generated visual code” and “We release dataset specs, checklist templates, evaluation scripts, and referee settings”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We release dataset specs, checklist templates, evaluation scripts, and referee settings” and “Given that Gemini-2.5-Pro-Preview-0506 has been deprecated”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.0059,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 19230,
+        "tokens_in": 4813,
+        "tokens_out": 390
+      },
+      "collection": {
+        "section_chars": 3171,
+        "tokens_in": 1074,
+        "tokens_out": 370
+      },
+      "annotation": {
+        "section_chars": 3171,
+        "tokens_in": 1060,
+        "tokens_out": 452
+      },
+      "impact": {
+        "section_chars": 15105,
+        "tokens_in": 3454,
+        "tokens_out": 594
+      },
+      "processing": {
+        "error": "Expecting ',' delimiter: line 12 column 129 (char 1249)"
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 16.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 20954,
+      "output_tokens": 165
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

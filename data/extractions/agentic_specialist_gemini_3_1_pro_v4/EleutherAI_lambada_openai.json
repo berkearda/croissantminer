@@ -1,0 +1,80 @@
+{
+  "dataset_id": "EleutherAI_lambada_openai",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "LAMBADA is a dataset for evaluating the capabilities of computational models for text understanding by means of a word prediction task. It consists of a collection of narrative passages where the last word can be guessed by human subjects exposed to the whole passage, but not if they only see the last sentence.",
+    "url": "http://clic.cimec.unitn.it/lambada/",
+    "license": null,
+    "creator": "Denis Papemo; Germán Kruszewski; Angeliki Lazaridou; Quan Ngoc Phamy; Raffaella Bemardi; Sandro Pezzelle; Marco Baroni; Gemma Boleda; Raquel Femándezz",
+    "publisher": null,
+    "datePublished": "2016-06-20",
+    "inLanguage": "en",
+    "citeAs": "Denis Paperno, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, Raquel Fernández. The LAMBADA dataset: Word prediction requiring a broad discourse context. arXiv:1606.06031v1, 2016.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was built by extracting passages from the development and testing partitions of the Book Corpus (Zhu et al., 2015).",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The Book Corpus (Zhu et al., 2015), which contains unpublished novels.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human subjects guessed the target word in three steps: first, one subject guessed based on the whole passage; if correct, a second subject guessed based on the whole passage; if also correct, up to 10 subjects tried to guess based on the target sentence only. Passages were added to the dataset if no subject was able to guess the target word from the target sentence alone.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "Passages were included only if two consecutive subjects exactly matched the missing word using the broad context, and no subject out of up to ten could guess it using only the local sentence context.",
+    "rai:annotationsPerItem": "1 to 12",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "pre-trained recurrent neural network (RNN); standard 4-gram model; feed-forward model",
+    "rai:dataBiases": "Proper nouns are hugely overrepresented in LAMBADA, while the other categories are under-represented, compared to the POS distribution in the input.",
+    "rai:dataLimitations": "Standard language models are bound to fail on it by design because passages were filtered to exclude those where simple language models could predict the upcoming word; the constraint that the blank be filled by a single word excludes other possibilities such as noun phrases with articles.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluate the capabilities of computational models for text understanding by means of a word prediction task; evaluate general-purpose models in terms of how they fare on broad-context understanding.",
+    "rai:dataReleaseMaintenancePlan": "The development set of LAMBADA, along with the training corpus, can be downloaded at http://clic.cimec.unitn.it/lambada/ . The test set will be made available at the time of the competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "The corpus underwent duplicate removal and filtering out of potentially offensive material with a stop word list. Passages were further filtered to exclude those that were relatively easy for standard language models (target word probability > 0.00175) or guessable by human subjects based on the target sentence alone."
+  },
+  "usage": {
+    "input_tokens": 110964,
+    "output_tokens": 1278
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 22433,
+        "output_tokens": 330
+      },
+      "collection": {
+        "input_tokens": 22277,
+        "output_tokens": 229
+      },
+      "annotation": {
+        "input_tokens": 22208,
+        "output_tokens": 228
+      },
+      "impact": {
+        "input_tokens": 22188,
+        "output_tokens": 273
+      },
+      "processing": {
+        "input_tokens": 21858,
+        "output_tokens": 218
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 55261,
+      "output_tokens": 472
+    },
+    "timestamp": "2026-05-27T18:25:27.319175+00:00",
+    "elapsed_seconds": 87.9
+  }
+}

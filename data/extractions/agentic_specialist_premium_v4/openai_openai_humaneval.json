@@ -1,0 +1,80 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "HumanEval is a hand-written evaluation set of 164 original programming problems used to measure functional correctness for synthesizing Python programs from docstrings. Each problem includes a function signature, docstring, body, and several unit tests (averaging 7.7 tests per problem), assessing language comprehension, algorithms, and simple mathematics.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": null,
+    "creator": "Mark Chen; Jerry Tworek; Heewoo Jun; Qiming Yuan; Henrique Ponde de Oliveira Pinto; Jared Kaplan; Harri Edwards; Yuri Burda; Nicholas Joseph; Greg Brockman; Alex Ray; Raul Puri; Gretchen Krueger; Michael Petrov; Heidy Khlaaf; Girish Sastry; Pamela Mishkin; Brooke Chan; Scott Gray; Nick Ryder; Mikhail Pavlov; Alethea Power; Lukasz Kaiser; Mohammad Bavarian; Clemens Winter; Philippe Tillet; Felipe Petroski Such; Dave Cummings; Matthias Plappert; Fotios Chantzis; Elizabeth Barnes; Ariel Herbert-Voss; William Hebgen Guss; Alex Nichol; Alex Paino; Nikolas Tezak; Jie Tang; Igor Babuschkin; Suchir Balaji; Shantanu Jain; William Saunders; Christopher Hesse; Andrew N. Carr; Jan Leike; Josh Achiam; Vedant Misra; Evan Morikawa; Alec Radford; Matthew Knight; Miles Brundage; Mira Murati; Katie Mayer; Peter Welinder; Bob McGrew; Dario Amodei; Sam McCandlish; Ilya Sutskever; Wojciech Zaremba",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, et al. \"Evaluating Large Language Models Trained on Code.\" arXiv:2107.03374v2 [cs.LG], 14 Jul 2021.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The training dataset was collected from public software repositories hosted on GitHub, downloading Python files under 1 MB. Files likely to be auto-generated, with average line length greater than 100, maximum line length greater than 1000, or containing a small percentage of alphanumeric characters were filtered out.",
+    "rai:dataCollectionType": "Web Scraping; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "54 million public software repositories hosted on GitHub, containing 179 GB of unique Python files under 1 MB. After filtering, the final dataset totaled 159 GB.",
+    "rai:dataCollectionTimeframe": "May 2020",
+    "rai:dataAnnotationProtocol": "Sample docstrings from Codex-D-12B were graded by hand; a docstring was considered correct if it uniquely and accurately specified the code body. Graders ignored incorrectly generated unit tests but did not count docstrings that simply copied the code body.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": "10",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Codex-12B (used to generate 100 samples per curated problem to filter out ambiguous or too-difficult training problems)",
+    "rai:dataBiases": "Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics; when prompted with def gender(x): generations often assumed binary gender; when prompted with def race(x): many completions assumed a small number of mutually exclusive race categories; Codex comments reproduce similar biases to GPT-3 regarding gender, race, and religion (e.g., co-occurrence of 'terrorist' and 'violent' with 'Islam'); Codex imports substitutable packages at different rates based on patterns in its training data",
+    "rai:dataLimitations": "Codex is not sample efficient to train, requiring hundreds of millions of lines of code; Codex can recommend syntactically incorrect or undefined code and can invoke functions, variables, and attributes that are undefined or outside the scope of the codebase; Codex struggles to parse through increasingly long and higher-level or system-level specifications; model performance decreases exponentially as the number of chained operations in the docstring increases; Codex can make mistakes binding operations to variables when the number of operations and variables is large; Codex does not always produce code aligned with user intent; Codex may suggest solutions that superficially appear correct but do not perform the task the user intended; Codex frequently uses clearly insecure configurations when generating cryptographic code; Codex does not mitigate human error with misspelled package names; Codex may suggest deprecated methods; the HumanEval dataset contains only 164 hand-written problems assessing language comprehension, algorithms, and simple mathematics",
+    "rai:dataSocialImpact": "Code generation raises risks of over-reliance, particularly for novice programmers, with significant safety implications depending on context; Codex can be prompted to generate racist, denigratory, and otherwise harmful outputs as code comments; generated biased code has the potential to cause allocative or representational harms at scale; Codex could be misused to aid cybercrime, though current models do not materially lower the barrier to entry for malware development; non-determinism could enable more advanced polymorphic malware; Codex has an energy footprint from training and inference; code generation may reduce the cost of producing software and increase programmer productivity but could also contribute to displacement of some programmer or engineer roles; differential package import rates could increase dominance of already-influential organizations in the software supply chain; Codex may make the engineering field more accessible to a wider variety of people",
+    "rai:personalSensitiveInformation": "Sensitive data present in source code in the training data (public GitHub repositories) is liable to be predicted by the model; because Codex is trained on public repositories, any sensitive data present in the training data is considered to have already been compromised; Codex models can learn patterns present in their training data and may suggest secrets found in the training data",
+    "rai:dataUseCases": "Evaluating functional correctness of code generation models; measuring problem-solving capabilities of models on programming tasks; benchmarking code synthesis from docstrings; training and evaluation of code language models; onboarding users to new codebases; reducing context switching for experienced coders; enabling non-programmers to write specifications and have Codex draft implementations; aiding in education and exploration",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For supervised fine-tuning (Codex-S), training problems were collected from competitive programming websites and open-source projects via continuous integration tracing. Problems were filtered using Codex-12B generating 100 samples per curated problem; tasks where no samples passed unit tests were considered ambiguous or too difficult and removed. Stateful or non-deterministic problems were identified and removed through repeated verification runs. For the APPS dataset evaluation, 1000 solutions were sampled and filtered to only those passing the 3 provided public unit tests before calculating filtered pass@k rates.",
+    "rai:dataPreprocessingProtocol": "Training data was collected from 54 million public GitHub repositories (179 GB of unique Python files under 1 MB). Files were filtered out if they were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters. After filtering, the final dataset totaled 159 GB. Additionally, the GPT-3 text tokenizer was extended with tokens for whitespace runs of different lengths to more efficiently represent code."
+  },
+  "usage": {
+    "input_tokens": 288898,
+    "output_tokens": 2166
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 57927,
+        "output_tokens": 616
+      },
+      "collection": {
+        "input_tokens": 57810,
+        "output_tokens": 207
+      },
+      "annotation": {
+        "input_tokens": 57871,
+        "output_tokens": 235
+      },
+      "impact": {
+        "input_tokens": 57832,
+        "output_tokens": 796
+      },
+      "processing": {
+        "input_tokens": 57458,
+        "output_tokens": 312
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 68916,
+      "output_tokens": 303
+    },
+    "timestamp": "2026-05-02T18:55:21.512864+00:00",
+    "elapsed_seconds": 66.5
+  }
+}

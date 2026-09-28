@@ -1,0 +1,80 @@
+{
+  "dataset_id": "nebius_SWE-rebench",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SWE-rebench",
+    "description": "SWE-rebench is a public dataset of over 21,000 interactive Python-based software engineering tasks extracted from diverse real-world GitHub repositories. It is designed for training and benchmarking LLM-based agents, particularly for reinforcement learning approaches, and includes automated quality annotations such as issue clarity, task complexity, and test patch correctness. The dataset is built using a fully automated pipeline covering environment configuration, installation verification, and quality assessment.",
+    "url": "https://huggingface.co/datasets/nebius/SWE-rebench",
+    "license": null,
+    "creator": "Ibragim Badertdinov; Alexander Golubev; Maksim Nekrashevich; Anton Shevtsov; Simon Karasik; Andrei Andriushchenko; Maria Trofimova; Daria Litvintseva; Boris Yangel",
+    "publisher": "Nebius",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, Boris Yangel. SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents. 39th Conference on Neural Information Processing Systems (NeurIPS 2025) Track on Datasets and Benchmarks. arXiv:2505.20411v2 [cs.SE].",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Data was collected through an automated pipeline that downloads pull requests and issues from GitHub Archive and clones GitHub repositories locally. The pipeline matches PRs to issues, applies filtering criteria, automatically generates environment installation instructions using an LLM, performs execution-based verification in containers, and applies automated quality assessment. Approximately 450,000 pull requests linked to issues were downloaded from over 30,000 repositories with permissive licenses where Python constitutes over 75% of the codebase.",
+    "rai:dataCollectionType": "Web API; Software Collection; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "The git tag command provides a version for approximately 95% of task instances; the remaining ~5% are assigned unique versions. The automated dependency installation stage has a success rate of approximately 14%, meaning the majority of candidate tasks fail environment setup and are excluded.",
+    "rai:dataCollectionRawData": "GitHub Archive (daily JSON archives of public GitHub events including issues, pull requests, and metadata) and GitHub repositories (cloned with full commit histories). Primary inputs are pull requests linked to resolved issues from Python repositories with permissive licenses.",
+    "rai:dataCollectionTimeframe": "Issues created before May 1, 2025",
+    "rai:dataAnnotationProtocol": "Human annotations from SWE-bench Verified were used to fine-tune a model for automated quality assessment. For each of the over 3,800 examples, the model receives the issue description, the canonical solution patch, and the test patch as input, and is prompted to predict one of three binary quality labels: Issue Clarity, Task Complexity, or Test Patch Correctness. A 75/25 training/validation split was used (413 validation examples).",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The fine-tuned model's predictions were evaluated against human annotations from SWE-bench Verified using accuracy and weighted F1-score per label. Task Complexity: 81% accuracy, weighted F1 0.82. Test Patch Correctness: 67% accuracy, weighted F1 0.65. Issue Clarity: 79% accuracy, weighted F1 0.76. Detailed precision and recall per class are reported in Appendix F, Table 4.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen2.5-72B-Instruct (fine-tuned on SWE-bench Verified human annotations) for predicting Issue Clarity, Task Complexity, and Test Patch Correctness labels; Qwen2.5-72B-Instruct (base) for generating installation recipes",
+    "rai:dataBiases": "The automated task quality assessment, where an LLM is fine-tuned on SWE-bench Verified task labels to predict complexity and relevance, may introduce bias as it cannot fully replicate nuanced human judgment and contains errors; the LLM-based approach to generating installation instructions was validated on a limited set of 18 repositories and may not capture every project's subtleties",
+    "rai:dataLimitations": "The fully automated pipeline may result in some tasks being imperfectly described or unsolvable solely from the issue, leading to lower absolute success rates compared to manually curated benchmarks; the initial release is limited exclusively to Python, restricting applicability to other language ecosystems; the LLM-based approach to generating installation instructions was validated on a limited set of 18 repositories and may not capture every project's subtleties; the automated task quality assessment cannot fully replicate nuanced human judgment, containing errors and decreasing quality of the datasets",
+    "rai:dataSocialImpact": "The benchmark may accelerate the development of increasingly autonomous AI systems in software engineering, bringing potential risks such as overreliance on AI-generated code or misuse of automated agents for introducing vulnerabilities; the authors believe that fostering openness, decontaminated evaluations, and rigorous benchmarking practices helps mitigate these concerns and contributes to responsible advancement of the field",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training LLM-based software engineering agents, particularly via reinforcement learning; benchmarking and evaluating LLM-based agents on interactive software engineering tasks; decontaminated and standardized evaluation of SWE agents",
+    "rai:dataReleaseMaintenancePlan": "The SWE-rebench leaderboard is continuously updated with fresh tasks collected using the automated pipeline; the authors plan to keep the benchmark up-to-date by maintaining evaluation on fresh tasks for existing models and evaluating a wider range of LLMs",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The pipeline fine-tunes a Qwen 2.5-72B-Instruct model on SWE-bench Verified human annotations using a 75/25 training/validation split to predict quality labels (Issue Clarity, Task Complexity, Test Patch Correctness) for each collected task instance. These LLM-generated labels are provided as metadata to allow users to filter and select task instances by difficulty and clarity, enabling more nuanced dataset composition for training or evaluation purposes.",
+    "rai:dataPreprocessingProtocol": "Raw pull requests and issues are filtered by multiple criteria: Python repository with permissive license, resolved issue, merged PR, PR not linked to multiple issues, issue description longer than 10 characters, PR introduces or modifies tests and includes code changes beyond test files, and changes affect 1 to 15 files. Patches are split into solution patches and test patches. Versions are normalized to major.minor format. Tasks are verified by execution: at least one test from the test patch must fail before applying the solution patch, all initially failing tests must pass after, and initially passing tests must continue to pass. Flaky tests involving external API calls or floating-point precision issues are excluded by running tests multiple times and excluding instances that fail in at least one run. Dependency versions are frozen via pip freeze and conda env export after successful setup. For the benchmark subset, additional filters are applied: test execution logs must be free of AttributeError or ImportError, solution patch modifies no more than 3 files, solution patch contains no more than 500 words, problem statement is between 16 and 1000 words and in English, the issue was created in 2025, LLM-assessed difficulty label is less than 3, and the number of fail-to-pass tests is 50 or fewer."
+  },
+  "usage": {
+    "input_tokens": 222908,
+    "output_tokens": 2092
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 47954,
+        "output_tokens": 437
+      },
+      "collection": {
+        "input_tokens": 31704,
+        "output_tokens": 298
+      },
+      "annotation": {
+        "input_tokens": 47890,
+        "output_tokens": 390
+      },
+      "impact": {
+        "input_tokens": 47871,
+        "output_tokens": 500
+      },
+      "processing": {
+        "input_tokens": 47489,
+        "output_tokens": 467
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64486,
+      "output_tokens": 296
+    },
+    "timestamp": "2026-05-02T18:52:29.561650+00:00",
+    "elapsed_seconds": 61.5
+  }
+}

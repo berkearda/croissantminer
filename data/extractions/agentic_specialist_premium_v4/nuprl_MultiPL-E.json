@@ -1,0 +1,80 @@
+{
+  "dataset_id": "nuprl_MultiPL-E",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MultiPL-E",
+    "description": "MultiPL-E is a system and dataset for translating unit test-driven code generation benchmarks from Python to other programming languages. It translates two popular Python benchmarks, HumanEval and MBPP, into 18 additional programming languages, producing parallel benchmarks (MultiPL-HumanEval and MultiPL-MBPP) covering 19 languages total. The dataset is used to evaluate multi-language code generation performance of large language models.",
+    "url": "https://github.com/nuprl/MultiPL-E",
+    "license": null,
+    "creator": "Federico Cassano; John Gouwar; Daniel Nguyen; Sydney Nguyen; Luna Phipps-Costin; Donald Pinckney; Ming-Ho Yee; Yangtian Zi; Carolyn Jane Anderson; Molly Q Feldman; Arjun Guha; Michael Greenberg; Abhinav Jangda",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Federico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, Arjun Guha, Michael Greenberg, Abhinav Jangda. \"MultiPL-E: A Scalable and Extensible Approach to Benchmarking Neural Code Generation.\" arXiv:2208.08227v4 [cs.LG], 19 Dec 2022.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was assembled by translating two existing Python code generation benchmarks (HumanEval and MBPP) into 18 additional programming languages using a suite of purpose-built compilers. The original Python datasets were manually cleaned, and the translated versions were produced automatically by the MultiPL-E compiler suite.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": "A handful of benchmarks could not be translated: 3 HumanEval problems with Python helper functions in their prompt were excluded, 2 were modified to use unit tests instead of randomized testing, and for certain typed languages up to 5 benchmarks with untranslatable types failed to compile.",
+    "rai:dataCollectionRawData": "HumanEval benchmark (164 Python problems with unit tests) and MBPP benchmark (Python problems with assertions), both publicly available open-source datasets.",
+    "rai:dataCollectionTimeframe": "May to October 2022",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Python is the best-represented language in training datasets for the evaluated models; code generation models perform better on more frequently-used programming languages, and language frequency is correlated with model performance",
+    "rai:dataLimitations": "The translated benchmarks may not be representative of the kinds of problems that programmers typically solve in each language; performance on benchmarks may not accurately represent real-world performance; code generation models are sensitive to small changes in how prompts are designed; the same sampling configuration is used for all languages, which may not be optimal for non-Python languages; a handful of benchmarks cannot be easily translated (3 excluded, 2 modified, up to 5 failing per typed language); C and SQL are not included because they lack natural analogues for the Python data types used",
+    "rai:dataSocialImpact": "The authors hope the evaluation will help software engineers who do not use Python assess the feasibility of code generation models for their work and understand language factors that may affect model performance",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating the performance of code generation models across multiple programming languages; evaluating other LLMs of code; potentially improving the performance of LLMs of code",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be maintained by the original authors; any identified and confirmed errors will be acknowledged as part of the repository; the dataset will be updated (to correct labeling errors, add new instances, delete instances); older versions will continue to be supported/hosted/maintained; a mechanism exists for others to extend/augment/build on/contribute to the dataset",
+    "rai:dataImputationProtocol": "For MBPP benchmarks that lack type annotations, types are inferred from the values appearing in the assertions (test cases) rather than manually annotated. For HumanEval problems that do not include type annotations, type annotations are introduced manually for the few that lack them.",
+    "rai:dataManipulationProtocol": "MBPP prompts are modified by removing assertions from the prompt so they can be used as hidden unit tests, and a function signature is mechanically added to each prompt based on the name and arity implied by the assertions. HumanEval examples are standardized to the Python doctest format. Python-specific terminology in prompts is automatically translated to target-language equivalents (e.g., 'list' to 'vector' for Rust). Three HumanEval benchmarks with Python helper functions in their prompts are excluded, and two benchmarks are modified to use unit tests instead of randomized testing.",
+    "rai:dataPreprocessingProtocol": "The original Python datasets were manually cleaned. Missing type annotations were added to HumanEval problems that lacked them. Examples were standardized to the Python doctest format. Random tests were changed into unit tests in two problems. For MBPP, assertions were removed from prompts to serve as hidden unit tests, and function signatures were mechanically added based on the name and arity implied by the assertions. Three HumanEval benchmarks with Python helper functions in their prompt were excluded. For certain typed languages, benchmarks with untranslatable types (e.g., Any) were excluded."
+  },
+  "usage": {
+    "input_tokens": 274382,
+    "output_tokens": 1844
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 57875,
+        "output_tokens": 452
+      },
+      "collection": {
+        "input_tokens": 43482,
+        "output_tokens": 261
+      },
+      "annotation": {
+        "input_tokens": 57841,
+        "output_tokens": 154
+      },
+      "impact": {
+        "input_tokens": 57778,
+        "output_tokens": 411
+      },
+      "processing": {
+        "input_tokens": 57406,
+        "output_tokens": 566
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 57070,
+      "output_tokens": 497
+    },
+    "timestamp": "2026-05-02T18:53:26.904868+00:00",
+    "elapsed_seconds": 57.3
+  }
+}

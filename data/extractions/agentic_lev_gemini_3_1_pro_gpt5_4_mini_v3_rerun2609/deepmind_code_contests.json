@@ -1,0 +1,288 @@
+{
+  "dataset_id": "deepmind_code_contests",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "CodeContests",
+    "description": "A training and evaluation competitive programming dataset for code generation. It combines data from various sources, is split temporally so training data predates evaluation problems, and adds generated tests to improve correctness evaluation.",
+    "url": "https://github.com/deepmind/code_contests",
+    "license": "CC-BY-4.0",
+    "creator": "DeepMind",
+    "publisher": "DeepMind",
+    "datePublished": "2022-03-16",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The authors curated a new competitive programming dataset, CodeContests, by scraping problems, solutions, and test cases from Codeforces and mixing in existing public competitive programming datasets; they also cleaned the data to improve quality and consistency.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Open-source code from selected public GitHub repositories; Codeforces programming competition problems, solutions, test cases, and metadata; existing public competitive programming datasets Description2Code and CodeNet.",
+    "rai:dataCollectionTimeframe": "GitHub snapshot taken on 2021/07/14; CodeContests training data publicly released on or before 2021/07/14; validation problems appeared between 2021/07/15 and 2021/09/20; test set contains problems published after 2021/09/21.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Code generation models are prone to reproducing the deﬁciencies and biases of their training data; when trained on diverse corpora of human data, these models can reinforce and perpetuate societal stereotypes, leading to disproportionate impact on marginalized communities. Programs can also contain culture and location-specific assumptions about names, addresses, or time, excluding underrepresented users.",
+    "rai:dataLimitations": "The paper notes several limitations: the test input generation model is not perfect and can produce invalid or insufficiently distinguishing inputs, leading to ambiguous clusters; evaluation is susceptible to accepting correct but slow solutions due to lack of long test cases; performance varies greatly across problems; and the model is sensitive to changes in problem descriptions and metadata. The authors also note that larger models still leave a large gap to the theoretical upper bound.",
+    "rai:dataSocialImpact": "Potential positive impacts include computer science education, developer tooling, and making programming more accessible. Potential harms include enabling malware creation, improving malicious developers' productivity, and giving unfair advantages in programming competitions or technical interviews. The paper also mentions broader risks such as automation reducing demand for programmers and longer-term advanced AI risks.",
+    "rai:personalSensitiveInformation": "The paper discusses culture and location-specific assumptions about names, addresses, and time as examples of sensitive or socially salient attributes that code may encode, but it does not state that such attributes were collected as part of the dataset.",
+    "rai:dataUseCases": "The dataset/model is used for training code generation models and for evaluation on validation/test sets, including solve-rate analysis, filtering, clustering, ensembling, and sensitivity studies. The paper also uses the ensemble for evaluation on Codeforces. It warns that true problem tags are impossible to provide at test time.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Tempering, value conditioning and prediction, and GOLD; at sampling time, logits were divided by a tuned temperature and the model was conditioned on the sample being correct.",
+    "rai:dataPreprocessingProtocol": "Filtered out files larger than 1MB or with lines longer than 1000 characters, removed duplicate files ignoring whitespace, and cleaned the CodeContests data to improve quality and consistency."
+  },
+  "usage": {
+    "input_tokens": 58782,
+    "output_tokens": 2022
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:10:37.901796Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Towards this goal, we release a new training and evaluation competitive programming dataset, CodeContests”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This dataset combines data from various sources, splits temporally so all training data predates all evaluation problems, adds additional generated tests to ensure correctness”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The dataset is located at https://github.com/deepmind/code_contests .”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“©2022 DeepMind. All rights reserved”"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“©2022 DeepMind. All rights reserved”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“2022-3-16”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“You are given two strings s and t, both consisting of lowercase English letters.”"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper describes it as “a new training and evaluation competitive programming dataset” and “release” of the dataset, with no indication it is continuously updated."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we curated a new dataset of competitive programming problems, named CodeContests... The dataset includes problems, solutions and test cases we scraped from the Codeforces platform, along with existing public competitive programming datasets mixed into our training set... To improve data quality and consistency... we cleaned this data”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The dataset includes problems, solutions and test cases we scraped from the Codeforces platform”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a collection of open-source code from GitHub” and “The dataset includes problems, solutions and test cases we scraped from the Codeforces platform, along with existing public competitive programming datasets mixed into our training set... combines newly scraped data from Codeforces ... with existing data from Description2Code ... and CodeNet”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“based on a snapshot of selected public GitHub repositories taken on 2021/07/14” and “all training data in CodeContests was publicly released on or before 2021/07/14. Validation problems appeared between 2021/07/15 and 2021/09/20, and the test set contains problems published after 2021/09/21.”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"code generation models are prone to reproducing the deﬁciencies and biases of their training data\" and \"can reinforce and perpetuate societal stereotypes\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"the test input generation model we trained is not perfect\"; \"these test inputs can still be used to cluster model samples, but this process may give us ambiguous clusters\"; \"due to the lack of long test cases, our evaluation is susceptible to accepting correct but slow solutions\""
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"applications including computer science education, developer tooling, and making programming more accessible\"; \"could also be used by bad actors\"; \"could give users unfair advantages in programming competitions or technical interviews\""
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"programs can contain culture and location-speciﬁc assumptions about names, addresses, or time\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We therefore used the ensemble of 41B and 9B models for our evaluation on Codeforces\"; \"The main metric used for most analyses was the 10@1024 solve rate\"; \"Providing the true tags for a problem is impossible at test time\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We also adopted additional conditioning and modiﬁcations that we found improved the overall solve rate: tempering, value conditioning and prediction, and GOLD described below"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we ﬁltered out all ﬁles larger than 1MB or with lines longer than 1000 characters... We also removed duplicates of the same ﬁle, ignoring whitespace in comparisons... To improve data quality and consistency, and to avoid duplication issues involved in merging datasets, we cleaned this data using the procedure outlined in Appendix B.2."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.01,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 47350,
+        "tokens_in": 12981,
+        "tokens_out": 418
+      },
+      "collection": {
+        "section_chars": 8706,
+        "tokens_in": 2432,
+        "tokens_out": 487
+      },
+      "annotation": {
+        "section_chars": 51616,
+        "skipped_unlikely": true
+      },
+      "impact": {
+        "section_chars": 53113,
+        "tokens_in": 14525,
+        "tokens_out": 661
+      },
+      "processing": {
+        "section_chars": 8011,
+        "tokens_in": 2140,
+        "tokens_out": 244
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 23.8,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 26704,
+      "output_tokens": 212
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 1
+  }
+}

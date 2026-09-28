@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MSCOCO_30field",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Microsoft COCO: Common Objects in Context",
+    "description": "The Microsoft Common Objects in Context (MS COCO) dataset is a large-scale dataset for detecting and segmenting common objects in complex everyday scenes in their natural context. It contains photos of 91 object types, with 82 having more than 5,000 labeled instances, for a total of 2.5 million labeled instances in 328,000 images, with per-instance segmentation annotations.",
+    "url": "http://mscoco.org/",
+    "license": null,
+    "creator": "Tsung-Yi Lin; Michael Maire; Serge Belongie; Lubomir Bourdev; Ross Girshick; James Hays; Pietro Perona; Deva Ramanan; C. Lawrence Zitnick; Piotr Dollár",
+    "publisher": "Microsoft",
+    "datePublished": "2015",
+    "inLanguage": null,
+    "citeAs": "Tsung-Yi Lin, Michael Maire, Serge Belongie, Lubomir Bourdev, Ross Girshick, James Hays, Pietro Perona, Deva Ramanan, C. Lawrence Zitnick, and Piotr Dollár. Microsoft COCO: Common Objects in Context. arXiv:1405.0312v3 [cs.CV], 21 Feb 2015.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was assembled by selecting common object categories from existing category sources and child naming exercises, then collecting candidate images from Flickr using searches for pairs of object categories and object-scene pairs, with additional AMT filtering to remove invalid or iconic images.",
+    "rai:dataCollectionType": "Manual Human Curator; Web Scraping; User-generated content data",
+    "rai:dataCollectionMissingData": "In rare cases in which enough images could not be found, the authors searched for single categories instead.",
+    "rai:dataCollectionRawData": "Flickr photos uploaded by amateur photographers with searchable metadata and keywords; category candidates compiled from PASCAL VOC, a subset of the 1200 most frequently used words denoting visually identifiable objects, and objects named by children aged 4 to 8 in indoor and outdoor environments.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Images were annotated through a crowdsourcing pipeline on Amazon Mechanical Turk: workers first labeled which object categories were present using a hierarchical super-category interface and dragged a category icon onto one instance; then workers marked all instances of each category with crosses; then each object instance was segmented by a worker, with workers required to pass a category-specific training task before segmenting; segmentations were then verified by multiple workers and poor-quality work was discarded, and dense remaining instances after 10-15 segmented instances were marked as crowds.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk; modified OpenSurfaces user interface",
+    "rai:dataAnnotationAnalysis": "For category labeling, 8 workers labeled each image and a category was considered present if any worker indicated it; false positives were handled in later stages. Segmentation verification used 3 to 5 workers per segmentation, and any segmentation that did not receive at least 4 of 5 favorable votes was discarded and returned to the pool; work from consistently poor workers was also discarded. Ground truth for the category-labeling performance analysis was computed using majority vote of expert workers.",
+    "rai:annotationsPerItem": "8",
+    "rai:annotatorDemographics": "children aged 4 to 8 were asked to name every object they see in indoor and outdoor environments; seven expert workers were co-authors of the paper",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The 2014 release is limited to a subset of 80 categories; they did not collect segmentations for 11 categories because some had too many instances, were ambiguous and difficult to label, were confused with other categories, or had too few instances; for images with more than 10-15 instances of a category, the remaining instances are marked as \"crowds\" using a single segment and ignored for evaluation; the dataset currently only labels \"things\" and not \"stuff\"",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset includes photos of everyday scenes and adds five written caption descriptions to each image",
+    "rai:dataUseCases": "advancing the state-of-the-art in object recognition in the context of scene understanding; detecting non-iconic views of objects; contextual reasoning between objects; precise 2D localization of objects; training and evaluating object detection and segmentation algorithms; benchmarking segmentation quality from detections",
+    "rai:dataReleaseMaintenancePlan": "The dataset was split into two roughly equal parts, with the first half released in 2014 and the second half to be released in 2015; annotations for train and validation data will be released but not for test; the authors state that MS COCO will evolve and grow over time and that up to date information is available online",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was split into two roughly equal parts for release, with 2014 containing 82,783 training, 40,504 validation, and 40,775 testing images, and the authors took care to minimize the chance of near-duplicate images existing across splits by explicitly removing near duplicates and grouping images by photographer and date taken.",
+    "rai:dataPreprocessingProtocol": "In the rare cases in which enough images could not be found, the authors searched for single categories and performed an explicit filtering stage to remove iconic images; they also explicitly removed near duplicates and grouped images by photographer and date taken to minimize near-duplicate images across splits."
+  },
+  "usage": {
+    "input_tokens": 135771,
+    "output_tokens": 1595
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 27410,
+        "output_tokens": 282
+      },
+      "collection": {
+        "input_tokens": 27193,
+        "output_tokens": 367
+      },
+      "annotation": {
+        "input_tokens": 27188,
+        "output_tokens": 304
+      },
+      "impact": {
+        "input_tokens": 27135,
+        "output_tokens": 296
+      },
+      "processing": {
+        "input_tokens": 26845,
+        "output_tokens": 346
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 63326,
+      "output_tokens": 477
+    },
+    "timestamp": "2026-05-22T10:05:00.823225+00:00",
+    "elapsed_seconds": 34.6
+  }
+}

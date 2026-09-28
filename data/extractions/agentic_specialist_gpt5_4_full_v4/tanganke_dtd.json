@@ -1,0 +1,80 @@
+{
+  "dataset_id": "tanganke_dtd",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Prompted Textures Dataset (PTD)",
+    "description": "The Prompted Textures Dataset (PTD) is a texture dataset created using text-to-image models and a three-stage refinement process. It contains 246,285 texture images across 56 texture classes and is intended to support texture-based research such as analysis of quality, diversity, representativeness, and texture bias.",
+    "url": "https://zenodo.org/records/15359142",
+    "license": null,
+    "creator": "Blaine Hoak (University of Wisconsin-Madison); Patrick McDaniel (University of Wisconsin-Madison)",
+    "publisher": "Zenodo",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Blaine Hoak and Patrick McDaniel. On Synthetic Texture Datasets: Challenges, Creation, and Curation. arXiv:2409.10297v3 [cs.CV], 9 May 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by constructing texture-specific text prompts from 56 texture classes and descriptor combinations, then using those prompts as input to Stable Diffusion to generate images, regenerating images flagged by the NSFW filter until obtaining 5 non-flagged images per prompt.",
+    "rai:dataCollectionType": "Software Collection; Manual Human Curator; Experiments",
+    "rai:dataCollectionMissingData": "Images flagged by Stable Diffusion's NSFW filter were excluded from the final dataset and not released publicly.",
+    "rai:dataCollectionRawData": "Constructed text prompts based on 56 texture classes and descriptor categories were used as inputs to the Stable Diffusion model pipeline to generate texture images.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "For human evaluation, 9 participants each evaluated 100 randomly ordered images by answering two questions for each image: overall image quality and how well the image represents the provided descriptor, using a 1 to 5 rating scale; 900 unique images were evaluated with no duplicates between or within participant sets.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors took the mean quality and representativeness scores provided by the human evaluators across images at different stages of the refinement process.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "CLIP",
+    "rai:dataBiases": "the textures in our dataset are not biased towards a certain frequency",
+    "rai:dataLimitations": "traditional texture synthesis methods are constrained by the need for starting examples of textures; Stable Diffusion models are not explicitly designed to create textures, so other kinds of images (e.g., objects) may arise during the generation process; there is room for improvement in generating more structured textures",
+    "rai:dataSocialImpact": "This experience highlights the need for refined NSFW filters that can better handle abstract or texture-based content; These new metrics and findings open up new possibilities towards studying texture bias and its impact on model trustworthiness; This work demonstrates that generative models, when carefully adapted, can yield extensive, versatile datasets for texture analysis, contributing valuable resources for advancing interpretability, bias analysis, and robustness in machine learning",
+    "rai:personalSensitiveInformation": "we find no images that actually represent explicit content; for ethical reasons we exclude these flagged images from our final dataset and do not release them publicly",
+    "rai:dataUseCases": "supporting a broad range of texture-based tasks; measuring texture bias; uncovering texture-object associations; texture analysis; bias analysis; robustness in machine learning",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "After generating images from prompts, the dataset was materially manipulated through a three-stage refinement process: frequency filtering retained only the top 80% of images with the highest frequency cutoff values to remove object-like images, patch variance filtering removed the bottom 20% of images with the lowest mean patch variance within each texture class, and CLIP score filtering removed the bottom 20% of images with the lowest CLIP scores within each texture class; flagged NSFW images were also excluded from the final dataset.",
+    "rai:dataPreprocessingProtocol": "For analysis, the authors temporarily disabled the Stable Diffusion safety filter to record flagged images while retaining the original unfiltered content, regenerated images that were flagged by the NSFW filter to ensure a consistent number of images, and excluded flagged images from the final released dataset."
+  },
+  "usage": {
+    "input_tokens": 126135,
+    "output_tokens": 1380
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 25489,
+        "output_tokens": 221
+      },
+      "collection": {
+        "input_tokens": 25266,
+        "output_tokens": 370
+      },
+      "annotation": {
+        "input_tokens": 25260,
+        "output_tokens": 155
+      },
+      "impact": {
+        "input_tokens": 25202,
+        "output_tokens": 259
+      },
+      "processing": {
+        "input_tokens": 24918,
+        "output_tokens": 375
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 62835,
+      "output_tokens": 471
+    },
+    "timestamp": "2026-05-22T11:43:08.645678+00:00",
+    "elapsed_seconds": 33.2
+  }
+}

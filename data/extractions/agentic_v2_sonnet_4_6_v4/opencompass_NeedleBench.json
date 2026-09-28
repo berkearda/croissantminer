@@ -1,0 +1,261 @@
+{
+  "dataset_id": "opencompass_NeedleBench",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "NeedleBench",
+    "description": "NeedleBench is a comprehensive synthetic benchmark framework for evaluating LLM retrieval and reasoning performance in bilingual (English and Chinese) long-context tasks. It includes information-sparse tasks (Single-Needle Retrieval, Multi-Needle Retrieval, Multi-Needle Reasoning) and an information-dense task called the Ancestral Trace Challenge (ATC), supporting adaptive context lengths from 4k to beyond 1M tokens.",
+    "url": "https://openreview.net/forum?id=cEvmIKsRw0",
+    "license": "MIT",
+    "creator": "Mo Li, Songyang Zhang, Taolin Zhang, Haodong Duan, Yunxin Liu, Kai Chen (Tsinghua University and Shanghai AI Laboratory)",
+    "publisher": "Transactions on Machine Learning Research",
+    "datePublished": "2025-09",
+    "inLanguage": "en, zh",
+    "citeAs": "arXiv:2407.11963v3 [cs.CL] 17 Sep 2025",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "NeedleBench is a synthetic benchmark. The needles (key information units) are synthetically generated abstract and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data. The haystack for English tasks uses passages from the PaulGrahamEssays dataset, and for Chinese tasks, the ChineseDomainModelingEval dataset is used as filler content.",
+    "rai:dataCollectionType": "Software Collection, Others",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "For English haystack: PaulGrahamEssays dataset. For Chinese haystack: ChineseDomainModelingEval dataset. Needles are synthetically generated using a programmatic algorithm.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Token lengths are measured using the GPT-4 tokenizer. A buffer is subtracted from the target context length when generating each input to mitigate instruction truncation. For each configuration, the test is repeated R=10 times to enhance result stability.",
+    "rai:dataAnnotationProtocol": "For error analysis of the ATC task, approximately 10% of observed errors were manually annotated by the authors, focusing on cases where the question type is 'identifying the eldest ancestor'. Error types identified include under-thinking, partial understanding, instruction following errors, repetitive output, and hallucination errors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Manual annotation of ~10% of ATC errors revealed that under-thinking is the most prevalent failure mode (60.2%), followed by partial understanding errors (12.9%), instruction following errors (7.5%), repetitive output (7.5%), hallucination errors (7.5%), and other errors (4.5%). Instruction-following false error rates were also analyzed for small models.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4 tokenizer (tiktoken), LMDeploy, vLLM",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Realistic benchmarks based on real-world data may reflect memorization rather than genuine reasoning, as models may have seen the data during pretraining. NeedleBench uses synthetic data to mitigate this. Most models show a performance gap between English and Chinese, with English typically higher.",
+    "rai:dataLimitations": "NeedleBench is a synthetic benchmark and may not fully reflect the complexity of real-world tasks. The ATC task uses chain-structured family relationships which may not cover all real-world reasoning scenarios.",
+    "rai:dataUseCases": "Testing and evaluation of LLM long-context retrieval and reasoning capabilities, including information-sparse retrieval tasks and information-dense multi-step reasoning tasks. Supports bilingual (English and Chinese) evaluation across adaptive context lengths."
+  },
+  "usage": {
+    "input_tokens": 74536,
+    "output_tokens": 2383
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T02:07:10.847935Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce NeedleBench, a comprehensive synthetic framework designed to assess retrieval and reasoning performance in bilingual long-context tasks with adaptive context lengths"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench is designed to provide a comprehensive, targeted assessment of models' abilities to extract, analyze, and reason over long texts. In particular, our benchmark supports flexible context lengths (4k, 8k, 32k, 128k, 200k, 1000k, and beyond), allowing strategic insertion of key data points at various depths to rigorously test retrieval and reasoning skills."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Reviewed on OpenReview: https://openreview.net/forum?id=cEvmIKsRw0"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mo Li limo.research@gmail.com Tsinghua University Shanghai AI Laboratory; Songyang Zhang zhangsongyang@pjlab.org.cn Shanghai AI Laboratory; Taolin Zhang zhangtlin3@gmail.com Tsinghua University Shanghai AI Laboratory; Haodong Duan duanhaodong@pjlab.org.cn Shanghai AI Laboratory; Yunxin Liu liuyunxin@air.tsinghua.edu.cn Tsinghua University; Kai Chen chenkai@pjlab.org.cn Shanghai AI Laboratory"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Learning Research (09/2025)"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published in Transactions on Machine Learning Research (09/2025)"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench, a customizable framework for evaluating bilingual long-context capabilities of LLMs across multiple length intervals"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2407.11963v3 [cs.CL] 17 Sep 2025"
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All codes and resources are publicly available at OpenCompass."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The needles are synthetic, abstract, and fictional statements or relational facts, deliberately designed to avoid overlap with any real-world knowledge or pretraining data. The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b) to ensure linguistic diversity and high-quality filler content."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ATC task employs a systematic algorithmic approach to generate synthetic family relationship datasets. The generation process ensures both linguistic diversity and logical consistency across different question types and complexity levels."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The haystack for English tasks is built by extending the prompt with passages from the PaulGrahamEssays dataset (Kamradt, 2023), and for Chinese tasks, we use the ChineseDomainModelingEval dataset (Wei et al., 2023b) to ensure linguistic diversity and high-quality filler content."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Token lengths are measured using the GPT-4 tokenizer. To mitigate the risk of instruction truncation—where essential prompt instructions at the end of the context may be lost due to tokenizer discrepancies across different models—we subtract a buffer from the target context length when generating each input."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we manually annotated approximately 10% of the observed errors from the ATC task, focusing specifically on cases where the question type is 'identifying the eldest ancestor.' The main error types identified in our analysis are summarized in Table 4."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our analysis reveals that the most prevalent failure mode among strong models is what we term under-thinking: models prematurely conclude that no further inference can be made, even when clear clues remain in the context... The 'false error rate' is defined as the proportion of cases where the model's answer is actually correct (as verified by human annotation), but is marked as wrong only because the output does not follow the required \\boxed{} format."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Token lengths are measured using the GPT-4 tokenizer. We used LMDeploy (Contributors, 2023) and vLLM (Kwon et al., 2023) to accelerate the inference process."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Such realistic benchmarks face the challenge of potential data contamination: once task sets are released, model developers may inadvertently or intentionally include these data in pretraining. This makes it difficult to fairly assess true reasoning ability, as high performance may simply reflect memorization rather than genuine reasoning capability... Across most evaluated models, there is generally a performance gap between English and Chinese, with English results typically being higher."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Future work can include exploring reinforcement learning to help models improve their reasoning and mitigate under-thinking, as well as expanding NeedleBench to cover more diverse and realistic information-dense scenarios, since NeedleBench is a synthetic benchmark and may not fully reflect the complexity of real-world tasks."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "NeedleBench thus provides critical insights and targeted evaluation tools essential for understanding and improving the long-context capabilities of LLMs... NeedleBench is designed to provide a comprehensive, targeted assessment of models' abilities to extract, analyze, and reason over long texts."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.2594,
+    "split": "dev",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 45.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

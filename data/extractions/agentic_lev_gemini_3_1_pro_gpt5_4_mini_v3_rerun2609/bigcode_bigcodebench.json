@@ -1,0 +1,290 @@
+{
+  "dataset_id": "bigcode_bigcodebench",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "BigCodeBench",
+    "description": "A benchmark for evaluating code generation on challenging, practical Python tasks that require diverse function calls from many libraries and complex instructions. It includes a natural-language-oriented variant, BigCodeBench-Instruct, derived from the original docstrings.",
+    "url": "https://bigcode-bench.github.io/",
+    "license": "Apache-2.0",
+    "creator": "Terry Yue Zhuo, Minh Chien Vu, Jenny Chim, Han Hu, Wenhao Yu, Ratnadira Widyasari, Imam Nur Bani Yusuf, Haolan Zhan, Junda He, Indraneil Paul, Simon Brunner, Chen Gong, Thong Hoang, Armel Zebaze, Xiaheng Hong, Wen-Ding Li, Jean Kaddour, Ming Xu, Zhihan Zhang, Prateek Yadav, Naman Jain, Alex Gu, Zhoujun Cheng, Jiawei Liu, Qian Liu, Zijian Wang, Binyuan Hui, Niklas Muennighoff, David Lo, Daniel Fried, Xiaoning Du, Harm de Vries, Leandro von Werra",
+    "publisher": "ICLR 2025",
+    "datePublished": "2025-04-01",
+    "inLanguage": "en",
+    "citeAs": "@Article{Zhuo2024BigCodeBenchBC,\n author = {Terry Yue Zhuo and Minh Chien Vu and Jenny Chim and Han Hu and Wenhao Yu and Ratnadira Widyasari and Imam Nur Bani Yusuf and Haolan Zhan and Junda He and Indraneil Paul and Simon Brunner and Chen Gong and Thong Hoang and A. Zebaze and Xiao-ke Hong and Wen-Ding Li and Jean Kaddour and Minglian Xu and Zhihan Zhang and Prateek Yadav and Naman Jain and Alex Gu and Zhoujun Cheng and Jiawei Liu and Qian Liu and Zijian Wang and David Lo and Binyuan Hui and Niklas Muennighoff and Daniel Fried and Xiao-Nan Du and H. D. Vries and L. V. Werra},\n booktitle = {International Conference on Learning Representations},\n journal = {ArXiv},\n title = {BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},\n volume = {abs/2406.15877},\n year = {2024}\n}\n",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The benchmark was built through a human-LLM collaboration pipeline with three stages: data synthesis from seed examples, semi-automatic program refactoring and testing case generation using GPT-4 Code Interpreter with human annotators, and human curation. The process included obfuscating entry points, back-translation of docstrings, AST validation, iterative human feedback, and removal of invalid/incomplete programs.",
+    "rai:dataCollectionType": "Experiments",
+    "rai:dataCollectionMissingData": "Incomplete test cases were removed during post-processing, and invalid programs were removed via program analysis.",
+    "rai:dataCollectionRawData": "Seed examples from ODEX (intent-paired code skeletons from Stack Overflow) were used as the source data for synthesis.",
+    "rai:dataCollectionTimeframe": "The construction was carried out over one year in total.",
+    "rai:dataAnnotationProtocol": "Three-fold human curation: (1) manual examination of benchmarks using detailed guidelines to add test cases and resolve runtime issues; (2) pre-evaluation by running GPT-3.5-Turbo on examined task prompts so annotators could refine docstrings; (3) cross-checking by 7 additional annotators who manually corrected docstring structures, removed unused imports via program analysis, verified interactive examples with doctest, and finalized tasks through automated test workflows. The guidelines also required writing black-box unit tests with at least five distinct cases and refining function docstrings/implementations for clarity and alignment.",
+    "rai:dataAnnotationPlatform": "GitHub Container Registry (automated test workflows in a configured sandbox environment); GPT-3.5-Turbo API was used during pre-evaluation.",
+    "rai:dataAnnotationAnalysis": "Quality was validated by automated test workflows, doctest checks for interactive examples, and a final solution evaluation by the lead annotator; 97% (32/33) of sampled tasks passed all test cases.",
+    "rai:annotationsPerItem": "33 finalized task prompts were randomly assigned to 11 annotators to write solutions; 7 additional annotators participated in cross-checking.",
+    "rai:annotatorDemographics": "Annotators were 20 curators with ages 18-25 (25%), 26-35 (70%), 36-45 (5%); Python experience 1-3 years (5%), 3-5 years (20%), 5+ years (75%); academic background Bachelor (5%), Master (20%), PhD (75%). Communications were in mainstream English (en-US).",
+    "rai:machineAnnotationTools": "GPT-3.5-Turbo API was used for pre-evaluation; doctest and automated program analysis were used to validate examples and remove unused imports.",
+    "rai:dataBiases": "Potential bias toward Python and popular/common libraries; the benchmark may not reflect domain-specific or emerging libraries, and annotation may be affected by limited domain expertise.",
+    "rai:dataLimitations": "Python-only and hard to extend to other languages; may not be challenging enough for some LLMs; some test cases are flaky and can affect reproducibility; current benchmark covers only common libraries and daily programming tasks; evolving libraries may require periodic updates.",
+    "rai:dataSocialImpact": "The benchmark is intended to benefit the community by supporting evaluation of programming models and future agentic LLM capabilities; it may also help improve reproducibility through a real-time execution sandbox.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Used as a benchmark for evaluation/testing of code-generation and programming-task performance; future work mentions instruction tuning on BigCodeBench data for synthesis, but the paper primarily describes evaluation use.",
+    "rai:dataReleaseMaintenancePlan": "The authors plan ongoing updates and community-driven reliability improvements; future releases will evolve both publicly and privately, with the private test set hosted internally.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "They mitigated model bias by obfuscating and perturbing the synthesized programs, including replacing semantic-rich entry points with dummy function names and back-translating docstrings; they also sampled tasks for annotators and removed invalid programs.",
+    "rai:dataPreprocessingProtocol": "They validated synthesized programs with an abstract syntax tree parser, removed invalid programs via program analysis, and post-processed annotated data to address incomplete test cases."
+  },
+  "usage": {
+    "input_tokens": 82878,
+    "output_tokens": 2627
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-01T22:58:25.239609Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we introduce BigCodeBench, a benchmark that challenges LLMs”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a benchmark that challenges LLMs to invoke multiple function calls as tools from 139 libraries and 7 domains for 1,140 fine-grained tasks”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“https://bigcode-bench.github.io/”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Author list at the top of the paper"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Published as a conference paper at ICLR 2025”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“arXiv:2406.15877v4 [cs.SE] 1 Apr 2025”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper describes the benchmark tasks and instructions in English, e.g., “complex instructions” and “natural-language-oriented instructions”"
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper provides a public project website and describes the benchmark as an ongoing benchmark resource: “https://bigcode-bench.github.io/”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the process of BigCodeBench-Complete encompasses three stages: Data Synthesis, Semi-automatic Program Refactoring and Testing Case Generation, and Human Curation”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we use the GPT-4 API ... to synthesize the programming tasks” and “we utilize the Code Interpreter session in the web-based GPT-4”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we observe that a significant number of test cases were incomplete” and “After removing all invalid programs via program analysis”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we use seed examples from ODEX ... a benchmark containing intent-paired code skeletons from Stack Overflow”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The construction is progressively contributed by 20 authors as annotators for one year in total”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we implement a three-fold human curation process: Examination … Pre-Evaluation … Cross-Checking”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“validated by the automated test workflows in GitHub Container Registry”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The lead annotator conducts the evaluation of the solutions, finding that 97% (32 out of 33) of sampled tasks can pass all test cases.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we randomly assign 33 finalized task prompts to the 11 annotators … to write the solutions”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Curators Demographic … Age … Experience in Python Programming … Academic Background … all communications during the annotation process are in mainstream English (en-US)”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We choose GPT-3.5-Turbo API3 to generate solutions”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“BigCodeBench is Python-only” and “the usage of popular libraries can be more aligned with real-world software development” and “due to the limited number of domain experts participating in our data annotation, they may not have enough knowledge of the latest or domain-specific libraries.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“BigCodeBench is Python-only and cannot be easily extended to other programming languages.” “some LLMs can still perform reasonably well BigCodeBench” “some test cases are flaky” “Current BigCodeBench only covers the common libraries and daily programming tasks.” “the libraries can be obsolete or updated”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Python is the most flexible and popular programming language to automate various tasks, BigCodeBench may fulfill most of the community needs.” “we tend to work in this direction and see how well LLMs as Agents can perform on BigCodeBench.” “we host a real-time code execution sandbox in the Hugging Face space.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“During the execution-based evaluation” and “benchmark models on the programming tasks” and “we can instruction tune an LLM on BigCodeBench data”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We plan to continually enhance the reliability of all test cases, with the help of the community.” “For future releases, we aim to perform the benchmark evolution both publicly and privately, and host the private test set internally.”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We mitigate the model biases with an obfuscation and perturbation process. We first replace the semantic-rich program entry points with dummy function names. In addition, we perturb the natural language descriptions in docstrings with the back-translation method... After validating the post-processed programs... we collected 4,718 function-level programming samples."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After validating the post-processed programs with an abstract syntax tree parser... During the post-processing of the annotated data, we observe that a significant number of test cases were incomplete. After removing all invalid programs via program analysis..."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 28,
+      "fields_null": 2,
+      "fields_verified": 28,
+      "evidence_count": 26,
+      "evidence_coverage": 92.9,
+      "avg_confidence": 0.932
+    },
+    "cost_usd": 0.014,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 41213,
+        "tokens_in": 10397,
+        "tokens_out": 583
+      },
+      "collection": {
+        "section_chars": 26115,
+        "tokens_in": 8686,
+        "tokens_out": 383
+      },
+      "annotation": {
+        "section_chars": 32567,
+        "tokens_in": 7552,
+        "tokens_out": 608
+      },
+      "impact": {
+        "section_chars": 7654,
+        "tokens_in": 2054,
+        "tokens_out": 579
+      },
+      "processing": {
+        "section_chars": 7689,
+        "tokens_in": 1992,
+        "tokens_out": 260
+      }
+    },
+    "enrichments": [
+      "license",
+      "citeAs"
+    ],
+    "elapsed_seconds": 23.9,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 52197,
+      "output_tokens": 214
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

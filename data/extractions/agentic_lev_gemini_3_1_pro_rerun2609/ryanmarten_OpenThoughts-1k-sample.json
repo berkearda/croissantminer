@@ -1,0 +1,278 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "OpenThoughts3-1.2M",
+    "description": "An open-source dataset for training reasoning models, containing 850,000 math, 250,000 code, and 100,000 science datapoints.",
+    "url": "https://openthoughts.ai",
+    "license": null,
+    "creator": "Etash Guha, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, Marianna Nezhurina, Jean Mercat, Trung Vu, Zayne Sprague, Ashima Suvama, Benjamin Feuer, Liangyu Chen, Zaid Khan, Eric Frankel, Sachin Grover, Caroline Choi, Niklas Muennighoff, Shiye Su, Wanjia Zhao, John Yang, Shreyas Pimpalgaonkar, Kartik Sharma, Charlie Cheng-Jie Ji, Yichuan Deng, Sarah Pratt, Vivek Ramanujan, Jon Saad-Falcon, Jeffrey Li, Achal Dave, Alon Albalak, Kushal Arora, Blake Wulfe, Chinmay Hegde, Greg Durrett, Sewoong Oh, Mohit Bansal, Saadia Gabriel, Aditya Grover, Kai-Wei Chang, Vaishaal Shankar, Aaron Gokaslan, Mike A. Merrill, Tatsunori Hashimoto, Yejin Choi, Jenia Jitsev, Reinhard Heckel, Maheswaran Sathiamoorthy, Alexandros G. Dimakis, Ludwig Schmidt",
+    "publisher": null,
+    "datePublished": "2025-06-05",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The data collection process involves a multi-step pipeline: sourcing questions across math, code, and science domains, filtering the questions using LLM-based methods (such as difficulty and response length), deduplicating, randomly sampling, and finally generating multiple reasoning answers per question using teacher models like DeepSeek-R1.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of questions from the code, math, and science domains, sourced from 62 different existing datasets, online forums, textbooks, and synthetic generations (e.g., StackExchange, OpenCodeReasoning, NuminaMath, organic chemistry textbooks).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Answers were generated synthetically by querying teacher models (LLMs) multiple times per question to elicit distinct responses.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Automated verification and filtering techniques (e.g., fastText classifier, majority consensus, response length) were evaluated to remove low-quality annotations, but ultimately no filtering was applied.",
+    "rai:annotationsPerItem": "16 (machine-generated answers per question)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "DeepSeek-R1, QwQ-32B, Claude 3.7, and GPT-4o-mini were used as teacher models/annotators to generate answers. A fastText classifier was also tested for filtering.",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The dataset curation process did not explore reinforcement learning, staged SFT, or curriculum learning. Furthermore, the pipeline optimized for overall average benchmark performance rather than individual domains, relying on an assumption of cross-domain transfer that may not hold when domains are mixed.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and supervised fine-tuning (SFT) of reasoning models.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was manipulated by sampling multiple answers per question (16x for all domains) to increase answer diversity, and by balancing the domain mixture to a specific ratio (850,000 math, 250,000 code, and 100,000 science datapoints).",
+    "rai:dataPreprocessingProtocol": "Preprocessing involved question filtering (difficulty-based for code, response length-based for math and science), deduplication (exact deduplication for math and science), and decontamination against evaluation sets using Indel similarity and N-gram-based similarity metrics. Answer filtering was tested but ultimately skipped."
+  },
+  "usage": {
+    "input_tokens": 44045,
+    "output_tokens": 2631
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T10:05:10.613126Z",
+    "git_commit": "ede26c8",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We thus mix and scale up the data pipelines from Section 4 to build OpenThoughts3-1.2M, our 1.2 million-sized dataset."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the goal of the OpenThoughts project is to create open-source datasets for training reasoning models. ... OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All of our datasets and models are available on openthoughts.ai."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Etash Guha*1,2, Ryan Marten*3, Sedrick Keh*4, Negin Raoof*5, Georgios Smymis*6, Hritik Bansalζ7, Marianna Nezhurinaζ8,9,16, Jean Mercatζ4, Trung Vuζ3, Zayne Spragueζ6, Ashima Suvama7, Benjamin Feuer10, Liangyu Chen1, Zaid Khan11, Eric Frankel2, Sachin Grover12, Caroline Choi1, Niklas Muennighoff1, Shiye Su1, Wanjia Zhao1, John Yang1, Shreyas Pimpalgaonkar3, Kartik Sharma3, Charlie Cheng-Jie Ji3, Yichuan Deng2, Sarah Pratt2, Vivek Ramanujan2, Jon Saad-Falcon1, Jeffrey Li2, Achal Dave, Alon Albalak13, Kushal Arora4, Blake Wulfe4, Chinmay Hegde10, Greg Durrett6, Sewoong Oh2, Mohit Bansal11, Saadia Gabriel7, Aditya Grover7, Kai-Wei Chang7, Vaishaal Shankar, Aaron Gokaslan14, Mike A. Merrill1, Tatsunori Hashimoto1, Yejin Choi1, Jenia Jitsev8,9,16, Reinhard Heckel15, Maheswaran Sathiamoorthy3, Alexandros G. Dimakis†3,5, Ludwig Schmidt†1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2506.04178v2 [cs.LG] 5 Jun 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Removing Non-English Answers"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our full dataset begins with sourcing many questions in math, code, and science domains. The next step is filtering those questions, deduplicating the math and science questions, randomly sampling questions, and then generating multiple answers for each question."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We can broadly categorize our question sourcing techniques into three types: (1) Fully synthetic... (2) Semi-synthetic – an LLM uses existing data sources such as CommonCrawl or FineWeb... (3) Non-synthetic – humans write the questions. Examples include StackExchange and ShareGPTCode."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our experiments cover 27 different question sources for code questions, 21 sources for math, and 14 sources for science... Examples include StackExchange and ShareGPTCode. These questions often arise from online forums, contests, chatbot interactions, and other sources."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Unless otherwise specified, answers are generated with DeepSeek-R1 as the teacher model... query the teacher multiple times to elicit distinct responses."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Verification or removing low-quality annotations is a common step... Our experiments explore various answer filtering techniques... We do not perform answer filtering because no filtering strategy outperformed the baseline, which uses all the answers."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our final pipeline uses 16× answers per question for all domains."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "answers are generated with DeepSeek-R1 as the teacher model... We use QwQ-32B as the teacher model... we study Claude 3.7 (with thinking mode) as an annotator."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work has several limitations. We did not explore datasets for reinforcement learning, a standard training regime for building reasoning models. Within the SFT realm, we did not explore the use of staged SFT or curriculum learning... In each step of our pipeline, we selected strategies that maximized overall average benchmark performance, rather than optimizing for each domain individually. This choice assumes some level of cross-domain transfer... However, it’s unclear whether such transfer persists once domains are mixed."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the goal of the OpenThoughts project is to create open-source datasets for training reasoning models... We scale up this pipeline to produce OpenThoughts3-1.2M, and fine-tune Qwen2.5-7B-Instruct on it to yield OpenThinker3-7B."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our final pipeline uses 16× answers per question for all domains. [...] OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints. We chose this ratio following the OpenThoughts2-1M mixture"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use difficulty-based filtering with GPT-4o-mini for code questions, and response length filtering with GPT-4.1-mini for math and science questions. [...] It uses exact deduplication for math and science and no deduplication for code. [...] we perform decontamination against our evaluation sets, via two separate criteria. The first method used is Indel similarity [...] Our second method is an N-gram-based similarity metric."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "evidence_count": 18,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0814,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 48267,
+        "tokens_in": 14701,
+        "tokens_out": 1039
+      },
+      "collection": {
+        "section_chars": 24824,
+        "tokens_in": 9129,
+        "tokens_out": 433
+      },
+      "annotation": {
+        "section_chars": 27846,
+        "tokens_in": 8693,
+        "tokens_out": 407
+      },
+      "impact": {
+        "section_chars": 12387,
+        "tokens_in": 4038,
+        "tokens_out": 383
+      },
+      "processing": {
+        "section_chars": 25366,
+        "tokens_in": 7484,
+        "tokens_out": 369
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 88.5
+  }
+}

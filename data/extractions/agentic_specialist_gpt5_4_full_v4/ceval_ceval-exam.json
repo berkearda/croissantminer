@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ceval_ceval-exam",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "C-E VAL",
+    "description": "C-E VAL is a comprehensive Chinese evaluation suite for assessing advanced knowledge and reasoning abilities of foundation models in a Chinese context. It consists of 13,948 multiple-choice exam questions spanning 52 disciplines across four difficulty levels: middle school, high school, college, and professional.",
+    "url": "https://github.com/hkust-nlp/ceval",
+    "license": null,
+    "creator": "Yuzhen Huang; Yuzhuo Bai; Zhihao Zhu; Junlei Zhang; Jinghan Zhang; Tangjun Su; Junteng Liu; Chuancheng Lv; Yikai Zhang; Jiayi Lei; Yao Fu; Maosong Sun; Junxian He",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "zh",
+    "citeAs": "Yuzhen Huang, Yuzhuo Bai, Zhihao Zhu, Junlei Zhang, Jinghan Zhang, Tangjun Su, Junteng Liu, Chuancheng Lv, Yikai Zhang, Jiayi Lei, Yao Fu, Maosong Sun, and Junxian He. C-E VAL: A Multi-Level Multi-Discipline Chinese Evaluation Suite for Foundation Models. NeurIPS 2023 Track on Datasets and Benchmarks.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "C-EVAL was constructed from real-world Chinese multiple-choice exam questions collected from mock exams and small-scale local exams available online, with additional college-level questions from past exam questions publicly shared by students and a minor fraction from mock national graduate entrance exam questions from the Weipu website with authorization.",
+    "rai:dataCollectionType": "Document analysis; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The primary source data were mock exams freely available on the internet; some college-level questions came from past exam questions from top universities in China publicly shared by students; and around 2000 college questions came from mock national graduate entrance exam questions from the Weipu website. Most samples were sourced from PDF or Microsoft Word documents on the internet, with a minor fraction as web pages.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Most samples in C-EVAL are sourced from PDF or Microsoft Word documents on the Internet and are subsequently parsed and carefully annotated by the authors to obtain the final structured format; questions are parsed automatically when possible and otherwise manually by the authors into a structured format, with manual conversion of complex mathematical notations into standard LaTeX formats; for explanation data in the development split, the authors combine automatic generation and human annotation by first prompting GPT-4 to generate step-by-step explanations and then manually revising the generated explanations.",
+    "rai:dataAnnotationPlatform": "GPT-4",
+    "rai:dataAnnotationAnalysis": "All questions go through deduplication and cleaning, then undergo several rounds of human validation by the authors; for explanation data, GPT-4-generated explanations are manually revised to obtain the final explanations.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4",
+    "rai:dataBiases": "English benchmarks tend to exhibit geographical biases towards the domestic knowledge of the regions that produce them.",
+    "rai:dataLimitations": "C-E VAL, along with all the English-language benchmarks, is far from perfect for LLM evaluation; There are many other abilities such as reasoning over and calling APIs, as well as multiple aspects that extend beyond accuracy, including safety, bias, and robustness; The validation split comprises a total of 1346 questions, with each subject contributing fewer than 30 validation questions on average, so tracking accuracy on a specific subject may not yield significant insights.",
+    "rai:dataSocialImpact": "We anticipate C-E VAL will help analyze important strengths and shortcomings of foundation models, and foster their development and growth for Chinese users.",
+    "rai:personalSensitiveInformation": "A portion of the college-level questions are past exam questions from top universities in China, publicly shared by the students.",
+    "rai:dataUseCases": "designed to assess advanced knowledge and reasoning abilities of foundation models in a Chinese context; help developers quickly understand the abilities of their models from multiple dimensions, so that they could target the shortcomings of the models and improve them accordingly; subsets of C-E VAL could be separately utilized to assess certain model abilities of interest and analyze important strengths and limitations of foundation models",
+    "rai:dataReleaseMaintenancePlan": "ground-truth labels of the development and validation splits are released, while the labels of the test split are kept private; users are required to submit their model predictions to https://cevalbenchmark.com to automatically obtain the test accuracy, where a public leaderboard is maintained",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "All the questions in C-E VAL are processed to include exactly four choices. Most of the original questions were accompanied by four choices already, and we eliminate questions with fewer than four options and randomly drop incorrect choices for questions with more than four options. We process at least around 200 questions for each subject, and randomly split the questions into a development set, a validation set, and a test set within each subject. The validation and test set are created with a 1:9 ratio. To facilitate the potential usage of C-E VAL in a few-shot COT setting, we combine automatic generation and human annotation to produce high-quality explanation data for the development split. Specifically, we first prompt GPT-4 to generate step-by-step explanation to explain the ground-truth answer, then we manually revise the generated explanations to obtain the final explanations.",
+    "rai:dataPreprocessingProtocol": "PDF documents are initially processed into text. All questions are subsequently parsed – automatically when possible, and otherwise manually by the authors – into a structured format. For subjects with complex mathematical notations such as many subjects in the STEM category, we manually convert them into standard LATEX formats. All questions also go through the standard data preprocessing pipeline, such as deduplication and cleaning. The questions undergo several rounds of human validation by the authors, and all the LATEX notations are ensured to be complied without syntax errors. Data processing included manual revisions, such as fixing typos/incorrect formats of the questions from PDF documents and ensuring all the LATEX notations can be correctly compiled."
+  },
+  "usage": {
+    "input_tokens": 177618,
+    "output_tokens": 1541
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 35783,
+        "output_tokens": 285
+      },
+      "collection": {
+        "input_tokens": 35569,
+        "output_tokens": 195
+      },
+      "annotation": {
+        "input_tokens": 35556,
+        "output_tokens": 214
+      },
+      "impact": {
+        "input_tokens": 35497,
+        "output_tokens": 330
+      },
+      "processing": {
+        "input_tokens": 35213,
+        "output_tokens": 517
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 72228,
+      "output_tokens": 281
+    },
+    "timestamp": "2026-05-22T11:19:42.383925+00:00",
+    "elapsed_seconds": 33.9
+  }
+}

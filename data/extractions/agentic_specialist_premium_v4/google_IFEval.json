@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_IFEval",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "IFEval (Instruction-Following Eval)",
+    "description": "IFEval is a benchmark for evaluating the instruction-following ability of large language models. It consists of around 541 prompts, each containing one or more verifiable instructions drawn from a set of 25 instruction types (e.g., 'write in more than 400 words', 'mention the keyword AI at least 3 times'). The benchmark enables automatic, objective, and reproducible evaluation without relying on human annotators or LLM-based evaluators.",
+    "url": "https://github.com/google-research/google-research/tree/master/instruction_following_eval",
+    "license": null,
+    "creator": "Jeffrey Zhou; Tianjian Lu; Swaroop Mishra; Siddhartha Brahma; Sujoy Basu; Yi Luan; Denny Zhou; Le Hou",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": "Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Siddhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, Le Hou. Instruction-Following Evaluation for Large Language Models. arXiv:2311.07911, November 15, 2023.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Prompts were generated through a combination of few-shot prompting with a language model and manual human curation. Base prompts were created with randomly selected verifiable instructions appended, then filtered for illogical combinations via few-shot prompting, rephrased for diversity via another few-shot prompting step, and finally manually checked and edited one by one.",
+    "rai:dataCollectionType": "Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "GPT-4 and PaLM 2 Small (S) model responses collected via API calls; 541 prompts with verifiable instructions constructed through few-shot prompting and manual curation",
+    "rai:dataCollectionTimeframe": "GPT-4 responses collected in November 2023; PaLM 2 S responses collected in August 2023",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "Human evaluation is noted to introduce potential biases and inconsistencies for reproducibility; LLM-based auto-evaluation is potentially biased or limited by the ability of the evaluator LLM",
+    "rai:dataLimitations": "Very few instructions are 100% verifiable objectively and automatically — there always exist edge cases where it is hard to determine if an instruction is followed; the loose criterion reduces false negatives but is likely to introduce false positives; the current implementation can be improved by increasing the diversity and quantity of verifiable instructions and extending to multi-modal use cases",
+    "rai:dataSocialImpact": "Discrepancies or misunderstandings in following instructions can lead to unintended outputs, which might have dire results, especially in crucial scenarios like healthcare or autonomous systems",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating the instruction-following ability of large language models; enabling researchers to draw insights on what types of instructions are not usually followed; comparing different large language models on various instruction types",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Prompts were generated through a four-step process: (1) base prompts were created with one to three randomly selected verifiable instructions appended; (2) few-shot prompting was used to identify and remove illogical or conflicting prompts; (3) another few-shot prompting approach was applied to rephrase each prompt to increase diversity of phrasing; (4) all rephrased prompts were manually checked and edited one by one. This process resulted in 541 prompts with varied phrasing and parameter variants for each verifiable instruction type.",
+    "rai:dataPreprocessingProtocol": "Prompts were filtered to remove illogical ones using a few-shot prompting approach, then rephrased using another few-shot prompting step to increase phrasing diversity, and finally manually checked and edited one by one."
+  },
+  "usage": {
+    "input_tokens": 254156,
+    "output_tokens": 1424
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 50965,
+        "output_tokens": 371
+      },
+      "collection": {
+        "input_tokens": 50871,
+        "output_tokens": 289
+      },
+      "annotation": {
+        "input_tokens": 50931,
+        "output_tokens": 159
+      },
+      "impact": {
+        "input_tokens": 50893,
+        "output_tokens": 339
+      },
+      "processing": {
+        "input_tokens": 50496,
+        "output_tokens": 266
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 72014,
+      "output_tokens": 482
+    },
+    "timestamp": "2026-05-02T18:31:17.840527+00:00",
+    "elapsed_seconds": 54.9
+  }
+}

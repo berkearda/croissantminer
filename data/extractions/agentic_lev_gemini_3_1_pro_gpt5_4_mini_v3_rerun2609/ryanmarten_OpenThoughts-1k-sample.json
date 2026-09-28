@@ -1,0 +1,287 @@
+{
+  "dataset_id": "ryanmarten_OpenThoughts-1k-sample",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "OpenThoughts3-1.2M",
+    "description": "An open-source reasoning dataset for training models on math, code, and science questions. It was created by systematically exploring data curation choices such as question sourcing, filtering, deduplication, answer sampling, and teacher model selection.",
+    "url": "https://openthoughts.ai",
+    "license": null,
+    "creator": "Etash Guha, Ryan Marten, Sedrick Keh, Negin Raoof, Georgios Smymis, Hritik Bansal, Marianna Nezhurina, Jean Mercat, Trung Vu, Zayne Sprague, Ashima Suvama, Benjamin Feuer, Liangyu Chen, Zaid Khan, Eric Frankel, Sachin Grover, Caroline Choi, Niklas Muennighoff, Shiye Su, Wanjia Zhao, John Yang, Shreyas Pimpalgaonkar, Kartik Sharma, Charlie Cheng-Jie Ji, Yichuan Deng, Sarah Pratt, Vivek Ramanujan, Jon Saad-Falcon, Jeffrey Li, Achal Dave, Alon Albalak, Kushal Arora, Blake Wulfe, Chinmay Hegde, Greg Durrett, Sewoong Oh, Mohit Bansal, Saadia Gabriel, Aditya Grover, Kai-Wei Chang, Vaishaal Shankar, Aaron Gokaslan, Mike A. Merrill, Tatsunori Hashimoto, Yejin Choi, Jenia Jitsev, Reinhard Heckel, Maheswaran Sathiamoorthy, Alexandros G. Dimakis, Ludwig Schmidt",
+    "publisher": "OpenThoughts project",
+    "datePublished": "2025-06-05",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The paper describes a data generation pipeline that sources questions from multiple existing datasets and web forums, including synthetic, semi-synthetic, and human-written sources. It also generates reasoning traces with annotator models and explores finding reasoning traces from the web by searching DCLM-RefinedWeb/CommonCrawl-derived text.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "For sources that produce fewer datapoints, the questions were repeated until the desired amount was reached.",
+    "rai:dataCollectionRawData": "Questions and text from existing sources across code, math, and science domains, including StackExchange, OpenCodeReasoning, NuminaMath, MathPile, Organic Chemistry PDFs/textbooks, CommonCrawl-derived DCLM-RefinedWeb, and other curated or synthetic datasets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The paper describes generating multiple answers for each question using teacher models, then in some experiments re-annotating or verifying samples with Claude 3.7 or GPT-4o-mini. For code, it says they \"re-annotated 10K random coding problems\" with Claude and verified them; for filtering/verification, they ask GPT-4o-mini to judge correctness, English-only, long paragraphs, or majority consensus.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The section reports verification and ablation analyses of annotation choices, including comparisons of Claude vs R1 as annotator, GPT-4o-mini verification, and teacher-model ablations; however, no inter-annotator agreement metric is reported.",
+    "rai:annotationsPerItem": "For some code experiments, 16 candidate solutions per question were considered; for the Claude re-annotation experiment, 10K coding problems were re-annotated and verified. The section does not state a standard number of human labels per item.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Claude 3.7 (with thinking mode), DeepSeek-R1, QwQ-32B, GPT-4o-mini, and FastText were used in annotation/filtering/verification workflows.",
+    "rai:dataBiases": "The pipeline may assume cross-domain transfer when selecting strategies that maximize overall average benchmark performance rather than domain-specific performance; the authors note it is unclear whether this transfer persists once domains are mixed.",
+    "rai:dataLimitations": "The work did not explore datasets for reinforcement learning or staged SFT/curriculum learning. The authors also note open questions about cross-domain transfer, scaling behavior near teacher performance, and how question diversity interacts with answer diversity across domains, dataset sizes, and model scales.",
+    "rai:dataSocialImpact": "The paper frames the dataset as supporting safer open-source reasoning models by evaluating whether models refuse unsafe requests while complying with benign requests.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for supervised fine-tuning (SFT) reasoning models in science, math, and code domains; the paper also discusses filtering and verification strategies for training downstream models and evaluating them on benchmarks.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Deduplication and repeated teacher sampling were used; the pipeline explores no deduplication, exact match deduplication, and fuzzy deduplication, with multiple answers per question at 1×, 4×, and 16×. The final pipeline uses 16× answers per question for all domains, exact deduplication for math and science, and no deduplication for code.",
+    "rai:dataPreprocessingProtocol": "Questions were filtered to select high-quality subsets using methods such as difficulty-based filtering and response-length filtering; for code, difficulty-based filtering with GPT-4o-mini was used, and for math and science, response-length filtering with GPT-4.1-mini was used. The pipeline also performs decontamination by discarding samples marked contaminated by either normalized Indel similarity or 13-gram overlap."
+  },
+  "usage": {
+    "input_tokens": 103162,
+    "output_tokens": 2814
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:41:59.736117Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We scale up this pipeline to produce OpenThoughts3-1.2M”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the goal of the OpenThoughts project is to create open-source datasets for training reasoning models” and “OpenThoughts3-1.2M contains 850,000 math, 250,000 code, and 100,000 science datapoints.”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“All of our datasets and models are available on openthoughts.ai.”"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Author list at the top of the paper."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The goal of the OpenThoughts project is to create open-source datasets for training reasoning models.”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“arXiv:2506.04178v2 [cs.LG] 5 Jun 2025”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The paper describes the dataset as containing math, code, and science questions, but does not explicitly state a language code."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“All of our datasets and models are available on openthoughts.ai.”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our full dataset begins with sourcing many questions in math, code, and science domains.” / “We searched for long reasoning traces in DCLM-RefinedWeb ... sourced from CommonCrawl text data heuristically filtered and deduplicated.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we also experimented with finding reasoning traces from the web” and “We searched for long reasoning traces in DCLM-RefinedWeb ... sourced from CommonCrawl text data”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“For sources that produce fewer datapoints, we repeat the questions until we reach the desired amount.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our experiments cover 27 different question sources for code questions, 21 sources for math, and 14 sources for science.” / “We searched for long reasoning traces in DCLM-RefinedWeb ... sourced from CommonCrawl text data”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"then generating multiple answers for each question\"; \"re-annotated 10K random coding problems from OpenThoughts-114K with Claude and verified them\"; \"Ask GPT-4o-mini whether a provided answer is the correct answer\""
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Claude performs slightly worse as a code annotator\"; \"verification may hurt performance at the 7B level but help at the 32B level\"; \"Our results for the teacher model ablations\""
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"I will provide you 16 code_samples\"; \"re-annotated 10K random coding problems ... with Claude and verified them\""
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"we study Claude 3.7 (with thinking mode) as an annotator\"; \"Takeaway: We use QwQ-32B as the teacher model\"; \"Ask GPT-4o-mini whether a provided answer is the correct answer\"; \"Classify question-answer pairs with a FastText filter\""
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“In each step of our pipeline, we selected strategies that maximized overall average benchmark performance, rather than optimizing for each domain individually. This choice assumes some level of cross-domain transfer... However, it’s unclear whether such transfer persists once domains are mixed.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This work has several limitations. We did not explore datasets for reinforcement learning... Within the SFT realm, we did not explore the use of staged SFT or curriculum learning...”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“As we enhance the reasoning capabilities of open-source models, we aim to ensure that our models refuse to respond to unsafe requests while complying with benign requests.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our final dataset contains 1.2 million datapoints.” / “This work has several limitations... Within the SFT realm...” / “We apply both methods to filter the OpenThoughts-114K dataset and train downstream models.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Deduplication is a powerful strategy... We explore three degrees of deduplication strictness: no deduplication, exact match deduplication, and fuzzy deduplication...” and “Our final pipeline uses 16× answers per question for all domains. It uses exact deduplication for math and science and no deduplication for code.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the next step is to select a high-quality subset of questions... including fastText classifiers, difficulty scores, and embedding distance” and “Takeaway: We use difficulty-based filtering with GPT-4o-mini for code questions, and response length filtering with GPT-4.1-mini for math and science questions.” Also: “For our pipeline, we consider a training sample contaminated if it is marked as contaminated by either of our methods, and we discard it.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 22,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0172,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 48267,
+        "tokens_in": 13724,
+        "tokens_out": 711
+      },
+      "collection": {
+        "section_chars": 29530,
+        "tokens_in": 9036,
+        "tokens_out": 417
+      },
+      "annotation": {
+        "section_chars": 21961,
+        "tokens_in": 6546,
+        "tokens_out": 553
+      },
+      "impact": {
+        "section_chars": 6608,
+        "tokens_in": 2324,
+        "tokens_out": 464
+      },
+      "processing": {
+        "section_chars": 37133,
+        "tokens_in": 10040,
+        "tokens_out": 399
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 21.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 61492,
+      "output_tokens": 270
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

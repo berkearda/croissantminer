@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_IFEval",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Instruction-Following Eval (IFEval)",
+    "description": "IFEval is an evaluation benchmark for large language models' instruction-following ability. It focuses on 25 types of verifiable instructions and contains around 500 prompts, with the paper stating a set of 541 prompts where each prompt contains one or more verifiable instructions.",
+    "url": "https://github.com/google-research/google-research/tree/master/instruction_following_eval",
+    "license": null,
+    "creator": "Jeffrey Zhou; Tianjian Lu; Swaroop Mishra; Siddhartha Brahma; Sujoy Basu; Yi Luan; Denny Zhou; Le Hou",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": null,
+    "citeAs": "Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Siddhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, and Le Hou. Instruction-Following Evaluation for Large Language Models. arXiv:2311.07911v1, 2023.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was constructed by creating base prompts with one to three randomly selected verifiable instructions appended, using few-shot prompting to identify and remove illogical prompts, using another few-shot prompting approach to rephrase prompts, and then manually checking and editing the rephrased prompts one by one.",
+    "rai:dataCollectionType": "Manual Human Curator; Software Collection; Others",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "A list of 25 verifiable instructions and a set of 541 prompts generated from base prompts with appended instructions; GPT-4 and PaLM 2 S responses were collected through API calls for evaluation.",
+    "rai:dataCollectionTimeframe": "November 2023",
+    "rai:dataAnnotationProtocol": "Prompts were generated using few-shot prompting and manual curation: base prompts with one to three randomly selected verifiable instructions were created, illogical prompts were identified and removed via few-shot prompting, prompts were rephrased with another few-shot prompting approach, and the rephrased prompts were then manually checked and edited one by one.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "few-shot prompting",
+    "rai:dataBiases": "Human evaluation can lead to potential biases and inconsistencies for reproducibility; LLM-based auto-evaluation is potentially biased",
+    "rai:dataLimitations": "Very few instructions are 100% verifiable objectively and automatically—there always exist edge cases where it is hard to determine if an instruction is followed; the loose instruction-following verification process is likely to introduce false positives; the current implementation of IFEval can be improved across many fronts",
+    "rai:dataSocialImpact": "The capability of LLMs to accurately interpret and follow natural language instructions is crucial, not only for the precision of tasks but also for the safety and reliability of their implementations. Discrepancies or misunderstandings in following instructions can lead to unintended outputs, which might have dire results, especially in crucial scenarios like healthcare or autonomous systems.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluating the instruction-following ability of large language models; compare different large language models on various instruction types; draw insights on what types of instructions are not usually followed",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We alleviate these problems by creating our prompts through four steps. First, we generate a set of base prompts with one to three randomly selected verifiable instructions appended to the end of each prompt. Then, we use few-shot prompting to identify illogical prompts and remove them. As the third step, we apply another few-shot prompting based approach to rephrase each prompt, to increase the diversity of phrasing. Finally, we manually check and edit the rephrased prompts one by one.",
+    "rai:dataPreprocessingProtocol": "The authors describe post-collection prompt processing: they used few-shot prompting to identify illogical prompts and remove them, applied another few-shot prompting approach to rephrase each prompt to increase phrasing diversity, and then manually checked and edited the rephrased prompts one by one. They also preprocess model responses for the loose evaluation criterion by applying transformations such as removing commonly seen markdown font modifiers (especially * and **), removing the first line to skip intros, and removing the last line to skip outros."
+  },
+  "usage": {
+    "input_tokens": 227387,
+    "output_tokens": 1215
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45735,
+        "output_tokens": 247
+      },
+      "collection": {
+        "input_tokens": 45508,
+        "output_tokens": 315
+      },
+      "annotation": {
+        "input_tokens": 45524,
+        "output_tokens": 164
+      },
+      "impact": {
+        "input_tokens": 45452,
+        "output_tokens": 243
+      },
+      "processing": {
+        "input_tokens": 45168,
+        "output_tokens": 246
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 63247,
+      "output_tokens": 447
+    },
+    "timestamp": "2026-05-22T11:25:03.447723+00:00",
+    "elapsed_seconds": 41.6
+  }
+}

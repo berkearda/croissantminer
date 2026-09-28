@@ -1,0 +1,286 @@
+{
+  "dataset_id": "SWE-bench_SWE-bench_Verified",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "SWE-bench",
+    "description": "An evaluation framework of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. It tasks a model with editing a codebase to resolve an issue and is evaluated by running repository tests.",
+    "url": "https://swebench.com",
+    "license": null,
+    "creator": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik Narasimhan",
+    "publisher": "ICLR 2024",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "We selected the top 100 packages from the top 5,000 most downloaded PyPI libraries during August 2023, identified each package’s corresponding open-source GitHub repository, verified licenses allowing free software use, and collected all pull requests for these repositories via the GitHub developer API. Candidate task instances were then constructed from merged PRs that resolved issues and introduced new tests, and were validated by execution.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": "A candidate was removed from the final dataset if any step in execution-based validation failed; instances were also excluded if tests invoked newly created functions or classes first introduced in the solution.",
+    "rai:dataCollectionRawData": "Pull requests from open-source GitHub repositories corresponding to the top 100 PyPI packages, along with linked issues, commit messages, code changes, and tests.",
+    "rai:dataCollectionTimeframe": "August 2023 for the source PyPI popularity list; pull requests were collected from the selected repositories after that selection.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The authors state that repository selection based on popularity does not rely on discriminatory or biased heuristics.",
+    "rai:dataLimitations": "The dataset is limited to public repositories and public API/website data; it does not collect GitHub user information or involve human subjects/crowdsourcing. The paper also notes no immediately harmful insights and frames the dataset as a controlled testbed rather than a general solution.",
+    "rai:dataSocialImpact": "SWE-bench may help study the societal and safety implications of machine-automated software engineering, especially how to ensure AI-generated code follows human intent and what guardrails are needed when objectives are misinterpreted.",
+    "rai:personalSensitiveInformation": "No personal sensitive information is collected; specifically, no GitHub user information or human subject participation is involved.",
+    "rai:dataUseCases": "The dataset is intended for task instances, evaluation infrastructure, experimental results, and training data for fine-tuning SWE-Llama models; it is also positioned as a testbed for safe AI-driven software engineering.",
+    "rai:dataReleaseMaintenancePlan": "The release plan includes open-sourcing the dataset components, providing ample documentation, and maintaining communication channels for feedback; no explicit versioning, update schedule, or deprecation policy is stated.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "After filtering through all the PRs from a repository and converting those that satisfy the criteria into candidate task instances, the next step is to validate the usability of each task instance via execution; candidate task instances that fail any validation step or have undesirable log errors are discarded.",
+    "rai:dataPreprocessingProtocol": "PRs are filtered and converted into candidate task instances; task instances are then validated by creating executable contexts per release version, checking installation and test execution, and removing instances with ImportError/AttributeError logs or without a fail-to-pass test change."
+  },
+  "usage": {
+    "input_tokens": 57960,
+    "output_tokens": 1921
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:04:33.670875Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems...”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Data, code, and leaderboard at swebench.com”"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Author list at the top of the paper: “Carlos E. Jimenez* ... John Yang* ... Alexander Wettig ... Shunyu Yao ... Kexin Pei ... Ofir Press ... Karthik Narasimhan”"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Published as a conference paper at ICLR 2024”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Published as a conference paper at ICLR 2024”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“12 popular Python repositories”"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our collection process can be easily applied to any Python repository on GitHub ... we can extend SWE-bench with a continual supply of new task instances”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From a list of the top 5,000 most downloaded PyPI libraries during August 2023, we select the top 100 packages... and collect all PRs for these repositories via the GitHub developer API.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“collect all PRs for these repositories via the GitHub developer API”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“A candidate is removed from consideration for the final dataset if any step in the verification process fails. In addition, ... we exclude task instances with tests that invoke newly created functions or classes first introduced in the solution δ.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“collect all PRs for these repositories via the GitHub developer API”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“From a list of the top 5,000 most downloaded PyPI libraries during August 2023”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“SWE-bench’s filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we do not collect information about GitHub users, and the SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website.”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a potential future of machine-automated software engineering raises many important questions and has important potential ramifications with regards to AI Safety... we hope SWE-bench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we do not collect information about GitHub users” and “Our contributions do not involve any human subject participation”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, the experimental results, the training data used for fine-tuning SWE-Llama models, and the SWE-Llama model weights”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we will also put forth ample documentation to describe each component and its use, and we will also put in place convenient communication channels for soliciting feedback to improve SWE-bench.”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“If any of the steps (a) through (f) fails, the candidate task instance is discarded from consideration.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“After filtering through all the PRs from a repository and converting those that satisfy the aforemen-tioned criteria into candidate task instances” and “we check logpre for ImportError and AttributeError occurrences”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 21,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0098,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 32430,
+        "tokens_in": 8385,
+        "tokens_out": 483
+      },
+      "collection": {
+        "section_chars": 6741,
+        "tokens_in": 2015,
+        "tokens_out": 435
+      },
+      "annotation": {
+        "section_chars": 60000,
+        "skipped_unlikely": true
+      },
+      "impact": {
+        "section_chars": 2195,
+        "tokens_in": 865,
+        "tokens_out": 581
+      },
+      "processing": {
+        "section_chars": 6986,
+        "tokens_in": 1810,
+        "tokens_out": 243
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 19.8,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 44885,
+      "output_tokens": 179
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 1
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "dataset_id": "chcorbi_helvipad",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "HELVIPAD",
+    "description": "A real-world dataset for omnidirectional stereo depth estimation, featuring 40K video frames from video sequences across diverse environments, including crowded indoor and outdoor scenes with various lighting conditions. Collected using two 360° cameras in a top-bottom setup and a LiDAR sensor, the dataset includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images.",
+    "url": "https://vita-epfl.github.io/Helvipad/",
+    "license": "CC0-1.0",
+    "creator": "Mehdi Zayene, Jannik Endres, Albias Havolli, Charles Corbière, Salim Cherkaoui, Alexandre Kontouli, Alexandre Alahi (EPFL, Switzerland; TU Darmstadt, Germany)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data were collected using a custom-built rig equipped with two omnidirectional cameras (Ricoh Theta V) in a vertical top-bottom arrangement with a 19.1 cm baseline, paired with a synchronized Ouster OS1-64 LiDAR sensor. The rig was mounted on a remotely controlled robot chassis navigating in dynamic human environments across a university campus, capturing indoor and outdoor scenes under various lighting conditions.",
+    "rai:dataCollectionType": "Physical data collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Two Ricoh Theta V 360° cameras capturing equirectangular images at 30 fps at 3840×1920 pixels resolution, and an Ouster OS1-64 LiDAR sensor with 64 beams operating at 10 fps with a vertical field of view of 42.4°, mounted on a custom robot chassis on a university campus.",
+    "rai:dataCollectionTimeframe": "December 2023 to February 2024",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "LiDAR point clouds are projected onto equirectangular images using an optimized rotation and translation transformation. Camera frames are synchronized with LiDAR using a hardware flash trigger. One out of every three camera frames is retained to match the LiDAR's 10 fps frame rate. Images and depth/disparity maps are cropped to remove unnecessary borders (sky, ground) and downsampled from 1024 to 512 pixels width. Depth completion is applied to increase label density from 12% to 61% of pixels.",
+    "rai:dataAnnotationProtocol": "Depth and disparity labels are generated automatically by projecting LiDAR 3D point clouds onto equirectangular images using an optimized rotation and translation transformation. Disparity values are derived from depth values using a spherical disparity formula. Depth completion is applied using temporal aggregation of point clouds (4 preceding and 4 succeeding frames), k-nearest neighbor interpolation on a spherical grid, and uncertainty-based filtering to increase label density.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Alignment accuracy was assessed by calculating pixel error using Euclidean distances between 200 randomly selected LiDAR points and their image positions, resulting in an average error of 1.7 pixels. For visually challenging areas (e.g., object edges), the error remains at 8.0 pixels. The depth completion pipeline was validated by splitting each LiDAR point cloud into training and test sets (80-20 split) and computing depth estimation metrics on the test set.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "KISS-ICP (for LiDAR odometry in temporal aggregation comparison); BFGS optimization algorithm (for LiDAR-to-image mapping)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The dataset was collected on a university campus, which may limit generalization to other environments. Indoor-trained models show clear limitations in generalizing to outdoor scenes, particularly at night. Depth completion increases density of low-range depth values (0-10m range), enriching representation of closer objects. The approach is limited for fast-moving objects like cars.",
+    "rai:dataLimitations": "The dataset is limited to a university campus setting. The depth completion approach is limited for fast-moving objects like cars. The LiDAR's vertical field of view (42.4°) restricts the region of labeled pixels. Occlusions between LiDAR and cameras were not explicitly handled. The dataset provides only omnidirectional stereo images and LiDAR point clouds but no odometry information.",
+    "rai:dataUseCases": "Training, validation, and testing of omnidirectional stereo depth estimation models. Benchmarking stereo depth estimation approaches. Assessing robustness of depth estimation methods to diverse lighting conditions and depth ranges. Cross-dataset generalization studies."
+  },
+  "usage": {
+    "input_tokens": 53509,
+    "output_tokens": 2447
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:37:35.032082Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce HELVIPAD, a real-world dataset for omnidirectional stereo depth estimation"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce HELVIPAD, a real-world dataset for omnidirectional stereo depth estimation, featuring 40K video frames from video sequences across diverse environments, including crowded indoor and outdoor scenes with various lighting conditions. Collected using two 360° cameras in a top-bottom setup and a LiDAR sensor, the dataset includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://vita-epfl.github.io/Helvipad/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mehdi Zayene1 Jannik Endres1,2 Albias Havolli1 Charles Corbière1* Salim Cherkaoui1 Alexandre Kontouli1 Alexandre Alahi1 1EPFL, Switzerland 2TU Darmstadt, Germany"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The HELVIPAD dataset includes 26 video sequences captured between December 2023 and February 2024."
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The HELVIPAD dataset includes 26 video sequences captured between December 2023 and February 2024."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data were collected using a custom-built rig equipped with two omnidirectional cameras in a vertical arrangement, which prevents occlusion, and paired with a synchronized LiDAR sensor to provide high-quality depth measurements."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we built a custom rig and collected data across distinct scenes, encompassing indoor (e.g., corridors, halls) and outdoor (e.g., squares, external parking, footpaths) settings in various lighting conditions on a university campus."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The system integrates two Ricoh Theta V cameras, which capture images in 4K/UHD equirectangular format at 30 fps with an initial resolution of 3840 × 1920 pixels. It also includes an Ouster OS1-64 LiDAR sensor, operating at 10 fps with 64 beams and a vertical field of view of 42.4°."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The HELVIPAD dataset includes 26 video sequences captured between December 2023 and February 2024."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After cropping unnecessary regions (sky, ground), the resulting dataset comprises 39,553 paired images with their corresponding depth and disparity maps, at a resolution of 1920×512 pixels... our pipeline significantly increases the ratio of labeled pixels from 12% to 61% while maintaining very low error rates."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the dataset includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images. Additionally, we provide an augmented training set with an increased label density by using depth completion."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we calculated the pixel error by measuring Euclidean distances between 200 randomly selected LiDAR points and their image positions, resulting in an average error of 1.7 pixels. When selecting the same number of points from visually challenging areas (e.g., object edges), the error remains relatively low at 8.0 pixels."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "KISS-ICP [33] is one of the state-of-the-art approaches for LiDAR odometry... Minimize the total error E=Σe²ᵢ using BFGS [13]."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "While collected on a university campus, the dataset captures many common urban environments... indoor-trained models show a clear limitation in generalizing to outdoor scenes, particularly at night... Note that this approach is limited for fast-moving objects like cars."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Note that this approach is limited for fast-moving objects like cars... The HELVIPAD dataset provides only omnidirectional stereo images and LiDAR point clouds but no odometry information."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "With a total of 39,553 labeled frames, HELVIPAD serves as a foundational resource for developing and benchmarking omnidirectional depth estimation models capable of navigating in human environments... This dataset is an ideal testbed for assessing the robustness of depth estimation methods to diverse lighting conditions and depth ranges."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "fields_uncertain": 0,
+      "evidence_count": 17,
+      "evidence_coverage": 94.4,
+      "avg_confidence": 0.936
+    },
+    "cost_usd": 0.1972,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 46.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

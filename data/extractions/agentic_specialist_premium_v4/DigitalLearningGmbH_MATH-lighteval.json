@@ -1,0 +1,80 @@
+{
+  "dataset_id": "DigitalLearningGmbH_MATH-lighteval",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MATH",
+    "description": "MATH is a dataset of 12,500 challenging competition mathematics problems (7,500 training and 5,000 test) sourced from high school math competitions such as AMC 10, AMC 12, and AIME. Each problem includes a full step-by-step solution written in LaTeX and natural language, and is tagged by subject and difficulty level (1–5) across seven subjects. The dataset is designed to measure mathematical problem-solving ability in machine learning models.",
+    "url": "https://github.com/hendrycks/apps",
+    "license": "MIT",
+    "creator": "Dan Hendrycks (UC Berkeley); Collin Burns (UC Berkeley); Saurav Kadavath (UC Berkeley); Akul Arora (UC Berkeley); Steven Basart (UChicago); Eric Tang (UC Berkeley); Dawn Song (UC Berkeley); Jacob Steinhardt (UC Berkeley)",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric Tang, Dawn Song, and Jacob Steinhardt. Measuring Mathematical Problem Solving With the MATH Dataset. 35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks. arXiv:2103.03874v2, 2021.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The MATH dataset was collected from high school mathematics competition problems, primarily sourced from aops.com/community/c3158_usa_contests, including AMC 10, AMC 12, and AIME competitions. The AMPS pretraining dataset was assembled from two sources: over 100,000 problems pulled from Khan Academy exercises (regenerable from github.com/Khan/khan-exercises/), and approximately 5 million problems generated using 100 hand-designed Mathematica scripts covering various mathematics topics.",
+    "rai:dataCollectionType": "Web Scraping; Software Collection; Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Competition mathematics problems from aops.com (AMC 10, AMC 12, AIME, and other contests); Khan Academy exercise framework from github.com/Khan/khan-exercises/ with 693 exercise types; custom Mathematica scripts (100 modules) generating problems in LaTeX with step-by-step solutions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Six university students (computer science background) were given 20 randomly sampled MATH test problems and one hour to solve them without a calculator. Participants included four paper authors and two friends/acquaintances of the authors. All participants gave consent. They were offered remuneration but volunteered.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "University students studying computer science; mix of varying mathematical ability levels (from students who do not like mathematics to a three-time IMO gold medalist)",
+    "rai:machineAnnotationTools": "Mathematica (computer algebra system used to generate ~5 million problems via 100 hand-designed scripts); Khan Academy exercise generation code (github.com/Khan/khan-exercises/)",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Accuracy of 40% for a machine learning model on MATH would have ramifications for cheating on homework; models can provide the right answer yet generate a misleading and wrong explanation; models are highly overconfident with AUROC of only 68.8% for error detection",
+    "rai:dataSocialImpact": "The authors do not intend for this dataset to train models that help students cheat on mathematics exams; a model achieving 40% accuracy on MATH would be impressive but have ramifications for cheating on homework",
+    "rai:personalSensitiveInformation": "The dataset consists of competition mathematics problems and algorithmically generated mathematics exercises; no personal or sensitive information is described as present, collected, or redacted.",
+    "rai:dataUseCases": "Measuring mathematical problem-solving ability of machine learning models; pretraining models on mathematics fundamentals (AMPS); forecasting reasoning capabilities; teaching models to generate answer derivations and explanations",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "During pretraining on AMPS, Khan Academy data was upsampled by a factor of 5 and Mathematica data was downsampled by a factor of 2 to account for the large difference in dataset sizes.",
+    "rai:dataPreprocessingProtocol": "Final boxed answers in MATH were normalized using consistent formatting rules: probabilities expressed as simplified fractions; matrix entry fractions encoded as x/y; other fractions encoded with \\frac{x}{y}; coefficients encoded without multiplication symbols; expressions with multiple variables in alphabetical order; polynomials in decreasing degree order. Equivalent encodings (e.g., \\frac{x}{y} and \\dfrac{x}{y}, \\left( and (, 0.5 and 1/2) were treated as identical. Units could be included or omitted, spaces were ignored, and different orderings of polynomial factors were permitted. GPT-2 models tokenized numbers so that one digit is processed at a time."
+  },
+  "usage": {
+    "input_tokens": 195117,
+    "output_tokens": 1534
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 39164,
+        "output_tokens": 387
+      },
+      "collection": {
+        "input_tokens": 39062,
+        "output_tokens": 303
+      },
+      "annotation": {
+        "input_tokens": 39110,
+        "output_tokens": 264
+      },
+      "impact": {
+        "input_tokens": 39096,
+        "output_tokens": 301
+      },
+      "processing": {
+        "input_tokens": 38685,
+        "output_tokens": 279
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 76500,
+      "output_tokens": 219
+    },
+    "timestamp": "2026-05-02T17:47:39.860970+00:00",
+    "elapsed_seconds": 52.7
+  }
+}

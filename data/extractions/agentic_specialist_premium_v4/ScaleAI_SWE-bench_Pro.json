@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ScaleAI_SWE-bench_Pro",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SWE-Bench Pro",
+    "description": "SWE-Bench Pro is a benchmark of 1,865 human-verified software engineering problems sourced from 41 actively maintained repositories spanning business applications, B2B services, and developer tools. It is designed to evaluate AI coding agents on long-horizon, enterprise-level tasks requiring multi-file code modifications, and is partitioned into public, held-out, and commercial subsets with contamination-resistant design.",
+    "url": "https://scale.com/research/swe_bench_pro",
+    "license": null,
+    "creator": "Xiang Deng; Jeff Da; Edwin Pan; Yannis Yiming He; Charles Ide; Kanak Garg; Niklas Lauffer; Andrew Park; Nitin Pasari; Chetan Rane; Karmini Sampath; Maya Krishnan; Srivatsa Kundurthy; Sean Hendryx; Zifan Wang; Chen Bo Calvin Zhang; Noah Jacobson; Bing Liu; Brad Kenstler (Scale AI)",
+    "publisher": "Scale AI",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Xiang Deng, Jeff Da, Edwin Pan, Yannis Yiming He, Charles Ide, Kanak Garg, Niklas Lauffer, Andrew Park, Nitin Pasari, Chetan Rane, Karmini Sampath, Maya Krishnan, Srivatsa Kundurthy, Sean Hendryx, Zifan Wang, Chen Bo Calvin Zhang, Noah Jacobson, Bing Liu, Brad Kenstler. SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks? Scale AI, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Problems were sourced by leveraging the commit history of selected repositories, identifying pairs of consecutive commits that capture issue resolution (bug fixes or feature introductions). Public repositories were selected based on criteria such as similarity to professional programs, popularity, and ability to extract end-to-end problems. Private/commercial repositories were sourced from Scale AI's internal assets, including companies acquired through mergers and acquisitions, startups founded by Scale employees, and purchased codebases via external data partnerships with early-stage startups.",
+    "rai:dataCollectionType": "Software Collection; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Commit histories, issue discussions, commit messages, and pull requests from 41 repositories: 23 public repositories with copyleft (GPL) licenses sourced from GitHub, and 18 proprietary commercial repositories from startups acquired or purchased by Scale AI.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human annotators verified and augmented task descriptions (problem statements, requirements, and interface specifications) to ensure resolvability. Annotators also reviewed test suites to filter out irrelevant or overly broad fail2pass tests. Professional software engineers constructed Docker-based environments. A three-stage human-in-the-loop process was used: (1) clarifying ambiguity and adding missing context, (2) recovering unit tests as robust verifiers, and (3) human verification of all tests in the fail2pass test list.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Tests were run 3 times each to filter out flaky tests. Human annotators reviewed fail2pass tests and dropped those that were irrelevant to the task description or too broad. Problems where all tests were too broad or not relevant were dropped entirely.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-5 (used as LLM-as-a-judge to classify failing agent trajectories into failure mode buckets)",
+    "rai:dataBiases": "Distribution of programming languages is not uniform; some widely-used languages like Java, C++, and Rust are underrepresented; each repository contributes between 50 and 100 instances with a strict cap of 100 instances to reduce overfitting to any single repository",
+    "rai:dataLimitations": "Limited language coverage: Python, JavaScript, TypeScript, and Go are included but Java, C++, and Rust are underrepresented; evaluation framework focuses only on issue resolution through code patches and does not capture system design, code review, documentation, or architectural decisions; relies on a test suite for verification, which may not recognize all valid solutions; human augmentation may make problems too prescriptive by providing excessive detail, reducing real-world ambiguity",
+    "rai:dataSocialImpact": "SWE-BENCH PRO is intended to advance the development of truly autonomous software engineering agents at a professional level; provides a contamination-resistant testbed that more faithfully captures the complexity and diversity of real-world software development; findings highlight a critical gap between current agent capabilities and the demands of real-world development",
+    "rai:personalSensitiveInformation": "Commercial set codebases are kept private for legal reasons as they are sourced from startups via formal partnership agreements; underlying codebases of the commercial and held-out sets are not publicly released to preserve privacy",
+    "rai:dataUseCases": "Evaluating the capability of LLM-based software engineering agents on realistic, complex, enterprise-level issue resolution tasks; providing a contamination-resistant benchmark for measuring progress beyond the saturation of SWE-Bench Verified; serving as a testbed for researchers and practitioners developing next-generation coding agents; monitoring potential overfitting via the held-out set",
+    "rai:dataReleaseMaintenancePlan": "Public set of 731 instances released openly on HuggingFace; held-out set of 858 problems kept private to test for overfitting in the future; commercial set results reported publicly on a leaderboard while underlying codebases remain private; all environments released as pre-built Docker images to ensure reproducibility",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Problems requiring only trivial edits (1–10 lines of code) were excluded, retaining only those with substantial multi-file modifications. Tests were run multiple times (3 runs) and any test that did not pass consistently was filtered out. Tests deemed irrelevant to the task description or too broad were dropped via a human verification pipeline. Problems where all tests were too broad or not relevant were dropped entirely. Commit pairs that did not satisfy the fail2pass transition criterion were excluded."
+  },
+  "usage": {
+    "input_tokens": 141783,
+    "output_tokens": 1786
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 31321,
+        "output_tokens": 478
+      },
+      "collection": {
+        "input_tokens": 31211,
+        "output_tokens": 288
+      },
+      "annotation": {
+        "input_tokens": 31249,
+        "output_tokens": 323
+      },
+      "impact": {
+        "input_tokens": 17154,
+        "output_tokens": 507
+      },
+      "processing": {
+        "input_tokens": 30848,
+        "output_tokens": 190
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 56161,
+      "output_tokens": 147
+    },
+    "timestamp": "2026-05-02T18:10:31.485233+00:00",
+    "elapsed_seconds": 54.4
+  }
+}

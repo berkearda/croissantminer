@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_openbookqa",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "OpenBookQA",
+    "description": "OpenBookQA is a question answering dataset modeled after open book exams for assessing human understanding of a subject. It consists of 5957 multiple-choice questions and a set of 1326 diverse facts about elementary level science.",
+    "url": "http://data.allenai.org/OpenBookQA",
+    "license": null,
+    "creator": "Todor Mihaylov (Research Training Group AIPHES & Heidelberg University); Peter Clark (Allen Institute for Artificial Intelligence); Tushar Khot (Allen Institute for Artificial Intelligence); Ashish Sabharwal (Allen Institute for Artificial Intelligence)",
+    "publisher": null,
+    "datePublished": "2018-09-08",
+    "inLanguage": null,
+    "citeAs": "Todor Mihaylov, Peter Clark, Tushar Khot, Ashish Sabharwal. Can a Suit of Armor Conduct Electricity? A New Dataset for Open Book Question Answering. 2018.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Data was collected through a multi-stage crowdsourcing process on Amazon Mechanical Turk where workers generated multiple-choice questions based on provided science facts. The collected questions were then filtered automatically for hardness against baseline solvers, by other crowd-workers for answerability, and by experts for quality in the Dev and Test sets.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "The crowdsourced second facts were often incomplete, over-complete, or only distantly related to the question. Additionally, 2,183 out of 8,140 collected questions were discarded during the crowd filtering step because they were deemed unanswerable.",
+    "rai:dataCollectionRawData": "A subset of 1,326 elementary level science facts from the WorldTree corpus, specifically taken from facts marked as 'central' by the original authors.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowd-workers were shown a science fact, asked to think of a second common fact, and convert it into a 4-way multiple choice question. The question was verified for hardness using automated solvers, then shown to 5 new crowd-workers to answer for quality control. Dev and Test splits were further filtered by an in-house expert.",
+    "rai:dataAnnotationPlatform": "Amazon Mechnical Turk",
+    "rai:dataAnnotationAnalysis": "Questions were deemed answerable and kept if at least 4 out of 5 workers answered them correctly; otherwise they were discarded. Dev and Test splits were further filtered by an in-house expert.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": "North America; masters level qualification",
+    "rai:machineAnnotationTools": "information retrieval solver; word association based solver",
+    "rai:dataBiases": "Human bias in crowdsourced questions where incorrect answers tend to be homogeneous or share common properties uncharacteristic of the correct answer.",
+    "rai:dataLimitations": "The set of additional facts (K) authored by crowd-workers tends to be noisy, incomplete, over-complete, or only distantly related to the questions, and should not be viewed as gold additional facts or a substitute for broad common knowledge.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Assessing understanding of a subject via open book question answering; evaluating multi-hop reasoning and knowledge retrieval in NLP systems.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The answer choices of qmc are randomly shuffled to avoid unintended bias.",
+    "rai:dataPreprocessingProtocol": "The system verifies qmc passes basic checks such as uniformity of answer choices. If at least 4 out of 5 workers answer qmc correctly, it is deemed answerable and the process continues. If not, qmc is discarded. The Dev and Test splits were further filtered by an in-house expert to ensure higher quality."
+  },
+  "usage": {
+    "input_tokens": 159846,
+    "output_tokens": 17030
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 32209,
+        "output_tokens": 3596
+      },
+      "collection": {
+        "input_tokens": 32049,
+        "output_tokens": 2354
+      },
+      "annotation": {
+        "input_tokens": 31988,
+        "output_tokens": 4572
+      },
+      "impact": {
+        "input_tokens": 31969,
+        "output_tokens": 2415
+      },
+      "processing": {
+        "input_tokens": 31631,
+        "output_tokens": 4093
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 75913,
+      "output_tokens": 5363
+    },
+    "timestamp": "2026-05-28T08:12:01.356526+00:00",
+    "elapsed_seconds": 191.8
+  }
+}

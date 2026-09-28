@@ -1,0 +1,280 @@
+{
+  "dataset_id": "deepmind_code_contests",
+  "model": "gemini-3.1-pro-preview",
+  "extraction": {
+    "name": "CodeContests",
+    "description": "A competitive programming dataset that combines data from various sources, splits it temporally so training data predates evaluation problems, and includes additional generated tests to ensure correctness.",
+    "url": "https://github.com/deepmind/code_contests",
+    "license": "CC-BY-4.0",
+    "creator": "Yujia Li, David Choi, Junyoung Chung, Nate Kushman, Julian Schrittwieser, Rémi Leblond, Tom Eccles, James Keeling, Felix Gimeno, Agustin Dal Lago, Thomas Hubert, Peter Choy, Cyprien de Masson d’Autume, Igor Babuschkin, Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey Cherepanov, James Molloy, Daniel J. Mankowitz, Esme Sutherland Robson, Pushmeet Kohli, Nando de Freitas, Koray Kavukcuoglu and Oriol Vinyals",
+    "publisher": "DeepMind",
+    "datePublished": null,
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The data collection involved taking a snapshot of public GitHub repositories for pre-training, filtering out large files and duplicates. For fine-tuning, a new dataset called CodeContests was curated by scraping problems, solutions, and test cases from Codeforces, and combining them with existing datasets (Description2Code and CodeNet).",
+    "rai:dataCollectionType": "Web Scraping, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "The raw data consists of open-source code files from GitHub in various popular programming languages, as well as competitive programming problems, metadata (difficulty ratings, tags), correct and incorrect human submissions in C++, Python, and Java, and test cases from Codeforces and other public datasets.",
+    "rai:dataCollectionTimeframe": "GitHub snapshot taken on 2021/07/14. CodeContests training data was released on or before 2021/07/14, validation problems between 2021/07/15 and 2021/09/20, and test problems after 2021/09/21.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The evaluation is susceptible to accepting correct but slow solutions due to a lack of long test cases, and the test input generation model can generate invalid test inputs.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training, fine-tuning, validation, and testing of code generation models.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The data was manipulated by uniformly sampling pivot locations to split files into encoder and decoder inputs. Additionally, the dataset was augmented using a mutation-based test generation process.",
+    "rai:dataPreprocessingProtocol": "The pre-training dataset was filtered to remove files larger than 1MB or with lines longer than 1000 characters, and duplicates were removed while ignoring whitespace. The fine-tuning dataset was also cleaned to improve quality and avoid duplication."
+  },
+  "usage": {
+    "input_tokens": 58770,
+    "output_tokens": 1967
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gemini-3.1-pro-preview",
+    "provider": "google",
+    "temperature": 0.0,
+    "timestamp": "2026-04-25T17:34:38.751095Z",
+    "git_commit": "ede26c8",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we release a new training and evaluation competitive programming dataset, CodeContests1(Section 3)."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset combines data from various sources, splits temporally so all training data predates all evaluation problems, adds additional generated tests to ensure correctness, and evaluates submissions in a setting that mirrors that of competitive programming."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset is located at https://github.com/deepmind/code_contests ."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yujia Li*, David Choi*, Junyoung Chung*, Nate Kushman*, Julian Schrittwieser*, Rémi Leblond*, Tom\nEccles*, James Keeling*, Felix Gimeno*, Agustin Dal Lago*, Thomas Hubert*, Peter Choy*, Cyprien de\nMasson d’Autume*, Igor Babuschkin, Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey\nCherepanov, James Molloy, Daniel J. Mankowitz, Esme Sutherland Robson, Pushmeet Kohli, Nando de\nFreitas, Koray Kavukcuogluand Oriol Vinyals"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "©2022 DeepMind. All rights reserved"
+      },
+      "datePublished": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "You are given two strings 𝑠and𝑡, both consisting of lowercase English letters."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our pre-training dataset is based on a snapshot of selected public GitHub repositories taken on 2021/07/14. [...] The dataset includes problems, solutions and test cases we scraped from the Codeforces platform, along with existing public competitive programming datasets mixed into our training set."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset includes problems, solutions and test cases we scraped from the Codeforces platform, along with existing public competitive programming datasets mixed into our training set."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We included all code files from several popular languages: C++, C#, Go, Java, JavaScript, Lua, PHP, Python, Ruby, Rust, Scala, and TypeScript. [...] Our scraped data from Codeforces includes full problem descriptions like that shown in Figure 2, along with metadata for each problem. [...] Our dataset also contains both correct and incorrect human submissions written in the most popular submission languages: C++, Python, and Java. Each problem includes all the test cases"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our pre-training dataset is based on a snapshot of selected public GitHub repositories taken on 2021/07/14. [...] all training data in CodeContests was publicly released on or before 2021/07/14. Validation problems appeared between 2021/07/15 and 2021/09/20, and the test set contains problems published after 2021/09/21."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Also note that due to the lack of long test cases, our evaluation is susceptible to accepting correct but slow solutions (see Section 3.2.1)."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "longest common substrings between correct validation problem solutions generated by the model and the entire training dataset (GitHub + CodeContests, ignoring whitespace)"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We split GitHub ﬁles by uniformly sampling pivot locations, using content before the pivot as input to the encoder, and content after for the decoder. [...] mutation-based test generation process used in Section 3.2.1 to augment our dataset."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we ﬁltered out all ﬁles larger than 1MB or with lines longer than 1000 characters, to exclude automatically generated code. We also removed duplicates of the same ﬁle, ignoring whitespace in comparisons. [...] To improve data quality and consistency, and to avoid duplication issues involved in merging datasets, we cleaned this data"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 15,
+      "fields_null": 15,
+      "fields_verified": 15,
+      "evidence_count": 14,
+      "evidence_coverage": 93.3,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.0931,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 47350,
+        "tokens_in": 13873,
+        "tokens_out": 656
+      },
+      "collection": {
+        "section_chars": 60000,
+        "tokens_in": 18487,
+        "tokens_out": 634
+      },
+      "annotation": {
+        "section_chars": 7724,
+        "tokens_in": 2618,
+        "tokens_out": 123
+      },
+      "impact": {
+        "section_chars": 60000,
+        "tokens_in": 17661,
+        "tokens_out": 267
+      },
+      "processing": {
+        "section_chars": 19297,
+        "tokens_in": 6131,
+        "tokens_out": 287
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 89.3
+  }
+}

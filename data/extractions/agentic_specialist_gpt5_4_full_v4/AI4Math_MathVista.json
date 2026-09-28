@@ -1,0 +1,80 @@
+{
+  "dataset_id": "AI4Math_MathVista",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "MathVista",
+    "description": "MathVista is a benchmark for evaluating mathematical reasoning in visual contexts. It consists of 6,141 examples derived from 28 existing multimodal datasets and 3 newly created datasets (IQTest, FunctionQA, and PaperQA), covering diverse mathematical and visual tasks.",
+    "url": "https://mathvista.github.io",
+    "license": null,
+    "creator": "Pan Lu; Hritik Bansal; Tony Xia; Jiacheng Liu; Chunyuan Li; Hannaneh Hajishirzi; Hao Cheng; Kai-Wei Chang; Michel Galley; Jianfeng Gao",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": null,
+    "citeAs": "Pan Lu, Hritik Bansal, Tony Xia, Jiacheng Liu, Chunyuan Li, Hannaneh Hajishirzi, Hao Cheng, Kai-Wei Chang, Michel Galley, and Jianfeng Gao. MathVista: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts. Published as a conference paper at ICLR 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "MATHVISTA was assembled by collecting nine existing multimodal MathQA datasets, reviewing more than 70 VQA datasets and selecting 19 publicly available math-related ones, and creating three new datasets (IQTest, FunctionQA, and PaperQA). For VQA sources, the authors first used heuristic rules to automatically select likely math-related examples, then had three expert annotators manually label them, and capped each source dataset at 400 examples for balance. The new datasets were sourced from online learning platforms, functional plots, and academic paper figures from online education resources.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Document analysis",
+    "rai:dataCollectionMissingData": "The source datasets collected left certain scenarios unaddressed: logical reasoning on puzzle test diagrams, statistical reasoning on functional plots, and scientific reasoning on academic figures.",
+    "rai:dataCollectionRawData": "The raw/source data consisted of 28 existing multimodal datasets (9 MathQA datasets and 19 VQA datasets) plus three newly created datasets: IQTest sourced from puzzle test figures on online learning platforms, FunctionQA built around functional plots, and PaperQA derived from academic illustrations including tables, figures, and charts from online education resources, with 107 examples sourced from papers released in August 2023 on Huggingface.",
+    "rai:dataCollectionTimeframe": "August 2023",
+    "rai:dataAnnotationProtocol": "For VQA datasets, heuristic rules were used to automatically select examples likely to involve mathematical reasoning, then three expert annotators manually labeled whether the examples involve mathematical reasoning, with majority voting used to finalize the collection; for the three new datasets, all questions were manually annotated by graduate students in STEM fields and then independently reviewed by three reviewers, with disagreements resolved through discussion among the entire review team; expert annotators also manually labeled mathematical reasoning categories for 1,000 examples using an annotation tool.",
+    "rai:dataAnnotationPlatform": "annotation tool; Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For VQA example labeling, majority voting was used to finalize the collection; for the three new datasets, three reviewers independently annotated each dataset, yielding a 99.2% inter-annotation consistency rate, and the 6 disagreements were resolved through discussion among the entire review team; for labeling whether problems involve mathematical reasoning, inter-annotator agreement was analyzed with Fleiss Kappa, yielding 0.775; for mathematical reasoning category verification, automatic and human annotations were compared, with 94.1% exact same set of reasoning types and 98.79% identical individual labels.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "graduate students in STEM fields; qualified human annotators with a high school diploma or higher; Amazon Mechanical Turk annotators with more than 5,000 HIT tasks completed and an acceptance score higher than 0.99",
+    "rai:machineAnnotationTools": "heuristic rules for automatic selection of math-related VQA examples; automatic annotation from source-dataset details for coarse mathematical reasoning labels",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "there may be gaps in the representation of certain types of mathematical problems and visuals; the scalability and generalizability of our benchmark to other domains remain a concern; only 85.6% of examples have annotations; annotations lack a unified format and structure; our study focused exclusively on the most recent and prominent models",
+    "rai:dataSocialImpact": "AI agents with strong mathematical reasoning capabilities in visual contexts have a wide range of real-world applications, such as solving complex problems in educational disciplines, helping analysts with logical queries about statistical data, and assisting in theorem proving and scientific discovery in advanced research fields",
+    "rai:personalSensitiveInformation": "MATHVISTA contains 6.57% non-English questions, including languages such as Chinese and Persian",
+    "rai:dataUseCases": "a benchmark for evaluating mathematical reasoning capabilities of foundation models in visual contexts; model development validation for the testmini subset; standard evaluation via the test subset",
+    "rai:dataReleaseMaintenancePlan": "the answer labels for test will not be publicly released to prevent data contamination, and we will maintain an online evaluation platform; we are committed to maintaining the datasets, such as refining the potential data noise, in response to the community feedback; we are committed to evolving the leaderboard in response to new models",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Each source dataset is limited to up to 400 examples to ensure a balanced representation of each source in our final compiled benchmark. Since these datasets are not originally math-targeted, we initially designed heuristic rules to automatically select examples likely to involve mathematical reasoning from a large pool of candidates. Examples with numeric answers or those containing quantity words in the questions were selected. Utilizing majority voting and limiting each source dataset to 400 examples, we finalized a collection of 2,739 examples. For testmini, we adopted this sampling strategy: (1) first, randomly sample questions with a threshold number of 4 for each source dataset; (2) then, randomly sample the remaining questions for each source dataset on its proportion in the entire set.",
+    "rai:dataPreprocessingProtocol": "This automatic filtration yielded 4,949 VQA-format examples, though some false positive examples remained. Therefore, we engaged three expert annotators to manually label these examples to determine if they involve mathematical reasoning. We also conducted several quality checks to address any unidentified errors."
+  },
+  "usage": {
+    "input_tokens": 389135,
+    "output_tokens": 1774
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 80983,
+        "output_tokens": 251
+      },
+      "collection": {
+        "input_tokens": 66311,
+        "output_tokens": 278
+      },
+      "annotation": {
+        "input_tokens": 80742,
+        "output_tokens": 345
+      },
+      "impact": {
+        "input_tokens": 80691,
+        "output_tokens": 466
+      },
+      "processing": {
+        "input_tokens": 80408,
+        "output_tokens": 434
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 57685,
+      "output_tokens": 471
+    },
+    "timestamp": "2026-05-22T09:56:27.335282+00:00",
+    "elapsed_seconds": 49.1
+  }
+}

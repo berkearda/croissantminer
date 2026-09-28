@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MINT-SJTU_RoboFAC-dataset",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "RoboFAC dataset",
+    "description": "A large-scale dataset of robotic failures comprising 9,440 erroneous manipulation trajectories and 78,623 QA pairs across 16 diverse tasks and 53 scenes in both simulation and real-world environments.",
+    "url": "https://github.com/MINT-SJTU/RoboFAC",
+    "license": null,
+    "creator": "Weifeng Lu; Minghao Ye; Zewei Ye; Ruihan Tao; Shuo Yang; Bo Zhao",
+    "publisher": null,
+    "datePublished": "2025-05-25",
+    "inLanguage": "en",
+    "citeAs": "Weifeng Lu, Minghao Ye, Zewei Ye, Ruihan Tao, Shuo Yang, Bo Zhao. RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction. 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Simulation data was collected in the ManiSkill environment by defining expert policies and replacing them with code snippets to generate erroneous trajectories. Real-world data was collected via teleoperation using the SO-100 robotic arm.",
+    "rai:dataCollectionType": "Software Collection; Physical data collection",
+    "rai:dataCollectionMissingData": "During data collection, motion planning for the robotic arm occasionally failed, resulting in trajectories that did not align with the corresponding textual descriptions. Approximately 25% of the collected data was discarded during manual data cleaning, retaining about 75% of the data.",
+    "rai:dataCollectionRawData": "Simulation data was sourced from the ManiSkill environment, augmented with objects from the YCB Object Dataset and scenes from ReplicaCAD and AI2-THOR. Real-world data consists of teleoperation videos using the SO-100 robotic arm.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Reference answers for five question types were directly extracted from textual descriptions, while the remaining three types utilized both the video and its corresponding textual description as inputs to GPT-4o to generate the reference answers. All outputs from GPT-4o were manually reviewed and corrected.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "All outputs from GPT-4o were manually reviewed and corrected.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4o",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Our current integration of the model into the VLA-controlled robotic system is not yet seamless; we apply our model exclusively to the VLA model in this work; the VLA model's limited ability to follow complex natural language instructions.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training multimodal large models for robotic task understanding, failure analysis, and failure correction; evaluating multimodal models' capabilities in robotic failure video understanding.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To generate failure data, we replace the original expert policy with a code snippet that generates an erroneous trajectory at the selected substage, causing the overall robotic task to fail.",
+    "rai:dataPreprocessingProtocol": "We manually performed thorough data cleaning and retained approximately 75% of the collected data."
+  },
+  "usage": {
+    "input_tokens": 168577,
+    "output_tokens": 1173
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 33947,
+        "output_tokens": 263
+      },
+      "collection": {
+        "input_tokens": 33796,
+        "output_tokens": 243
+      },
+      "annotation": {
+        "input_tokens": 33743,
+        "output_tokens": 184
+      },
+      "impact": {
+        "input_tokens": 33722,
+        "output_tokens": 258
+      },
+      "processing": {
+        "input_tokens": 33369,
+        "output_tokens": 225
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 69999,
+      "output_tokens": 459
+    },
+    "timestamp": "2026-05-27T18:36:27.965008+00:00",
+    "elapsed_seconds": 100.8
+  }
+}

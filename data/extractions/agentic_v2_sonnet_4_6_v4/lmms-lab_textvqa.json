@@ -1,0 +1,261 @@
+{
+  "dataset_id": "lmms-lab_textvqa",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "TextVQA",
+    "description": "TextVQA is a Visual Question Answering dataset containing 45,336 questions on 28,408 images that require reading and reasoning about text in images to answer. Images are sourced from Open Images v3 from categories that tend to contain text (e.g., billboard, traffic sign, whiteboard). Each question-image pair has 10 ground truth answers provided by humans.",
+    "url": "https://textvqa.org",
+    "license": null,
+    "creator": "Amanpreet Singh, Vivek Natarajan, Meet Shah, Yu Jiang, Xinlei Chen, Dhruv Batra, Devi Parikh, Marcus Rohrbach (Facebook AI Research, Georgia Institute of Technology)",
+    "publisher": "Facebook AI Research",
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "@Article{Zhang2025GatherAT,\n author = {Yan Zhang and Gangyan Zeng and Daiqing Wu and Huawen Shen and Binbin Li and Yu ZHOU and Can Ma and Xiaojun Bi},\n booktitle = {ACM Multimedia},\n journal = {Proceedings of the 33rd ACM International Conference on Multimedia},\n title = {Gather and Trace: Rethinking Video TextVQA from an Instance-oriented Perspective},\n year = {2025}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Images were sourced from Open Images v3 dataset, selecting categories that tend to contain text. A three-stage crowdsourcing pipeline was used: (1) annotators identified images without text; (2) annotators provided 1-2 questions per image requiring reading the text; (3) 10 answers were collected per question with quality filtering.",
+    "rai:dataCollectionType": "Manual Human Curator, Web Scraping, User-generated content data",
+    "rai:dataCollectionMissingData": "In some cases, when the system is unable to detect text we get 0 OCR tokens but those cases are restricted to 1.5k images and we manually verified that the images actually do contain text.",
+    "rai:dataCollectionRawData": "Images from Open Images v3 dataset, specifically from categories that tend to contain text (e.g., billboard, traffic sign, whiteboard). Training and validation sets were collected from Open Images' training set; test set from Open Images' test set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Images were filtered by running Rosetta OCR on 100 random images per category to compute average OCR boxes, used as per-category sampling weights. Annotators flagged images without text; filtering those and noisy annotator data resulted in 28,408 images. Questions were removed where a majority of workers marked them as: no text in image, not a question, not requiring text reading, or unanswerable. Hand-crafted questions were used to identify and filter out bad annotators.",
+    "rai:dataAnnotationProtocol": "Three-stage crowdsourcing pipeline: (1) annotators flagged images without text; (2) annotators provided 1-2 questions per image requiring reading text in the image, with instructions to ensure answering requires reading text; (3) 10 answers collected per question with quality flags (no text, not a question, doesn't require reading, unanswerable). Answer quality instructions similar to VQA and VizWiz datasets.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "All 10 annotators agree on the most common answer for 22.8% of questions, while 3 or more annotators agree on the most common answer for 97.9% of questions. Human accuracy is 85.01% on validation and 86.79% on test.",
+    "rai:annotationsPerItem": "10 answers per question",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Rosetta OCR system",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The dataset is motivated by the needs of visually impaired users, for whom up to 21% of questions to assistive devices involve reading and reasoning about text in images.",
+    "rai:dataBiases": "The dataset does not have significant biases with respect to images and questions, as shown by low accuracy of question-only (8.09%) and image-only (6.29%) baselines. The most common answer ('yes') is the majority answer for only 4.71% of the dataset.",
+    "rai:dataLimitations": "8.9% of TextVQA questions can only be answered by combining multiple OCR tokens, which is left as future work. The OCR model fails at detecting text that is rotated, unstructured (e.g., a scribble) or partially occluded.",
+    "rai:dataUseCases": "Training, validation, and testing of VQA models that can read and reason about text in images. The dataset is split into train (34,602), validation (5,000), and test (5,734) sets."
+  },
+  "usage": {
+    "input_tokens": 24541,
+    "output_tokens": 2377
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:57:33.116850Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce a new 'TextVQA' dataset to facilitate progress on this important problem."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TextVQA contains 45,336 questions on 28,408 images that require reasoning about text to answer... Each question-image pair has 10 ground truth answers provided by humans."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we collect a new dataset called TextVQA which is publicly available at https://textvqa.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Amanpreet Singh1, Vivek Natarajan, Meet Shah1, Yu Jiang1, Xinlei Chen1, Dhruv Batra1,2, Devi Parikh1,2, Marcus Rohrbach1 1Facebook AI Research,2Georgia Institute of Technology"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Facebook AI Research"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1904.08920v2 [cs.CL] 13 May 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "TextVQA contains 45,336 questions on 28,408 images that require reasoning about text to answer."
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We set up a three stage pipeline for crowd-sourcing our data. In the first stage, annotators were asked to identify images that did not contain text... In the second stage, we collect 1-2 questions for each image... Following VQA [3, 10] and VizWiz [13] datasets, we collect 10 answers for each question."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We set up a three stage pipeline for crowd-sourcing our data... We use Open Images v3 dataset [27] as the source of our images."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In some cases, when the system is unable to detect text we get 0 tokens but those cases are restricted to 1.5k images and we manually verified that the images actually do contain text."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use Open Images v3 dataset [27] as the source of our images... We collect TextVQA's training and validation set from Open Images' training set while test set is collected from Open Images' test set."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Filtering those (and noisy data from annotators) out resulted in 28,408 images... We remove the questions where a majority of workers marked any of these flags. Additionally, we use hand-crafted questions for which we know the correct answers to identify and filter out bad annotators."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the second stage, we collect 1-2 questions for each image. For the first question, we show annotators an image and ask them to provide a question which requires reading the text in the image to answer... Following VQA [3, 10] and VizWiz [13] datasets, we collect 10 answers for each question. To ensure answer quality, we gave annotators instructions similar to those used in [3, 13]"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All 10 annotators agree on the most common answer for 22.8% questions, while 3 or more annotators agree on most common answer for 97.9% questions... human accuracy is 85.01%, consistent with that on VQA 2.0 [10] and VizWiz [13]."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Following VQA [3, 10] and VizWiz [13] datasets, we collect 10 answers for each question."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For OCR, we run the Rosetta OCR system [6] to provide us word strings s1,...,sN."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the VizWiz study [5] found that up to 21% of these questions involve reading and reasoning about the text captured in the images of a user's surroundings – 'what temperature is my oven set to?', 'what denomination is this bill?'"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Question only (Q) and Image only (I) baseline get 8.09% and 6.29% validation accuracies, respectively, which shows that the dataset does not have significant biases w.r.t. images and questions."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "8.9% of the TextVQA questions can only be answered by combining multiple OCR tokens; we leave this as future work... Our OCR model, while mature, still fails at detecting text that is rotated, a bit unstructured (e.g., a scribble) or partially occluded."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We divide TextVQA into train, validation and test splits with size 34,602, 5,000, and 5,734, respectively."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.932
+    },
+    "cost_usd": 0.1093,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "citeAs"
+    ],
+    "elapsed_seconds": 40.7,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

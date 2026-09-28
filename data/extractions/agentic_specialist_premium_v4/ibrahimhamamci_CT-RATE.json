@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "CT-RATE is a public dataset comprising 25,692 non-contrast 3D chest CT scans (50,188 reconstructed volumes, over 14.3 million 2D slices) from 21,304 unique patients, each paired with a corresponding radiology report. Each volume is annotated with 18 abnormalities to support validation and fine-tuning of medical AI models.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": null,
+    "creator": "Ibrahim Ethem Hamamci; Sezgin Er; Chenyu Wang; Furkan Almas; Ayse Gulnihan Simsek; Sewal Nil Esirgun; Irem Dogan; Omer Faruk Durugol; Benjamin Hou; Suprosanna Shit; Weicheng Dai; Murong Xu; Hadrien Reynaud; Muhammed Furkan Dasdelen; Bastian Wittmann; Tamaz Amiranashvili; Enis Simsar; Mehmet Simsar; Emine Bensu Erdemir; Abdullah Alanbay; Anjany Sekuboyina; Berkan Lafci; Ahmet Kaplan; Zhiyong Lu; Malgorzata Polacin; Bernhard Kainz; Christian Bluethgen; Kayhan Batmanghelich; Mehmet Kemal Ozdemir; Bjoern Menze",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Ibrahim Ethem Hamamci. CT-RATE: Paired chest CT volumes and radiology reports. https://huggingface.co/datasets/ibrahimhamamci/CT-RATE. 2025.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "CT-RATE was curated from chest CT volumes and corresponding radiology text reports obtained from Istanbul Medipol University Mega Hospital. Non-contrast chest CT volumes were collected from the hospital database, including every reconstructed volume from various reconstruction techniques. Reports were originally in Turkish, anonymized by removing personal information, then translated to English using the Google Translate API and reviewed by bilingual medical students. For the CT-CHAT VQA dataset, 48,343 articles related to chest CT were retrieved from PubMed Central OA.",
+    "rai:dataCollectionType": "Secondary Data analysis; Document analysis; Web API",
+    "rai:dataCollectionMissingData": "Detailed metadata for the second external validation set (UPMC) is not publicly available, as it is a private dataset and cannot be shared.",
+    "rai:dataCollectionRawData": "Non-contrast 3D chest CT volumes and radiology text reports (in Turkish) from Istanbul Medipol University Mega Hospital; 48,343 chest CT-related articles from PubMed Central OA (www.ncbi.nlm.nih.gov/pmc/tools/openftlist); external validation sets from RAD-ChestCT (zenodo.org/records/6406114) and UPMC (from the MedSyn paper).",
+    "rai:dataCollectionTimeframe": "May 2015 to January 2023",
+    "rai:dataAnnotationProtocol": "1,000 radiology reports were manually annotated by team members for 18 distinct abnormalities (merging findings and impression sections) to create a multi-label dataset for finetuning an automated label extractor. Conditions not referenced in either section were considered absent. Similar conditions were grouped. Annotated reports were split 80/20 into training and validation sets. Additionally, anonymized reports translated from Turkish to English were reviewed and corrected by bilingual final-year medical students, who also checked for residual personal information. For CT-CHAT expert evaluation, three board-certified radiologists independently scored 150 reports per model on a 0–10 scale against predefined criteria covering finding description, localisation, terminology, and overall clinical adequacy.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "For the automated label extractor, precision, recall, and F1 scores were computed on the 200-report validation set to assess classification quality across 18 abnormalities. For the expert radiologist evaluation of CT-CHAT report generation, mean scores per radiologist were reported and violin plots were used to display score distributions.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Bilingual final-year medical students (for translation review); three board-certified radiologists (two thoracic radiologists from Zurich and one from Istanbul) for expert report evaluation.",
+    "rai:machineAnnotationTools": "RadBERT-RoBERTa-4m finetuned on 800 manually annotated reports (used to automatically classify 18 abnormalities in remaining 24,692 reports); Llama 3.1 8B (used to generate VQA question-answer pairs including conversation, description, free-response, and multiple-choice questions); TotalSegmentator (used to generate organ-level anatomical segmentation labels and extract nodule segmentation information); Google Translate API (used to translate radiology reports from Turkish to English)",
+    "rai:dataBiases": "Biases inherent to a single-institution dataset may influence self-supervised training; data originates from a single geographic and clinical setting (Istanbul Medipol University, Türkiye), which may limit generalizability to other populations; CT-CLIP depends on the specific terminology used in reports and the choice of prompts during zero-shot detection, and variability in how diseases are described across radiology reports can affect detection accuracy",
+    "rai:dataLimitations": "Single-center dataset from a single geographic and clinical setting, limiting generalizability to other populations; CT-CLIP depends on specific terminology in reports and prompt choice during zero-shot detection; lack of pretrained 3D medical multimodal AI assistants for benchmarking CT-CHAT; quality of generated reports remains insufficient for clinical use; current models are limited to chest CT volumes and do not cover other 3D imaging modalities (MRI, PET) or other anatomical regions; abnormality detection performance still falls short of clinical deployment thresholds; challenges such as robustness, interpretability, regulatory compliance, and prospective validation must be addressed before integration into routine radiology workflows",
+    "rai:dataSocialImpact": "The dataset and models are intended to address the urgent need for automation in radiology to reduce radiologist workload, potentially saving lives in situations where immediate radiological expertise is not available; open-source release aims to lay the groundwork for future innovations in medical AI and improved patient care; a user-friendly graphical interface is introduced to broaden accessibility for educational and clinical research settings",
+    "rai:personalSensitiveInformation": "All chest CT volumes, associated metadata, and radiology text reports were anonymized before computational analysis; reports were anonymized by removing all personal information pertaining to patients and medical professionals, including date-related information and patient-doctor identifiers; identifying information about patients and medical professionals was removed from CT volume metadata; only anonymized English-translated versions of reports are included in the dataset",
+    "rai:dataUseCases": "Training and evaluation of foundation models for 3D chest CT analysis; zero-shot multi-abnormality detection; CT volume retrieval (volume-to-volume and report-to-volume); radiology report generation; visual question answering for 3D chest CT; finetuning supervised classification models; educational and clinical research settings",
+    "rai:dataReleaseMaintenancePlan": "The authors state a plan to extend CT-RATE with multi-abnormality segmentation and localization labels for 3D chest CT volumes as future work; organ-level anatomical segmentation labels are already openly available through the CT-RATE repository on Hugging Face",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Over 2.7 million question-answer pairs were synthetically generated from the CT-RATE dataset using Llama 3.1 7B to create a visual question-answering (VQA) dataset for CT-CHAT fine-tuning. This dataset includes long-answer questions, short-answer questions, multiple-choice questions, and report generation tasks. Additionally, multi-abnormality labels were extracted from radiology reports using a fine-tuned text classifier (RadBERT), with 1,000 reports manually annotated for 18 distinct abnormalities to support the fine-tuning of the labeler. CT volumes were reconstructed using various methods to suit different window settings, resulting in 50,188 reconstructed 3D volumes from 25,692 scans. Digitally Reconstructed Radiographs (DRRs) were generated from 3D CT volumes for use as 2D representations when benchmarking against 2D vision-language models. Nodule segmentation information (lobar location, centroid, diameters, volumes) was extracted using a 3D nodule segmentation algorithm and integrated as structured input to enhance CT-CHAT report generation.",
+    "rai:dataPreprocessingProtocol": "CT volumes were preprocessed through several steps: (1) resizing to uniform spacing of 0.75 mm in x- and y-axes and 1.5 mm in z-axis; (2) center-cropping or padding to a consistent resolution of 480×480×240; (3) conversion to Hounsfield Unit (HU) values using intercept and slope values from metadata; (4) clipping HU values to the range of -1000 to 1000; (5) normalization to a range of -1 to 1 during training. Volumes involving contrast material or body parts other than the chest were excluded. Each volume's orientation was standardized by examining its metadata. All identifying information about patients and medical professionals was removed from metadata. Radiology reports were anonymized by removing personal information using regular expressions to identify and eliminate date-related information and patient-doctor identifiers, then translated from Turkish to English via the Google Translate API and reviewed by bilingual medical students. The same preprocessing pipeline was applied to external validation datasets. For the VQA dataset, only accurately generated and properly formatted data (parseable as JSON) was selected for training."
+  },
+  "usage": {
+    "input_tokens": 317472,
+    "output_tokens": 2605
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 68923,
+        "output_tokens": 526
+      },
+      "collection": {
+        "input_tokens": 55629,
+        "output_tokens": 348
+      },
+      "annotation": {
+        "input_tokens": 68835,
+        "output_tokens": 500
+      },
+      "impact": {
+        "input_tokens": 55639,
+        "output_tokens": 618
+      },
+      "processing": {
+        "input_tokens": 68446,
+        "output_tokens": 613
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 39425,
+      "output_tokens": 361
+    },
+    "timestamp": "2026-05-02T18:38:10.388101+00:00",
+    "elapsed_seconds": 166.1
+  }
+}

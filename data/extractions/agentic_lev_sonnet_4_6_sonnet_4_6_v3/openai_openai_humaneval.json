@@ -1,0 +1,290 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "A hand-written evaluation set of 164 original programming problems with unit tests, designed to measure functional correctness for synthesizing Python programs from docstrings. Each problem includes a function signature, docstring, body, and several unit tests, with an average of 7.7 tests per problem.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": "MIT",
+    "creator": "Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian, Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Bames, Ariel Herbert-Voss, William Hebgen Guss, Alex Nichol, Alex Paino, Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders, Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, Wojciech Zaremba",
+    "publisher": "OpenAI",
+    "datePublished": "2021-07-14",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Training dataset collected from public software repositories on GitHub, containing Python files under 1 MB. Files were filtered based on criteria such as likely auto-generated content, average line length, maximum line length, and percentage of alphanumeric characters.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "179 GB of unique Python files under 1 MB from 54 million public GitHub repositories, reduced to 159 GB after filtering.",
+    "rai:dataCollectionTimeframe": "May 2020",
+    "rai:dataAnnotationProtocol": "Human graders evaluated docstring samples by hand, considering a docstring correct if it uniquely and accurately specified the code body. Graders ignored incorrect unit tests generated alongside docstrings, and did not consider a docstring correct when the model simply copied the code body into the docstring.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": "10 samples graded per problem",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Codex-12B was used to generate 100 samples per curated problem to filter out ambiguous or too-difficult tasks; unit tests were used to automatically evaluate functional correctness of code samples",
+    "rai:dataBiases": "Codex can generate racist, denigratory, and otherwise harmful outputs as code comments. It can also generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics.",
+    "rai:dataLimitations": "Codex is not sample efficient to train, requires hundreds of millions of lines of code, can recommend syntactically incorrect or undefined code, struggles with long/high-level specifications, and performance degrades exponentially with increasing complexity. It also has misalignment issues where it may suggest code that appears correct but does not match user intent.",
+    "rai:dataSocialImpact": "Codex raises concerns around over-reliance (especially for novice programmers), misalignment, bias and representation, economic and labor market impacts (potentially reducing software production costs while affecting labor markets), security implications (potential misuse for cybercrime), environmental impacts (energy footprint), and legal implications (intellectual property).",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Codex can be used to help onboard users to new codebases, reduce context switching for experienced coders, enable non-programmers to write specifications and have Codex draft implementations, and aid in education and exploration. Qualified operators should review generations before executing or trusting them.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Problems were filtered using Codex-12B to generate 100 samples per curated problem; tasks where no samples passed unit tests were filtered out as ambiguous or too difficult, and stateful or non-deterministic problems were removed through repeated verification runs.",
+    "rai:dataPreprocessingProtocol": "Python files were filtered to remove likely auto-generated files, files with average line length greater than 100, files with maximum line length greater than 1000, and files containing a small percentage of alphanumeric characters, reducing the dataset from 179 GB to 159 GB."
+  },
+  "usage": {
+    "input_tokens": 78413,
+    "output_tokens": 2981
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:10:43.022633Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we create a dataset of 164 original programming problems with unit tests. These problems assess language comprehension, algorithms, and simple mathematics, with some comparable to simple software interview questions. We release this data along with an evaluation framework at https://www.github.com/openai/human-eval."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We evaluate functional correctness on a set of 164 hand-written programming problems, which we call the HumanEval dataset. Each problem includes a function signature, docstring, body, and several unit tests, with an average of 7.7 tests per problem."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release this data along with an evaluation framework at https://www.github.com/openai/human-eval."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mark Chen* 1Jerry Tworek* 1Heewoo Jun* 1Qiming Yuan* 1Henrique Ponde de Oliveira Pinto* 1 Jared Kaplan* 2Harri Edwards1Yuri Burda1..."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1OpenAI, San Francisco, Califomia, USA."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2107.03374v2 [cs.LG] 14 Jul 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we create a dataset of 164 original programming problems with unit tests"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub, containing 179 GB of unique Python files under 1 MB. We filtered out files which were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "containing 179 GB of unique Python files under 1 MB. We filtered out files which were likely auto-generated... After filtering, our final dataset totaled 159 GB."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we grade sample docstrings by hand, considering a docstring correct if it uniquely and accurately specifies the code body... we do not consider the docstring correct when the model simply copies the code body into the docstring."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we only grade 10 samples per problem, for a total of 1640 problems, from Codex-D-12B at temperature 0.8"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use Codex-12B to generate 100 samples per curated problem. If no samples pass the unit tests, we consider the task to be either ambiguous or too difficult, and filter it out."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we found that Codex can be prompted in ways that generate racist, denigratory, and otherwise harmful outputs as code comments... Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Codex is not sample efficient to train. Our training dataset comprises a significant fraction of publicly available Python code on GitHub, totaling hundreds of millions of lines of code... Codex can recommend syntactically incorrect or undefined code, and can invoke functions, variables, and attributes that are undefined or outside the scope of the codebase. Moreover, Codex struggles to parse through increasingly long and higher-level or system-level specifications."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "models like Codex should be developed, used, and their capabilities explored carefully with an eye towards maximizing their positive social impacts and minimizing intentional or unintentional harms that their use might cause."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "it could help onboard users to new codebases, reduce context switching for experienced coders, enable non-programmers to write specifications and have Codex draft implementations, and aid in education and exploration... qualified operators should review its generations before executing or trusting them, absent appropriate precautions."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use Codex-12B to generate 100 samples per curated problem. If no samples pass the unit tests, we consider the task to be either ambiguous or too difficult, and filter it out. We reran this verification several times to remove stateful or non-deterministic problems."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We filtered out files which were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters. After filtering, our final dataset totaled 159 GB."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.927
+    },
+    "cost_usd": 0.28,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 40843,
+        "tokens_in": 11585,
+        "tokens_out": 886
+      },
+      "collection": {
+        "section_chars": 3236,
+        "tokens_in": 1245,
+        "tokens_out": 406
+      },
+      "annotation": {
+        "section_chars": 60000,
+        "tokens_in": 15583,
+        "tokens_out": 423
+      },
+      "impact": {
+        "section_chars": 15074,
+        "tokens_in": 4255,
+        "tokens_out": 688
+      },
+      "processing": {
+        "section_chars": 2449,
+        "tokens_in": 920,
+        "tokens_out": 314
+      }
+    },
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ],
+    "elapsed_seconds": 55.4,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 44825,
+      "output_tokens": 264
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

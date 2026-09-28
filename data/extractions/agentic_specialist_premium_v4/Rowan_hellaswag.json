@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Rowan_hellaswag",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "HellaSwag",
+    "description": "HellaSwag is a challenge dataset of 70k commonsense natural language inference problems constructed via Adversarial Filtering (AF). Each problem presents an event description and four possible continuations, where machines must select the most plausible followup. The dataset draws from ActivityNet Captions and WikiHow articles, and is easy for humans (95.6% accuracy) yet challenging for state-of-the-art models (~50%).",
+    "url": "https://rowanzellers.com/hellaswag",
+    "license": null,
+    "creator": "Rowan Zellers; Ari Holtzman; Yonatan Bisk; Ali Farhadi; Yejin Choi",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin Choi. 2019. HellaSwag: Can a Machine Really Finish Your Sentence? arXiv:1905.07830.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was assembled using Adversarial Filtering (AF), combining two source domains: (1) video captions from the ActivityNet Captions dataset, and (2) context and follow-up paragraphs scraped from WikiHow. A language model (OpenAI GPT) was fine-tuned on in-domain data to generate candidate wrong endings, which were then iteratively filtered using BERT-Large as a discriminator. Human validation via Amazon Mechanical Turk was used to remove machine-generated endings that appeared realistic, with multiple rounds of filtering to ensure high human agreement.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "ActivityNet Captions dataset (Krishna et al., 2017) providing video captions with activity labels; 80k context and follow-up paragraphs scraped from WikiHow (an online how-to manual); machine-generated endings produced by a fine-tuned OpenAI GPT language model.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowd workers (Mechanical Turk) performed human validation of machine-generated endings. Workers were given a context and six ending choices (one true ending, five from Adversarial Filtering) and asked to select the most plausible ending. Multiple rounds of validation were conducted, especially for ActivityNet. Workers who tended to prefer generated endings over real ones were disqualified. A qualification HIT was used to filter for workers good at the task. Endings rated as realistic by workers were replaced with new samples in subsequent rounds.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Worker performance was tracked per worker to estimate the probability that a given answer is correct given a worker's rating. Probabilities were aggregated across crowd workers by multiplying probabilities for each answer choice. The best 25k ActivityNet and 45k WikiHow examples were kept based on highest probability that workers predict the true answer versus the three easiest-to-guess negatives, as judged by a Naive Bayes model. For human evaluation, five workers' predictions were combined via majority vote.",
+    "rai:annotationsPerItem": "5",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OpenAI GPT (finetuned language model used to generate candidate wrong endings); BERT-Large (used as adversarial discriminator in Adversarial Filtering)",
+    "rai:dataBiases": "Models trained on SWAG learn dataset-specific distributional biases rather than robust commonsense reasoning; SWAG's shallow language model generator produced distributional artifacts that BERT picks up on; annotation artifacts exist when humans write endings, including unwanted social biases in terms of gender and race",
+    "rai:dataLimitations": "Machine performance drops roughly 5% on zero-shot categories, suggesting finetuning is insufficient for models to generalize to novel activities or how-to categories; the dataset is adversarial to current models but may be solved by future more powerful models; the Goldilocks zone of text complexity is tied to the current state of language generation, meaning the benchmark's difficulty is contingent on generation quality",
+    "rai:dataSocialImpact": "The paper suggests a path forward for NLP research in which benchmarks co-evolve with the evolving state-of-the-art in an adversarial way, so as to present ever-harder challenges and provide reliable benchmarks for challenging tasks such as commonsense NLI; the paper argues that strong benchmark performance does not imply genuine commonsense reasoning ability, cautioning against overclaiming machine capabilities",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmark for commonsense natural language inference; evaluating deep pretrained models on grounded commonsense reasoning; studying generalization to zero-shot categories; investigating the inner workings of deep pretrained models",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Adversarial Filtering (AF) was used to iteratively replace easily-classified machine-generated wrong answers with adversarial ones. On each iteration, the dataset is randomly partitioned into a dummy training set and test set; a discriminator (BERT-Large) is trained to classify endings as real or generated on the training partition, then easily-classified generated endings in the test partition are replaced with new adversarial generations from OpenAI GPT. This process repeats until discriminator accuracy converges. For ActivityNet, k=9 assigned indices per example were used; for WikiHow, k=5. Additionally, human validation rounds were performed in which crowd workers rated endings, and machine-written endings rated as realistic were replaced with new samples; the best 25k ActivityNet contexts and 45k WikiHow contexts were retained based on worker agreement scores.",
+    "rai:dataPreprocessingProtocol": "WikiHow articles were scraped to obtain 80k context and follow-up paragraph pairs, with each context and follow-up limited to at most three sentences. Two-sentence generations were selected for WikiHow endings based on AF convergence analysis. For ActivityNet, activity labels were used as additional structure. Human validation was used to filter out adversarial endings that seemed realistic to crowd workers, with workers who tended to prefer generated endings over real ones being disqualified. The final dataset retains the best examples as judged by the probability that workers predict the true answer versus the three easiest-to-guess negatives."
+  },
+  "usage": {
+    "input_tokens": 155179,
+    "output_tokens": 1784
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 31188,
+        "output_tokens": 323
+      },
+      "collection": {
+        "input_tokens": 31082,
+        "output_tokens": 311
+      },
+      "annotation": {
+        "input_tokens": 31098,
+        "output_tokens": 373
+      },
+      "impact": {
+        "input_tokens": 31106,
+        "output_tokens": 405
+      },
+      "processing": {
+        "input_tokens": 30705,
+        "output_tokens": 372
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 74662,
+      "output_tokens": 108
+    },
+    "timestamp": "2026-05-02T18:07:28.627267+00:00",
+    "elapsed_seconds": 57.5
+  }
+}

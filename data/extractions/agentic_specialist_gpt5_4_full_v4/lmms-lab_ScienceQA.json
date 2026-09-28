@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_ScienceQA",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SCIENCE QA",
+    "description": "SCIENCE QA is a science question answering benchmark consisting of 21,208 multimodal multiple-choice questions collected from elementary and high school science curricula. It includes diverse topics across natural science, social science, and language science, and most questions are annotated with lectures and explanations for the answers.",
+    "url": "https://scienceqa.github.io",
+    "license": "CC BY-NC-SA 4.0",
+    "creator": "Pan Lu (University of California, Los Angeles); Swaroop Mishra (Arizona State University); Tony Xia (University of California, Los Angeles); Liang Qiu (University of California, Los Angeles); Kai-Wei Chang (University of California, Los Angeles); Song-Chun Zhu (University of California, Los Angeles); Oyvind Tafjord (Allen Institute for AI); Peter Clark (Allen Institute for AI); Ashwin Kalyan (Allen Institute for AI)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Pan Lu, Swaroop Mishra, Tony Xia, Liang Qiu, Kai-Wei Chang, Song-Chun Zhu, Oyvind Tafjord, Peter Clark, and Ashwin Kalyan. Learn to Explain: Multimodal Reasoning via Thought Chains for Science Question Answering. NeurIPS 2022.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was constructed by downloading original science problems from open resources managed by IXL Learning and extracting individual components such as questions, hints, images, options, answers, lectures, and solutions based on heuristic rules, followed by manual review and revision of incorrect annotations.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Not all questions include all fields: 7,188 questions (33.9%) have no context, 17,798 (83.9%) have a lecture, and 19,202 (90.5%) have an explanation.",
+    "rai:dataCollectionRawData": "Original science problems sourced from open resources managed by IXL Learning, an online learning platform curated by experts in K-12 education, including components such as questions, hints, images, options, answers, lectures, and solutions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "We post the task to Amazon Mechanical Turk and ask workers to answer SCIENCE QA questions. Only workers who obtain a high school or higher degree and pass the qualification examples are qualified for the study. Each worker needs to answer a set of 10 test questions, and each question is answered by three different workers. For human evaluation of generated explanations, workers were asked to decide whether the proposed explanation is relevant, correct, and complete.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For the human evaluation of generated explanations, the human scores for each explanation were determined by taking a majority vote.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "workers who obtain a high school or higher degree",
+    "rai:machineAnnotationTools": "captioning model based on ViT and GPT-2",
+    "rai:dataBiases": "The work does not relate to Liang Qiu’s position at Amazon Alexa.; After careful examination of our dataset, to our best knowledge, we have not found any improper content, such as pomographic information, racial remarks, or harmful social bias.",
+    "rai:dataLimitations": "current multimodal methods fail to achieve satisfactory performance on SCIENCE QA and do not generate correct explanations; GPT-3 via chain-of-thought prompting still fails to answer a wide range of challenging questions in SCIENCE QA; the failure cases can be classified into two types: (a) the model fails to understand the multimodal inputs and lacks domain-specific knowledge to arrive at the correct answer; (b) the model generates the wrong chain of thought with irrelevant, incorrect, or incomplete information; the image captions fed to the large language model as visual content input lack fine-grained semantics and usually do not work well for diagrams",
+    "rai:dataSocialImpact": "SCIENCE QA provides a useful benchmark for multi-modal learning, multi-hop reasoning, and general artificial intelligence; SCIENCE QA will contribute to the development of K-12 education applications such as tutoring systems; the dataset does not contain any user usage data or personally sensitive information such as gender and race; to our best knowledge, we have not found any improper content, such as pornographic information, racial remarks, or harmful social bias; any anti-social data points will be removed from the dataset based on feedback",
+    "rai:personalSensitiveInformation": "The collected data does not contain personally identifiable information or offensive content.; SCIENCE QA does not contain any user usage data or personally sensitive information such as gender and race.",
+    "rai:dataUseCases": "to diagnose the multimodal understanding and multi-hop reasoning abilities of AI systems; a useful benchmark for multi-modal learning, multi-hop reasoning, and general artificial intelligence; development of K-12 education applications such as tutoring systems",
+    "rai:dataReleaseMaintenancePlan": "any anti-social data points will be removed from the dataset based on feedback",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We manually removed invalid questions, such as questions that have only one choice, questions that contain faulty data, and questions that are duplicated. If there were multiple correct answers that applied, we kept only one correct answer. Also, we shuffled the answer options of each question to ensure the choices do not follow any specific pattern.",
+    "rai:dataPreprocessingProtocol": "To construct SCIENCE QA, we downloaded the original science problems and then extracted individual components (e.g. questions, hints, images, options, answers, lectures, and solutions) from them based on heuristic rules. We then used semi-automated scripts to reformat the lectures and solutions. Therefore, special structures in the texts, such as tables and lists, are easily distinguishable from simple text passages. For language models, the newline separators (\\n) in the text are replaced with \\\\n when encoding the inputs because \\n is normally used as a stop symbol. For questions without any context, the context text is replaced with an empty string."
+  },
+  "usage": {
+    "input_tokens": 191660,
+    "output_tokens": 1415
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 41590,
+        "output_tokens": 291
+      },
+      "collection": {
+        "input_tokens": 41380,
+        "output_tokens": 210
+      },
+      "annotation": {
+        "input_tokens": 41358,
+        "output_tokens": 186
+      },
+      "impact": {
+        "input_tokens": 26308,
+        "output_tokens": 403
+      },
+      "processing": {
+        "input_tokens": 41024,
+        "output_tokens": 325
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 60065,
+      "output_tokens": 200
+    },
+    "timestamp": "2026-05-22T11:31:53.229110+00:00",
+    "elapsed_seconds": 31.8
+  }
+}

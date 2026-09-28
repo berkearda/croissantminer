@@ -1,0 +1,80 @@
+{
+  "dataset_id": "OpenGVLab_VideoChat-Flash-Training-Data",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "LongVid",
+    "description": "LongVid is a large-scale long video instruction-tuning dataset comprising 114,228 long videos and 3,444,849 question-answering pairs across five task types: video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting. It is curated from existing datasets including Ego4D, HowTo100M, HD-VILA, and MiraData, covering movies, egocentric videos, news, interviews, how-to videos, and other long-duration in-the-wild videos.",
+    "url": "https://github.com/OpenGVLab/VideoChat-Flash",
+    "license": null,
+    "creator": "Xinhao Li; Yi Wang; Jiashuo Yu; Xiangyu Zeng; Yuhan Zhu; Haian Huang; Jianfei Gao; Kunchang Li; Yinan He; Chenting Wang; Yu Qiao; Yali Wang; Limin Wang",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Xinhao Li, Yi Wang, Jiashuo Yu, Xiangyu Zeng, Yuhan Zhu, Haian Huang, Jianfei Gao, Kunchang Li, Yinan He, Chenting Wang, Yu Qiao, Yali Wang, Limin Wang. VideoChat-Flash: Hierarchical Compression for Long-Context Video Modeling. arXiv:2501.00574, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The LongVid dataset was assembled by curating and filtering videos from four existing open-source video datasets (Ego4D, HowTo100M, HD-VILA, and MiraData), then generating QA pairs and event labels from existing captions and annotations associated with those datasets. The MH-NIAH-Video benchmark was constructed by inserting images sourced from MS-COCO into video sequences at random positions.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Ego4D (egocentric videos with Ego4DHCap captions), HowTo100M (how-to videos with HowToInterlink7M captions and HTStep annotations), HD-VILA (in-the-wild videos with Panda-70M captions), MiraData (movie segments with multi-level captions); MS-COCO images with human-annotated captions and QA pairs for the benchmark.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Qwen-72b (LLM used to extract event and background labels from captions); VideoChat2 (used to recaption video description data); Gemini (used to recaption detailed video description data); LLava-NeXT-34B (used to recaption detailed image description data)",
+    "rai:dataBiases": "LongVid dataset is built from existing datasets (Ego4D, HowTo100M, HD-Vila, MiraData) encompassing movies, egocentric videos, news, interviews, and how-to videos; the diversity is limited to these source domains and video types",
+    "rai:dataLimitations": "High compression ratio (approximately 1/50) inevitably leads to some loss of detailed information; some long video understanding benchmarks show current long video models performing worse than image-based MLLMs due to compression; video-level compression presents compatibility challenges with training acceleration strategies such as sequence parallelism and is only employed during inference; the Multi-Hop NIAH benchmark uses MS-COCO images as needles, which may still be subject to model memorization despite design efforts to reduce cheating",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and evaluation of multimodal large language models for long-context video understanding, including video question answering, temporal grounding, video captioning, event relation recognition, scene relation recognition, and video event counting; benchmarking long video context understanding via Multi-Hop Needle-In-A-Video-Haystack evaluation",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The LongVid dataset construction involves several manipulation steps: (1) filtering consecutive short video segments that can be regrouped into long video sequences; (2) constructing event label sequences with timestamps from existing captions using an LLM to extract major events; (3) generating five types of QA pairs (video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting) from video captions, event labels, and timestamps. The multi-stage short-to-long training scheme mixes image, short video, and long video data at different stages, with Stage 2 captions refined using AI models for richer descriptions, and Stage 3 mixing 1.1M images, 1.7M short videos, and 0.7M long videos with duration-based sampling ranging from 64 to 512 frames.",
+    "rai:dataPreprocessingProtocol": "For LongVid dataset construction, consecutive video segments were filtered to regroup into long video sequences (over 60 seconds). Event labels were extracted from captions using an LLM for datasets without high-quality event-level annotations. For HD-VILA, consecutive video segments that could be reconstructed into more than 60-second long videos were filtered from the 10M training subset. For Stage 2 short video pre-training, most captions were refined using AI models to ensure richer and more detailed descriptions."
+  },
+  "usage": {
+    "input_tokens": 233073,
+    "output_tokens": 1807
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 46755,
+        "output_tokens": 439
+      },
+      "collection": {
+        "input_tokens": 46641,
+        "output_tokens": 290
+      },
+      "annotation": {
+        "input_tokens": 46702,
+        "output_tokens": 212
+      },
+      "impact": {
+        "input_tokens": 46697,
+        "output_tokens": 492
+      },
+      "processing": {
+        "input_tokens": 46278,
+        "output_tokens": 374
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 91031,
+      "output_tokens": 672
+    },
+    "timestamp": "2026-05-02T18:05:19.256678+00:00",
+    "elapsed_seconds": 66.4
+  }
+}

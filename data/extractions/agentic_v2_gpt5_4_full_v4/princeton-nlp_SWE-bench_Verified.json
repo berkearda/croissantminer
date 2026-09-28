@@ -1,0 +1,259 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "SWE-Bench+",
+    "description": "An enhanced coding benchmark for LLMs built from GitHub issues created after LLM training cutoff dates and filtered to remove issues with solution leakage.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, Song Wang",
+    "publisher": "Zenodo",
+    "datePublished": "2024-10-10",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was built by following the SWE-Bench data collection methodology, selecting issues from the same 12 projects except Django, collecting issues after October 2023, applying attribute and execution filters, and manually removing instances with clear solution details in issue reports.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection, Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world GitHub issues and corresponding pull requests from selected projects.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Applied the same SWE-Bench filtering process: attribute filtering to retain issues that resolve a problem and contribute tests, execution filtering to keep only issues that install successfully and whose PRs pass all tests, then manual removal of instances with clear solution details in the issue report.",
+    "rai:dataAnnotationProtocol": "Three authors independently performed manual patch validation by examining changed files and lines, reviewing issue descriptions, and evaluating implementation styles and intentions; disagreements were resolved through broader discussion among all authors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Disagreements among annotators were resolved through discussion involving all authors.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The paper recommends considering financial cost and practicality for large-scale and long-term use when evaluating models.",
+    "rai:dataBiases": "The original SWE-Bench datasets suffer from solution leakage and potential data leakage because many issues were created before LLM knowledge cutoff dates; SWE-Bench+ was designed to remove these biases.",
+    "rai:dataLimitations": "Although SWE-Bench+ removes solution leakage, weak test cases still persist and can allow incorrect, incomplete, or mislocalized fixes to pass tests.",
+    "rai:dataUseCases": "Evaluation benchmark for assessing LLMs' ability to generate accurate patches for real-world GitHub issues and comparing model resolution rates."
+  },
+  "usage": {
+    "input_tokens": 20444,
+    "output_tokens": 2202
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-21T12:09:50.994037Z",
+    "git_commit": "328ec12",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address the problems in SWE-bnech datasets, we created SWE-bench+ dataset"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To address these challenges, we introduced SWE-Bench+, a dataset free from solution leakage and built with issues created after LLM training cut-off dates to ensure more rigorous and accurate evaluations."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Artifacts. While working on merging our SWE-bench+ to SWE-bench project repository, we release the dataset of SWE-bench+ to help other researchers replicate and extend our study3. 3https://zenodo.org/records/13879453"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, Song Wang"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "3https://zenodo.org/records/13879453"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2410.06992v2 [cs.SE] 10 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "SWE-Bench+: Enhanced Coding Benchmark for LLMs"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we release the dataset of SWE-bench+ to help other researchers replicate and extend our study"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To maintain consistency and faimess when comparing the resolution rates of the models on SWE-Bench and SWE-Bench+, we followed the same data collection methodology outlined in the SWE-Bench study, using their open-source scripts. First, we selected the same 12 projects from SWE-Bench, except Django, which was excluded as its issues are now tracked outside of GitHub. Given that the LLMs we used in the models (GPT-4, GPT-3.5, and GPT-4o) were all trained on data up to October 2023, we collected issues that appeared after October 2023. Once the issues were collected, we applied the same filtering process described in the SWE-Bench study. This included using attribute filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and their PRs pass all tests. We then manually check all the instances to eliminate all the instances with a clear solution details in the issue report."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we followed the same data collection methodology outlined in the SWE-Bench study, using their open-source scripts... we collected issues that appeared after October 2023... We then manually check all the instances to eliminate all the instances with a clear solution details in the issue report."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary objective of SWE-Bench+ is to assess the models’ ability to generate accurate patches for real-world GitHub issues without the risk of bias or prior exposure to the solution."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To the end, we gathered issues from the period of 2023-11-01 to 2024-08-22."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Once the issues were collected, we applied the same filtering process described in the SWE-Bench study. This included using attribute filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and their PRs pass all tests. We then manually check all the instances to eliminate all the instances with a clear solution details in the issue report."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To reduce potential biases during the comparison between gold and generated patches, three authors independently performed the patch validation study. Each author carefully examined the files and lines changed, reviewed the issue descriptions, and evaluated the implementation styles and intentions behind both the model-generated and developer-generated patches. The disagreements were resolved through a broader discussion involving all the authors."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The disagreements were resolved through a broader discussion involving all the authors."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We recommend that future research not only assess the accuracy of the proposed models but also take into account the financial cost associated with their implementation and operation, ensuring they are not only performant but also practical for large-scale and long-term use."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In addition, over 94% of the issues were created before LLM’s knowledge cutoff dates, posing potential data leakage issues. To address these challenges, we introduced SWE-Bench+, a dataset free from solution leakage and built with issues created after LLM training cut-off dates"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We found that solution-leak related issues are now resolved. However, a prominent issue with weak test cases persists. As shown in Table 3, on average, around 67.72% of the resolved instances did not truly resolve the issue, despite passing all the tests."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The primary objective of SWE-Bench+ is to assess the models’ ability to generate accurate patches for real-world GitHub issues without the risk of bias or prior exposure to the solution."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0476,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 29.5,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

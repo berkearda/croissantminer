@@ -1,0 +1,80 @@
+{
+  "dataset_id": "SWE-Gym_SWE-Gym",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-Gym",
+    "description": "SWE-Gym is a training environment for software engineering agents. It contains 2,438 real-world Python task instances sourced from GitHub issues and pull requests, each with a codebase, pre-configured executable environment, unit tests, and a natural-language task, and is designed to support training agents and verifiers for software engineering tasks.",
+    "url": null,
+    "license": null,
+    "creator": "Jiayi Pan (UC Berkeley); Xingyao Wang (UIUC); Graham Neubig (CMU); Navdeep Jaitly (Apple); Heng Ji (UIUC); Alane Suhr (UC Berkeley); Yizhe Zhang (Apple)",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Jiayi Pan, Xingyao Wang, Graham Neubig, Navdeep Jaitly, Heng Ji, Alane Suhr, and Yizhe Zhang. 2025. Training Software Engineering Agents and Verifiers with SWE-Gym. Proceedings of the 42nd International Conference on Machine Learning. PMLR 267.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "SWE-Gym was constructed by first filtering repositories using SEART GitHub search, then using SWE-Bench’s instance extraction script to convert repositories into task instances corresponding to GitHub issues, and finally semi-manually creating executable environments and validating instances with SWE-Bench’s execution-based validation script. The tasks were sourced from pull requests and GitHub issues in popular Python repositories.",
+    "rai:dataCollectionType": "Web API; Software Collection; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "SWE-Gym Raw instances do not contain executable environments or a guarantee that its unit tests are effective in evaluating the correctness of a solution.",
+    "rai:dataCollectionRawData": "Real-world software engineering tasks from GitHub issues and pull requests in Python repositories, including the natural language issue description, a snapshot of the repository in which the issue was created, unit tests, and repository information such as pyproject.toml, git tags, requirements.txt, CI scripts, and documentation from the repository snapshot at the time of issue creation.",
+    "rai:dataCollectionTimeframe": "before 2022-07-01",
+    "rai:dataAnnotationProtocol": "Task instances were extracted from repositories using SWE-Bench’s instance extraction script, and the authors manually configured dependencies for each task instance using relevant configuration files, CI scripts, or documentation; they then used SWE-Bench’s execution-based validation script to ensure that the gold patch passes more unit tests than the original code. The paper states this process required approximately 200 human annotation hours and that annotations were done by a subset of the authors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "They used SWE-Bench’s execution-based validation script to validate instances by checking that the gold patch passed more unit tests than the original code, and filtered out failed instances.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "a subset of the authors",
+    "rai:machineAnnotationTools": "SWE-Bench’s instance extraction script; SWE-Bench’s execution-based validation script",
+    "rai:dataBiases": "tasks associated with pandas comprise nearly one-third of the total, whereas tasks related to bokeh represent a mere one percent; repeated sampling shows that task success probability follows a long-tail distribution, where broader task coverage benefits training, it introduces a bias toward easier tasks; ignoring these environments could introduce distribution bias",
+    "rai:dataLimitations": "SWE-Gym is limited by its environment diversity, including the number of repositories, types of tasks, and programming languages; self-improvement results are modest; current SWE settings focus solely on task completion, neglecting human-in-the-loop collaboration, which is essential for real-world software engineering; current models are primarily research artifacts and not yet production-ready",
+    "rai:dataSocialImpact": "improving automated software engineering capabilities could increase developer’s productivity and accessibility across industries; as these agents become more capable, they may impact software engineering jobs and require careful consideration around code ownership, licensing, and attribution; similar techniques could potentially be misused to automate the creation of malicious code; the authors encourage future work on responsible deployment including security, safety, and economic impacts",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "training software engineering agents; training verifier models; supporting future research in SWE agent development and automatic dataset synthesis; rapid prototyping via SWE-Gym Lite",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "After validation, they filtered the dataset by removing failed instances to obtain 2,438 unit-test-validated instances from 11 repositories. For SWE-Gym Lite, they further applied the SWE-Bench Lite filtering pipeline, excluding tasks that require editing more than one file, tasks with poorly described problem statements, those with excessively complex ground-truth code diffs, and tests focused on error message validation.",
+    "rai:dataPreprocessingProtocol": "They semi-automatically associated instances with version numbers based on repository information such as pyproject.toml and git tags, manually configured dependencies for each task instance using configuration files, CI scripts, or repository documentation, and used SWE-Bench's execution-based validation script to verify that the gold patch passes more unit tests than the original code."
+  },
+  "usage": {
+    "input_tokens": 117602,
+    "output_tokens": 1122
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 35063,
+        "output_tokens": 257
+      },
+      "collection": {
+        "input_tokens": 20688,
+        "output_tokens": 228
+      },
+      "annotation": {
+        "input_tokens": 20681,
+        "output_tokens": 186
+      },
+      "impact": {
+        "input_tokens": 20656,
+        "output_tokens": 275
+      },
+      "processing": {
+        "input_tokens": 20514,
+        "output_tokens": 176
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 14267,
+      "output_tokens": 22
+    },
+    "timestamp": "2026-05-22T10:11:18.706921+00:00",
+    "elapsed_seconds": 98.3
+  }
+}

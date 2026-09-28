@@ -1,0 +1,289 @@
+{
+  "dataset_id": "OpenGVLab_VideoChat-Flash-Training-Data",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "LongVid",
+    "description": "LongVid is a large-scale dataset of real-world long videos containing 300,000 hours of videos and 2 billion words of textual annotations, designed to enrich long video training corpus for multimodal large language models.",
+    "url": "https://github.com/OpenGVLab/VideoChat-Flash",
+    "license": "Apache-2.0",
+    "creator": "Xinhao Li, Yi Wang, Jiashuo Yu, Xiangyu Zeng, Yuhan Zhu, Haian Huang, Jianfei Gao, Kunchang Li, Yinan He, Chenting Wang, Yu Qiao, Yali Wang, Limin Wang",
+    "publisher": "Shanghai AI Laboratory",
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "LongVid was built by leveraging existing datasets (Ego4D, HowTo100M, HD-VILA, MiraData) and generating dense event labels for each long video. Existing high-quality short video captions were used, consecutive segments were filtered and regrouped into long video sequences, and QA pairs were constructed based on video captions, event labels, and timestamps. An LLM (Qwen-72b) was used to extract event labels from captions where high-quality annotations were not available.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Videos and captions from four open-source datasets: Ego4D (egocentric videos with Ego4DHcap captions), HowTo100M (how-to videos with HowToInterlink7M captions and HTStep annotations), HD-VILA (in-the-wild videos with Panda-70M captions), and MiraData (movie segments with multi-level captions).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Dense event labels generated for each long video using existing high-quality short video captions; for datasets with high-quality event-level annotations, those were used directly; for others, major events were extracted from captions using an LLM. QA pairs were constructed across five task types: video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "LLM used to extract major events from captions; existing caption datasets used: Panda-70M for HD-VILA, CosMo for HowTo100M, Ego4D-HCap for Ego4D, and original MiraData captions.",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "LongVid dataset constructed by filtering consecutive segments that can be regrouped into long video sequences, generating dense event labels with timestamps, extracting major events from captions using an LLM, and constructing QA pairs across five task types (video captioning, temporal grounding, event relation recognition, scene relation recognition, and video event counting). Training data includes progressive stages with image-text pairs, short video pre-training, and joint short & long video instruction tuning.",
+    "rai:dataPreprocessingProtocol": "For LongVid: utilized existing high-quality short video captions from Panda-70M (for HD-VILA), CosMo (for HowTo100M), Ego4D-HCap (for Ego4D), and original captions from MiraData; for datasets with high-quality event-level annotations (HT-Step for HowTo100M, Ego4D-HCap for Ego4D), event labels were used directly; for others, major events were extracted from captions using an LLM. Video description data was recaptioned with VideoChat2, Gemini, and LLava-NeXT-34B for various subsets."
+  },
+  "usage": {
+    "input_tokens": 24688,
+    "output_tokens": 2387
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:30:33.399175Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we construct LongVid, a dataset that contains 300,000 hours of videos and 2 billion words of textual annotations."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we construct LongVid, a dataset that contains 300,000 hours of videos and 2 billion words of textual annotations. With LongVid, we have designed a multi-stage training strategy named short-to-long learning."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://github.com/OpenGVLab/VideoChat-Flash"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Xinhao Li2,1∗, Yi Wang1,4∗†, Jiashuo Yu1∗, Xiangyu Zeng2,1, Yuhan Zhu2, Haian Huang1, Jianfei Gao1, Kunchang Li3, Yinan He1, Chenting Wang1, Yu Qiao1, Yali Wang3,1, Limin Wang2,1†"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1Shanghai AI Laboratory 2Nanjing University 3Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences 4Shanghai Innovation Institute"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2501.00574v4 [cs.CV] 13 Jul 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To build LongVid, we leverages the rich diversity of existing datasets, including Ego4D, HowTo100M, HD-VILA, and MiraData... we generate dense event labels for each long video... we construct a sequence of event labels with their corresponding timestamps for every long video based on their captions."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To build LongVid, we leverages the rich diversity of existing datasets, including Ego4D [19], HowTo100M [37], HD-VILA [62], and MiraData [22]"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The videos of LongVid are curated from 4 open-source video datasets: Ego4D, HowTo100M, HD-VILA, and MiraData... encompassing a wide range of video types: movies, egocentric videos, news, interviews, and how-to videos, and other in-the-wild videos of long duration."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we generate dense event labels for each long video... for datasets with high-quality event-level annotations (HT-Step [1] for HowTo100M [37], Ego4D-HCap [21] for Ego4D [19]), we directly utilize them as the event labels, while for others, we extract the major event from the caption using an LLM."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we extract the major event from the caption using an LLM... we utilize existing high-quality short video captions (Panda-70M [11] for HD-VILA [62], CosMo [51] for HowTo100M [37], Ego4D-HCap [21] for Ego4D [19], and the original high-quality captions provided in MiraData [22])"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we filter the consecutive segments that can be regroup into a long video sequence, then we construct a sequence of event labels with their corresponding timestamps for every long video based on their captions... we extract the major event from the caption using an LLM. Finally, we construct several types of long video QA pairs based on the video captions, event labels, and the timestamps of short video segments."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we utilize existing high-quality short video captions (Panda-70M for HD-VILA, CosMo for HowTo100M, Ego4D-HCap for Ego4D, and the original high-quality captions provided in MiraData) and filter the consecutive segments... for datasets with high-quality event-level annotations (HT-Step for HowTo100M, Ego4D-HCap for Ego4D), we directly utilize them as the event labels, while for others, we extract the major event from the caption using an LLM"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 15,
+      "fields_null": 15,
+      "fields_verified": 15,
+      "evidence_count": 13,
+      "evidence_coverage": 86.7,
+      "avg_confidence": 0.917
+    },
+    "cost_usd": 0.1099,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 11528,
+        "tokens_in": 3539,
+        "tokens_out": 585
+      },
+      "collection": {
+        "section_chars": 6057,
+        "tokens_in": 2112,
+        "tokens_out": 559
+      },
+      "annotation": {
+        "section_chars": 2432,
+        "tokens_in": 1138,
+        "tokens_out": 503
+      },
+      "impact": {
+        "section_chars": 20694,
+        "skipped_unlikely": true
+      },
+      "processing": {
+        "section_chars": 7459,
+        "tokens_in": 2755,
+        "tokens_out": 547
+      }
+    },
+    "enrichments": [
+      "license",
+      "inLanguage"
+    ],
+    "elapsed_seconds": 44.3,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 15144,
+      "output_tokens": 193
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 1
+  }
+}

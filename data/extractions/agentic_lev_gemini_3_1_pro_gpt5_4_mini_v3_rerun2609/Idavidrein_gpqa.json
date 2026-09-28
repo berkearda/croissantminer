@@ -1,0 +1,289 @@
+{
+  "dataset_id": "Idavidrein_gpqa",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "GPQA",
+    "description": "A challenging dataset of 448 graduate-level multiple-choice questions written by domain experts in biology, physics, and chemistry. It is designed to be extremely difficult for both skilled non-experts and state-of-the-art AI systems, making it useful for scalable oversight research.",
+    "url": "https://github.com/idavidrein/gpqa/",
+    "license": "CC-BY-4.0",
+    "creator": "David Rein, Betty Li Hou, Asa Cooper Stickland, Jackson Petty, Richard Yuanzhe Pang, Julien Dirani, Julian Michael, Samuel R. Bowman",
+    "publisher": "arXiv",
+    "datePublished": "2023-11-20",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "We solicit difficult questions from domain experts in subdomains of biology, physics, and chemistry. The process consists of four main stages: question writing, expert validation, question revision, and non-expert validation. We hire 61 contractors through Upwork to write and validate the dataset.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "On the extended set of 546 questions, 1.4% of expert validations do not include the feedback questions after answering that we use to evaluate post-hoc agreement.",
+    "rai:dataCollectionRawData": "Difficult questions written and validated by domain experts in biology, physics, and chemistry, with additional non-expert validation attempts.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Experts wrote initial versions of the questions, which were evaluated through first-round expert validation; the question writer then revised the question based on feedback; a second expert validator answered the revised question to judge objectivity; finally, three non-expert validators attempted to answer each question to verify difficulty. Workers received large bonuses for high-quality work at each stage.",
+    "rai:dataAnnotationPlatform": "Upwork",
+    "rai:dataAnnotationAnalysis": "The paper reports expert accuracy, non-expert accuracy, post-hoc agreement, and manual analysis of 191 expert-validator disagreements; it also estimates question objectivity rates (e.g., 74%, 73.6%, 76.4%) and reports that first expert validator post-hoc agreement was 80.1% and second expert validator post-hoc agreement was 85.4%.",
+    "rai:annotationsPerItem": "1 first expert validator, 1 second expert validator, and 3 non-expert validators per question",
+    "rai:annotatorDemographics": "Annotators were domain experts in biology, physics, or chemistry, defined as individuals having or pursuing a PhD in the field; they were required to be proficient or fluent in English and were preferentially selected if they had high Upwork ratings.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The benchmark is intentionally biased toward very difficult graduate-level questions in physics, chemistry, and biology, and it is designed to be maximally difficult for highly skilled non-experts.",
+    "rai:dataLimitations": "The dataset is limited to graduate-level multiple-choice questions in physics, chemistry, and biology, so it is not suitable for general-purpose evaluation outside these domains. It is intended for scalable oversight research and difficult expert-level evaluation, not for tasks that non-experts can reliably solve. The authors also request not to reveal examples publicly to reduce leakage into training corpora.",
+    "rai:dataSocialImpact": "The dataset is intended to support scalable oversight research and the alignment of future superhuman AI systems, with the goal of improving truthful information extraction and reducing hallucination and sycophancy in model outputs.",
+    "rai:personalSensitiveInformation": "The paper mentions that non-expert annotators are highly skilled and incentivized, and that they have or are pursuing PhDs in other domains; no direct sensitive personal attributes are described as collected dataset fields.",
+    "rai:dataUseCases": "The dataset is for evaluation and benchmarking of scalable oversight and model alignment, especially testing whether models can provide truthful answers on questions that are difficult for non-experts. It is not described as a training dataset.",
+    "rai:dataReleaseMaintenancePlan": "The paper mentions a canary string to help training corpora filter the benchmark and asks readers not to reveal examples online to reduce leakage, but it does not describe versioning, maintainers, update timeframe, or deprecation policy.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was curated into subsets by removing some questions and applying selection criteria based on expert/non-expert validation: 18 questions were removed to form a held-out set; GPQA main set excludes questions where both expert validators were wrong and all three non-experts were correct; GPQA Diamond keeps only questions where both experts agree and the majority of non-experts are incorrect, with some additional inclusion of questions where the second expert made a clear mistake but demonstrated understanding.",
+    "rai:dataPreprocessingProtocol": "Questions were written, expert-validated, revised based on expert feedback, then validated by a second expert and three non-expert validators; questions were also labeled by subdomain and some were removed to create the released sets."
+  },
+  "usage": {
+    "input_tokens": 30002,
+    "output_tokens": 2518
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T00:58:13.383437Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present GPQA, a challenging dataset of 448 multiple-choice questions"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present GPQA, a challenging dataset of 448 multiple-choice questions written by domain experts in biology, physics, and chemistry."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Data and code: https://github.com/idavidrein/gpqa/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "David Rein1,2Betty Li Hou1Asa Cooper Stickland1 Jackson Petty1Richard Yuanzhe Pang1Julien Dirani1 Julian Michael†1Samuel R. Bowman†1,3"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.12022v1 [cs.AI] 20 Nov 2023"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.12022v1 [cs.AI] 20 Nov 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hire 61 contractors through Upwork to write and validate the dataset. We require that they have completed or are currently in a PhD program in their field of expertise and indicate that they are proficient or fluent in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present GPQA, an evaluation dataset consisting of graduate-level multiple-choice questions"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We solicit difficult questions from domain experts in subdomains of biology, physics, and chemistry... The process consists of four main stages... We hire 61 contractors through Upwork to write and validate the dataset."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hire 61 contractors through Upwork to write and validate the dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "On the extended set of 546 questions, 1.4% of expert validations do not include the feedback questions after answering that we use to evaluate post-hoc agreement"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We solicit difficult questions from domain experts in subdomains of biology, physics, and chemistry... Finally, to verify the difficulty of the questions, three non-expert validators attempt to answer the questions."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The process consists of four main stages... question writing, expert validation, question revision, and non-expert validation.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We hire 61 contractors through Upwork to write and validate the dataset.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we also measure post-hoc agreement” and “We manually examine the 191 cases where the second expert validator answers incorrectly”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“a second expert validator answers the question” and “Finally, to verify the difficulty of the questions, three non-expert validators attempt to answer the questions.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we consider experts as individuals having or pursuing a PhD in the field”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we present GPQA, an evaluation dataset consisting of graduate-level multiple-choice questions in subdomains of physics, chemistry, and biology” and “These testbeds need to be maximally difficult even for highly skilled non-experts to solve on their own”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“graduate-level multiple-choice questions in subdomains of physics, chemistry, and biology” and “we request that you do not reveal examples from this dataset in plain text or images online, to reduce the risk of leakage into foundation model training corpora”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To measure our ability to align models for this purpose, we need evaluation testbeds for reliably extracting truthful information from these models” and “we expect issues like hallucination ... and sycophancy ... to be exacerbated”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“highly skilled and incentivized non-experts, who have or are pursuing PhDs in other domains”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we need evaluation testbeds for reliably extracting truthful information from these models” and “This confirms that GPQA is difficult enough to be useful for scalable oversight research”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We request that you do not reveal examples from this dataset in plain text or images online” and “we incorporate this canary string ... into the dataset, to make it easier for training corpora to filter out our benchmark”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We remove 18 questions to form a small unreleased held-out set” and “we remove these questions to form GPQA (composed of 448 questions) as the main set” and “GPQA Diamond ... includes only questions where both experts answer correctly and the majority of non-experts answer incorrectly.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The process consists of four main stages ... question writing, expert validation, question revision, and non-expert validation” and “Finally, the question writer labels the specific subdomain of the question” and “We remove 18 questions to form a small unreleased held-out set.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "evidence_count": 25,
+      "evidence_coverage": 96.2,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.006,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 15402,
+        "tokens_in": 4080,
+        "tokens_out": 516
+      },
+      "collection": {
+        "section_chars": 4065,
+        "tokens_in": 1278,
+        "tokens_out": 365
+      },
+      "annotation": {
+        "section_chars": 14645,
+        "tokens_in": 3522,
+        "tokens_out": 479
+      },
+      "impact": {
+        "section_chars": 4064,
+        "tokens_in": 1320,
+        "tokens_out": 662
+      },
+      "processing": {
+        "section_chars": 25139,
+        "tokens_in": 6481,
+        "tokens_out": 332
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 24.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 13321,
+      "output_tokens": 164
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

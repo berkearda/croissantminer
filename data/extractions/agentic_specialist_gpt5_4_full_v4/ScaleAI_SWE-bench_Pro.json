@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ScaleAI_SWE-bench_Pro",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-BENCH PRO",
+    "description": "SWE-BENCH PRO is a benchmark of 1,865 human-verified and augmented long-horizon software engineering tasks designed to evaluate AI agents on realistic, enterprise-level issue resolution. It contains problems from 41 actively maintained repositories across public, held-out, and commercial subsets, with tasks requiring substantial multi-file code changes and validated by human-reviewed tests.",
+    "url": "https://scale.com/research/swe_bench_pro",
+    "license": "copy-left license",
+    "creator": "Xiang Deng; Jeff Da; Edwin Pan; Yannis Yiming He; Charles Ide; Kanak Garg; Niklas Lauffer; Andrew Park; Nitin Pasari; Chetan Rane; Karmini Sampath; Maya Krishnan; Srivatsa Kundurthy; Sean Hendryx; Zifan Wang; Chen Bo Calvin Zhang; Noah Jacobson; Bing Liu; Brad Kenstler",
+    "publisher": "Scale AI",
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": "Xiang Deng, Jeff Da, Edwin Pan, Yannis Yiming He, Charles Ide, Kanak Garg, Niklas Lauffer, Andrew Park, Nitin Pasari, Chetan Rane, Karmini Sampath, Maya Krishnan, Srivatsa Kundurthy, Sean Hendryx, Zifan Wang, Chen Bo Calvin Zhang, Noah Jacobson, Bing Liu, and Brad Kenstler. SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks? 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was assembled by sourcing problems from 41 actively maintained repositories, including public GPL/copyleft repositories and private commercial repositories from startups. Problems were collected by leveraging repository commit histories: the authors identified pairs of consecutive commits where the newer commit resolved a bug or introduced a feature and included a test patch showing a fail2pass transition.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "The paper states that metadata collected during commit scraping could be incomplete or entirely missing: \"commit messages are often unstructured, incomplete, or entirely missing.\"",
+    "rai:dataCollectionRawData": "Source data consisted of repository commit histories, including consecutive commit pairs, diffs, test-related files, commit messages, issue discussions, and pull requests from public repositories and private startup codebases. Public repositories were selected from GPL/copyleft-licensed projects; private repositories were sourced from Scale's internal assets, including acquired companies, startups founded by Scale employees, and purchased codebases via external data partnerships.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Each problem in SWE-BENCH PRO goes through a human augmentation and verification process: annotators collect information from original sources such as issue discussions, commit messages, and pull requests, rewrite it into a problem statement, author requirements and optionally interface specifications, and perform an additional round of verification on fail2pass tests to filter out tests that are too broad or not relevant to the task description.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "They run each set of tests 3 times and filter out any test that does not pass consistently; annotators then filter out fail2pass tests that are too broad or not relevant, and problems are dropped if all tests are too broad or not relevant.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "professional software engineers",
+    "rai:machineAnnotationTools": "GPT-5",
+    "rai:dataBiases": "The distribution is not uniform, and some widely-used languages like Java, C++, and Rust are underrepresented.",
+    "rai:dataLimitations": "Although SWE-Bench Pro includes multiple programming languages (Python, JavaScript, TypeScript, Go), the distribution is not uniform, and some widely-used languages like Java, C++, and Rust are underrepresented; The current evaluation framework focuses primarily on issue resolution through code patches, so broader software engineering activities such as system design, code review, documentation, and architectural decisions are not captured; The benchmark relies on fail2pass and pass2pass test suites, but real software engineering tasks may have a variety of correct solutions even if they do not pass the original tests; The human augmentation process may inadvertently make problems too prescriptive by providing excessive detail in requirements and interface specifications, whereas real-world problems are ambiguous",
+    "rai:dataSocialImpact": "SWE-Bench Pro aims to serve the community by providing a contamination-resistant and industrially realistic benchmark that can help guide future research toward developing truly autonomous and capable software engineering agents; the paper also notes that current benchmarks may not reflect practical development scenarios and that this benchmark provides a more accurate measure of progress",
+    "rai:personalSensitiveInformation": "The commercial set contains proprietary repositories from startups and the underlying codebases are kept private for legal reasons",
+    "rai:dataUseCases": "evaluating the progress of LLM agents after SWE-Bench is saturated; assessing AI coding agents on realistic, complex, enterprise-level software engineering tasks; monitoring potential overfitting against the public set using the held-out set; measuring progress beyond the saturation of SWE-Bench Verified",
+    "rai:dataReleaseMaintenancePlan": "We release both the problems and evaluation results for the public set, retain the held-out set to monitor potential overfitting, and report results on the commercial set while preserving the privacy of its underlying codebases; for the commercial set, we will update results in the leaderboard",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To ensure task complexity, we exclude trivial edits (1–10 lines of code) and retain only problems requiring substantial, multi-file modifications. We run each set of tests 3 times and filter out any test that doesn’t pass consistently. Finally, we perform an additional round of verification on the fail2pass tests where we ask annotators to filter out tests which are too broad or not relevant to the task description. We drop any problems that do not pass this criteria.",
+    "rai:dataPreprocessingProtocol": "We manually verified and cleaned the test suite. We run each set of tests 3 times and filter out any test that doesn’t pass consistently. We additionally send all tests through a human verification pipeline, where each tests is checked if it is relevant to the task description, and if it is not too broad. In either case, we drop tests that fall into either category: a) it is irrelevant to the task description, and b) it is too broad. In the case that all tests are too broad or not relevant, we drop the problem."
+  },
+  "usage": {
+    "input_tokens": 137143,
+    "output_tokens": 2220
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 27691,
+        "output_tokens": 344
+      },
+      "collection": {
+        "input_tokens": 27468,
+        "output_tokens": 461
+      },
+      "annotation": {
+        "input_tokens": 27461,
+        "output_tokens": 199
+      },
+      "impact": {
+        "input_tokens": 27403,
+        "output_tokens": 734
+      },
+      "processing": {
+        "input_tokens": 27120,
+        "output_tokens": 482
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 61873,
+      "output_tokens": 886
+    },
+    "timestamp": "2026-05-22T11:12:52.280468+00:00",
+    "elapsed_seconds": 39.4
+  }
+}

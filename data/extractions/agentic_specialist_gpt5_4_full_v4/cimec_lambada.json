@@ -1,0 +1,80 @@
+{
+  "dataset_id": "cimec_lambada",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "LAMBADA is a dataset for evaluating computational models of text understanding through a word prediction task. It consists of narrative passages where human subjects can guess the last word only when given the broader passage context, but not from the final sentence alone. The dataset contains 10,022 passages divided into development and test sets and is intended as a challenging benchmark for broad discourse understanding.",
+    "url": "http://clic.cimec.unitn.it/lambada/",
+    "license": null,
+    "creator": "Denis Paperno; Germán Kruszewski; Angeliki Lazaridou; Quan Ngoc Pham; Raffaella Bernardi; Sandro Pezzelle; Marco Baroni; Gemma Boleda; Raquel Fernández",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Denis Paperno, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, and Raquel Fernández. 2016. The LAMBADA dataset: Word prediction requiring a broad discourse context. In Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics, pages 1525–1534.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was built from passages drawn from the Book Corpus. The authors randomly divided the novels into training and development+testing partitions, built LAMBADA from the development+testing partition, filtered out passages that standard language models found relatively easy, and then retained passages that passed a three-step human evaluation pipeline on CrowdFlower.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Passages from the Book Corpus, which contains unpublished novels; after duplicate removal and filtering of potentially offensive material, the corpus contains 5,325 novels and 465 million words.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A random sample of passages was evaluated by human subjects through the CrowdFlower crowdsourcing service in three steps: one subject guessed the target word from the whole passage; if correct, a second subject guessed from the whole passage; if also correct, additional subjects guessed from the target sentence only until the word was guessed or 10 unsuccessful guesses were reached, and passages were kept only if two consecutive whole-passage guesses exactly matched the missing word and no subject in the sentence-only condition guessed it; subjects in step 3 were allowed 3 guesses per sentence, and the same subject could not judge the same item in both passage and sentence conditions.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "Passages were added to the dataset only if the first two whole-passage annotators exactly matched the target word and no subject in the sentence-only condition guessed the target word after up to 10 unsuccessful guesses; the paper also reports discard rates at each step of the crowdsourcing pipeline.",
+    "rai:annotationsPerItem": "2 to 12",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "a pre-trained recurrent neural network (RNN); a standard 4-gram model; a RNN; a feed-forward model",
+    "rai:dataBiases": "Proper nouns are hugely overrepresented in LAMBADA, while the other categories are under-represented, compared to the POS distribution in the input.",
+    "rai:dataLimitations": "The evaluation performed is very preliminary, and it must only be taken as a proof-of-concept study of the difficulty of LAMBADA; standard language models are bound to fail on it by design because one of the first filters was to choose passages where a number of simple language models were failing to predict the upcoming word; cost considerations precluded using more subjects at stage 1, which could in principle improve the quality of filtering at this step",
+    "rai:dataSocialImpact": "We thus propose LAMBADA as a challenging test set, meant to encourage the development of new models capable of genuine understanding of broad context in natural language text.",
+    "rai:personalSensitiveInformation": "The corpus, after duplicate removal and filtering out of potentially offensive material with a stop word list, contains 5,325 novels and 465 million words.",
+    "rai:dataUseCases": "a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task; aimed at testing language models on their ability to take a broad discourse context into account when predicting a word; a challenging benchmark for research on automated models of natural language understanding",
+    "rai:dataReleaseMaintenancePlan": "The development set of LAMBADA, along with the training corpus, can be downloaded at http://clic.cimec.unitn.it/lambada/ . The test set will be made available at the time of the competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The corpus, after duplicate removal and filtering out of potentially offensive material with a stop word list, contains 5,325 novels and 465 million words. We randomly divided the novels into equally-sized training and development+testing partitions. To reduce time and cost of dataset collection, we filtered out passages that are relatively easy for standard language models... Any passage whose target word had probability ≥0.00175 according to any of the language models was excluded. A random sample of the remaining passages were then evaluated by human subjects through the CrowdFlower crowdsourcing service in three steps... if no subject was able to guess the target word [from the target sentence only], the passage was added to the LAMBADA dataset.",
+    "rai:dataPreprocessingProtocol": "The corpus, after duplicate removal and filtering out of potentially offensive material with a stop word list, contains 5,325 novels and 465 million words."
+  },
+  "usage": {
+    "input_tokens": 95523,
+    "output_tokens": 1450
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 21475,
+        "output_tokens": 294
+      },
+      "collection": {
+        "input_tokens": 21261,
+        "output_tokens": 165
+      },
+      "annotation": {
+        "input_tokens": 21240,
+        "output_tokens": 273
+      },
+      "impact": {
+        "input_tokens": 10642,
+        "output_tokens": 330
+      },
+      "processing": {
+        "input_tokens": 20905,
+        "output_tokens": 388
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 42258,
+      "output_tokens": 240
+    },
+    "timestamp": "2026-05-22T11:20:49.654049+00:00",
+    "elapsed_seconds": 30.6
+  }
+}

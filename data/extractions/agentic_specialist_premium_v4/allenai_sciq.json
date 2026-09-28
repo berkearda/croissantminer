@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_sciq",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SciQ",
+    "description": "SciQ is a dataset of 13,679 multiple choice science exam questions crowdsourced using a novel method that leverages domain-specific textbooks and model-generated answer distractor suggestions. Each question includes a question, four answer options, and an associated passage used to generate the question. The dataset supports both a multiple choice setting and a direct-answer reading comprehension setting.",
+    "url": "http://allenai.org/data.html",
+    "license": "Creative Commons Attribution-Non-Commercial 3.0 Unported (CC BY-NC 3.0)",
+    "creator": "Johannes Welbl (University College London); Nelson F. Liu (University of Washington); Matt Gardner (Allen Institute for Artificial Intelligence)",
+    "publisher": null,
+    "datePublished": "2017",
+    "inLanguage": "en",
+    "citeAs": "Johannes Welbl, Nelson F. Liu, and Matt Gardner. 2017. Crowdsourcing Multiple Choice Science Questions. arXiv:1707.06209v1 [cs.HC].",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were crowdsourced via Amazon Mechanical Turk using a two-step process: first, workers were shown filtered passages from science textbooks and asked to formulate a question and correct answer; second, a different set of workers validated the question and selected or wrote answer distractors, aided by model-generated distractor suggestions. A total of 175 workers participated, with AMT Master's status required.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": "In 12.1% of cases, workers rejected all three presented document options and did not generate a question. Additionally, a small percentage of passages were obtained from unreleasable texts, resulting in the direct answer version of SciQ being smaller than the multiple choice version.",
+    "rai:dataCollectionRawData": "Science study textbooks from CK-12 and OpenStax (28 books covering biology, chemistry, earth science, and physics, from elementary to college introductory level), shared under Creative Commons licenses. A set of 3,705 existing 4th and 8th grade science exam questions was used to train the distractor ranking model.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Two-step crowdsourcing process: (1) Workers were shown three filtered textbook paragraphs, chose one, and wrote a question answerable from that passage; instructions specified no yes/no questions, question length 6-30 words, answer length up to 3 words, no ambiguous questions, querying general principles. (2) A second worker validated the (question, answer) pair (marking it as ungrammatical, false answer, unrelated to science, or requiring very specific knowledge) and selected up to two model-suggested distractors plus wrote at least one distractor themselves. AMT Master's status was required for both tasks. 175 workers participated in total.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Questions failing quality control in the distractor selection task (marked as ungrammatical, having a false answer, unrelated to science, or requiring very specific background knowledge) were excluded; 92.8% of questions passed. A qualitative evaluation task asked people to distinguish crowdsourced questions from original exam questions; the original was identified in 55% of cases, below the p=0.05 significance threshold.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Random forest distractor ranking model trained on 3705 science exam questions (using GloVe embeddings, WordNet, OpenIE-based KB from Simple Wikipedia, POS features, and other features) to suggest top-6 answer distractors; rule-based document filter to classify sentences/paragraphs as relevant or irrelevant",
+    "rai:dataBiases": "Questions are derived from a limited set of 28 science study textbooks (biology, chemistry, earth science, physics) spanning elementary to college introductory level, which constrains the topical and linguistic diversity of the dataset; crowd workers without domain expertise may produce questions lacking relevance or diversity in structure and content",
+    "rai:dataLimitations": "A small percentage of the passages were obtained from unreleasable texts, so the direct answer version of SciQ is slightly smaller; neural models do not beat simple information retrieval baselines on the multiple choice version, suggesting limitations for neural model applicability; the distractor model quality is not high enough to use predictions directly without additional filtering by crowd workers",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training and evaluation of science exam question answering systems; investigating neural model performance in medium-sized data settings; augmenting training data for answering real 4th and 8th grade science exam questions; reading comprehension research in both multiple choice and direct answer settings",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset construction involved model-assisted augmentation of answer distractors: a random forest classifier trained on real science exam questions ranked candidate distractors from a pool of 488,819 expressions, and the top six suggestions were presented to crowd workers. Workers could select up to two model-generated distractors and were required to write at least one themselves, resulting in 36.1% of final distractors being model-generated. Additionally, SciQ was used as supplementary training data to augment existing 4th and 8th grade science exam question datasets for downstream model training.",
+    "rai:dataPreprocessingProtocol": "A rule-based document filter was applied to individual paragraphs of the base corpus to select suitable passages for question generation. Sentences were filtered out if they: were a question or exclamation, had no verb phrase, contained modal verbs, contained imperative phrases, contained demonstrative pronouns, contained personal pronouns other than third-person, began with a pronoun, contained first names, had less than 6 or more than 18 tokens or more than 2 commas, contained special characters other than punctuation, had more than three tokens beginning uppercase, mentioned a graph, table or web link, began with a discourse marker, contained absolute wording, or contained instructional vocabulary. A paragraph was accepted only if a minimum number of its sentences passed these filters. Additionally, questions failing quality control in the distractor selection task (marked as ungrammatical, having a false answer, being unrelated to science, or requiring very specific background knowledge) were excluded; 92.8% of questions passed this check."
+  },
+  "usage": {
+    "input_tokens": 149857,
+    "output_tokens": 1823
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30117,
+        "output_tokens": 297
+      },
+      "collection": {
+        "input_tokens": 29998,
+        "output_tokens": 324
+      },
+      "annotation": {
+        "input_tokens": 30037,
+        "output_tokens": 423
+      },
+      "impact": {
+        "input_tokens": 30057,
+        "output_tokens": 347
+      },
+      "processing": {
+        "input_tokens": 29648,
+        "output_tokens": 432
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 73370,
+      "output_tokens": 382
+    },
+    "timestamp": "2026-05-02T18:16:53.273637+00:00",
+    "elapsed_seconds": 58.4
+  }
+}

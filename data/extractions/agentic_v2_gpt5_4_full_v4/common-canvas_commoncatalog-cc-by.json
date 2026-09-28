@@ -1,0 +1,259 @@
+{
+  "dataset_id": "common-canvas_commoncatalog-cc-by",
+  "model": "gpt-5.4-2026-03-05",
+  "extraction": {
+    "name": "CommonCatalog",
+    "description": "A dataset of roughly 70 million open-licensed Creative-Commons images paired with high-quality synthetic captions generated using BLIP-2 for training CommonCanvas text-to-image models.",
+    "url": "https://github.com/mosaicml/diffusion/blob/main/assets/common-canvas.md",
+    "license": "Creative Commons",
+    "creator": "Aaron Gokaslan; A. Feder Cooper; Jasmine Collins; Landan Seguin; Austin Jacobson; Mihir Patel; Jonathan Frankle; Cory Stephenson; Volodymyr Kuleshov",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was built by starting from YFCC100M Creative-Commons metadata, re-scraping high-resolution images from Flickr using the provided IDs, excluding non-derivative licenses, and generating synthetic captions for the curated CC images with a pre-trained BLIP-2 model.",
+    "rai:dataCollectionType": "Web Scraping, Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": "The paper explicitly discusses caption-data incompleteness: most Creative-Commons images lacked the captions needed for text-to-image training, and only about 31% had alt text.",
+    "rai:dataCollectionRawData": "Creative-Commons images sourced from the YFCC100M dataset and re-scraped from Flickr using Flickr IDs; captions were synthesized with BLIP-2.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "For caption generation, images were center-cropped and resized to a maximum of 512x512 pixels; during diffusion model training, images remained at native resolution.",
+    "rai:dataAnnotationProtocol": "Synthetic captions were generated for all curated Creative-Commons images using the pre-trained BLIP-2 OPT2.5B model as a transfer-learning captioning method called telephoning.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The authors selected BLIP-2 based on qualitative analysis and MS COCO performance, and note that BLIP-2 captions were often more descriptive than LAION alt-text captions but had reduced caption diversity.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "BLIP-2 OPT2.5B",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": "The work is motivated by copyright and reproducibility concerns with web-scraped datasets like LAION, and proposes an open-licensed alternative with known provenance.",
+    "rai:dataBiases": "The dataset and resulting models underperform in categories such as faces, general photography, and paintings; the paper also notes reduced diversity of n-grams in synthetic captions and that web-sourced captions may not align with human-generated language nuances.",
+    "rai:dataLimitations": "CommonCatalog faces caption incompleteness and image scarcity; the YFCC100M source data is about a decade old; synthetic captions have reduced diversity; and the resulting models underperform in some categories such as faces.",
+    "rai:dataUseCases": "The dataset is intended for training text-to-image generative models, specifically the CommonCanvas family of latent diffusion models; the authors also release an evaluation set of BLIP-2 captions for non-derivative CC images not used for training."
+  },
+  "usage": {
+    "input_tokens": 19155,
+    "output_tokens": 1980
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:15:23.203564Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We address the data incompleteness problem by using a pre-trained BLIP-2 model [34], which we use to produce high-quality, synthetic captions for a set of curated, open licensed CC images."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "• Curate CommonCatalog , a dataset of roughly 70 million open-licensed CC images, for which we use telephoning to generate accompanying high-quality synthetic captions (Section 4)."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our models, data, and code at https://github.com/ mosaicml/diffusion/blob/main/assets/common-canvas.md ."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We assemble a dataset of Creative-Commons-licensed (CC) images"
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CommonCanvas: An Open Diffusion Model Trained with Creative-Commons Images Aaron Gokaslan1A. Feder Cooper1Jasmine Collins2Landan Seguin2 Austin Jacobson2Mihir Patel2Jonathan Frankle2Cory Stephenson2Volodymyr Kuleshov1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2310.16825v1 [cs.CV] 25 Oct 2023"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "CommonCanvas: An Open Diffusion Model Trained with Creative-Commons Images"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our CommonCatalog dataset of CC images and synthetic captions along with our trained CommonCanvas model"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data [59]. We therefore re-scraped these images from Flickr, based on the IDs provided in the YFCC100M metadata."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data [59]. We therefore re-scraped these images from Flickr, based on the IDs provided in the YFCC100M metadata."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first problem is data incompleteness: almost all CC images lack the captions necessary to train a high-quality T2I model."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We began with the YFCC100M dataset, which consists of 100 million CC-licensed images and multimedia files, as well as Flickr IDs linking to the original data [59]. We therefore re-scraped these images from Flickr, based on the IDs provided in the YFCC100M metadata."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To do so, we center-cropped and resized all of the images to a maximum size of 512x512 pixels. We perform these transformations because captioning images at native resolution would be very expensive. At training time of the diffusion model, all images remain in their native resolution."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compared several captioning models and, based on qualitative analysis and its state-of-the-art performance on MS COCO, chose to use the pre-trained BLIP-2 OPT2.5B model for synthesizing CommonCatalog’s captions [34]."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Given a LAION-2B image as input, we found that the resulting BLIP-2 caption is often qualitatively more descriptive than the corresponding LAION-2B ground-truth alt-text caption."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compared several captioning models and, based on qualitative analysis and its state-of-the-art performance on MS COCO, chose to use the pre-trained BLIP-2 OPT2.5B model for synthesizing CommonCatalog’s captions [34]."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "A natural alternative is to not use LAION datasets for training. One could instead independently curate a dataset of CC-licensed images with known provenance that expressly allow for copying, adaptation, and commercial use."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "However, like any model, ours has limitations. It underperformed in several categories, including faces, general photography, and paintings."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "An issue, which we do not address, is that the YFCC100M data is about a decade old; its CC images are not as current as those in LAION-2B."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Together, these CC-image-caption pairs comprise the CommonCatalog dataset, which we use to train our CommonCanvas T2I models (Figure 3b)."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.0437,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [],
+    "elapsed_seconds": 22.9,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

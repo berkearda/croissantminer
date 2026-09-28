@@ -1,0 +1,80 @@
+{
+  "dataset_id": "PleIAs_common_corpus",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "Common Corpus",
+    "description": "Common Corpus is the largest open dataset for language model pre-training, containing approximately two trillion tokens of data that are either uncopyrighted or under permissible licenses. It is multilingual, covering a wide variety of languages from major European languages to low-resource ones, and includes diverse domains such as government documents, cultural heritage texts, scientific papers, code, web content, and semantic data. The dataset is composed of six collections: Open Government, Open Culture, Open Science, Open Code, Open Web, and Open Semantic.",
+    "url": "https://huggingface.co/datasets/PleIAs/common_corpus",
+    "license": null,
+    "creator": "Pierre-Carl Langlais; Carlos Rosas Hinostroza; Mattia Nee; Catherine Arnett; Pavel Chizhov; Eliot Krzystof Jones; Irène Girard; David Mach; Anastasia Stasenko; Ivan P. Yamshchikov (PleIAs, Paris, France)",
+    "publisher": "PleIAs",
+    "datePublished": "2025",
+    "inLanguage": "en, fr, de, es, la, it, pl, el, pt, ru",
+    "citeAs": "Pierre-Carl Langlais, Carlos Rosas Hinostroza, Mattia Nee, Catherine Arnett, Pavel Chizhov, Eliot Krzystof Jones, Irène Girard, David Mach, Anastasia Stasenko, Ivan P. Yamshchikov. Common Corpus: The Largest Collection of Ethical Data for LLM Pre-Training. arXiv:2506.01732v1 [cs.CL], 2 Jun 2025.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Common Corpus was assembled by aggregating data from multiple open sources including cultural heritage institutions (via Collections As Data initiatives, APIs, and direct downloads), government and legal repositories, scientific open-access archives (via OpenAlex API and direct extraction), code repositories (The Stack v1 and v2), Wikimedia projects (Wikipedia, Wikisource, Wikidata via Wikimedia Enterprise), YouTube (CC-By licensed audio transcripts), and StackExchange. Data was collected on a resource-by-resource basis using APIs, bulk downloads, and standard retrieval methods. License verification was performed to ensure all data is either in the public domain or under permissive licenses.",
+    "rai:dataCollectionType": "Web API; Secondary Data analysis; Manual Human Curator; Web Scraping; Document analysis; User-generated content data",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Source data includes: digitized books and newspapers from cultural heritage institutions (French National Library/Gallica, Library of Congress, Europeana, Delpher, German Digital Library, National Library of New Zealand, National Library of Luxembourg, Biblioteca Digital Hispánica, and others); government and legal documents from SEC/EDGAR, WTO, AMF, EU TED, GATT Library, Europarl, Caselaw Access Project, CourtListener, EUR-lex, Eurovoc, French Open Data/DILA, USPTO, UN Digital Library, OECD; scientific papers via OpenAlex, arXiv, and European open science repositories; code from The Stack v1 (6.4TB, 30 languages) and The Stack v2 (67.5TB, 600+ languages); Wikipedia and Wikisource HTML dumps via Wikimedia Enterprise; YouTube CC-By audio transcripts; StackExchange CC-By-SA forums from The Pile; and Wikidata full dumps via Wikimedia Deutschland.",
+    "rai:dataCollectionTimeframe": "2023 to 2025",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "fastText (language identification); cld2 (language identification via OCRoscope); OCRerrcr (DeBERTa-v2-style model for OCR error detection); OCRonos (Llama 3 8B-based OCR correction model); Celadon (DeBERTa-v3-small toxicity classifier trained on 2M annotated samples); Microsoft Presidio (PII detection and replacement); Segmentext (text segmentation model)",
+    "rai:dataBiases": "Open Culture data contains historical periodicals and monographs from at least 80 years ago where cultural norms surrounding discussion of certain ethnic groups, women, and themes such as violence have changed dramatically, meaning many texts do not meet modern ethical standards; Common Crawl was shown to contain sexual content, hate speech, and racial and gender biases",
+    "rai:dataLimitations": "Coverage for low-resource languages is still shallow; the amount of collected data (2 trillion tokens) is suitable for pre-training of models of limited size, as larger models will require significantly larger amounts of data; Common Corpus does not contain data for instruction-tuning and any forms of specialized tasks, so it is not directly suitable for task-specific fine-tuning; none of the curation methods could naturally facilitate a hundred-percent accuracy; Open Science collection has less linguistic diversity with nearly 85% of documents in English; the open data paradox means Common Corpus is far from collecting the whole range of available open data",
+    "rai:dataSocialImpact": "Common Corpus aims to support open LLM research and development while meeting legal and regulatory requirements, including EU AI regulations, by providing data that is either uncopyrighted or under permissible licenses; it is intended as a shared research infrastructure serving the public interest and open science; the dataset enables development of language models for multiple languages including low-resource ones; toxicity filtering and PII removal are applied to mitigate potential harms from historical and web data",
+    "rai:personalSensitiveInformation": "Personally Identifiable Information (PII) is removed from the datasets using Microsoft's Presidio; PII is replaced with fictitious but realistic values rather than removed or tagged; the paper states 'Do not capture highly sensitive data. We remove personally identifiable information from our datasets.'",
+    "rai:dataUseCases": "Pre-training of large and small language models; training multilingual language models; training models for creative writing; developing historical language models; training models with legal knowledge and document processing for official administrative applications; developing vision-language models (VLMs) for advanced document segmentation and processing; training coding models and improving model performance on natural language reasoning, mathematics, and structured output tasks; retrieval augmented generation (RAG) models; creation of multimodal datasets, classifiers, synthetic datasets, and benchmarks",
+    "rai:dataReleaseMaintenancePlan": "Common Corpus will remain an evolving resource reflecting the need for a continuous open infrastructure rather than a fixed dataset, with HuggingFace ensuring a proper archiving of past versions for reproducibility; ongoing data collection is continuing as part of the LLMs4EU project with plans to enlarge corpora in African languages such as Swahili, Wolof, and Bambara",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "On highly deteriorated OCR content, the OCRonos model (based on Llama 3 8B) can act as a synthetic rewriting tool rather than a strict correction tool, rewriting damaged text that cannot be strictly corrected. For toxicity handling in public domain data, identified harmful documents are either removed or synthetically rewritten without the harmful language. PII is replaced with fictitious but realistic values rather than being removed or tagged.",
+    "rai:dataPreprocessingProtocol": "For Open Code: removed files not in desired languages/formats by file extension (including SVG, csv, json, json5, jsonld, and other non-informative file types), filtered licenses to keep only permissible ones, applied manual quality filters from Lozhkov et al. (2024), removed files consisting of 75% or more digits, and replaced sequences of [\\r]+\\n with \\n and recalculated line lengths. For OCR quality: developed OCRoscope (measuring non-recognized 7-grams via cld2) and OCRerrcr (a DeBERTa-v2-style 400M parameter model) to detect digitization quality. OCR correction was performed using OCRonos (Llama 3 8B-based). Text segmentation was performed using Segmentext, trained to handle broken and unstructured texts with digitization artifacts. PII was identified and replaced using Microsoft Presidio with custom regular expression patterns (increasing phone number detection accuracy from 55-60% to 85%). Toxicity detection used Celadon (DeBERTa-v3-small, ~140M parameters, trained on 2M annotated samples) to identify harmful content along five dimensions. For Open Culture rights verification: applied author life + 70 years rule, publication before 1884 rule for unidentified authors, and publication + 95 years rule for US authors, using an internal data reconciliation pipeline based on Wikidata dumps. Language identification was performed using the fastText language identification model."
+  },
+  "usage": {
+    "input_tokens": 197255,
+    "output_tokens": 2352
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 42448,
+        "output_tokens": 457
+      },
+      "collection": {
+        "input_tokens": 42335,
+        "output_tokens": 503
+      },
+      "annotation": {
+        "input_tokens": 42407,
+        "output_tokens": 252
+      },
+      "impact": {
+        "input_tokens": 28096,
+        "output_tokens": 641
+      },
+      "processing": {
+        "input_tokens": 41969,
+        "output_tokens": 499
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 56923,
+      "output_tokens": 107
+    },
+    "timestamp": "2026-05-02T18:06:31.123440+00:00",
+    "elapsed_seconds": 71.9
+  }
+}

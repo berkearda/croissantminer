@@ -1,0 +1,287 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "A comprehensive, contamination-free benchmark for evaluating large language models on code-related tasks. It includes live-updated problems from competitive programming platforms and covers multiple scenarios beyond code generation, such as self-repair, code execution, and test output prediction.",
+    "url": "https://livecodebench.github.io/",
+    "license": "cc",
+    "creator": "Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida I. Wang, Armando Solar-Lezama, Koushik Sen, Ion Stoica",
+    "publisher": null,
+    "datePublished": "2024-06-06",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "We wrote HTML scrapers for each of the three coding competition websites to collect problems and metadata, parsed mathematical formulas, excluded problems with images and those unsuitable for grading by input-output examples, collected ground truth solutions and test cases when directly available, and associated each problem with its contest date. For tests, we used platform tests when available, otherwise generated tests with GPT-4-Turbo and input generators; for some recent problems we also collected failing tests.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Missing hidden tests were handled by generating tests when platform tests were not directly available; for LeetCode, hidden tests were not directly available so generator-based test input generation was used, and for CodeForces complete tests were not provided so semi-automatic test case generators were constructed. The paper does not otherwise describe missing-data handling.",
+    "rai:dataCollectionRawData": "Problems, public tests, user solutions, starter code, hidden tests when available, contest metadata, and associated ground truth solutions/test cases from LeetCode, AtCoder, and CodeForces coding contest websites.",
+    "rai:dataCollectionTimeframe": "After April 2023; contest dates were associated per problem, with examples in the paper including May 2023 to May 2024 and Sep 2023 to May 2024 time windows.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": null,
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We filter problems by release date/time window, exclude problems above difficulty thresholds, and construct subsets by difficulty (Easy/Medium/Hard). We also sample a large pool of correct human-submitted solutions and apply compile-time and runtime filters to select reasonable samples.",
+    "rai:dataPreprocessingProtocol": "We parse mathematical formulas, exclude problems with images, exclude problems unsuitable for grading by input-output examples, collect ground truth solutions and test cases when available, and use problem statements/test inputs in standardized formats for benchmark construction."
+  },
+  "usage": {
+    "input_tokens": 23761,
+    "output_tokens": 1574
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:14:15.407428Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose LiveCodeBench, a comprehensive and contamination-free evaluation of LLMs for code"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a comprehensive and contamination-free evaluation of LLMs for code, which collects new problems over time from contests across three competition platforms"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Website: https://livecodebench.github.io/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Naman Jain†King Han†Alex Gu*$Wen-Ding Li*‡ Fanjia Yan*†Tianjun Zhang*†Sida I. Wang Armando Solar-Lezama$Koushik Sen†Ion Stoica†"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2403.07974v2 [cs.SE] 6 Jun 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Large Language Models (LLMs) applied to code-related applications"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we build LiveCodeBench, a continuously updated benchmark that avoids data contamination"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata... we parse mathematical formulas and exclude problems with images... we also collect associated ground truth solutions and test cases whenever directly available... Finally, we associate the contest date D to mark the release date of each problem.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We have written HTML scrapers for each of the above websites to collect problems and the corresponding metadata.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Since the hidden tests are not directly available, we use our generator-based test input generation approach...”; “AtCoder provides public and hidden tests for each problem which we directly use...”; “CodeForces... do not provide complete tests on the platform (long tests are truncated).”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We curate our problems from three coding competition websites: LeetCode, AtCoder, and CodeForces.”; “For each problem, we collect the problems, public tests, and user solutions... Since LeetCode provides a starter code... AtCoder provides public and hidden tests... CodeForces also provides difficulty ratings...”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We collect problems from all weekly and biweekly contests on LeetCode that have taken place after April’23.”; “We collect problems from the abc (beginner round) contests on AtCoder that have taken place after April’23.”; “We have collected problems from the Division 3 and Division 4 contests on CodeForces.”; “problems in the May’23-May’24 and Sep’23-May’24 time windows”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we can measure the performance of the model on benchmark problems released after the cutoff date”; “excluding problems that are rated above a certain threshold”; “we use these ratings to classify problems as Easy, Medium, and Hard”; “we apply compile-time and run-time filters to ensure samples are reasonable”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we parse mathematical formulas and exclude problems with images”; “We also exclude problems that are not suitable for grading by input-output examples”; “we also collect associated ground truth solutions and test cases whenever directly available”; “We use the natural language problem statement ... For LeetCode ... starter code ... For AtCoder and CodeForces problems, we use the standard input format”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 15,
+      "fields_null": 15,
+      "fields_verified": 15,
+      "evidence_count": 14,
+      "evidence_coverage": 93.3,
+      "avg_confidence": 0.933
+    },
+    "cost_usd": 0.0045,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20899,
+        "tokens_in": 5067,
+        "tokens_out": 469
+      },
+      "collection": {
+        "section_chars": 10601,
+        "tokens_in": 3186,
+        "tokens_out": 660
+      },
+      "annotation": {
+        "section_chars": 26825,
+        "skipped_unlikely": true
+      },
+      "impact": {
+        "section_chars": 26825,
+        "skipped_unlikely": true
+      },
+      "processing": {
+        "section_chars": 7712,
+        "tokens_in": 1984,
+        "tokens_out": 304
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 16.9,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 13524,
+      "output_tokens": 141
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 2
+  }
+}

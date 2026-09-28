@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_boolq",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "BoolQ",
+    "description": "BoolQ is a reading comprehension dataset of naturally occurring yes/no questions. It contains 16,000 questions, each paired with a paragraph from a Wikipedia article, the article title, and a yes/no answer, and is intended to study the difficulty of answering natural yes/no questions that often require inference.",
+    "url": "https://goo.gl/boolq",
+    "license": null,
+    "creator": "Christopher Clark; Kenton Lee; Ming-Wei Chang; Tom Kwiatkowski; Michael Collins; Kristina Toutanova",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Christopher Clark, Kenton Lee, Ming-Wei Chang, Tom Kwiatkowski, Michael Collins, and Kristina Toutanova. 2019. BoolQ: Exploring the Surprising Difficulty of Natural Yes/No Questions.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was gathered using the Natural Questions pipeline with an additional filtering step for yes/no questions: questions were taken from anonymized, aggregated Google search queries, heuristically filtered for likely yes/no questions, kept only when a Wikipedia page appeared in the first five search results, and then paired with a Wikipedia article for human annotator processing.",
+    "rai:dataCollectionType": "Web API; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Annotators could mark questions as \"not answerable\" if the Wikipedia article did not contain the requested information.",
+    "rai:dataCollectionRawData": "Anonymized, aggregated queries to the Google search engine; Wikipedia pages returned among the first five search results; an additional 3k questions with yes/no answers from the Natural Questions training set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Questions are gathered from anonymized, aggregated queries to the Google search engine; question/article pairs are given to a human annotator, who in a three-step process decides if the question is good (comprehensible, unambiguous, and requesting factual information), finds a passage within the Wikipedia document that contains enough information to answer the question or marks it not answerable, and finally marks whether the question’s answer is yes or no.",
+    "rai:dataAnnotationPlatform": "Google search engine",
+    "rai:dataAnnotationAnalysis": "To assess annotation quality, three of the authors labelled 110 randomly chosen examples; when there was disagreement, the authors conferred and selected a single answer by mutual agreement as gold-standard labels, and the answer annotations reached 90% accuracy compared to these gold-standard labels; because agreement was sufficiently high, the dataset uses singly-annotated examples in the train/dev/test sets.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Questions are only kept if a Wikipedia page is returned as one of the first five results; questions are only kept if annotators judge them to be comprehensible, unambiguous, and requesting factual information; the dataset uses singly-annotated examples and answer annotations reached 90% accuracy compared to gold-standard labels; six disagreements were ambiguous or debatable cases, and five were errors where the annotator misunderstood the passage; “Yes” answers are slightly more common (62.31% in the train set)",
+    "rai:dataSocialImpact": "Naturally occurring yes/no questions have the benefit of being directly related to the practical end-task of answering user yes/no questions; using naturally occurring questions avoids models optimized to perform in an artificial setting and ties the dataset to a clear end-task",
+    "rai:personalSensitiveInformation": "Questions are gathered from anonymized, aggregated queries to the Google search engine",
+    "rai:dataUseCases": "to test models on their ability to answer naturally occurring yes/no questions; to construct highly inferential reading comprehension datasets; to test inferential abilities in reading comprehension; directly related to the practical end-task of answering user yes/no questions",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions are heuristically filtered to likely yes/no queries by selecting queries whose first word is in a manually constructed set of indicator words and are of sufficient length; questions are only kept if a Wikipedia page is returned as one of the first five results; the dataset combines 13k questions gathered from this pipeline with an additional 3k yes/no questions from the Natural Questions training set, and splits them into dev, test, and train sets with Natural Questions examples always in the train set.",
+    "rai:dataPreprocessingProtocol": "We only use questions that were marked as having a yes/no answer, and pair each question with the selected passage instead of the entire document; annotators can mark questions as not answerable, and only good questions that are comprehensible, unambiguous, and requesting factual information are kept."
+  },
+  "usage": {
+    "input_tokens": 136387,
+    "output_tokens": 1453
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 27537,
+        "output_tokens": 203
+      },
+      "collection": {
+        "input_tokens": 27315,
+        "output_tokens": 381
+      },
+      "annotation": {
+        "input_tokens": 27310,
+        "output_tokens": 232
+      },
+      "impact": {
+        "input_tokens": 27258,
+        "output_tokens": 272
+      },
+      "processing": {
+        "input_tokens": 26967,
+        "output_tokens": 365
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 66582,
+      "output_tokens": 455
+    },
+    "timestamp": "2026-05-22T11:25:37.717164+00:00",
+    "elapsed_seconds": 34.3
+  }
+}

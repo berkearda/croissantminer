@@ -1,0 +1,287 @@
+{
+  "dataset_id": "MSCOCO_30field",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Microsoft COCO (MS COCO)",
+    "description": "A large-scale dataset containing 2.5 million labeled instances in 328k images of complex everyday scenes, with per-instance segmentation masks for 91 common object categories. It addresses object recognition in context, supporting tasks such as object detection, instance segmentation, and contextual reasoning.",
+    "url": null,
+    "license": null,
+    "creator": "Tsung-Yi Lin, Michael Maire, Serge Belongie, Lubomir Bourdev, Ross Girshick, James Hays, Pietro Perona, Deva Ramanan, C. Lawrence Zitnick, Piotr Dollár",
+    "publisher": "Microsoft Research",
+    "datePublished": "2015-02-21",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "Images were collected from Flickr by searching for pairwise combinations of object categories (e.g., 'dog + car') and scene/object category pairs to obtain non-iconic images. At most 5 photos taken by a single photographer within a short time window were downloaded. An AMT filtering task was used to remove invalid or iconic images. Object categories were selected based on voting by co-authors and input from children aged 4-8.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "In rare cases where enough images could not be found using pairwise category searches, single category searches were performed with an explicit filtering stage to remove iconic images.",
+    "rai:dataCollectionRawData": "Images collected from Flickr, searched using pairwise combinations of object categories and scene/object category pairs. The result is a collection of 328,000 images.",
+    "rai:dataCollectionTimeframe": "The first half of the dataset was released in 2014, the second half in 2015.",
+    "rai:dataAnnotationProtocol": "Multi-stage annotation pipeline using Amazon Mechanical Turk (AMT) workers: (1) non-iconic image filtering where workers removed invalid/iconic images from a grid of 128 candidates; (2) category labeling where workers dragged and dropped icons onto object instances; (3) instance spotting where workers clicked on all instances of a given category; (4) instance segmentation; (5) segmentation verification. 8 AMT workers were used for category labeling tasks.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Crowd worker quality was analyzed by comparing AMT workers to expert workers (co-authors). Ground truth was computed using majority vote of experts. Precision and recall were measured for 1-10 AMT workers vs. 7 experts. The union of 8 AMT workers achieved greater recall than any individual expert. Worker recall was estimated to saturate at 9-10 AMT workers, with over 99% of valid object categories detected given 8 annotators.",
+    "rai:annotationsPerItem": "8 AMT workers per image for category labeling",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset emphasizes non-iconic views of objects in natural environments to address the bias in prior datasets toward iconic/canonical perspectives of objects.",
+    "rai:dataLimitations": "The dataset currently only labels 'things' but not 'stuff' (background/amorphous regions), which may limit contextual information. Additional annotations such as occlusion levels, keypoints, scene types, attributes, and full sentence descriptions are not yet included.",
+    "rai:dataSocialImpact": "The dataset is intended to advance object detection and segmentation algorithms, contributing to the broader goal of scene understanding in computer vision.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for training and benchmarking object detection and segmentation algorithms, as well as potentially for scene type recognition, attribute prediction, and image captioning tasks.",
+    "rai:dataReleaseMaintenancePlan": "MS COCO will evolve and grow over time, with up-to-date information available on the project website. The team is actively exploring adding various additional annotations.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Images were collected from Flickr using pairwise category searches to obtain non-iconic images, filtered via AMT to remove iconic or invalid images, limited to at most 5 photos per photographer per time window, and split into training, validation, and testing sets.",
+    "rai:dataPreprocessingProtocol": "Candidate images were collected by searching Flickr for pairwise combinations of object categories and scene/object category pairs to reduce iconic images. An AMT filtering stage was applied to remove invalid or iconic images. Categories were limited to entry-level 'thing' categories with at least 5,000 instances, and all PASCAL VOC categories were included for backwards compatibility."
+  },
+  "usage": {
+    "input_tokens": 24878,
+    "output_tokens": 2757
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:25:50.052695Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Microsoft Common Objects in COntext (MS COCO) dataset contains 91 common object categories"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Microsoft Common Objects in COntext (MS COCO) dataset contains 91 common object categories with 82 of them having more than 5,000 labeled instances... In total the dataset has 2,500,000 labeled instances in 328,000 images."
+      },
+      "url": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Tsung-Yi Lin Michael Maire Serge Belongie Lubomir Bourdev Ross Girshick James Hays Pietro Perona Deva Ramanan C. Lawrence Zitnick Piotr Doll´ar"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "R. Girshick and C. L. Zitnick are with Microsoft Research, Redmond. The majority of this work was performed while P. Dollár was with Microsoft Research."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1405.0312v3 [cs.CV] 21 Feb 2015"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected non-iconic images using two strategies. First as popularized by PASCAL VOC [2], we collected images from Flickr which tends to have fewer iconic images... if we searched for pairwise combinations of object categories, such as 'dog + car' we found many more non-iconic images... We downloaded at most 5 photos taken by a single photographer within a short time window."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected images from Flickr which tends to have fewer iconic images. Flickr contains photos uploaded by amateur photographers with searchable metadata and keywords."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In the rare cases in which enough images could not be found, we searched for single categories and performed an explicit filtering stage to remove iconic images."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The result is a collection of 328,000 images with rich contextual relationships between objects."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The first half of the dataset was released in 2014, the second half will be released in 2015."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We designed the labeling task to encourage workers to annotate all categories present in the image... the union of 8 AMT workers, the same number as was used to collect our labels, achieved greater recall than any of the expert workers."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We compared precision and recall of seven expert workers (co-authors of the paper) with the results obtained by taking the union of one to ten AMT workers."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We analyzed crowd worker quality on the category labeling task by comparing to dedicated expert workers... Ground truth was computed using majority vote of the experts... we estimate that in practice over 99% of all object categories not later rejected as false positives are detected given 8 annotators."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the union of 8 AMT workers, the same number as was used to collect our labels, achieved greater recall than any of the expert workers"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For many categories of objects, there exists an iconic view... We posit that current recognition systems perform fairly well on iconic views, but struggle to recognize objects otherwise – in the background, partially occluded, amid clutter – reflecting the composition of actual everyday scenes."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We currently only label 'things', but labeling 'stuff' may also provide significant contextual information that may be useful for detection. Many object detection algorithms benefit from additional annotations, such as the amount an instance is occluded or the location of keypoints on the object."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Utilizing over 70,000 worker hours, a vast collection of object instances was gathered, annotated and organized to drive the advancement of object detection and segmentation algorithms."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset could provide a good benchmark for other types of labels, including scene types, attributes and full sentence written descriptions... to drive the advancement of object detection and segmentation algorithms."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MS COCO will evolve and grow over time; up to date information is available online... We are actively exploring adding various such annotations."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We downloaded at most 5 photos taken by a single photographer within a short time window. In the rare cases in which enough images could not be found, we searched for single categories and performed an explicit filtering stage to remove iconic images... We then created an AMT filtering task that allowed users to remove invalid or iconic images from a grid of 128 candidates."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We collected non-iconic images using two strategies... we did not search for object categories in isolation... if we searched for pairwise combinations of object categories, such as 'dog + car' we found many more non-iconic images... Categories for which obtaining a large number of instances (greater than 5,000) was difficult were also removed. To ensure backwards compatibility all categories from PASCAL VOC are also included."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.943
+    },
+    "cost_usd": 0.116,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 14709,
+        "tokens_in": 4057,
+        "tokens_out": 520
+      },
+      "collection": {
+        "section_chars": 10118,
+        "tokens_in": 3011,
+        "tokens_out": 528
+      },
+      "annotation": {
+        "section_chars": 3506,
+        "tokens_in": 1313,
+        "tokens_out": 583
+      },
+      "impact": {
+        "section_chars": 7143,
+        "tokens_in": 2268,
+        "tokens_out": 576
+      },
+      "processing": {
+        "section_chars": 7542,
+        "tokens_in": 2220,
+        "tokens_out": 377
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 41.9,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 12009,
+      "output_tokens": 173
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

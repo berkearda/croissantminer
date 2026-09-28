@@ -1,0 +1,287 @@
+{
+  "dataset_id": "espnet_yodas_owsmv4",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Cleaned YODAS",
+    "description": "A cleaned version of the YODAS web-crawled speech dataset, processed through a scalable data-cleaning pipeline that includes resegmentation, language identification filtering, and CTC confidence score filtering, yielding 166,000 hours of speech across 75 languages.",
+    "url": "https://www.wavlab.org/activities/2024/owsm/",
+    "license": "Creative Commons",
+    "creator": "Yifan Peng, Muhammad Shakeel, Yui Sudo, William Chen, Jinchuan Tian, Chyi-Jiunn Lin, Shinji Watanabe",
+    "publisher": "Interspeech 2025",
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset uses YODAS data that underwent a cleaning pipeline including resegmentation using CTC segmentation algorithm to realign audio and text, as the raw data contained annotation errors such as mismatched language labels and misalignment between audio and text.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Raw YODAS data consisting of unsegmented long-form recordings accompanied by text transcriptions with start and end timestamps, covering multiple languages including English, Spanish, Russian, Portuguese, Korean, French, German, Italian, Vietnamese, and Indonesian.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "OWSM-CTC v3.2 model used for CTC segmentation and confidence scoring; fastText for text-based LID; ECAPA-TDNN (SpeechBrain) for spoken LID",
+    "rai:dataBiases": "Large-scale web-crawled data contains incorrect language labels and audio-text misalignments, which represent quality biases in the dataset.",
+    "rai:dataLimitations": "The raw YODAS ASR dataset contains incorrect language labels and audio-text misalignments, limiting its direct usability without cleaning.",
+    "rai:dataSocialImpact": "The work aims to advance open academic research by releasing data-cleaning scripts, curated datasets, training code, pre-trained models, and training logs, promoting transparency and reproducibility in speech foundation model research.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The curated dataset is intended for training multilingual speech-to-text foundation models supporting tasks such as automatic speech recognition (ASR), speech translation (ST), spoken language identification (LID), and voice activity detection (VAD).",
+    "rai:dataReleaseMaintenancePlan": "The authors plan to publicly release data-cleaning scripts, the curated YODAS dataset, training code, pre-trained models, and training logs to support open academic research.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The cleaned YODAS data (166k hours, 75 languages) is combined with previous OWSM v3.2 data to form a 320k hour training set. No resampling is applied to balance the language distribution, keeping the original imbalanced distribution.",
+    "rai:dataPreprocessingProtocol": "Three-step pipeline: (1) Resegmentation — long-form audio realigned using CTC segmentation algorithm with OWSM-CTC v3.2, segmented into ≤30s utterances, non-speech utterances removed, yielding 345k hours across 83 languages; (2) LID-based filtering — text LID via fastText and audio LID via ECAPA-TDNN (SpeechBrain), retaining only utterances where original language label matches both predicted labels, yielding 284k hours across 75 languages; (3) CTC-score-based filtering — utterances with low CTC confidence scores (lowest θCTC=0.10 quantile per language) removed, yielding 166k hours across 75 languages."
+  },
+  "usage": {
+    "input_tokens": 30801,
+    "output_tokens": 2444
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-01T23:20:07.534732Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We will publicly release the cleaned YODAS data, pre-trained models, and all associated scripts via the ESPnet toolkit."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we develop a scalable data-cleaning pipeline using public toolkits, yielding a dataset with 166,000 hours of speech across 75 languages."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://www.wavlab.org/activities/2024/owsm/"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "YODAS publicly releases audio files in a Creative Commons license instead of links to original sources"
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yifan Peng1, Muhammad Shakeel2, Yui Sudo2, William Chen1, Jinchuan Tian1, Chyi-Jiunn Lin1, Shinji Watanabe1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Interspeech 2025, 17-21 August 2025, Rotterdam, The Netherlands"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Interspeech 2025, 17-21 August 2025, Rotterdam, The Netherlands"
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we develop a scalable data-cleaning pipeline using public toolkits, yielding a dataset with 166,000 hours of speech across 75 languages"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The raw YODAS data has not undergone a rigorous cleaning process and may contain annotation errors. Common issues include mismatched language labels and misalignment between audio and text. Therefore, data cleaning is essential to ensure accuracy and reliability."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The raw YODAS data has not undergone a rigorous cleaning process and may contain annotation errors [24]. Common issues include mismatched language labels and misalignment between audio and text."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "YODAS provides unsegmented long-form recordings, each of them is accompanied by a list of text transcriptions annotated with start and end timestamps. However, these timestamps can be inaccurate."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we employ the publicly available OWSM-CTC v3.2 model... the text-based LID model is sourced from fastText [32, 33], while the spoken LID model is based on ECAPA-TDNN, developed by SpeechBrain [34]"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We reveal that large-scale web-crawled data contains incorrect language labels and audio-text misalignments."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We reveal that large-scale web-crawled data contains incorrect language labels and audio-text misalignments. To mitigate these issues, we develop a scalable data-cleaning pipeline using public models and toolkits."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To advance open academic research, we will publicly release our data-cleaning scripts, the curated YODAS dataset, training code, pre-trained models, and training logs."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We train a new series of OWSM v4 models using this curated dataset alongside existing OWSM data... supports multilingual automatic speech recognition (ASR), any-to-English speech translation (ST), spoken language identification (LID), and voice activity detection (VAD)."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To advance open academic research, we will publicly release our data-cleaning scripts, the curated YODAS dataset, training code, pre-trained models, and training logs."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For simplicity, in this work, we keep the original distribution without any resampling... we train a new series of OWSM v4 models using this curated data alongside the previous OWSM v3.2 data [25]."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Figure 1: Our data-cleaning pipeline consists of three steps: (1) realign audio and text using a pre-trained OWSM-CTC model, (2) filter data based on LID results, and (3) filter data based on CTC confidence scores... we employ the publicly available OWSM-CTC v3.2 model... the text-based LID model is sourced from fastText, while the spoken LID model is based on ECAPA-TDNN... we opt for a threshold of θCTC = 0.10. This value retains the majority of the data while providing generally good performance across languages. This filtering process results in 166k hours of audio spanning 75 languages."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 19,
+      "fields_null": 11,
+      "fields_verified": 19,
+      "evidence_count": 19,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1291,
+    "split": "dev",
+    "group_stats": {
+      "core": {
+        "section_chars": 9218,
+        "tokens_in": 3484,
+        "tokens_out": 541
+      },
+      "collection": {
+        "section_chars": 2845,
+        "tokens_in": 1284,
+        "tokens_out": 361
+      },
+      "annotation": {
+        "section_chars": 15547,
+        "tokens_in": 5739,
+        "tokens_out": 260
+      },
+      "impact": {
+        "section_chars": 2849,
+        "tokens_in": 1316,
+        "tokens_out": 581
+      },
+      "processing": {
+        "section_chars": 15547,
+        "tokens_in": 5606,
+        "tokens_out": 554
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 39.9,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 13372,
+      "output_tokens": 147
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

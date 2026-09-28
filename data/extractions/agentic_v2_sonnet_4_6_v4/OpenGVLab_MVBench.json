@@ -1,0 +1,261 @@
+{
+  "dataset_id": "OpenGVLab_MVBench",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "MVBench",
+    "description": "MVBench is a comprehensive multi-modal video understanding benchmark covering 20 challenging temporal video tasks. It uses a static-to-dynamic method to define temporal tasks and automatically converts public video annotations into multiple-choice QA pairs for evaluating Multi-modal Large Language Models (MLLMs) on temporal understanding.",
+    "url": "https://github.com/OpenGVLab/Ask-Anything",
+    "license": "MIT",
+    "creator": "Kunchang Li, Yali Wang, Yinan He, Yizhuo Li, Yi Wang, Yi Liu, Zun Wang, Jilan Xu, Guo Chen, Ping Luo, Limin Wang, Yu Qiao (Shanghai AI Laboratory, SIAT CAS, University of Chinese Academy of Sciences, The University of Hong Kong, Fudan University, Nanjing University)",
+    "publisher": null,
+    "datePublished": "2024-05-23",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Videos were collected from 11 existing public video benchmarks covering diverse domains and scenes. An automatic QA generation paradigm was used to convert open-sourced video annotations into multiple-choice QAs, guided by temporal task definitions.",
+    "rai:dataCollectionType": "Secondary Data analysis, Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Videos and annotations from 11 public video datasets: STAR, PAXION, Moments in Time V1, FunQA, CLEVRER, Perception Test, Charades-STA, MoVQA, NTU RGB+D, VLN-CE, and TVQA.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Data filtration was applied based on three criteria: (1) Video Diversity: selecting from 11 diverse datasets; (2) Temporal Sensitivity: eliminating short clips with negligible motion and extremely long videos, selecting videos with intermediate duration primarily ranging from 5s to 35s; (3) Question Difficulty: for STAR, randomly shifting start/end points; for CLEVRER, excluding questions requiring more than 10 conditions. Answer options were randomly sampled (3 to 5) and shuffled, and LLM was used to ensure similar and reasonable option lengths.",
+    "rai:dataAnnotationProtocol": "QA pairs were generated automatically using two methods: (1) Template-Based Construction: option candidates constructed directly from ground truth annotations; (2) LLM-Based Generation: ChatGPT was used to generate questions based on task definitions and to convert open-ended QAs into multiple-choice format. 200 multiple-choice QA pairs were produced for each temporal understanding task.",
+    "rai:dataAnnotationPlatform": "ChatGPT",
+    "rai:dataAnnotationAnalysis": "The multiple-choice format was chosen over open-ended answers to avoid evaluation bias from LLM scoring or manual intervention. Ground-truth video annotations were used to guarantee evaluation fairness and accuracy.",
+    "rai:annotationsPerItem": "200 multiple-choice QA pairs per temporal understanding task (20 tasks total)",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "ChatGPT (for question generation and QA conversion); UMT-L/16 (for generating top-6 action predictions as answer candidates for Fine-grained Action task)",
+    "rai:dataReleaseMaintenancePlan": "A leaderboard is maintained at https://huggingface.co/spaces/OpenGVLab/MVBench_Leaderboard with results updated over time (leaderboard shown until 2023/11/28).",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The benchmark avoids biased scoring by using ground-truth video annotations and multiple-choice format instead of open-ended LLM scoring. There is a minimal source gap between instruction data and MVBench: CLEVRER in instruction data has similar questions as Moving Attribute and Counterfactual Inference tasks, and Action Antonym videos are from SthSthV2 while antonyms are from PAXION.",
+    "rai:dataLimitations": "Current MLLMs have difficulty generalizing to localization and counting tasks in the absence of related tuning data. Visual information alone may not be sufficient for cognition tasks such as egocentric navigation and episodic reasoning; inclusion of other modalities such as depth and audio could be beneficial.",
+    "rai:dataUseCases": "Testing and evaluation of Multi-modal Large Language Models (MLLMs) on temporal video understanding tasks, covering perception to cognition. The benchmark is intended for comprehensive evaluation of MLLMs' temporal understanding capabilities in the open world."
+  },
+  "usage": {
+    "input_tokens": 48267,
+    "output_tokens": 2871
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:17:43.687837Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a comprehensive Multi-modal Video understanding Bench mark, namely MVBench, which covers 20 challenging video tasks that cannot be effectively solved with a single frame."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce a comprehensive Multi-modal Video understanding Bench mark, namely MVBench, which covers 20 challenging video tasks that cannot be effectively solved with a single frame. Specifically, we first introduce a novel static-to-dynamic method to define these temporal-related tasks."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All models and data are available at https://github.com/OpenGVLab/Ask-Anything ."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Kunchang Li1,2,3 Yali Wang1,3 Yinan He3 Yizhuo Li4,3 Yi Wang3 Yi Liu1,2,3 Zun Wang3 Jilan Xu5,3 Guo Chen6,3 Ping Luo4,3 Limin Wang6,3 Yu Qiao3,1"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.17005v4 [cs.CV] 23 May 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Full results on MVBench can be found at https://huggingface.co/spaces/OpenGVLab/MVBench_Leaderboard . Notably, our VideoChat2 exceeds the leading models by over 15%."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we design an automatic QA generation paradigm in Fig. 2, which efficiently converts open-sourced video annotations into multiple-choice QAs for evaluating MLLMs. To boost video diversity, we carefully select 11 video datasets (see Tab. 1) that cover a broad spectrum of domains and scenes, ranging from first-person to third-person perspectives, and from indoor to outdoor environments."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we propose to select videos from existing benchmarks... we automatically convert the video annotations into this format via LLMs."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The videos are collected from the public datasets, including STAR [82], PAXION [79], Moments in Time V1 [57], FunQA [87], CLEVRER [95], Perception Test [61], Charades-STA [20], MoVQA [102], NTU RGB+D[48], VLN-CE [32] and TVQA [35]."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To guarantee that each task is temporal sensitive, we eliminate short clips which generally contain negligible motions, and also delete extremely long videos which often present overly complicated contexts that are hard for evaluation. Hence, we select videos with intermediate duration, primarily ranging from 5s to 35s... For all questions, we randomly sample 3 to 5 answer options from the available candidates, and shuffle the option order, to strengthen the evaluation's robustness. Additionally, to prevent the common issue of answer leakage where longer options tend to be correct, we further use LLM to guarantee that all the answer options of a question are of similar and reasonable lengths."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first use ChatGPT [58] to generate a question for each video, based on the task definition... Ultimately, we produce 200 multiple-choice QA pairs for each temporal understanding task."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first use ChatGPT [58] to generate a question for each video, based on the task definition."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use the multiple-choice format instead of the open-ended one, for evaluation correction and fairness. This is mainly because the open-ended answer has to be scored by LLMs or user studies, which may either introduce evaluation bias or manual intervention."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ultimately, we produce 200 multiple-choice QA pairs for each temporal understanding task."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we first use ChatGPT [58] to generate a question for each video, based on the task definition... A: Randomly sample 4 actions from top-6 predictions of UMT-L/16 [43]"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Full results on MVBench can be found at https://huggingface.co/spaces/OpenGVLab/MVBench_Leaderboard . To facilitate a clear comparison of different open-sourced MLLMs, we present the leaderboards for different tasks on MVBench in Tab. 20 (until 2023/11/28)."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "it guarantees evaluation fairness with ground-truth video annotations, avoiding the biased scoring of LLMs... there is a minimal source gap between our instruction data and MVBench. Specifically, the CLEVRER [95] in our instruction data has similar questions as Moving Attribute and Counterfactual Inference in MVBench... And the videos of Action Antonym are from SthSthV2 [22], while the antonym is from PAXION [79]."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hypothesize that current MLLMs have difficulty generalizing to localization and counting tasks in the absence of related tuning data... Given the results from FrozenBiLM [92], where the performance for TVQA reasoning significantly improves with the incorporation of speech subtitles, we suggest that visual information alone may not be sufficient. The inclusion of other modalities, such as depth and audio, could prove beneficial."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MVBench, which aims at comprehensively evaluating the temporal perception capabilities of MLLMs in the open world... we make a thorough evaluation of various well-known MLLMs on our MVBench."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 19,
+      "evidence_coverage": 90.5,
+      "avg_confidence": 0.931
+    },
+    "cost_usd": 0.1879,
+    "split": "test",
+    "corrections_applied": 1,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 63.0,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 1
+  }
+}

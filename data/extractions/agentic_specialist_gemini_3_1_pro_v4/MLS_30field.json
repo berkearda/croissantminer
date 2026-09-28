@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS)",
+    "description": "The Multilingual LibriSpeech (MLS) dataset is a large multilingual corpus derived from read audiobooks from LibriVox. It consists of 8 languages, including about 44.5K hours of English and a total of about 6K hours for other languages, suitable for speech research.",
+    "url": "http://www.openslr.org",
+    "license": null,
+    "creator": "Vineel Pratap; Qiantong Xu; Anuroop Sriram; Gabriel Synnaeve; Ronan Collobert",
+    "publisher": null,
+    "datePublished": "2020-12-22",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, Ronan Collobert. MLS: A LARGE-SCALE MULTILINGUAL DATASET FOR SPEECH RESEARCH. 2020.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "Audiobooks were downloaded from LibriVox using data preparation tools from the LibriLight open source library. Corresponding text sources were automatically extracted using custom parsers from various domains, or manually copied and searched online when links were invalid.",
+    "rai:dataCollectionType": "Web Scraping; Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Some text source links were invalid or redirected to incorrect pages, resulting in missing text sources for certain audiobooks.",
+    "rai:dataCollectionRawData": "Read audiobooks from LibriVox and corresponding text sources from domains such as Project Gutenberg, archive.org, ccel.org, and hathitrust.org.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human transcribers listen to the audio file while looking at the generated transcript and are asked to correct the transcripts if they find any mistakes, specifically only correcting 'clear and obvious' errors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "acoustic models using Time-Depth Separable (TDS) Convolutions; 4-gram language model; wav2letter@anywhere framework",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The in-house datasets consisting of videos publicly shared by users used for training acoustic models are completely de-identified.",
+    "rai:dataUseCases": "ASR and Text-To-Speech (TTS) research; large-scale training of ASR systems; multilingual ASR",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "To avoid high speaker imbalance in development and test sets, speakers with high duration were truncated by sampling their recordings up to an upper-bound.",
+    "rai:dataPreprocessingProtocol": "Audio data was downsampled from 48kHz to 16kHz and segmented into 10-20 second segments. Text sources underwent NFKC normalization, removal of unwanted characters (punctuations, emojis, escape symbols), and filtering to valid unicode characters based on language orthography. Books with corrupted metadata or multiple speakers were removed, and candidate transcripts with a Word Error Rate (WER) greater than 40% compared to pseudo labels were filtered out."
+  },
+  "usage": {
+    "input_tokens": 108206,
+    "output_tokens": 1123
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 21869,
+        "output_tokens": 275
+      },
+      "collection": {
+        "input_tokens": 21714,
+        "output_tokens": 192
+      },
+      "annotation": {
+        "input_tokens": 21678,
+        "output_tokens": 194
+      },
+      "impact": {
+        "input_tokens": 21641,
+        "output_tokens": 171
+      },
+      "processing": {
+        "input_tokens": 21304,
+        "output_tokens": 291
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 53888,
+      "output_tokens": 308
+    },
+    "timestamp": "2026-05-27T18:37:57.077614+00:00",
+    "elapsed_seconds": 89.1
+  }
+}

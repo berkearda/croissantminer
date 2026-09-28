@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_textvqa",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "TextVQA",
+    "description": "TextVQA is a dataset for visual question answering that focuses on questions requiring models to read and reason about text in images. It contains 45,336 questions on 28,408 images from the Open Images dataset, with 10 ground truth answers for each question-image pair.",
+    "url": "https://textvqa.org",
+    "license": null,
+    "creator": "Amanpreet Singh; Vivek Natarajan; Meet Shah; Yu Jiang; Xinlei Chen; Dhruv Batra; Devi Parikh; Marcus Rohrbach",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Amanpreet Singh, Vivek Natarajan, Meet Shah, Yu Jiang, Xinlei Chen, Dhruv Batra, Devi Parikh, and Marcus Rohrbach. Towards VQA Models That Can Read. arXiv:1904.08920v2, 2019.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled from Open Images v3 by selecting images from categories likely to contain text, using Rosetta OCR on random images from each category to compute per-category sampling weights, sampling images from Open Images training and test splits, then running a three-stage crowdsourcing pipeline to identify images with text, collect 1–2 questions per image that require reading text in the image, and collect 10 answers per question.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "In the first stage, annotators identified images that did not contain text, and filtering those out resulted in 28,408 images. The paper also states that questions were removed when a majority of workers marked flags such as no text in image, not a question, answering the question doesn't require reading any text in image, or unanswerable.",
+    "rai:dataCollectionRawData": "Images were sourced from the Open Images v3 dataset. The paper states that the training and validation sets were collected from Open Images' training set and the test set from Open Images' test set. Rosetta OCR outputs on sampled Open Images categories were used to estimate category weights for image sampling.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "A three-stage crowdsourcing pipeline was used: annotators first identified images that did not contain text using a forced-choice yes/no flag; then annotators wrote 1–2 questions per image that required reading text in the image to answer, with the second question required to be different and have a different answer; finally, 10 answers were collected for each question. Quality control included instructions to ensure questions required reading text, worker flags for no text in image, not a question, answering does not require reading text, and unanswerable, removal of questions where a majority selected any flag, and hand-crafted questions with known answers to identify and filter bad annotators.",
+    "rai:dataAnnotationPlatform": "crowd-sourcing",
+    "rai:dataAnnotationAnalysis": "Questions were removed when a majority of workers marked any quality-control flag; noisy data from annotators were filtered out; majority answers were used in dataset analysis.",
+    "rai:annotationsPerItem": "10",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Rosetta OCR system",
+    "rai:dataBiases": "The model often answers questions about cities with “new york”. We have observed this bias in other city related questions as well.",
+    "rai:dataLimitations": "The effective size of the VizWiz dataset is small due to 58% of the questions being “unanswerable”; 8.9% of the TextVQA questions can only be answered by combining multiple OCR tokens; Our OCR model, while mature, still fails at detecting text that is rotated, a bit unstructured (e.g., a scribble) or partially occluded; the model has a strong dependency on the quality of OCR tokens produced",
+    "rai:dataSocialImpact": "Studies have shown that a dominant class of questions asked by visually impaired users on images of their surroundings involves reading text in the image; these are exactly the questions visually-impaired users frequently ask of their assistive devices; We explore a specific skill in Visual Question Answering that is important for the applications involving aiding visually impaired users",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "developing and studying VQA models that can reason about text; answering questions that require reading text in images; benchmark progress on VQA models that can read and reason about text in natural everyday scenes; applications involving aiding visually impaired users",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "In the first stage, annotators were asked to identify images that did not contain text (using a forced-choice “yes”/“no” flag). Filtering those (and noisy data from annotators) out resulted in 28,408 images. We remove the questions where a majority of workers marked any of these flags: (i) no text in image; (ii) not a question; (iii) answering the question doesn’t require reading any text in image; and (iv) unanswerable. Additionally, we use hand-crafted questions for which we know the correct answers to identify and filter out bad annotators."
+  },
+  "usage": {
+    "input_tokens": 147473,
+    "output_tokens": 1435
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 29754,
+        "output_tokens": 224
+      },
+      "collection": {
+        "input_tokens": 29532,
+        "output_tokens": 515
+      },
+      "annotation": {
+        "input_tokens": 29519,
+        "output_tokens": 229
+      },
+      "impact": {
+        "input_tokens": 29476,
+        "output_tokens": 290
+      },
+      "processing": {
+        "input_tokens": 29192,
+        "output_tokens": 177
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 69158,
+      "output_tokens": 333
+    },
+    "timestamp": "2026-05-22T11:32:57.163339+00:00",
+    "elapsed_seconds": 29.8
+  }
+}

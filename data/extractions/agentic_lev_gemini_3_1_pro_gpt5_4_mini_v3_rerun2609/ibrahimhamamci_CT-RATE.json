@@ -1,0 +1,287 @@
+{
+  "dataset_id": "ibrahimhamamci_CT-RATE",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "CT-RATE",
+    "description": "A public dataset of paired 3D non-contrast chest CT scans and radiology reports. It contains 25,692 scans from 21,304 unique patients and is intended to support foundation model development for 3D medical imaging.",
+    "url": "https://huggingface.co/datasets/ibrahimhamamci/CT-RATE",
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Ibrahim Ethem Hamamci, Sezgin Er, Chenyu Wang, Furkan Almas, Ayse Gulnihan Simsek, Sewal Nil Esirgun, Irem Dogan, Omer Faruk Durugol, Benjamin Hou, Suprosanna Shit, Weicheng Dai, Murong Xu, Hadrien Reynaud, Muhammed Furkan Dasdelen, Bastian Wittmann, Tamaz Amiranashvili, Enis Simsar, Mehmet Simsar, Emine Bensu Erdemir, Abdullah Alanbay, Anjany Sekuboyina, Berkan Lafci, Ahmet Kaplan, Zhiyong Lu, Malgorzata Polacin, Bernhard Kainz, Christian Bluethgen, Kayhan Batmanghelich, Mehmet Kemal Ozdemir, and Bjoern Menze",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "CT-RATE was curated from non-contrast 3D chest CT scans paired with corresponding radiology reports written by radiologists. The dataset was split into training and internal validation sets, and multi-abnormality labels were extracted from reports using a finetuned text encoder; 1,000 reports were manually annotated for 18 abnormalities to train the labeler.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "25,692 non-contrast 3D chest CT volumes (over 14.3 million 2D slices) from 21,304 unique patients, each accompanied by a radiology report including impression and findings sections, plus additional patient information and scan technique.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Radiology reports were manually annotated for 18 distinct abnormalities on 1,000 reports to finetune an automated text classifier (RadBERT) that extracted global abnormality labels from reports; the dataset also uses radiology reports written by radiologists as paired text.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The finetuned labeler’s precision, recall, and F1 scores were reported as evidence of robust classification across abnormalities.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "A pretrained language model, RadBERT, was fine-tuned as an automated text classifier / report labeler to extract abnormality labels from radiology reports.",
+    "rai:dataBiases": "Biases inherent to the single-institution dataset may influence self-supervised training; the data comes from a single geographic and clinical setting, which may limit generalizability to other populations.",
+    "rai:dataLimitations": "The dataset and models are limited by single-institution, single-geography data; CT-CLIP depends on report terminology and prompt choice; CT-CHAT evaluation lacks true 3D multimodal baselines and uses 2D models/DRRs instead; generated reports are not yet sufficient for clinical use; current models are limited to chest CT volumes and require further validation before clinical deployment.",
+    "rai:dataSocialImpact": "The work may broaden accessibility through a user-friendly interface and support educational and clinical research use, but it also highlights the need for robustness, interpretability, regulatory compliance, and prospective validation before routine clinical deployment.",
+    "rai:personalSensitiveInformation": "Age, sex, geography, and clinical imaging/report data are present; the paper also mentions patient populations and radiology reports, but does not explicitly discuss other sensitive attributes.",
+    "rai:dataUseCases": "Training, validation, finetuning, zero-shot multi-abnormality detection, classification, open-vocabulary inference, report generation, and benchmarking/external validation. The paper also suggests educational and clinical research use, but not routine clinical deployment.",
+    "rai:dataReleaseMaintenancePlan": "The paper states the dataset and related resources are open-source/openly available and mentions a GitHub repository, but does not provide versioning, update timeframe, maintainers, or deprecation policy.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": null
+  },
+  "usage": {
+    "input_tokens": 62685,
+    "output_tokens": 2268
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:13:58.240343Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We introduce CT-RATE, a public dataset that pairs 3D medical images with corresponding textual reports.”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report.”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our CT-RATE dataset ... is publicly accessible via https://huggingface.co/datasets/ibrahimhamamci/CT-RATE [67].”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Author list at the top of the paper."
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Ibrahim Ethem Hamamci. CT-RATE: Paired chest CT volumes and radiology reports. https://huggingface.co/datasets/ibrahimhamamci/CT-RATE. 2025.”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset consists of “radiology text reports” and the paper is written in English; no other language is stated."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“CT-RATE is fully open-source.”"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We curate and open-source CT-RATE, a dataset comprising 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports from 21,304 unique patients” and “Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities for this finetuning procedure.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We curate and open-source CT-RATE, a dataset comprising 25,692 non-contrast 3D chest CT volumes and corresponding radiology text reports”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“CT-RATE comprises 25,692 non-contrast 3D chest CT scans from 21,304 unique patients. Each scan is accompanied by its corresponding radiology report.”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Within CT-RATE, we manually annotate 1,000 reports for 18 distinct abnormalities for this finetuning procedure.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The finetuned model’s precision, recall, and F1 scores, detailed in Supplementary Table2, show robust classification across abnormalities”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we enrich CT-RATE with global abnormality labels extracted from the radiology reports using an automated text classifier… This process involves finetuning a pretrained language model, RadBERT”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“biases inherent to our single-institution dataset may influence our self-supervised training” and “the data originates from a single geographic and clinical setting, which may limit the generalizability of our models to other populations.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“our current models are limited to chest CT volumes”; “CT-CLIP depends on the specific terminology used in reports and the choice of prompts during zero-shot detection”; “the lack of pretrained 3D medical multimodal AI assistants for benchmarking”; “the quality of its generated reports remains insufficient for clinical use”; “remains far from ready for clinical deployment”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we introduce a user-friendly graphical interface ... that allows non-experts to interact with the CT-CHAT model” and “This interface not only makes CT-CHAT a valuable tool for educational and clinical research settings” and “challenges such as robustness, interpretability, regulatory compliance, and prospective validation must be addressed before integration into routine radiology workflows.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“ages ranging from 18 to 102 years”; “Sex distribution”; “the data originates from a single geographic and clinical setting”; “paired with radiology reports”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we first use CT-RATE to develop CT-CLIP” and “For finetuning” and “zero-shot multi-abnormality detection” and “ClassFine” and “VocabFine” and “report generation” and “external validation” and “valuable tool for educational and clinical research settings”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we create and open-source a visual question-answering dataset derived from CT-RATE” and “CT-RATE, an open-source 3D dataset paired with radiology reports” and “via our GitHub repository”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 20,
+      "fields_null": 10,
+      "fields_verified": 20,
+      "evidence_count": 19,
+      "evidence_coverage": 95.0,
+      "avg_confidence": 0.937
+    },
+    "cost_usd": 0.0108,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 46744,
+        "tokens_in": 12633,
+        "tokens_out": 640
+      },
+      "collection": {
+        "section_chars": 49532,
+        "tokens_in": 11028,
+        "tokens_out": 386
+      },
+      "annotation": {
+        "section_chars": 49532,
+        "tokens_in": 11014,
+        "tokens_out": 348
+      },
+      "impact": {
+        "section_chars": 15142,
+        "tokens_in": 3749,
+        "tokens_out": 747
+      },
+      "processing": {
+        "error": "Expecting ',' delimiter: line 12 column 106 (char 972)"
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 26.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 24261,
+      "output_tokens": 147
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

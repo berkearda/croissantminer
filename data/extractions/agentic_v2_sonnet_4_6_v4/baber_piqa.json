@@ -1,0 +1,259 @@
+{
+  "dataset_id": "baber_piqa",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "PIQA: Physical Interaction Question Answering",
+    "description": "PIQA is a benchmark dataset for evaluating physical commonsense reasoning in natural language understanding systems. It consists of multiple-choice questions where a model must choose the most appropriate solution to a physical goal from two options. The dataset is inspired by instructables.com and focuses on everyday situations with a preference for atypical solutions.",
+    "url": "http://yonatanbisk.com/piqa",
+    "license": null,
+    "creator": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, Yejin Choi (Allen Institute for Artificial Intelligence, Microsoft Research AI, Carnegie Mellon University, University of Washington)",
+    "publisher": "AAAI",
+    "datePublished": "2019-11-26",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected using Amazon Mechanical Turk (HITs), where annotators were prompted with links to instructables.com to inspire goal-solution pairs. Annotators provided a physical goal, a valid solution, and an invalid 'trick' solution. Data was collected in batches and validated by other annotators. AFLite algorithm was used to remove annotation artifacts.",
+    "rai:dataCollectionType": "Web Scraping, Manual Human Curator, User-generated content data",
+    "rai:dataCollectionMissingData": "During validation, examples with low agreement were removed from the data. This often meant that correct examples were removed that required expert level knowledge of a domain.",
+    "rai:dataCollectionRawData": "Instructions from instructables.com were used as prompts/seeds for annotators. Instructables is a crowdsourced collection of instructions for doing everything from cooking to car repair.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "AFLite algorithm was applied to remove stylistic artifacts and trivial examples. It discards instances whose feature representations are collectively highly indicative of the target label, using an ensemble of linear classifiers trained on random subsets of data.",
+    "rai:dataPreprocessingProtocol": "Goals were tokenized by Spacy. Sequence lengths were computed using the GPT BPE tokenizer, with the longest 1% of data removed. Examples were truncated at 150 tokens for model experiments, affecting 1% of the data. AFLite was used to remove annotation artifacts.",
+    "rai:dataAnnotationProtocol": "Annotators were recruited via Amazon Mechanical Turk. They first completed a qualification HIT requiring >80% accuracy on well-formed and underspecified goal-solution pairs. In the main HIT, annotators were shown an instructable and asked to provide: 1) a physical goal, 2) a valid solution, and 3) a 'trick' (invalid but plausible solution). Data was collected in batches and validated by other annotators. Users with low agreement were de-qualified. Annotators were seeded with instructables from six categories: costume, outside, craft, home, food, and workshop.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "Examples with low inter-annotator agreement were removed during validation. Human performance was calculated by majority vote among annotators who achieved 90% on the qualification HIT.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Spacy (tokenization), GPT BPE tokenizer, BERT-Large (for AFLite embedding computation)",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Reporting bias was identified as a concern: when thinking about how to achieve a goal, people are drawn to prototypical solutions. AFLite was applied to reduce annotation artifacts. The dataset was constructed to be adversarial to BERT.",
+    "rai:dataLimitations": "The dataset focuses on English only. Examples requiring expert-level domain knowledge were removed as they fall outside commonsense. Models trained on large web crawls may eventually surpass human performance. The dataset may not capture all dimensions of physical commonsense knowledge.",
+    "rai:dataUseCases": "The dataset is intended for benchmarking and evaluating physical commonsense reasoning in natural language understanding models. It can be used for training, validation, and testing. It is also intended as a diagnostic tool to probe the physical knowledge of pretrained language models."
+  },
+  "usage": {
+    "input_tokens": 20896,
+    "output_tokens": 2526
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:33:06.567229Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce the task of physical commonsense reasoning and a corresponding benchmark dataset Physical Interaction: Question Answering or PIQA."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce a new dataset, PIQA, for benchmarking progress in physical commonsense understanding. The underlying task is multiple choice question answering: given a question q and two possible solutions s1, s2, a model or a human must choose the most appropriate solution, of which exactly one is correct."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "http://yonatanbisk.com/piqa"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, Yejin Choi — Allen Institute for Artificial Intelligence, Microsoft Research AI, Carnegie Mellon University, Paul G. Allen School for Computer Science and Engineering, University of Washington"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Copyright c2020, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1911.11641v1 [cs.CL] 26 Nov 2019"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://spacy.io – all data was collected in English."
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We asked annotators to provide semantic perturbations or alternative approaches which are otherwise syntactically and topically similar to ensure physical knowledge is targeted. The dataset is further cleaned of basic artifacts using the AFLite algorithm."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is inspired by instructables.com, which provides users with instructions on how to build, craft, bake, or manipulate objects using everyday materials. We asked annotators to provide semantic perturbations or alternative approaches."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During validation, examples with low agreement were removed from the data. This often meant that correct examples were removed that required expert level knowledge of a domain (e.g. special woodworking terminology) which should not fall under the umbrella of 'commonsense.'"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is inspired by instructables.com, which provides users with instructions on how to build, craft, bake, or manipulate objects using everyday materials."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We use AFLite (Sakaguchi et al. 2020) to remove stylistic artifacts and trivial examples from the data... The AFLite algorithm performs a systematic data bias reduction: it discards instances whose given feature representations are collectively highly indicative of the target label."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our goals, as tokenized by Spacy, average 7.8 words... we used the transformers library and truncated examples at 150 tokens, which affects 1% of the data."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In addition to this design, we also include a qualification HIT which contained well constructed and underspecified (goal, solution) pairs. Annotators had to successfully (>80%) identify which were well formed to participate in the main HIT. Data was collected in batches of several thousand triples and validated by other annotators for correctness. Users with low agreement were de-qualed."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Annotator pay averaged >15$/hr according to both self-reporting on turkerview.com and our timing calculations."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During validation, examples with low agreement were removed from the data... Human performance was calculated by a majority vote. Annotators were chosen to participate that achieved 90% on the qualification HIT from before."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our goals, as tokenized by Spacy... we use 5,000 examples from the original dataset to fine-tune BERT-Large for this task and compute the corresponding embeddings of all remaining instances."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We initially experimented with asking annotators for (task, tool) pairs via unconstrained prompts, but found that reporting bias swamped the dataset... We use AFLite (Sakaguchi et al. 2020) to remove stylistic artifacts and trivial examples from the data, which have been shown to artificially inflate model performance on previous NLI benchmarks."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://spacy.io – all data was collected in English... During validation, examples with low agreement were removed from the data. This often meant that correct examples were removed that required expert level knowledge of a domain (e.g. special woodworking terminology) which should not fall under the umbrella of 'commonsense.'"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce a new dataset, PIQA, for benchmarking progress in physical commonsense understanding... The setup of PIQA allows us to use it to probe the inner workings of deep pretrained language models, and to determine the extent of their physical knowledge."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "fields_uncertain": 0,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.943
+    },
+    "cost_usd": 0.1006,
+    "split": "test",
+    "corrections_applied": 2,
+    "enrichments": [],
+    "elapsed_seconds": 49.1,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 2
+  }
+}

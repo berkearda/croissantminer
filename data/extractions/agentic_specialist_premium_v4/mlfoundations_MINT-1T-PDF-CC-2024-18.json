@@ -1,0 +1,80 @@
+{
+  "dataset_id": "mlfoundations_MINT-1T-PDF-CC-2024-18",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "MINT-1T",
+    "description": "MINT-1T (Multimodal INTerleaved) is the largest and most diverse open-source multimodal interleaved dataset, comprising one trillion text tokens and 3.4 billion images sourced from HTML documents, PDFs, and ArXiv papers. It contains approximately 1,054 million documents and is designed for pre-training large multimodal models that process free-form interleaved sequences of images and text. It represents a 10x scale-up from the previous largest open-source dataset of this kind.",
+    "url": "https://github.com/mlfoundations/MINT-1T",
+    "license": "CC-BY-4.0",
+    "creator": "Anas Awadalla (University of Washington; Salesforce Research); Le Xue (Salesforce Research); Oscar Lo (University of Washington); Manli Shu (Salesforce Research); Hannah Lee (University of Washington); Etash Guha (University of Washington); Matt Jordan (University of Texas at Austin); Sheng Shen (University of California, Berkeley); Mohamed Awadalla (University of Washington); Silvio Savarese (Salesforce Research; Stanford University); Caiming Xiong (Salesforce Research); Ran Xu (Salesforce Research); Yejin Choi (University of Washington); Ludwig Schmidt (University of Washington)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, and Ludwig Schmidt. MINT-1T: Scaling Open-Source Multimodal Data by 10x: A Multimodal Dataset with One Trillion Tokens. arXiv:2406.11271, 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "HTML documents were extracted from CommonCrawl WARC files by parsing each WARC entry's DOM tree, covering dumps from May 2017 to April 2024. PDF documents were sourced from CommonCrawl WAT files (February 2023 to April 2024) by extracting PDF links and downloading them using PyMuPDF. ArXiv interleaved documents were built from LaTeX source code obtained directly from ArXiv S3 buckets, using TexSoup to find figure tags and interleave images with paper text.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis; Software Collection",
+    "rai:dataCollectionMissingData": "For HTML documents, image URLs that were non-retrievable were discarded and documents with no valid image links were removed. For PDFs, documents over 50MB or 50 pages were discarded, and pages containing no text were excluded. Some PDF images could not be detected due to limitations of the PyMuPDF package.",
+    "rai:dataCollectionRawData": "CommonCrawl WARC files (HTML documents, May 2017 to April 2024 dumps), CommonCrawl WAT files (PDF links, February 2023 to April 2024 dumps), and ArXiv LaTeX source files obtained from ArXiv S3 buckets.",
+    "rai:dataCollectionTimeframe": "January 2024 to June 2024 (collection process); source web data spans 2013 to 2024",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Fasttext language identification model; NSFW image detector (GantMan/nsfw_model); GPT-4 (used to classify LDA topic words into domains); PyMuPDF (PDF parsing); TexSoup (ArXiv LaTeX parsing); Bloom Filter (text deduplication)",
+    "rai:dataBiases": "OBELICS shows a pronounced concentration in 'Humanities and Social Sciences' due to its filtering process; text quality classifier models have been shown to favor text from certain demographics (avoided in MINT-1T by not using model-based heuristics); MINT-1T's PDF subset has a higher proportion of 'Science and Technology' documents due to the nature of scientific communication",
+    "rai:dataLimitations": "PDF reading order extraction sometimes fails, including incorrectly reading across column boundaries or starting from the wrong column; MINT-1T is not self-contained and relies on downloading external image URLs with no guarantee of long-term availability; link rot is a common problem for large-scale image datasets; the dataset is over 300TB making it infeasible to host with images included; only a training split is provided; the dataset may still contain confidential, offensive, or sensitive content despite filtering; individuals in the dataset were not explicitly notified about data collection",
+    "rai:dataSocialImpact": "An important consideration when releasing large datasets is to avoid exposing harmful content from the web; future work should explore more ways to improve the safety of multimodal internet data; using the dataset to train models that ingest or generate personally identifying information (such as images of people's faces and other sensitive content) as well as military applications are all inappropriate use cases of MINT-1T",
+    "rai:personalSensitiveInformation": "Email addresses and IP addresses in text data are anonymized by replacing emails with templates such as 'email@example.com' and IPs with randomly generated non-functional IPs; it is possible to identify individuals directly or indirectly from the dataset as images of individuals and text about specific individuals may be present from the public web; sensitive data such as race or ethnic origins, sexual orientations, religious beliefs, political opinions, financial or health data, biometric or genetic data, or government identification may be present if found on the public web",
+    "rai:dataUseCases": "Pre-training large multimodal models that can process multiple interleaved images and text; generating interleaved images and text sequences; building multimodal document retrieval systems",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be distributed as JSON shards through the Huggingface interface under a CC-BY-4.0 license; the authors will actively respond to issues and maintain the dataset; updates will be communicated through the README in the Huggingface interface; an erratum will be present on the README of the Huggingface dataset page; older versions can be found using the Git history of the dataset repository; a Google form will be provided to allow removal of samples from MINT-1T; contributions can be submitted through the Pull Request mechanism of the Huggingface interface",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "During training, 50% of single-image interleaved documents were randomly dropped to upsample multi-image documents. Interleaved documents were sampled with 50% from HTML, 45% from PDFs, and 5% from ArXiv.",
+    "rai:dataPreprocessingProtocol": "Non-English documents were removed using Fasttext language identification (confidence threshold 0.65). Documents with URLs containing NSFW substrings were removed. Text filtering from RefinedWeb was applied, removing documents with excessive duplicate n-grams or those identified as low quality using MassiveText rules. HTML documents with no images, more than thirty images, or images with inappropriate URL substrings (logo, avatar, porn, xxx) were filtered out. PDF documents larger than 50MB or over 50 pages were discarded; pages with no text were excluded. Images smaller than 150 pixels or larger than 20,000 pixels were removed. HTML images with aspect ratio greater than two were removed; PDF images with aspect ratio greater than three were removed. An NSFW image detector was applied and any document containing a single NSFW image was discarded. Email addresses were replaced with templates (e.g., email@example.com) and IP addresses were replaced with randomly generated non-functional IPs. Paragraph and document text deduplication was performed using a Bloom Filter (false positive rate 0.01) on 13-gram paragraphs; documents where more than 80% of paragraphs are duplicates were discarded. Common boilerplate sentences were removed via exact paragraph deduplication on 2% of each CommonCrawl snapshot. Image deduplication was performed using SHA256 hashes, removing images appearing more than ten times within a snapshot and removing repeated images within a single document."
+  },
+  "usage": {
+    "input_tokens": 190173,
+    "output_tokens": 2212
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45352,
+        "output_tokens": 528
+      },
+      "collection": {
+        "input_tokens": 27308,
+        "output_tokens": 375
+      },
+      "annotation": {
+        "input_tokens": 45322,
+        "output_tokens": 222
+      },
+      "impact": {
+        "input_tokens": 27318,
+        "output_tokens": 645
+      },
+      "processing": {
+        "input_tokens": 44873,
+        "output_tokens": 442
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 53731,
+      "output_tokens": 170
+    },
+    "timestamp": "2026-05-02T18:48:24.411613+00:00",
+    "elapsed_seconds": 57.9
+  }
+}

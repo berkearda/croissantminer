@@ -1,0 +1,288 @@
+{
+  "dataset_id": "mlfoundations_MINT-1T-PDF-CC-2024-18",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "MINT-1T",
+    "description": "MINT-1T is the largest open-source multimodal interleaved dataset, comprising one trillion text tokens and 3.4 billion images sourced from HTML documents, PDFs, and ArXiv papers. It features free-form interleaved sequences of images and text, representing a 10x scale-up from existing open-source datasets.",
+    "url": "https://github.com/mlfoundations/MINT-1T",
+    "license": "CC-BY-4.0",
+    "creator": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, Ludwig Schmidt",
+    "publisher": "University of Washington, Salesforce Research",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "MINT-1T curates a large-scale open-source dataset from multiple sources: HTML documents extracted from CommonCrawl WARC files, PDF documents sourced from CommonCrawl WAT files, and ArXiv documents built from LaTeX source code. The pipeline includes text quality filtering, image filtering, safety filtering (NSFW detection, PII removal), and deduplication.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Non-retrievable image links were discarded and documents with no valid image links were removed.",
+    "rai:dataCollectionRawData": "CommonCrawl WARC files (for HTML documents), CommonCrawl WAT files (for PDF links), and ArXiv LaTeX source code (for ArXiv documents).",
+    "rai:dataCollectionTimeframe": "HTML documents: May 2017 to April 2024 (full dumps from October 2018 to April 2024, partial dumps from earlier years); PDF documents: February 2023 to April 2024.",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset may contain biases related to demographic representation. Text quality classifiers were deliberately avoided as they have been shown to favor text from certain demographics. Subpopulation information is not explicitly identified but may be extractable from the dataset.",
+    "rai:dataLimitations": "The dataset is not self-contained and relies on external image URLs which may become unavailable over time due to link rot. The dataset may contain confidential, offensive, or sensitive content despite filtering efforts. It is not recommended for training models that ingest or generate personally identifying information or for military applications.",
+    "rai:dataSocialImpact": "The dataset is intended to make research into large multimodal models more accessible and bridge the gap between open-source and closed-source models. However, it may contain sensitive content including data revealing race, ethnic origins, sexual orientations, religious beliefs, political opinions, financial or health data, and other sensitive personal information present on the public web.",
+    "rai:personalSensitiveInformation": "The dataset may contain personally identifiable information including images of individuals, email addresses, IP addresses, and sensitive attributes such as race, ethnic origins, sexual orientations, religious beliefs, political opinions, financial or health data, biometric or genetic data, and government identification numbers. Email addresses and IP addresses have been masked to mitigate exposure.",
+    "rai:dataUseCases": "The dataset is intended for training large multimodal models. It can also be used for generating interleaved image and text sequences and building multimodal document retrieval systems. Only a training split is provided. It should not be used for training models that generate personally identifying information or for military applications.",
+    "rai:dataReleaseMaintenancePlan": "The dataset is maintained by the paper's authors, released on Huggingface under CC-BY-4.0 license. Updates will be communicated via the Huggingface README. Older versions are accessible via Git history. An erratum will be maintained on the Huggingface README. A data opt-out form will be provided. Contributions can be submitted via Huggingface Pull Requests.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Deduplication was performed at paragraph and document level within each CommonCrawl snapshot, and image deduplication was applied to remove repetitive/uninformative images. All deduplication steps were done separately for each data source.",
+    "rai:dataPreprocessingProtocol": "Preprocessing included: (1) HTML/PDF/ArXiv document extraction and parsing; (2) filtering documents with no images or more than 30 images, or URLs with inappropriate substrings; (3) non-English document removal using Fasttext (confidence threshold 0.65); (4) text quality filtering using RefinedWeb rules (removing excessive duplicate n-grams and low-quality documents per MassiveText rules); (5) image filtering removing images smaller than 150px or larger than 20,000px, and aspect ratio filtering (>2 for HTML, >3 for PDFs); (6) NSFW image detection discarding entire documents containing any NSFW image; (7) PII removal replacing emails and IP addresses with anonymized templates; (8) PDF-specific filtering discarding PDFs >50MB or >50 pages, and excluding pages with no text."
+  },
+  "usage": {
+    "input_tokens": 42710,
+    "output_tokens": 2976
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T18:04:35.388399Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce MINT-1T, the most extensive and diverse open-source Multimodal INTerleaved dataset to date."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T comprises of one trillion text tokens and 3.4 billion images, a 10x scale-up from existing open-source datasets. Additionally, we include previously untapped sources such as PDFs and ArXiv papers."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We release our data at https://github.com/mlfoundations/MINT-1T"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, Ludwig Schmidt"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1University of Washington, 2Salesforce Research, 3Stanford University, 4University of Texas at Austin, 5University of California, Berkeley"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2406.11271v5 [cs.CV] 31 Oct 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we eliminate non-English documents using Fasttext's language identification model"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Preprint. Under review."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T curates a large-scale open-source dataset that taps into more diverse sources of interleaved documents such as PDFs and ArXiv papers. This section outlines our methods for sourcing multi-modal documents, filtering low-quality documents, deduplicating data, and removing not safe for work and undesirable content."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow OBELICS's method for extracting interleaved multimodal documents from CommonCrawl WARC files by parsing each WARC entry's DOM tree... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we attempt to download all image URLs in the HTML dataset, discarding any non-retrievable links and removing documents that have no valid image links."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow OBELICS's method for extracting interleaved multimodal documents from CommonCrawl WARC files... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps... ArXiv interleaved documents are built from the LaTeX source code."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have expanded our document pool to include HTML documents from May 2017 to April 2024 (note that we use the full dumps from October 2018 to April 2024 and partial dumps from earlier years)... We source PDF documents from CommonCrawl WAT files from February 2023 to April 2024 dumps."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We follow previous works in not using text quality classifier models as they have been shown to favor text from certain demographics. While we take steps to reduce biases and risks in our dataset (see A.3.2), we encourage dataset consumers to further filter the data based on their use case."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T is not self-contained and relies on downloading external image urls to collect the full dataset. There are no guarantees these urls will remain available over time as link rot is a common problem for large scale image datasets... Using the dataset to train models that ingest or generate personally identifying information (such as images of people's faces and other sensitive content) as well as military applications are all inappropriate use cases of MINT-1T."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "MINT-1T was built to make research into large multimodal models more accessible... Yes if it is present on the public web then it is possible such data is found in MINT-1T."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We mask all email addresses and IP addresses to avoid leaking such data... Yes if it is present on the public web then it is possible such data is found in MINT-1T... data that reveals race or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Yes, we used MINT-1T to train large multimodal models to validate the data quality against competitors... The dataset can be used for other training objectives like generating interleaved images and text sequences or for building multimodal document retrieval systems... There is only a training split for MINT-1T."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This work's authors will actively respond to issues in MINT-1T and maintain the dataset... Yes the dataset will be updated by the authors of this work. We will communicate updates through the README in the Huggingface interface... Older versions of the dataset can be found using the Git history of the dataset repository. We will communicate the issues with previous versions in the erratum."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To remove duplicated content, we perform paragraph and document text deduplication within each CommonCrawl snapshot and image deduplication to remove repetitive, uninformative images such as icons and logos. All deduplication steps are done separately for each data source."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset was preprocessed to remove low quality text, duplicate documents/text portions, and remove not safe for work and low quality images... we eliminate non-English documents using Fasttext's language identification model (with a confidence threshold of 0.65)... we apply text filtering methods from RefinedWeb... We remove images smaller than 150 pixels... and images larger than 20,000 pixels... We apply an NSFW image detector to all images in our dataset... we anonymize email addresses and IP addresses in our text data."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1728,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 20101,
+        "tokens_in": 6185,
+        "tokens_out": 616
+      },
+      "collection": {
+        "section_chars": 11482,
+        "tokens_in": 3307,
+        "tokens_out": 663
+      },
+      "annotation": {
+        "section_chars": 41730,
+        "skipped_unlikely": true
+      },
+      "impact": {
+        "section_chars": 14815,
+        "tokens_in": 4033,
+        "tokens_out": 1013
+      },
+      "processing": {
+        "section_chars": 6448,
+        "tokens_in": 2019,
+        "tokens_out": 517
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 53.4,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 27166,
+      "output_tokens": 167
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 1
+  }
+}

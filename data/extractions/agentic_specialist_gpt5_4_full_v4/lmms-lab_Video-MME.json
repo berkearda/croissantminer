@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_Video-MME",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Video-MME",
+    "description": "Video-MME is a comprehensive multimodal evaluation benchmark for MLLMs in video analysis. It contains 900 videos across 6 visual domains and 30 fine-grained categories, with 2,700 expert-annotated multiple-choice question-answer pairs, and includes subtitles and audio information to assess video understanding across diverse durations and modalities.",
+    "url": "https://video-mme.github.io",
+    "license": null,
+    "creator": "Chaoyou Fu; Yuhan Dai; Yongdong Luo; Lei Li; Shuhuai Ren; Renrui Zhang; Zihan Wang; Chenyu Zhou; Yunhang Shen; Mengdan Zhang; Peixian Chen; Yanwei Li; Shaohui Lin; Sirui Zhao; Ke Li; Tong Xu; Xiawu Zheng; Enhong Chen; Caifeng Shan; Ran He; Xing Sun",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Chaoyou Fu, Yuhan Dai, Yongdong Luo, Lei Li, Shuhuai Ren, Renrui Zhang, Zihan Wang, Chenyu Zhou, Yunhang Shen, Mengdan Zhang, Peixian Chen, Yanwei Li, Shaohui Lin, Sirui Zhao, Ke Li, Tong Xu, Xiawu Zheng, Enhong Chen, Caifeng Shan, Ran He, and Xing Sun. Video-MME: The First-Ever Comprehensive Evaluation Benchmark of Multi-modal LLMs in Video Analysis. arXiv:2405.21075, 2025.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was constructed by sourcing raw videos from YouTube using a predefined domain hierarchy of 6 key domains and 30 fine-grained categories, collecting videos of short, medium, and long durations, and obtaining corresponding meta-information such as subtitles (if provided) and audios.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator",
+    "rai:dataCollectionMissingData": "The dataset includes 744 videos with subtitles and 900 with audios, indicating that subtitles were only included if provided.",
+    "rai:dataCollectionRawData": "Raw videos from YouTube, along with corresponding meta-information such as subtitles (if provided) and audios.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The construction of the Video-MME dataset involves three main steps: video collection, question-answer annotation, and quality review. The authors recruit annotators with strong English proficiency and extensive research experience in vision-language learning; each annotator thoroughly views the entire video and iteratively creates three multiple-choice questions, each with four candidate options, and each QA pair is then examined by a different annotator to verify clarity, answerability, logical consistency of options, and correctness of the designated answer; QA pairs that can be answered from text-only questions are returned to the original annotator for revision.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Each QA pair undergoes examination by a different annotator for verification, and the authors provide text-only questions to Gemini 1.5 Pro and filter out QA pairs that can be answered solely based on the textual questions; questions that do not meet this criterion are returned to the original annotator for revision.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "strong English proficiency; extensive research experience in vision-language learning",
+    "rai:machineAnnotationTools": "Gemini 1.5 Pro",
+    "rai:dataBiases": "The options (A/B/C/D) follows a near-uniform distribution (25.1/27.2/25.3/22.4%), ensuring an unbiased evaluation.",
+    "rai:dataLimitations": "As video duration increases, both open-sourced and commercial models exhibit a significant decline in performance; existing open-sourced models fix the number of input frames, e.g., 8 frames, resulting in excessively sparse information density as the video length increases; Understanding the long context of either single-modality (LLM) or multi-modality (MLLM) is always a great challenge.",
+    "rai:dataSocialImpact": "Our dataset along with these findings underscores the need for further improvements in handling longer sequences and multimodal data, shedding light on future MLLM development.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluate MLLMs on video understanding tasks; provide high-quality assessment of MLLMs’ performance; benchmark various state-of-the-art MLLMs",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was filtered during quality review by providing text-only questions to Gemini 1.5 Pro and removing QA pairs that could be answered solely from the text; questions failing this criterion were returned to the original annotator for revision.",
+    "rai:dataPreprocessingProtocol": "For quality review, each QA pair is manually examined by a different annotator, and the authors provide text-only questions to Gemini 1.5 Pro and filter out QA pairs that can be answered solely based on the textual questions; questions that do not meet this criterion are returned to the original annotator for revision. In the subtitle-enabled setting, subtitles corresponding to the timestamps of the sampled video frames are selected to ensure synchronization between visual and textual input."
+  },
+  "usage": {
+    "input_tokens": 152171,
+    "output_tokens": 1570
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30694,
+        "output_tokens": 343
+      },
+      "collection": {
+        "input_tokens": 30472,
+        "output_tokens": 310
+      },
+      "annotation": {
+        "input_tokens": 30457,
+        "output_tokens": 489
+      },
+      "impact": {
+        "input_tokens": 30416,
+        "output_tokens": 233
+      },
+      "processing": {
+        "input_tokens": 30132,
+        "output_tokens": 195
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 73661,
+      "output_tokens": 531
+    },
+    "timestamp": "2026-05-22T11:32:27.369208+00:00",
+    "elapsed_seconds": 34.1
+  }
+}

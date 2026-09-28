@@ -1,0 +1,289 @@
+{
+  "dataset_id": "lmms-lab_DocVQA",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "DocVQA",
+    "description": "DocVQA is a large-scale dataset for Visual Question Answering on document images, consisting of 50,000 questions defined on 12,000+ document images of varied types and content. Questions are categorized based on reasoning requirements, and answering them requires models to not only read text but interpret it within the layout and structure of the document.",
+    "url": "http://docvqa.org",
+    "license": "Apache-2.0",
+    "creator": "Minesh Mathew, Dimosthenis Karatzas, C.V. Jawahar",
+    "publisher": "CVIT, IIIT Hyderabad and Computer Vision Center, UAB",
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "Document images were sourced from the UCSF Industry Documents Library, with pages hand-picked from downloaded documents. Questions and answers were collected via remote workers using a web-based annotation tool in a three-stage process: (1) workers defined up to 10 QA pairs per image, (2) a second worker verified questions and assigned question types, and (3) authors reviewed flagged or mismatched QA pairs.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "Questions flagged as inapt due to language issues or ambiguity were not included in the dataset. Questions where answers from stage 1 and stage 2 did not match were sent for a third-stage review, where they were either accepted (with edits if necessary) or ignored.",
+    "rai:dataCollectionRawData": "Document images from the UCSF Industry Documents Library, spanning 6,071 industry documents from 5 industries (tobacco, food, drug, fossil fuel, chemical), including typewritten, printed, handwritten, and born-digital text documents of various types (letters, forms, reports, memos, etc.).",
+    "rai:dataCollectionTimeframe": "Documents range from as early as 1900 to as recent as 2018.",
+    "rai:dataAnnotationProtocol": "Three-stage annotation process using remote workers: Stage 1 - workers define up to 10 QA pairs per image with verbatim answers; Stage 2 - different workers verify questions, provide answers independently, and assign question types (with option to flag inapt questions); Stage 3 - authors review unmatched QA pairs and accept/edit/ignore them.",
+    "rai:dataAnnotationPlatform": "Custom web-based annotation tool",
+    "rai:dataAnnotationAnalysis": "Cross-validation between Stage 1 and Stage 2 answers: if no exact match between answers from Stage 1 and Stage 2, the question is escalated to Stage 3 for author review.",
+    "rai:annotationsPerItem": "At least 2 independent annotators per question (Stage 1 and Stage 2 workers), plus potential author review in Stage 3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Commercial OCR solution used to generate OCR tokens for images",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": null,
+    "rai:dataSocialImpact": "The dataset aims to inspire a purpose-driven approach in document image analysis, driving methods that use low-level cues and high-level goals to solve problems of practical importance.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended for Document Visual Question Answering (DocVQA), a high-level task that dynamically drives document analysis and recognition algorithms to conditionally interpret document images, supporting training and evaluation of models that use both visual and textual cues.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Binarized images were minimized; pages with tables, forms, lists and figures were prioritized over pages with only running text; flagged questions with language issues or ambiguity were excluded; questions where no answers from stage 1 matched stage 2 were sent for third-stage review and either accepted or ignored.",
+    "rai:dataPreprocessingProtocol": "OCR tokens were extracted using a commercial OCR application. A vocabulary of 4,341 answers occurring more than once in the train split was used for heuristics and upper bounds. For M4C, a fixed vocabulary of the 5,000 most frequent words from train split answers was used."
+  },
+  "usage": {
+    "input_tokens": 22214,
+    "output_tokens": 2651
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:57:35.108113Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new dataset for Visual Question Answering (VQA) on document images called DocVQA."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset consists of 50,000 questions defined on 12,000+ document images... Answering questions in the new dataset require models not just to read text but interpret it within the layout/structure of the document."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset, code and leaderboard are available at docvqa.org"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Minesh Mathew1 Dimosthenis Karatzas2 C.V. Jawahar1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1CVIT, IIIT Hyderabad, India 2Computer Vision Center, UAB, Spain"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2007.00398v3 [cs.CV] 5 Jan 2021"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "questions defined on 12,000+ document images... natural language questions by human users"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We downloaded documents from different collections and hand picked pages from these documents for use in the dataset... Questions and answers on the selected document images are collected with the help of remote workers, using a Web based annotation tool. The annotation process was organized in three stages."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We downloaded documents from different collections and hand picked pages from these documents for use in the dataset... Questions and answers on the selected document images are collected with the help of remote workers, using a Web based annotation tool."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "During the second stage, if the worker finds a question inapt owing to language issues or ambiguity, an option to flag the question was provided. Such questions are not included in the dataset. If none of the answers entered in the first stage match exactly with any of the answers from the second stage, the particular question is sent for review in a third stage."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The final set of images in the dataset are drawn from pages of 6,071 industry documents... Most of the documents are from the 1960-2000 period and they include typewritten, printed, handwritten and born-digital text. There are documents from all 5 major industries for which the library hosts documents — tobacco, food, drug, fossil fuel and chemical."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We made use of documents from as early as 1900 to as recent as 2018."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The annotation process was organized in three stages. In stage 1, workers were shown a document image and asked to define at most 10 question-answer pairs on it... The second annotation stage aims to verify the data collected in the first stage... If none of the answers entered in the first stage match exactly with any of the answers from the second stage, the particular question is sent for review in a third stage... The third stage review is done by the authors themselves."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions and answers on the selected document images are collected with the help of remote workers, using a Web based annotation tool."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "If none of the answers entered in the first stage match exactly with any of the answers from the second stage, the particular question is sent for review in a third stage. Here questions and answers are editable and the reviewer either accepts the question-answer (after editing if necessary) or ignores it."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In stage 1, workers were shown a document image and asked to define at most 10 question-answer pairs on it... The second annotation stage aims to verify the data collected in the first stage. Here a worker was shown an image and questions defined on it in the first stage (but not the answers from the first stage), and was required to enter answers for the questions."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "for DocVQA we use OCR tokens generated by a commercial OCR solution."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This could drive methods that use the low-level cues (text, layout, arrangements) and high-level goals (purpose, relationship, domain knowledge) in solving problems of practical importance."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce a new data set and an associated VQA task with the aim to inspire a 'purpose-driven' approach in document image analysis and recognition research. Our baselines and initial results motivate simultaneous use of visual and textual cues for answering questions asked on document images."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We tried to minimize binarized images in DocVQA since we did not want poor image quality to be a bottleneck for VQA. We also prioritized pages with tables, forms, lists and figures over pages which only have running text... Such questions are not included in the dataset. If none of the answers entered in the first stage match exactly with any of the answers from the second stage, the particular question is sent for review in a third stage."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In all our experiments including heuristics and trained baselines, OCR tokens we use are extracted using a commercial OCR application. For the heuristics and upper bounds we use a vocabulary 4,341 answers which occur more than once in the train split. For M4C the fixed vocabulary we use is a vocabulary of the 5,000 most frequent words from the answers in the train split."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1064,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 8442,
+        "tokens_in": 2628,
+        "tokens_out": 485
+      },
+      "collection": {
+        "section_chars": 10171,
+        "tokens_in": 3458,
+        "tokens_out": 665
+      },
+      "annotation": {
+        "section_chars": 10171,
+        "tokens_in": 3448,
+        "tokens_out": 636
+      },
+      "impact": {
+        "section_chars": 2863,
+        "tokens_in": 1388,
+        "tokens_out": 335
+      },
+      "processing": {
+        "section_chars": 5295,
+        "tokens_in": 1810,
+        "tokens_out": 395
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 47.7,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 9482,
+      "output_tokens": 135
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

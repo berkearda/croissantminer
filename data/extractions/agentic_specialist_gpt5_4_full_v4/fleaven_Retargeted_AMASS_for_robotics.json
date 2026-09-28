@@ -1,0 +1,80 @@
+{
+  "dataset_id": "fleaven_Retargeted_AMASS_for_robotics",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "AMASS: Archive of Motion Capture as Surface Shapes",
+    "description": "AMASS is a large database of human motion that unifies 15 optical marker-based motion capture datasets within a common framework and parameterization. It represents motions as SMPL body model parameters and provides fully rigged 3D human meshes with pose, shape, soft-tissue motion, and hand articulation. The dataset contains 42 hours of mocap data from 346 subjects and 11,451 motions.",
+    "url": "http://amass.is.tue.mpg.de",
+    "license": "Creative Commons Attribution 2.1 Japan License",
+    "creator": "Naureen Mahmood (Meshcapade GmbH); Nima Ghorbani (MPI for Intelligent Systems); Nikolaus F. Troje (York University); Gerard Pons-Moll (MPI for Informatics); Michael J. Black (MPI for Intelligent Systems)",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": null,
+    "citeAs": "Naureen Mahmood, Nima Ghorbani, Nikolaus F. Troje, Gerard Pons-Moll, and Michael J. Black. AMASS: Archive of Motion Capture as Surface Shapes. arXiv:1904.03278v1, 2019.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "AMASS was assembled by unifying 15 existing optical marker-based motion capture datasets into a common format using MoSh++; the publicly available datasets were downloaded from the internet, several others were obtained privately, some were recorded by the authors themselves, and the SSM dataset was newly collected using a synchronized optical motion capture and 4D body scanning setup.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Physical data collection",
+    "rai:dataCollectionMissingData": "During mocap sessions, markers may get occluded by the body due to pose; the paper also notes inherent mocap problems such as swapped and mislabeled markers, which were manually inspected and either corrected or held out.",
+    "rai:dataCollectionRawData": "The raw data consisted of archival optical marker-based human motion capture recordings from 15 source datasets with varying marker sets, and for SSM, synchronized mocap marker data and high-resolution 4D body scans captured with an OptiTrack motion capture system and a 3dMD 4D body scanning system.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "MoSh++ was used to map marker-based motion capture data into common SMPL pose, shape, and soft-tissue parameters; due to problems with mocap such as swapped and mislabeled markers, the authors manually inspected the results and either corrected or held out problems.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "MoSh++ was used to map marker data into SMPL pose, shape, and soft-tissue parameters, after which the authors manually inspected the results and either corrected or held out problems caused by issues such as swapped and mislabeled markers.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "MoSh++; SMPL; SMPL-H; DMPL; MANO",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Current runtime for MoSh++ is not real-time; We do not have ground-truth data for evaluating accuracy of hand articulation",
+    "rai:dataSocialImpact": "We provide the largest unified mocap dataset (AMASS) to the community, enabling new applications that require large amounts of training data",
+    "rai:personalSensitiveInformation": "The dataset consists of three subjects with varying body shapes, performing a total of 30 different motions. Two of the three subjects were professional models who signed modeling contracts; this allows us to release their 4D scan data, along with the synchronized mocap data for the research community.",
+    "rai:dataUseCases": "applications in animation and computer vision; animation, visualization, and generating training data for deep learning; generating synthetic training for computer vision tasks",
+    "rai:dataReleaseMaintenancePlan": "With MoSh++ it is easy to add more data and we will continue to expand the dataset; We will continuously incorporate more mocap data contributed by us and the community",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We separate the sequences into training and testing sets, and train the hyperparameters of MoSh++ to minimize the distance between the ground truth 3D scans and the estimated 3D body meshes. We separated 20% of the total captured mocap files from the three subjects as a held-out set for testing and evaluation. The first 200 frames of the rest of the motion files are used for training, leaving the remaining frames (roughly 60% of the training set) for validation.",
+    "rai:dataPreprocessingProtocol": "Due to inherent problems with mocap, such as swapped and mislabeled markers, we manually inspected the results and either corrected or held out problems."
+  },
+  "usage": {
+    "input_tokens": 135977,
+    "output_tokens": 1789
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 27453,
+        "output_tokens": 282
+      },
+      "collection": {
+        "input_tokens": 27232,
+        "output_tokens": 492
+      },
+      "annotation": {
+        "input_tokens": 27241,
+        "output_tokens": 201
+      },
+      "impact": {
+        "input_tokens": 27167,
+        "output_tokens": 510
+      },
+      "processing": {
+        "input_tokens": 26884,
+        "output_tokens": 304
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67762,
+      "output_tokens": 814
+    },
+    "timestamp": "2026-05-22T11:23:19.205385+00:00",
+    "elapsed_seconds": 34.3
+  }
+}

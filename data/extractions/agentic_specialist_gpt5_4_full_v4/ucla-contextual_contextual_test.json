@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ucla-contextual_contextual_test",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "CONTEXTUAL",
+    "description": "CONTEXTUAL is a context-sensitive text-rich visual reasoning dataset for evaluating large multimodal models. It consists of 506 human-crafted instruction-response pairs over text-rich images spanning eight visual scenarios, where solving each instance requires joint reasoning over embedded text and visual context.",
+    "url": "https://con-textual.github.io/",
+    "license": null,
+    "creator": "Rohan Wadhawan; Hritik Bansal; Kai-Wei Chang; Nanyun Peng",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Rohan Wadhawan, Hritik Bansal, Kai-Wei Chang, and Nanyun Peng. 2024. CONTEXTUAL: Evaluating Context-Sensitive Text-Rich Visual Reasoning in Large Multimodal Models. Proceedings of the 41st International Conference on Machine Learning. PMLR 235.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was assembled from six image sources: images for the Time, Shopping, Navigation, and Abstract categories were obtained from LAION-5B using keyword search with CLIP-retrieval UI; Application Usage images were sourced from the Rico Dataset; Web Usage images were collected by scraping website links made available by the Open WebText Initiative and taking screenshots; and images from the test sets of InfographicVQA, STVQA, and ESTVQA were reannotated with novel instruction-response pairs.",
+    "rai:dataCollectionType": "Secondary Data analysis; Web Scraping; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Source images came from LAION-5B, the Rico Dataset, website links from the Open WebText Initiative for collected screenshots, and test-set images from InfographicVQA, STVQA, and ESTVQA.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Stage 2: the authors were divided into two groups, each responsible for annotating four categories, and each sample consisted of an <image, instruction, response> triplet; in Stage 3, MTurk workers verified the correctness of each sample and then each author group reviewed the samples created by the other group to ensure adherence to guidelines and filter low-quality samples.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "MTurk workers verified each sample and the paper reports that 96% of the samples were annotated correctly; incorrect samples were filtered out, and then each author group reviewed the other group's samples.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "mainly from the US",
+    "rai:machineAnnotationTools": "PaddleOCR; PP-OCRv4",
+    "rai:dataBiases": "human annotators were mainly from the US; the linguistic diversity and writing style of the human responses would change with different social groups",
+    "rai:dataLimitations": "the dataset is challenging for modern LMMs while humans excel on it; augmented LLM approach achieves a very low rating of 17.2% which indicates that the dataset instances cannot be solved without precise visual perception; all the models struggle the most in the time category; proprietary LMMs underperform on the infographics category",
+    "rai:dataSocialImpact": "the dataset is proposed to evaluate context-sensitive text-rich visual reasoning capabilities of large multimodal models, with significant real-world applications such as assisting the visually impaired and creative understanding of abstract text-rich images; the authors are aware that existing multimodal models are capable of generating harmful responses despite safeguard filters, and that model responses would hallucinate",
+    "rai:personalSensitiveInformation": "the authors did not observe any apparent harmful and privacy sensitive information in the model responses",
+    "rai:dataUseCases": "benchmarking and evaluating large multimodal models’ capability on context-sensitive text-rich visual reasoning; testing joint reasoning over embedded text and visual features in text-rich images; model development via a released validation set; leaderboard-based evaluation of recent LMMs",
+    "rai:dataReleaseMaintenancePlan": "the dataset and code are made available along with a continuously updated leaderboard; the authors will release a subset of 100 samples from the 506 as a validation set with reference responses while keeping the remaining 406 samples hidden",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For Application Usage, Web Usage, Infographic, and Miscellaneous Natural Scenes, we perform heuristic-based filtering. Specifically, we employ a PaddleOCR to detect the text in the image. Subsequently, we select the top 500 images with the highest number of words, a subset of which get annotated in our dataset. The images that are categorized under Time, Shopping, Navigation, and Abstract undergo manual filtering to guarantee their suitability for annotation. Filtering out the incorrect samples, we tasked each author group to review the samples created by the other group. This ensured adherence to guidelines and filtered out low-quality samples. Finally, we end up with a dataset of 506 instances.",
+    "rai:dataPreprocessingProtocol": "Images in the Time, Shopping, Navigation, and Abstract categories underwent manual filtering to ensure suitability for annotation. For Application Usage, Web Usage, Infographic, and Miscellaneous Natural Scenes, the authors performed heuristic-based filtering using PaddleOCR to detect text in images, then selected the top 500 images with the highest number of words for annotation. During verification, incorrectly annotated samples and low-quality samples were filtered out, resulting in a final dataset of 506 instances."
+  },
+  "usage": {
+    "input_tokens": 251808,
+    "output_tokens": 1189
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 53452,
+        "output_tokens": 209
+      },
+      "collection": {
+        "input_tokens": 53244,
+        "output_tokens": 215
+      },
+      "annotation": {
+        "input_tokens": 53222,
+        "output_tokens": 185
+      },
+      "impact": {
+        "input_tokens": 38994,
+        "output_tokens": 305
+      },
+      "processing": {
+        "input_tokens": 52896,
+        "output_tokens": 275
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 56783,
+      "output_tokens": 160
+    },
+    "timestamp": "2026-05-22T12:37:45.307511+00:00",
+    "elapsed_seconds": 30.6
+  }
+}

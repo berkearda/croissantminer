@@ -1,0 +1,289 @@
+{
+  "dataset_id": "rajpurkar_squad",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "Stanford Question Answering Dataset (SQuAD) v1.0",
+    "description": "A reading comprehension dataset of 100,000+ crowdworker-generated questions on Wikipedia articles, where each answer is a text span from the corresponding passage.",
+    "url": "https://stanford-qa.com",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang",
+    "publisher": "Stanford University",
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected in three stages: curating passages from Wikipedia articles, crowdsourcing question-answer pairs on those passages, and obtaining additional answers. For passage curation, the authors sampled 536 articles from the top 10,000 English Wikipedia articles, extracted paragraphs, and filtered out images, figures, tables, and short paragraphs. For question-answer collection, crowdworkers on Daemo/Amazon Mechanical Turk wrote up to 5 questions and answers per paragraph. For additional answers, crowdworkers selected the shortest answer span for each question in the development and test sets.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "If a question was not answerable by a span in the paragraph, workers were asked to submit the question without marking an answer. Over the development and test sets, 2.6% of questions were marked unanswerable by at least one of the additional crowdworkers.",
+    "rai:dataCollectionRawData": "English Wikipedia articles and extracted paragraphs from those articles; crowdworker-generated questions, answers, and additional answer spans.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Crowdworkers created questions and answers on paragraphs, with up to 5 questions per paragraph; answers were highlighted in the paragraph. Workers were given sample paragraphs plus examples of good and bad questions/answers with reasons, were encouraged to ask in their own words, and copy-paste was disabled. For additional answers, workers saw only the questions and paragraphs and selected the shortest span answering each question, or marked it unanswerable.",
+    "rai:dataAnnotationPlatform": "Daemo platform with Amazon Mechanical Turk as its backend",
+    "rai:dataAnnotationAnalysis": "No inter-annotator agreement metrics are reported; the paper notes that 2.6% of questions were marked unanswerable by at least one additional crowdworker, and that the task received positive comments on Turkopticon.",
+    "rai:annotationsPerItem": "Up to 5 question-answer pairs per paragraph; at least 2 additional answers per question in development and test sets",
+    "rai:annotatorDemographics": "Crowdworkers had to be located in the United States or Canada",
+    "rai:machineAnnotationTools": "Stanford CoreNLP was used for constituency parses, POS tags, and NER tags in analysis and candidate answer generation",
+    "rai:dataBiases": "The dataset is sourced from Wikipedia articles and crowdworkers in the United States or Canada, which may bias the content toward Wikipedia coverage and toward questions written by a specific crowdworker population.",
+    "rai:dataLimitations": "Answers are constrained to spans in the passage, which makes the task more constrained than free-form question answering; the dataset also includes some ambiguous or unanswerable questions, and 2.6% of development/test questions were marked unanswerable by at least one additional crowdworker.",
+    "rai:dataSocialImpact": "The paper frames SQuAD as a benchmark intended to advance machine reading comprehension research and notes that it presents a challenging problem for future research.",
+    "rai:personalSensitiveInformation": "The paper does not describe collecting personal sensitive information from subjects; it only mentions crowdworker location requirements and article topics.",
+    "rai:dataUseCases": "The dataset is intended for machine reading comprehension / question answering research, including training, development, and test evaluation; the paper also collected additional answers for development and test sets to make evaluation more robust.",
+    "rai:dataReleaseMaintenancePlan": "The paper states that SQuAD v1.0 is freely available online, but it does not describe an updating timeframe, maintainers, or deprecation policy.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Obtained additional answers for each question in the development and test sets; crowdworkers were asked to select the shortest span in the paragraph that answered the question, and to mark questions as unanswerable if no span existed.",
+    "rai:dataPreprocessingProtocol": "Extracted individual paragraphs from Wikipedia articles, stripping away images, figures, and tables, and discarding paragraphs shorter than 500 characters; articles were randomly partitioned into training, development, and test sets."
+  },
+  "usage": {
+    "input_tokens": 23100,
+    "output_tokens": 2474
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:41:08.169139Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present the Stanford Question Answering Dataset v1.0 (SQuAD)"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "a new reading comprehension dataset consisting of 100,000+ questions posed by crowdworkers on a set of Wikipedia articles, where the answer to each question is a segment of text from the corresponding reading passage"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "freely available at https://stanford-qa.com"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Pranav Rajpurkar and Jian Zhang and Konstantin Lopyrev and Percy Liang"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Computer Science Department Stanford University"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1606.05250v3 [cs.CL] 11 Oct 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Wikipedia articles"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We collect our dataset in three stages: curating passages, crowdsourcing question-answers on those passages, and obtaining additional answers.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“To retrieve high-quality articles, we used Project Nayuki’s Wikipedia’s internal PageRanks to obtain the top 10000 articles of English Wikipedia”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“If a question was not answerable by a span in the paragraph, workers were asked to submit the question without marking an answer.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we sampled 536 articles uniformly at random. From each of these articles, we extracted individual paragraphs”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“On each paragraph, crowdworkers were tasked with asking and answering up to 5 questions on the content of that paragraph... answers had to be highlighted in the paragraph... tasks contained a sample paragraph, and examples of good and bad questions and answers... crowdworkers were encouraged to ask questions in their own words... disabling copy-paste functionality”; “each crowdworker was shown only the questions along with the paragraphs of an article, and asked to select the shortest span in the paragraph that answered the question.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We used the Daemo platform (Gaikwad et al., 2015), with Amazon Mechanical Turk as its backend.”"
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Over the development and test sets, 2.6% of questions were marked unanswerable by at least one of the additional crowdworkers.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“crowdworkers were tasked with asking and answering up to 5 questions on the content of that paragraph”; “we obtained at least 2 additional answers for each question in the development and test sets.”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Crowdworkers were required to have a 97% HIT acceptance rate, a minimum of 1000 HITs, and be located in the United States or Canada.”"
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The non-numerical answers are categorized using constituency parses and POS tags generated by Stanford CoreNLP... using NER tags”; “we only use spans which are constituents in the constituency parse generated by Stanford CoreNLP.”"
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“questions posed by crowdworkers on a set of Wikipedia articles” and “Crowdworkers were required to have ... and be located in the United States or Canada.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“the answer to every question is a segment of text, or span” and “the span constraint also comes with the important benefit that span-based answers are easier to evaluate than free-form answers” and “Ambiguous ... the question does not have a unique answer” and “2.6% of questions were marked unanswerable by at least one of the additional crowdworkers.”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“This suggests that there is plenty of room for advancement in modeling and learning on the SQuAD dataset.”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“be located in the United States or Canada”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We present the Stanford Question Answering Dataset (SQuAD), a new reading comprehension dataset” and “We partitioned the articles randomly into a training set (80%), a development set (10%), and a test set (10%)” and “we obtained at least 2 additional answers for each question in the development and test sets.”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The dataset is freely available at https://stanford-qa.com” and “Stanford Question Answering Dataset v1.0 (SQuAD)”"
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we obtained at least 2 additional answers for each question in the development and test sets” and “asked to select the shortest span in the paragraph that answered the question. If a question was not answerable by a span in the paragraph, workers were asked to submit the question without marking an answer.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we extracted individual paragraphs, stripping away images, figures, tables, and discarding paragraphs shorter than 500 characters” and “We partitioned the articles randomly into a training set (80%), a development set (10%), and a test set (10%).”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 26,
+      "fields_null": 4,
+      "fields_verified": 26,
+      "evidence_count": 25,
+      "evidence_coverage": 96.2,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.0049,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 12083,
+        "tokens_in": 3360,
+        "tokens_out": 399
+      },
+      "collection": {
+        "section_chars": 2960,
+        "tokens_in": 1072,
+        "tokens_out": 417
+      },
+      "annotation": {
+        "section_chars": 11019,
+        "tokens_in": 3081,
+        "tokens_out": 631
+      },
+      "impact": {
+        "section_chars": 18266,
+        "tokens_in": 4618,
+        "tokens_out": 596
+      },
+      "processing": {
+        "section_chars": 2960,
+        "tokens_in": 942,
+        "tokens_out": 274
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 18.9,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 10027,
+      "output_tokens": 157
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

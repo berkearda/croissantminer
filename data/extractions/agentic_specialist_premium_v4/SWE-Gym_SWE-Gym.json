@@ -1,0 +1,80 @@
+{
+  "dataset_id": "SWE-Gym_SWE-Gym",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "SWE-Gym",
+    "description": "SWE-Gym is the first training environment for software engineering (SWE) agents, containing 2,438 real-world task instances sourced from 11 popular Python repositories. Each instance comprises a Python codebase with an executable runtime environment, unit tests, and a natural language task description derived from GitHub issues. It is designed to support training and evaluation of language model-based SWE agents and verifier models.",
+    "url": null,
+    "license": null,
+    "creator": "Jiayi Pan (UC Berkeley); Xingyao Wang (UIUC); Graham Neubig (CMU); Navdeep Jaitly (Apple); Heng Ji (UIUC); Alane Suhr (UC Berkeley); Yizhe Zhang (Apple)",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": "Jiayi Pan, Xingyao Wang, Graham Neubig, Navdeep Jaitly, Heng Ji, Alane Suhr, Yizhe Zhang. Training Software Engineering Agents and Verifiers with SWE-Gym. Proceedings of the 42nd International Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "SWE-Gym was constructed by first using SEART GitHub search to filter Python repositories created before July 1, 2022 with more than 500 stars, at least 300 lines of code, more than 500 pull requests, and 100 contributors, yielding 358 repositories. SWE-Bench's instance extraction script was then used to convert these repositories into task instances (each corresponding to a GitHub issue with natural language description, a repository snapshot, and unit tests), producing 64,689 raw instances (SWE-Gym Raw). From these, 11 repositories were selected for manual environment configuration: dependencies were configured using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot at the time of issue creation. SWE-Bench's execution-based validation script was used to verify that gold patches pass more unit tests than the original code. This process required approximately 200 human annotation hours and 10,000 CPU core hours, resulting in 2,438 validated instances.",
+    "rai:dataCollectionType": "Web API; Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Instances that failed the executable environment setup or validation process were filtered out; the raw 64,689 instances lack executable environments and guaranteed effective unit tests.",
+    "rai:dataCollectionRawData": "Pull requests and GitHub issues from 358 Python open-source repositories sourced via SEART GitHub search, processed using SWE-Bench's instance extraction script. Each raw instance includes the natural language issue description, a snapshot of the repository at the time of issue creation, and associated unit tests.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Executable environments for SWE-Gym were manually configured by a subset of the authors, who set up dependencies for each task instance using configuration files, CI scripts, or repository documentation, then validated instances using SWE-Bench's execution-based validation script to ensure gold patches pass more unit tests than the original code. This process required approximately 200 human annotation hours.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Instances were filtered by verifying that the gold patch (human-submitted code diff) passes more unit tests than the original code using SWE-Bench's execution-based validation script; failed instances were discarded, yielding 2,438 validated instances.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SWE-Bench instance extraction script; SWE-Bench versioning script; SWE-Bench execution-based validation script; gpt-4o-2024-08-06; claude-3-5-sonnet-20241022; Qwen2.5-Coder-Instruct-32B (for verifier labeling of trajectories as successful or unsuccessful)",
+    "rai:dataBiases": "Task distribution across repositories exhibits a long-tail pattern, with pandas comprising nearly one-third of total tasks; repeated sampling introduces a bias toward easier tasks; automated environment setup (in concurrent work) biases away from tasks with complex dependencies; ignoring environment configuration could introduce distribution bias",
+    "rai:dataLimitations": "SWE-Gym is limited by its environment diversity, including the number of repositories, types of tasks, and programming languages; current size covers only 11 Python repositories; self-improvement results are modest; current models are primarily research artifacts and not yet production-ready; SWE-Gym Raw instances do not contain executable environments or a guarantee that unit tests are effective in evaluating correctness",
+    "rai:dataSocialImpact": "Improving automated software engineering capabilities could increase developer productivity and accessibility across industries; as agents become more capable, they may impact software engineering jobs and require careful consideration around code ownership, licensing, and attribution; similar techniques could potentially be misused to automate the creation of malicious code; future work should explore frameworks for responsible deployment including considerations around security, safety, and economic impacts",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Training language model based software engineering agents; training verifier (outcome-supervised reward model) models to enable inference-time scaling; rapid prototyping via SWE-Gym Lite; future research in SWE agent development and automatic dataset synthesis via SWE-Gym Raw",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For verifier training, the authors randomly sampled the same number of unsuccessful trajectories as successful ones from each subset to balance the dataset (1,318 each from off-policy and on-policy subsets, totaling 2,636 trajectories). For MoatlessTools verifier training, successful trajectories per instance were capped at two and failure cases were subsampled to match the number of successful ones. Per-instance capping was also applied during self-improvement with MoatlessTools to limit the maximum number of selected samples per task, with trajectories ranked by number of model response rounds. Training-time scaling experiments used subsampling strategies including random trajectory dropping, deduplication to one trajectory per task instance, and repository-based sequential inclusion.",
+    "rai:dataPreprocessingProtocol": "Task instances were validated using SWE-Bench's execution-based validation script to ensure the gold patch passes more unit tests than the original code, filtering out failed instances. Dependencies for each task instance were manually configured using relevant configuration files (e.g., requirements.txt), CI scripts, or documentation from the repository snapshot at the time of issue creation. For SWE-Gym Lite, instances were filtered following the SWE-Bench Lite pipeline, excluding tasks requiring editing more than one file, tasks with poorly described problem statements, those with excessively complex ground-truth code diffs, and tests focused on error message validation. For verifier training with OpenHands, only trajectories within 32k-token length were kept for training."
+  },
+  "usage": {
+    "input_tokens": 201297,
+    "output_tokens": 1939
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 40413,
+        "output_tokens": 379
+      },
+      "collection": {
+        "input_tokens": 40290,
+        "output_tokens": 414
+      },
+      "annotation": {
+        "input_tokens": 40341,
+        "output_tokens": 357
+      },
+      "impact": {
+        "input_tokens": 40327,
+        "output_tokens": 402
+      },
+      "processing": {
+        "input_tokens": 39926,
+        "output_tokens": 387
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 81595,
+      "output_tokens": 160
+    },
+    "timestamp": "2026-05-02T18:08:28.880327+00:00",
+    "elapsed_seconds": 60.3
+  }
+}

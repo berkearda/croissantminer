@@ -1,0 +1,289 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "VQAonline is the first VQA dataset in which all contents originate from an authentic use case, sourced from online question answering community forums (Stack Exchange). It contains 64,696 visual question-answer pairs with authentic context, answers validated by the question askers, lengthy answers (mean of 173 words), and user-chosen topics from 105 diverse categories.",
+    "url": "https://vqaonline.github.io/",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, Danna Gurari",
+    "publisher": "University of Texas at Austin, Microsoft, University of Colorado Boulder",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "@Article{Chen2023FullyAV,\n author = {Chongyan Chen and Mengchen Liu and Noel Codella and Yunsheng Li and Lu Yuan and D. Gurari},\n booktitle = {European Conference on Computer Vision},\n pages = {252-269},\n title = {Fully Authentic Visual Question Answering Dataset from Online Communities},\n year = {2023}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was scraped from the Stack Exchange online question-answering platform using the publicly-available archive. Examples were collected containing a natural language question, a natural language context, an image, and at least one accepted answer. Two filtering steps were applied: removing low-quality VQAs based on vote scores, removing examples with multiple images, removing visual answers, and removing examples where images could not be downloaded.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Examples for which the image could not be downloaded from the provided URL link were removed from the dataset.",
+    "rai:dataCollectionRawData": "Stack Exchange archive data in XML format hosted at https://archive.org/details/stackexchange, consisting of 330,705 candidate visual questions with natural language questions (post titles), natural language context (post body), images (URL links), and answers.",
+    "rai:dataCollectionTimeframe": "August 2010 to November 2022",
+    "rai:dataAnnotationProtocol": "Ten domain experts were hired to annotate visual questions across 10 topics. Each expert received a one-on-one training session with task instructions. Experts were given contact information for questions and feedback. Time spent per question was monitored as a quality proxy. Experts were compensated with a $75 Amazon Gift Card (~$26/hour average).",
+    "rai:dataAnnotationPlatform": "Custom web-based annotation tool",
+    "rai:dataAnnotationAnalysis": "Spearman correlation was computed between evaluation metrics and human judgments. GPT-4 and ROUGE-L achieved correlation of 1.0 (p=0.000), METEOR 0.943 (p=0.005), BERTScore 0.829 (p=0.042), RefCLIP-S 0.771 (p=0.072), CLIP-S 0.600 (p=0.208).",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Ten domain experts located in the United States, each representing one of ten topic fields, with English proficiency required.",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Models tend to trust natural language context and questions more than images, leading to hallucination issues where VLMs generate answers conflicting with the given image due to strong language priors of large language models.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "The dataset is intended to facilitate further exploration of the hallucination issue in authentic use cases, as well as benchmarking and evaluating vision-language models (VLMs) on visual question answering tasks.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Multiple filtering steps were applied: removed examples without an accepted answer, removed visual questions with scores of 0 or less for either the question or answer, removed visual questions with multiple images, removed visual questions with visual answers, removed examples for which the image could not be downloaded, and converted all images to PNG format."
+  },
+  "usage": {
+    "input_tokens": 49778,
+    "output_tokens": 2539
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:14:06.255385Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we call it VQAonline"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce the first VQA dataset in which all contents originate from an authentic use case. Sourced from online question answering community forums, we call it VQAonline... We conducted two filtering steps to obtain our final dataset of 64,696 VQAs."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We publicly-share the dataset at: https://vqaonline.github.io/."
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022, and adhered to all data license restrictions (cc-by-sa 4.0) set forth by Stack Exchange."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Chongyan Chen1, Mengchen Liu2, Noel Codella2, Yunsheng Li2, Lu Yuan2, and Danna Gurari1,3"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1University of Texas at Austin,2Microsoft,3University of Colorado Boulder"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2311.15562v4 [cs.CV] 17 Jul 2024"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The natural language question was collected as the post \"title\"... The natural language context was provided via a \"body\" text entry field"
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange. We used the publicly-available data that spanned from August 2010 to November 2022... We conducted two filtering steps to obtain our final dataset of 64,696 VQAs."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We created our dataset by scraping data from the online question-answering platform Stack Exchange."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Stack Exchange data is hosted at https://archive.org/details/stackexchange in XML format. We started with 330,705 candidate visual questions."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used the publicly-available data that spanned from August 2010 to November 2022."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We provided a one-on-one training session with each domain expert to introduce the task and instructions. Afterwards, we gave each expert our contact information so that they could contact us with any questions about their tasks and receive feedback quickly. We also inspected the time each expert spent on each visual question as a proxy for assessing whether the hired domain experts were finishing the task by quickly selecting random options."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The link to the code for our web-based annotation tool is available at https://github.com/VQAonline/VQAonlineVisualization."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Spearman correlation scores for each evaluation metric: GPT-4 (1 - correlation, 0.000 - statistical significance), ROUGEL (1, 0.000), METEOR (0.943,0.005), BERTScore (0.829, 0.042), RefCLIP-S (0.771, 0.072), and CLIP-S (0.600,0.208)."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We hired ten domain experts to represent each of the ten fields (topics). To guarantee English proficiency, as most of our visual questions are written in English, we only accepted experts located in the United States."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "All the models trusted the natural language context and question more than the image and then thus were misled to answer the question (partially) incorrectly by offering methods to remove mold. This type of failure, also known as the hallucination issue, is also discussed in [45,50], where VLMs may generate descriptions or answers conflicting with the given image to align with the natural language instructions or questions, influenced by the strong language priors of large language models."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We will release our dataset to facilitate further exploration of the hallucination issue in the authentic use cases."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After removing visual questions without an accepted answer, it resulted in 165,766 visual questions... After removing visual questions with scores of 0 or less for either the question or answer, we had 119,177 visual questions. Next, after removing visual questions with multiple images, we had 85,573 visual questions. Subsequently, removing visual questions with visual answers, left 65,849 visual questions... Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions. For data format consistency, we converted all images to png format."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1874,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 24327,
+        "tokens_in": 6682,
+        "tokens_out": 592
+      },
+      "collection": {
+        "section_chars": 17085,
+        "tokens_in": 4815,
+        "tokens_out": 492
+      },
+      "annotation": {
+        "section_chars": 16241,
+        "tokens_in": 4503,
+        "tokens_out": 652
+      },
+      "impact": {
+        "section_chars": 3236,
+        "tokens_in": 1341,
+        "tokens_out": 350
+      },
+      "processing": {
+        "section_chars": 10607,
+        "tokens_in": 2994,
+        "tokens_out": 280
+      }
+    },
+    "enrichments": [
+      "citeAs"
+    ],
+    "elapsed_seconds": 43.8,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 29443,
+      "output_tokens": 173
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

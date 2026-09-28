@@ -1,0 +1,80 @@
+{
+  "dataset_id": "fleaven_Retargeted_AMASS_for_robotics",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "AMASS: Archive of Motion Capture as Surface Shapes",
+    "description": "AMASS is a large unified database of human motion that combines 15 different optical marker-based motion capture datasets into a common framework using SMPL body model parameters. It contains more than 40 hours of motion data spanning over 300 subjects and more than 11,000 motions, representing body shape, pose, and soft-tissue dynamics. The dataset is intended to support machine learning, animation, and computer vision research.",
+    "url": "http://amass.is.tue.mpg.de",
+    "license": "Creative Commons Attribution 2.1 Japan License (Eyes Japan component); individual source dataset licenses vary",
+    "creator": "Naureen Mahmood (Meshcapade GmbH); Nima Ghorbani (MPI for Intelligent Systems); Nikolaus F. Troje (York University); Gerard Pons-Moll (MPI for Informatics); Michael J. Black (MPI for Intelligent Systems)",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": null,
+    "citeAs": "Naureen Mahmood, Nima Ghorbani, Nikolaus F. Troje, Gerard Pons-Moll, and Michael J. Black. AMASS: Archive of Motion Capture as Surface Shapes. arXiv:1904.03278 [cs.CV], 5 Apr 2019.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "AMASS was assembled by downloading 15 publicly available optical marker-based motion capture datasets from the internet and obtaining several others privately or by recording them directly (Dancers, Transitions, BioMotionLab, and SSM). The SSM dataset was recorded using an OptiTrack motion capture system (24 Prime 17W cameras, 67 reflective markers per subject) synchronized with a 3dMD 4D body scanning system (22 stereo camera pairs, 22 color cameras, 34 speckle projectors). MoSh++ was then used to convert all marker data into SMPL parameters.",
+    "rai:dataCollectionType": "Secondary Data analysis; Physical data collection; Direct measurement",
+    "rai:dataCollectionMissingData": "During mocap sessions, markers may become occluded by the body due to pose, resulting in missing markers per frame. The paper addresses this by introducing a variable pose prior weight coefficient that scales with the number of missing markers.",
+    "rai:dataCollectionRawData": "Sparse optical motion capture marker data from 15 datasets: ACCAD, BioMotionLab, CMU, EKUT, Eyes Japan, HumanEva, KIT, MPI HDM05, MPI Pose Limits, MPI MoSh, SFU, SSM, TCD Hands, TotalCapture, and Transitions. Marker counts range from 37 to 91 per dataset. The SSM dataset additionally includes synchronized high-resolution 3D body scans captured at 60 fps.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Results from MoSh++ processing of mocap datasets were manually inspected; problems such as swapped and mislabeled markers were either corrected or held out.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "MoSh++ (extended MoSh method using SMPL/SMPL-H and DMPL body models, Powell's gradient-based dogleg minimization via Chumpy autodifferentiation)",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Existing mocap datasets are small and motions limited; datasets vary in markerset and parameterization making integration difficult; MoSh++ runtime is not real-time; problems with mocap such as swapped and mislabeled markers required manual inspection; when hand markers are absent, hand poses are set to the average pose of the MANO model; soft-tissue and pose estimation accuracy is limited by sparse marker coverage",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "Two of the three SSM subjects were professional models who signed modeling contracts, allowing release of their 4D scan data along with synchronized mocap data; subjects wore minimal clothing and markers were placed directly on skin",
+    "rai:dataUseCases": "Animation and visualization of human motion; generating training data for deep learning in computer vision; training models of human motion; generating synthetic training data for computer vision tasks; denoising mocap data; automatic marker labeling",
+    "rai:dataReleaseMaintenancePlan": "The dataset is publicly available at http://amass.is.tue.mpg.de; the authors state they will continuously incorporate more mocap data contributed by themselves and the community, and will support the community in adding new captures as long as they can be similarly shared",
+    "rai:dataImputationProtocol": "When no markers are present on the hands of recorded subjects, the hand poses are set to the average pose of the MANO model.",
+    "rai:dataManipulationProtocol": "The 15 source mocap datasets, each using different marker sets and parameterizations, were unified into a common SMPL representation using MoSh++. This involved converting sparse marker data into SMPL pose, shape, and soft-tissue parameters (DMPL coefficients), effectively transforming heterogeneous archival data into a single consistent format. When hand markers were absent, hand poses were set to the average pose of the MANO model. The dataset composition was also curated through manual inspection to correct or exclude sequences with swapped and mislabeled markers. Hyperparameters were tuned via cross-validation on the SSM dataset, with a missing-marker coefficient introduced to adjust pose prior weights based on the number of occluded markers per frame.",
+    "rai:dataPreprocessingProtocol": "Due to inherent problems with mocap, such as swapped and mislabeled markers, the results were manually inspected and either corrected or held out. A weight-balancing factor q was introduced to adjust the pose prior weight as a function of the number of missing markers in a given frame, increasing regularization when more markers are occluded. The weight of the data term was automatically scaled by a factor b=46/n to deal with varying numbers of markers across datasets."
+  },
+  "usage": {
+    "input_tokens": 150355,
+    "output_tokens": 1752
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30225,
+        "output_tokens": 396
+      },
+      "collection": {
+        "input_tokens": 30100,
+        "output_tokens": 408
+      },
+      "annotation": {
+        "input_tokens": 30162,
+        "output_tokens": 232
+      },
+      "impact": {
+        "input_tokens": 30131,
+        "output_tokens": 355
+      },
+      "processing": {
+        "input_tokens": 29737,
+        "output_tokens": 361
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 74893,
+      "output_tokens": 331
+    },
+    "timestamp": "2026-05-02T18:28:20.073564+00:00",
+    "elapsed_seconds": 93.2
+  }
+}

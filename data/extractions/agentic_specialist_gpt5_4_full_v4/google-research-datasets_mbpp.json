@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google-research-datasets_mbpp",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Mostly Basic Programming Problems (MBPP); MathQA-Python",
+    "description": "The paper introduces two datasets for Python code synthesis. Mostly Basic Programming Problems (MBPP) contains 974 short Python functions with natural language descriptions and test cases, while MathQA-Python is a Python version of a filtered subset of MathQA containing 23,914 problems translated from a domain-specific language into Python.",
+    "url": "https://github.com/google-research/google-research/tree/master/mbpp; https://github.com/google/trax/blob/master/trax/examples/MathQA_Python_generation_notebook.ipynb",
+    "license": null,
+    "creator": "Maarten Bosma; Henryk Michalewski",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Austin, Jacob; Odena, Augustus; Nye, Maxwell; Bosma, Maarten; Michalewski, Henryk; Dohan, David; Jiang, Ellen; Cai, Carrie; Terry, Michael; Le, Quoc; Sutton, Charles. Program Synthesis with Large Language Models. arXiv:2108.07732v1, 2021.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The MBPP dataset was constructed by crowd-sourcing to an internal pool of crowdworkers with basic knowledge of Python, who were asked to write a short problem statement, a self-contained Python function, and three test cases; the authors then manually inspected, edited, and pruned a subset into a hand-verified edited dataset. The MathQA-Python dataset was produced by translating ground-truth programs from a subset of the existing MathQA dataset into Python and filtering to keep only problems whose code evaluated to the declared numerical answer.",
+    "rai:dataCollectionType": "Manual Human Curator; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "For MathQA-Python, the authors filtered the MathQA dataset to keep only problems for which the code evaluates to the declared numerical answer, removing 45% of problems.",
+    "rai:dataCollectionRawData": "For MBPP, the source data were crowd-sourced programming problems consisting of problem statements, Python functions, and test cases written by an internal pool of crowdworkers. For MathQA-Python, the source data were problems from the MathQA dataset, where each data point consists of a mathematical word problem, multiple-choice answers, and a program in a domain-specific language.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The Mostly Basic Programming Problems (MBPP) dataset was constructed by crowd-sourcing to an internal pool of crowdworkers who have basic knowledge of Python; participants were asked to write a short problem statement, a single self-contained Python function solving the problem, and three test cases that check for semantic correctness, and were instructed to write descriptions concrete enough that a human could translate them into code, write self-contained code that does not print to the console, and use exactly three cells for description, code, and test cases; the authors also manually inspected, edited, and pruned a subset of questions to yield 426 hand-verified questions, ensuring standard Python function signatures, unambiguous wording, and test cases that accurately reflected the text description.",
+    "rai:dataAnnotationPlatform": "Google Colab",
+    "rai:dataAnnotationAnalysis": "The authors manually inspected, edited, and pruned a subset of the crowd-sourced questions, ensuring each edited question had a standard Python function signature, was unambiguous to a human, and had test cases that accurately reflected the text description.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "internal pool of crowdworkers who have basic knowledge of Python",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Our benchmark programs are short and simple, and the programs solved by the model are the shortest and simplest among them; Even when the model solves a task, it often does so with only one or two out of 80 samples; The model cannot predict the outputs of programs on simple inputs",
+    "rai:dataSocialImpact": "The models we use in this paper have not been treated for safety, hence additional analysis of model outputs for potential harms is necessary before the use of the model in practice; large language models can learn undesirable (e.g. biased) behavior from unlabeled training data or can reveal training data, as well as sensitive information in the training data; In addition to increasing productivity for existing programmers, this could make programming much more widely accessible, empowering more people to interact with technology to meet their needs",
+    "rai:personalSensitiveInformation": "large language models can reveal training data, as well as sensitive information in the training data",
+    "rai:dataUseCases": "test Python code synthesis; synthesize short Python programs from natural language descriptions; solve simple mathematical word problems; augment the capabilities of human programmers by acting collaboratively, perhaps by fixing errors or by helping with debugging",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For the MathQA few-shot experiments, the prompt provides four examples of MathQA problems with their Python (or DSL) solutions. The MathQA dataset was also translated into a Python program synthesis dataset by translating the ground-truth programs from the domain-specific language to Python code. For evaluations involving the edited MBPP dataset, the authors manually inspected, edited, and pruned a subset of the questions, yielding 426 hand-verified questions.",
+    "rai:dataPreprocessingProtocol": "For MathQA, they filtered the dataset to keep only those problems for which the code evaluates to the declared numerical answer, removing 45% of problems. For MBPP, they manually inspected, edited, and pruned a subset of the questions to ensure standard Python function signatures, unambiguous wording, and test cases that accurately reflected the text description. They also programmatically checked that all reference code passes all tests under Python 3.6."
+  },
+  "usage": {
+    "input_tokens": 218551,
+    "output_tokens": 1473
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 43970,
+        "output_tokens": 266
+      },
+      "collection": {
+        "input_tokens": 43748,
+        "output_tokens": 301
+      },
+      "annotation": {
+        "input_tokens": 43742,
+        "output_tokens": 276
+      },
+      "impact": {
+        "input_tokens": 43691,
+        "output_tokens": 275
+      },
+      "processing": {
+        "input_tokens": 43400,
+        "output_tokens": 355
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 61511,
+      "output_tokens": 254
+    },
+    "timestamp": "2026-05-22T11:23:50.925941+00:00",
+    "elapsed_seconds": 31.7
+  }
+}

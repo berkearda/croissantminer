@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_ScienceQA",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "ScienceQA",
+    "description": "ScienceQA is a large-scale multimodal multiple-choice science question answering dataset consisting of 21,208 questions with diverse science topics spanning natural science, social science, and language science. Most questions are annotated with corresponding lectures and explanations that serve as chain-of-thought reasoning annotations. The dataset covers 26 topics, 127 categories, and 379 skills across grades 1–12, with questions featuring image, text, or no context.",
+    "url": "https://scienceqa.github.io",
+    "license": "CC BY-NC-SA 4.0",
+    "creator": "Pan Lu (University of California, Los Angeles); Swaroop Mishra (Arizona State University); Tony Xia (University of California, Los Angeles); Liang Qiu (University of California, Los Angeles); Kai-Wei Chang (University of California, Los Angeles); Song-Chun Zhu (University of California, Los Angeles); Oyvind Tafjord (Allen Institute for AI); Peter Clark (Allen Institute for AI); Ashwin Kalyan (Allen Institute for AI)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Pan Lu, Swaroop Mishra, Tony Xia, Liang Qiu, Kai-Wei Chang, Song-Chun Zhu, Oyvind Tafjord, Peter Clark, and Ashwin Kalyan. Learn to Explain: Multimodal Reasoning via Thought Chains for Science Question Answering. 36th Conference on Neural Information Processing Systems (NeurIPS 2022).",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were sourced from open resources managed by IXL Learning, an online K-12 education platform. The authors downloaded the original science problems and extracted individual components (questions, hints, images, options, answers, lectures, and solutions) using heuristic rules. Invalid questions (single-choice, faulty data, duplicates) were manually removed, answer options were shuffled, and semi-automated scripts were used to reformat lectures and solutions. Incorrect annotations were further manually revised by experts using a data exploration tool.",
+    "rai:dataCollectionType": "Web Scraping; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Science problems from IXL Learning (https://www.ixl.com/), an online K-12 education platform curated by experts, aligned with California Common Core Content Standards. Raw data included questions, hints, images, answer options, correct answers, lectures, and solutions.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human performance study: AMT workers answered test questions; only workers with a high school or higher degree who passed qualification examples (4 out of 5 exam examples correct) were eligible. Each batch of 10 test questions was assigned to 3 workers. Human evaluation of generated explanations: AMT workers rated model-generated explanations for relevance, correctness, and completeness; batches of 10 predictions assigned to 3 workers each.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For human evaluation of generated explanations, final human scores were determined by majority vote across 3 workers.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "High school or higher degree (required for human performance study)",
+    "rai:machineAnnotationTools": "ViT-GPT2 image captioning model (used to generate captions for images as visual context input)",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Current multimodal methods fail to achieve satisfactory performance on ScienceQA and do not generate correct explanations; image captions lack fine-grained semantics and usually do not work well for diagrams; models fail to understand multimodal inputs and lack domain-specific knowledge; models generate wrong chain of thought with irrelevant, incorrect, or incomplete information",
+    "rai:dataSocialImpact": "ScienceQA is proposed to diagnose the multimodal understanding and multi-hop reasoning abilities of AI systems; it will contribute to the development of K-12 education applications such as tutoring systems; the dataset does not contain any improper content such as pornographic information, racial remarks, or harmful social bias; any anti-social data points will be removed from the dataset based on feedback",
+    "rai:personalSensitiveInformation": "The collected data does not contain personally identifiable information or offensive content; the dataset does not contain any user usage data or personally sensitive information such as gender and race",
+    "rai:dataUseCases": "Benchmark for multimodal learning, multi-hop reasoning, and general artificial intelligence; development of K-12 education applications such as tutoring systems; diagnosing multimodal understanding and multi-hop reasoning abilities of AI systems; training and evaluating language models to generate chain-of-thought explanations for science question answering; non-commercial research purposes only",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Questions were downloaded from IXL Learning and individual components were extracted using heuristic rules. Invalid questions were manually removed (e.g., questions with only one choice, questions with faulty data, and duplicate questions). If multiple correct answers applied, only one correct answer was kept. Answer options were shuffled to ensure choices do not follow any specific pattern. Semi-automated scripts were used to reformat lectures and solutions so that special structures such as tables and lists are distinguishable from plain text. A data exploration tool was developed to review examples, and incorrect annotations were manually revised by experts."
+  },
+  "usage": {
+    "input_tokens": 209511,
+    "output_tokens": 1556
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45450,
+        "output_tokens": 437
+      },
+      "collection": {
+        "input_tokens": 45348,
+        "output_tokens": 284
+      },
+      "annotation": {
+        "input_tokens": 28359,
+        "output_tokens": 237
+      },
+      "impact": {
+        "input_tokens": 45369,
+        "output_tokens": 399
+      },
+      "processing": {
+        "input_tokens": 44985,
+        "output_tokens": 199
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67884,
+      "output_tokens": 104
+    },
+    "timestamp": "2026-05-02T18:44:54.613888+00:00",
+    "elapsed_seconds": 52.8
+  }
+}

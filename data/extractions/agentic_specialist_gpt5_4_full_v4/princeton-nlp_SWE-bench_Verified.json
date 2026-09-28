@@ -1,0 +1,80 @@
+{
+  "dataset_id": "princeton-nlp_SWE-bench_Verified",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SWE-bench+",
+    "description": "SWE-bench+ is an enhanced evaluation dataset for assessing LLMs on resolving real-world GitHub issues. It is built using the same data collection methodology as SWE-bench, but includes issues created after LLM training cut-off dates and excludes issues whose reports or comments contain solution leakage; the paper states it contains 548 task instances from selected projects.",
+    "url": "https://zenodo.org/records/13879453",
+    "license": null,
+    "creator": "Reem Aleithan; Haoran Xue; Mohammad Mahdi Mohajer; Elijah N norom; Gias Uddin; Song Wang",
+    "publisher": "Zenodo",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Reem Aleithan, Haoran Xue, Mohammad Mahdi Mohajer, Elijah N norom, Gias Uddin, and Song Wang. SWE-Bench+: Enhanced Coding Benchmark for LLMs. arXiv:2410.06992, 2024.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "SWE-Bench+ was built by following the same data collection methodology as SWE-Bench using the original open-source scripts: the authors selected the same 12 projects from SWE-Bench except Django, collected GitHub issues that appeared after October 2023, applied the same attribute and execution filters from the SWE-Bench study, and then manually removed instances whose issue reports contained clear solution details.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Real-world GitHub issues from the selected SWE-Bench projects, using the same 12 projects as SWE-Bench except Django; issue reports and corresponding pull requests from GitHub were collected with the SWE-Bench open-source scripts.",
+    "rai:dataCollectionTimeframe": "2023-11-01 to 2024-08-22",
+    "rai:dataAnnotationProtocol": "Three authors independently performed a manual patch validation study by examining files and lines changed, reviewing issue descriptions, and evaluating implementation styles and intentions behind model-generated and developer-generated patches; disagreements were resolved through broader discussion involving all authors. The authors also manually reviewed issue reports in SWE-Bench Lite and SWE-Bench Verified for solution leakage, and manually checked collected SWE-Bench+ instances to eliminate those with clear solution details in the issue report.",
+    "rai:dataAnnotationPlatform": "GitHub",
+    "rai:dataAnnotationAnalysis": "Disagreements in the manual patch validation study were resolved through broader discussion involving all authors.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "potential data leakage issues due to over 94% of the issues being created before LLMs’ knowledge cutoff dates; solution leakage where solutions were directly provided in issue reports or comments",
+    "rai:dataLimitations": "weak test cases persist in SWE-Bench+; around 67.72% of resolved instances did not truly resolve the issue despite passing all the tests; initial trials with SWE-Agent+Claude 3 Opus and RAG-based Claude models exceeded token limits before completing experiments on all 548 SWE-Bench+ instances",
+    "rai:dataSocialImpact": "SWE-Bench+ establishes a more reliable framework for assessing the true capabilities of LLMs in software development; balancing time, cost, and resource allocation is critical for real-world applications",
+    "rai:personalSensitiveInformation": "The dataset comprises real-world GitHub issues, pull requests, issue descriptions, and comments collected from public repositories; SWE-bench+ manually eliminates instances with clear solution details in the issue report or comments.",
+    "rai:dataUseCases": "systematically evaluate the capabilities of an LLM in resolving software issues; assess models’ ability to generate accurate patches for real-world GitHub issues; help other researchers replicate and extend our study",
+    "rai:dataReleaseMaintenancePlan": "the authors released the SWE-bench+ dataset on Zenodo while working on merging it into the SWE-bench project repository",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "They created SWE-bench+ by collecting GitHub issues created after the models’ training cut-off dates and manually eliminating instances with clear solution details in the issue report; they also applied filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and whose PRs pass all tests.",
+    "rai:dataPreprocessingProtocol": "They applied the same filtering process described in the SWE-Bench study, including attribute filtering to retain only issues that resolve a problem and contribute tests, followed by an execution filter to keep only issues that install successfully and their PRs pass all tests; they then manually checked all instances to eliminate those with clear solution details in the issue report."
+  },
+  "usage": {
+    "input_tokens": 124781,
+    "output_tokens": 1400
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 25214,
+        "output_tokens": 237
+      },
+      "collection": {
+        "input_tokens": 24996,
+        "output_tokens": 365
+      },
+      "annotation": {
+        "input_tokens": 24991,
+        "output_tokens": 173
+      },
+      "impact": {
+        "input_tokens": 24932,
+        "output_tokens": 291
+      },
+      "processing": {
+        "input_tokens": 24648,
+        "output_tokens": 334
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 62156,
+      "output_tokens": 440
+    },
+    "timestamp": "2026-05-22T11:40:13.049247+00:00",
+    "elapsed_seconds": 28.0
+  }
+}

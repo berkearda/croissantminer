@@ -1,0 +1,80 @@
+{
+  "dataset_id": "FLORES_30field",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "FLORES-101",
+    "description": "FLORES-101 is an evaluation benchmark for low-resource and multilingual machine translation, consisting of 3001 sentences extracted from English Wikipedia (Wikinews, Wikijunior, and WikiVoyage) and professionally translated into 101 languages. The dataset supports many-to-many multilingual evaluation across 10,100 language pairs, with rich metadata enabling document-level and multimodal translation evaluation.",
+    "url": "https://dl.fbaipublicfiles.com/flores101/dataset/flores101_dataset.tar.gz",
+    "license": null,
+    "creator": "Naman Goyal; Cynthia Gao; Vishrav Chaudhary; Peng-Jen Chen; Guillaume Wenzek; Da Ju; Sanjana Krishnan; Marc'Aurelio Ranzato; Francisco Guzmán; Angela Fan",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "af, am, ar, hy, as, ast, az, be, bn, bs, bg, my, ca, ceb, zh, hr, cs, da, nl, et, tl, fi, fr, ff, gl, lg, ka, de, el, gu, ha, he, hi, hu, is, ig, id, ga, it, ja, jv, kea, kam, kn, kk, km, ko, ky, lo, lv, ln, lt, luo, lb, mk, ms, ml, mt, mi, mr, mn, ne, nso, nb, ny, oc, or, om, ps, fa, pl, pt, pa, ro, ru, sr, sn, sd, sk, sl, so, ckb, es, sw, sv, tg, ta, te, th, tr, uk, umb, ur, uz, vi, cy, wo, xh, yo, zu",
+    "citeAs": "Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc'Aurelio Ranzato, Francisco Guzmán, and Angela Fan. 2021. The FLORES-101 Evaluation Benchmark for Low-Resource and Multilingual Machine Translation. arXiv:2106.03193.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Sentences were manually selected from English Wikipedia sources (Wikinews, Wikijunior, WikiVoyage) by 10 annotators in the lab. Selected sentences were then professionally translated into 101 languages by Language Service Providers (LSPs), with a multi-round translation and quality assurance workflow involving independent LSPs for translation and evaluation.",
+    "rai:dataCollectionType": "Manual Human Curator; Document analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "English Wikipedia sources: Wikinews (international news articles), Wikijunior (nonfiction books for children), and WikiVoyage (travel guide articles). Sentences were extracted along with Wikipedia URLs, topic metadata, boolean flags for hyperlinked entities and images.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Sentences were selected from English Wikipedia sources (Wikinews, Wikijunior, WikiVoyage) by 10 annotators in the lab who manually selected contiguous sentences and labeled them by sub-topic. Translations into 101 languages were performed by professional translators through Language Service Providers (LSPs); translations underwent editing within the LSP, then automatic quality checks, then human quality assurance by an independent LSP using a Translation Quality Score based on identified error types (grammar, punctuation, spelling, capitalization, addition/omission, mistranslation, unnatural translation, untranslated text, register) with severity levels (minor, major, critical). Translations scoring below 90% were returned for re-translation, with up to 3 rounds of re-translation possible.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Translation quality was assessed via a Translation Quality Score on a 0–100 scale, calculated by tallying error types and severity levels identified by evaluation LSPs. A threshold of 90% was required for inclusion. Automatic checks included language identification, copy detection, length comparison, fluency via language model, and similarity to commercial translation engine outputs using a sentence-level spBLEU heuristic to detect copied translations.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "Sentence selection annotators: 10 people, 6 male and 4 female, with roles including researchers (scientists and engineers) and program/project managers, originally from East Asia, South Asia, Southern Europe, Latin America, and North America",
+    "rai:machineAnnotationTools": "Language identification; language model for fluency checking; commercial translation engines (used for copy detection via spBLEU similarity heuristic)",
+    "rai:dataBiases": "Translationese effects may be present since all non-English translations are produced from English source sentences; the authors conjecture these effects are marginal for low-resource languages but acknowledge the risk; automatic checks revealed that some professional translators copied verbatim or post-edited outputs from commercial translation engines, which was addressed via heuristic detection and re-translation",
+    "rai:dataLimitations": "All source sentences are from English Wikipedia, so non-English translations are translationese rather than naturally occurring text in those languages; the dataset is intended for evaluation only, not training; the test set is not publicly released but is available via an evaluation server to reduce overfitting; several languages considered for inclusion could not meet the 90% quality threshold after multiple rounds of re-translation and were excluded",
+    "rai:dataSocialImpact": "The authors state that the majority of the world's population speaks low-resource languages and would benefit from improvements in translation quality; by releasing a high-quality, high-coverage benchmark, the authors aim to foster progress in machine translation for low-resource languages and enable evaluation of regionally-relevant language pairs that are traditionally neglected",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluation of machine translation systems including many-to-many multilingual translation across 101 languages; evaluation of document-level translation; evaluation of multimodal translation via image metadata; sentence and document classification; language identification; multilingual domain adaptation; use in shared tasks such as the WMT Large-Scale Multilingual Translation Task",
+    "rai:dataReleaseMaintenancePlan": "The authors state they hope to continue to expand the number of languages covered in FLORES-101 and make the test set available to various community efforts; the test set is available via a publicly available evaluation server while dev and devtest are publicly downloadable.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Sentences were selected from English Wikipedia sources (Wikinews, Wikijunior, WikiVoyage) by manually avoiding very short or malformed sentences. Automatic checks were applied to translations including: language identification, checking whether the translation is a copy of the source sentence, checking for significantly different length, checking translation fluency according to a language model, and checking whether the translation is a copy of output from publicly available translation engines. Translations with more than 10% of sentences flagged by the copy-detection heuristic were rejected and sent for re-translation. A SentencePiece tokenizer was trained with temperature upsampling to address imbalanced monolingual data across languages."
+  },
+  "usage": {
+    "input_tokens": 623721,
+    "output_tokens": 1981
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 124901,
+        "output_tokens": 625
+      },
+      "collection": {
+        "input_tokens": 124787,
+        "output_tokens": 247
+      },
+      "annotation": {
+        "input_tokens": 124813,
+        "output_tokens": 445
+      },
+      "impact": {
+        "input_tokens": 124796,
+        "output_tokens": 438
+      },
+      "processing": {
+        "input_tokens": 124424,
+        "output_tokens": 226
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 71954,
+      "output_tokens": 128
+    },
+    "timestamp": "2026-05-02T17:51:26.104196+00:00",
+    "elapsed_seconds": 69.1
+  }
+}

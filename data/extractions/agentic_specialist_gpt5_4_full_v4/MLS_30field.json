@@ -1,0 +1,80 @@
+{
+  "dataset_id": "MLS_30field",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "Multilingual LibriSpeech (MLS) dataset",
+    "description": "Multilingual LibriSpeech (MLS) is a large multilingual read-speech corpus for speech research derived from LibriVox audiobooks. It contains 8 languages, including about 44.5K hours of English and about 6K hours for the other languages, and the release also includes language models and baseline ASR models.",
+    "url": "http://www.openslr.org",
+    "license": "public domain",
+    "creator": "Vineel Pratap; Qiantong Xu; Anuroop Sriram; Gabriel Synnaeve; Ronan Collobert",
+    "publisher": null,
+    "datePublished": "2020",
+    "inLanguage": "en, de, nl, es, fr, pt, it, pl",
+    "citeAs": "Vineel Pratap, Qiantong Xu, Anuroop Sriram, Gabriel Synnaeve, and Ronan Collobert. MLS: A Large-Scale Multilingual Dataset for Speech Research. December 22, 2020.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled from LibriVox audiobook audio and corresponding source texts. The authors selected 8 languages based on audiobook hours and text-source availability, downloaded LibriVox audiobooks using LibriLight tools, obtained original book texts by automatically extracting text from major domains for English and by manual copying, PDF/EPUB extraction, HTML parsers, and manual online search for alternate text sources for other languages.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Some audiobook text-source links were invalid or redirected to incorrect pages, and some books had corrupted metadata such as missing title or information about speakers and authors.",
+    "rai:dataCollectionRawData": "Read-speech audiobook audio from LibriVox and original textbook sources for those audiobooks. For English, the paper names four major text-source domains: gutenberg.org, archive.org, ccel.org, and hathitrust.org. For other languages, text was obtained from browser copies, PDF/EPUB books using pdftotext, HTML parsers for popular domains, and alternate sources such as projekt-gutenberg.de and zeno.org.",
+    "rai:dataCollectionTimeframe": "December 22, 2020",
+    "rai:dataAnnotationProtocol": "For high quality development and test sets, human transcribers listened to the audio file while looking at the transcript and were asked to correct the transcripts if they found mistakes, and were instructed to only correct “clear and obvious” errors.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The paper reports WER between the generated transcript and the human rated transcript for the development and test sets.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "acoustic models using Time-Depth Separable (TDS) Convolutions with ASG loss; beam-search decoding with a 4-gram language model; TF-IDF similarity score on bigrams; Smith-Waterman alignment; gender classifier using an SVM with RBF kernel",
+    "rai:dataBiases": "To ensure that we do not add any potential bias into the dataset from human transcribing, we ask the transcribers to only correct “clear and obvious” errors.",
+    "rai:dataLimitations": "The training data is lower than the data presented in Table 1 because the text source for the audiobook may not have been downloaded, the candidate label may be filtered during transcript retrieval, or samples may be filtered while creating valid/test splits; the solution for replacing numbers in text is not perfect because the pseudo label may not always have the correct transcription of the audio; for other languages, automatically extracting text for audiobooks was challenging because of the diversity of domains and invalid or incorrect links; for Polish, the OOV rate is 13%, which negatively impacts WER when performing LM decoding with constrained lexicon.",
+    "rai:dataSocialImpact": "We believe this dataset will promote open research in large-scale training of ASR systems and in multilingual ASR.",
+    "rai:personalSensitiveInformation": "For each language, we train models on in-house datasets consisting of videos publicly shared by users. We use only audio part of the videos and the data is completely de-identified.",
+    "rai:dataUseCases": "speech research; Automatic Speech Recognition (ASR) research; Text-To-Speech (TTS) research; large-scale training of ASR systems; multilingual ASR",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": "To solve the issue, we align the matched text from the book with the pseudo label and replace the numbers in the matched text with the corresponding aligned words from the pseudo label.",
+    "rai:dataManipulationProtocol": "To avoid high speaker imbalance in development and test sets, we further truncate speakers with high duration by sampling their recordings up to an upper-bound.",
+    "rai:dataPreprocessingProtocol": "All the audio data is downsampled from 48kHz to 16kHz for further processing. For normalizing the text, we first perform NFKC normalization and remove all the unwanted characters like punctuations, subscript/superscripts, emojis, escape symbols etc. We also remove the hyphens used for “end-of-line hyphenation” and join the parts of words into a single word. We then prepare a list of valid unicode characters based on the language’s orthography and filter characters outside this range. We remove all the books with corrupted meta data, such as missing title or information about speakers and authors. Then, to ensure that each recording is unambiguously attributable to a single speaker, we also remove audios with multiple speakers."
+  },
+  "usage": {
+    "input_tokens": 89970,
+    "output_tokens": 1523
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 20207,
+        "output_tokens": 239
+      },
+      "collection": {
+        "input_tokens": 19984,
+        "output_tokens": 530
+      },
+      "annotation": {
+        "input_tokens": 19986,
+        "output_tokens": 202
+      },
+      "impact": {
+        "input_tokens": 19927,
+        "output_tokens": 304
+      },
+      "processing": {
+        "input_tokens": 9866,
+        "output_tokens": 248
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 39875,
+      "output_tokens": 394
+    },
+    "timestamp": "2026-05-22T10:03:14.272039+00:00",
+    "elapsed_seconds": 29.9
+  }
+}

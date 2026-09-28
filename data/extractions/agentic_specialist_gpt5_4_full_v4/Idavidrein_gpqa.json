@@ -1,0 +1,80 @@
+{
+  "dataset_id": "Idavidrein_gpqa",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "GPQA",
+    "description": "GPQA is a dataset of graduate-level multiple-choice questions written by domain experts in biology, physics, and chemistry. The paper states that it contains 448 questions in the main set and is designed to be high-quality, extremely difficult, and \"Google-proof\" for skilled non-experts while remaining answerable by in-domain experts.",
+    "url": "https://github.com/idavidrein/gpqa/",
+    "license": null,
+    "creator": "David Rein; Betty Li Hou; Asa Cooper Stickland; Jackson Petty; Richard Yuanzhe Pang; Julien Dirani; Julian Michael; Samuel R. Bowman",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": "David Rein, Betty Li Hou, Asa Cooper Stickland, Jackson Petty, Richard Yuanzhe Pang, Julien Dirani, Julian Michael, and Samuel R. Bowman. GPQA: A Graduate-Level Google-Proof Q&A Benchmark. arXiv:2311.12022v1, 2023.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected by hiring 61 contractors through Upwork to write and validate graduate-level multiple-choice questions in biology, physics, and chemistry. The collection pipeline had four stages: question writing by domain experts, first expert validation, question revision by the writer, second expert validation, and non-expert validation by three validators from other domains. The authors collected 564 questions with this procedure and removed 18 to form a held-out set, leaving 546 questions.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": "On the extended set of 546 questions, 1.4% of expert validations do not include the feedback questions after answering that we use to evaluate post-hoc agreement, whether the validator has sufficient expertise to answer the question, and how hard they believe the question is.",
+    "rai:dataCollectionRawData": "Raw data consisted of graduate-level multiple-choice questions, answer choices, and writer explanations created by domain experts in biology, physics, and chemistry, along with expert and non-expert validation responses and feedback collected through Upwork.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The dataset was created through a four-stage human annotation pipeline: domain experts recruited as contractors through Upwork wrote multiple-choice questions in biology, physics, and chemistry; a first expert validator in the same domain answered each question and gave detailed feedback; the question writer revised the question based on that feedback; a second expert validator answered the revised question and provided feedback; and finally three non-expert validators, who were experts in other domains, attempted to answer each question with unrestricted internet access except LLM assistants. Workers were required to have completed or be pursuing a PhD in their field and indicate proficiency or fluency in English, and non-expert validators were required to spend at least 15 minutes per question.",
+    "rai:dataAnnotationPlatform": "Upwork",
+    "rai:dataAnnotationAnalysis": "Questions were filtered into released subsets based on validator outcomes: GPQA includes questions where at least 1 of 2 experts agree and at most 2 of 3 non-experts answer correctly, while GPQA Diamond includes questions where 2 of 2 experts agree and at most 1 of 3 non-experts answer correctly. The authors also manually examined the 191 cases where the second expert validator answered incorrectly, categorizing feedback into eight buckets and using cases where the validator clearly described their mistake or demonstrated understanding of the explanation to count post-hoc agreement and include some questions in the main and diamond sets.",
+    "rai:annotationsPerItem": "3",
+    "rai:annotatorDemographics": "completed or currently in a PhD program in their field of expertise; proficient or fluent in English",
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "We source our experts through Upwork, and we do not enforce representation of any particular region or demographics. This could contribute to biases in the forms of expertise included in the dataset, or the topics and content included the questions; the language used in the questions may be biased—for instance, we noticed in some instances workers defaulted to masculine pronouns when referring to scientists, instead of more inclusive gender-neutral pronouns.",
+    "rai:dataLimitations": "GPQA is small at only 448 examples, so it is not ideal for model training and it does not provide a lot of statistical power for accuracy comparisons; the specialized non-expert setup means the numbers will likely not directly translate to realistic settings and future scalable oversight experiments should independently measure non-expert accuracy on GPQA; GPQA is not a representative sample of any population of questions that are likely to come up in the course of scientific practice; it is still an imperfect proxy for supervising superhuman AI systems to answer questions that no human can currently answer.",
+    "rai:dataSocialImpact": "The difficulty of GPQA both for skilled non-experts and frontier AI systems should enable realistic scalable oversight experiments, which we hope can help devise ways for human experts to reliably get truthful information from AI systems that surpass human capabilities; as LLMs are used to answer increasingly difficult questions, issues like hallucination and sycophancy are expected to be exacerbated.",
+    "rai:personalSensitiveInformation": "The paper asks that examples from the dataset not be revealed online to reduce the risk of leakage into foundation model training corpora, and says they incorporate a canary string into the dataset to make it easier for training corpora to filter out the benchmark.",
+    "rai:dataUseCases": "scalable oversight research; scalable oversight experiments; evaluating foundation models on graduate-level, Google-proof multiple-choice questions in biology, physics, and chemistry",
+    "rai:dataReleaseMaintenancePlan": "We request that you do not reveal examples from this dataset in plain text or images online, to reduce the risk of leakage into foundation model training corpora. Additionally, we incorporate this canary string into the dataset to make it easier for training corpora to filter out our benchmark.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We remove 18 questions to form a small unreleased held-out set, leaving 546 questions. We remove questions where both expert validators answered incorrectly and all three non-expert validators answered correctly to form GPQA, and create GPQA Diamond as a higher-quality subset including only questions where both experts answer correctly and the majority of non-experts answer incorrectly, while also retroactively removing questions from workers whose questions appeared easier or less objective and removing questions from an individual suspected of using ChatGPT.",
+    "rai:dataPreprocessingProtocol": "There was one instance where it was apparent based on the text written that an individual was using ChatGPT to write at least some parts of their questions - we did not solicit more work from that individual, and we retroactively removed their questions. There were a few instances where a question writer was mistakenly assigned to write additional questions, despite the fact that the expert validator accuracy on their initial few questions was lower than the non-expert validator accuracy. In these cases, we retroactively removed their questions once we noticed this mistake. Our analysis in Section 3 excludes validations with missing values."
+  },
+  "usage": {
+    "input_tokens": 188682,
+    "output_tokens": 1702
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 40601,
+        "output_tokens": 239
+      },
+      "collection": {
+        "input_tokens": 40379,
+        "output_tokens": 271
+      },
+      "annotation": {
+        "input_tokens": 40365,
+        "output_tokens": 351
+      },
+      "impact": {
+        "input_tokens": 27306,
+        "output_tokens": 440
+      },
+      "processing": {
+        "input_tokens": 40031,
+        "output_tokens": 401
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 52097,
+      "output_tokens": 231
+    },
+    "timestamp": "2026-05-22T10:01:06.624733+00:00",
+    "elapsed_seconds": 33.5
+  }
+}

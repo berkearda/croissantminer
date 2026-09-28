@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_POPE",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "POPE (Polling-based Object Probing Evaluation)",
+    "description": "POPE is a benchmark for evaluating object hallucination in large vision-language models (LVLMs). It converts hallucination evaluation into a binary classification task by prompting LVLMs with Yes-or-No questions about the presence of objects in images (e.g., 'Is there a car in the image?'). The dataset includes evaluation triples built on MSCOCO, A-OKVQA, and GQA images under three sampling strategies: random, popular, and adversarial.",
+    "url": null,
+    "license": null,
+    "creator": "Yifan Li (Renmin University of China); Yifan Du (Renmin University of China); Kun Zhou (Renmin University of China); Jinpeng Wang (Meituan Group); Wayne Xin Zhao (Renmin University of China); Ji-Rong Wen (Renmin University of China)",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "en",
+    "citeAs": "Yifan Li, Yifan Du, Kun Zhou, Jinpeng Wang, Wayne Xin Zhao, and Ji-Rong Wen. Evaluating Object Hallucination in Large Vision-Language Models. arXiv:2305.10355v3 [cs.CV], 26 Oct 2023.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was assembled by sampling images and annotations from existing benchmark datasets (MSCOCO, A-OKVQA, GQA). For MSCOCO, 2,000 images were randomly sampled from the validation set with human annotations about contained objects and human-labeled captions. For POPE evaluation, 500 images with more than 3 ground-truth objects were randomly selected. Automatic segmentation using SEEM was also applied to annotate images from MSCOCO, A-OKVQA, and GQA for unannotated settings.",
+    "rai:dataCollectionType": "Secondary Data analysis; Manual Human Curator; Software Collection",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "MSCOCO validation set (images with object annotations and human-labeled captions), A-OKVQA dataset, GQA dataset, and segmentation results from the SEEM automatic segmentation tool.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "SEEM (Segment Everything Everywhere All at Once); ChatGPT",
+    "rai:dataBiases": "Visual instruction datasets are mostly constructed based on MSCOCO and share a similar unbalanced object distribution where top frequent objects occupy a major part of the dataset; objects that frequently appear in the visual instructions or co-occur with the image objects are obviously prone to be hallucinated by LVLMs",
+    "rai:dataLimitations": "Evaluation is conducted on only a part of the validation set for each dataset due to computation resource limitations, so reported results might be affected by the corresponding data distribution; POPE uses a matching-based method to determine Yes/No answers, but LVLMs may occasionally fail to provide answers explicitly containing these words, leading to inaccurate evaluation results; when combined with automatic segmentation tools, objects are annotated based on the tool's label set, which may be inconsistent with human annotations; only a small number of LVLMs are compared, without including some recently released or closed-source ones; the evaluation only focuses on coarse-grained object hallucination and does not consider fine-grained hallucinations such as number, attributes, and positions of objects; the evaluation task cannot measure the overall performance of LVLMs",
+    "rai:dataSocialImpact": "The hallucination phenomenon hinders the safe use of LVLMs in real-world deployment, as it may result in unexpected consequences caused by hallucinated objects; for example, an autonomous driving system could make wrong decisions when encountering unexpected events due to incorrect understanding of the external environment, which might lead to serious safety issues",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating object hallucination in large vision-language models; benchmarking LVLMs on binary classification of object presence in images; extending hallucination evaluation to unannotated datasets using automatic segmentation tools",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "POPE constructs evaluation triples with a 1:1 ratio between ground-truth and nonexistent objects for label balance, using three negative sampling strategies: Random Sampling (randomly sample objects not in the image), Popular Sampling (select top-k most frequent objects in the dataset not in the current image), and Adversarial Sampling (select top-k objects ranked by co-occurrence frequency with ground-truth objects that do not exist in the image).",
+    "rai:dataPreprocessingProtocol": "For CHAIR evaluation, 2,000 images were randomly sampled from the MSCOCO validation set, considering only 80 objects appearing in the MSCOCO segmentation challenge. For POPE on MSCOCO, 500 images with more than 3 ground-truth objects in the annotations were randomly selected. For scalability experiments, SEEM was used to automatically annotate images from MSCOCO, A-OKVQA, and GQA datasets to extract ground-truth objects when human annotations were unavailable."
+  },
+  "usage": {
+    "input_tokens": 175671,
+    "output_tokens": 1611
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 35287,
+        "output_tokens": 401
+      },
+      "collection": {
+        "input_tokens": 35169,
+        "output_tokens": 285
+      },
+      "annotation": {
+        "input_tokens": 35230,
+        "output_tokens": 163
+      },
+      "impact": {
+        "input_tokens": 35193,
+        "output_tokens": 480
+      },
+      "processing": {
+        "input_tokens": 34792,
+        "output_tokens": 282
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 83814,
+      "output_tokens": 172
+    },
+    "timestamp": "2026-05-02T18:44:01.790487+00:00",
+    "elapsed_seconds": 47.0
+  }
+}

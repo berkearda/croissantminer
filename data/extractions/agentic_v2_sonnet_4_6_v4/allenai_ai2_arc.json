@@ -1,0 +1,261 @@
+{
+  "dataset_id": "allenai_ai2_arc",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "ARC (AI2 Reasoning Challenge)",
+    "description": "A dataset of 7,787 natural grade-school science questions (multiple choice, non-diagram) partitioned into a Challenge Set (2,590 questions answered incorrectly by both a retrieval-based and a word co-occurrence algorithm) and an Easy Set (5,197 questions), along with the ARC Corpus of 14M science-related sentences.",
+    "url": "http://data.allenai.org/arc",
+    "license": "CC-BY-SA-4.0",
+    "creator": "Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, Oyvind Tafjord (Allen Institute for Artificial Intelligence)",
+    "publisher": "Allen Institute for Artificial Intelligence",
+    "datePublished": "2018-03-14",
+    "inLanguage": "en",
+    "citeAs": "Clark et al., 2018. Think you have Solved Question Answering? Try ARC, the AI2 Reasoning Challenge. arXiv:1803.05457",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were collected from standardized tests through several months of extensive search and investigation. The ARC Corpus was created by utilizing a major search engine to run a large series of search queries relevant to science, with queries automatically constructed by instantiating 100 hand-written templates for 80 science topics.",
+    "rai:dataCollectionType": "Web Scraping, Web API, Document analysis, Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Science questions drawn from standardized tests (grade 3-9); web documents retrieved via a major search engine using science-topic queries; the AristoMini corpus (dictionary definitions from Wiktionary, articles from Simple Wikipedia tagged as science, and additional science sentences from the Web).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Questions were partitioned into a Challenge Set and an Easy Set based on whether both an IR solver and a PMI solver answered them incorrectly. The ARC Corpus documents were de-duplicated, stripped to text, and chunked into sentences.",
+    "rai:dataPreprocessingProtocol": "For the Challenge Set, questions answered incorrectly by both the IR solver and the PMI solver were selected. For the ARC Corpus, web documents were collected, de-duplicated, stripped to plain text, and chunked into sentences.",
+    "rai:dataAnnotationProtocol": "Questions were authored by human examiners for standardized tests and assigned grade levels (3rd through 9th grade) by those examiners. Knowledge and reasoning types were categorized by the authors based on a sample of 100 questions.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The categorization of knowledge and reasoning types is acknowledged as approximate and subjective: 'These sizes are necessarily approximate, as it requires a subjective judgement about the main challenge exhibited by different questions.'",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Elasticsearch (used by the IR solver for filtering Challenge questions); Open IE (used in DGEM-OpenIE baseline)",
+    "rai:dataReleaseMaintenancePlan": "A leaderboard is maintained for up-to-date results. The dataset, corpus, and models are publicly available at http://data.allenai.org/arc.",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "The Challenge Set definition using IR and PMI filters may introduce bias: scores on the Challenge Set are near zero for those solvers by design, and the retrieval bias of underlying IR methods is towards sentences similar to the question rather than those that partially match but together explain the answer.",
+    "rai:dataLimitations": "The Challenge Set definition only approximates the informal goal of 'hard' questions. The ARC Corpus, while covering ~95% of Challenge questions, cannot be fully exploited by simple retrieval methods. The dataset contains only non-diagram, multiple-choice science questions from grades 3-9.",
+    "rai:dataUseCases": "Training, development, and testing of question answering systems; benchmarking advanced AI reasoning; the dataset is split into train, dev, and test partitions for the Challenge and Easy sets."
+  },
+  "usage": {
+    "input_tokens": 21001,
+    "output_tokens": 2430
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:27:14.462300Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new question set, text corpus, and baselines assembled to encourage AI research in advanced question answering. Together, these constitute the AI2 Reasoning Challenge (ARC)"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC dataset consists of 7787 science questions, all non-diagram, multiple choice (typically 4-way multiple choice). They are drawn from a variety of sources, and sorted into a Challenge Set of 2590 'hard' questions... and an Easy Set of 5197 questions."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC Dataset, Corpus, Models, and Leaderboard can be accessed at http://data.allenai.org/arc."
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, Oyvind Tafjord, Allen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Allen Institute for Artificial Intelligence, Seattle, WA, U.S.A."
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1803.05457v1 [cs.AI] 14 Mar 2018"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The dataset contains only natural, grade-school science questions (authored for human tests)"
+      },
+      "citeAs": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1803.05457v1 [cs.AI] 14 Mar 2018"
+      },
+      "isLiveDataset": {
+        "confidence": 0.8,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "making this challenge a reality is difficult, as such questions are difficult obtain (most examination boards release only limited practice tests to the public). For ARC we have addressed this through several months of extensive search and investigation."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC Corpus was created by utilizing a major search engine to run a large series of search queries relevant to science. Queries were automatically constructed by instantiating 100 hand-written templates for 80 science topics covered by US elementary and middle schools... The top several documents from each search were collected and de-duplicated, and then the content of these documents was stripped down to capture just the text in each document."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The ARC dataset consists of 7787 science questions... drawn from a variety of sources... The corpus was then augmented with the AristoMini corpus, an earlier corpus containing dictionary definitions from Wiktionary, articles from Simple Wikipedia tagged as science, and additional science sentences collected from the Web."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The top several documents from each search were collected and de-duplicated, and then the content of these documents was stripped down to capture just the text in each document. The resulting text was then chunked into sentences."
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we have partitioned ARC into a Challenge Set (2590 questions), containing questions answered incorrectly by both a retrieval-based algorithm and a word co-occurrence algorithm, and an Easy Set (5197 questions), containing the remainder."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "Questions vary in their target student grade level (as assigned by the examiners who authored the questions), ranging from 3rd grade to 9th... we enumerate the broad classes of each that we observe in the ARC challenge, based on a sample of 100 questions."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "These sizes are necessarily approximate, as it requires a subjective judgement about the main challenge exhibited by different questions. Nevertheless, it helps to provide a rough atlas of the knowledge and reasoning space underlying ARC."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.5,
+        "status": "UNCERTAIN",
+        "source": "extraction",
+        "evidence": "for each answer option ai, it sends q+ai as a query to a search engine (we use Elasticsearch)... a version of DGEM that only uses Open IE to create the structured representation of hi"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "For up-to-date results, see the ARC leaderboard at http://data.allenai.org/arc. The ARC Dataset, Corpus, three baseline neural models (DecompAttn, BiDAF, and DGEM), and the leaderboard, are all available from http://data.allenai.org/arc."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The IR and PMI (dataset definition) solvers, by design, score near zero on the Challenge set... the retrieval bias of the underlying IR methods is towards sentences that are all very similar to the question, and away from sentences that individually only partially match the question, but together fully explain the correct answer"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Although this only approximates the informal goal of it being a 'hard' question, this definition nevertheless serves as a practical and useful filter... The ARC dataset consists of 7787 science questions, all non-diagram, multiple choice (typically 4-way multiple choice)."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We present a new question set, text corpus, and baselines assembled to encourage AI research in advanced question answering... Table 1: Number of questions in the ARC partitions. [Train/Dev/Test splits provided]"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 19,
+      "fields_uncertain": 3,
+      "evidence_count": 20,
+      "evidence_coverage": 90.9,
+      "avg_confidence": 0.87
+    },
+    "cost_usd": 0.0995,
+    "split": "test",
+    "corrections_applied": 0,
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 47.6,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 0
+  }
+}

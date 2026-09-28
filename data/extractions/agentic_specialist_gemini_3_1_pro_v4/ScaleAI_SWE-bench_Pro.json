@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ScaleAI_SWE-bench_Pro",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "SWE-Bench Pro",
+    "description": "SWE-Bench Pro is a benchmark containing 1,865 long-horizon software engineering problems sourced from 41 actively maintained repositories. It is designed to capture realistic, complex, enterprise-level problems requiring multi-file modifications.",
+    "url": "https://scale.com/research/swe_bench_pro",
+    "license": null,
+    "creator": "Xiang Deng; Jeff Da; Edwin Pan; Yannis Yiming He; Charles Ide; Kanak Garg; Niklas Lauffer; Andrew Park; Nitin Pasari; Chetan Rane; Karmini Sampath; Maya Krishnan; Srivatsa Kundurthy; Sean Hendryx; Zifan Wang; Chen Bo Calvin Zhang; Noah Jacobson; Bing Liu; Brad Kenstler",
+    "publisher": null,
+    "datePublished": null,
+    "inLanguage": "en",
+    "citeAs": "Xiang Deng, Jeff Da, Edwin Pan, Yannis Yiming He, Charles Ide, Kanak Garg, Niklas Lauffer, Andrew Park, Nitin Pasari, Chetan Rane, Karmini Sampath, Maya Krishnan, Srivatsa Kundurthy, Sean Hendryx, Zifan Wang, Chen Bo Calvin Zhang, Noah Jacobson, Bing Liu, Brad Kenstler. SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was collected by identifying pairs of consecutive commits that capture the resolution of an issue from 41 actively maintained public and private commercial repositories, and scraping metadata from original sources such as issue discussions, commit messages, and pull requests.",
+    "rai:dataCollectionType": "Software Collection; Web Scraping",
+    "rai:dataCollectionMissingData": "The authors note that metadata collected during commit scraping, such as commit messages, are often unstructured, incomplete, or entirely missing.",
+    "rai:dataCollectionRawData": "Raw data consists of public repositories distributed under strong copyleft licenses (GPL), private commercial codebases sourced from startups, and their associated commit histories, issue discussions, commit messages, and pull requests.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human augmentation and verification process where available information from original sources is collected and organized to produce a problem statement and a list of requirements and optionally an interface, followed by a human verification pipeline where each test is checked for relevance to the task description and whether it is too broad.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Tests were dropped if they were irrelevant to the task description or too broad; if all tests for a problem were dropped, the entire problem was dropped.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The distribution of programming languages is not uniform, and some widely-used languages like Java, C++, and Rust are underrepresented.",
+    "rai:dataLimitations": "Limited Language Coverage: the distribution is not uniform, and some widely-used languages like Java, C++, and Rust are underrepresented; Issue Scope: focuses primarily on issue resolution through code patches and does not capture broader activities such as system design, code review, documentation, and architectural decisions; Dependency on Test Suite: relies on a test suite to verify problem solutions, whereas real tasks may have correct solutions that do not pass the original tests; Reduction in Ambiguity: the human augmentation process may inadvertently make problems too prescriptive by providing excessive detail.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluating the progress of LLM agents after SWE-Bench is saturated; establishing a common yardstick for researchers and practitioners developing next-generation coding agents",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Problems underwent a human-driven augmentation process where task descriptions were rewritten and augmented with a list of human-written requirements and interface specifications to ensure resolvability.",
+    "rai:dataPreprocessingProtocol": "Trivial edits (1–10 lines of code) were excluded. Tests were run multiple times and any flaky tests that did not pass consistently were filtered out. Annotators also manually filtered out tests that were too broad or irrelevant, and problems were dropped entirely if all tests were removed."
+  },
+  "usage": {
+    "input_tokens": 145434,
+    "output_tokens": 1556
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 29324,
+        "output_tokens": 550
+      },
+      "collection": {
+        "input_tokens": 29159,
+        "output_tokens": 198
+      },
+      "annotation": {
+        "input_tokens": 29123,
+        "output_tokens": 208
+      },
+      "impact": {
+        "input_tokens": 29087,
+        "output_tokens": 287
+      },
+      "processing": {
+        "input_tokens": 28741,
+        "output_tokens": 313
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 65526,
+      "output_tokens": 554
+    },
+    "timestamp": "2026-05-27T19:03:24.551123+00:00",
+    "elapsed_seconds": 120.2
+  }
+}

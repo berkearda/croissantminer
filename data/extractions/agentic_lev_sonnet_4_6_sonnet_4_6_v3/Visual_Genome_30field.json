@@ -1,0 +1,287 @@
+{
+  "dataset_id": "Visual_Genome_30field",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Visual Genome",
+    "description": "A large-scale dataset of over 100K images with dense annotations of objects, attributes, relationships, region descriptions, scene graphs, and question-answer pairs, designed to enable cognitive scene understanding in computer vision. Each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships, all canonicalized to WordNet synsets.",
+    "url": "https://visualgenome.org",
+    "license": null,
+    "creator": "Ranjay Krishna, Yuke Zhu, Oliver Groth, Justin Johnson, Kenji Hata, Joshua Kravitz, Stephanie Chen, Yannis Kalantidis, Li-Jia Li, David A. Shamma, Michael S. Bernstein, Li Fei-Fei",
+    "publisher": "Stanford University",
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk. The pipeline involved multiple task stages for each component (region descriptions, objects, attributes, relationships, region graphs, scene graphs, questions and answers). Various strategies were used to ensure accuracy and diversity, including majority voting and rapid judgments for verification.",
+    "rai:dataCollectionType": "Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "108,249 images from the intersection of MS-COCO's 328,000 images and YFCC's 100 million images, consisting of real-world, non-iconic images uploaded onto Flickr by users.",
+    "rai:dataCollectionTimeframe": "6 months",
+    "rai:dataAnnotationProtocol": "Multi-stage crowdsourcing pipeline on Amazon Mechanical Turk covering region descriptions, objects (with bounding boxes requiring coverage and quality constraints), attributes, relationships, region graphs, scene graphs, and QA pairs. Workers followed specific rules (e.g., 'seven Ws' for QA, diversity enforcement). Verification used majority voting (3 workers per annotation, majority must agree) and rapid judgments for objects.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk (AMT)",
+    "rai:dataAnnotationAnalysis": "Verification via majority voting (3 workers, majority must agree) and rapid judgments for objects. Canonicalization precision/recall evaluated on random samples of 200 items: Objects 88.0% precision / 98.5% recall; Attributes 85.7% precision / 95.9% recall; Relationships 92.9% precision / 88.5% recall.",
+    "rai:annotationsPerItem": "3 workers per annotation for verification (majority voting); 1 worker per region description for object extraction; 42 region descriptions per image on average",
+    "rai:annotatorDemographics": "Over 33,000 unique workers on Amazon Mechanical Turk; no further demographic details provided",
+    "rai:machineAnnotationTools": "Stanford dependency parser (Manning et al., 2014) used to automatically extract nouns as suggestions for object annotation; Stanford NLP tools used to extract noun phrases for canonicalization; WordNet synset mapping for canonicalization of objects, attributes, and relationships",
+    "rai:dataBiases": "The dataset is somewhat biased towards images of people, as the top synsets show sports-related and people-centric categories dominating the image distribution.",
+    "rai:dataLimitations": "The dataset covers only 972 WordNet synsets and is biased towards images of people and sports activities. Images were sourced from Flickr users, which may limit diversity of cultural and geographic representation.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The dataset contains real-world images of people uploaded to Flickr, including images that may capture identifiable individuals in various activities.",
+    "rai:dataUseCases": "The dataset is intended for use in visual understanding tasks including region description, question answering, scene graph generation, object detection, attribute recognition, and relationship detection.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "All objects, attributes, relationships, and noun phrases in region descriptions and QAs are canonicalized (word sense disambiguated) by mapping to WordNet synsets. Stanford NLP tools are used to extract noun phrases, which are then mapped to their most frequent matching WordNet synset. Attributes are normalized via morphological stemming before mapping. Relationships exclude prepositions and are matched to WordNet sentence frames, with root hypernyms considered to reduce noise. Hand-crafted mapping rules (30 for objects, 15 for attributes, 20 for relationships) correct common failure cases. Mappings are verified via Amazon Mechanical Turk majority voting, and objects across region graphs are merged when bounding box overlap-over-union exceeds 0.8. Verification of annotations uses majority voting (3 workers, 2 must agree) and rapid judgments to remove vague, subjective, or incorrect labels."
+  },
+  "usage": {
+    "input_tokens": 68876,
+    "output_tokens": 3311
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:36:57.054145Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we present the Visual Genome dataset to enable the modeling of such relationships."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "our dataset contains over 100K images where each image has an average of 21 objects, 18 attributes, and 18 pairwise relationships between objects. We canonicalize the objects, attributes, relationships, and noun phrases in region descriptions and questions answer pairs to WordNet synsets."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Further visualizations, API, and additional information on the Visual Genome dataset can be found online3. 3https://visualgenome.org"
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna Yuke Zhu Oliver Groth Justin Johnson Kenji Hata Joshua Kravitz Stephanie Chen Yannis Kalantidis Li-Jia Li David A. Shamma Michael S. Bemstein Li Fei-Fei"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Ranjay Krishna Stanford University, Stanford, CA, USA ... Li Fei-Fei Stanford University, Stanford, CA, USA"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:1602.07332v1 [cs.CV] 23 Feb 2016"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "region descriptions and questions answer pairs to WordNet synsets"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk. In this section, we outline the pipeline employed in creating all the components of the dataset. Each component (region descriptions, objects, attributes, relationships, region graphs, scene graphs, questions and answers) involved multiple task stages."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and veriﬁed entirely by crowd workers from Amazon Mechanical Turk... Overall, a total of over 33,000 unique workers contributed to the dataset."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The Visual Genome dataset consists of all 108,249 images from the intersection of MS-COCO's (Lin et al., 2014) 328,000 images and YFCC's (Thomee et al., 2016) 100 million images. These images are real-world, non-iconic images that were uploaded onto Flickr by users."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "dataset was collected over the course of 6 months after"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome was collected and verified entirely by crowd workers from Amazon Mechanical Turk... Each component (region descriptions, objects, attributes, relationships, region graphs, scene graphs, questions and answers) involved multiple task stages... Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct. An annotation is added to our dataset if at least two (a majority) out of the three workers verify that it is correct."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We used Amazon Mechanical Turk (AMT) as our primary source of annotations. Overall, a total of over 33,000 unique workers contributed to the dataset."
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct... Precision Recall Objects 88.0 98.5 Attributes 85.7 95.9 Relationships 92.9 88.5 Table 5: Precision, recall, and mapping accuracy percentages for object, attribute, and relationship canonicalization."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Majority voting (Snow et al., 2008) involves three unique workers looking at each annotation and voting on whether it is factually correct... Each description is sent to one crowd worker, who extracts all the objects from the description... 42 region descriptions per image."
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Overall, a total of over 33,000 unique workers contributed to the dataset."
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we also use Stanford's dependency parser (Manning et al., 2014) to extract nouns automatically and send them to the workers as suggestions... we use Stanford NLP tools (Manning et al., 2014) to extract the noun phrases from the region descriptions and QAs. Next, we map them to their most frequent matching synset in WordNet according to WordNet lexeme counts."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is somewhat biased towards images of people, as Figure 13 shows; however, they are quite diverse overall, as the top 25 synsets each have over 800 images, while the top 50 synsets each have over 500 examples."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Visual Genome images cover 972 synsets... 'ski' is the most common synset, with 2612 images; it is followed by 'ballplayer' and 'racket,' with all three synsets referring to images of people playing sports."
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "These images are real-world, non-iconic images that were uploaded onto Flickr by users... 'ski' is the most common synset... followed by 'ballplayer' and 'racket,' with all three synsets referring to images of people playing sports."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we examine the distribution of images (Section 5.1) and the collected data for region descriptions (Section 5) and questions and answers (Section 5.7). We analyze region graphs and scene graphs together in one section (Section 5.6), but we also break up these graph structures into their three constituent parts—objects (Section 5.3), attributes (Section 5.4), and relationships (Section 5.5)"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we map all objects, attributes, relationships, and noun phrases in region descriptions and QAs to synsets in WordNet... We use the Stanford NLP tools to extract the noun phrases... we normalize each attribute based on morphology (so called 'stemming')... For relationships, we ignore all prepositions... we send all our mappings along with the top four alternative synsets for each term to Amazon Mechanical Turk... objects from different graphs refer to the same object if their bounding boxes have an overlap over union of 0.8... Majority voting involves three unique workers looking at each annotation and voting on whether it is factually correct."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 22,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.2563,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 33412,
+        "tokens_in": 9470,
+        "tokens_out": 577
+      },
+      "collection": {
+        "section_chars": 16183,
+        "tokens_in": 4737,
+        "tokens_out": 450
+      },
+      "annotation": {
+        "section_chars": 41793,
+        "tokens_in": 11596,
+        "tokens_out": 862
+      },
+      "impact": {
+        "section_chars": 3865,
+        "tokens_in": 1556,
+        "tokens_out": 587
+      },
+      "processing": {
+        "section_chars": 34492,
+        "tokens_in": 9570,
+        "tokens_out": 424
+      }
+    },
+    "enrichments": [],
+    "elapsed_seconds": 56.8,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 31947,
+      "output_tokens": 411
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

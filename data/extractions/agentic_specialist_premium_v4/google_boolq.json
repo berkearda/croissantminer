@@ -1,0 +1,80 @@
+{
+  "dataset_id": "google_boolq",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "BoolQ",
+    "description": "BoolQ is a reading comprehension dataset of 16,000 naturally occurring yes/no questions, each paired with a paragraph from Wikipedia that contains the answer. The task requires a model to take a question and passage as input and return 'yes' or 'no' as output. The questions are gathered from anonymized Google search queries and are designed to test complex inferential abilities.",
+    "url": "https://goo.gl/boolq",
+    "license": null,
+    "creator": "Christopher Clark (University of Washington); Kenton Lee (Google AI Language); Ming-Wei Chang (Google AI Language); Tom Kwiatkowski (Google AI Language); Michael Collins (Google AI Language); Kristina Toutanova (Google AI Language)",
+    "publisher": null,
+    "datePublished": "2019",
+    "inLanguage": "en",
+    "citeAs": "Christopher Clark, Kenton Lee, Ming-Wei Chang, Tom Kwiatkowski, Michael Collins, and Kristina Toutanova. 2019. BoolQ: Exploring the Surprising Difficulty of Natural Yes/No Questions. arXiv:1905.10044.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions were gathered from anonymized, aggregated queries to the Google search engine using the Natural Questions (NQ) pipeline, with an additional heuristic filtering step to identify yes/no questions. Filtered question/Wikipedia page pairs were given to human annotators who assessed question quality, found relevant passages within Wikipedia documents, and labeled answers as yes or no. 13k questions were gathered via this pipeline and combined with 3k yes/no questions from the NQ training set.",
+    "rai:dataCollectionType": "Web API; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": "Annotators could mark questions as 'not answerable' if the Wikipedia article did not contain the requested information; such questions were excluded from the dataset.",
+    "rai:dataCollectionRawData": "Anonymized, aggregated queries to the Google search engine; Wikipedia pages returned as top-five search results; yes/no questions from the Natural Questions (NQ) training set.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human annotators labeled question/article pairs in a three-step process: (1) deciding if the question is good (comprehensible, unambiguous, requesting factual information), judged before seeing the Wikipedia page; (2) finding a passage within the document containing enough information to answer the question, or marking it as 'not answerable'; (3) marking whether the answer is 'yes' or 'no'. Annotation quality was assessed by three authors who labeled 110 randomly chosen examples, conferring on disagreements to produce gold-standard labels. Due to sufficiently high agreement (90%), singly-annotated examples were used for training/dev/test sets.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Three authors labeled 110 randomly chosen examples; disagreements were resolved by mutual agreement to produce gold-standard labels. Answer annotations reached 90% accuracy compared to these gold-standard labels. Of the differing cases, six were ambiguous or debatable and five were annotator errors.",
+    "rai:annotationsPerItem": "1",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "\"Yes\" answers are slightly more common (62.31% in the train set); the heuristically constructed Y/N MS Marco subset is 80% \"yes\" answers; QuAC is highly class imbalanced with 80% \"yes\" answers; annotation artifacts caused by using crowd workers to write hypothesis statements are a known concern for MultiNLI transfer",
+    "rai:dataLimitations": "Dataset is singly-annotated (only one annotator per example) to allow a larger dataset, with 90% agreement against gold-standard labels; the question type analysis may be slightly out-of-date as the dataset was updated after the analysis was carried out; questions are paired with a single selected passage rather than the full document, which reduces ambiguity but limits correspondence to a document-level end-user application; the dataset contains only yes/no questions and does not cover other answer types",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "Questions are gathered from anonymized, aggregated queries to the Google search engine.",
+    "rai:dataUseCases": "Reading comprehension and yes/no question answering research; testing models' ability to make complex inferences from text; transfer learning and benchmark evaluation for natural language understanding models; answering user yes/no questions as a practical end-task application",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset combines 13k questions gathered from the NQ pipeline with an additional 3k yes/no questions from the NQ training set to reach a total of 16k questions. Questions are split into a 3.2k dev set, 3.2k test set, and 9.4k train set, ensuring questions from NQ are always in the train set. For transfer learning experiments, minority-class examples from MS Marco were heuristically identified by searching for answers starting with 'yes' or 'no', resulting in a dataset with 80% 'yes' answers. For NQ Long Answer transfer, up to 15 randomly chosen non-answer-containing paragraphs were selected per question alongside answer-containing paragraphs. Multiple-choice QA data from RACE was converted into entailment-like examples by substituting answer options into fill-in-the-blank questions or appending answer options to questions.",
+    "rai:dataPreprocessingProtocol": "Questions were heuristically filtered to focus on yes/no questions by selecting queries where the first word is in a manually constructed set of indicator words and are of sufficient length. Questions were only kept if a Wikipedia page was returned as one of the first five results. Annotators filtered out questions that were not comprehensible, unambiguous, or requesting factual information, and marked questions as 'not answerable' if the Wikipedia article did not contain the requested information. Only questions marked as having a yes/no answer were used, and each question was paired with the selected passage instead of the entire document to reduce ambiguity and keep input size manageable."
+  },
+  "usage": {
+    "input_tokens": 154627,
+    "output_tokens": 1699
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 31073,
+        "output_tokens": 316
+      },
+      "collection": {
+        "input_tokens": 30954,
+        "output_tokens": 259
+      },
+      "annotation": {
+        "input_tokens": 31006,
+        "output_tokens": 338
+      },
+      "impact": {
+        "input_tokens": 30990,
+        "output_tokens": 371
+      },
+      "processing": {
+        "input_tokens": 30604,
+        "output_tokens": 415
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 75420,
+      "output_tokens": 358
+    },
+    "timestamp": "2026-05-02T18:32:13.259884+00:00",
+    "elapsed_seconds": 55.4
+  }
+}

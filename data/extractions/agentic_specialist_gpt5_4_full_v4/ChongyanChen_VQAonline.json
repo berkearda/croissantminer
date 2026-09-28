@@ -1,0 +1,80 @@
+{
+  "dataset_id": "ChongyanChen_VQAonline",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "VQAonline",
+    "description": "VQAonline is a visual question answering dataset sourced from online question answering community forums, specifically Stack Exchange. It contains visual questions with a natural language question, context, image, and an accepted answer validated by the individual asking the question, and the paper reports a final dataset size of 64,696 VQAs across 105 topics.",
+    "url": "https://vqaonline.github.io/",
+    "license": "cc-by-sa 4.0",
+    "creator": "Chongyan Chen (University of Texas at Austin); Mengchen Liu (Microsoft); Noel Codella (Microsoft); Yunsheng Li (Microsoft); Lu Yuan (Microsoft); Danna Gurari (University of Texas at Austin; University of Colorado Boulder)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": null,
+    "citeAs": "Chongyan Chen, Mengchen Liu, Noel Codella, Yunsheng Li, Lu Yuan, and Danna Gurari. Fully Authentic Visual Question Answering Dataset from Online Communities. arXiv:2311.15562v4 [cs.CV], 2024.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "The dataset was created by scraping publicly available data from the online question-answering platform Stack Exchange and collecting examples that contained a natural language question, natural language context, an image, and at least one answer; only examples with an accepted answer were used.",
+    "rai:dataCollectionType": "Web Scraping; User-generated content data",
+    "rai:dataCollectionMissingData": "After removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions.",
+    "rai:dataCollectionRawData": "Publicly available Stack Exchange archive data hosted at https://archive.org/details/stackexchange in XML format, consisting of user-submitted post titles, body text, image URL links, answers, and accepted-answer metadata from 105 topical Stack Exchange sites.",
+    "rai:dataCollectionTimeframe": "2010-08 to 2022-11",
+    "rai:dataAnnotationProtocol": "For user intention annotations, three crowdworkers from Amazon Mechanical Turk were hired to label the primary user intent for 105 randomly selected VQAs, one from each of 105 topics; workers were given instructions, taxonomy definitions, and two examples per category, shown the question, context, and answer, received one-on-one Zoom training, and had to pass a qualifying annotation test; two independent workers first labeled each VQA and a third worker broke ties by selecting one of the two provided user intentions.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk; Zoom; spreadsheet",
+    "rai:dataAnnotationAnalysis": "For the final label, the majority vote label per VQA from 3 crowdsourced labels per visual question was used; for 105 VQAs, two independent workers annotated each item and when the two annotations did not match, a third worker was hired to break the tie by selecting one of the two provided user intentions.",
+    "rai:annotationsPerItem": "2 to 3",
+    "rai:annotatorDemographics": "located in the United States; completed more than 500 Human Intelligence Tasks (HITs); over a 95% approval rating",
+    "rai:machineAnnotationTools": "GPT-3.5",
+    "rai:dataBiases": "the dataset may poorly represent people in poverty-stricken areas since VQAs are posted by Stack Exchange users with access to mobile devices and Internet; the geographic representation of Stack Exchange is unbalanced, with more from countries like US, India, Europe and less from countries like Egypt",
+    "rai:dataLimitations": "answers in our dataset tend to be much longer and so incompatible with standard VQA evaluation metrics; GPT-4V reproducibility is a major concern due to its proprietary nature, which means the model can evolve without transparency or even cease to exist; most benchmarked models are believed to be trained on Stack Exchange data and so potentially saw our VQAonline data",
+    "rai:dataSocialImpact": "We expect improved models designed for VQAonline can also benefit many other real-world applications including for other community question answering platforms (e.g., Yahoo! Answers, Wiki Answers, Quora), learning assistance VQA tools for children, virtual assistants, visual dialog and query, as well as visual search and browsing.",
+    "rai:personalSensitiveInformation": "The dataset was created by scraping publicly-available data from the online question-answering platform Stack Exchange and adhered to all data license restrictions (cc-by-sa 4.0).",
+    "rai:dataUseCases": "benchmarking and improving VQA models on authentic use cases; facilitating future work in improving evaluation metrics for lengthy textual answers",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We created training and validation splits by randomly selecting from each of the 105 topics in our dataset 7 examples for training and 3 examples for validation for topics with at least 20 examples.",
+    "rai:dataPreprocessingProtocol": "We conducted two filtering steps to obtain our final dataset of 64,696 VQAs. First, we removed low-quality VQAs based on Stack Exchange’s feature that enables users to up-vote or down-vote each post (either question or answer). We removed visual questions with scores 0 or less for either the question or answer. Second, we excluded visual questions with multiple images (e.g., GIF) or with visual answers. Finally, after removing examples for which the image could not be downloaded from the provided link, we got to our final dataset of 64,696 visual questions. For data format consistency, we converted all images to png format."
+  },
+  "usage": {
+    "input_tokens": 200608,
+    "output_tokens": 1389
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45373,
+        "output_tokens": 249
+      },
+      "collection": {
+        "input_tokens": 32671,
+        "output_tokens": 181
+      },
+      "annotation": {
+        "input_tokens": 32664,
+        "output_tokens": 249
+      },
+      "impact": {
+        "input_tokens": 45092,
+        "output_tokens": 341
+      },
+      "processing": {
+        "input_tokens": 44808,
+        "output_tokens": 369
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 37358,
+      "output_tokens": 233
+    },
+    "timestamp": "2026-05-22T09:57:19.337518+00:00",
+    "elapsed_seconds": 27.8
+  }
+}

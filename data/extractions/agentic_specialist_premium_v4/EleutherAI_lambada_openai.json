@@ -1,0 +1,80 @@
+{
+  "dataset_id": "EleutherAI_lambada_openai",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "LAMBADA",
+    "description": "LAMBADA (LAnguage Modeling Broadened to Account for Discourse Aspects) is a collection of 10,022 narrative passages from the Book Corpus designed to evaluate text understanding via a word prediction task. Each passage is characterized by human subjects being able to guess the last word when given the full passage context, but not when given only the final sentence. The dataset is intended to benchmark computational models on their ability to leverage broad discourse context.",
+    "url": "http://clic.cimec.unitn.it/lambada/",
+    "license": null,
+    "creator": "Denis Paperno; Germán Kruszewski; Angeliki Lazaridou; Quan Ngoc Pham; Raffaella Bernardi; Sandro Pezzelle; Marco Baroni; Gemma Boleda; Raquel Fernández",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Denis Paperno, Germán Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, and Raquel Fernández. 2016. The LAMBADA dataset: Word prediction requiring a broad discourse context. arXiv:1606.06031.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Passages were extracted from the BookCorpus (a collection of unpublished novels), filtered using automated language models to remove easy-to-predict examples, and then evaluated through a three-step crowdsourcing pipeline on CrowdFlower. In step 1, one human subject guessed the target word from the full passage; if correct, step 2 had a second subject do the same; if also correct, step 3 had up to 10 subjects attempt to guess the target word from the last sentence only. Only passages where two consecutive subjects guessed correctly from the full passage and no subject (out of ten) could guess from the sentence alone were included in the dataset.",
+    "rai:dataCollectionType": "Secondary Data analysis; Web Scraping; Manual Human Curator; User-generated content data",
+    "rai:dataCollectionMissingData": "84–86% of items were discarded at step 1 (human subject failed to guess target word from full passage), an additional 6–7% were discarded at step 2, and another 3–5% were discarded at step 3 (target word guessable from sentence alone). Only about 1 in 25 input examples passed all selection steps.",
+    "rai:dataCollectionRawData": "The BookCorpus (Zhu et al., 2015), containing 5,325 novels and 465 million words after duplicate removal and filtering. The corpus consists of unpublished novels.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human subjects guessed the target word in a three-step crowdsourcing pipeline: (1) one subject guessed the target word given the whole passage; if correct, (2) a second subject guessed the target word given the whole passage; if also correct, (3) additional subjects tried to guess the target word based on the target sentence only (up to 10 subjects, each allowed 3 guesses). Passages were included in LAMBADA only if both steps 1 and 2 were passed and no subject in step 3 could guess the word. Subjects were prevented from judging the same item in both passage and sentence conditions.",
+    "rai:dataAnnotationPlatform": "CrowdFlower",
+    "rai:dataAnnotationAnalysis": "Passages were included only if two consecutive subjects correctly guessed the target word from the full passage (steps 1 and 2), and no subject (out of up to 10) could guess the target word from the target sentence alone (step 3). Approximately 84–86% of items were discarded at step 1, an additional 6–7% at step 2, and another 3–5% at step 3; only about 1 in 25 input examples passed all selection steps.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Pre-trained RNN language model (Mikolov et al., 2011); 4-gram language model trained on Book Corpus; RNN language model trained on Book Corpus; feed-forward language model trained on Book Corpus (used to filter out passages with high predicted probability for the target word prior to human annotation)",
+    "rai:dataBiases": "Proper nouns are hugely overrepresented in LAMBADA (48% of target words), while other POS categories are under-represented, compared to the POS distribution in the input data; the dataset overrepresents passages containing quoted direct speech (71% of LAMBADA items vs. 61% of input sample)",
+    "rai:dataLimitations": "Standard language models are bound to fail on LAMBADA by design, as one of the first filters was to choose passages where simple language models failed to predict the upcoming word; the dataset is not recommended as a resource to develop ad-hoc models only meant to predict the final word in LAMBADA-style passages; cost considerations precluded using more subjects at stage 1, which could in principle improve filtering quality; the strict hit-or-miss approach (requiring exact word match) excludes passages where subjects provided plausible or synonymous continuations",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": "The corpus was filtered to remove potentially offensive material using a stop word list; the dataset comes from unpublished novels, minimizing usefulness of general world knowledge and external resources",
+    "rai:dataUseCases": "Evaluating the capabilities of computational models for text understanding via a word prediction task requiring broad discourse context; testing language models on their ability to take broad discourse context into account; encouraging development of new models capable of genuine understanding of broad context in natural language text; intended as a challenging benchmark and basis for a public competition",
+    "rai:dataReleaseMaintenancePlan": "The development set and training corpus are available for download; the test set will be made available at the time of a planned public competition.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "Passages that were relatively easy for standard language models were filtered out using a combination of four language models (a pre-trained RNN and three models trained on the Book Corpus: a standard 4-gram model, a RNN, and a feed-forward model); any passage whose target word had probability above 0.00175 according to any of these models was excluded. The remaining passages were then filtered through a three-step crowdsourcing pipeline on CrowdFlower: (1) one subject guessed the target word from the whole passage; if correct, (2) a second subject guessed from the whole passage; if also correct, (3) up to 10 subjects attempted to guess from the target sentence only (with 3 guesses each), and only passages where no subject succeeded were included. This process retained approximately 1 in 25 input passages, resulting in a dataset skewed toward items requiring broad discourse context and exhibiting a strong bias toward proper nouns and common nouns as target words.",
+    "rai:dataPreprocessingProtocol": "The Book Corpus was preprocessed by removing duplicates and filtering out potentially offensive material using a stop word list, resulting in 5,325 novels and 465 million words. Passages were then filtered by excluding those whose target word had probability above 0.00175 according to any of four language models (a pre-trained RNN and three models trained on the Book Corpus), removing passages likely guessable from local context alone. A crowdsourcing pipeline further filtered passages through a three-step human evaluation process, discarding items where subjects could not guess the target word from the full passage (steps 1 and 2) or where subjects could guess the target word from the target sentence alone (step 3), retaining only about 1 in 25 input examples."
+  },
+  "usage": {
+    "input_tokens": 116452,
+    "output_tokens": 2074
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 23441,
+        "output_tokens": 381
+      },
+      "collection": {
+        "input_tokens": 23335,
+        "output_tokens": 384
+      },
+      "annotation": {
+        "input_tokens": 23361,
+        "output_tokens": 433
+      },
+      "impact": {
+        "input_tokens": 23343,
+        "output_tokens": 409
+      },
+      "processing": {
+        "input_tokens": 22972,
+        "output_tokens": 467
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 57935,
+      "output_tokens": 415
+    },
+    "timestamp": "2026-05-02T17:49:29.992473+00:00",
+    "elapsed_seconds": 61.2
+  }
+}

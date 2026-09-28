@@ -1,0 +1,80 @@
+{
+  "dataset_id": "EleutherAI_wikitext_document_level",
+  "model": "specialist_premium",
+  "extraction": {
+    "name": "WikiText",
+    "description": "WikiText is a language modeling benchmark dataset constructed from Wikipedia Good and Featured articles. It is available in two sizes: WikiText-2 (approximately twice the size of Penn Treebank) and WikiText-103 (over 103 million tokens), both featuring punctuation, original casing, larger vocabularies, and numbers, designed to support evaluation of long-range dependencies and rare word handling.",
+    "url": "https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset",
+    "license": null,
+    "creator": "Stephen Merity; Caiming Xiong; James Bradbury; Richard Socher",
+    "publisher": null,
+    "datePublished": "2016",
+    "inLanguage": "en",
+    "citeAs": "Stephen Merity, Caiming Xiong, James Bradbury, Richard Socher. Pointer Sentinel Mixture Models. arXiv:1609.07843v1 [cs.CL], 26 Sep 2016.",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Articles were selected from Wikipedia based on Good or Featured article criteria as specified by Wikipedia editors. Text for each article was extracted using the Wikipedia API. The Penn Treebank dataset was used as-is from the pre-processed version by Mikolov et al. (2010).",
+    "rai:dataCollectionType": "Web API; Secondary Data analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Wikipedia articles meeting Good or Featured article criteria (23,805 Good articles and 4,790 Featured articles) extracted via the Wikipedia API; Penn Treebank dataset pre-processed by Mikolov et al. (2010).",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The Penn Treebank is unrealistic for real language use: tokens are all lower case, stripped of any punctuation, and limited to a vocabulary of only 10k words, with no long tail for rare words; other larger scale language modeling datasets either have restrictive licensing which prevents widespread use or have randomized sentence ordering which is unrealistic for most language use and prevents effective learning and evaluation of longer term dependencies; WikiText-103 is a tenth the size of the One Billion Word Benchmark",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Benchmark dataset for language modeling, particularly for evaluating how well language models can exploit longer contexts, deal with more realistic vocabularies and larger corpora, handle rare words, and learn long range dependencies",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "For the Penn Treebank, preprocessing followed Mikolov et al. (2010): words were lower-cased, numbers were replaced with N, newlines were replaced with <eos>, all other punctuation was removed, and the vocabulary was limited to the most frequent 10k words with remaining tokens replaced by an <unk> token. For the WikiText dataset, articles meeting Good or Featured criteria were extracted via the Wikipedia API; sections primarily featuring lists were removed; minor bugs such as sort keys and Edit buttons were removed; mathematical formulae and LaTeX code were replaced with <formula> tokens; normalization and tokenization were performed using the Moses tokenizer augmented to further split numbers; and a vocabulary was constructed by discarding all words with a count below 3, with out-of-vocabulary words mapped to an <unk> token."
+  },
+  "usage": {
+    "input_tokens": 152750,
+    "output_tokens": 1257
+  },
+  "valid": true,
+  "_meta": {
+    "config": "premium",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "sonnet-4-6",
+      "collection": "sonnet-4-6",
+      "annotation": "sonnet-4-6",
+      "impact": "sonnet-4-6",
+      "processing": "sonnet-4-6"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30687,
+        "output_tokens": 299
+      },
+      "collection": {
+        "input_tokens": 30577,
+        "output_tokens": 217
+      },
+      "annotation": {
+        "input_tokens": 30649,
+        "output_tokens": 159
+      },
+      "impact": {
+        "input_tokens": 30623,
+        "output_tokens": 314
+      },
+      "processing": {
+        "input_tokens": 30214,
+        "output_tokens": 268
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 76083,
+      "output_tokens": 258
+    },
+    "timestamp": "2026-05-02T17:50:17.007881+00:00",
+    "elapsed_seconds": 47.0
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "dataset_id": "chcorbi_helvipad",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "HELVIPAD",
+    "description": "HELVIPAD is a real-world dataset for omnidirectional stereo depth estimation featuring 40K video frames from 29 video sequences across diverse indoor and outdoor environments with various lighting conditions. Collected using two 360° cameras in a top-bottom setup and a LiDAR sensor, it includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images, along with an augmented training set with increased label density via depth completion.",
+    "url": "https://vita-epfl.github.io/Helvipad/",
+    "license": "CC0-1.0",
+    "creator": "Mehdi Zayene, Jannik Endres, Albias Havolli, Charles Corbière, Salim Cherkaoui, Alexandre Kontouli, Alexandre Alahi",
+    "publisher": "EPFL, Switzerland",
+    "datePublished": "2025",
+    "inLanguage": null,
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Data was collected using a custom-built rig equipped with two omnidirectional cameras (Ricoh Theta V 360°) in a vertical arrangement with a 19.1 cm baseline, capturing equirectangular images at 30 fps, paired with a synchronized Ouster OS1-64 LiDAR sensor operating at 10 fps, mounted on a remotely controlled robot chassis. Data was collected across 29 video sequences in indoor and outdoor scenes on a university campus under diverse weather and lighting conditions.",
+    "rai:dataCollectionType": "Physical data collection",
+    "rai:dataCollectionMissingData": "Depth completion techniques were applied to increase label density; regions with high uncertainty were filtered and original labels were retained in ambiguous regions. Labels are not provided for pixels at object boundaries.",
+    "rai:dataCollectionRawData": "Equirectangular images captured at 4K/UHD resolution (3840×1920 pixels) at 30 fps from two Ricoh Theta V 360° cameras, and LiDAR point clouds from an Ouster OS1-64 sensor with 64 beams and 42.4° vertical field of view operating at 10 fps.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Automated depth completion pipeline using LiDAR point cloud temporal aggregation, spherical grid interpolation, and KISS-ICP for odometry; no manual annotations used",
+    "rai:dataBiases": "The dataset has an exponential decay in pixel percentage with increasing depth due to decreased LiDAR precision over longer distances. Depth completion increases density of low-range depth values (0-10m range), enriching representation of closer objects. Indoor sequences show more rapid decline in pixel percentage beyond 10 meters compared to outdoor scenes.",
+    "rai:dataLimitations": "The dataset may have limited generalization to underrepresented situations such as outdoor scenes at night. LiDAR precision decreases over longer distances, affecting depth label quality at range. The dataset is captured at a single university campus, which may limit diversity of environments.",
+    "rai:dataSocialImpact": "The dataset is intended to support development of omnidirectional depth estimation models capable of navigating in human environments, with potential applications in real-time systems.",
+    "rai:personalSensitiveInformation": "The dataset contains recordings of pedestrians in indoor and outdoor scenes, with an average of 13.33 pedestrians in indoor sequences and 17.65 pedestrians in outdoor sequences.",
+    "rai:dataUseCases": "The dataset is intended for training, testing, and benchmarking omnidirectional stereo depth estimation models. It is also suitable for assessing robustness of depth estimation methods to diverse lighting conditions and depth ranges.",
+    "rai:dataReleaseMaintenancePlan": "The dataset includes 26 video sequences captured between December 2023 and February 2024. No explicit versioning, update schedule, or deprecation policy is mentioned.",
+    "rai:dataImputationProtocol": "Missing depth values were filled using a depth completion pipeline that interpolates depth on spherical grid points via temporally aggregated LiDAR point clouds. A weighted average of k-nearest neighbors is used for interpolation, with filtering to exclude points with high uncertainty (relative weighted variance) or insufficient nearby measurements (out-of-distribution threshold).",
+    "rai:dataManipulationProtocol": "Temporal aggregation of LiDAR point clouds: each frame's point cloud is aggregated with those from the four preceding and four succeeding frames (no movement assumption) to increase the number of valid depth points. Sky and ground regions were cropped from images. Depth completion increased labeled pixel ratio from 12% to 61%.",
+    "rai:dataPreprocessingProtocol": "LiDAR point clouds were projected onto 360° equirectangular images via optimized rotation and translation transformations (minimizing reprojection error using BFGS optimization). Points were converted to spherical coordinates and projected onto the equirectangular plane. Depth values were converted to spherical disparity in degrees. Grid points outside the LiDAR vertical field of view were filtered out."
+  },
+  "usage": {
+    "input_tokens": 50450,
+    "output_tokens": 3186
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T17:45:31.607782Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "We introduce HELVIPAD, a real-world dataset for omnidirectional stereo depth estimation"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "featuring 40K video frames from video sequences across diverse environments, including crowded indoor and outdoor scenes with various lighting conditions. Collected using two 360° cameras in a top-bottom setup and a LiDAR sensor, the dataset includes accurate depth and disparity labels by projecting 3D point clouds onto equirectangular images."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "https://vita-epfl.github.io/Helvipad/"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Mehdi Zayene1Jannik Endres1,2Albias Havolli1Charles Corbière1* Salim Cherkaoui1Alexandre Kontouli1Alexandre Alahi1"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "1EPFL, Switzerland2TU Darmstadt, Germany"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2411.18335v2 [cs.CV] 25 Mar 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In total, we collected 29 video sequences... With a total of 39,553 labeled frames, HELVIPAD serves as a foundational resource"
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we built a custom rig and collected data across distinct scenes, encompassing indoor (e.g., corridors, halls) and outdoor (e.g., squares, external parking, footpaths) settings in various lighting conditions on a university campus... paired with a synchronized LiDAR sensor to provide high-quality depth measurements."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we built a custom rig and collected data across distinct scenes... The entire setup is mounted on a custom-built, remotely controlled robot chassis, offering mobility and a fully integrated, portable acquisition solution."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Instead of providing labels with high errors in ambiguous regions, the original labels are retained due to the filtering of regions with high uncertainty... the depth completion method does not provide labels for pixels at object boundaries."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "two Ricoh Theta V cameras, which capture images in 4K/UHD equirectangular format at 30 fps with an initial resolution of 3840 × 1920 pixels. It also includes an Ouster OS1-64 LiDAR sensor, operating at 10 fp with 64 beams and a vertical field of view of 42.4°."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Existing depth completion methods share the idea of aggregating point clouds but either need manual annotations [14, 26] or are limited to rectilinear images [39]. Our approach interpolates depth on spherical grid points by using temporally aggregated point clouds... KISS-ICP [33] is one of the state-of-the-art approaches for LiDAR odometry."
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the data exhibits an exponential decay in pixel percentage with increasing depth, correlating with the decrease in LiDAR precision over longer distances... depth completion increases the density of low-range depth values, particularly within the 0–10 meter range... This process tends to enrich the representation of closer objects in the dataset."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we conduct a detailed scene-wise analysis to study each method's ability to generalize to unseen or underrepresented situations, such as outdoor scenes at night... an exponential decay in pixel percentage with increasing depth, correlating with the decrease in LiDAR precision over longer distances"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "HELVIPAD serves as a foundational resource for developing and benchmarking omnidirectional depth estimation models capable of navigating in human environments... We hope this work encourages further research into omnidirectional stereo matching, especially for real-time applications."
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "the dynamic nature of the recorded scenes is emphasized by the presence of pedestrians, with an average of 13.33 pedestrians in indoor sequences and 17.65 pedestrians in outdoor sequences."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This dataset is an ideal testbed for assessing the robustness of depth estimation methods to diverse lighting conditions and depth ranges... HELVIPAD serves as a foundational resource for developing and benchmarking omnidirectional depth estimation models"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The HELVIPAD dataset includes 26 video sequences captured between December 2023 and February 2024., recorded at a frame rate of 10 Hz."
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our approach interpolates depth on spherical grid points by using temporally aggregated point clouds and applies a filtering process to exclude points with high uncertainty or lacking nearby measurements, ensuring minimal error before mapping the remaining points."
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To increase the number of valid points, we aggregate the the current frame's point cloud with those from the four preceding and four succeeding frames... After cropping unnecessary regions (sky, ground), the resulting dataset comprises 39,553 paired images... our pipeline significantly increases the ratio of labeled pixels from 12% to 61%"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The core step of the mapping process is the optimization of the rotation and translation parameters, achieved by minimizing the error between the projected points and their corresponding location on the equirectangular images... As the vertical field of view of the LiDAR sensor is limited, we filter all grid points that are out of its view."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 22,
+      "fields_null": 8,
+      "fields_verified": 22,
+      "evidence_count": 21,
+      "evidence_coverage": 95.5,
+      "avg_confidence": 0.939
+    },
+    "cost_usd": 0.1991,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 19938,
+        "tokens_in": 5739,
+        "tokens_out": 578
+      },
+      "collection": {
+        "section_chars": 18329,
+        "tokens_in": 5934,
+        "tokens_out": 629
+      },
+      "annotation": {
+        "section_chars": 10365,
+        "tokens_in": 3558,
+        "tokens_out": 264
+      },
+      "impact": {
+        "section_chars": 11223,
+        "tokens_in": 3500,
+        "tokens_out": 769
+      },
+      "processing": {
+        "section_chars": 16998,
+        "tokens_in": 5470,
+        "tokens_out": 508
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 60.0,
+    "locator": {
+      "backbone_key": "sonnet-4-6",
+      "model_id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "input_tokens": 26249,
+      "output_tokens": 438
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

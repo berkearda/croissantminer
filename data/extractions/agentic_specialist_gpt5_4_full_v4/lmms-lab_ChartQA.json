@@ -1,0 +1,80 @@
+{
+  "dataset_id": "lmms-lab_ChartQA",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "ChartQA",
+    "description": "ChartQA is a large-scale benchmark for question answering about charts with visual and logical reasoning. It covers 9,608 human-written questions and 23,111 machine-generated questions over 20,882 charts curated from four online sources, focusing on real-world charts and open-vocabulary question answering.",
+    "url": "https://github.com/vis-nlp/ChartQA",
+    "license": null,
+    "creator": "Ahmed Masry (York University, Canada); Do Xuan Long (Nanyang Technological University, Singapore); Jia Qing Tan (Nanyang Technological University, Singapore); Shafiq Joty (Nanyang Technological University, Singapore; Salesforce Research); Enamul Hoque (York University, Canada)",
+    "publisher": null,
+    "datePublished": "2022",
+    "inLanguage": "en",
+    "citeAs": "Ahmed Masry, Do Xuan Long, Jia Qing Tan, Shafiq Joty, and Enamul Hoque. 2022. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was assembled by crawling charts from four online sources: Statista, Pew Research, Our World In Data, and OECD. For the Pew dataset, the authors only crawled chart images. For the other three sources, they extracted the underlying data tables, metadata, SVG files, and associated text descriptions, and extracted bounding box information of chart elements from the SVG files.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "For the Pew dataset, the underlying data tables are not available, so the authors only crawled chart images.",
+    "rai:dataCollectionRawData": "Charts from Statista, Pew Research, Our World In Data, and OECD; for three of these sources the collected source materials included underlying data tables, metadata, SVG files, associated text descriptions, and bounding box information from SVG files.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Human-authored QA pairs were collected using Amazon Mechanical Turk, where crowdworkers were asked to write two questions per chart focusing on compositional and visual questions and provide answers; the same questions were then answered by another annotator, and mismatched answers were manually checked to select the final correct answer. For machine-generated QA pairs, questions were generated automatically from human-written chart summaries using T5 models and a subset was manually validated for quality assurance.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For human-authored QA pairs, if both workers’ answers exactly matched, the answer was considered correct; otherwise, the answers were manually checked to select the final correct answer. The paper reports 61.04% exact-match agreement between crowdworkers and 78.55% agreement on 500 random samples when typos and lexical variations were considered. For machine-generated QA pairs, invalid questions were filtered out with a heuristic requiring the answer to be found in the chart data table, and 1,250 QA pairs were manually analyzed.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "T5 model; CRAFT",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Existing datasets have several major limitations: questions are generated automatically using pre-defined templates which lack naturalness; charts are created automatically using a programming tool like Matplotlib which do not reflect the diverse styles of many real-world charts; in most datasets, the answer comes from a small fixed sized vocabulary, ignoring many complex reasoning questions where the answer is derived through various mathematical operations; generated questions may still be invalid because of the mismatch in training and test domains, with some incomplete or not answerable from the chart; accuracies on ChartQA are generally lower than previous datasets, suggesting challenges from human-written visual and logical reasoning questions; performance decreases when the gold data table is not given, highlighting the challenge of automatic data extraction from real-world charts with diversity in styles",
+    "rai:dataSocialImpact": "Our models can be abused to mislead the public about the charts content and implications; the authors also state they cannot guarantee that model output will be correct all the time",
+    "rai:personalSensitiveInformation": "To protect the privacy of Mechanical Turk annotators, all of their annotations were anonymized",
+    "rai:dataUseCases": "Chart Question Answering systems to help users by taking a chart and a natural language question as input and predicting the answer; answering questions about charts involving visual and logical reasoning",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We manually cleaned the test set of the machine generated dataset by removing invalid questions. To filter out invalid generated questions, we developed a simple heuristic where we filter out the question if the answer cannot be found in the chart data table.",
+    "rai:dataPreprocessingProtocol": "For the Pew dataset, we only crawled chart images since the underlying data tables are not available. For the other three, we extracted the underlying data tables, metadata (e.g., title, chart type), SVG file and associate text description. Finally, we extracted the bounding boxes information of the different chart elements (e.g., x-axis labels) from the SVG files to train our data extraction models."
+  },
+  "usage": {
+    "input_tokens": 150289,
+    "output_tokens": 1546
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 30319,
+        "output_tokens": 241
+      },
+      "collection": {
+        "input_tokens": 30097,
+        "output_tokens": 398
+      },
+      "annotation": {
+        "input_tokens": 30084,
+        "output_tokens": 261
+      },
+      "impact": {
+        "input_tokens": 30040,
+        "output_tokens": 304
+      },
+      "processing": {
+        "input_tokens": 29749,
+        "output_tokens": 342
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 67499,
+      "output_tokens": 449
+    },
+    "timestamp": "2026-05-22T11:28:30.761160+00:00",
+    "elapsed_seconds": 31.7
+  }
+}

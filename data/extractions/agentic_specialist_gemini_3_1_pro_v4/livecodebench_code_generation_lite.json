@@ -1,0 +1,80 @@
+{
+  "dataset_id": "livecodebench_code_generation_lite",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "LiveCodeBench",
+    "description": "LiveCodeBench is a continuously updated, contamination-free benchmark for evaluating large language models on code. It collects problems over time from competition platforms like LeetCode, AtCoder, and CodeForces to assess capabilities including code generation, self-repair, code execution, and test output prediction.",
+    "url": "https://livecodebench.github.io/",
+    "license": null,
+    "creator": "Naman Jain (UC Berkeley); King Han (UC Berkeley); Alex Gu (MIT); Wen-Ding Li (Cornell); Fanjia Yan (UC Berkeley); Tianjun Zhang (UC Berkeley); Sida I. Wang; Armando Solar-Lezama (MIT); Koushik Sen (UC Berkeley); Ion Stoica (UC Berkeley)",
+    "publisher": null,
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida I. Wang, Armando Solar-Lezama, Koushik Sen, Ion Stoica. LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code. arXiv:2403.07974v2, 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "Data was collected by writing HTML scrapers for three coding competition websites to extract problems, corresponding metadata, associated ground truth solutions, and test cases.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Hidden tests were not directly available for LeetCode, and CodeForces did not provide complete tests on the platform as long tests are truncated.",
+    "rai:dataCollectionRawData": "Contest problems, metadata, ground truth solutions, and test cases from three coding competition websites: LeetCode, AtCoder, and CodeForces.",
+    "rai:dataCollectionTimeframe": "May 2023 to May 2024",
+    "rai:dataAnnotationProtocol": "GPT-4-Turbo was used to generate tests for problems by constructing generators that sample inputs based on problem specifications using in-context learning. Additionally, for the code execution scenario, human-submitted solutions were filtered and double-checked with manual inspection.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "GPT-4-Turbo",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "Small benchmark size might add noise due to problem set samples; currently only focuses on Python which might not provide enough signal about model capabilities in other languages; robustness to prompts can lead to performance variance in results; focuses on competition problems which might not be representative of the most general notion of LLM programming capabilities.",
+    "rai:dataSocialImpact": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "Evaluating Large Language Models (LLMs) for code; evaluating code LLMs on self-repair, code execution, and test output prediction; serving as a starting point for evaluating LLMs.",
+    "rai:dataReleaseMaintenancePlan": "The benchmark is continuously updated with new problems, scenarios, and models, with plans to use other competition platforms for problem collection and to supplement with an unreleased private test set.",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "When tests were not directly available from the platforms, an LLM (GPT-4-Turbo) was used to synthetically generate tests for the problems by constructing generators that sample inputs based on the problem specifications.",
+    "rai:dataPreprocessingProtocol": "Mathematical formulas were parsed, and problems with images or those unsuitable for input-output grading (such as those accepting multiple correct answers) were excluded. For the code execution dataset, compile-time and run-time filters were applied (e.g., code length between 100 and 500 characters, no syntax errors, execution under 2 seconds, and under 1000 Python bytecode operations), followed by manual inspection."
+  },
+  "usage": {
+    "input_tokens": 214966,
+    "output_tokens": 14072
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 45834,
+        "output_tokens": 2846
+      },
+      "collection": {
+        "input_tokens": 32608,
+        "output_tokens": 1488
+      },
+      "annotation": {
+        "input_tokens": 45655,
+        "output_tokens": 3530
+      },
+      "impact": {
+        "input_tokens": 45602,
+        "output_tokens": 2710
+      },
+      "processing": {
+        "input_tokens": 45267,
+        "output_tokens": 3498
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 52136,
+      "output_tokens": 5313
+    },
+    "timestamp": "2026-05-28T09:36:51.682333+00:00",
+    "elapsed_seconds": 206.8
+  }
+}

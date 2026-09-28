@@ -1,0 +1,289 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "A dataset of 164 hand-written Python programming problems with unit tests, designed to benchmark functional correctness of code generation from docstrings. The tasks assess language comprehension, algorithms, and simple mathematics.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": "MIT",
+    "creator": "OpenAI",
+    "publisher": "OpenAI",
+    "datePublished": "2021-07-14",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": null,
+    "rai:dataCollection": "The training dataset was collected from public GitHub repositories and then filtered to remove likely auto-generated files and files with undesirable line-length or character-content properties. Additional programming problems were collected from programming contest/interview preparation websites and from open source projects by tracing inputs and outputs during integration tests, following CI configuration files to set up environments and run tests.",
+    "rai:dataCollectionType": "Secondary Data analysis",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "54 million public software repositories hosted on GitHub containing 179 GB of unique Python files under 1 MB; problem statements, function signatures, and solutions from programming contest and interview preparation websites; and source code from open source projects and PyPI packages used to trace inputs and outputs during integration tests.",
+    "rai:dataCollectionTimeframe": "May 2020",
+    "rai:dataAnnotationProtocol": "Human-written evaluation set of 164 programming problems; for docstring evaluation, samples were graded by hand and considered correct if the docstring uniquely and accurately specified the code body. They graded 10 samples per problem and ignored incorrect unit tests generated alongside the docstring.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": "10 samples per problem for docstring grading; HumanEval problems include an average of 7.7 unit tests per problem.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The paper notes bias and representation issues: Codex can generate racist, denigratory, and otherwise harmful outputs as code comments, and can generate code reflecting stereotypes about gender, race, emotion, class, the structure of names, and other characteristics.",
+    "rai:dataLimitations": "Codex is not sample efficient to train, was trained on a very large public GitHub Python corpus, can produce syntactically incorrect or undefined code, struggles with longer and higher-level specifications, and may fail on tasks requiring correct binding of operations to variables. The paper also warns that users should review generations before executing or trusting them.",
+    "rai:dataSocialImpact": "The paper discusses potential positive impacts such as onboarding users to new codebases, reducing context switching, enabling non-programmers to write specifications and have implementations drafted, and aiding education and exploration. It also highlights risks including over-reliance, misalignment, harmful outputs, security misuse, economic and labor market effects, and environmental impacts.",
+    "rai:personalSensitiveInformation": "The paper mentions sensitive human attributes in the context of bias and representation, including gender, race, emotion, class, names, and other characteristics.",
+    "rai:dataUseCases": "The paper describes Codex as useful for onboarding users to new codebases, reducing context switching, enabling non-programmers to draft implementations from specifications, and aiding education and exploration. It also implies use for code generation, but recommends careful use, code review, documentation, user interface controls, content filtering, monitoring, rate limiting, and restricting high-stakes use cases.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "For APPS, they sampled 1000 solutions and filtered to those passing 3 unit tests; they also used 1-shot formatting hints and selected the first sample passing public unit tests in some settings.",
+    "rai:dataPreprocessingProtocol": "They filtered GitHub Python files by removing likely auto-generated files, files with average line length >100, maximum line length >1000, or a small percentage of alphanumeric characters; they also filtered curated problems by removing ambiguous, stateful, or non-deterministic tasks."
+  },
+  "usage": {
+    "input_tokens": 72694,
+    "output_tokens": 2419
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-09-26T09:39:24.771955Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we create a dataset of 164 original programming problems with unit tests” and “We release this data along with an evaluation framework at https://www.github.com/openai/human-eval.”"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we create a dataset of 164 original programming problems with unit tests” and “Programming tasks in the HumanEval dataset assess language comprehension, reasoning, algorithms, and simple mathematics.”"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We release this data along with an evaluation framework at https://www.github.com/openai/human-eval.”"
+      },
+      "license": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“OpenAI, San Francisco, California, USA.” and “We release this data along with an evaluation framework at https://www.github.com/openai/human-eval.”"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“OpenAI, San Francisco, California, USA.”"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“arXiv:2107.03374v2 [cs.LG] 14 Jul 2021”"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“standalone Python functions from docstrings”"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected in May 2020 from 54 million public software repositories hosted on GitHub...” / “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.” / “Taking advantage of sys.setprofile, we were able to trace and collect inputs and outputs for all functions called during integration tests.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected ... from 54 million public software repositories hosted on GitHub” and “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“54 million public software repositories hosted on GitHub, containing 179 GB of unique Python files under 1 MB.” / “We collected problem statements, function signatures, and solutions from several popular programming contest and interview preparation websites.” / “We additionally used publicly available source code from pip packages found in the python package index (PyPI).”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Our training dataset was collected in May 2020...”"
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We evaluate functional correctness on a set of 164 hand-written programming problems” and “we grade sample docstrings by hand, considering a docstring correct if it uniquely and accurately specifies the code body... we only grade 10 samples per problem”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we only grade 10 samples per problem” and “with an average of 7.7 tests per problem”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we found that Codex can be prompted in ways that generate racist, denigratory, and otherwise harmful outputs as code comments” and “Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics.”"
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Codex is not sample efficient to train” and “Codex can recommend syntactically incorrect or undefined code” and “Codex struggles to parse through increasingly long and higher-level or system-level specifications” and “qualified operators should review its generations before executing or trusting them”"
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“it could help onboard users to new codebases, reduce context switching for experienced coders, enable non-programmers to write specifications and have Codex draft implementations, and aid in education and exploration” and “significant safety challenges” and “over-reliance” and “economic and labor market impacts” and “Environmental impacts”"
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Codex can generate code with structure that reflects stereotypes about gender, race, emotion, class, the structure of names, and other characteristics.”"
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“it could help onboard users to new codebases, reduce context switching for experienced coders, enable non-programmers to write specifications and have Codex draft implementations, and aid in education and exploration” and “Careful documentation and user interface design, code review requirements, and/or content controls” and “policies such as user review, use case restrictions, monitoring, and/or rate limiting”"
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“we utilize this by sampling 1000 solutions from the model and filtering out only those that pass these 3 unit tests”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We filtered out files which were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 21,
+      "fields_null": 9,
+      "fields_verified": 21,
+      "evidence_count": 20,
+      "evidence_coverage": 95.2,
+      "avg_confidence": 0.938
+    },
+    "cost_usd": 0.0124,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 40843,
+        "tokens_in": 10517,
+        "tokens_out": 448
+      },
+      "collection": {
+        "section_chars": 2225,
+        "tokens_in": 879,
+        "tokens_out": 448
+      },
+      "annotation": {
+        "section_chars": 2683,
+        "tokens_in": 988,
+        "tokens_out": 297
+      },
+      "impact": {
+        "section_chars": 15074,
+        "tokens_in": 3774,
+        "tokens_out": 713
+      },
+      "processing": {
+        "section_chars": 60000,
+        "tokens_in": 14133,
+        "tokens_out": 238
+      }
+    },
+    "enrichments": [
+      "license"
+    ],
+    "elapsed_seconds": 20.0,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 42403,
+      "output_tokens": 275
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

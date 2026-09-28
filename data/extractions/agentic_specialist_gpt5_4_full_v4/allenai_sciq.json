@@ -1,0 +1,80 @@
+{
+  "dataset_id": "allenai_sciq",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "SciQ",
+    "description": "SciQ is a dataset of 13.7K multiple choice science exam questions assembled using a crowdsourcing methodology. The dataset includes a multiple choice version, and a direct answer version where given a passage and a question a system must predict the span within the passage that answers the question.",
+    "url": "http://allenai.org/data",
+    "license": null,
+    "creator": "Johannes Welbl (University College London); Nelson F. Liu (University of Washington); Matt Gardner (Allen Institute for Artificial Intelligence)",
+    "publisher": null,
+    "datePublished": "2017",
+    "inLanguage": "en",
+    "citeAs": "Johannes Welbl, Nelson F. Liu, and Matt Gardner. 2017. Crowdsourcing Multiple Choice Science Questions.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled through a two-step crowdsourcing process. First, crowd workers were shown filtered textbook paragraphs from a compiled science study corpus, chose one paragraph or rejected all three, and wrote a question-answer pair about the selected passage. Second, another worker validated the question-answer pair and selected or wrote distractors to create a multiple-choice question.",
+    "rai:dataCollectionType": "Manual Human Curator; Document analysis",
+    "rai:dataCollectionMissingData": "A small percentage of the passages were obtained from unreleasable texts, so the direct answer version of SciQ is slightly smaller.",
+    "rai:dataCollectionRawData": "The source data consisted of science study textbooks compiled from 28 books from online learning resources including CK-12 and OpenStax; individual paragraphs from this base corpus were filtered and shown to crowd workers.",
+    "rai:dataCollectionTimeframe": "2012 to 2013",
+    "rai:dataAnnotationProtocol": "The dataset was created with a two-step crowdsourcing process: first, crowd workers were shown three filtered textbook paragraphs, chose one or rejected all, and wrote a science exam question answerable from the chosen passage under instructions such as no yes/no questions, no ambiguous questions, question length 6-30 words, and answer length up to 3 words; second, another worker judged whether the question could appear in a school science exam and selected up to two model-suggested distractors while writing at least one of their own so there were three distractors total. The tasks were advertised on Amazon Mechanical Turk, required Master’s status, and examples of desirable and undesirable questions and distractors were provided; workers could mark questions as ungrammatical, having a false answer, unrelated to science, or requiring very specific background knowledge.",
+    "rai:dataAnnotationPlatform": "Amazon Mechanical Turk",
+    "rai:dataAnnotationAnalysis": "For passage filtering, a rule-based document filter was designed using a small manually annotated dataset of sentences labeled relevant or irrelevant and iteratively refined on a held-out validation set. In the second crowdsourcing task, workers validated previously generated question-answer pairs by judging whether the question could appear in a school science exam; the paper reports that 92.8% of questions passed. Final distractors were formed by workers selecting up to two of six model suggestions and writing at least one new distractor, yielding three distractors total.",
+    "rai:annotationsPerItem": "2",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "a rule-based document filter; a random forest distractor prediction model; scikit-learn",
+    "rai:dataBiases": null,
+    "rai:dataLimitations": "The direct answer version of SciQ is slightly smaller because a small percentage of the passages were obtained from unreleasable texts; neural models do not beat simple information retrieval baselines on the multiple choice version of SciQ",
+    "rai:dataSocialImpact": "SciQ is presented as a useful research resource for investigating neural model performance in medium-sized data settings and for augmenting training data for answering real science exam questions",
+    "rai:personalSensitiveInformation": "The direct answer version of SciQ is slightly smaller because a small percentage of the passages were obtained from unreleasable texts.",
+    "rai:dataUseCases": "training and evaluation for science exam question answering; investigating neural model performance in medium-sized data settings; augmenting training data for answering real 4th and 8th grade science exam questions",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "We randomly shuffled this dataset and split it into training, validation and test portions, with 1000 questions in each of the validation and test portions, and the remainder in train.",
+    "rai:dataPreprocessingProtocol": "We designed a rule-based document filter model into which individual paragraphs of the base corpus are fed. The system classifies individual sentences and accepts a paragraph if a minimum number of sentences is accepted. Specifically, sentences were filtered out if they were a question or exclamation, had no verb phrase, contained modal verbs, contained imperative phrases, contained demonstrative pronouns, contained personal pronouns other than third-person, began with a pronoun, contained first names, had less than 6 or more than 18 tokens or more than 2 commas, contained special characters other than punctuation, had more than three tokens beginning uppercase, mentioned a graph, table or web link, began with a discourse marker, contained absolute wording, or contained instructional vocabulary."
+  },
+  "usage": {
+    "input_tokens": 132172,
+    "output_tokens": 1571
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 26694,
+        "output_tokens": 181
+      },
+      "collection": {
+        "input_tokens": 26472,
+        "output_tokens": 392
+      },
+      "annotation": {
+        "input_tokens": 26459,
+        "output_tokens": 348
+      },
+      "impact": {
+        "input_tokens": 26423,
+        "output_tokens": 219
+      },
+      "processing": {
+        "input_tokens": 26124,
+        "output_tokens": 431
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64782,
+      "output_tokens": 520
+    },
+    "timestamp": "2026-05-22T11:16:52.718921+00:00",
+    "elapsed_seconds": 32.3
+  }
+}

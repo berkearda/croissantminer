@@ -1,0 +1,80 @@
+{
+  "dataset_id": "FLORES_30field",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "FLORES-101",
+    "description": "FLORES-101 is an evaluation benchmark for low-resource and multilingual machine translation consisting of 3001 sentences sampled from English Wikipedia and professionally translated into 101 languages. The dataset is multilingually aligned, enabling many-to-many evaluation across language pairs, and includes rich metadata to support other evaluations such as document-level and multimodal translation.",
+    "url": "https://dl.fbaipublicfiles.com/flores101/dataset/flores101_dataset.tar.gz",
+    "license": null,
+    "creator": "Naman Goyal; Cynthia Gao; Vishrav Chaudhary; Peng-Jen Chen; Guillaume Wenzek; Da Ju; Sanjana Krishnan; Marc’Aurelio Ranzato; Francisco Guzmán; Angela Fan",
+    "publisher": null,
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc’Aurelio Ranzato, Francisco Guzmán, and Angela Fan. 2021. The FLORES-101 Evaluation Benchmark for Low-Resource and Multilingual Machine Translation. arXiv:2106.03193v1.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The benchmark was constructed in three phases: sentences were extracted from English Wikipedia and other Wikimedia sources, pilot experiments were run to determine translation providers and workflow, and then the full translation workflow was launched for over 100 languages.",
+    "rai:dataCollectionType": "Document analysis; Manual Human Curator",
+    "rai:dataCollectionMissingData": null,
+    "rai:dataCollectionRawData": "Source sentences were extracted from English Wikipedia, specifically from Wikimedia sources including Wikinews, Wikijunior, and WikiVoyage articles.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "The sentence selection process consisted of selecting an article at random from each source and then manually selecting a few contiguous sentences from each article by 10 annotators in the lab; the annotators also manually labeled all sentences by a more detailed sub-topic, one of 10 possibilities. For translations, source sentences were translated by professional translators through Language Service Providers, edited by different translators within the LSP, automatically checked, and then evaluated by an independent evaluation LSP, with re-translation if checks failed or quality was below threshold.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Based on human assessment of translation quality, the authors selected the two LSPs that produced the highest quality translations. Translation quality was assessed through a Translation Quality Score on a 0 to 100 scale determined from counts of identified errors by evaluation LSPs across error categories and severities; translations below the accepted threshold were sent back for re-translation.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": "10 annotators in our lab; 6 male and 4 female; researchers (scientists and engineers) and program/project managers; originally coming from East Asia, South Asia, Southern Europe, Latin America and North America",
+    "rai:machineAnnotationTools": "language identification; language model; publicly available translation engines; sentence-level SentencePiece BLEU heuristic",
+    "rai:dataBiases": "translationese (or overly literal or awkward translations) has known idiosyncrasies; To avoid bias coming from the document structure, we carefully selected one paragraph per document, from either the beginning, middle or end of the article",
+    "rai:dataLimitations": "source sentences are all sourced from English Wikipedia, with the caveat that source sentences not in English are produced by human translators; several low-resource languages have relatively few articles containing well structured sentences; several languages considered beyond the set of 101 were unable to meet the quality bar after rounds of re-translation; the test set will not be released publicly and is only available via an evaluation server",
+    "rai:dataSocialImpact": "the majority of the world’s population speak low-resource languages and would benefit from improvements in translation quality on their native languages; By publicly releasing such a high-quality and high-coverage dataset, we hope to foster progress in the machine translation community and beyond",
+    "rai:personalSensitiveInformation": null,
+    "rai:dataUseCases": "evaluation of low-resource and multilingual machine translation; evaluation of many-to-many multilingual translation systems; document-level translation evaluation; multimodal translation evaluation; text classification; sentence and document classification; language identification; multilingual domain adaptation",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The translation dataset underwent iterative re-translation based on automatic and human quality checks: translations failing checks such as language identification, source-copy detection, abnormal length, fluency, or similarity to commercial MT outputs were rejected and sent back for re-translation; after independent human QA, translations scoring below quality thresholds were also sent back for re-translation, with some languages requiring multiple rounds.",
+    "rai:dataPreprocessingProtocol": "Once sentences are translated, the data is sent to different translators within the LSP for editing and then moves on to automated quality control steps. If any of the checks fail, the LSP has to re-translate until all verification is passed. The implemented checks include language identification, checking whether the translation is a copy of the source sentence, checking whether the translation has significantly different length, checking translation fluency according to a language model, and checking whether the translation is a copy of the translation produced by publicly available translation engines."
+  },
+  "usage": {
+    "input_tokens": 597712,
+    "output_tokens": 1245
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 119799,
+        "output_tokens": 287
+      },
+      "collection": {
+        "input_tokens": 119585,
+        "output_tokens": 136
+      },
+      "annotation": {
+        "input_tokens": 119570,
+        "output_tokens": 302
+      },
+      "impact": {
+        "input_tokens": 119521,
+        "output_tokens": 280
+      },
+      "processing": {
+        "input_tokens": 119237,
+        "output_tokens": 240
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 64387,
+      "output_tokens": 187
+    },
+    "timestamp": "2026-05-22T10:00:33.148532+00:00",
+    "elapsed_seconds": 41.0
+  }
+}

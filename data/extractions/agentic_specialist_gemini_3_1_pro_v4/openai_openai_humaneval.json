@@ -1,0 +1,80 @@
+{
+  "dataset_id": "openai_openai_humaneval",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "HumanEval",
+    "description": "A dataset of 164 hand-written programming problems with unit tests that assess language comprehension, algorithms, and simple mathematics. Each problem includes a function signature, docstring, body, and several unit tests.",
+    "url": "https://www.github.com/openai/human-eval",
+    "license": null,
+    "creator": "Mark Chen; Jerry Tworek; Heewoo Jun; Qiming Yuan; Henrique Ponde de Oliveira Pinto; Jared Kaplan; Harri Edwards; Yuri Burda; Nicholas Joseph; Greg Brockman; Alex Ray; Raul Puri; Gretchen Krueger; Michael Petrov; Heidy Khlaaf; Girish Sastry; Pamela Mishkin; Brooke Chan; Scott Gray; Nick Ryder; Mikhail Pavlov; Alethea Power; Lukasz Kaiser; Mohammad Bavarian; Clemens Winter; Philippe Tillet; Felipe Petroski Such; Dave Cummings; Matthias Plappert; Fotios Chantzis; Elizabeth Bames; Ariel Herbert-Voss; William Hebgen Guss; Alex Nichol; Alex Paino; Nikolas Tezak; Jie Tang; Igor Babuschkin; Suchir Balaji; Shantanu Jain; William Saunders; Christopher Hesse; Andrew N. Carr; Jan Leike; Josh Achiam; Vedant Misra; Evan Morikawa; Alec Radford; Matthew Knight; Miles Brundage; Mira Murati; Katie Mayer; Peter Welinder; Bob McGrew; Dario Amodei; Sam McCandlish; Ilya Sutskever; Wojciech Zaremba",
+    "publisher": "OpenAI",
+    "datePublished": "2021",
+    "inLanguage": "en",
+    "citeAs": "Mark Chen, Jerry Tworek, Heewoo Jun, et al. Evaluating Large Language Models Trained on Code. arXiv:2107.03374v2 [cs.LG], 2021.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The training dataset was collected from 54 million public software repositories hosted on GitHub. Additional data for supervised fine-tuning was collected from programming contest and interview preparation websites, and by tracing inputs and outputs during integration tests of open source projects on GitHub and PyPI.",
+    "rai:dataCollectionType": "Software Collection; Web Scraping",
+    "rai:dataCollectionMissingData": "Complete test suites for competitive programming problems were often hidden. Additionally, during continuous integration tracing, not all functions accepted inputs and returned outputs, and most objects captured at runtime could not be pickled and restored outside the sandbox.",
+    "rai:dataCollectionRawData": "Public software repositories hosted on GitHub containing Python files, problem statements and solutions from programming contest and interview preparation websites, and source code from pip packages on the Python Package Index (PyPI).",
+    "rai:dataCollectionTimeframe": "May 2020",
+    "rai:dataAnnotationProtocol": "Sample docstrings were graded by hand, considering a docstring correct if it uniquely and accurately specifies the code body. Incorrect unit tests were ignored during grading, and docstrings were not considered correct when the model simply copied the code body into the docstring.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The training data encodes social biases and code written to process and analyze datasets that encode classes in potentially harmful ways, leading the model to generate code reflecting stereotypes about gender, race, emotion, class, and the structure of names.",
+    "rai:dataLimitations": "Codex is not sample efficient to train; it can recommend syntactically incorrect or undefined code; it can invoke functions, variables, and attributes that are undefined or outside the scope of the codebase; it struggles to parse through increasingly long and higher-level or system-level specifications; it can make mistakes binding operations to variables.",
+    "rai:dataSocialImpact": "The deployment of powerful code generation technologies like Codex has potential benefits such as helping onboard users to new codebases, reducing context switching, enabling non-programmers to write specifications, and aiding education. However, it raises significant safety challenges and risks, including over-reliance on generated outputs, misalignment with user intent, generation of biased or stereotyped code, economic and labor market impacts, security implications like generating vulnerable code, and environmental impacts from training and inference.",
+    "rai:personalSensitiveInformation": "The training data, collected from public GitHub repositories, contains sensitive data present in source code, which the model is liable to predict and is considered to have already been compromised.",
+    "rai:dataUseCases": "Evaluating functional correctness of code generation models; measuring the problem-solving capabilities of models on tasks assessing language comprehension, reasoning, algorithms, and simple mathematics.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "Files were filtered out if they were likely auto-generated, had an average line length greater than 100, had a maximum line length greater than 1000, or contained a small percentage of alphanumeric characters. Code was tokenized using the GPT-3 text tokenizer, which was extended with an additional set of tokens for representing whitespace runs of different lengths. For the supervised fine-tuning dataset, problems were filtered out if they were stateful, non-deterministic, or if no generated samples passed the unit tests."
+  },
+  "usage": {
+    "input_tokens": 260030,
+    "output_tokens": 18434
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 54843,
+        "output_tokens": 3908
+      },
+      "collection": {
+        "input_tokens": 41657,
+        "output_tokens": 1837
+      },
+      "annotation": {
+        "input_tokens": 54660,
+        "output_tokens": 4632
+      },
+      "impact": {
+        "input_tokens": 54592,
+        "output_tokens": 4795
+      },
+      "processing": {
+        "input_tokens": 54278,
+        "output_tokens": 3262
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 51957,
+      "output_tokens": 6385
+    },
+    "timestamp": "2026-05-28T11:18:52.625266+00:00",
+    "elapsed_seconds": 192.0
+  }
+}

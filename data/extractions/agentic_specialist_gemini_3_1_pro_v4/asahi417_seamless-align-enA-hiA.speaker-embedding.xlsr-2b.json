@@ -1,0 +1,80 @@
+{
+  "dataset_id": "asahi417_seamless-align-enA-hiA.speaker-embedding.xlsr-2b",
+  "model": "specialist_gemini_3_1_pro",
+  "extraction": {
+    "name": "SeamlessAlign",
+    "description": "A multimodal corpus of automatically aligned speech translations totaling more than 470,000 hours across 37 languages.",
+    "url": "https://github.com/facebookresearch/seamless_communication",
+    "license": null,
+    "creator": "Seamless Communication; Loïc Barrault; Yu-An Chung; Mariano Coria Meglioli; David Dale; Ning Dong; Paul-Ambroise Duquenne; Hady Elsahar; Hongyu Gong; Kevin Heffeman; John Hoffman; Christopher Klaiber; Pengwei Li; Daniel Licht; Jean Maillard; Alice Rakotoarison; Kaushik Ram Sadagopan; Guillaume Wenzek; Ethan Ye; Bapi Akula; Peng-Jen Chen; Naji El Hachem; Brian Ellis; Gabriel Mejia Gonzalez; Justin Haaheim; Prangthip Hansanti; Russ Howes; Bemie Huang; Min-Jae Hwang; Hirofumi Inaguma; Somya Jain; Elahe Kalbassi; Amanda Kallet; Ilia Kulikov; Janice Lam; Daniel Li; Xutai Ma; Ruslan Mavlyutov; Benjamin Peloquin; Mohamed Ramadan; Abinesh Ramakrishnan; Anna Sun; Kevin Tran; Tuan Tran; Igor Tufanov; Vish Vogeti; Carleigh Wood; Yilin Yang; Bokai Yu; Pierre Andrews; Can Balioglu; Marta R. Costa-jussà; Onur Celebi; Maha Elbayad; Cynthia Gao; Francisco Guzmán; Justine Kao; Ann Lee; Alexandre Mourachko; Juan Pino; Sravya Popuri; Christophe Ropers; Safiyyah Saleem; Holger Schwenk; Paden Tomasello; Changhan Wang; Jeff Wang; Skyler Wang",
+    "publisher": null,
+    "datePublished": "2023",
+    "inLanguage": "arb, ben, cat, ces, cmn, cym, dan, deu, eng, est, fin, fra, hin, ind, ita, jpn, kan, kor, mlt, nld, pes, pol, por, ron, rus, slk, spa, swe, swh, tam, tel, tgl, tha, tur, ukr, urd, uzn, vie",
+    "citeAs": "Seamless Communication, Loïc Barrault, Yu-An Chung, Mariano Coria Meglioli, David Dale, Ning Dong, et al. SeamlessM4T: Massively Multilingual & Multimodal Machine Translation. arXiv:2308.11596v3, 2023.",
+    "isLiveDataset": null,
+    "rai:dataCollection": "The dataset was assembled by gathering 4 million hours of raw audio from a publicly available repository of crawled web data and combining it with the text dataset deployed in NLLB. Audio file URLs were deduplicated and downloaded, and parallel data mining was performed by projecting speech and text corpora into a common embedding space to identify translation pairs.",
+    "rai:dataCollectionType": "Web Scraping; Secondary Data analysis",
+    "rai:dataCollectionMissingData": "Some samples from the CVSS evaluation data were missing in 8 out of 21 languages (Catalan, German, Estonian, French, Italian, Mongolian, Persian, and Portuguese).",
+    "rai:dataCollectionRawData": "4 million hours of raw audio from a publicly available repository of crawled web data, the sentence-segmented text dataset deployed in NLLB, and over 75M bitexts from open-source T2TT datasets.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Vendor annotators examined source-target audio or audio-text pairs to evaluate semantic similarity using the XSTS protocol, and evaluated naturalness, sound quality, and speech clarity using the MOS protocol with a 1-5 Likert scale. Annotators completed practice evaluations prior to annotating.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "The median score over annotators of the same audio pair was taken for each evaluation sentence pair.",
+    "rai:annotationsPerItem": "1 to 5",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "NLLB-200-3.3B; multilingual text-to-unit (T2U) models; Silero VAD; speech LID model; XLSR-based unit extraction pipeline; in-house ASR model",
+    "rai:dataBiases": "Masculine representation is predominant in most of the datasets; overrepresentation of masculine lexica compared to feminine in the analyzed datasets.",
+    "rai:dataLimitations": "The Fleurs test set lacks diversity in the speaker set per language; string-matching techniques for toxicity and gender imbalance detection have known limitations such as over-detecting terms and relying on precise tokenization; not intended to be used with domain specific inputs such as medical or legal domains; not intended for long-form translation; translations cannot be used as certified translations.",
+    "rai:dataSocialImpact": "Downstream applications could allow on-demand access to world-readiness by streamlining multilingual exchange and augmenting inclusion for those with accessibility needs, visual impairments, or lacking reading/writing skills. However, access could make groups with lower digital literacy vulnerable to misinformation or online scams if misappropriated by bad actors, and toxic, biased, or false outputs could adversely impact users relying on translations for important decisions.",
+    "rai:personalSensitiveInformation": "Although the authors invested heavily in data cleaning, personally identifiable information may not be entirely eliminated from the training data mined from publicly available web sources.",
+    "rai:dataUseCases": "Research in speech and text translation; Automatic speech recognition (ASR); Speech-to-Speech translation (S2ST); Speech-to-text translation (S2TT); Text-to-Speech translation (T2ST); Text-to-text translation (T2TT); Text-to-speech synthesis (TTS).",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was augmented through pseudo-labeling, using a multilingual text-to-text translation model (NLLB-200-3.3B) to generate pseudo-labels for ASR data. Additionally, multilingual text-to-unit (T2U) models were used to directly convert text into target discrete units to create pseudo-labeled speech-to-speech training data.",
+    "rai:dataPreprocessingProtocol": "Audio files were deduplicated, resampled at 16KHz, and filtered to remove non-speech data using an audio event detection model. Audio was segmented using Voice Activity Detection. Text transcriptions were cleaned by removing special tokens like <silence> and <no-speech>. The dataset was filtered to remove pairs with toxicity imbalance, extreme lengths (audio shorter than 0.1s or longer than 50s, text longer than 250 sub-words), skewed text-to-audio length ratios, and text containing excessive emojis (>20%), punctuation (>50%), or spaces (>50%)."
+  },
+  "usage": {
+    "input_tokens": 548120,
+    "output_tokens": 27908
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gemini_3_1_pro",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gemini-3.1-pro",
+      "collection": "gemini-3.1-pro",
+      "annotation": "gemini-3.1-pro",
+      "impact": "gemini-3.1-pro",
+      "processing": "gemini-3.1-pro"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 109859,
+        "output_tokens": 5227
+      },
+      "collection": {
+        "input_tokens": 109713,
+        "output_tokens": 5192
+      },
+      "annotation": {
+        "input_tokens": 109654,
+        "output_tokens": 7603
+      },
+      "impact": {
+        "input_tokens": 109608,
+        "output_tokens": 6429
+      },
+      "processing": {
+        "input_tokens": 109286,
+        "output_tokens": 3457
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 74050,
+      "output_tokens": 12117
+    },
+    "timestamp": "2026-05-28T08:23:43.591345+00:00",
+    "elapsed_seconds": 296.0
+  }
+}

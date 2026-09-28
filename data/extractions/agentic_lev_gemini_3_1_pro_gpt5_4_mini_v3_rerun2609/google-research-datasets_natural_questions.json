@@ -1,0 +1,289 @@
+{
+  "dataset_id": "google-research-datasets_natural_questions",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "extraction": {
+    "name": "Natural Questions",
+    "description": "A question answering dataset of real anonymized, aggregated queries issued to the Google search engine, paired with Wikipedia pages and annotated long and short answers when present. It is designed for end-to-end QA research and evaluation.",
+    "url": "https://ai.google.com/research/NaturalQuestions",
+    "license": "CC-BY 4.0",
+    "creator": "Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein, Illia Polosukhin, Jacob Devlin, Kenton Lee, Kristina Toutanova, Llion Jones, Matthew Kelcey, Ming-Wei Chang, Andrew M. Dai, Jakob Uszkoreit, Quoc Le, Slav Petrov",
+    "publisher": "Google Research",
+    "datePublished": "2019-07",
+    "inLanguage": "en",
+    "citeAs": "@Article{Kwiatkowski2019NaturalQA,\n author = {T. Kwiatkowski and J. Palomaki and Olivia Redfield and Michael Collins and Ankur P. Parikh and Chris Alberti and D. Epstein and I. Polosukhin and Jacob Devlin and Kenton Lee and Kristina Toutanova and Llion Jones and Matthew Kelcey and Ming-Wei Chang and Andrew M. Dai and Jakob Uszkoreit and Quoc V. Le and Slav Petrov},\n booktitle = {Transactions of the Association for Computational Linguistics},\n journal = {Transactions of the Association for Computational Linguistics},\n pages = {453-466},\n title = {Natural Questions: A Benchmark for Question Answering Research},\n volume = {7},\n year = {2019}\n}\n",
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Questions in Natural Questions were sampled from Google search queries issued by multiple users in a short period of time, and annotators then identified long answers by selecting the smallest HTML bounding box on the corresponding Wikipedia page that contained all information required to answer the question.",
+    "rai:dataCollectionType": "Web Scraping",
+    "rai:dataCollectionMissingData": "Both the long and short answer can be NULL if no viable candidates exist on the Wikipedia page, and the remaining examples without answer labels were not discarded.",
+    "rai:dataCollectionRawData": "Question-Wikipedia page pairs with long-answer bounding boxes and short answers, forming (question, wikipedia page, long answer, short answer) quadruples.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataAnnotationProtocol": "Comprehensive guidelines were developed for the task; annotators identified long answers by selecting the smallest HTML bounding box that contains all of the information required to answer the question, and short answers were spans/entities or yes/no answers where applicable. Annotation quality was constantly monitored.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Quality was evaluated using post hoc correctness judgments of non-null answers under consensus judgments from four experts, and by k-way annotations with k = 25 on a subset of the data.",
+    "rai:annotationsPerItem": "25-way annotations on a subset of the data; consensus judgments from four experts for post hoc evaluation.",
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": null,
+    "rai:dataBiases": "The dataset may reflect biases from using Wikipedia as the evidence source and from the selection of real Google search queries; the authors note that \"like any data set there may be biases in this choice.\"",
+    "rai:dataLimitations": "Questions are limited to longer queries (8+ words) that pass heuristic filters and have a Wikipedia page in the top 5 search results, so the dataset may not generalize to shorter queries, \"how to\" questions, or non-Wikipedia domains. The task also includes many unanswerable examples and answers can be ambiguous or variable across annotators.",
+    "rai:dataSocialImpact": "The paper frames the benchmark as useful for advancing natural language understanding and question answering systems that have \"significant utility to users.\"",
+    "rai:personalSensitiveInformation": "Anonymized aggregated Google search queries are used as questions; no explicit sensitive human attributes are described as being collected.",
+    "rai:dataUseCases": "The dataset is intended for QA research, including large-scale end-to-end training data, development/evaluation, and baseline benchmarking. The public release includes training, development, and sequestered test splits.",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "The dataset was filtered and sampled from Google search queries: only queries of 8 words or more were kept, and a subset was selected using heuristic patterns; queries without a Wikipedia page in the top 5 search results were discarded.",
+    "rai:dataPreprocessingProtocol": "Questions were filtered using heuristics to remove non-questions, and annotators selected the smallest HTML bounding box on the Wikipedia page containing enough information to answer the question; pages were limited to Wikipedia pages from the top 5 search results."
+  },
+  "usage": {
+    "input_tokens": 29852,
+    "output_tokens": 2254
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "provider": "openai",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T01:12:04.654756Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_lev.py",
+    "mode": "realtime",
+    "pipeline": "agentic_lev",
+    "specialist_prompts_sha256_prefix": "7af8cc138bce4866",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This paper introduces Natural Questions2(NQ), a new data set for QA research"
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions consist of real anonymized, aggregated queries issued to the Google search engine... annotates a long answer ... and a short answer ... if present on the page"
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Available at: https://ai.google.com/research/NaturalQuestions"
+      },
+      "license": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Distributed under a CC-BY 4.0 license."
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Tom Kwiatkowski... Slav Petrov"
+      },
+      "publisher": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Google Research"
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Published 7/2019."
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Questions consist of real anonymized, aggregated queries issued to the Google search engine"
+      },
+      "citeAs": {
+        "confidence": 0.7,
+        "status": "VERIFIED",
+        "source": "enrichment",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "The public release consists of 307,373 training examples ... 7,830 examples ... and a further 7,842 examples ... sequestered as test data."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“All the questions in NQ are queries of 8 words or more that have been issued to the Google search engine by multiple users in a short period of time.” / “Annotators identify long answers by selecting the smallest HTML bounding box that contains all of the information required to answer the question.”"
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“The input to a model is a question together with an entire Wikipedia page.”"
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Both the long and short answer can be NULL if no viable candidates exist on the Wikipedia page.” / “We consider the choice of whether or not to answer a question a core part of the question answering task, and do not discard the remaining 51% that have no answer labeled.”"
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Natural Questions contains (question, wikipedia page, long answer, short answer) quadruples”"
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Comprehensive guidelines were developed for the task.” / “Annotators identify long answers by selecting the smallest HTML bounding box that contains all of the information required to answer the question.” / “Annotation quality was constantly monitored.”"
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“We use a combination of two methods: 1) post hoc evaluation of correctness of non-null answers, under consensus judgments from four ‘experts’; 2) k-way annotations (with k = 25) on a subset of the data.”"
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“k-way annotations (with k = 25) on a subset of the data” / “under consensus judgments from four ‘experts’”"
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"We focus on Wikipedia as it is a very important source of factual information, and we believe that stylistically it is similar to other sources of factual information on the Web; however, like any data set there may be biases in this choice.\""
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Future data collection efforts may introduce shorter queries, ‘how to’ questions, or domains other than Wikipedia.\""
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Open-domain question answering (QA) is a benchmark task in natural language understanding (NLU), which has significant utility to users\""
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Questions consist of real anonymized, aggregated queries issued to the Google search engine.\""
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "\"Our goals are three-fold: 1) To provide large-scale end-to-end training data for the QA problem. 2) To provide a data set that drives research in natural language understanding. 3) To study human performance in providing QA annotations for naturally occurring questions.\""
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Simple heuristics are used to filter questions from the query stream.”; “All the questions in NQ are queries of 8 words or more... From these queries, we sample a subset that either...” ; “We run questions through the Google search engine and keep those where there is a Wikipedia page in the top 5 search results.”"
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "“Simple heuristics are used to filter questions from the query stream.”; “The goal of these heuristics is to discard a large proportion of queries that are non-questions” ; “Annotators select the earliest HTML bounding box containing enough information for a reader to completely infer the answer to the question.”"
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 24,
+      "fields_null": 6,
+      "fields_verified": 24,
+      "evidence_count": 23,
+      "evidence_coverage": 95.8,
+      "avg_confidence": 0.94
+    },
+    "cost_usd": 0.0058,
+    "split": "test",
+    "group_stats": {
+      "core": {
+        "section_chars": 10711,
+        "tokens_in": 2941,
+        "tokens_out": 500
+      },
+      "collection": {
+        "section_chars": 2467,
+        "tokens_in": 974,
+        "tokens_out": 385
+      },
+      "annotation": {
+        "section_chars": 4417,
+        "tokens_in": 1457,
+        "tokens_out": 377
+      },
+      "impact": {
+        "section_chars": 22432,
+        "tokens_in": 5714,
+        "tokens_out": 506
+      },
+      "processing": {
+        "section_chars": 22432,
+        "tokens_in": 5559,
+        "tokens_out": 298
+      }
+    },
+    "enrichments": [
+      "citeAs"
+    ],
+    "elapsed_seconds": 25.1,
+    "locator": {
+      "backbone_key": "gemini-3.1-pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "input_tokens": 13207,
+      "output_tokens": 188
+    },
+    "prompt_variant": "v3",
+    "skipped_unlikely_groups": 0
+  }
+}

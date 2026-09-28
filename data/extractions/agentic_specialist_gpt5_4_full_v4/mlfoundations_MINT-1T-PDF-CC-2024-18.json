@@ -1,0 +1,80 @@
+{
+  "dataset_id": "mlfoundations_MINT-1T-PDF-CC-2024-18",
+  "model": "specialist_gpt5_4_full",
+  "extraction": {
+    "name": "MINT-1T",
+    "description": "MINT-1T is an open-source multimodal interleaved pre-training dataset containing free-form sequences of images and text. It comprises one trillion text tokens and 3.4 billion images sourced from HTML, PDFs, and ArXiv documents, and is introduced to support training large multimodal models.",
+    "url": "https://github.com/mlfoundations/MINT-1T",
+    "license": "CC-BY-4.0",
+    "creator": "Anas Awadalla (University of Washington; Salesforce Research); Le Xue (Salesforce Research); Oscar Lo (University of Washington); Manli Shu (Salesforce Research); Hannah Lee (University of Washington); Etash Guha (University of Washington); Matt Jordan (University of Texas at Austin); Sheng Shen (University of California, Berkeley); Mohamed Awadalla (University of Washington); Silvio Savarese (Salesforce Research; Stanford University); Caiming Xiong (Salesforce Research); Ran Xu (Salesforce Research); Yejin Choi (University of Washington); Ludwig Schmidt (University of Washington)",
+    "publisher": "Huggingface",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "citeAs": "Anas Awadalla, Le Xue, Oscar Lo, Manli Shu, Hannah Lee, Etash Guha, Matt Jordan, Sheng Shen, Mohamed Awadalla, Silvio Savarese, Caiming Xiong, Ran Xu, Yejin Choi, and Ludwig Schmidt. Scaling Open-Source Multimodal Data by 10x: A Multimodal Dataset with One Trillion Tokens. arXiv:2406.11271, 2024.",
+    "isLiveDataset": "Yes",
+    "rai:dataCollection": "The dataset was assembled from CommonCrawl and ArXiv sources: HTML documents were extracted from CommonCrawl WARC files by parsing each WARC entry’s DOM tree; PDF documents were sourced from CommonCrawl WAT files by extracting PDF links and downloading and reading the PDFs; ArXiv documents were built from LaTeX source code by finding figure tags and interleaving images with paper text.",
+    "rai:dataCollectionType": "Secondary Data analysis; Software Collection",
+    "rai:dataCollectionMissingData": "For HTML documents, the authors discarded non-retrievable image links and removed documents that had no valid image links.",
+    "rai:dataCollectionRawData": "CommonCrawl WARC files for HTML documents, CommonCrawl WAT files and linked PDF files for PDF documents, and ArXiv LaTeX source code from ArXiv dumps/S3 buckets for ArXiv documents.",
+    "rai:dataCollectionTimeframe": "January 2024 to June 2024",
+    "rai:dataAnnotationProtocol": null,
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": null,
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "Fasttext language identification model; NSFW image detector; PyMuPDF; TexSoup",
+    "rai:dataBiases": "OBELICS shows a pronounced concentration in \"Humanities and Social Sciences\"; MINT-1T’s HTML subset is not strongly biased towards any specific domain; MINT-1T’s PDF subset has a higher proportion of \"Science and Technology\" documents",
+    "rai:dataLimitations": "PDF parsing sometimes fails to detect images; PDFs have arbitrary layouts, so in some cases the reading order is extracted incorrectly; MINT-1T is not self-contained and relies on external image URLs, with no guarantees these URLs will remain available over time; the full dataset with images cannot be hosted because it is over 300TB large; the dataset may contain content considered confidential; it is possible offensive, insulting, threatening, or anxiety-inducing content can still be found in MINT-1T; using the dataset to train models that ingest or generate personally identifying information or for military applications is described as inappropriate",
+    "rai:dataSocialImpact": "An important consideration when releasing large datasets is to avoid exposing harmful content from the web; the authors were careful about filtering out personally identifiable information and not safe for work content from MINT-1T; future work should explore more ways to improve the safety of multimodal internet data; the dataset is intended to make research into large multimodal models more accessible",
+    "rai:personalSensitiveInformation": "The authors anonymize email addresses and IP addresses in the text data, replacing emails with templates such as \"email@example.com\" and IPs with randomly generated non-functional IPs; the dataset may still contain images of individuals, text about specific individuals, and sensitive data present on the public web, including race or ethnic origins, sexual orientations, religious beliefs, political opinions, locations, financial or health data, biometric or genetic data, government identification, and criminal history",
+    "rai:dataUseCases": "pre-training large multimodal models that can process multiple interleaved images and text; training and evaluating large multimodal models; generating interleaved images and text sequences; building multimodal document retrieval systems",
+    "rai:dataReleaseMaintenancePlan": "The dataset will be released publicly through the Huggingface interface as JSON shards; the authors will actively respond to issues and maintain the dataset; updates will be made by the authors and communicated through the README in the Huggingface interface; an erratum will be present on the README of the Huggingface dataset page; older versions can be found using the Git history of the dataset repository; the authors will provide a Google form for opting data out of MINT-1T; contributions will be accepted through the Pull Request mechanism of the Huggingface interface",
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": "During training, we randomly drop 50% of single-image interleaved documents to upsample multi-image documents.",
+    "rai:dataPreprocessingProtocol": "The dataset was preprocessed to remove low quality text, duplicate documents/text portions, and remove not safe for work and low quality images. Specifically, they eliminate non-English documents using Fasttext’s language identification model, remove documents with URLs containing NSFW substrings, remove documents with excessive duplicate n-grams or identified as low quality using MassiveText rules, discard non-retrievable image links and documents with no valid image links, remove images smaller than 150 pixels or larger than 20,000 pixels, filter images by aspect ratio, anonymize email addresses and IP addresses, and perform paragraph, document, and image deduplication."
+  },
+  "usage": {
+    "input_tokens": 145844,
+    "output_tokens": 1833
+  },
+  "valid": true,
+  "_meta": {
+    "config": "gpt5_4_full",
+    "prompt_variant": "v4",
+    "specialist_backbones": {
+      "core": "gpt-5.4",
+      "collection": "gpt-5.4",
+      "annotation": "gpt-5.4",
+      "impact": "gpt-5.4",
+      "processing": "gpt-5.4"
+    },
+    "agent_tokens": {
+      "core": {
+        "input_tokens": 23296,
+        "output_tokens": 356
+      },
+      "collection": {
+        "input_tokens": 23188,
+        "output_tokens": 200
+      },
+      "annotation": {
+        "input_tokens": 38284,
+        "output_tokens": 112
+      },
+      "impact": {
+        "input_tokens": 23156,
+        "output_tokens": 529
+      },
+      "processing": {
+        "input_tokens": 37920,
+        "output_tokens": 636
+      }
+    },
+    "verify_correct_tokens": {
+      "input_tokens": 30009,
+      "output_tokens": 503
+    },
+    "timestamp": "2026-05-22T11:34:03.823950+00:00",
+    "elapsed_seconds": 33.9
+  }
+}

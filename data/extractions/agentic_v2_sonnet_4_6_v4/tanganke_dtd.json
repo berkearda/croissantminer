@@ -1,0 +1,259 @@
+{
+  "dataset_id": "tanganke_dtd",
+  "model": "claude-sonnet-4-6",
+  "extraction": {
+    "name": "Prompted Textures Dataset (PTD)",
+    "description": "A large-scale synthetic texture dataset of 246,285 images across 56 texture classes, generated using text-to-image models (Stable Diffusion) with texture-specific prompts and a three-stage refinement process (frequency filtering, patch variance filtering, and CLIP score filtering) to ensure high quality, diversity, and prompt alignment.",
+    "url": "https://zenodo.org/records/15359142",
+    "license": null,
+    "creator": "Blaine Hoak and Patrick McDaniel, University of Wisconsin-Madison",
+    "publisher": null,
+    "datePublished": "2025",
+    "inLanguage": "en",
+    "citeAs": null,
+    "isLiveDataset": "No",
+    "rai:dataCollection": "Images were generated using Stable Diffusion text-to-image models with 96,768 unique texture-specific prompts, producing 5 images per prompt (483,840 total before refinement), then filtered down to 246,285 images through a three-stage refinement process.",
+    "rai:dataCollectionType": "Software Collection, Experiments",
+    "rai:dataCollectionMissingData": "Up to 60% of initially generated images were flagged as NSFW by Stable Diffusion's safety filter and excluded from the dataset; flagged images were regenerated to maintain a consistent count of 5 non-flagged images per prompt.",
+    "rai:dataCollectionRawData": "Images were synthetically generated using the Stable Diffusion model from HuggingFace, guided by 96,768 unique text prompts constructed from combinations of texture class descriptors and artistic attribute descriptors.",
+    "rai:dataCollectionTimeframe": null,
+    "rai:dataImputationProtocol": null,
+    "rai:dataManipulationProtocol": null,
+    "rai:dataPreprocessingProtocol": "A three-stage refinement process was applied: (1) frequency filtering retaining the top 80% of images with highest frequency cutoff values to remove object-like images; (2) patch variance filtering removing the bottom 20% of images with lowest mean patch variance within each texture class to eliminate homogeneous images; (3) CLIP score filtering removing the bottom 20% of images with lowest CLIP scores within each texture class to ensure prompt alignment.",
+    "rai:dataAnnotationProtocol": "9 human participants each evaluated 100 randomly selected images (900 unique images total), rating each on a scale of 1-5 for overall image quality and representativeness relative to the provided descriptor. Images were selected before refinement to enable comparison across refinement stages.",
+    "rai:dataAnnotationPlatform": null,
+    "rai:dataAnnotationAnalysis": "Mean quality and representativeness scores were computed across images at each refinement stage. CLIP scores were validated against human representative scores, showing strong alignment. Participant comments were also analyzed to identify qualitative trends in prompt quality.",
+    "rai:annotationsPerItem": null,
+    "rai:annotatorDemographics": null,
+    "rai:machineAnnotationTools": "CLIP (for CLIP score filtering and representativeness evaluation); Stable Diffusion NSFW safety filter; Inception model (for Inception scores); Fourier transform analysis",
+    "rai:dataReleaseMaintenancePlan": null,
+    "rai:personalSensitiveInformation": null,
+    "rai:dataSocialImpact": null,
+    "rai:dataBiases": "Variation in quality across texture classes was observed, with more structured textures (e.g., grid, polka-dotted) performing worse than textures commonly appearing in objects (e.g., hairy, flaky). The NSFW safety filter disproportionately flagged benign texture prompts, with some texture classes like 'paisley' triggering the filter for nearly 100% of prompts.",
+    "rai:dataLimitations": "Stable Diffusion models are not explicitly designed to create textures, so object-like images may arise during generation. The NSFW safety filter is overly sensitive to texture data, flagging benign texture prompts. Some word pairings produce lower quality images (e.g., 'muted' or 'earthy' with subtle textures). Structured textures like grid and polka-dotted have lower quality scores.",
+    "rai:dataUseCases": "The dataset is intended for texture-based research including: measuring texture bias in machine learning models, constructing texture-object associations, studying model interpretability, identifying security vulnerabilities (adversarial examples), and training/testing/evaluation of computer vision models."
+  },
+  "usage": {
+    "input_tokens": 22533,
+    "output_tokens": 2610
+  },
+  "valid": true,
+  "_meta": {
+    "parser": "pypdf2",
+    "parser_version": "3.0.1",
+    "prompt_sha256_prefix": "1e1cfdd99246bbf5",
+    "prompt_chars": 3537,
+    "model_id": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "temperature": 0.0,
+    "timestamp": "2026-05-02T02:15:28.018146Z",
+    "git_commit": "0d3107b",
+    "paper_set": "102_dev_test_split",
+    "script": "scripts/agentic_v2.py",
+    "mode": "realtime",
+    "pipeline": "agentic_v2",
+    "extraction_details": {
+      "name": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we create the Prompted Textures Dataset (PTD), a new texture dataset spanning 246,285 images across 56 texture classes."
+      },
+      "description": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we introduce an extensible methodology for generating high-quality, diverse texture images, which we use to create the Prompted Textures Dataset (PTD), a new texture dataset spanning 246,285 images across 56 texture classes."
+      },
+      "url": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "license": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "creator": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Blaine Hoaka,* and Patrick McDaniela, aUniversity of Wisconsin-Madison"
+      },
+      "publisher": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "datePublished": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "arXiv:2409.10297v3 [cs.CV] 9 May 2025"
+      },
+      "inLanguage": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Prompts are structured by combining one word from each category in standard English adjective order"
+      },
+      "citeAs": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "isLiveDataset": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Our dataset is available for download at https://zenodo.org/records/15359142."
+      },
+      "rai:dataCollection": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "After generating 5 (not flagged) images per prompt, we have a total of 483,840 images before additional refinement."
+      },
+      "rai:dataCollectionType": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "To generate images for our dataset, we use our texture prompts as input to the Stable Diffusion model [26]."
+      },
+      "rai:dataCollectionMissingData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This filtering issue proved substantial, with up to 60% of our initial generated images being flagged as NSFW... we excluded these flagged images from our final dataset and do not release them publicly."
+      },
+      "rai:dataCollectionRawData": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Images are generated using the Stable Diffusion model [26] from HuggingFace [32]. This enumeration produces prompts such as 'photorealistic randomized vivid red polka-dotted texture,' resulting in 96,768 unique prompts for generating our texture images."
+      },
+      "rai:dataCollectionTimeframe": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataImputationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataManipulationProtocol": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataPreprocessingProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "This process consists of three filtering steps, each targeting different aspects of image quality: (1) frequency filtering to remove object-like images, (2) patch variance filtering to eliminate homogeneous images, and (3) CLIP score filtering to ensure alignment with the prompts."
+      },
+      "rai:dataAnnotationProtocol": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we recruited 9 participants to evaluate the images. Each participant was shown 100 images in random order and asked two questions for each image: (1) How would you rate the overall quality of the image? and (2) How well does the image represent the provided descriptor? Participants were asked to supply a rating on a scale of 1 to 5."
+      },
+      "rai:dataAnnotationPlatform": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataAnnotationAnalysis": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "In Table 2 we show the results of the human evaluation. Here, we take the mean quality and representative scores, provided by our human evaluators, across the images at different stages of the refinement process."
+      },
+      "rai:annotationsPerItem": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:annotatorDemographics": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:machineAnnotationTools": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "we use CLIP-based filtering to ensure that the remaining images are well-aligned with their descriptive prompts... Inception Scores [28] evaluate image quality and diversity by measuring the KL divergence between conditional and marginal class probabilities using a pre-trained Inception model."
+      },
+      "rai:dataReleaseMaintenancePlan": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:personalSensitiveInformation": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataSocialImpact": {
+        "confidence": 0.0,
+        "status": "NULL",
+        "source": "absent",
+        "evidence": null
+      },
+      "rai:dataBiases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "textures that more often appear in common objects, such as hairy and flaky, despite being more complex textures, tend to have better scores. Meanwhile, more simple, but more structured textures, such as grid and polka-dotted textures tend to have worse scores... texture descriptors like 'paisley' consistently triggered the filter, with nearly 100% of prompts containing 'paisley' producing at least one flagged image."
+      },
+      "rai:dataLimitations": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Since Stable Diffusion models are not explicitly designed to create textures, other kinds of images (e.g., objects) may arise during the generation process... This experience highlights the need for refined NSFW filters that can better handle abstract or texture-based content."
+      },
+      "rai:dataUseCases": {
+        "confidence": 0.95,
+        "status": "VERIFIED",
+        "source": "extraction",
+        "evidence": "Texture data, in particular, is essential for understanding the high-level features models learn and their implications... This multi-stage refinement process enables PTD to serve as a high-quality, representative dataset for texture-based research and applications."
+      }
+    },
+    "paper_stats": {
+      "fields_extracted": 18,
+      "fields_null": 12,
+      "fields_verified": 18,
+      "fields_uncertain": 0,
+      "evidence_count": 18,
+      "evidence_coverage": 100.0,
+      "avg_confidence": 0.95
+    },
+    "cost_usd": 0.1067,
+    "split": "test",
+    "corrections_applied": 3,
+    "enrichments": [],
+    "elapsed_seconds": 54.1,
+    "flags": {
+      "correction": true,
+      "enrichment": true,
+      "verification": true
+    },
+    "prompt_variant": "v4",
+    "evidence_verify_nullified": 3
+  }
+}
