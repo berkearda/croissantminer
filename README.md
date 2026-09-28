@@ -133,6 +133,8 @@ and the check that Table 2 and Tables 5 and 6 are reproduced exactly. GitHub Act
 | `tests/` | Tests and the published numbers they check against |
 | `hf_space/` | The Hugging Face Space demo |
 
+The scripts that read the named annotation sheets are not included, to protect the annotators'
+privacy; `data/annotations/gold.parquet` and `data/annotations/iaa.parquet` are their output.
 The repository also contains early experiments that are not part of the paper (`experiments/`, `finetuning/`,
 `validation/test_experiments.py`). Comments that cite `decisions.md` or task numbers (`T-###`) refer to our
 internal project log, which is not included.
