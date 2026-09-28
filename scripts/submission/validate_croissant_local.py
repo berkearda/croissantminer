@@ -99,8 +99,8 @@ def main() -> int:
     if not ctx.get("rai"):
         print("FAIL: @context missing 'rai' namespace declaration")
         return 1
-    if metadata.get("@type") != "Dataset":
-        print(f"FAIL: @type is {metadata.get('@type')!r}, expected 'Dataset'")
+    if metadata.get("@type") not in ("Dataset", "sc:Dataset"):
+        print(f"FAIL: @type is {metadata.get('@type')!r}, expected 'Dataset' or 'sc:Dataset'")
         return 1
     print("OK: top-level Croissant 1.1 structure looks correct")
 

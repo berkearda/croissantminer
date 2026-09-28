@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""T-072: merge annotator's 140-cell adjudication into gold.parquet.
+"""T-072: merge the 140-cell senior adjudication into gold.parquet.
 
 Reads the adjudication xlsx, updates the 140 tie_split rows in gold.parquet
 with adjudicated rating + value + adjudicator_id. Snapshots gold.parquet
@@ -16,8 +16,8 @@ from datetime import date
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 GOLD_PARQUET = ROOT / "data" / "annotations" / "gold.parquet"
-SNAPSHOT = ROOT / "data" / "annotations" / f"gold_pre_adjudication_{date.today().isoformat()}.parquet"
-ADJUD_XLSX = Path("~/Downloads/CroissantMiner_adjudication_140cells_2026-04-25_Mubashara (2).xlsx")
+SNAPSHOT = ROOT / "data" / "annotations" / f"gold_pre_adjudication_v2_{date.today().isoformat()}.parquet"
+ADJUD_XLSX = Path("~/Downloads/CroissantMiner_adjudication_140cells_2026-04-25_Mubashara (3).xlsx")
 ADJUDICATOR_ID = "A_Mubashara"
 
 
@@ -43,7 +43,7 @@ def main():
 
         # Decide gold_value:
         # rating 1 -> AI extraction was correct, use it
-        # rating 2/3 -> use the Final Value annotator wrote
+        # rating 2/3 -> use the Final Value the adjudicator wrote
         if rating == 1:
             gold_value = str(ai_value) if pd.notna(ai_value) else None
         else:
@@ -58,8 +58,9 @@ def main():
         if matches != 1:
             print(f"  WARN: {paper}/{field} matched {matches} rows; expected 1")
             continue
-        if gold.loc[mask, "gold_method"].iloc[0] != "tie_split":
-            print(f"  WARN: {paper}/{field} is not tie_split; skipping to avoid clobber")
+        existing_method = gold.loc[mask, "gold_method"].iloc[0]
+        if existing_method not in ("tie_split", "adjudicated"):
+            print(f"  WARN: {paper}/{field} is {existing_method!r}; skipping to avoid clobber")
             continue
 
         gold.loc[mask, "gold_method"] = "adjudicated"

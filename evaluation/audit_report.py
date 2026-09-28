@@ -47,6 +47,15 @@ OUT_HUMAN = JUDGE_DIR / "_human_ratings.parquet"
 
 RATERS = ("R1", "R2", "R3")
 
+# Raters who filled their `audit_sheet_*_done.xlsx` under the OLD
+# convention (1 = Not correct, 3 = Correct) before the 2026-04-28
+# evening rubric flip. Original gold uses 1 = Correct, 3 = Not correct.
+# All three raters used the OLD-convention sheet, so all three rating
+# columns are flipped on load via rating' = 4 - rating; the merged
+# `rating_<rater>` and `rating_consensus` columns end up in the gold
+# convention (1 = Correct, 3 = Not correct) regardless.
+LEGACY_CONVENTION_RATERS = {"R1", "R2", "R3"}
+
 logging.basicConfig(level=logging.INFO,
                    format="%(asctime)s [%(levelname)s] %(message)s",
                    datefmt="%H:%M:%S")
@@ -80,20 +89,50 @@ def load_human_ratings() -> pd.DataFrame:
         df = pd.read_excel(path, sheet_name="Audit", skiprows=2)
         if "rating" not in df.columns:
             raise SystemExit(f"{path}: no 'rating' column found")
+        if "row_id" not in df.columns:
+            raise SystemExit(f"{path}: no 'row_id' column found")
 
         # Coerce ratings to int 1/2/3; treat missing/garbage as NaN
         ratings = pd.to_numeric(df["rating"], errors="coerce")
         n_filled = ratings.between(1, 3).sum()
         n_missing = ratings.isna().sum()
         n_oor = ((ratings < 1) | (ratings > 3)).sum()
-        log.info("  %s: %d filled (1-3), %d missing, %d out-of-range",
-                rater, n_filled, n_missing, n_oor)
 
-        keys[f"rating_{rater}"] = ratings.where(ratings.between(1, 3))
+        # Flip raters whose sheet was filled under the OLD convention
+        # so all merged ratings use the gold convention (1 = Correct,
+        # 3 = Not correct). See LEGACY_CONVENTION_RATERS docstring.
+        if rater in LEGACY_CONVENTION_RATERS:
+            ratings = (4 - ratings).where(ratings.between(1, 3))
+            log.info("  %s: %d/%d filled (1-3), %d missing, %d out-of-range "
+                    "[FLIPPED to gold convention via 4 - rating]",
+                    rater, n_filled, len(df), n_missing, n_oor)
+        else:
+            log.info("  %s: %d/%d filled (1-3), %d missing, %d out-of-range",
+                    rater, n_filled, len(df), n_missing, n_oor)
+
+        # Merge by row_id (a sheet may cover only part of the 200 cells)
+        rater_df = pd.DataFrame({
+            "row_id": df["row_id"],
+            f"rating_{rater}": ratings.where(ratings.between(1, 3)),
+        })
+        keys = keys.merge(rater_df, on="row_id", how="left")
 
     n_complete = keys[[f"rating_{r}" for r in RATERS]].notna().all(axis=1).sum()
-    log.info("rows with all 3 raters complete: %d / %d", n_complete, len(keys))
+    n_r1 = keys["rating_R1"].notna().sum()
+    n_r2 = keys["rating_R2"].notna().sum()
+    n_r3 = keys["rating_R3"].notna().sum()
+    log.info("ratings present: R1=%d, R2=%d, R3=%d / %d",
+            n_r1, n_r2, n_r3, len(keys))
+    log.info("rows with all 3 raters: %d / %d", n_complete, len(keys))
 
+    # Deciding-vote consensus rule (replaces median):
+    #   - where the first two ratings disagree, the third rating decides
+    #   - elsewhere the first two ratings agree; use that rating
+    keys["rating_consensus"] = keys["rating_R3"].where(
+        keys["rating_R3"].notna(),
+        keys["rating_R1"],
+    )
+    # Keep the median column too as a sanity-check artifact.
     keys["rating_median"] = keys[[f"rating_{r}" for r in RATERS]].median(axis=1)
     keys.to_parquet(OUT_HUMAN, index=False)
     log.info("wrote merged human ratings to %s",
@@ -217,13 +256,13 @@ def compute_agreement(judge: pd.DataFrame, humans: pd.DataFrame,
         columns={"score": "judge_score"})
     merged = humans.merge(j, on=["paper_id", "field_id", "system_id"],
                           how="inner")
-    merged = merged.dropna(subset=["rating_median", "judge_score"])
+    merged = merged.dropna(subset=["rating_consensus", "judge_score"])
     if merged.empty:
         return {"judge": judge_slug, "n": 0,
                 "spearman": float("nan"), "pearson": float("nan"),
                 "cohen_kappa_q": float("nan"), "krippendorff_a": float("nan")}
 
-    h = merged["rating_median"].astype(float).values
+    h = merged["rating_consensus"].astype(float).values
     j_arr = merged["judge_score"].astype(float).values
 
     spearman = stats.spearmanr(h, j_arr).statistic

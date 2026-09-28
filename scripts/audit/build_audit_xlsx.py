@@ -81,12 +81,14 @@ def write_instructions(ws):
         ),
         ("", None),
         ("Rubric", "h2"),
-        ("1 = Not correct.  Candidate is wrong, hallucinated, contradicts the gold, "
-         "or invents content that is not in the gold.", "body"),
+        ("Important: the rubric uses the same direction as the original gold "
+         "annotation (1 = best, 3 = worst). Do not flip it.", "body"),
+        ("1 = Correct.  Candidate conveys the same content as the gold. "
+         "Stylistic and phrasing differences are fine.", "body"),
         ("2 = Partially correct.  Candidate captures part of the gold but misses "
          "important content, contains errors, or has the wrong scope.", "body"),
-        ("3 = Correct.  Candidate conveys the same content as the gold. "
-         "Stylistic and phrasing differences are fine.", "body"),
+        ("3 = Not correct.  Candidate is wrong, hallucinated, contradicts the gold, "
+         "or invents content that is not in the gold.", "body"),
         ("", None),
         ("Special case: gold says '[NULL - not found in paper]'", "h2"),
         (
@@ -95,16 +97,16 @@ def write_instructions(ws):
             "decided it is absent. For these cells:",
             "body",
         ),
-        ("• If the candidate is empty or also says 'not found' / null / 'unknown' → score 3 "
+        ("• If the candidate is empty or also says 'not found' / null / 'unknown' → score 1 "
          "(correctly identified absence).", "body"),
         ("• If the candidate produces real content (a paragraph, names, numbers, etc.) → "
-         "score 1 (hallucinated; the gold says the paper does not contain this).", "body"),
+         "score 3 (hallucinated; the gold says the paper does not contain this).", "body"),
         ("• If the candidate produces something hedged or partial (e.g. 'unspecified, "
          "but the dataset uses crowdworkers') → score 2.", "body"),
         ("", None),
         ("Special case: candidate is empty but gold has content", "h2"),
         ("If the candidate is empty / null / 'unknown' and the gold has real content, "
-         "score 1 (the model missed an answer that was present).", "body"),
+         "score 3 (the model missed an answer that was present).", "body"),
         ("", None),
         ("Notes column (optional)", "h2"),
         ("Use it for anything that surprised you, edge cases that did not fit the "
@@ -145,11 +147,12 @@ def write_instructions(ws):
 def write_audit(ws, df):
     # Quick reminder bar at the top
     reminder = ("Reminder: gold is the reference, do not open the papers. "
-                "Rubric: 1 = wrong/hallucinated, 2 = partially correct, "
-                "3 = correct. Special case: if gold says '[NULL - not found "
-                "in paper]', score 3 if candidate is also empty/null, score "
-                "1 if candidate hallucinates content. See the Instructions "
-                "tab for the full guide.")
+                "Rubric (same direction as original gold annotation): "
+                "1 = correct, 2 = partially correct, 3 = wrong/hallucinated. "
+                "Special case: if gold says '[NULL - not found in paper]', "
+                "score 1 if candidate is also empty/null (correct absence), "
+                "score 3 if candidate hallucinates content. See the "
+                "Instructions tab for the full guide.")
     ws.cell(row=1, column=1, value=reminder)
     ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(df.columns))
     c = ws.cell(row=1, column=1)

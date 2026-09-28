@@ -447,15 +447,40 @@ def score_field(predicted: Optional[str], groundtruth: Optional[str], field_name
 
     # Handle nulls
     gt_empty = groundtruth is None or not str(groundtruth).strip()
-    gt_unknown = (not gt_empty and str(groundtruth).strip().lower()
-                  in ("unknown", "n/a", "none", "null", "not disclosed", "na"))
+    # 2026-05-02: extend null detection to cover annotator-encoded forms.
+    # Audit found 731 of 3060 gold cells (24%) carry the literal string
+    # "[NULL - not found in paper]" or variants. Prior version only matched
+    # exact lowercase "null"/"n/a"/"none" → treated these encoded-nulls as
+    # real gold values, systematically deflating scores. Patched 2026-05-02.
+    gt_str_lower = str(groundtruth).strip().lower() if not gt_empty else ""
+    gt_unknown = (not gt_empty and (
+        gt_str_lower in ("unknown", "n/a", "none", "null", "not disclosed",
+                         "na", "not found", "not mentioned", "not specified",
+                         "not applicable", "not available")
+        or gt_str_lower.startswith("[null")
+        or gt_str_lower.startswith("[na]")
+        or gt_str_lower.startswith("[n/a")
+        or "not found in paper" in gt_str_lower
+        or "not mentioned in paper" in gt_str_lower
+        or "not specified in paper" in gt_str_lower
+    ))
     pred_empty = predicted is None or not str(predicted).strip()
 
     if gt_empty or gt_unknown:
+        # Symmetry with pred-null: if gold is null AND pred is null → correct-null
+        # (skip from scoring). If gold is null AND pred is non-null → hallucination
+        # (penalize with score 0). Prior version always skipped, which silently
+        # rewarded hallucinations on encoded-null cells.
+        if pred_empty:
+            return {
+                "field": field_name, "category": cat, "score": None,
+                "raw_score": None, "metric": "skipped", "skipped": True,
+                "reason": "No usable GT (correct-null)"
+            }
         return {
-            "field": field_name, "category": cat, "score": None,
-            "raw_score": None, "metric": "skipped", "skipped": True,
-            "reason": "No usable GT"
+            "field": field_name, "category": cat, "score": 0.0,
+            "raw_score": 0, "metric": "hallucination", "skipped": False,
+            "reason": "GT is null but extraction is not (hallucination)"
         }
 
     if pred_empty:

@@ -154,6 +154,12 @@ def main():
                         help="For MoE (Llama 4, Qwen3-Next): distribute experts instead of sharding")
     parser.add_argument("--enforce-eager", action="store_true",
                         help="Disable CUDA graph capture. Needed for Gemma 4 (vLLM issue #39914).")
+    parser.add_argument("--rope-scaling", type=str, default=None,
+                        help='JSON rope scaling override, e.g. '
+                             '\'{"rope_type":"yarn","factor":4.0,'
+                             '"original_max_position_embeddings":32768}\' '
+                             '(needed to serve 32K-native Qwen3 dense models '
+                             'at 131K)')
     parser.add_argument("--max-num-batched-tokens", type=int, default=None,
                         help="Prefill chunk size cap. Set to 4096 for Gemma 4 to avoid prefill hang.")
     args = parser.parse_args()
@@ -224,6 +230,8 @@ def main():
         llm_kwargs["enable_expert_parallel"] = True
     if args.max_num_batched_tokens is not None:
         llm_kwargs["max_num_batched_tokens"] = args.max_num_batched_tokens
+    if args.rope_scaling:
+        llm_kwargs["hf_overrides"] = {"rope_scaling": json.loads(args.rope_scaling)}
     llm = LLM(**llm_kwargs)
     tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     load_time = time.time() - t0
@@ -232,6 +240,24 @@ def main():
     is_qwen3 = "qwen3" in args.model.lower()
     if is_qwen3:
         print("Qwen3 family detected — disabling thinking mode for JSON extraction")
+
+    # Guard: drop papers whose rendered prompt exceeds the context window
+    # (prompt + generation budget). Prevents one oversized paper from
+    # crashing a whole batch; skipped papers are logged and reported.
+    max_input = args.max_model_len - args.max_tokens
+    kept, dropped = [], []
+    for pid, text in todo:
+        rendered = build_prompts([{"text": text}], tokenizer, is_qwen3)[0]
+        n_tok = len(tokenizer(rendered).input_ids)
+        if n_tok > max_input:
+            dropped.append((pid, n_tok))
+            print(f"SKIP {pid}: prompt {n_tok:,} tokens > limit {max_input:,}")
+        else:
+            kept.append((pid, text))
+    todo = kept
+    if dropped:
+        print(f"Context-window skips: {len(dropped)} paper(s): "
+              + ", ".join(f"{p} ({n:,}t)" for p, n in dropped))
 
     sampling_kwargs = dict(
         temperature=args.temperature,

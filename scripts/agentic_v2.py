@@ -164,6 +164,95 @@ PAPER TEXT:
 {paper_text}"""
 
 
+# ── Prompt variant v2: anti-null-bias with few-shot null examples ─
+# Phase 3 Fix A from the 2026-05-02 V2/LEV iteration plan.
+# Targets failure mode F1 (null-gold hallucination, ~70% of round-0 score=3 cells).
+USER_PROMPT_WITH_EVIDENCE_V2_PREFIX = '''CRITICAL — DEFAULT TO NULL WHEN UNCERTAIN.
+
+Many Croissant RAI fields are rarely documented in dataset papers. The
+following fields are MOST OFTEN null and you should default to null
+unless the paper has an explicit discussion you can quote:
+
+  - rai:dataImputationProtocol      (most papers have no missing data)
+  - rai:personalSensitiveInformation (only if paper explicitly lists collected attributes)
+  - rai:dataAnnotationPlatform      (only if a specific platform is named: MTurk, Label Studio, etc.)
+  - rai:dataReleaseMaintenancePlan  (only if paper discusses versioning or update cadence)
+  - rai:annotationsPerItem          (only if a specific count is stated)
+  - rai:annotatorDemographics       (only if demographics are explicitly described)
+  - rai:dataSocialImpact            (only if a discussion of social implications exists)
+  - rai:machineAnnotationTools      (only if specific software tools are named)
+  - rai:dataManipulationProtocol    (only if explicit post-preprocessing transforms are described)
+
+RULES:
+  1. DO NOT generate plausible-sounding content based on what a similar
+     paper might say. If THIS paper does not discuss it, return null.
+  2. DO NOT infer from related content. A paper discussing biases does
+     NOT automatically document rai:personalSensitiveInformation.
+  3. EVERY non-null extraction MUST have an evidence quote that is a
+     near-verbatim sentence from the paper. If you cannot quote a
+     sentence supporting your extraction, the value should be null.
+
+EXAMPLES:
+
+EXAMPLE A — paper does NOT discuss the field, so the answer is null:
+  Paper text: "We crowdsourced 10K questions and verified accuracy..."
+  Field: rai:dataAnnotationPlatform
+  CORRECT output: {"value": null, "evidence": null}
+  WRONG output: {"value": "Amazon Mechanical Turk", "evidence": "..."}
+    (wrong because paper says "crowdsourced" but never names MTurk)
+
+EXAMPLE B — paper DOES discuss the field, so extract with evidence:
+  Paper text: "Annotations were collected via Amazon Mechanical Turk with 3
+  workers per item. Each worker had >97%% HIT acceptance rate."
+  Field: rai:dataAnnotationPlatform
+  CORRECT output: {"value": "Amazon Mechanical Turk", "evidence":
+    "Annotations were collected via Amazon Mechanical Turk..."}
+
+EXAMPLE C — paper has no missing data, so dataImputationProtocol is null:
+  Paper text: "Our dataset contains 50K complete examples, no
+  preprocessing was needed beyond normalization."
+  Field: rai:dataImputationProtocol
+  CORRECT output: {"value": null, "evidence": null}
+  WRONG output: extracting "data was filled using mean imputation"
+    (would be hallucinated; paper says nothing about imputation)
+
+Now extract metadata from the paper below, applying these rules strictly.
+
+'''
+USER_PROMPT_WITH_EVIDENCE_V2 = USER_PROMPT_WITH_EVIDENCE_V2_PREFIX + USER_PROMPT_WITH_EVIDENCE
+
+
+# Prompt variant v5: v4 (Fix A + Fix C) + Fix D (multi-aspect emphasis).
+# Phase 3 iteration #4 of the V2/LEV plan, on top of accepted v4.
+USER_PROMPT_WITH_EVIDENCE_V5_PREFIX = '''ADDITIONAL GUIDANCE FOR MULTI-ASPECT FIELDS
+
+Several Croissant fields capture MULTIPLE aspects of a single concept.
+When the paper discusses multiple aspects, be EXHAUSTIVE and list them ALL,
+not just the primary or most prominent one.
+
+  - rai:dataLimitations: capture ALL discussed limitations
+    (temporal, geographic, quality, scope, generalization, exclusion of specific
+    cases, modality, etc.). If the paper mentions multiple types of
+    limitations, include ALL of them.
+  - rai:dataBiases: capture ALL discussed biases (selection, demographic,
+    contamination, source-medium, stylistic, evaluation, etc.).
+  - rai:dataUseCases: list ALL stated use cases (training, testing, validation,
+    fine-tuning, benchmarking, evaluation).
+  - rai:dataCollectionType: list ALL applicable types from the controlled
+    vocabulary. Many datasets combine 2 or 3 types (e.g., "Web Scraping" +
+    "Manual Human Curator"). Pick ALL that apply.
+
+Format: use " | " separator OR continuous text covering all aspects.
+Do not omit aspects to keep the answer brief.
+
+'''
+USER_PROMPT_WITH_EVIDENCE_V5 = (
+    USER_PROMPT_WITH_EVIDENCE_V2_PREFIX
+    + USER_PROMPT_WITH_EVIDENCE_V5_PREFIX
+    + USER_PROMPT_WITH_EVIDENCE
+)
+
+
 LICENSE_MAP = {
     "cc-by-4.0": "CC-BY-4.0", "cc by 4.0": "CC-BY-4.0",
     "cc-by-sa-4.0": "CC-BY-SA-4.0", "cc by-sa 4.0": "CC-BY-SA-4.0",
@@ -196,9 +285,17 @@ def load_triage(ds_id: str) -> dict:
 
 
 # ── Phase 2: extract + evidence ───────────────────────────────────
-def extract_phase2(cfg, paper_text, with_evidence=True):
+def extract_phase2(cfg, paper_text, with_evidence=True, prompt_variant="v1"):
     if with_evidence:
-        user_content = USER_PROMPT_WITH_EVIDENCE % paper_text
+        # v2 / v4 / v6 use the anti-null-bias prompt prefix.
+        # v5 adds multi-aspect enumeration on top of v2's prefix.
+        # v6 uses v4's prompt but stricter post-hoc verification (in process_paper).
+        if prompt_variant == "v5":
+            user_content = USER_PROMPT_WITH_EVIDENCE_V5 % paper_text
+        elif prompt_variant in ("v2", "v4", "v6"):
+            user_content = USER_PROMPT_WITH_EVIDENCE_V2 % paper_text
+        else:
+            user_content = USER_PROMPT_WITH_EVIDENCE % paper_text
         raw, usage = call_llm(cfg, SYSTEM_PROMPT, user_content, MAX_TOKENS_EXTRACT)
         parsed = parse_json_response(raw)
         extraction: dict = {}
@@ -423,6 +520,57 @@ def save_paper(out_dir: Path, ds_id: str, cfg, extraction, details, usage,
 
 
 # ── Sequential processing ─────────────────────────────────────────
+def verify_evidence_grounding(extraction: dict, evidence: dict, paper_text: str,
+                              min_match_len: int = 30) -> tuple[dict, dict, int]:
+    """Phase 3 Fix C: null RAI prose extractions whose evidence quote does
+    not appear in the paper text. Restricted to LONG_TEXT_RAI_FIELDS — the
+    fields where the failure-mode taxonomy showed hallucination dominates.
+
+    Match rule: lowercase + collapse whitespace; require at least one
+    min_match_len-char contiguous substring of the evidence quote to appear
+    in the normalized paper. This catches verbatim and near-verbatim
+    quotes; hallucinated quotes (which the model confabulates rather than
+    pulls from the paper) typically fail.
+
+    Tier 1 fields are not verified here — their gold values are short and
+    enforced by the Tier 1 canonicalizer at scoring time.
+    """
+    from evaluation.field_metrics import LONG_TEXT_RAI_FIELDS
+
+    if not paper_text:
+        return extraction, evidence, 0
+    norm_paper = re.sub(r"\s+", " ", paper_text.lower())
+    nullified = 0
+    for field in LONG_TEXT_RAI_FIELDS:
+        v = extraction.get(field)
+        if v is None or (isinstance(v, str) and not v.strip()):
+            continue  # already null
+        ev = evidence.get(field) if evidence else None
+        if not ev or not isinstance(ev, str):
+            # No evidence quote: cannot verify. Default behaviour is to
+            # null the extraction since this fix's purpose is "if you
+            # cannot ground it in the paper, do not keep it."
+            extraction[field] = None
+            if evidence:
+                evidence[field] = None
+            nullified += 1
+            continue
+        norm_ev = re.sub(r"\s+", " ", ev.lower()).strip()
+        if len(norm_ev) < min_match_len:
+            # Quote too short to require a substring match — keep as-is.
+            continue
+        matched = any(
+            norm_ev[i:i + min_match_len] in norm_paper
+            for i in range(len(norm_ev) - min_match_len + 1)
+        )
+        if not matched:
+            extraction[field] = None
+            if evidence:
+                evidence[field] = None
+            nullified += 1
+    return extraction, evidence, nullified
+
+
 def process_paper(cfg, ds_id: str, args, out_dir: Path) -> dict | None:
     t0 = time.time()
     paper_text = extract_paper_text(ds_id)
@@ -435,7 +583,9 @@ def process_paper(cfg, ds_id: str, args, out_dir: Path) -> dict | None:
     usage = {"input_tokens": 0, "output_tokens": 0}
 
     with_evidence = not args.no_verification
-    extraction, evidence, ext_usage = extract_phase2(cfg, paper_text, with_evidence)
+    prompt_variant = getattr(args, "prompt_variant", "v1")
+    extraction, evidence, ext_usage = extract_phase2(cfg, paper_text, with_evidence,
+                                                     prompt_variant=prompt_variant)
     usage["input_tokens"] += ext_usage["input_tokens"]
     usage["output_tokens"] += ext_usage["output_tokens"]
 
@@ -448,6 +598,19 @@ def process_paper(cfg, ds_id: str, args, out_dir: Path) -> dict | None:
     enrichments: dict = {}
     if not args.no_enrichment:
         extraction, enrichments = run_enrichment(ds_id, extraction)
+
+    # Phase 3 Fix C: evidence-grounding verification (variants v3, v4, v5, v6).
+    # v6 uses a stricter 50-char substring match (vs 30 in v3/v4/v5) to null
+    # more borderline cases more aggressively.
+    nullified_by_verify = 0
+    pv = getattr(args, "prompt_variant", "v1")
+    if pv in ("v3", "v4", "v5"):
+        extraction, evidence, nullified_by_verify = verify_evidence_grounding(
+            extraction, evidence, paper_text, min_match_len=30)
+    elif pv == "v6":
+        # Same prompt as v4 (A+C compound) but stricter post-hoc verification.
+        extraction, evidence, nullified_by_verify = verify_evidence_grounding(
+            extraction, evidence, paper_text, min_match_len=50)
 
     if args.no_verification:
         details = {
@@ -468,6 +631,8 @@ def process_paper(cfg, ds_id: str, args, out_dir: Path) -> dict | None:
             "enrichment": not args.no_enrichment,
             "verification": not args.no_verification,
         },
+        "prompt_variant": getattr(args, "prompt_variant", "v1"),
+        "evidence_verify_nullified": nullified_by_verify,
     }
     return save_paper(out_dir, ds_id, cfg, extraction, details, usage, "realtime", extra_meta)
 
@@ -753,10 +918,14 @@ def main():
     p.add_argument("--no-enrichment", action="store_true", help="Ablation: skip Phase 3")
     p.add_argument("--no-verification", action="store_true", help="Ablation: skip Phase 4")
     p.add_argument("--no-correction", action="store_true", help="Ablation: skip Phase 2.5")
+    p.add_argument("--prompt-variant", default="v1", choices=["v1", "v2", "v3", "v4", "v5", "v6"],
+                   help="v1=round-0; v2=Fix A; v3=Fix C; v4=A+C (accepted +0.052); v5=A+C+D; v6=A+C with stricter 50-char evidence verification.")
     args = p.parse_args()
 
     cfg = resolve_backbone(args.backbone)
     out_dir = output_dir_for("v2", args.backbone)
+    if args.prompt_variant != "v1":
+        out_dir = out_dir.parent / f"{out_dir.name}_{args.prompt_variant}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.paper:

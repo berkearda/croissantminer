@@ -32,8 +32,8 @@ import pandas as pd
 ANON = os.environ.get("CROISSANT_FINAL", "0") != "1"
 
 # Anonymous values used when ANON=True
-ANON_PROJECT_URL = "https://anonymous.4open.science/r/croissantminer-NEURIPS"
-ANON_REPO_URL = "https://anonymous.4open.science/r/croissantminer-NEURIPS"
+ANON_PROJECT_URL = "https://anonymous.4open.science/r/croissantminer-F87C"
+ANON_REPO_URL = "https://anonymous.4open.science/r/croissantminer-F87C"
 ANON_CREATOR = [{"@type": "sc:Person", "name": "Anonymous Author(s)", "affiliation": "Anonymous"}]
 ANON_PUBLISHER = {"@type": "sc:Organization", "name": "Anonymous"}
 ANON_CITE = "Anonymous Authors. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track (under review)."
@@ -83,6 +83,7 @@ CONTEXT = {
     "conformsTo": "dct:conformsTo",
     "cr": "http://mlcommons.org/croissant/",
     "rai": "http://mlcommons.org/croissant/RAI/",
+    "prov": "http://www.w3.org/ns/prov#",
     "data": {"@id": "cr:data", "@type": "@json"},
     "dataType": {"@id": "cr:dataType", "@type": "@vocab"},
     "dct": "http://purl.org/dc/terms/",
@@ -171,31 +172,74 @@ PARQUET_FILES = [
             "associate with their professional profiles."
         ),
     },
+    {
+        "filename": "silver.parquet",
+        "rid": "silver",
+        "description": (
+            "Silver split: 500 ML dataset papers with paper-level "
+            "metadata (arXiv ID, downloads, domain, license, tasks, "
+            "language, datePublished, dataCollectionType). LLM-derived "
+            "from arXiv metadata + Claude Sonnet 4.5 pre-fill at "
+            "temperature 0; not human-validated. Used for scale studies "
+            "and silver-vs-gold validation in the paper."
+        ),
+    },
 ]
 
 
+CONTENT_URL_BASE: str | None = None
+
+
 def build_distribution() -> list:
-    """Build cr:FileObject entries for each parquet file."""
+    """Build cr:FileObject entries for each parquet file.
+
+    Prefers `data/annotations/_release/<file>` (pseudonymized output of
+    scripts/submission/pseudonymize_for_release.py) when present, so the
+    published sha256 matches the public parquet bytes. Falls back to the
+    raw parquet otherwise.
+
+    `contentUrl` is the bare filename by default (relative resolution
+    against the JSON-LD file's directory works locally for mlcroissant).
+    Pass `--base-url https://huggingface.co/datasets/<handle>/<repo>/resolve/main`
+    to emit absolute URLs once the dataset is hosted, so the HF
+    Croissant validator's records-generation test passes.
+    """
     out = []
+    release_dir = ANNOT_DIR / "_release"
     for p in PARQUET_FILES:
-        path = ANNOT_DIR / p["filename"]
+        release_path = release_dir / p["filename"]
+        raw_path = ANNOT_DIR / p["filename"]
+        path = release_path if release_path.exists() else raw_path
         if not path.exists():
             continue
+        if CONTENT_URL_BASE:
+            content_url = f"{CONTENT_URL_BASE.rstrip('/')}/{p['filename']}"
+        else:
+            content_url = p["filename"]
         out.append({
             "@type": "cr:FileObject",
             "@id": f"{p['rid']}-parquet",
             "name": p["filename"],
             "description": p["description"],
-            "contentUrl": p["filename"],
+            "contentUrl": content_url,
             "encodingFormat": "application/x-parquet",
             "sha256": sha256(path),
         })
     return out
 
 
+def _resolve_parquet_path(filename: str) -> Path | None:
+    """Find a parquet by checking _release/ first, then ANNOT_DIR."""
+    release = ANNOT_DIR / "_release" / filename
+    if release.exists():
+        return release
+    raw = ANNOT_DIR / filename
+    return raw if raw.exists() else None
+
+
 def build_record_set(file_meta: dict) -> dict:
     """Build a cr:RecordSet describing one parquet's columns."""
-    path = ANNOT_DIR / file_meta["filename"]
+    path = _resolve_parquet_path(file_meta["filename"])
     df = pd.read_parquet(path)
     fields = []
     for col in df.columns:
@@ -366,6 +410,72 @@ RAI_FIELDS = {
 }
 
 
+# Structured RAI / PROV-O siblings to the prose fields above. Required by the
+# NeurIPS 2026 E&D RAI editor (huggingface.co/spaces/JoaquinVanschoren/
+# croissant-rai-checker), which checks the boolean / list forms.
+RAI_HAS_SYNTHETIC_DATA = False
+
+PROV_WAS_DERIVED_FROM = [
+    {
+        "@id": "https://huggingface.co/datasets",
+        "prov:label": "HuggingFace Datasets Hub (top-downloaded ML datasets)",
+        "sc:license": "Various (per-dataset)",
+        "prov:wasAttributedTo": {
+            "@id": "https://huggingface.co",
+            "prov:label": "Hugging Face",
+        },
+    },
+    {
+        "@id": "https://arxiv.org",
+        "prov:label": "arXiv",
+        "sc:license": "Per-paper (arXiv non-exclusive license to distribute)",
+        "prov:wasAttributedTo": {
+            "@id": "https://ror.org/05bnh6r87",
+            "prov:label": "arXiv (Cornell University)",
+        },
+    },
+]
+
+PROV_WAS_GENERATED_BY = [
+    {
+        "@type": "prov:Activity",
+        "prov:type": {"@id": "https://www.wikidata.org/wiki/Q4929239"},
+        "prov:label": "Source paper acquisition",
+        "sc:description": (
+            "Source-paper PDFs (102 gold + 500 silver) downloaded from arXiv "
+            "between November 2025 and January 2026, seeded by the "
+            "HuggingFace top-downloaded ML datasets list. PDFs parsed with "
+            "PyPDF2 3.0.1."
+        ),
+        "prov:atTime": "2025-11-01T00:00:00Z",
+    },
+    {
+        "@type": "prov:Activity",
+        "prov:type": {"@id": "https://www.wikidata.org/wiki/Q5227332"},
+        "prov:label": "LLM pre-fill extraction",
+        "sc:description": (
+            "Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) generated initial "
+            "metadata extractions at temperature 0 using a canonical prompt "
+            "(SHA-256 prefix 1e1cfdd99246bbf5). These pre-fills served as "
+            "the rating substrate for human annotators."
+        ),
+        "prov:atTime": "2026-02-15T00:00:00Z",
+    },
+    {
+        "@type": "prov:Activity",
+        "prov:type": {"@id": "https://www.wikidata.org/wiki/Q109719325"},
+        "prov:label": "Human rating + adjudication",
+        "sc:description": (
+            "22 annotators rated LLM-generated extractions across 7 phases "
+            "(March – April 2026). Gold derived by majority rule (>=3 raters) "
+            "with senior adjudication on disagreements. Final pipeline: "
+            "9,595 deduplicated ratings to 3,060 gold cells."
+        ),
+        "prov:atTime": "2026-03-01T00:00:00Z",
+    },
+]
+
+
 def build_dataset() -> dict:
     return {
         "@context": CONTEXT,
@@ -386,7 +496,7 @@ def build_dataset() -> dict:
             "ratings are subject to their respective providers' terms."
         ),
         "url": ANON_PROJECT_URL if ANON else FINAL_PROJECT_URL,
-        "version": "0.1.0",
+        "version": "1.0.0",
         "datePublished": date.today().isoformat(),
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "inLanguage": "en",
@@ -401,8 +511,11 @@ def build_dataset() -> dict:
         "citeAs": ANON_CITE if ANON else FINAL_CITE,
         "distribution": build_distribution(),
         "recordSet": [build_record_set(p) for p in PARQUET_FILES
-                      if (ANNOT_DIR / p["filename"]).exists()],
+                      if _resolve_parquet_path(p["filename"]) is not None],
         **RAI_FIELDS,
+        "rai:hasSyntheticData": RAI_HAS_SYNTHETIC_DATA,
+        "prov:wasDerivedFrom": PROV_WAS_DERIVED_FROM,
+        "prov:wasGeneratedBy": PROV_WAS_GENERATED_BY,
     }
 
 
@@ -410,10 +523,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--final", action="store_true",
                     help="Build the camera-ready (de-anonymised) version")
+    ap.add_argument("--base-url", default=None,
+                    help="Absolute URL prefix for distribution contentUrl "
+                         "(e.g., https://huggingface.co/datasets/foo/bar/"
+                         "resolve/main). Required for the HF Croissant "
+                         "Space's records-generation test to pass.")
     args = ap.parse_args()
     if args.final:
         global ANON
         ANON = False
+    if args.base_url:
+        global CONTENT_URL_BASE
+        CONTENT_URL_BASE = args.base_url
 
     dataset = build_dataset()
     with open(OUT_PATH, "w", encoding="utf-8") as f:

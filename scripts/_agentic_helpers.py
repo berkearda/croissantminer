@@ -257,8 +257,46 @@ def _call_openai(cfg, system_prompt, user_content, max_tokens, base_url=None, ap
     return raw, usage
 
 
+_OPENROUTER_MODEL_MAP = {
+    "gemini-3.1-pro-preview": "google/gemini-3.1-pro-preview",
+    "gemini-2.5-pro": "google/gemini-2.5-pro",
+}
+
+
+def _call_via_openrouter(cfg, system_prompt, user_content, max_tokens):
+    """OpenAI-compatible call against OpenRouter, used to bypass Google's
+    250-RPD AI-Studio cap on Gemini 3.1 Pro preview. Same model, different
+    routing pool. Pricier per token but no daily request cap."""
+    from openai import OpenAI
+
+    api_key = os.environ["OPENROUTER_API_KEY"]
+    model_id = _OPENROUTER_MODEL_MAP.get(cfg["model_id"], cfg["model_id"])
+    client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+    response = client.chat.completions.create(
+        model=model_id,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ],
+        temperature=0.0,
+        max_tokens=max_tokens,
+    )
+    raw = response.choices[0].message.content or ""
+    usage = {
+        "input_tokens": response.usage.prompt_tokens,
+        "output_tokens": response.usage.completion_tokens,
+    }
+    return raw, usage
+
+
 def _call_google(cfg, system_prompt, user_content, max_tokens):
     import requests
+
+    # 2026-05-28: route via OpenRouter when OPENROUTER_API_KEY is set, to
+    # bypass Google AI Studio's 250 RPD cap on gemini-3.1-pro. Same model,
+    # OpenAI-compatible endpoint; ~60% pricier per token than direct.
+    if os.getenv("OPENROUTER_API_KEY"):
+        return _call_via_openrouter(cfg, system_prompt, user_content, max_tokens)
 
     api_key = os.getenv("GEMINI_API_KEY")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{cfg['model_id']}:generateContent"

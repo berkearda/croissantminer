@@ -53,7 +53,6 @@ STRATEGY_DIRS = {
     "agentic_v2_sonnet_4_5":      EXTRACTION_BASE / "agentic_v2_sonnet_4_5",
     "agentic_lev_sonnet_4_5":     EXTRACTION_BASE / "agentic_lev_sonnet_4_5",
     "agentic_react_sonnet_4_5":   EXTRACTION_BASE / "agentic_react_sonnet_4_5",
-    "agentic_react_sonnet_4_6":   EXTRACTION_BASE / "agentic_react_sonnet_4_6",
     "agentic_specialist_sonnet_4_5": EXTRACTION_BASE / "agentic_specialist_sonnet_4_5",
     # 6 appendix (backbone-isolation block)
     "agentic_v2_gpt5_4_full":     EXTRACTION_BASE / "agentic_v2_gpt5_4_full",
@@ -68,6 +67,63 @@ STRATEGY_DIRS = {
     "agentic_lev_gemini_3_1_pro_gpt5_4_mini":  EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini",
     "agentic_lev_gemini_3_1_pro_sonnet_4_6":   EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_sonnet_4_6",
     "agentic_lev_gemini_3_1_pro_gpt5_4_full":  EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_full",
+    # Phase 3 iteration: Fix A (anti-null-bias prompt with few-shot examples).
+    "agentic_v2_gpt5_4_full_v2":               EXTRACTION_BASE / "agentic_v2_gpt5_4_full_v2",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v2": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v2",
+    # Phase 3 iteration #2: V2 = Fix C (post-hoc evidence verification);
+    #                       LEV = Fix B (skip extract on locator presence='unlikely').
+    "agentic_v2_gpt5_4_full_v3":               EXTRACTION_BASE / "agentic_v2_gpt5_4_full_v3",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v3": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v3",
+    # Phase 3 iteration #3: Lever 1 + Lever 2 (stronger locator + stronger extractor) on top of Fix B.
+    "agentic_lev_sonnet_4_6_sonnet_4_6_v3":      EXTRACTION_BASE / "agentic_lev_sonnet_4_6_sonnet_4_6_v3",
+    # Phase 3 iteration #4: compound prompt fixes on locked backbones.
+    # V2 v4 = Fix A (anti-null prompt) + Fix C (evidence verification).
+    # LEV v4 = Fix A (anti-null prompt) + Fix B (skip on locator presence=unlikely).
+    "agentic_v2_gpt5_4_full_v4":                 EXTRACTION_BASE / "agentic_v2_gpt5_4_full_v4",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v4": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v4",
+    # Phase 3 iteration #4: v5 = compound + multi-aspect enumeration (Fix D).
+    "agentic_v2_gpt5_4_full_v5":                 EXTRACTION_BASE / "agentic_v2_gpt5_4_full_v5",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v5": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v5",
+    # iter #5: V2 v6 = stricter 50-char evidence verification; LEV v6 = Fix B + tighter section.
+    "agentic_v2_gpt5_4_full_v6":                 EXTRACTION_BASE / "agentic_v2_gpt5_4_full_v6",
+    "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v6": EXTRACTION_BASE / "agentic_lev_gemini_3_1_pro_gpt5_4_mini_v6",
+    # Stage 2: frozen V2 v4 prompt across cross-backbone variants on test 88.
+    "agentic_v2_sonnet_4_6_v4":                  EXTRACTION_BASE / "agentic_v2_sonnet_4_6_v4",
+    "agentic_v2_gemini_3_1_pro_v4":              EXTRACTION_BASE / "agentic_v2_gemini_3_1_pro_v4",
+    # 2026-05-02 morning audit follow-up: LEV v7 = Fix B + 9 implementation fixes
+    # (exact-match locator, dedup, paper order, section metadata, retry on JSON
+    # fail, 8K tokens, verify+correct phase, no core-group hack).
+    "agentic_lev_sonnet_4_6_sonnet_4_6_v7":      EXTRACTION_BASE / "agentic_lev_sonnet_4_6_sonnet_4_6_v7",
+    # 2026-05-02 (AM2): Paul's Multi-Agent Specialist refactored from
+    # feat/multi-agents-paul (commit 2efb550) + 9 implementation fixes.
+    # Variants: v1 = Paul's untouched prompts; v2-v5 = wrappers (Fix A/C/D).
+    # Configs: econ (all GPT-mini), mixed (mini+Sonnet 4.6), premium (all Sonnet 4.6).
+    "agentic_specialist_econ":           EXTRACTION_BASE / "agentic_specialist_econ",
+    "agentic_specialist_mixed":          EXTRACTION_BASE / "agentic_specialist_mixed",
+    "agentic_specialist_premium":        EXTRACTION_BASE / "agentic_specialist_premium",
+    "agentic_specialist_mixed_v2":       EXTRACTION_BASE / "agentic_specialist_mixed_v2",
+    "agentic_specialist_mixed_v3":       EXTRACTION_BASE / "agentic_specialist_mixed_v3",
+    "agentic_specialist_mixed_v4":       EXTRACTION_BASE / "agentic_specialist_mixed_v4",
+    "agentic_specialist_mixed_v5":       EXTRACTION_BASE / "agentic_specialist_mixed_v5",
+    "agentic_specialist_premium_v2":     EXTRACTION_BASE / "agentic_specialist_premium_v2",
+    "agentic_specialist_premium_v4":     EXTRACTION_BASE / "agentic_specialist_premium_v4",
+    # 2026-05-02 (PM): Ahmetcan's pushed iter-5 ReAct predictions from origin/react_agent
+    # commit 1c19246. Different from our locally-run v1/v3 — newer prompts (evidence_quote + LLM audit), more turns/tools.
+    "agentic_react_ahmetcan_iter5":      EXTRACTION_BASE / "agentic_react_ahmetcan_iter5",
+    # 2026-05-02 (AM2 cont'd): Ahmetcan's ReAct from origin/react_agent
+    # (commit 7c3032f). Flag-driven backbone routing; output_dir uses
+    # backbone slug + variant suffix.
+    "agentic_react_sonnet_4_6":          EXTRACTION_BASE / "agentic_react_sonnet_4_6",
+    "agentic_react_sonnet_4_6_v2":       EXTRACTION_BASE / "agentic_react_sonnet_4_6_v2",
+    "agentic_react_sonnet_4_6_v3":       EXTRACTION_BASE / "agentic_react_sonnet_4_6_v3",
+    "agentic_react_sonnet_4_6_v4":       EXTRACTION_BASE / "agentic_react_sonnet_4_6_v4",
+    "agentic_react_sonnet_4_6_v5":       EXTRACTION_BASE / "agentic_react_sonnet_4_6_v5",
+    # ReAct multi-backbone runs (2026-05-22) — matches V2 multi-backbone block above
+    "agentic_react_gpt_5_4_v3":          EXTRACTION_BASE / "agentic_react_gpt_5_4_v3",
+    "agentic_react_gemini_3_1_pro_v3":   EXTRACTION_BASE / "agentic_react_gemini_3_1_pro_v3",
+    # Parallel Specialists multi-backbone runs (2026-05-22)
+    "agentic_specialist_gpt5_4_full_v4":     EXTRACTION_BASE / "agentic_specialist_gpt5_4_full_v4",
+    "agentic_specialist_gemini_3_1_pro_v4":  EXTRACTION_BASE / "agentic_specialist_gemini_3_1_pro_v4",
 }
 
 # gold_method values that count as "settled" gold by default.
@@ -75,6 +131,7 @@ DEFAULT_GOLD_METHODS = (
     "unanimous_3of3", "unanimous_4of4",
     "majority_2of3", "majority_3of4",
     "adjudicated", "tie_resolved_via_correction",
+    "adjudicated_berke", "audit_corrected_2026-05-04",
 )
 
 BOOTSTRAP_N = 2000
@@ -91,15 +148,19 @@ log = logging.getLogger("score_against_gold")
 # ── data loading ───────────────────────────────────────────────────
 
 
-def load_gold(gold_methods: tuple[str, ...]) -> pd.DataFrame:
+def load_gold(gold_methods: tuple[str, ...],
+              paper_ids: set[str] | None = None) -> pd.DataFrame:
     g = pd.read_parquet(GOLD_PARQUET)
     g = g[g["gold_method"].isin(gold_methods)].copy()
     g = g[g["gold_value"].notna()].copy()
+    if paper_ids is not None:
+        g = g[g["paper_id"].isin(paper_ids)].copy()
     log.info(
         "loaded gold: %d cells across %d papers x %d fields "
-        "(filter: %s)",
+        "(filter: %s%s)",
         len(g), g["paper_id"].nunique(), g["field_id"].nunique(),
         ",".join(gold_methods),
+        f"; papers∈{len(paper_ids)} subset" if paper_ids is not None else "",
     )
     return g
 
@@ -310,6 +371,12 @@ def main():
                        "judge ensemble lands.")
     p.add_argument("--list-strategies", action="store_true")
     p.add_argument("--output-dir", default=str(RESULTS_DIR))
+    p.add_argument("--split", choices=["dev", "test", "all"], default="all",
+                  help="restrict scoring to dev (14), test (88), or all (102) papers "
+                       "from data/agentic/dev_test_split.json. Default: all (legacy).")
+    p.add_argument("--paper-list",
+                  help="optional path to a newline-separated file of paper_ids "
+                       "to score; overrides --split if given.")
     args = p.parse_args()
 
     if args.list_strategies:
@@ -327,7 +394,16 @@ def main():
             raise SystemExit(f"unknown strategies: {unknown}")
 
     gold_methods = tuple(m.strip() for m in args.gold_methods.split(","))
-    gold = load_gold(gold_methods)
+
+    paper_ids: set[str] | None = None
+    if args.paper_list:
+        paper_ids = {ln.strip() for ln in Path(args.paper_list).read_text().splitlines() if ln.strip()}
+    elif args.split != "all":
+        split_path = ROOT / "data" / "agentic" / "dev_test_split.json"
+        split = json.loads(split_path.read_text())
+        paper_ids = set(split[args.split])
+
+    gold = load_gold(gold_methods, paper_ids=paper_ids)
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
