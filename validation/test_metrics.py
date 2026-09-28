@@ -150,11 +150,17 @@ class TestScoreField:
         assert result["skipped"] is True
         assert result["score"] is None
 
-    def test_gt_unknown_skipped(self):
-        """GT values like 'Unknown', 'N/A' → skip."""
-        for unknown_val in ["Unknown", "N/A", "null", "Not disclosed"]:
-            result = score_field("MIT", unknown_val, "sc:license")
+    def test_gt_unknown_treated_as_null(self):
+        """GT values like 'Unknown', 'N/A' count as null gold: an empty
+        prediction is skipped, a filled one scores 0 (hallucination)."""
+        for unknown_val in ["Unknown", "N/A", "null", "Not disclosed",
+                            "[NULL - not found in paper]"]:
+            result = score_field(None, unknown_val, "sc:license")
             assert result["skipped"] is True, f"Should skip GT='{unknown_val}'"
+            result = score_field("MIT", unknown_val, "sc:license")
+            assert result["skipped"] is False, f"Should score GT='{unknown_val}'"
+            assert result["score"] == 0.0
+            assert result["metric"] == "hallucination"
 
     def test_pred_null_gt_has_value(self):
         """Prediction is null but GT has value → score 0 (miss)."""
@@ -236,9 +242,11 @@ class TestNullClassification:
         # Both null → correct null, but we skip (no GT to evaluate)
 
     def test_hallucination_on_null_gt(self):
-        """Pred has value but GT is null → skip (can't evaluate without GT)."""
+        """Pred has value but GT is null → score 0 (hallucination)."""
         result = score_field("MIT", None, "sc:license")
-        assert result["skipped"] is True
+        assert result["skipped"] is False
+        assert result["score"] == 0.0
+        assert result["metric"] == "hallucination"
 
     def test_miss(self):
         """GT has value but pred is null → score 0."""
