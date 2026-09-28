@@ -1,167 +1,58 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
 *.egg-info/
-dist/
 build/
-*.egg
-.Python
-
-# Environment
-.env
-.env.local
+dist/
 .venv/
 venv/
-env/
+.pytest_cache/
 
-# IDE
+# Environment, editors, OS
+.env
+.env.*
+!.env.example
 .vscode/
 .idea/
+.claude/
 *.swp
-*.swo
-
-# macOS
 .DS_Store
-.AppleDouble
-.LSOverride
 
 # Logs
 *.log
 
-# Data — large files hosted separately (HuggingFace / Zenodo)
-data/raw/*.pdf
+# Benchmark PDFs and their extracted text (not redistributed; see scripts/download_papers.py)
+data/raw/
 data/*.pdf
-data/processed/*/processed_sections.json
-data/processed/*/section_metadata_results.json
-data/finetuning/
-data/annotations/phase2/*.xlsx
-data/annotations/phase2/sheets/
-data/annotations/pilot/*.xlsx
-data/annotator_registry.json
-
-# Silver dataset (5.9GB PDFs + text)
+data/processed/
 silver/papers_pdf/
 silver/papers_text/
-silver/data/*.json
 
-# Extraction outputs (reproduced via scripts)
-data/extractions/
-silver/extractions/
-evaluation_outputs/
-evaluation_outputs_v2/
-evaluation_outputs_ablations/
-
-# Agentic pipeline intermediate outputs (large, reproduced via scripts)
-data/agentic/phase1/
-data/agentic/phase1_claude/
+# Section index built by scripts/agentic_phase0.py (contains the papers' text)
+data/agentic/phase0/
+# Intermediate outputs of the agentic pipelines
 data/agentic/phase2/
 data/agentic/phase3/
 data/agentic/phase4/
 data/agentic/combined/
 data/agentic/final/
-
-# Experiment temp dirs
-experiments/evaluation_outputs_*/
-
-# Model comparison outputs
-model_comparison/*.json
-
-# API caches and logs
-results/*cache*.json
-results/api_cost_log.json
-
-# Claude Code
-.claude/
-# Governance (kept local, not tracked)
-CLAUDE.md
-AGENTS.md
-design_system.md
-decisions.md
-tasks.md
-
-# Old generic annotation files
-data/annotations/Annotator_*
-data/annotations/forms_scripts/
-data/annotations/master_all_extractions.csv
-data/annotations/annotator_assignments.md
-
-# Review sheets with potential PII
-data/groundtruth_30field/*.xlsx
-groundtruth/*.pdf
-
-# Copyrighted papers (download via scripts/download_papers.py)
-data/*.pdf
-
-# Personal planning/status docs (not for shared repo)
-docs/PLAN_*.md
-docs/CroissantMiner_Status_*.pdf
-docs/CroissantMiner_Submission_Plan.docx
-docs/archived_prompts/
-# same files after the 2026-09-25 reorganization (docs/MOVED_FILES.tsv)
-docs/archive/*/PLAN_*.md
-docs/archive/*/CroissantMiner_Status_*
-docs/archive/*/CroissantMiner_Submission_Plan.docx
-docs/archive/*/archived_prompts/
-
-# Private documents
-docs/correspondence/
-
-# Annotation files with personal data (the released audit sheets are tracked explicitly)
-data/audit/*.xlsx
-data/annotations/audit_sheet_*
-data/rebuttal_pilot/sheets/
-data/rebuttal_pilot/returns/
-data/rebuttal_pilot/*.xlsx
-data/rebuttal_pilot/*.zip
-data/rebuttal_pilot_selection_*.csv
-
-# Intermediate extraction artifacts
-data/processed/*/ambiguous_fields.json
-data/processed/*/processed_paper.json
-data/processed/*/unified_metadata.json
-data/processed/mscoco_test_comparison.json
-
-# Extraction output dirs (regenerated on each run)
 data/agentic/v2/
 data/agentic/lev/
-data/agentic/phase0/
-data/agentic/phase1/
-data/agentic/phase2/
-data/agentic/phase3/
-data/agentic/phase4/
-data/agentic/final/
-data/agentic/combined/
-data/fewshot_examples/
-data/reference_figures/
 
-# Local analysis outputs and private files
-results/
-data/annotations/private/
-data/annotations/_release/
+# Silver extraction outputs (released with the dataset on Hugging Face)
+silver/extractions/
+silver/data/*.json
 
-# Private files that stay out of the public repo
-SOURCE_OF_TRUTH/
-docs/camera_ready/
-docs/submission_ready/
-docs/MOVED_FILES.tsv
-docs/PROJECT_JOURNAL.md
-docs/TASK_*
-.env*
-!.env.example
-.agents/
-AGENTS.md
-data/audit/
+# Script outputs (the folder is kept through results/.gitkeep)
+/results/*
+!/results/.gitkeep
+
+# Annotation files with personal data
 data/annotations/ratings.parquet
 data/annotations/annotators.parquet
 data/annotations/calibration.parquet
-data/annotations/_audit.json
+data/annotations/private/
 data/annotations/phase2/
 data/annotations/pilot/
-data/groundtruth/
-data/groundtruth_30field/
-groundtruth/
-data/processed/
-scripts/euler/command.txt
-scripts/euler/EULER_COMMANDS.txt
-scripts/sot/
+data/rebuttal_pilot/
+data/audit/

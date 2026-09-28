@@ -448,6 +448,11 @@ def main():
         p.parent.name for p in PROCESSED.glob("*/full_pdf_metadata_result.json")
         if p.parent.name not in DUPES
     )
+    if not all_ds:
+        # Public release: data/processed/ is not shipped, so take the benchmark papers from the
+        # dev/test split; their text is read from the PDFs in data/raw/ (scripts/download_papers.py).
+        split = json.loads((ROOT / "data" / "agentic" / "dev_test_split.json").read_text())
+        all_ds = sorted(set(split["dev"]) | set(split["test"]))
     print(f"Papers to process: {len(all_ds)}")
 
     # ── Test on 3 ──

@@ -1198,6 +1198,12 @@ def main():
         locator_cfg = None
         out_dir = output_dir_for("lev", args.backbone)
         backbone_label = f"backbone={args.backbone} ({cfg['name']})  locator=precomputed_phase1_triage"
+    if not any(PHASE0_DIR.glob("*.json")):
+        raise SystemExit("Locator-Extractor needs the section index in data/agentic/phase0/, which is not "
+                         "redistributed (it contains the papers' text). Build it with "
+                         "python scripts/agentic_phase0.py after downloading the PDFs.")
+    if locator_cfg is None and not any(PHASE1_DIR.glob("*.json")):
+        raise SystemExit("The --backbone path reads the stored triage in data/agentic/phase1/, which is missing.")
     if args.prompt_variant != "v1":
         out_dir = out_dir.parent / f"{out_dir.name}_{args.prompt_variant}"
     out_dir.mkdir(parents=True, exist_ok=True)

@@ -922,6 +922,9 @@ def main():
                    help="v1=round-0; v2=Fix A; v3=Fix C; v4=A+C (accepted +0.052); v5=A+C+D; v6=A+C with stricter 50-char evidence verification.")
     args = p.parse_args()
 
+    if not any(PHASE1_DIR.glob("*.json")):
+        raise SystemExit("Triage + Critique reads the stored Gemini 2.5 Flash triage in data/agentic/phase1/, "
+                         "which is missing (it ships with the repository; rebuild it with scripts/agentic_phase1.py).")
     cfg = resolve_backbone(args.backbone)
     out_dir = output_dir_for("v2", args.backbone)
     if args.prompt_variant != "v1":

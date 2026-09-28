@@ -49,7 +49,7 @@ def main():
                    help="Agent backbone (default: sonnet-4-6, non-seed Anthropic).")
     p.add_argument("--prompt-variant", default="v1",
                    choices=["v1", "v2", "v3", "v4", "v5"],
-                   help="v1=baseline; v2=+anti-null prefix (Fix A); v3=+verify-correct (Fix C); v4=v2+v3 compound; v5=+multi-aspect.")
+                   help="v1=baseline; v2=+anti-null prefix (Fix A); v3=same prompt as v1 (the verify-correct turn is defined in agent.py but not used); v4=v2+v3 compound; v5=+multi-aspect.")
     args = p.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
