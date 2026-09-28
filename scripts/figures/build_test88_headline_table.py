@@ -49,7 +49,7 @@ for _sid in ('agentic_lev_gemini_3_1_pro', 'agentic_lev_gemini_3_1_pro_gpt5_4_mi
     STRATEGY_DIRS[_sid + '_rerun2609'] = STRATEGY_DIRS[_sid].parent / (_sid + '_rerun2609')
 if _RERUN_JUDGE.exists():
     judges = pd.concat([judges, pd.read_parquet(_RERUN_JUDGE)[judges.columns]], ignore_index=True)
-# RAI cells the scorer needs but that had no verdict (five cells never judged for six
+# RAI cells the scorer needs but that had no verdict (DEVIATIONS D3 cells never judged for six
 # agentic systems), judged on 2026-09-26 with the same judge by scripts/camera_ready/judge_gapfill.py.
 _GAPFILL_JUDGE = ROOT / 'data/judged/judge_scores_v2min_glm5_gapfill_2026-09.parquet'
 if _GAPFILL_JUDGE.exists():
