@@ -53,7 +53,7 @@ systems are marked with \*. Claude Sonnet 4.5 itself is shown for reference and 
 
 ## Installation
 
-Python 3.10 or newer.
+Python 3.10 or 3.11.
 
 ```bash
 git clone https://github.com/berkearda/croissantminer
@@ -117,7 +117,7 @@ rule on a small example.
 ## Tests
 
 ```bash
-pytest
+make test
 ```
 
 About 100 tests, about 10 seconds, no API keys. They cover the scoring rules, the handling of model output,
@@ -127,16 +127,18 @@ and the check that Table 2 and Tables 5 and 6 are reproduced exactly. GitHub Act
 
 | Path | Contents |
 |---|---|
-| `croissantminer/` | Package: extraction prompt and configuration, PDF reading, ReAct agent, CLI |
-| `scripts/` | The other systems, judge, figures and tables (`figures/`, `camera_ready/`), open-weight runs on a Slurm cluster (`euler/`) |
+| `croissantminer/` | Package: extraction prompt and configuration, model clients, PDF reading, ReAct agent |
+| `scripts/` | The other systems, the judge, tables and figures (guide in `scripts/README.md`) |
 | `evaluation/` | Field metrics and system registry used by the scorer |
+| `data/` | Gold annotations, judge verdicts and system outputs |
+| `silver/` | Selection and extraction of the 500 silver papers |
 | `tests/` | Tests and the published numbers they check against |
 | `hf_space/` | The Hugging Face Space demo |
+| `legacy/` | Early prototype and experiments from before the paper, kept for reference and not maintained |
 
 The scripts that read the named annotation sheets are not included, to protect the annotators'
 privacy; `data/annotations/gold.parquet` and `data/annotations/iaa.parquet` are their output.
-The repository also contains early experiments that are not part of the paper (`experiments/`, `finetuning/`,
-`validation/test_experiments.py`). Comments that cite `decisions.md` or task numbers (`T-###`) refer to our
+Comments that cite `decisions.md` or task numbers (`T-###`) refer to our
 internal project log, which is not included.
 
 ## Citation

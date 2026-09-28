@@ -30,7 +30,7 @@ OUTPUT_DIR = SILVER / "extractions"
 BATCH_ID_FILE = SILVER / "data" / "batch_id.txt"
 
 sys.path.insert(0, str(ROOT))
-from models.claude_model import ClaudeModel
+from croissantminer.models.claude_model import ClaudeModel
 
 MODEL = "claude-sonnet-4-5-20250929"
 MAX_TOKENS = 4096
