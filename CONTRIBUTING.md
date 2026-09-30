@@ -33,4 +33,4 @@ pip install -r requirements.txt      # the paper's pinned environment, for the e
 - **New systems:** write one JSON file per paper with the 30 fields to `data/extractions/<name>/`, register
   it in `evaluation/score_against_gold.py` (`STRATEGY_DIRS`), and judge its RAI fields with the GLM-5 prompt and
   call code in `scripts/judge_rerun_test88.py`, writing the verdicts to a new file
-  (`scripts/camera_ready/judge_gapfill.py` is a worked example). See "How scoring works" in the README.
+  (`scripts/camera_ready/judge_gapfill.py` is a worked example). The scoring rules are in [docs/reproducing.md](docs/reproducing.md#how-scoring-works).
