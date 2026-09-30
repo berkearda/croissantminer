@@ -43,7 +43,7 @@ FINAL_PROJECT_URL = "https://github.com/berkearda/croissantminer"
 FINAL_REPO_URL = "https://github.com/berkearda/croissantminer"
 FINAL_CREATOR = [{"@type": "sc:Person", "name": "Berke Arda", "affiliation": "ETH Zurich"}]
 FINAL_PUBLISHER = {"@type": "sc:Organization", "name": "ETH Zurich"}
-FINAL_CITE = "Arda, B., Akhtar, M., et al. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track."
+FINAL_CITE = "Arda, B., Yavuz, A., et al. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track."
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ANNOT_DIR = REPO_ROOT / "data" / "annotations"

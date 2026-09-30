@@ -169,9 +169,9 @@ internal project log, which is not included.
 ```bibtex
 @inproceedings{arda2026croissantminer,
   title     = {CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets},
-  author    = {Arda, Berke and Akhtar, Mubashara and Yavuz, Ahmetcan and Gerry, Paul and
-               Lobentanzer, Sebastian and Sarwar, Nobin and Giner-Miguelez, Joan and
-               Chen, Kongtao and Zhang, Luyao and Sachan, Mrinmaya},
+  author    = {Arda, Berke and Yavuz, Ahmetcan and Gerry, Paul and Lobentanzer, Sebastian and
+               Sarwar, Nobin and Giner-Miguelez, Joan and Chen, Kongtao and Zhang, Luyao and
+               Sachan, Mrinmaya and Akhtar, Mubashara},
   booktitle = {Advances in Neural Information Processing Systems (Evaluations and Datasets Track)},
   year      = {2026}
 }
