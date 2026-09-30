@@ -512,4 +512,5 @@ with gr.Blocks(title="CroissantMiner") as demo:
                       outputs=[pdf_input, paper_input, hf_id_input, input_tabs])
 
 if __name__ == "__main__":
-    demo.launch(theme=THEME, css=CUSTOM_CSS, ssr_mode=False)
+    demo.launch(theme=THEME, css=CUSTOM_CSS, ssr_mode=False,
+                favicon_path=str(Path(__file__).resolve().parent / "favicon.svg"))
