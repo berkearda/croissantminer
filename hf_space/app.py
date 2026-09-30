@@ -8,6 +8,7 @@ import json
 import re
 import sys
 import tempfile
+from datetime import datetime
 from pathlib import Path
 
 import gradio as gr
@@ -184,6 +185,34 @@ def _creator_jsonld(creator):
     return {"@type": kind, "name": text}
 
 
+def _publisher_jsonld(publisher):
+    """schema.org publisher as Organization objects: the models return names."""
+    if isinstance(publisher, list):
+        return [_publisher_jsonld(p) for p in publisher]
+    if isinstance(publisher, dict):
+        return {"@type": "Organization", **publisher}
+    return {"@type": "Organization", "name": str(publisher).strip()}
+
+
+_DATE_FORMATS = ("%B %Y", "%b %Y", "%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y")
+
+
+def _iso_date(value) -> str | None:
+    """schema.org Date (YYYY, YYYY-MM or YYYY-MM-DD). The models also return a
+    bare number or text such as "November 2021"; without a year, None."""
+    text = str(int(value)) if isinstance(value, (int, float)) else str(value).strip()
+    if re.fullmatch(r"\d{4}(-\d{2}){0,2}", text):
+        return text
+    for fmt in _DATE_FORMATS:
+        try:
+            date = datetime.strptime(text, fmt)
+        except ValueError:
+            continue
+        return date.strftime("%Y-%m-%d" if "%d" in fmt else "%Y-%m")
+    year = re.search(r"\b(19|20)\d{2}\b", text)
+    return year.group(0) if year else None
+
+
 def _build_croissant(metadata: dict, hf_dataset_id: str = "") -> dict:
     """Convert extracted metadata into Croissant JSON-LD. Only extracted values
     are emitted: nothing is filled with placeholders."""
@@ -204,6 +233,15 @@ def _build_croissant(metadata: dict, hf_dataset_id: str = "") -> dict:
                 "inLanguage"):
         if _is_valid(metadata.get(key)):
             croissant[key] = metadata[key]
+    # mlcroissant rejects a plain-text publisher and dates such as 2021 (a number)
+    if "publisher" in croissant:
+        croissant["publisher"] = _publisher_jsonld(croissant["publisher"])
+    if "datePublished" in croissant:
+        date = _iso_date(croissant["datePublished"])
+        if date:
+            croissant["datePublished"] = date
+        else:
+            del croissant["datePublished"]
     if _is_valid(metadata.get("citeAs")):
         croissant["cr:citeAs"] = metadata["citeAs"]
     if _is_valid(metadata.get("creator")):
