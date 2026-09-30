@@ -47,8 +47,9 @@ def _print_check(passed, messages) -> None:
     if passed is None:
         print(f"Check:  not run ({messages[0]})")
     elif passed:
+        n = len(messages)
         print("Check:  passes the mlcroissant validator"
-              + (f" ({len(messages)} recommended properties missing)" if messages else ""))
+              + (f" ({n} recommended {'property' if n == 1 else 'properties'} missing)" if n else ""))
     else:
         print("Check:  the mlcroissant validator reports problems:")
         for m in messages:
