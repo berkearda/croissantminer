@@ -1,22 +1,124 @@
-# CroissantMiner
+<p align="center"><img src="hf_space/favicon.svg" width="88" alt="CroissantMiner logo"></p>
 
-Code for **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets**
-(NeurIPS 2026, Evaluations and Datasets Track).
+<h1 align="center">CroissantMiner</h1>
 
-Paper: arXiv link follows · [Dataset](https://huggingface.co/datasets/bearda/croissantminer) · [Demo](https://huggingface.co/spaces/bearda/croissantminer)
+<p align="center">
+Extract <a href="https://github.com/mlcommons/croissant">Croissant</a> metadata, including the 20 Responsible AI fields,
+from the paper that introduces an ML dataset.
+</p>
 
-CroissantMiner is a benchmark and a set of systems for extracting [Croissant](https://github.com/mlcommons/croissant)
-metadata from ML dataset papers. The benchmark covers all 30 fields of the Croissant 1.1 schema: 10 core fields
-and 20 Responsible AI (RAI) fields.
+<p align="center">
+<a href="https://huggingface.co/spaces/bearda/croissantminer"><img alt="Demo" src="https://img.shields.io/badge/demo-Hugging%20Face%20Space-ffcc4d"></a>
+<a href="https://huggingface.co/datasets/bearda/croissantminer"><img alt="Dataset" src="https://img.shields.io/badge/dataset-Hugging%20Face-ffcc4d"></a>
+<a href="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml/badge.svg"></a>
+<img alt="Python 3.10 to 3.13" src="https://img.shields.io/badge/python-3.10%20to%203.13-3776ab">
+<a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
+</p>
 
-- **Benchmark:** 602 dataset papers. 102 have human-validated gold annotations (3,060 cells, 22 annotators) and
-  500 have LLM-generated silver annotations. The 102 gold papers are split into 14 development and 88 test papers.
+Code, benchmark and systems of **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML
+Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link follows.
+
+Documenting a dataset in the [Croissant](https://github.com/mlcommons/croissant) format, including its Responsible
+AI (RAI) fields, takes time, and venues such as the NeurIPS Evaluations and Datasets Track ask for it.
+CroissantMiner reads the paper that introduces a dataset and drafts all 30 fields of the Croissant 1.1 schema: 10
+core fields (name, license, creators and others) and 20 RAI fields (how the data was collected and annotated,
+known biases, limitations, intended uses and others). You check the draft and publish it.
+
+- **For dataset authors:** one command turns a paper into a Croissant file that passes the MLCommons validator.
+- **For researchers:** a benchmark of 602 dataset papers with human gold annotations for 102 of them, the outputs
+  and scores of 24 extraction systems, and the code to evaluate new ones.
+
+## Try it in your browser
+
+The [demo](https://huggingface.co/spaces/bearda/croissantminer) runs the six systems below on a PDF you upload.
+It needs your own Anthropic or OpenAI API key, which is sent only to that provider and not stored.
+
+## Quick start
+
+Python 3.10 to 3.13.
+
+```bash
+git clone https://github.com/berkearda/croissantminer
+cd croissantminer
+pip install -e ".[validate]"     # the extraction tool and the Croissant validator
+export ANTHROPIC_API_KEY=...      # or put it in a .env file in the folder you run from
+croissantminer extract paper.pdf
+```
+
+```text
+Extracting with Single-pass · Claude Sonnet 4.6 (usually about 30 s)...
+Found 22 of 30 fields (core 9 of 10, Responsible AI 13 of 20) with single-pass in 35 s, about $0.06.
+Not found: license, rai:dataCollectionMissingData, rai:dataCollectionTimeframe, ...
+Wrote:  paper.croissant.json (Croissant 1.1)
+Check:  passes the mlcroissant validator (2 recommended properties missing)
+These are drafts by a language model: check each value against the paper before publishing.
+```
+
+| Option | What it does |
+|---|---|
+| `-o my_dataset.json` | choose the output file |
+| `--method react` | use another system (list them with `croissantminer methods`) |
+| `--hf-id org/name` | give the dataset's Hugging Face id, so the agentic systems can check its license and URL |
+| `--card README.md` | read the dataset card together with the paper |
+| `--fields values.json` | also save the extracted values with their supporting quotes |
+
+`croissantminer validate my_dataset.json` checks any Croissant file with the MLCommons validator.
+
+From Python:
+
+```python
+from croissantminer import extract
+
+result = extract("paper.pdf")            # method="single-pass" by default
+print(result.summary())                  # Found 22 of 30 fields (core 9 of 10, Responsible AI 13 of 20)
+result.fields["rai:dataCollection"]      # one extracted value
+result.croissant                         # the Croissant 1.1 file as a dict
+```
+
+The tool runs the systems' code in this repository, so install it from a clone as above. A package on PyPI will
+follow.
+
+## Which method to choose
+
+All six are systems from the paper, with the same code and settings. Score: the composite over the 30 fields on
+the 88 test papers (see [Results](#results)). Time and cost: one run on the 22-page GSM8K paper.
+
+| Method | Model | Score | Time | Cost | API key |
+|---|---|---|---|---|---|
+| `single-pass` (default) | Claude Sonnet 4.6 | **0.709** | 35 s | $0.06 | `ANTHROPIC_API_KEY` |
+| `single-pass-gpt` | GPT-5.4 | 0.665 | about 30 s | not measured | `OPENAI_API_KEY` |
+| `react` | Claude Sonnet 4.6 | 0.652 | 80 s | $0.17 | `ANTHROPIC_API_KEY` |
+| `parallel-specialists` | Claude Sonnet 4.6 | 0.647 | 15 s | $0.42 | `ANTHROPIC_API_KEY` |
+| `triage-critique` | Claude Sonnet 4.6 | 0.624 | 35 s | $0.08 | `ANTHROPIC_API_KEY` |
+| `locator-extractor` | Claude Sonnet 4.6 | 0.566 | 40 s | $0.09 | `ANTHROPIC_API_KEY` |
+
+Start with `single-pass`: it is the most accurate and among the cheapest. `triage-critique` and
+`locator-extractor` return a supporting quote for most values (`--fields`), which makes checking faster, and
+`react` gives a reason for each field it leaves empty.
+
+## Before you publish the file
+
+- **Check every value against the paper.** The fields are drafts. Typical mistakes are a value the paper does
+  not state, a detail from a related dataset, or, for an anonymous submission, the page header taken as the
+  publisher.
+- **Empty fields are left out** of the Croissant file, never filled with placeholders. Add what you know.
+- **The validator checks the format, not the content.** A file that passes can still contain wrong values.
+- **Your paper is sent to the model provider** (Anthropic or OpenAI) under your API key and their terms.
+- **API keys** are read from the environment or a `.env` file, never from the command line, so they do not end
+  up in your shell history.
+
+## The benchmark
+
+- **Papers:** 602 dataset papers. 102 have human-validated gold annotations (3,060 cells, 22 annotators) and 500
+  have LLM-generated silver annotations. The 102 gold papers are split into 14 development and 88 test papers.
 - **Systems:** single-pass extraction and four agentic architectures (ReAct, Parallel Specialists,
   Triage + Critique, Locator-Extractor), each with several LLM backbones.
 - **Evaluation:** rule-based scoring for the 10 core fields, an LLM judge (GLM-5) for the 20 RAI fields, and tests
   that check the scorer against the numbers in the paper.
+- **Data:** the annotations, system outputs and judge verdicts are on
+  [Hugging Face](https://huggingface.co/datasets/bearda/croissantminer) and in `data/` (see `data/README.md`).
 
-## Results
+### Results
 
 Test split (88 papers). *Core* averages the 10 core fields, *RAI* the 20 RAI fields, and *Composite* weights all
 30 fields equally; 95% confidence intervals come from 2,000 bootstrap samples over papers. The gold annotations
@@ -51,9 +153,11 @@ systems are marked with \*. Claude Sonnet 4.5 itself is shown for reference and 
 | Locator-Extractor (Gemini 3.1 Pro) | Locator-Extractor | 0.500 | 0.422 | 0.448 [0.423, 0.471] |
 | *Claude Sonnet 4.5\* (reference)* | *Single-pass* | *0.903* | *0.840* | *0.861 [0.830, 0.893]* |
 
-## Installation
+## Reproducing the paper
 
-Python 3.10 or 3.11.
+### Installation
+
+The paper's environment uses Python 3.10 or 3.11 and the pinned versions in `requirements.txt`:
 
 ```bash
 git clone https://github.com/berkearda/croissantminer
@@ -65,7 +169,7 @@ pip install -e .
 API keys are only needed to run the systems or the judge. Copy `.env.example` to `.env` and fill in the keys for
 the providers you use.
 
-## Reproducing the paper's numbers
+### Checking the numbers
 
 No API keys and no cost: the scores are recomputed from the stored system outputs
 (`data/extractions/`), judge verdicts (`data/judged/`) and gold annotations
@@ -84,7 +188,7 @@ No API keys and no cost: the scores are recomputed from the stored system output
    make significance
    ```
 
-## Running the systems
+### Running the systems on the benchmark
 
 The benchmark PDFs are not redistributed. Download them from their public sources into `data/raw/` with
 `python scripts/download_papers.py`. The commands below use the Claude Sonnet 4.6 backbone; the backbone names
@@ -118,7 +222,7 @@ Notes on re-running:
 - **Names in the code:** Triage + Critique is `agentic_v2`, Locator-Extractor `agentic_lev` (or LEV), and
   Parallel Specialists `specialist`.
 
-## How scoring works
+### How scoring works
 
 - **Core fields (rule-based):** 7 fields are scored as match or no match after normalization: license,
   language, live dataset and URL must be equal after normalization; the date must have the same year; the name
@@ -137,20 +241,30 @@ Notes on re-running:
 numbers, so its internal comments are left as they were); `tests/test_scoring_rules.py` shows each rule on a
 small example. `data/README.md` describes the data files.
 
-## Tests
+### Tests
 
 ```bash
 make test
 ```
 
-About 100 tests, about 10 seconds, no API keys. They cover the scoring rules, the handling of model output,
-and the check that Table 2 and Tables 5 and 6 are reproduced exactly. GitHub Actions runs them on every push.
+About 120 tests, about 10 seconds, no API keys. They cover the scoring rules, the handling of model output, the
+command line and the Croissant output, and the check that Table 2 and Tables 5 and 6 are reproduced exactly.
+GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3.13.
+
+## Extending CroissantMiner
+
+- **A new method or model for the tool:** methods are registered in `croissantminer/methods.py` (`METHODS` and
+  `run`), model backbones in `scripts/_agentic_helpers.py` (`MODELS`), and the Croissant file is built in
+  `croissantminer/croissant.py`.
+- **A new system on the benchmark:** see [CONTRIBUTING.md](CONTRIBUTING.md) for the output format and the scoring.
+- **A wrong extraction, a bug or an idea:** open an [issue](https://github.com/berkearda/croissantminer/issues/new/choose)
+  or a [discussion](https://github.com/berkearda/croissantminer/discussions).
 
 ## Repository layout
 
 | Path | Contents |
 |---|---|
-| `croissantminer/` | Package: extraction prompt and configuration, model clients, PDF reading, ReAct agent |
+| `croissantminer/` | Package: command line and Python API (`cli.py`, `api.py`), the six systems (`methods.py`), the Croissant file (`croissant.py`), the extraction prompt, PDF reading and the ReAct agent |
 | `scripts/` | The other systems, the judge, tables and figures (guide in `scripts/README.md`) |
 | `evaluation/` | Field metrics and system registry used by the scorer |
 | `data/` | Gold annotations, judge verdicts and system outputs |
@@ -163,6 +277,14 @@ The scripts that read the named annotation sheets are not included, to protect t
 privacy; `data/annotations/gold.parquet` and `data/annotations/iaa.parquet` are their output.
 Comments that cite `decisions.md` or task numbers (`T-###`) refer to our
 internal project log, which is not included.
+
+## Community
+
+Questions and ideas go to [Discussions](https://github.com/berkearda/croissantminer/discussions), bugs and wrong
+extractions to [issues](https://github.com/berkearda/croissantminer/issues). Please read
+[CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Everyone taking part follows the
+[code of conduct](CODE_OF_CONDUCT.md); security problems are reported as described in [SECURITY.md](SECURITY.md).
+Changes are listed in [CHANGELOG.md](CHANGELOG.md).
 
 ## Citation
 
