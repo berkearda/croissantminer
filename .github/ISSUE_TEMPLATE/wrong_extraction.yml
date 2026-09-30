@@ -1,0 +1,36 @@
+name: Wrong or missing value
+description: The tool or the demo extracted a wrong value, or missed one that the paper states
+labels: ["extraction"]
+body:
+  - type: input
+    id: paper
+    attributes:
+      label: Paper
+      description: Link to the paper (arXiv, OpenReview or the venue page)
+    validations:
+      required: true
+  - type: dropdown
+    id: method
+    attributes:
+      label: Method
+      options: [single-pass, single-pass-gpt, react, parallel-specialists, triage-critique, locator-extractor]
+    validations:
+      required: true
+  - type: input
+    id: field
+    attributes:
+      label: Field
+      placeholder: e.g. rai:dataCollection or license
+    validations:
+      required: true
+  - type: textarea
+    id: extracted
+    attributes:
+      label: What was extracted
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the paper says
+      description: The correct value, with the sentence and page or section where the paper states it
+    validations:
+      required: true
