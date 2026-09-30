@@ -229,8 +229,12 @@ def _build_croissant(metadata: dict, hf_dataset_id: str = "") -> dict:
             "sc": "https://schema.org/",
             "cr": "http://mlcommons.org/croissant/",
             "rai": "http://mlcommons.org/croissant/RAI/",
+            "dct": "http://purl.org/dc/terms/",
+            "conformsTo": "dct:conformsTo",
         },
         "@type": "sc:Dataset",
+        # without a version, mlcroissant applies Croissant 0.8 rules (no spaces in names)
+        "conformsTo": "http://mlcommons.org/croissant/1.1",
     }
     hf = (hf_dataset_id or "").strip().strip("/")
     if "/" in hf:
