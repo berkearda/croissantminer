@@ -1,5 +1,5 @@
 """
-CroissantMiner — Automated RAI Metadata Extraction for ML Dataset Papers
+CroissantMiner: extract Croissant metadata from ML dataset papers
 HuggingFace Space Demo (Gradio)
 """
 
@@ -113,7 +113,8 @@ def _compute_coverage(metadata: dict) -> tuple[int, int, int]:
 
 
 def _summary_md(metadata: dict | None = None, method=None, result=None) -> str:
-    metadata = metadata or {}
+    if metadata is None:
+        return ""
     total, general, rai = _compute_coverage(metadata)
     n = len(ALL_FIELD_KEYS)
     lines = [f"### Extraction Coverage: {total}/{n} fields ({int(100 * total / n)}%)",
@@ -138,28 +139,34 @@ def _build_field_cards(metadata: dict, fields: list, evidence: dict | None = Non
     for key, desc in fields:
         val = metadata.get(key)
         filled = _is_valid(val)
-        accent = "#5a4fcf" if filled else "#cccccc"
         body = (html.escape(_value_text(val)) if filled
-                else '<span style="color:#9aa0a6">—</span>')
+                else '<span class="fc-none">Not found</span>')
         extra = ""
         if filled and evidence.get(key):
             quote = html.escape(str(evidence[key]).strip())
-            extra = (f'<div style="margin-top:6px; font-size:0.85em; color:#6b6b6b;">'
-                     f'<span style="font-weight:600;">Evidence</span> “{quote}”</div>')
+            extra = f'<div class="fc-extra"><b>Evidence</b> “{quote}”</div>'
         elif not filled and null_reasons.get(key):
-            extra = (f'<div style="margin-top:4px; font-size:0.85em; color:#8a8a8a;">'
-                     f'{html.escape(str(null_reasons[key]))}</div>')
+            extra = f'<div class="fc-extra">{html.escape(str(null_reasons[key]))}</div>'
         blocks.append(
-            f'<div style="border-left:3px solid {accent}; padding:8px 14px; '
-            f'margin:6px 0; background:#fafafa; border-radius:4px;">'
-            f'<div style="display:flex; justify-content:space-between; align-items:baseline;">'
-            f'<code style="font-weight:600; color:#1a1a1a;">{key}</code>'
-            f'<span style="font-size:0.8em; color:#666;">{desc}</span>'
-            f'</div>'
-            f'<div style="margin-top:6px; line-height:1.5; color:#333; white-space:pre-wrap;">'
-            f'{body}</div>{extra}</div>'
+            f'<div class="fc{"" if filled else " fc-empty"}">'
+            f'<div class="fc-head"><code>{key}</code><span>{desc}</span></div>'
+            f'<div class="fc-val">{body}</div>{extra}</div>'
         )
     return f'<div class="field-card-list">{"".join(blocks)}</div>'
+
+
+def _fields_html(metadata: dict | None = None, evidence: dict | None = None,
+                 null_reasons: dict | None = None) -> str:
+    """Both field groups as collapsible sections; before the first run, a short
+    note. (Showing and hiding Gradio accordions instead broke the page in
+    Gradio 6.14, so everything stays in one HTML value.)"""
+    if metadata is None:
+        return ('<p id="empty-note">Results will appear here after you click '
+                '<b>Extract Metadata</b>.</p>')
+    groups = [("General Fields (10)", GENERAL_FIELDS), ("Responsible AI Fields (20)", RAI_FIELDS)]
+    return "".join(f'<details class="fc-group" open><summary>{title}</summary>'
+                   f'{_build_field_cards(metadata, fields, evidence, null_reasons)}</details>'
+                   for title, fields in groups)
 
 
 _ORG_WORDS = re.compile(r"\b(inc|corp|llc|ltd|university|institute|lab|labs|laboratory|"
@@ -300,8 +307,7 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, method_label: st
     metadata = {k: result.fields.get(k) for k in ALL_FIELD_KEYS}
     return (
         _summary_md(metadata, method, result),
-        _build_field_cards(metadata, GENERAL_FIELDS, result.evidence, result.null_reasons),
-        _build_field_cards(metadata, RAI_FIELDS, result.evidence, result.null_reasons),
+        _fields_html(metadata, result.evidence, result.null_reasons),
         _build_croissant(metadata, hf_dataset_id),
     )
 
@@ -317,7 +323,7 @@ def _key_name(method) -> str:
 
 def _method_info(method_label: str) -> str:
     m = METHODS_BY_LABEL[method_label]
-    return (f"**{m.architecture}** · paper score **{m.paper_score:.3f}** · {m.typical}\n\n"
+    return (f"**{m.architecture}** · score in the paper: **{m.paper_score:.3f}** · {m.typical}\n\n"
             f"{m.summary}")
 
 
@@ -334,17 +340,17 @@ _SCORE_ROWS = "\n".join(
 ABOUT_MD = f"""
 ## CroissantMiner
 
-**Automated RAI metadata extraction for ML dataset papers**
+**Extract Croissant metadata from ML dataset papers**
 
 CroissantMiner extracts 30 metadata fields (10 general + 20 Responsible AI) from the paper
 that introduces a dataset, following the [MLCommons Croissant RAI schema](https://github.com/mlcommons/croissant).
 
 ### Methods
 
-Every method here runs the same code and configuration as its row in the paper's results table.
-Paper score is the composite (core + RAI) on the 88-paper test split.
+Every method here runs the same code and settings as its row in the paper's results table.
+The score in the paper is the composite score over all 30 fields on the 88 test papers (higher is better).
 
-| Method | Paper score |
+| Method | Score in the paper |
 |---|---|
 {_SCORE_ROWS}
 
@@ -360,6 +366,7 @@ the paper's run used Gemini 2.5 Flash for triage.
 
 ### Links
 - **Code:** [github.com/berkearda/croissantminer](https://github.com/berkearda/croissantminer)
+- **Dataset:** [huggingface.co/datasets/bearda/croissantminer](https://huggingface.co/datasets/bearda/croissantminer)
 
 ---
 
@@ -369,8 +376,18 @@ the paper's run used Gemini 2.5 Flash for triage.
 CUSTOM_CSS = """
 .gradio-container { max-width: 1100px !important; margin: 0 auto !important; }
 #extract-btn button { font-size: 1.05em; padding: 12px; }
-.field-card-list { max-height: 65vh; overflow-y: auto; padding-right: 8px; }
 #method-info { font-size: 0.92em; }
+#empty-note { color: var(--body-text-color-subdued); padding: 8px 2px; }
+.fc-group summary { cursor: pointer; font-weight: 600; margin: 12px 0 4px; }
+.fc { border-left: 3px solid var(--color-accent); padding: 8px 14px; margin: 6px 0;
+      background: var(--background-fill-secondary); border-radius: 4px; }
+.fc-empty { border-left-color: var(--border-color-primary); }
+.fc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.fc-head code { font-weight: 600; color: var(--body-text-color); background: none; padding: 0; }
+.fc-head span { font-size: 0.8em; color: var(--body-text-color-subdued); text-align: right; }
+.fc-val { margin-top: 6px; line-height: 1.5; color: var(--body-text-color); white-space: pre-wrap; }
+.fc-none, .fc-extra { color: var(--body-text-color-subdued); }
+.fc-extra { margin-top: 6px; font-size: 0.85em; }
 """
 
 _DEFAULT_METHOD = METHODS[0].label
@@ -378,18 +395,20 @@ _DEFAULT_METHOD = METHODS[0].label
 with gr.Blocks(title="CroissantMiner") as demo:
     gr.Markdown("# 🥐 CroissantMiner")
     gr.Markdown(
-        "*Automated RAI metadata extraction for ML dataset papers.* "
-        "Research demo — review extracted metadata before use. "
-        "Your API key is sent directly to the model provider and is not stored."
+        "*Extract Croissant metadata from ML dataset papers.* "
+        "Research demo: review the extracted metadata before use. "
+        "Your API key is sent only to the model provider and is not stored.\n\n"
+        "[Code](https://github.com/berkearda/croissantminer) · "
+        "[Dataset](https://huggingface.co/datasets/bearda/croissantminer)"
     )
 
     with gr.Row():
         with gr.Column(scale=2):
-            with gr.Tabs():
-                with gr.Tab("Upload PDF"):
+            with gr.Tabs() as input_tabs:
+                with gr.Tab("Upload PDF", id="pdf"):
                     pdf_input = gr.File(file_types=[".pdf"], label="Dataset paper PDF",
                                         height=120)
-                with gr.Tab("Paste Text"):
+                with gr.Tab("Paste Text", id="paste"):
                     paper_input = gr.Textbox(
                         label="Paper text",
                         placeholder="Paste the full text of a dataset paper here...",
@@ -402,7 +421,7 @@ with gr.Blocks(title="CroissantMiner") as demo:
             )
             hf_id_input = gr.Textbox(
                 label="Hugging Face dataset id (optional)",
-                placeholder="e.g. openai/gsm8k — lets the agentic methods look up license and URL",
+                placeholder="e.g. openai/gsm8k (lets the agentic methods look up the license and URL)",
                 lines=1,
             )
         with gr.Column(scale=1):
@@ -424,10 +443,7 @@ with gr.Blocks(title="CroissantMiner") as demo:
 
     with gr.Tabs():
         with gr.Tab("Extracted Fields"):
-            with gr.Accordion("General Fields (10)", open=True):
-                general_box = gr.HTML(_build_field_cards({}, GENERAL_FIELDS))
-            with gr.Accordion("Responsible AI Fields (20)", open=True):
-                rai_box = gr.HTML(_build_field_cards({}, RAI_FIELDS))
+            fields_box = gr.HTML(_fields_html())
 
         with gr.Tab("Croissant JSON-LD"):
             croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
@@ -445,7 +461,7 @@ with gr.Blocks(title="CroissantMiner") as demo:
     extract_btn.click(
         fn=extract_metadata,
         inputs=[pdf_input, paper_input, card_input, method_selector, api_key_input, hf_id_input],
-        outputs=[summary_output, general_box, rai_box, croissant_output],
+        outputs=[summary_output, fields_box, croissant_output],
     )
 
     def _make_download(croissant_dict):
@@ -460,11 +476,11 @@ with gr.Blocks(title="CroissantMiner") as demo:
 
     croissant_output.change(fn=_make_download, inputs=[croissant_output], outputs=[download_btn])
 
-    gr.Examples(
-        examples=[[EXAMPLE_PAPER, "", "openai/gsm8k"]],
-        inputs=[paper_input, card_input, hf_id_input],
-        label="Example: GSM8K dataset paper (excerpt)",
-    )
+    # A button rather than gr.Examples: with gr.Examples on the page, Gradio 6.14
+    # froze the browser when switching to the Croissant JSON-LD or About tab.
+    example_btn = gr.Button("Load the GSM8K example paper (excerpt)", size="sm")
+    example_btn.click(lambda: (None, EXAMPLE_PAPER, "openai/gsm8k", gr.Tabs(selected="paste")),
+                      outputs=[pdf_input, paper_input, hf_id_input, input_tabs])
 
 if __name__ == "__main__":
     demo.launch(theme=gr.themes.Soft(), css=CUSTOM_CSS, ssr_mode=False)

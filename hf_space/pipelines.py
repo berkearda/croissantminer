@@ -72,30 +72,31 @@ class Method:
 
 METHODS = [
     Method("single_sonnet", "Single-pass · Claude Sonnet 4.6", "Single-pass", 0.709, "anthropic",
-           "One call with the canonical prompt over the full paper. Best system in the paper.",
-           "~30 s"),
+           "One model call over the full paper text. Best system in the paper.",
+           "about 30 s"),
     Method("single_gpt", "Single-pass · GPT-5.4", "Single-pass", 0.665, "openai",
-           "Same canonical prompt, one call, OpenAI GPT-5.4.",
-           "~30 s"),
+           "The same single call, with OpenAI GPT-5.4.",
+           "about 30 s"),
     Method("react", "ReAct · Claude Sonnet 4.6", "ReAct", 0.652, "anthropic",
-           "Tool-using agent loop: searches the paper, checks Hugging Face, SPDX and URLs, "
-           "and records a reason for every field it leaves empty.",
-           "1–2 min"),
+           "An agent that searches the paper, checks Hugging Face, license names and URLs, "
+           "and gives a reason for every field it leaves empty.",
+           "1 to 2 min"),
     Method("specialists", "Parallel Specialists · Claude Sonnet 4.6", "Parallel Specialists", 0.647,
            "anthropic",
-           "Five specialists (core, collection, annotation, impact, processing) each read the "
-           "full paper for their own fields, then a verify-and-correct pass.",
-           "~1 min"),
+           "Five calls (core, collection, annotation, impact, processing) each read the full "
+           "paper for their own fields; a last pass checks and corrects the answers.",
+           "about 1 min"),
     Method("triage_critique", "Triage + Critique · Claude Sonnet 4.6", "Triage + Critique", 0.624,
            "anthropic",
-           "Triage estimates which field groups the paper documents; one full-paper extraction "
-           "with evidence quotes; self-critique on missing fields; unquoted values removed.",
-           "~1 min"),
+           "A first call guesses which field groups the paper covers; one call extracts all "
+           "fields with supporting quotes; a review call checks the missing fields; values "
+           "without a quote are removed.",
+           "about 1 min"),
     Method("locator_extractor", "Locator-Extractor · Claude Sonnet 4.6", "Locator-Extractor", 0.566,
            "anthropic",
-           "A locator picks the relevant sections per field group; five extractors read only "
-           "those passages and quote their evidence.",
-           "~1 min"),
+           "A first call finds the relevant sections for each field group; five calls then read "
+           "only those sections and quote their evidence.",
+           "about 1 min"),
 ]
 METHODS_BY_LABEL = {m.label: m for m in METHODS}
 
