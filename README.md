@@ -18,6 +18,12 @@ from the paper that introduces an ML dataset.
 Code, benchmark and systems of **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML
 Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link follows.
 
+**News**
+- **30 Sep 2026:** `croissantminer extract`, one command from a paper to a Croissant file.
+- **28 Sep 2026:** code, [dataset](https://huggingface.co/datasets/bearda/croissantminer) and
+  [demo](https://huggingface.co/spaces/bearda/croissantminer) released.
+- **24 Sep 2026:** accepted at NeurIPS 2026 (Evaluations and Datasets Track).
+
 Documenting a dataset in the [Croissant](https://github.com/mlcommons/croissant) format, including its Responsible
 AI (RAI) fields, takes time, and venues such as the NeurIPS Evaluations and Datasets Track ask for it.
 CroissantMiner reads the paper that introduces a dataset and drafts all 30 fields of the Croissant 1.1 schema: 10
@@ -32,6 +38,8 @@ known biases, limitations, intended uses and others). You check the draft and pu
 
 The [demo](https://huggingface.co/spaces/bearda/croissantminer) runs the six systems below on a PDF you upload.
 It needs your own Anthropic or OpenAI API key, which is sent only to that provider and not stored.
+
+<p align="center"><img src="docs/figures/demo.png" width="760" alt="The demo after extracting the GSM8K paper with Triage + Critique: 21 of 30 fields, each with a supporting quote from the paper"></p>
 
 ## Quick start
 
@@ -53,6 +61,37 @@ Wrote:  paper.croissant.json (Croissant 1.1)
 Check:  passes the mlcroissant validator (2 recommended properties missing)
 These are drafts by a language model: check each value against the paper before publishing.
 ```
+
+<details>
+<summary>Example output for GSM8K (<code>--hf-id openai/gsm8k</code>), shortened</summary>
+
+```jsonc
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "@id": "https://huggingface.co/datasets/openai/gsm8k",
+  "name": "GSM8K",
+  "url": "https://github.com/openai/grade-school-math",
+  "publisher": {"@type": "Organization", "name": "OpenAI"},
+  "datePublished": "2021-11-18",
+  "rai:dataCollection": "Problems were initially collected by hiring freelance ...",
+  "rai:dataCollectionType": "Manual Human Curator, Others",
+  "rai:dataAnnotationPlatform": "Upwork (upwork.com) for initial collection; Surge AI ...",
+  "rai:dataBiases": "Seed questions used to assist contractors were automatically ...",
+  // and description, inLanguage, cr:citeAs, creator, cr:isLiveDataset and 9 more rai: fields
+}
+```
+
+</details>
 
 | Option | What it does |
 |---|---|
@@ -99,6 +138,28 @@ fields on the 88 test papers (see [Results](#results)). Time and cost: one run o
 Start with `single-pass`: it is the most accurate and among the cheapest. `triage-critique` and
 `locator-extractor` return a supporting quote for most values (`--fields`), which makes checking faster, and
 `react` gives a reason for each field it leaves empty.
+
+## Using the file
+
+The file describes the dataset: the core fields and the Responsible AI fields the paper supports. It does not list
+the data files and their columns (Croissant's `distribution` and `recordSet`), which a data host generates from
+the files themselves. Hosts such as Hugging Face, Kaggle and OpenML publish such a file for their datasets;
+Hugging Face's, for example, has no Responsible AI fields. To combine the two, add CroissantMiner's `rai:` fields
+to your host's file:
+
+```python
+import json
+
+host = json.load(open("croissant.json"))           # the file your data host generates
+mine = json.load(open("paper.croissant.json"))     # the file CroissantMiner wrote
+host["@context"]["rai"] = "http://mlcommons.org/croissant/RAI/"
+host.update({k: v for k, v in mine.items() if k.startswith("rai:")})
+json.dump(host, open("croissant_with_rai.json", "w"), indent=2)
+```
+
+Then check it with `croissantminer validate croissant_with_rai.json`. On Hugging Face the generated file is at
+`https://huggingface.co/api/datasets/<org>/<name>/croissant`. The NeurIPS Evaluations and Datasets Track asks for a
+Croissant file with Responsible AI fields, and the combined file has both parts. A command for this is planned.
 
 ## Before you publish the file
 
