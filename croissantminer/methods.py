@@ -1,4 +1,5 @@
-"""Run the paper's extraction systems on one uploaded paper.
+"""The paper's extraction systems, run on one paper. Used by the command line
+(croissantminer extract), the Python API (croissantminer.extract) and the demo.
 
 Each method calls the same code and configuration as the corresponding row of
 the paper's Table 2 (all on Claude Sonnet 4.6 unless noted):
@@ -38,18 +39,22 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = REPO_ROOT / "scripts"
+if not (SCRIPTS / "_agentic_helpers.py").exists():
+    raise ImportError(
+        "The extraction systems use the benchmark code in the repository (scripts/). Install CroissantMiner "
+        "from a clone: git clone https://github.com/berkearda/croissantminer && cd croissantminer && pip install -e .")
 for _p in (REPO_ROOT, SCRIPTS, SCRIPTS / "multi_agents"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-# Register these packages without running their __init__.py, which import
-# scipy/scikit-learn/numpy (not installed in the Space). Only light submodules
-# are used: croissantminer.react_agent and evaluation.field_metrics.
-for _name in ("croissantminer", "evaluation"):
-    if _name not in sys.modules:
-        _pkg = types.ModuleType(_name)
-        _pkg.__path__ = [str(REPO_ROOT / _name)]
-        sys.modules[_name] = _pkg
+
+def _light_evaluation_package() -> None:
+    """Triage + Critique imports evaluation.field_metrics; register the package
+    without running evaluation/__init__.py, which imports pandas and matplotlib."""
+    if "evaluation" not in sys.modules:
+        pkg = types.ModuleType("evaluation")
+        pkg.__path__ = [str(REPO_ROOT / "evaluation")]
+        sys.modules["evaluation"] = pkg
 
 BACKBONE = "sonnet-4-6"
 UPLOAD_ID = "uploaded_paper"
@@ -99,6 +104,7 @@ METHODS = [
            "about 1\u00a0min"),
 ]
 METHODS_BY_LABEL = {m.label: m for m in METHODS}
+METHODS_BY_KEY = {m.key: m for m in METHODS}
 
 
 @dataclass
@@ -125,8 +131,7 @@ def _load_definitions(path: Path, wanted: set) -> dict:
     return ns
 
 
-_PHASE0 = _load_definitions(SCRIPTS / "agentic_phase0.py",
-                            {"KNOWN_SECTIONS", "detect_sections", "estimate_tokens", "chunk_text"})
+_PHASE0: dict = {}
 _CLEAN_TEXT = _load_definitions(REPO_ROOT / "croissantminer" / "pdf" / "processor.py",
                                 {"clean_text"})["clean_text"]
 
@@ -144,6 +149,9 @@ def paper_text_from_pdf(pdf_path: str) -> str:
 
 def _section_text(paper_text: str) -> dict[str, str]:
     """Same structure agentic_lev.load_section_text() builds from Phase 0 files."""
+    if not _PHASE0:
+        _PHASE0.update(_load_definitions(SCRIPTS / "agentic_phase0.py",
+                                         {"KNOWN_SECTIONS", "detect_sections", "estimate_tokens", "chunk_text"}))
     sections = _PHASE0["detect_sections"](paper_text)
     out: defaultdict[str, str] = defaultdict(str)
     for chunk in _PHASE0["chunk_text"](paper_text, sections):
@@ -249,6 +257,7 @@ def _specialists(text: str) -> RunResult:
 
 
 def _triage_critique(text: str, ds_id: str) -> RunResult:
+    _light_evaluation_package()
     import agentic_v2 as v2
     import agentic_lev as lev
     from _agentic_helpers import resolve_backbone
@@ -269,6 +278,7 @@ def _triage_critique(text: str, ds_id: str) -> RunResult:
 
 
 def _locator_extractor(text: str, ds_id: str) -> RunResult:
+    _light_evaluation_package()
     import agentic_lev as lev
     from _agentic_helpers import resolve_backbone
     cfg = resolve_backbone(BACKBONE)

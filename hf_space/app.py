@@ -13,51 +13,18 @@ from pathlib import Path
 
 import gradio as gr
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import pipelines  # noqa: E402
-from pipelines import METHODS, METHODS_BY_LABEL  # noqa: E402
+# the Space runs from a copy of the repository without installing it
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from croissantminer import methods as pipelines  # noqa: E402
+from croissantminer.croissant import (  # noqa: E402
+    ALL_FIELDS as ALL_FIELD_KEYS, CORE_FIELDS as GENERAL_FIELDS, RAI_FIELDS,
+    is_filled as _is_valid, to_croissant as _build_croissant, value_text as _value_text)
+from croissantminer.methods import METHODS, METHODS_BY_LABEL  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Field definitions
 # ---------------------------------------------------------------------------
 
-GENERAL_FIELDS = [
-    ("name", "Dataset name"),
-    ("description", "Brief description of the dataset"),
-    ("url", "URL where dataset can be accessed"),
-    ("license", "License information"),
-    ("creator", "Authors or creators"),
-    ("publisher", "Publishing organization"),
-    ("datePublished", "Publication date"),
-    ("inLanguage", "Language(s) of the dataset"),
-    ("citeAs", "Recommended citation format"),
-    ("isLiveDataset", "Whether dataset is live/updating or static"),
-]
-
-RAI_FIELDS = [
-    ("rai:dataCollection", "How data was collected (methodology)"),
-    ("rai:dataCollectionType", "Type: Crowdsourcing, Web Scraping, Manual Curation, etc."),
-    ("rai:dataCollectionMissingData", "How missing data was handled"),
-    ("rai:dataCollectionRawData", "Description of raw/source data"),
-    ("rai:dataCollectionTimeframe", "When data was collected"),
-    ("rai:dataImputationProtocol", "Methods for imputing missing values"),
-    ("rai:dataManipulationProtocol", "Data manipulation procedures"),
-    ("rai:dataPreprocessingProtocol", "Preprocessing steps applied"),
-    ("rai:dataAnnotationProtocol", "Annotation methodology"),
-    ("rai:dataAnnotationPlatform", "Platform used (e.g., Amazon MTurk)"),
-    ("rai:dataAnnotationAnalysis", "Quality analysis of annotations"),
-    ("rai:annotationsPerItem", "Number of annotations per data item"),
-    ("rai:annotatorDemographics", "Demographics of annotators"),
-    ("rai:machineAnnotationTools", "ML tools used in annotation"),
-    ("rai:dataReleaseMaintenancePlan", "Maintenance and update plans"),
-    ("rai:personalSensitiveInformation", "PII/sensitive data handling"),
-    ("rai:dataSocialImpact", "Social impact considerations"),
-    ("rai:dataBiases", "Known biases in the dataset"),
-    ("rai:dataLimitations", "Dataset limitations"),
-    ("rai:dataUseCases", "Intended use cases"),
-]
-
-ALL_FIELD_KEYS = [f[0] for f in GENERAL_FIELDS + RAI_FIELDS]
 
 # ---------------------------------------------------------------------------
 # Example input
@@ -83,27 +50,6 @@ Language: English"""
 # ---------------------------------------------------------------------------
 # Helper utilities
 # ---------------------------------------------------------------------------
-
-
-def _is_valid(val):
-    """Check if a metadata value is informative."""
-    if val is None:
-        return False
-    if not isinstance(val, str):
-        return bool(val)
-    v = val.strip().lower()
-    return bool(v) and v not in {
-        "not mentioned", "not available", "n/a", "unknown",
-        "not specified", "not provided", "null", "",
-    }
-
-
-def _value_text(val) -> str:
-    if isinstance(val, dict):
-        return val.get("name") or json.dumps(val, ensure_ascii=False)
-    if isinstance(val, list):
-        return ", ".join(_value_text(v) for v in val)
-    return str(val)
 
 
 def _compute_coverage(metadata: dict) -> tuple[int, int, int]:
@@ -167,104 +113,6 @@ def _fields_html(metadata: dict | None = None, evidence: dict | None = None,
                    f'{_build_field_cards(metadata, fields, evidence, null_reasons)}</details>'
                    for title, fields in groups)
 
-
-_ORG_WORDS = re.compile(r"\b(inc|corp|llc|ltd|university|institute|lab|labs|laboratory|"
-                        r"research|foundation|google|openai|meta|microsoft|deepmind|"
-                        r"anthropic|nvidia|allen|team|group|center|centre)\b", re.I)
-
-
-def _creator_jsonld(creator):
-    """schema.org creator: a list of Person for comma-separated names, an
-    Organization for a single organisation name."""
-    if isinstance(creator, dict):
-        return creator
-    text = _value_text(creator).strip()
-    # "OpenAI (Karl Cobbe, ...)" or "Karl Cobbe, ... (OpenAI)": keep the people
-    m = re.match(r"^([^()]+)\((.+)\)$", text)
-    if m:
-        outer, inner = m.group(1).strip(), m.group(2).strip()
-        text = inner if "," in inner and "," not in outer else outer
-    parts = [p.strip() for p in re.split(r",|;|\band\b", text) if p.strip()]
-    if len(parts) > 1 and not any(_ORG_WORDS.search(p) for p in parts):
-        return [{"@type": "Person", "name": p} for p in parts]
-    kind = "Organization" if _ORG_WORDS.search(text) else "Person"
-    return {"@type": kind, "name": text}
-
-
-def _publisher_jsonld(publisher):
-    """schema.org publisher as Organization objects: the models return names."""
-    if isinstance(publisher, list):
-        return [_publisher_jsonld(p) for p in publisher]
-    if isinstance(publisher, dict):
-        return {"@type": "Organization", **publisher}
-    return {"@type": "Organization", "name": str(publisher).strip()}
-
-
-_DATE_FORMATS = ("%B %Y", "%b %Y", "%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y")
-
-
-def _iso_date(value) -> str | None:
-    """schema.org Date (YYYY, YYYY-MM or YYYY-MM-DD). The models also return a
-    bare number or text such as "November 2021"; without a year, None."""
-    text = str(int(value)) if isinstance(value, (int, float)) else str(value).strip()
-    if re.fullmatch(r"\d{4}(-\d{2}){0,2}", text):
-        return text
-    for fmt in _DATE_FORMATS:
-        try:
-            date = datetime.strptime(text, fmt)
-        except ValueError:
-            continue
-        return date.strftime("%Y-%m-%d" if "%d" in fmt else "%Y-%m")
-    year = re.search(r"\b(19|20)\d{2}\b", text)
-    return year.group(0) if year else None
-
-
-def _build_croissant(metadata: dict, hf_dataset_id: str = "") -> dict:
-    """Convert extracted metadata into Croissant JSON-LD. Only extracted values
-    are emitted: nothing is filled with placeholders."""
-    croissant = {
-        "@context": {
-            "@language": "en",
-            "@vocab": "https://schema.org/",
-            "sc": "https://schema.org/",
-            "cr": "http://mlcommons.org/croissant/",
-            "rai": "http://mlcommons.org/croissant/RAI/",
-            "dct": "http://purl.org/dc/terms/",
-            "conformsTo": "dct:conformsTo",
-        },
-        "@type": "sc:Dataset",
-        # without a version, mlcroissant applies Croissant 0.8 rules (no spaces in names)
-        "conformsTo": "http://mlcommons.org/croissant/1.1",
-    }
-    hf = (hf_dataset_id or "").strip().strip("/")
-    if "/" in hf:
-        croissant["@id"] = f"https://huggingface.co/datasets/{hf.split('datasets/')[-1]}"
-    for key in ("name", "description", "license", "url", "publisher", "datePublished",
-                "inLanguage"):
-        if _is_valid(metadata.get(key)):
-            croissant[key] = metadata[key]
-    # mlcroissant rejects a plain-text publisher and dates such as 2021 (a number)
-    if "publisher" in croissant:
-        croissant["publisher"] = _publisher_jsonld(croissant["publisher"])
-    if "datePublished" in croissant:
-        date = _iso_date(croissant["datePublished"])
-        if date:
-            croissant["datePublished"] = date
-        else:
-            del croissant["datePublished"]
-    if _is_valid(metadata.get("citeAs")):
-        croissant["cr:citeAs"] = metadata["citeAs"]
-    if _is_valid(metadata.get("creator")):
-        croissant["creator"] = _creator_jsonld(metadata["creator"])
-    is_live = metadata.get("isLiveDataset")
-    if isinstance(is_live, bool):
-        croissant["cr:isLiveDataset"] = is_live
-    elif isinstance(is_live, str) and is_live.strip().lower() in ("yes", "true", "no", "false"):
-        croissant["cr:isLiveDataset"] = is_live.strip().lower() in ("yes", "true")
-    for key, _ in RAI_FIELDS:
-        if _is_valid(metadata.get(key)):
-            croissant[key] = metadata[key]
-    return croissant
 
 
 # ---------------------------------------------------------------------------

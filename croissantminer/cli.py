@@ -1,84 +1,150 @@
-"""
-CroissantMiner CLI entry point.
-
-Usage:
-    croissantminer extract --paper path/to/paper.pdf
-    croissantminer evaluate --results evaluation_outputs/ --groundtruth data/groundtruth/
-    croissantminer version
-"""
+"""Command line: croissantminer extract | methods | validate"""
+from __future__ import annotations
 
 import argparse
+import contextlib
+import io
+import json
+import os
 import sys
+from pathlib import Path
 
 from . import __version__
 
+DRAFT_NOTE = "These are drafts by a language model: check each value against the paper before publishing."
 
-def main():
-    parser = argparse.ArgumentParser(
-        prog="croissantminer",
-        description="CroissantMiner: Automated ML Dataset Metadata Extraction",
-    )
-    parser.add_argument("--version", action="version", version=f"croissantminer {__version__}")
 
-    subparsers = parser.add_subparsers(dest="command")
+def _err(msg: str) -> int:
+    print(f"error: {msg}", file=sys.stderr)
+    return 1
 
-    # Extract command
-    extract_parser = subparsers.add_parser("extract", help="Extract metadata from a paper PDF")
-    extract_parser.add_argument("--paper", required=True, help="Path to PDF file")
-    extract_parser.add_argument("--model", default="claude-sonnet-4-5", help="Model to use")
-    extract_parser.add_argument("--output", default=None, help="Output directory")
 
-    # Evaluate command
-    eval_parser = subparsers.add_parser("evaluate", help="Evaluate extraction results")
-    eval_parser.add_argument("--results", required=True, help="Directory with extraction results")
-    eval_parser.add_argument("--groundtruth", default="data/groundtruth/", help="Groundtruth directory")
-    eval_parser.add_argument("--output", default=None, help="Output file for report")
+def _method_rows() -> list[tuple[str, ...]]:
+    from . import methods
+    from .api import KEY_VARIABLES, METHOD_NAMES
+    rows = []
+    for name, key in METHOD_NAMES.items():
+        m = methods.METHODS_BY_KEY[key]
+        rows.append((name, m.label.split(" · ", 1)[1], f"{m.paper_score:.3f}",
+                     m.typical.replace(" ", " "), KEY_VARIABLES[m.provider]))
+    return rows
 
-    # Version command
-    subparsers.add_parser("version", help="Show version")
 
-    args = parser.parse_args()
+def cmd_methods(args) -> int:
+    header = ("method", "model", "score in the paper", "usual time", "API key")
+    rows = [header] + _method_rows()
+    widths = [max(len(r[i]) for r in rows) for i in range(len(header))]
+    for i, r in enumerate(rows):
+        print("  ".join(c.ljust(w) for c, w in zip(r, widths)).rstrip())
+        if i == 0:
+            print("  ".join("-" * w for w in widths))
+    print("\nThe score is the composite over all 30 fields on the paper's 88 test papers (higher is better).")
+    print("single-pass is the default: the best system in the paper and the cheapest (a few US cents per paper).")
+    return 0
 
-    if args.command == "extract":
-        from .extractor import extract_metadata_full_pdf, setup_llm_pipeline
-        from .pdf.reader import extract_text_from_pdf
-        from .pdf.processor import clean_text
-        from .config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE, MAX_PDF_CHARS
-        from pathlib import Path
-        import json
 
-        pdf_path = Path(args.paper)
-        if not pdf_path.exists():
-            print(f"Error: PDF not found: {pdf_path}")
-            sys.exit(1)
-
-        print(f"Extracting metadata from {pdf_path}...")
-        model = setup_llm_pipeline(args.model)
-        raw_text = extract_text_from_pdf(pdf_path)
-        cleaned = clean_text(raw_text)
-
-        output_dir = Path(args.output) if args.output else pdf_path.parent
-        output_dir.mkdir(parents=True, exist_ok=True)
-
-        metadata = extract_metadata_full_pdf(cleaned, model, output_dir, MAX_PDF_CHARS)
-        print(json.dumps(metadata, indent=2, ensure_ascii=False))
-
-    elif args.command == "evaluate":
-        from .evaluator import batch_evaluate
-        results = batch_evaluate(
-            extraction_outputs_dir=args.results,
-            groundtruth_dir=args.groundtruth,
-            output_file=args.output,
-            verbose=True,
-            use_llm=True,
-        )
-
-    elif args.command == "version":
-        print(f"croissantminer {__version__}")
-
+def _print_check(passed, messages) -> None:
+    if passed is None:
+        print(f"Check:  not run ({messages[0]})")
+    elif passed:
+        print("Check:  passes the mlcroissant validator"
+              + (f" ({len(messages)} recommended properties missing)" if messages else ""))
     else:
-        parser.print_help()
+        print("Check:  the mlcroissant validator reports problems:")
+        for m in messages:
+            print(f"  - {m}")
+
+
+def cmd_extract(args) -> int:
+    from .api import METHOD_NAMES, MissingKey, extract
+    from .croissant import validate
+    if args.method not in METHOD_NAMES:
+        return _err(f"unknown method {args.method!r}; see `croissantminer methods`")
+    paper = Path(args.paper)
+    if not paper.is_file():
+        return _err(f"no such file: {paper}")
+    out = Path(args.output) if args.output else Path(f"{paper.stem}.croissant.json")
+    from . import methods
+    label = methods.METHODS_BY_KEY[METHOD_NAMES[args.method]].label
+    print(f"Extracting with {label} "
+          f"(usually {methods.METHODS_BY_KEY[METHOD_NAMES[args.method]].typical.replace(chr(160), ' ')})...",
+          file=sys.stderr)
+    if not args.verbose:
+        os.environ.setdefault("TQDM_DISABLE", "1")
+    quiet = contextlib.nullcontext() if args.verbose else contextlib.redirect_stdout(io.StringIO())
+    try:
+        with quiet:
+            result = extract(paper, args.method, hf_dataset_id=args.hf_id, dataset_card=args.card)
+    except MissingKey as e:
+        return _err(str(e))
+    except methods.InvalidKey:
+        return _err("the provider rejected the API key")
+    except Exception as e:  # noqa: BLE001 - report any failure of the systems plainly
+        return _err(f"extraction failed: {type(e).__name__}: {str(e)[:300]}")
+    out.write_text(json.dumps(result.croissant, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if args.fields:
+        Path(args.fields).write_text(json.dumps({
+            "paper": str(paper), "method": result.method, "fields": result.fields, "evidence": result.evidence,
+            "null_reasons": result.null_reasons, "cost_usd": result.cost_usd, "elapsed_s": round(result.elapsed_s, 1),
+        }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    cost = f", about ${result.cost_usd:.2f}" if result.cost_usd else ""
+    print(f"{result.summary()} with {result.method} in {result.elapsed_s:.0f} s{cost}.")
+    if result.missing:
+        print("Not found: " + ", ".join(result.missing))
+    print(f"Wrote:  {out} (Croissant 1.1)" + (f" and {args.fields} (values with evidence)" if args.fields else ""))
+    if not args.no_validate:
+        _print_check(*validate(result.croissant))
+    print(DRAFT_NOTE)
+    return 0
+
+
+def cmd_validate(args) -> int:
+    from .croissant import validate
+    try:
+        croissant = json.loads(Path(args.file).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as e:
+        return _err(f"cannot read {args.file}: {e}")
+    passed, messages = validate(croissant)
+    _print_check(passed, messages)
+    return 2 if passed is None else (0 if passed else 1)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="croissantminer",
+        description="Extract Croissant metadata, including the Responsible AI fields, from ML dataset papers.")
+    p.add_argument("--version", action="version", version=f"croissantminer {__version__}")
+    sub = p.add_subparsers(dest="command", required=True)
+
+    e = sub.add_parser("extract", help="extract the metadata of one paper and write a Croissant file")
+    e.add_argument("paper", help="the paper: a PDF, text or Markdown file")
+    e.add_argument("-o", "--output", help="Croissant file to write (default: <paper name>.croissant.json)")
+    e.add_argument("-m", "--method", default="single-pass",
+                   help="extraction system, see `croissantminer methods` (default: single-pass)")
+    e.add_argument("--hf-id", metavar="ORG/NAME", help="the dataset's Hugging Face id (lets the agentic "
+                   "methods check the license and URL)")
+    e.add_argument("--card", metavar="FILE", help="dataset card or README to read together with the paper")
+    e.add_argument("--fields", metavar="FILE", help="also write the extracted values with their evidence as JSON")
+    e.add_argument("--no-validate", action="store_true", help="skip the mlcroissant check")
+    e.add_argument("-v", "--verbose", action="store_true", help="show the systems' own progress output")
+    e.set_defaults(func=cmd_extract)
+
+    m = sub.add_parser("methods", help="list the extraction systems with their scores in the paper")
+    m.set_defaults(func=cmd_methods)
+
+    v = sub.add_parser("validate", help="check a Croissant file with mlcroissant")
+    v.add_argument("file")
+    v.set_defaults(func=cmd_validate)
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    try:
+        return args.func(args)
+    except ImportError as e:  # installed without the repository's benchmark code
+        return _err(str(e))
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

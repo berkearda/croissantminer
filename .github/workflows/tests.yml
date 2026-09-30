@@ -6,6 +6,7 @@ on:
 
 jobs:
   test:
+    # The paper's environment: pinned versions; includes the Table 2 reproduction check on the data in data/.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,5 +15,21 @@ jobs:
           python-version: "3.10"
           cache: pip
       - run: pip install -r requirements.txt
-      # No API keys needed; includes the Table 2 reproduction check on the data in data/.
+      # No API keys needed.
       - run: python -m pytest -q
+
+  tool:
+    # The extraction tool with the light install on every supported Python version.
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -e ".[dev,validate]"
+      - run: croissantminer methods
+      - run: python -m pytest -q --noconftest tests/test_cli.py tests/test_croissant_output.py
