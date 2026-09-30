@@ -80,8 +80,12 @@ follow.
 
 ## Which method to choose
 
-All six are systems from the paper, with the same code and settings. Score: the composite over the 30 fields on
-the 88 test papers (see [Results](#results)). Time and cost: one run on the 22-page GSM8K paper.
+<p align="center"><img src="docs/figures/architectures.png" width="860" alt="The five system designs: single-pass extraction, Parallel Specialists, Triage + Critique, Locator-Extractor and a ReAct agent"></p>
+<p align="center"><sub>The five system designs, from the paper. Single-pass reads the whole paper in one model call; the four
+agentic systems split the work into steps.</sub></p>
+
+All six methods are systems from the paper, with the same code and settings. Score: the composite over the 30
+fields on the 88 test papers (see [Results](#results)). Time and cost: one run on the 22-page GSM8K paper.
 
 | Method | Model | Score | Time | Cost | API key |
 |---|---|---|---|---|---|
@@ -108,6 +112,10 @@ Start with `single-pass`: it is the most accurate and among the cheapest. `triag
   up in your shell history.
 
 ## The benchmark
+
+<p align="center"><img src="docs/figures/pipeline.png" width="900" alt="How the benchmark was built: corpus, extraction, human annotation, adjudication to gold"></p>
+<p align="center"><sub>How the benchmark was built, from the paper: 602 dataset papers, drafts of all 30 fields by Claude Sonnet 4.5,
+9,595 ratings by 22 annotators, and a majority vote or an expert decision for each of the 3,060 gold cells.</sub></p>
 
 - **Papers:** 602 dataset papers. 102 have human-validated gold annotations (3,060 cells, 22 annotators) and 500
   have LLM-generated silver annotations. The 102 gold papers are split into 14 development and 88 test papers.
