@@ -385,7 +385,9 @@ CUSTOM_CSS = """
                                      box-shadow: none !important; }
 .step-card .flat { padding: 0 !important; }
 .step-title h3 { margin: 0; font-size: 1.05em; }
-#fields-box .html-container { padding: 0 !important; }
+#fields-box .html-container, #app-title .html-container { padding: 0 !important; }
+.app-title { display: flex; align-items: center; gap: 10px; margin: 0; }
+.app-title svg { width: 1.5em; height: 1.5em; flex: none; }
 #method-info { font-size: 0.92em; }
 #empty-note, .run-info { color: var(--body-text-color-subdued); }
 #empty-note { padding: 8px 2px; }
@@ -419,7 +421,9 @@ THEME = gr.themes.Default(
 _DEFAULT_METHOD = METHODS[0].label
 
 with gr.Blocks(title="CroissantMiner") as demo:
-    gr.Markdown("# 🥐 CroissantMiner")
+    # logo next to the title: on huggingface.co the browser tab shows Hugging Face's icon
+    _logo = (Path(__file__).resolve().parent / "favicon.svg").read_text()
+    gr.HTML(f'<h1 class="app-title">{_logo}CroissantMiner</h1>', padding=False, elem_id="app-title")
     gr.Markdown(
         "*Extract Croissant metadata from ML dataset papers.* "
         "Research demo: review the extracted metadata before use. "
