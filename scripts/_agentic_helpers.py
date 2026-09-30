@@ -364,7 +364,7 @@ def call_llm(
             msg = str(exc).lower()
             retryable = (
                 "rate" in msg or "429" in msg or "timeout" in msg
-                or "5" in getattr(exc, "status_code", "") or "overloaded" in msg
+                or str(getattr(exc, "status_code", "")).startswith("5") or "overloaded" in msg
             )
             if attempt == retries - 1 or not retryable:
                 raise

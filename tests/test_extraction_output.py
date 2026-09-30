@@ -49,3 +49,25 @@ def test_fill_canonical_adds_missing_fields_as_null():
 def test_filled_output_passes_validation():
     ok, errors = h.validate_extraction(h.fill_canonical({"license": "MIT"}))
     assert ok, errors
+
+
+class _StatusError(Exception):
+    def __init__(self, status_code):
+        super().__init__(f"Error code: {status_code}")
+        self.status_code = status_code
+
+
+@pytest.mark.parametrize("status, calls", [(529, 3), (500, 3), (400, 1)])
+def test_call_llm_retries_server_errors_only(monkeypatch, status, calls):
+    # SDK errors carry an integer status_code: retry 5xx, raise the rest at once.
+    seen = []
+
+    def fail(*args):
+        seen.append(1)
+        raise _StatusError(status)
+
+    monkeypatch.setattr(h, "_call_anthropic", fail)
+    monkeypatch.setattr(h.time, "sleep", lambda s: None)
+    with pytest.raises(_StatusError):
+        h.call_llm({"provider": "anthropic"}, "system", "user")
+    assert len(seen) == calls
