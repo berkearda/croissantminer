@@ -117,14 +117,13 @@ def _summary_md(metadata: dict | None = None, method=None, result=None) -> str:
         return ""
     total, general, rai = _compute_coverage(metadata)
     n = len(ALL_FIELD_KEYS)
-    lines = [f"### Extraction Coverage: {total}/{n} fields ({int(100 * total / n)}%)",
-             f"**General:** {general}/{len(GENERAL_FIELDS)} &nbsp;|&nbsp; "
-             f"**RAI:** {rai}/{len(RAI_FIELDS)}"]
+    lines = [f"### Found {total} of {n} fields",
+             f"Core {general} of {len(GENERAL_FIELDS)} · Responsible AI {rai} of {len(RAI_FIELDS)}"]
     if method is not None and result is not None:
         run = f"{method.label} · {result.elapsed_s:.0f} s"
         if result.cost_usd:
             run += f" · ≈ ${result.cost_usd:.2f}"
-        lines.append(f"<span style='color:#666'>{html.escape(run)}</span>")
+        lines.append(f'<span class="run-info">{html.escape(run)}</span>')
     return "\n\n".join(lines)
 
 
@@ -163,7 +162,7 @@ def _fields_html(metadata: dict | None = None, evidence: dict | None = None,
     if metadata is None:
         return ('<p id="empty-note">Results will appear here after you click '
                 '<b>Extract Metadata</b>.</p>')
-    groups = [("General Fields (10)", GENERAL_FIELDS), ("Responsible AI Fields (20)", RAI_FIELDS)]
+    groups = [("Core Fields (10)", GENERAL_FIELDS), ("Responsible AI Fields (20)", RAI_FIELDS)]
     return "".join(f'<details class="fc-group" open><summary>{title}</summary>'
                    f'{_build_field_cards(metadata, fields, evidence, null_reasons)}</details>'
                    for title, fields in groups)
@@ -342,7 +341,7 @@ ABOUT_MD = f"""
 
 **Extract Croissant metadata from ML dataset papers**
 
-CroissantMiner extracts 30 metadata fields (10 general + 20 Responsible AI) from the paper
+CroissantMiner extracts 30 metadata fields (10 core + 20 Responsible AI) from the paper
 that introduces a dataset, following the [MLCommons Croissant RAI schema](https://github.com/mlcommons/croissant).
 
 ### Methods
@@ -360,7 +359,7 @@ the paper's run used Gemini 2.5 Flash for triage.
 
 ### Fields
 
-**General (10):** name, description, url, license, creator, publisher, datePublished, inLanguage, citeAs, isLiveDataset
+**Core (10):** name, description, url, license, creator, publisher, datePublished, inLanguage, citeAs, isLiveDataset
 
 **Responsible AI (20):** dataCollection, dataCollectionType, dataCollectionMissingData, dataCollectionRawData, dataCollectionTimeframe, dataImputationProtocol, dataManipulationProtocol, dataPreprocessingProtocol, dataAnnotationProtocol, dataAnnotationPlatform, dataAnnotationAnalysis, annotationsPerItem, annotatorDemographics, machineAnnotationTools, dataReleaseMaintenancePlan, personalSensitiveInformation, dataSocialImpact, dataBiases, dataLimitations, dataUseCases
 
@@ -375,20 +374,43 @@ the paper's run used Gemini 2.5 Flash for triage.
 
 CUSTOM_CSS = """
 .gradio-container { max-width: 1100px !important; margin: 0 auto !important; }
-#extract-btn button { font-size: 1.05em; padding: 12px; }
+.step-card { background: var(--background-fill-secondary); border: 1px solid var(--border-color-primary);
+             border-radius: var(--radius-lg); padding: 14px 16px !important; justify-content: flex-start !important; }
+.step-card > * { flex-grow: 0 !important; }
+.step-card .flat, .step-card .form { background: transparent !important; border: none !important;
+                                     box-shadow: none !important; }
+.step-card .flat { padding: 0 !important; }
+.step-title h3 { margin: 0; font-size: 1.05em; }
+#fields-box .html-container { padding: 0 !important; }
 #method-info { font-size: 0.92em; }
-#empty-note { color: var(--body-text-color-subdued); padding: 8px 2px; }
+#empty-note, .run-info { color: var(--body-text-color-subdued); }
+#empty-note { padding: 8px 2px; }
 .fc-group summary { cursor: pointer; font-weight: 600; margin: 12px 0 4px; }
 .fc { border-left: 3px solid var(--color-accent); padding: 8px 14px; margin: 6px 0;
       background: var(--background-fill-secondary); border-radius: 4px; }
 .fc-empty { border-left-color: var(--border-color-primary); }
 .fc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.fc-head code { font-weight: 600; color: var(--body-text-color); background: none; padding: 0; }
+.fc-head code { font-family: var(--font-mono); font-weight: 600; color: var(--body-text-color);
+               background: none; padding: 0; }
 .fc-head span { font-size: 0.8em; color: var(--body-text-color-subdued); text-align: right; }
 .fc-val { margin-top: 6px; line-height: 1.5; color: var(--body-text-color); white-space: pre-wrap; }
 .fc-none, .fc-extra { color: var(--body-text-color-subdued); }
 .fc-extra { margin-top: 6px; font-size: 0.85em; }
 """
+
+THEME = gr.themes.Default(
+    primary_hue="blue", neutral_hue="slate",
+    font=[gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"],
+    font_mono=[gr.themes.GoogleFont("JetBrains Mono"), "ui-monospace", "monospace"],
+).set(
+    block_label_background_fill="transparent", block_label_background_fill_dark="transparent",
+    block_label_text_color="*neutral_600", block_label_text_color_dark="*neutral_300",
+    block_title_background_fill="transparent", block_title_background_fill_dark="transparent",
+    block_title_text_color="*neutral_700", block_title_text_color_dark="*neutral_200",
+    button_primary_text_color="white", button_primary_text_color_dark="white",
+    button_primary_background_fill="*primary_600", button_primary_background_fill_hover="*primary_700",
+    button_primary_background_fill_dark="*primary_600", button_primary_background_fill_hover_dark="*primary_500",
+)
 
 _DEFAULT_METHOD = METHODS[0].label
 
@@ -402,8 +424,9 @@ with gr.Blocks(title="CroissantMiner") as demo:
         "[Dataset](https://huggingface.co/datasets/bearda/croissantminer)"
     )
 
-    with gr.Row():
-        with gr.Column(scale=2):
+    with gr.Row(equal_height=True):
+        with gr.Column(scale=3, elem_classes="step-card"):
+            gr.Markdown("### 1. Paper", elem_classes="step-title")
             with gr.Tabs() as input_tabs:
                 with gr.Tab("Upload PDF", id="pdf"):
                     pdf_input = gr.File(file_types=[".pdf"], label="Dataset paper PDF",
@@ -413,37 +436,44 @@ with gr.Blocks(title="CroissantMiner") as demo:
                         label="Paper text",
                         placeholder="Paste the full text of a dataset paper here...",
                         lines=6,
+                        elem_classes="flat",
                     )
-            card_input = gr.Textbox(
-                label="Dataset card text (optional)",
-                placeholder="Optional: paste the Hugging Face dataset card or README...",
-                lines=3,
-            )
-            hf_id_input = gr.Textbox(
-                label="Hugging Face dataset id (optional)",
-                placeholder="e.g. openai/gsm8k (lets the agentic methods look up the license and URL)",
-                lines=1,
-            )
-        with gr.Column(scale=1):
+            with gr.Row():
+                example_btn = gr.Button("Load example paper (GSM8K)", size="sm", scale=0, min_width=230)
+            with gr.Accordion("Optional: dataset card and Hugging Face dataset id", open=False):
+                card_input = gr.Textbox(
+                    label="Dataset card text",
+                    placeholder="Paste the Hugging Face dataset card or README...",
+                    lines=3,
+                )
+                hf_id_input = gr.Textbox(
+                    label="Hugging Face dataset id",
+                    placeholder="e.g. openai/gsm8k (lets the agentic methods look up the license and URL)",
+                    lines=1,
+                )
+        with gr.Column(scale=2, elem_classes="step-card"):
+            gr.Markdown("### 2. Method", elem_classes="step-title")
             method_selector = gr.Dropdown(
                 choices=[m.label for m in METHODS],
                 value=_DEFAULT_METHOD,
                 label="Method",
+                show_label=False,
+                elem_classes="flat",
             )
             method_info = gr.Markdown(_method_info(_DEFAULT_METHOD), elem_id="method-info")
             api_key_input = gr.Textbox(
                 label=_key_name(METHODS[0]),
                 placeholder="sk-ant-...",
                 type="password",
+                elem_classes="flat",
             )
-            with gr.Row(elem_id="extract-btn"):
-                extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
+            extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
 
     summary_output = gr.Markdown(_summary_md())
 
     with gr.Tabs():
         with gr.Tab("Extracted Fields"):
-            fields_box = gr.HTML(_fields_html())
+            fields_box = gr.HTML(_fields_html(), padding=False, elem_id="fields-box")
 
         with gr.Tab("Croissant JSON-LD"):
             croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
@@ -478,9 +508,8 @@ with gr.Blocks(title="CroissantMiner") as demo:
 
     # A button rather than gr.Examples: with gr.Examples on the page, Gradio 6.14
     # froze the browser when switching to the Croissant JSON-LD or About tab.
-    example_btn = gr.Button("Load the GSM8K example paper (excerpt)", size="sm")
     example_btn.click(lambda: (None, EXAMPLE_PAPER, "openai/gsm8k", gr.Tabs(selected="paste")),
                       outputs=[pdf_input, paper_input, hf_id_input, input_tabs])
 
 if __name__ == "__main__":
-    demo.launch(theme=gr.themes.Soft(), css=CUSTOM_CSS, ssr_mode=False)
+    demo.launch(theme=THEME, css=CUSTOM_CSS, ssr_mode=False)
