@@ -95,3 +95,11 @@ def test_merge_command(tmp_path):
     assert r.returncode == 0 and r.stdout.startswith("Merged: added")
     out = json.loads((tmp_path / "out.json").read_text())
     assert out["name"] == "toy" and out["rai:dataCollection"] == "Written by contractors."
+
+
+def test_readme_links_are_full_urls():
+    # PyPI shows the README without the repository's files, so relative links and pictures would break there.
+    import re
+    text = (REPO / "README.md").read_text()
+    links = [a or b for a, b in re.findall(r'\]\(([^)\s]+)\)|(?:src|href)="([^"]+)"', text)]
+    assert links and [x for x in links if not x.startswith(("https://", "http://", "mailto:"))] == []

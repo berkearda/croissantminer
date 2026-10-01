@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/croissantminer-logo.svg" width="520" alt="CroissantMiner"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/berkearda/croissantminer/main/assets/croissantminer-logo.svg" width="520" alt="CroissantMiner"></p>
 
 <p align="center">
 Extract <a href="https://github.com/mlcommons/croissant">Croissant</a> metadata, including the 20 Responsible AI fields,
@@ -10,7 +10,7 @@ from the paper that introduces an ML dataset.
 <a href="https://huggingface.co/datasets/bearda/croissantminer"><img alt="Dataset" src="https://img.shields.io/badge/dataset-Hugging%20Face-ffcc4d"></a>
 <a href="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Python 3.10 to 3.13" src="https://img.shields.io/badge/python-3.10%20to%203.13-3776ab">
-<a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
+<a href="https://github.com/berkearda/croissantminer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
 </p>
 
 Code, benchmark and systems of **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML
@@ -37,7 +37,7 @@ known biases, limitations, intended uses and others). You check the draft and pu
 The [demo](https://huggingface.co/spaces/bearda/croissantminer) runs the six systems below on a PDF you upload.
 It needs your own Anthropic or OpenAI API key, which is sent only to that provider and not stored.
 
-<p align="center"><img src="docs/figures/demo.png" width="760" alt="The demo after extracting the GSM8K paper with Triage + Critique: 19 of 30 fields, each with a supporting quote from the paper"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/berkearda/croissantminer/main/docs/figures/demo.png" width="760" alt="The demo after extracting the GSM8K paper with Triage + Critique: 19 of 30 fields, each with a supporting quote from the paper"></p>
 
 ## Quick start
 
@@ -98,7 +98,7 @@ These are drafts by a language model: check each value against the paper before 
 | `--hf-id org/name` | give the dataset's Hugging Face id, so the agentic systems can check its license and URL |
 | `--card README.md` | read the dataset card together with the paper |
 | `--fields values.json` | also save the extracted values with their supporting quotes |
-| `--merge-into org/name` | add the fields to the dataset's Croissant file on Hugging Face (see [Using the file](#using-the-file)) |
+| `--merge-into org/name` | add the fields to the dataset's Croissant file on Hugging Face (see [Using the file](https://github.com/berkearda/croissantminer#using-the-file)) |
 
 `croissantminer validate my_dataset.json` checks any Croissant file with the MLCommons validator.
 
@@ -118,12 +118,12 @@ above.
 
 ## Which method to choose
 
-<p align="center"><img src="docs/figures/architectures.png" width="860" alt="The five system designs: single-pass extraction, Parallel Specialists, Triage + Critique, Locator-Extractor and a ReAct agent"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/berkearda/croissantminer/main/docs/figures/architectures.png" width="860" alt="The five system designs: single-pass extraction, Parallel Specialists, Triage + Critique, Locator-Extractor and a ReAct agent"></p>
 <p align="center"><sub>The five system designs, from the paper. Single-pass reads the whole paper in one model call; the four
 agentic systems split the work into steps.</sub></p>
 
 All six methods are systems from the paper, with the same code and settings. Score: the composite over the 30
-fields on the 88 test papers (see [Results](#results)). Time and cost: one run on the 22-page GSM8K paper.
+fields on the 88 test papers (see [Results](https://github.com/berkearda/croissantminer#results)). Time and cost: one run on the 22-page GSM8K paper.
 
 | Method | Model | Score | Time | Cost | API key |
 |---|---|---|---|---|---|
@@ -156,7 +156,7 @@ fields and any core field the host lacks; a value the host already has is never 
 kept Hugging Face's 3 data files and 4 record sets, gained 12 Responsible AI fields and passed the validator. A
 private or gated Hugging Face dataset needs `HF_TOKEN`.
 
-**Submitting a dataset to NeurIPS?** The [step-by-step guide](docs/neurips.md) covers the Croissant file the
+**Submitting a dataset to NeurIPS?** The [step-by-step guide](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md) covers the Croissant file the
 Evaluations and Datasets Track requires, including the three Responsible AI items you add yourself.
 
 ## Before you publish the file
@@ -172,7 +172,7 @@ Evaluations and Datasets Track requires, including the three Responsible AI item
 
 ## The benchmark
 
-<p align="center"><img src="docs/figures/pipeline.png" width="900" alt="How the benchmark was built: corpus, extraction, human annotation, adjudication to gold"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/berkearda/croissantminer/main/docs/figures/pipeline.png" width="900" alt="How the benchmark was built: corpus, extraction, human annotation, adjudication to gold"></p>
 <p align="center"><sub>How the benchmark was built, from the paper: 602 dataset papers, drafts of all 30 fields by Claude Sonnet 4.5,
 9,595 ratings by 22 annotators, and a majority vote or an expert decision for each of the 3,060 gold cells.</sub></p>
 
@@ -257,7 +257,7 @@ No API keys and no cost: the scores are recomputed from the stored system output
 
 ### Running the systems and the scoring rules
 
-[docs/reproducing.md](docs/reproducing.md) explains how to re-run each system on the benchmark (this needs API keys
+[docs/reproducing.md](https://github.com/berkearda/croissantminer/blob/main/docs/reproducing.md) explains how to re-run each system on the benchmark (this needs API keys
 and the benchmark PDFs) and gives the exact scoring rules: rule-based scores for the 10 core fields, the GLM-5 judge
 for the 20 RAI fields, and how empty values are scored.
 
@@ -276,7 +276,7 @@ GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3
 - **A new method or model for the tool:** methods are registered in `croissantminer/methods.py` (`METHODS` and
   `run`), model backbones in `croissantminer/systems/helpers.py` (`MODELS`), and the Croissant file is built in
   `croissantminer/croissant.py`.
-- **A new system on the benchmark:** see [CONTRIBUTING.md](CONTRIBUTING.md) for the output format and the scoring.
+- **A new system on the benchmark:** see [CONTRIBUTING.md](https://github.com/berkearda/croissantminer/blob/main/CONTRIBUTING.md) for the output format and the scoring.
 - **A wrong extraction, a bug or an idea:** open an [issue](https://github.com/berkearda/croissantminer/issues/new/choose)
   or a [discussion](https://github.com/berkearda/croissantminer/discussions).
 
@@ -303,9 +303,9 @@ internal project log, which is not included.
 
 Questions and ideas go to [Discussions](https://github.com/berkearda/croissantminer/discussions), bugs and wrong
 extractions to [issues](https://github.com/berkearda/croissantminer/issues). Please read
-[CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Everyone taking part follows the
-[code of conduct](CODE_OF_CONDUCT.md); security problems are reported as described in [SECURITY.md](SECURITY.md).
-Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+[CONTRIBUTING.md](https://github.com/berkearda/croissantminer/blob/main/CONTRIBUTING.md) before opening a pull request. Everyone taking part follows the
+[code of conduct](https://github.com/berkearda/croissantminer/blob/main/CODE_OF_CONDUCT.md); security problems are reported as described in [SECURITY.md](https://github.com/berkearda/croissantminer/blob/main/SECURITY.md).
+Changes are listed in [CHANGELOG.md](https://github.com/berkearda/croissantminer/blob/main/CHANGELOG.md).
 
 ## Citation
 
