@@ -20,6 +20,7 @@ from croissantminer.croissant import (  # noqa: E402
     ALL_FIELDS as ALL_FIELD_KEYS, CORE_FIELDS as GENERAL_FIELDS, RAI_FIELDS,
     is_filled as _is_valid, to_croissant as _build_croissant, value_text as _value_text)
 from croissantminer.methods import METHODS, METHODS_BY_LABEL  # noqa: E402
+import leaderboard_tab  # noqa: E402  (hf_space/leaderboard_tab.py)
 
 # ---------------------------------------------------------------------------
 # Field definitions
@@ -226,6 +227,7 @@ the paper's run used Gemini 2.5 Flash for triage.
 
 CUSTOM_CSS = """
 .gradio-container { max-width: 1100px !important; margin: 0 auto !important; }
+.gradio-container [role="tablist"] { flex-wrap: wrap; }   /* tab rows wrap on phones instead of widening the page */
 .step-card { background: var(--background-fill-secondary); border: 1px solid var(--border-color-primary);
              border-radius: var(--radius-lg); padding: 14px 16px !important; justify-content: flex-start !important; }
 .step-card > * { flex-grow: 0 !important; }
@@ -250,6 +252,30 @@ CUSTOM_CSS = """
 .fc-val { margin-top: 6px; line-height: 1.5; color: var(--body-text-color); white-space: pre-wrap; }
 .fc-none, .fc-extra { color: var(--body-text-color-subdued); }
 .fc-extra { margin-top: 6px; font-size: 0.85em; }
+.lb-notes { font-size: 0.88em; color: var(--body-text-color-subdued); }
+#leaderboard .html-container { padding: 0 !important; }
+.lb-wrap { overflow-x: auto; width: 0; min-width: 100%; border: 1px solid var(--border-color-primary);
+           border-radius: var(--radius-lg); }   /* width 0: the wide table scrolls instead of widening the page */
+.lb-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.92em; }
+.lb-table th { text-align: left; font-weight: 600; color: var(--body-text-color-subdued); padding: 10px 12px;
+               border: none; border-bottom: 1px solid var(--border-color-primary); white-space: nowrap;
+               background: transparent; }
+.lb-table td { padding: 7px 12px; border: none; border-bottom: 1px solid var(--border-color-primary);
+               vertical-align: middle; color: var(--body-text-color); }
+.lb-table tr:last-child td { border-bottom: none; }
+.lb-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-table .lb-rank { font-weight: 600; width: 2.5em; color: var(--body-text-color-subdued); }
+.lb-ref td { font-style: italic; background: var(--background-fill-secondary); }
+.lb-name { font-weight: 500; }
+.lb-pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 0.85em; white-space: nowrap;
+           color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); }
+.lb-open { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; font-size: 0.78em;
+           white-space: nowrap; border: 1px solid var(--border-color-primary); color: var(--body-text-color-subdued); }
+.lb-ci { display: block; font-size: 0.78em; color: var(--body-text-color-subdued); }
+.lb-bar { height: 4px; min-width: 80px; margin-top: 4px; border-radius: 2px; background: var(--border-color-primary); }
+.lb-bar span { display: block; height: 100%; border-radius: 2px; background: var(--c); }
+.lb-paper { color: var(--body-text-color-subdued); }
+.lb-empty { padding: 14px; color: var(--body-text-color-subdued); }
 """
 
 THEME = gr.themes.Default(
@@ -280,63 +306,67 @@ with gr.Blocks(title="CroissantMiner") as demo:
         "[Dataset](https://huggingface.co/datasets/bearda/croissantminer)"
     )
 
-    with gr.Row(equal_height=True):
-        with gr.Column(scale=3, elem_classes="step-card"):
-            gr.Markdown("### 1. Paper", elem_classes="step-title")
-            with gr.Tabs() as input_tabs:
-                with gr.Tab("Upload PDF", id="pdf"):
-                    pdf_input = gr.File(file_types=[".pdf"], label="Dataset paper PDF",
-                                        height=120)
-                with gr.Tab("Paste Text", id="paste"):
-                    paper_input = gr.Textbox(
-                        label="Paper text",
-                        placeholder="Paste the full text of a dataset paper here...",
-                        lines=6,
+    with gr.Tabs():
+        with gr.Tab("Extract a paper"):
+            with gr.Row(equal_height=True):
+                with gr.Column(scale=3, elem_classes="step-card"):
+                    gr.Markdown("### 1. Paper", elem_classes="step-title")
+                    with gr.Tabs() as input_tabs:
+                        with gr.Tab("Upload PDF", id="pdf"):
+                            pdf_input = gr.File(file_types=[".pdf"], label="Dataset paper PDF",
+                                                height=120)
+                        with gr.Tab("Paste Text", id="paste"):
+                            paper_input = gr.Textbox(
+                                label="Paper text",
+                                placeholder="Paste the full text of a dataset paper here...",
+                                lines=6,
+                                elem_classes="flat",
+                            )
+                    with gr.Row():
+                        example_btn = gr.Button("Load example paper (GSM8K)", size="sm", scale=0, min_width=230)
+                    with gr.Accordion("Optional: dataset card and Hugging Face dataset id", open=False):
+                        card_input = gr.Textbox(
+                            label="Dataset card text",
+                            placeholder="Paste the Hugging Face dataset card or README...",
+                            lines=3,
+                        )
+                        hf_id_input = gr.Textbox(
+                            label="Hugging Face dataset id",
+                            placeholder="e.g. openai/gsm8k (lets the agentic methods look up the license and URL)",
+                            lines=1,
+                        )
+                with gr.Column(scale=2, elem_classes="step-card"):
+                    gr.Markdown("### 2. Method", elem_classes="step-title")
+                    method_selector = gr.Dropdown(
+                        choices=[m.label for m in METHODS],
+                        value=_DEFAULT_METHOD,
+                        label="Method",
+                        show_label=False,
                         elem_classes="flat",
                     )
-            with gr.Row():
-                example_btn = gr.Button("Load example paper (GSM8K)", size="sm", scale=0, min_width=230)
-            with gr.Accordion("Optional: dataset card and Hugging Face dataset id", open=False):
-                card_input = gr.Textbox(
-                    label="Dataset card text",
-                    placeholder="Paste the Hugging Face dataset card or README...",
-                    lines=3,
-                )
-                hf_id_input = gr.Textbox(
-                    label="Hugging Face dataset id",
-                    placeholder="e.g. openai/gsm8k (lets the agentic methods look up the license and URL)",
-                    lines=1,
-                )
-        with gr.Column(scale=2, elem_classes="step-card"):
-            gr.Markdown("### 2. Method", elem_classes="step-title")
-            method_selector = gr.Dropdown(
-                choices=[m.label for m in METHODS],
-                value=_DEFAULT_METHOD,
-                label="Method",
-                show_label=False,
-                elem_classes="flat",
-            )
-            method_info = gr.Markdown(_method_info(_DEFAULT_METHOD), elem_id="method-info")
-            api_key_input = gr.Textbox(
-                label=_key_name(METHODS[0]),
-                placeholder="sk-ant-...",
-                type="password",
-                elem_classes="flat",
-            )
-            extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
+                    method_info = gr.Markdown(_method_info(_DEFAULT_METHOD), elem_id="method-info")
+                    api_key_input = gr.Textbox(
+                        label=_key_name(METHODS[0]),
+                        placeholder="sk-ant-...",
+                        type="password",
+                        elem_classes="flat",
+                    )
+                    extract_btn = gr.Button("Extract Metadata", variant="primary", size="lg")
 
-    summary_output = gr.Markdown(_summary_md())
+            summary_output = gr.Markdown(_summary_md())
 
-    with gr.Tabs():
-        with gr.Tab("Extracted Fields"):
-            fields_box = gr.HTML(_fields_html(), padding=False, elem_id="fields-box")
+            with gr.Tabs():
+                with gr.Tab("Extracted Fields"):
+                    fields_box = gr.HTML(_fields_html(), padding=False, elem_id="fields-box")
 
-        with gr.Tab("Croissant JSON-LD"):
-            croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
-            download_btn = gr.DownloadButton(label="Download Croissant JSON-LD", visible=False)
+                with gr.Tab("Croissant JSON-LD"):
+                    croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
+                    download_btn = gr.DownloadButton(label="Download Croissant JSON-LD", visible=False)
 
-        with gr.Tab("About"):
-            gr.Markdown(ABOUT_MD)
+                with gr.Tab("About"):
+                    gr.Markdown(ABOUT_MD)
+        with gr.Tab("Leaderboard"):
+            leaderboard_tab.build()
 
     method_selector.change(
         fn=_on_method_change,

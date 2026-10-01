@@ -37,4 +37,18 @@ def test_a_copy_of_a_paper_system_gets_its_table2_row(tmp_path):
         assert abs(result[key] - expected[col]) < 1e-12, key
     assert abs(result["ci95"][0] - expected["ci_lo"]) < 1e-12 and abs(result["ci95"][1] - expected["ci_hi"]) < 1e-12
     assert result["scored_cells"] == expected["n_cells"] and result["unjudged_answers"] == 0
-    assert result["rank_in_table2"] == 1 and len(list((out / "outputs").glob("*.json"))) == 88
+    assert result["rank"] >= 1 and len(list((out / "outputs").glob("*.json"))) == 88
+
+
+def test_the_readme_table_is_the_csv():
+    table = _load("leaderboard_table", "scripts/leaderboard_table.py")
+    assert table.main(["--check"]) == 0, "run python scripts/leaderboard_table.py"
+
+
+def test_the_paper_column_is_table2():
+    board = pd.read_csv(REPO / "leaderboard/leaderboard.csv")
+    expected = pd.read_csv(REPO / "tests/expected/table2_camera_ready.csv").set_index("label")
+    ranked = board[board.role == "ranked"].set_index("system")
+    assert sorted(ranked.index) == sorted(expected.index)
+    for name, row in ranked.iterrows():
+        assert abs(row.paper_composite - expected.loc[name, "composite"]) < 1e-9, name

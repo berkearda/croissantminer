@@ -7,10 +7,13 @@ OUTPUTS holds one JSON file per benchmark paper, named <paper_id>.json (the ids 
 `--list-papers` prints them). A file holds the 30 fields at the top level, under "extraction" (the format of
 data/extractions/) or under "fields" (the file `croissantminer extract --fields` writes).
 
-The 10 core fields are scored by rules. Each filled Responsible AI answer is scored by the paper's GLM-5 judge
-(scripts/judge_rerun_test88.py, needs DEEPINFRA_API_KEY; about $0.0006 per answer, under $1 per system). Verdicts are
-cached, so a re-run judges only answers that changed. The paper's scoring files are used unchanged: the system is
-added to them only while this script runs. Results go to leaderboard/<name>/ (see leaderboard/README.md).
+The 10 core fields are scored by rules. Each filled Responsible AI answer is scored by GLM-5 with the paper's judge
+prompt and parsing (scripts/judge_rerun_test88.py, unchanged), served by Z.AI through OpenRouter (needs
+OPENROUTER_API_KEY; about $0.0007 per answer, under $1 per system). The paper's runs used GLM-5 on DeepInfra, which
+retired it on 10 September 2026, so every leaderboard row was judged again with this judge on 1 October 2026 (see
+leaderboard/README.md). A reply from any other model or provider leaves the answer unjudged. Verdicts are cached, so
+a re-run judges only answers that changed. The paper's scoring files are used unchanged: the system is added to them
+only while this script runs. Results go to leaderboard/<name>/.
 """
 from __future__ import annotations
 
@@ -26,8 +29,13 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-PRICE_IN, PRICE_OUT = 0.40, 1.30          # US$ per million tokens, as in scripts/judge_rerun_test88.py
-TOKENS_IN, TOKENS_OUT = 532, 269          # mean tokens per answer in the judge run of 26 September 2026
+PRICE_IN, PRICE_OUT = 1.00, 3.20          # US$ per million tokens, GLM-5 at Z.AI on OpenRouter (1 October 2026)
+TOKENS_IN, TOKENS_OUT = 533, 43           # mean tokens per answer with this judge (1 October 2026)
+JUDGE_URL = "https://openrouter.ai/api/v1/chat/completions"
+JUDGE_MODEL, JUDGE_PROVIDER = "z-ai/glm-5", "Z.AI"
+JUDGE_REQUEST = {"model": JUDGE_MODEL, "reasoning": {"effort": "none"}, "usage": {"include": True},
+                 "provider": {"order": ["z-ai"], "allow_fallbacks": False}}
+JUDGE_NAME = "GLM-5 (z-ai/glm-5) served by Z.AI via OpenRouter, reasoning off, the paper's v2-min prompt"
 VERDICT_COLUMNS = ["paper_id", "field_id", "system_id", "gold_value", "candidate", "score", "reason",
                    "input_tokens", "output_tokens"]
 
@@ -87,15 +95,36 @@ def answers_to_judge(scorer, sid: str, outdir: Path) -> list[dict]:
     return cells
 
 
+class _JudgeJson:
+    """The judge module's json, sending its requests to GLM-5 at Z.AI and refusing replies from anything else."""
+
+    def dumps(self, obj, *args, **kwargs):
+        if isinstance(obj, dict) and "messages" in obj:
+            # Z.AI's endpoint does not accept response_format; the prompt asks for JSON only and the parser copes.
+            obj = {**{k: v for k, v in obj.items() if k != "response_format"}, **JUDGE_REQUEST}
+        return json.dumps(obj, *args, **kwargs)
+
+    def load(self, fp, *args, **kwargs):
+        reply = json.load(fp, *args, **kwargs)
+        if reply.get("model") != JUDGE_MODEL or reply.get("provider") != JUDGE_PROVIDER:
+            raise ValueError(f"reply from {reply.get('model')} via {reply.get('provider')}, not {JUDGE_MODEL} via {JUDGE_PROVIDER}")
+        return reply
+
+    def __getattr__(self, name):
+        return getattr(json, name)
+
+
 def judge_answers(todo: list[dict], cache: Path, workers: int) -> pd.DataFrame:
     try:
         from dotenv import find_dotenv, load_dotenv
         load_dotenv(find_dotenv(usecwd=True)) or load_dotenv(ROOT / ".env")
     except ImportError:
         pass
-    if not os.environ.get("DEEPINFRA_API_KEY"):
-        sys.exit("error: judging needs DEEPINFRA_API_KEY (the paper's GLM-5 judge runs on DeepInfra)")
+    if not os.environ.get("OPENROUTER_API_KEY"):
+        sys.exit("error: judging needs OPENROUTER_API_KEY (the judge is GLM-5 served by Z.AI through OpenRouter)")
+    os.environ.setdefault("DEEPINFRA_API_KEY", "unused")      # the judge module reads it when loaded
     judge = _load("judge_rerun_test88", "scripts/judge_rerun_test88.py")
+    judge.URL, judge.API_KEY, judge.json = JUDGE_URL, os.environ["OPENROUTER_API_KEY"], _JudgeJson()
     rows = []
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = [pool.submit(judge.process_cell_v2min, cell) for cell in todo]
@@ -179,13 +208,14 @@ def main(argv=None) -> int:
     result = {"name": name, "split": args.split, "papers": len(found), "scored_cells": int(len(scores)),
               "core": float(core), "rai": float(rai), "composite": float(composite),
               "ci95": [float(lo), float(hi)], "unjudged_answers": int(missing),
-              "judge": "GLM-5, v2-min prompt (scripts/judge_rerun_test88.py)", "scored_on": date.today().isoformat()}
+              "judge": JUDGE_NAME, "scored_on": date.today().isoformat()}
     complete = len(found) == len(papers) and not missing
     if args.split == "test" and complete:
-        table2 = pd.read_csv(ROOT / "tests/expected/table2_camera_ready.csv")
-        rank = 1 + int((table2["composite"] > composite).sum())
-        result["rank_in_table2"] = rank
-        print(f"Rank {rank} of {len(table2) + 1} next to the {len(table2)} ranked systems of the paper's Table 2")
+        board = pd.read_csv(ROOT / "leaderboard/leaderboard.csv")
+        board = board[board.role == "ranked"]
+        rank = 1 + int((board["composite"] > composite).sum())
+        result["rank"] = rank
+        print(f"Rank {rank} of {len(board) + 1} next to the {len(board)} ranked systems of leaderboard/leaderboard.csv")
     if missing:
         print(f"warning: {missing} answers have no verdict (the judge failed); they are left out of the score. "
               "Run again to retry them; a leaderboard entry needs all answers judged.")

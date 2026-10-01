@@ -15,8 +15,9 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
 - A guide for NeurIPS dataset submissions (`docs/neurips.md`).
 - A release workflow that publishes the package to PyPI, and a CI job that builds the package and runs it outside
   the repository.
-- A leaderboard (`leaderboard/README.md`) and `make evaluate`, which scores a new system with the paper's scorer
-  and GLM-5 judge without changing the scoring files.
+- A leaderboard (`leaderboard/README.md` and a tab in the demo) and `make evaluate`, which scores a new system with
+  the paper's scorer without changing the scoring files. Every row is judged by GLM-5 served by Z.AI through
+  OpenRouter, because DeepInfra, which served the paper's judge, retired GLM-5 on 10 September 2026.
 - Tests for the command line and the Croissant output, run on Python 3.10 to 3.13.
 - Code of conduct, security policy, issue and pull-request templates.
 

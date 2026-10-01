@@ -18,8 +18,9 @@ Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link fol
 
 **News**
 - **1 Oct 2026:** on PyPI (`pip install croissantminer`), with `--merge-into` to add the fields to a dataset's
-  Croissant file on Hugging Face, and a
-  [guide for NeurIPS dataset submissions](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md).
+  Croissant file on Hugging Face, a
+  [guide for NeurIPS dataset submissions](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md) and a
+  [leaderboard](https://huggingface.co/spaces/bearda/croissantminer) open to new systems.
 - **30 Sep 2026:** `croissantminer extract`, one command from a paper to a Croissant file.
 - **28 Sep 2026:** code, [dataset](https://huggingface.co/datasets/bearda/croissantminer) and
   [demo](https://huggingface.co/spaces/bearda/croissantminer) released.
@@ -279,7 +280,7 @@ GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3
   `run`), model backbones in `croissantminer/systems/helpers.py` (`MODELS`), and the Croissant file is built in
   `croissantminer/croissant.py`.
 - **A new system on the benchmark:** `make evaluate OUTPUTS=folder NAME=name` scores it with the paper's scorer and
-  judge; the [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) explains the format and how to add your entry.
+  judge model; the [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) explains the format and how to add your entry.
 - **A wrong extraction, a bug or an idea:** open an [issue](https://github.com/berkearda/croissantminer/issues/new/choose)
   or a [discussion](https://github.com/berkearda/croissantminer/discussions).
 

@@ -30,6 +30,6 @@ pip install -r requirements.txt      # the paper's pinned environment, for the e
   overwritten.
 - **A new method for the tool:** add a `Method` to `METHODS` and a branch to `run()` in
   `croissantminer/methods.py`, give it a name in `METHOD_NAMES` (`croissantminer/api.py`), and add a test.
-- **New systems:** `make evaluate OUTPUTS=folder NAME=name` scores a system with the paper's scorer and judge,
+- **New systems:** `make evaluate OUTPUTS=folder NAME=name` scores a system with the paper's scorer and judge model,
   without changing the scoring files; [leaderboard/README.md](leaderboard/README.md) describes the output format
   and how to add an entry. The scoring rules are in [docs/reproducing.md](docs/reproducing.md#how-scoring-works).
