@@ -98,6 +98,7 @@ These are drafts by a language model: check each value against the paper before 
 | `--hf-id org/name` | give the dataset's Hugging Face id, so the agentic systems can check its license and URL |
 | `--card README.md` | read the dataset card together with the paper |
 | `--fields values.json` | also save the extracted values with their supporting quotes |
+| `--merge-into org/name` | add the fields to the dataset's Croissant file on Hugging Face (see [Using the file](#using-the-file)) |
 
 `croissantminer validate my_dataset.json` checks any Croissant file with the MLCommons validator.
 
@@ -140,24 +141,23 @@ Start with `single-pass`: it is the most accurate and among the cheapest. `triag
 ## Using the file
 
 The file describes the dataset: the core fields and the Responsible AI fields the paper supports. It does not list
-the data files and their columns (Croissant's `distribution` and `recordSet`), which a data host generates from
-the files themselves. Hosts such as Hugging Face, Kaggle and OpenML publish such a file for their datasets;
-Hugging Face's, for example, has no Responsible AI fields. To combine the two, add CroissantMiner's `rai:` fields
-to your host's file:
+the data files and their columns (Croissant's `distribution` and `recordSet`), which a data host generates from the
+files themselves. Hosts such as Hugging Face, Kaggle and OpenML publish such a file for their datasets, but without
+the Responsible AI fields. CroissantMiner adds its fields to the host's file:
 
-```python
-import json
-
-host = json.load(open("croissant.json"))           # the file your data host generates
-mine = json.load(open("paper.croissant.json"))     # the file CroissantMiner wrote
-host["@context"]["rai"] = "http://mlcommons.org/croissant/RAI/"
-host.update({k: v for k, v in mine.items() if k.startswith("rai:")})
-json.dump(host, open("croissant_with_rai.json", "w"), indent=2)
+```bash
+croissantminer extract paper.pdf --merge-into org/name     # extract, then merge into the file Hugging Face generates
+croissantminer merge org/name paper.croissant.json         # merge a file you already extracted
+croissantminer merge host_croissant.json paper.croissant.json   # any host's file, by path or URL
 ```
 
-Then check it with `croissantminer validate croissant_with_rai.json`. On Hugging Face the generated file is at
-`https://huggingface.co/api/datasets/<org>/<name>/croissant`. The NeurIPS Evaluations and Datasets Track asks for a
-Croissant file with Responsible AI fields, and the combined file has both parts. A command for this is planned.
+The merged file keeps everything the host wrote (name, URL, license, files and columns) and adds the Responsible AI
+fields and any core field the host lacks; a value the host already has is never replaced. On GSM8K, the merged file
+kept Hugging Face's 3 data files and 4 record sets, gained 12 Responsible AI fields and passed the validator. A
+private or gated Hugging Face dataset needs `HF_TOKEN`.
+
+**Submitting a dataset to NeurIPS?** The [step-by-step guide](docs/neurips.md) covers the Croissant file the
+Evaluations and Datasets Track requires, including the three Responsible AI items you add yourself.
 
 ## Before you publish the file
 
