@@ -20,7 +20,7 @@ Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link fol
 - **1 Oct 2026:** on PyPI (`pip install croissantminer`), with `--merge-into` to add the fields to a dataset's
   Croissant file on Hugging Face, a
   [guide for NeurIPS dataset submissions](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md) and a
-  [leaderboard](https://huggingface.co/spaces/bearda/croissantminer) open to new systems.
+  [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) open to new systems.
 - **30 Sep 2026:** `croissantminer extract`, one command from a paper to a Croissant file.
 - **28 Sep 2026:** code, [dataset](https://huggingface.co/datasets/bearda/croissantminer) and
   [demo](https://huggingface.co/spaces/bearda/croissantminer) released.

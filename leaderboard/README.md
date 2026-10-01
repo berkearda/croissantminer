@@ -3,8 +3,7 @@
 Extraction systems scored on the 88 test papers of the CroissantMiner benchmark with the paper's scorer. *Core*
 averages the 10 core fields (scored by rules), *RAI* the 20 Responsible AI fields (scored by a judge model), and
 *Composite* weights all 30 fields equally; 95% confidence intervals come from 2,000 bootstrap samples over papers (see
-[how scoring works](../docs/reproducing.md#how-scoring-works)). The same table, with search, filters and a chart of
-score against cost, is on the [demo's Leaderboard tab](https://huggingface.co/spaces/bearda/croissantminer).
+[how scoring works](../docs/reproducing.md#how-scoring-works)).
 
 Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, so it is shown for reference and not
 ranked, and systems built on Claude models are marked with \*. *US$ per paper* is the API cost at list prices of
