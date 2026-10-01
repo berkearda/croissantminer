@@ -113,8 +113,8 @@ result.fields["rai:dataCollection"]      # one extracted value
 result.croissant                         # the Croissant 1.1 file as a dict
 ```
 
-The tool runs the systems' code in this repository, so install it from a clone as above. A package on PyPI will
-follow.
+A release on PyPI (`pip install "croissantminer[validate]"`) follows soon; until then, install from a clone as
+above.
 
 ## Which method to choose
 
@@ -274,7 +274,7 @@ GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3
 ## Extending CroissantMiner
 
 - **A new method or model for the tool:** methods are registered in `croissantminer/methods.py` (`METHODS` and
-  `run`), model backbones in `scripts/_agentic_helpers.py` (`MODELS`), and the Croissant file is built in
+  `run`), model backbones in `croissantminer/systems/helpers.py` (`MODELS`), and the Croissant file is built in
   `croissantminer/croissant.py`.
 - **A new system on the benchmark:** see [CONTRIBUTING.md](CONTRIBUTING.md) for the output format and the scoring.
 - **A wrong extraction, a bug or an idea:** open an [issue](https://github.com/berkearda/croissantminer/issues/new/choose)
@@ -284,8 +284,8 @@ GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3
 
 | Path | Contents |
 |---|---|
-| `croissantminer/` | Package: command line and Python API (`cli.py`, `api.py`), the six systems (`methods.py`), the Croissant file (`croissant.py`), the extraction prompt, PDF reading and the ReAct agent |
-| `scripts/` | The other systems, the judge, tables and figures (guide in `scripts/README.md`) |
+| `croissantminer/` | Package: command line and Python API (`cli.py`, `api.py`), the six methods (`methods.py`) and the systems' code (`systems/`), the Croissant file (`croissant.py`), the extraction prompt, PDF reading and the ReAct agent |
+| `scripts/` | Benchmark runs of the systems, the judge, tables and figures (guide in `scripts/README.md`) |
 | `evaluation/` | Field metrics and system registry used by the scorer |
 | `data/` | Gold annotations, judge verdicts and system outputs |
 | `silver/` | Selection and extraction of the 500 silver papers |

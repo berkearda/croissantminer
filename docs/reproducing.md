@@ -9,15 +9,15 @@ Python 3.10 or 3.11 with the pinned versions in `requirements.txt`.
 
 The benchmark PDFs are not redistributed. Download them from their public sources into `data/raw/` with
 `python scripts/download_papers.py`. The commands below use the Claude Sonnet 4.6 backbone; the backbone names
-are listed in `scripts/_agentic_helpers.py` (`MODELS`).
+are listed in `croissantminer/systems/helpers.py` (`MODELS`).
 
 | System | Code | Command |
 |---|---|---|
 | Single-pass | `scripts/experiments/model_comparison/extract_all_models.py` | `python scripts/experiments/model_comparison/extract_all_models.py --model claude-sonnet-4-6` |
 | ReAct | `croissantminer/react_agent/` | `python scripts/run_react_agent.py --split test --backbone sonnet-4-6 --prompt-variant v3` |
-| Parallel Specialists | `scripts/multi_agents/` | `python scripts/multi_agents/run.py --config premium --prompt-variant v4 --test-only` |
-| Triage + Critique | `scripts/agentic_v2.py` | `python scripts/agentic_v2.py --backbone sonnet-4-6 --prompt-variant v4` |
-| Locator-Extractor | `scripts/agentic_lev.py` | `python scripts/agentic_lev.py --locator-backbone sonnet-4-6 --extractor-backbone sonnet-4-6 --prompt-variant v3` |
+| Parallel Specialists | `croissantminer/systems/specialists.py` | `python scripts/multi_agents/run.py --config premium --prompt-variant v4 --test-only` |
+| Triage + Critique | `croissantminer/systems/triage_critique.py` | `python scripts/agentic_v2.py --backbone sonnet-4-6 --prompt-variant v4` |
+| Locator-Extractor | `croissantminer/systems/locator_extractor.py` | `python scripts/agentic_lev.py --locator-backbone sonnet-4-6 --extractor-backbone sonnet-4-6 --prompt-variant v3` |
 
 Notes on re-running:
 
@@ -37,7 +37,7 @@ Notes on re-running:
   single-pass outputs record the prompt's hash (`1e1cfdd99246bbf5`) in their `_meta` block. The agentic systems
   keep their own prompts next to their code.
 - **Names in the code:** Triage + Critique is `agentic_v2`, Locator-Extractor `agentic_lev` (or LEV), and
-  Parallel Specialists `specialist`.
+  Parallel Specialists `specialist`. Their code moved to `croissantminer/systems/`; the commands above keep working.
 
 ## How scoring works
 

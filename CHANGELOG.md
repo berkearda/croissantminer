@@ -10,6 +10,11 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
   `croissantminer validate` checks a Croissant file with the MLCommons validator.
 - Python API: `croissantminer.extract()`.
 - Optional extras: `validate` (MLCommons validator), `eval` (reproducing the paper) and `demo`.
+- `croissantminer merge` and `croissantminer extract --merge-into`: add the extracted fields to the Croissant file
+  a data host generates (for example Hugging Face's), keeping the host's own values.
+- A guide for NeurIPS dataset submissions (`docs/neurips.md`).
+- A release workflow that publishes the package to PyPI, and a CI job that builds the package and runs it outside
+  the repository.
 - Tests for the command line and the Croissant output, run on Python 3.10 to 3.13.
 - Code of conduct, security policy, issue and pull-request templates.
 
@@ -18,6 +23,8 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
   Python 3.12 and 3.13 are supported.
 - The demo's code moved into the package (`croissantminer/methods.py` and `croissantminer/croissant.py`), so the
   command line, the Python API and the demo share one implementation.
+- The code of the agentic systems moved from `scripts/` and `validation/` into `croissantminer/systems/`, so the
+  installed package runs all six methods. The old files keep the paper's imports and commands working.
 - `anthropic` is limited to versions below 1.0 and `openai` below 2.0: anthropic 1.x no longer accepts the
   temperature setting the systems use.
 - `import croissantminer` no longer loads the earlier prototype; its names are loaded when first used.

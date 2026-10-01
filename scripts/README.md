@@ -1,7 +1,9 @@
 # Scripts
 
 The scripts behind the paper, by purpose. Other scripts in this folder come from earlier stages of the
-project and are not needed to reproduce the paper.
+project and are not needed to reproduce the paper. The code of the agentic systems lives in
+`croissantminer/systems/`, so that the installed package can run them; the files marked "moved" below keep their
+old commands and imports working.
 
 **Extraction systems**
 
@@ -10,12 +12,12 @@ project and are not needed to reproduce the paper.
 | `experiments/model_comparison/extract_all_models.py` | Single-pass extraction (real-time APIs) |
 | `experiments/model_comparison/extract_all_models_batch.py` | Single-pass extraction through the providers' batch APIs |
 | `run_react_agent.py` | ReAct (agent code in `croissantminer/react_agent/`) |
-| `multi_agents/` | Parallel Specialists |
-| `agentic_v2.py` | Triage + Critique |
-| `agentic_lev.py` | Locator-Extractor |
-| `agentic_phase0.py` | Builds the section index Locator-Extractor needs (`data/agentic/phase0/`, not redistributed because it contains the paper text); run it after downloading the PDFs |
+| `multi_agents/` | Parallel Specialists: `run.py` runs the benchmark (code moved to `croissantminer/systems/specialists.py`) |
+| `agentic_v2.py` | Triage + Critique (moved to `croissantminer/systems/triage_critique.py`) |
+| `agentic_lev.py` | Locator-Extractor (moved to `croissantminer/systems/locator_extractor.py`) |
+| `agentic_phase0.py` | Builds the section index Locator-Extractor needs (moved to `croissantminer/systems/sections.py`) (`data/agentic/phase0/`, not redistributed because it contains the paper text); run it after downloading the PDFs |
 | `agentic_phase1.py` | Gemini 2.5 Flash triage; its outputs for the benchmark papers are included in `data/agentic/phase1/` |
-| `_agentic_helpers.py` | Shared model clients, output handling and the `_meta` provenance block |
+| `_agentic_helpers.py` | Shared model clients, output handling and the `_meta` provenance block (moved to `croissantminer/systems/helpers.py`) |
 | `euler/` | Open-weight models served with vLLM on a Slurm cluster (`extract_openmodels.py`), and the hosted-API runs for DeepSeek V3.2 and GLM-5.1 (`extract_api_models.py`) |
 | `download_papers.py` | Downloads the benchmark PDFs into `data/raw/` |
 
