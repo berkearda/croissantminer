@@ -1,6 +1,4 @@
-<p align="center"><img src="hf_space/favicon.svg" width="88" alt="CroissantMiner logo"></p>
-
-<h1 align="center">CroissantMiner</h1>
+<p align="center"><img src="assets/croissantminer-logo.svg" width="520" alt="CroissantMiner"></p>
 
 <p align="center">
 Extract <a href="https://github.com/mlcommons/croissant">Croissant</a> metadata, including the 20 Responsible AI fields,
