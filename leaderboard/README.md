@@ -3,7 +3,8 @@
 Extraction systems scored on the 88 test papers of the CroissantMiner benchmark with the paper's scorer. *Core*
 averages the 10 core fields (scored by rules), *RAI* the 20 Responsible AI fields (scored by a judge model), and
 *Composite* weights all 30 fields equally; 95% confidence intervals come from 2,000 bootstrap samples over papers (see
-[how scoring works](../docs/reproducing.md#how-scoring-works)).
+[how scoring works](../docs/reproducing.md#how-scoring-works)). The [leaderboard website](https://berkearda.github.io/croissantminer/) shows the same
+table with each system's score on all 30 fields; it is built from `leaderboard.csv` whenever that file changes.
 
 Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, so it is shown for reference and not
 ranked, and systems built on Claude models are marked with \*. *US$ per paper* is the API cost at list prices of
@@ -44,10 +45,10 @@ April and May 2026 (the paper's Table 8); self-hosted models ran on our own GPUs
 Every row, including the paper's systems, was judged on 1 October 2026 by GLM-5 (`z-ai/glm-5`) served by Z.AI through
 OpenRouter, with the paper's judge prompt, reasoning switched off. *Paper* is the composite in the paper. The paper's
 verdicts came from GLM-5 on DeepInfra in May 2026; DeepInfra retired that model on 10 September 2026 and now answers
-requests for it with GLM-5.2, so the May verdicts cannot be repeated. The judge used here scores the systems 0.015 lower on average (0.006 to 0.025 by system), and
-the order is nearly the same: only Triage + Critique (Sonnet 4.6) and GLM-5.1, 0.0007 apart in the paper, swap
-places. New systems are judged the same way, and the scoring script refuses replies from any other model or
-provider.
+requests for it with GLM-5.2, so the May verdicts cannot be repeated. The judge used here scores the systems 0.015
+lower on average (0.006 to 0.025 by system), and the order is nearly the same: only Triage + Critique (Sonnet 4.6)
+and GLM-5.1, 0.0007 apart in the paper, swap places. New systems are judged the same way, and the scoring script
+refuses replies from any other model or provider.
 
 
 ## Add your system
@@ -63,8 +64,11 @@ provider.
    only judges changed answers. Tune your system on the development papers (`--split dev`) and score the test papers
    once.
 4. **Open a pull request** with the folder `leaderboard/<name>/` the script wrote (your outputs, the judge's verdicts
-   and the scores) and a row in `leaderboard/leaderboard.csv` with a link to your code or paper, then run
-   `python scripts/leaderboard_table.py` to update the table above. We check an entry by scoring its outputs again.
+   and the scores) and a row in `leaderboard/leaderboard.csv`: the scores from `scores.json`, your team, the date
+   your outputs were made (`date`, YYYY-MM-DD), a link to your code or paper (`link`), `results` set to the folder
+   name, `role` set to `ranked`, and `judge` and `judged_on` from `judge` and `scored_on` in `scores.json`. Then run
+   `python scripts/leaderboard_table.py` to update the table above. We check an entry by scoring its outputs again;
+   once it is merged, the website updates itself.
 
 **Rules.** Do not train or tune on the gold annotations of the test papers (they are public). Name the model and
 whether its weights are open, give the cost per paper, and mark a system built on a Claude model with \*.

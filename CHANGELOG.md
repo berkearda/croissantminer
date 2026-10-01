@@ -2,6 +2,14 @@
 
 Notable changes to CroissantMiner. Versions follow [semantic versioning](https://semver.org).
 
+## Unreleased
+
+### Added
+- A leaderboard website (https://berkearda.github.io/croissantminer/), built from `leaderboard/leaderboard.csv` by `scripts/build_site.py` and
+  published on GitHub Pages whenever the leaderboard changes. It shows each system's score on all 30 fields and
+  which fields are hardest. The leaderboard file gains the columns `team`, `date` and `results`; the paper's
+  systems' field scores are in `leaderboard/paper/per_field.csv`.
+
 ## 0.2.0 (1 October 2026)
 
 ### Added

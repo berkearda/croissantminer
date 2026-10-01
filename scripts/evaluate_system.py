@@ -35,7 +35,8 @@ JUDGE_URL = "https://openrouter.ai/api/v1/chat/completions"
 JUDGE_MODEL, JUDGE_PROVIDER = "z-ai/glm-5", "Z.AI"
 JUDGE_REQUEST = {"model": JUDGE_MODEL, "reasoning": {"effort": "none"}, "usage": {"include": True},
                  "provider": {"order": ["z-ai"], "allow_fallbacks": False}}
-JUDGE_NAME = "GLM-5 (z-ai/glm-5) served by Z.AI via OpenRouter, reasoning off, the paper's v2-min prompt"
+JUDGE_NAME = "GLM-5 at Z.AI (OpenRouter)"             # as in the judge column of leaderboard/leaderboard.csv
+JUDGE_DETAILS = "z-ai/glm-5 served by Z.AI via OpenRouter, reasoning off, the paper's v2-min prompt"
 VERDICT_COLUMNS = ["paper_id", "field_id", "system_id", "gold_value", "candidate", "score", "reason",
                    "input_tokens", "output_tokens"]
 
@@ -208,7 +209,7 @@ def main(argv=None) -> int:
     result = {"name": name, "split": args.split, "papers": len(found), "scored_cells": int(len(scores)),
               "core": float(core), "rai": float(rai), "composite": float(composite),
               "ci95": [float(lo), float(hi)], "unjudged_answers": int(missing),
-              "judge": JUDGE_NAME, "scored_on": date.today().isoformat()}
+              "judge": JUDGE_NAME, "judge_details": JUDGE_DETAILS, "scored_on": date.today().isoformat()}
     complete = len(found) == len(papers) and not missing
     if args.split == "test" and complete:
         board = pd.read_csv(ROOT / "leaderboard/leaderboard.csv")
