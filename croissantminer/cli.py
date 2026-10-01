@@ -56,14 +56,28 @@ def _print_check(passed, messages) -> None:
             print(f"  - {m}")
 
 
+def _print_merge(source: str, added: list[str], kept: list[str]) -> None:
+    rai = sum(k.startswith("rai:") for k in added)
+    print(f"Merged: added {len(added)} fields ({rai} Responsible AI) to the Croissant file of {source}"
+          + (f"; kept its own {', '.join(kept)}" if kept else ""))
+
+
 def cmd_extract(args) -> int:
     from .api import METHOD_NAMES, MissingKey, extract
-    from .croissant import validate
+    from .croissant import _HF_ID, load, merge, validate
     if args.method not in METHOD_NAMES:
         return _err(f"unknown method {args.method!r}; see `croissantminer methods`")
     paper = Path(args.paper)
     if not paper.is_file():
         return _err(f"no such file: {paper}")
+    host = None
+    if args.merge_into:  # fetched first, so a wrong id fails before any API call
+        try:
+            host = load(args.merge_into)
+        except Exception as e:  # noqa: BLE001
+            return _err(f"cannot read the Croissant file to merge into: {e}")
+        if not args.hf_id and _HF_ID.match(args.merge_into) and not Path(args.merge_into).exists():
+            args.hf_id = args.merge_into
     out = Path(args.output) if args.output else Path(f"{paper.stem}.croissant.json")
     from . import methods
     label = methods.METHODS_BY_KEY[METHOD_NAMES[args.method]].label
@@ -82,7 +96,10 @@ def cmd_extract(args) -> int:
         return _err("the provider rejected the API key")
     except Exception as e:  # noqa: BLE001 - report any failure of the systems plainly
         return _err(f"extraction failed: {type(e).__name__}: {str(e)[:300]}")
-    out.write_text(json.dumps(result.croissant, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    croissant = result.croissant
+    if host is not None:
+        croissant, added, kept = merge(host, croissant)
+    out.write_text(json.dumps(croissant, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     if args.fields:
         Path(args.fields).write_text(json.dumps({
             "paper": str(paper), "method": result.method, "fields": result.fields, "evidence": result.evidence,
@@ -92,10 +109,30 @@ def cmd_extract(args) -> int:
     print(f"{result.summary()} with {result.method} in {result.elapsed_s:.0f} s{cost}.")
     if result.missing:
         print("Not found: " + ", ".join(result.missing))
-    print(f"Wrote:  {out} (Croissant 1.1)" + (f" and {args.fields} (values with evidence)" if args.fields else ""))
+    if host is not None:
+        _print_merge(args.merge_into, added, kept)
+    print(f"Wrote:  {out}" + (" (Croissant 1.1)" if host is None else "")
+          + (f" and {args.fields} (values with evidence)" if args.fields else ""))
     if not args.no_validate:
-        _print_check(*validate(result.croissant))
+        _print_check(*validate(croissant))
     print(DRAFT_NOTE)
+    return 0
+
+
+def cmd_merge(args) -> int:
+    from .croissant import load, merge, validate
+    try:
+        host, ours = load(args.host), load(args.extracted)
+    except Exception as e:  # noqa: BLE001
+        return _err(str(e))
+    merged, added, kept = merge(host, ours)
+    out = Path(args.output)
+    out.write_text(json.dumps(merged, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _print_merge(args.host, added, kept)
+    print(f"Wrote:  {out}")
+    if not args.no_validate:
+        passed, messages = validate(merged)
+        _print_check(passed, messages)
     return 0
 
 
@@ -126,9 +163,19 @@ def build_parser() -> argparse.ArgumentParser:
                    "methods check the license and URL)")
     e.add_argument("--card", metavar="FILE", help="dataset card or README to read together with the paper")
     e.add_argument("--fields", metavar="FILE", help="also write the extracted values with their evidence as JSON")
+    e.add_argument("--merge-into", metavar="SOURCE", help="add the extracted fields to an existing Croissant file: "
+                   "a Hugging Face dataset id (org/name), a URL or a path; see `croissantminer merge`")
     e.add_argument("--no-validate", action="store_true", help="skip the mlcroissant check")
     e.add_argument("-v", "--verbose", action="store_true", help="show the systems' own progress output")
     e.set_defaults(func=cmd_extract)
+
+    g = sub.add_parser("merge", help="add extracted fields to the Croissant file of a data host (Hugging Face, "
+                       "Kaggle, OpenML or a local file); the host's own values are kept")
+    g.add_argument("host", help="Hugging Face dataset id (org/name), URL or path of the host's Croissant file")
+    g.add_argument("extracted", help="the file written by `croissantminer extract`")
+    g.add_argument("-o", "--output", default="croissant_with_rai.json", help="default: croissant_with_rai.json")
+    g.add_argument("--no-validate", action="store_true", help="skip the mlcroissant check")
+    g.set_defaults(func=cmd_merge)
 
     m = sub.add_parser("methods", help="list the extraction systems with their scores in the paper")
     m.set_defaults(func=cmd_methods)

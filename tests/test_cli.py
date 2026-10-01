@@ -80,3 +80,14 @@ def test_single_pass_end_to_end_with_a_stubbed_model(monkeypatch):
     assert c["conformsTo"] == "http://mlcommons.org/croissant/1.1"
     assert c["publisher"] == {"@type": "Organization", "name": "OpenAI"} and c["datePublished"] == "2021"
     assert "rai:dataBiases" not in c and c["rai:dataCollection"].startswith("Crowdsourced")
+
+
+def test_merge_command(tmp_path):
+    from tests.test_croissant_output import FIELDS, HOST
+    from croissantminer.croissant import to_croissant
+    (tmp_path / "host.json").write_text(json.dumps(HOST))
+    (tmp_path / "ours.json").write_text(json.dumps(to_croissant(FIELDS)))
+    r = run_cli("merge", "host.json", "ours.json", "-o", "out.json", "--no-validate", cwd=tmp_path)
+    assert r.returncode == 0 and r.stdout.startswith("Merged: added")
+    out = json.loads((tmp_path / "out.json").read_text())
+    assert out["name"] == "toy" and out["rai:dataCollection"] == "Written by contractors."

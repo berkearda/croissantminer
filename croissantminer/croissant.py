@@ -186,3 +186,55 @@ def validate(croissant: dict) -> tuple[bool | None, list[str]]:
         return False, [line.strip(" -") for line in str(e).splitlines() if line.strip().startswith("-")]
     finally:
         os.unlink(f.name)
+
+
+HF_CROISSANT = "https://huggingface.co/api/datasets/{}/croissant"
+_HF_ID = re.compile(r"^[A-Za-z0-9][\w.-]*/[\w.-]+$")
+
+
+def load(source: str) -> dict:
+    """A Croissant file from a path, a URL, or a Hugging Face dataset id ("org/name"),
+    whose file Hugging Face generates. HF_TOKEN is used for private or gated datasets."""
+    import os
+    from pathlib import Path
+    if Path(source).is_file():
+        return json.loads(Path(source).read_text(encoding="utf-8"))
+    url = source
+    if source.startswith("https://huggingface.co/datasets/"):
+        url = HF_CROISSANT.format("/".join(source.split("/datasets/", 1)[1].strip("/").split("/")[:2]))
+    elif _HF_ID.match(source):
+        url = HF_CROISSANT.format(source)
+    elif not source.startswith(("http://", "https://")):
+        raise ValueError(f"{source!r} is not a file, a URL or a Hugging Face dataset id (org/name)")
+    import requests
+    headers = {"Authorization": f"Bearer {os.environ['HF_TOKEN']}"} if os.environ.get("HF_TOKEN") else {}
+    r = requests.get(url, headers=headers, timeout=60)
+    if r.status_code in (401, 403, 404) and url.startswith(HF_CROISSANT.split("{")[0]):
+        raise ValueError(f"Hugging Face has no Croissant file for {source} (HTTP {r.status_code}). It generates one "
+                         "for datasets it can read; a private or gated dataset needs HF_TOKEN.")
+    r.raise_for_status()
+    return r.json()
+
+
+def merge(host: dict, ours: dict) -> tuple[dict, list[str], list[str]]:
+    """Add the extracted fields to the host's file (the one with the data files and columns).
+    Every rai: field and every core field the host lacks is added; a value the host already
+    has is kept. Returns (merged file, fields added, fields kept from the host)."""
+    merged = json.loads(json.dumps(host))
+    context = merged.setdefault("@context", {})
+    if isinstance(context, dict):
+        context.setdefault("rai", "http://mlcommons.org/croissant/RAI/")
+        aliases = {v: k for k, v in context.items() if isinstance(v, str) and not k.startswith("@")}
+    else:
+        aliases = {}
+    added, kept = [], []
+    for key, value in ours.items():
+        if key.startswith("@") or key == "conformsTo":
+            continue
+        target = aliases.get(key, key)          # e.g. cr:citeAs is written "citeAs" when the host defines that name
+        if target in merged or key in merged:
+            kept.append(target)
+        else:
+            merged[target] = value
+            added.append(target)
+    return merged, added, kept
