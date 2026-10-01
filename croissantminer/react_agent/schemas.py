@@ -1,19 +1,13 @@
 """Canonical 30-field schema for the ReAct agent.
 
-Re-exports CANONICAL_FIELDS from validation.validate_extraction so there's
+Re-exports CANONICAL_FIELDS from croissantminer.systems.validate so there's
 a single source of truth across extraction, validation, and evaluation.
 """
 
 from __future__ import annotations
 
-from pathlib import Path
-import sys
 
-_ROOT = Path(__file__).resolve().parents[2]
-if str(_ROOT) not in sys.path:
-    sys.path.insert(0, str(_ROOT))
-
-from validation.validate_extraction import CANONICAL_FIELDS  # noqa: E402
+from croissantminer.systems.validate import CANONICAL_FIELDS  # noqa: E402
 
 CORE_FIELDS = (
     "name", "description", "url", "license", "creator", "publisher",

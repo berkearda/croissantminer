@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from validation.validate_extraction import validate_extraction  # noqa: E402
+from croissantminer.systems.validate import validate_extraction  # noqa: E402
 
 RAW_DIR = ROOT / "data" / "raw"
 EXTRACTIONS_DIR = ROOT / "data" / "extractions" / "react_agent"  # legacy default
@@ -148,7 +148,7 @@ def extract_paper(
     # arxiv-id-named PDFs and reference stripping consistency. Falls through
     # to ds_id.pdf if the helper finds nothing.
     sys.path.insert(0, str(ROOT))
-    from scripts._agentic_helpers import get_paper_text  # noqa: E402
+    from croissantminer.systems.helpers import get_paper_text  # noqa: E402
     try:
         paper_text = get_paper_text(ds_id)
     except Exception as e:
@@ -167,7 +167,7 @@ def extract_paper(
 
     # Resolve backbone → model_id for the API call.
     sys.path.insert(0, str(ROOT))
-    from scripts._agentic_helpers import resolve_backbone  # noqa: E402
+    from croissantminer.systems.helpers import resolve_backbone  # noqa: E402
     bb = resolve_backbone(backbone_key)
     model_id = bb["model_id"]
 

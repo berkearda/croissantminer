@@ -71,3 +71,13 @@ def test_call_llm_retries_server_errors_only(monkeypatch, status, calls):
     with pytest.raises(_StatusError):
         h.call_llm({"provider": "anthropic"}, "system", "user")
     assert len(seen) == calls
+
+
+def test_triage_critique_uses_the_scorers_field_list():
+    # The package keeps a copy of LONG_TEXT_RAI_FIELDS so that it does not need the scorer (evaluation/).
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("field_metrics", REPO / "evaluation" / "field_metrics.py")
+    field_metrics = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(field_metrics)
+    from croissantminer.systems import triage_critique
+    assert triage_critique.LONG_TEXT_RAI_FIELDS == field_metrics.LONG_TEXT_RAI_FIELDS

@@ -4,16 +4,16 @@
 Each method calls the same code and configuration as the corresponding row of
 the paper's Table 2 (all on Claude Sonnet 4.6 unless noted):
 
-  single-pass   canonical prompt, one call            (extract_all_models.py)
-  ReAct         prompt variant v3                     (croissantminer/react_agent)
-  Parallel Sp.  config "premium", prompt variant v4   (scripts/multi_agents)
-  Triage+Crit.  prompt variant v4                     (scripts/agentic_v2.py)
-  Locator-Ext.  Sonnet 4.6 locator, prompt variant v3 (scripts/agentic_lev.py)
+  single-pass   canonical prompt, one call            (config.py, systems/helpers.py)
+  ReAct         prompt variant v3                     (react_agent/)
+  Parallel Sp.  config "premium", prompt variant v4   (systems/specialists.py)
+  Triage+Crit.  prompt variant v4                     (systems/triage_critique.py)
+  Locator-Ext.  Sonnet 4.6 locator, prompt variant v3 (systems/locator_extractor.py)
 
 The benchmark scripts look papers up by dataset id and read precomputed
 section chunks / triage from data/agentic/. Here those loaders are pointed at
 the uploaded paper instead:
-  - section chunks come from agentic_phase0's detect_sections + chunk_text;
+  - section chunks come from systems/sections.py (detect_sections + chunk_text);
   - Triage + Critique's triage comes from the Locator-Extractor locator prompt
     run with Sonnet 4.6 (the paper's run used precomputed Gemini 2.5 Flash
     triage), so the whole method needs only an Anthropic key.
@@ -30,31 +30,13 @@ import sys
 import tempfile
 import threading
 import time
-import types
 from argparse import Namespace
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-SCRIPTS = REPO_ROOT / "scripts"
-if not (SCRIPTS / "_agentic_helpers.py").exists():
-    raise ImportError(
-        "The extraction systems use the benchmark code in the repository (scripts/). Install CroissantMiner "
-        "from a clone: git clone https://github.com/berkearda/croissantminer && cd croissantminer && pip install -e .")
-for _p in (REPO_ROOT, SCRIPTS, SCRIPTS / "multi_agents"):
-    if str(_p) not in sys.path:
-        sys.path.insert(0, str(_p))
-
-
-def _light_evaluation_package() -> None:
-    """Triage + Critique imports evaluation.field_metrics; register the package
-    without running evaluation/__init__.py, which imports pandas and matplotlib."""
-    if "evaluation" not in sys.modules:
-        pkg = types.ModuleType("evaluation")
-        pkg.__path__ = [str(REPO_ROOT / "evaluation")]
-        sys.modules["evaluation"] = pkg
+PACKAGE = Path(__file__).resolve().parent
 
 BACKBONE = "sonnet-4-6"
 UPLOAD_ID = "uploaded_paper"
@@ -132,25 +114,25 @@ def _load_definitions(path: Path, wanted: set) -> dict:
 
 
 _PHASE0: dict = {}
-_CLEAN_TEXT = _load_definitions(REPO_ROOT / "croissantminer" / "pdf" / "processor.py",
+_CLEAN_TEXT = _load_definitions(PACKAGE / "pdf" / "processor.py",
                                 {"clean_text"})["clean_text"]
 
 
 def paper_text_from_pdf(pdf_path: str) -> str:
-    """The benchmark's preprocessing (_agentic_helpers.get_paper_text):
+    """The benchmark's preprocessing (systems.helpers.get_paper_text):
     PyPDF2 text extraction, clean_text, UTF-8 sanitising."""
     spec = importlib.util.spec_from_file_location(
-        "_cm_pdf_reader", REPO_ROOT / "croissantminer" / "pdf" / "reader.py")
+        "_cm_pdf_reader", PACKAGE / "pdf" / "reader.py")
     reader = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(reader)
-    from _agentic_helpers import sanitize_utf8
+    from .systems.helpers import sanitize_utf8
     return sanitize_utf8(_CLEAN_TEXT(reader.extract_text_from_pdf(pdf_path)))
 
 
 def _section_text(paper_text: str) -> dict[str, str]:
     """Same structure agentic_lev.load_section_text() builds from Phase 0 files."""
     if not _PHASE0:
-        _PHASE0.update(_load_definitions(SCRIPTS / "agentic_phase0.py",
+        _PHASE0.update(_load_definitions(PACKAGE / "systems" / "sections.py",
                                          {"KNOWN_SECTIONS", "detect_sections", "estimate_tokens", "chunk_text"}))
     sections = _PHASE0["detect_sections"](paper_text)
     out: defaultdict[str, str] = defaultdict(str)
@@ -206,8 +188,8 @@ def _evidence_from(payload: dict) -> dict:
 
 # ── Methods ─────────────────────────────────────────────────────────────────
 def _single_pass(text: str, backbone: str) -> RunResult:
-    from config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
-    from _agentic_helpers import (call_llm, estimate_cost, fill_canonical,
+    from .config import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
+    from .systems.helpers import (call_llm, estimate_cost, fill_canonical,
                                   normalize_field_names, parse_json_response, resolve_backbone)
     cfg = resolve_backbone(backbone)
     raw, usage = call_llm(cfg, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE % text, 8192)
@@ -219,7 +201,7 @@ def _react(text: str, api_key: str, ds_id: str) -> RunResult:
     import anthropic
     from croissantminer.react_agent.agent import run_agent
     from croissantminer.react_agent.schemas import coerce_nulls
-    from _agentic_helpers import resolve_backbone
+    from .systems.helpers import resolve_backbone
     result = run_agent(
         paper_text=text,
         client=anthropic.Anthropic(api_key=api_key),
@@ -236,8 +218,8 @@ def _react(text: str, api_key: str, ds_id: str) -> RunResult:
 
 
 def _specialists(text: str) -> RunResult:
-    from agents import ALL_FIELDS, build_specialists, simple_merge
-    from _agentic_helpers import estimate_cost, resolve_backbone
+    from .systems.specialists import ALL_FIELDS, build_specialists, simple_merge
+    from .systems.helpers import estimate_cost, resolve_backbone
     specialists = build_specialists("premium", "v4")
     # The five specialists are independent calls; run them concurrently.
     with ThreadPoolExecutor(max_workers=len(specialists)) as pool:
@@ -257,10 +239,9 @@ def _specialists(text: str) -> RunResult:
 
 
 def _triage_critique(text: str, ds_id: str) -> RunResult:
-    _light_evaluation_package()
-    import agentic_v2 as v2
-    import agentic_lev as lev
-    from _agentic_helpers import resolve_backbone
+    from .systems import locator_extractor as lev
+    from .systems import triage_critique as v2
+    from .systems.helpers import resolve_backbone
     cfg = resolve_backbone(BACKBONE)
     sections = _section_text(text)
     with _patched({}, [(lev, "load_section_text", lambda _id: sections)]):
@@ -278,9 +259,8 @@ def _triage_critique(text: str, ds_id: str) -> RunResult:
 
 
 def _locator_extractor(text: str, ds_id: str) -> RunResult:
-    _light_evaluation_package()
-    import agentic_lev as lev
-    from _agentic_helpers import resolve_backbone
+    from .systems import locator_extractor as lev
+    from .systems.helpers import resolve_backbone
     cfg = resolve_backbone(BACKBONE)
     sections = _section_text(text)
     with tempfile.TemporaryDirectory() as tmp, _patched({}, [
@@ -319,7 +299,7 @@ def _check_key(provider: str, api_key: str) -> None:
 def run(method_label: str, paper_text: str, api_key: str,
         hf_dataset_id: str | None = None) -> RunResult:
     method = METHODS_BY_LABEL[method_label]
-    from _agentic_helpers import sanitize_utf8
+    from .systems.helpers import sanitize_utf8
     text = sanitize_utf8(paper_text)
     ds_id = _dataset_id(hf_dataset_id)
     key_var = "OPENAI_API_KEY" if method.provider == "openai" else "ANTHROPIC_API_KEY"

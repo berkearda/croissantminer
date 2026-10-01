@@ -60,7 +60,7 @@ def test_unknown_method_is_rejected(tmp_path):
 def test_single_pass_end_to_end_with_a_stubbed_model(monkeypatch):
     """The API path of the default method, with the model call replaced by a fixed answer."""
     from croissantminer import api, methods
-    import _agentic_helpers as helpers   # importable once croissantminer.methods is loaded
+    from croissantminer.systems import helpers
     answer = {"name": "Toy Images", "publisher": "OpenAI", "datePublished": 2021, "license": "CC BY 4.0",
               "rai:dataCollection": "Crowdsourced on a web platform.", "rai:dataBiases": "not specified"}
     seen = {}
@@ -83,7 +83,11 @@ def test_single_pass_end_to_end_with_a_stubbed_model(monkeypatch):
 
 
 def test_merge_command(tmp_path):
-    from tests.test_croissant_output import FIELDS, HOST
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("croissant_tests", Path(__file__).with_name("test_croissant_output.py"))
+    data = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(data)                       # the shared FIELDS and HOST examples
+    FIELDS, HOST = data.FIELDS, data.HOST
     from croissantminer.croissant import to_croissant
     (tmp_path / "host.json").write_text(json.dumps(HOST))
     (tmp_path / "ours.json").write_text(json.dumps(to_croissant(FIELDS)))
