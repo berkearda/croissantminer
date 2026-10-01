@@ -33,3 +33,20 @@ jobs:
       - run: pip install -e ".[dev,validate]"
       - run: croissantminer methods
       - run: python -m pytest -q --noconftest tests/test_cli.py tests/test_croissant_output.py
+
+  package:
+    # The package as PyPI gets it: built, installed outside the repository and run.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build twine
+      - run: python -m build && twine check dist/*
+      - run: python -m venv /tmp/pkg && /tmp/pkg/bin/pip install dist/*.whl
+      - name: Run the installed package outside the repository
+        working-directory: /tmp
+        run: |
+          /tmp/pkg/bin/croissantminer methods
+          /tmp/pkg/bin/python "$GITHUB_WORKSPACE/tests/package_smoke.py"
