@@ -2,7 +2,7 @@
 
 Notable changes to CroissantMiner. Versions follow [semantic versioning](https://semver.org).
 
-## 0.2.0 (unreleased)
+## 0.2.0 (1 October 2026)
 
 ### Added
 - `croissantminer extract`: runs one of the paper's systems on a PDF, text or Markdown file and writes a

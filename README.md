@@ -17,6 +17,9 @@ Code, benchmark and systems of **CroissantMiner: Automated Extraction and Valida
 Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link follows.
 
 **News**
+- **1 Oct 2026:** on PyPI (`pip install croissantminer`), with `--merge-into` to add the fields to a dataset's
+  Croissant file on Hugging Face, and a
+  [guide for NeurIPS dataset submissions](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md).
 - **30 Sep 2026:** `croissantminer extract`, one command from a paper to a Croissant file.
 - **28 Sep 2026:** code, [dataset](https://huggingface.co/datasets/bearda/croissantminer) and
   [demo](https://huggingface.co/spaces/bearda/croissantminer) released.
@@ -44,10 +47,8 @@ It needs your own Anthropic or OpenAI API key, which is sent only to that provid
 Python 3.10 to 3.13.
 
 ```bash
-git clone https://github.com/berkearda/croissantminer
-cd croissantminer
-pip install -e ".[validate]"     # the extraction tool and the Croissant validator
-export ANTHROPIC_API_KEY=...      # or put it in a .env file in the folder you run from
+pip install "croissantminer[validate]"   # the extraction tool and the Croissant validator
+export ANTHROPIC_API_KEY=...              # or put it in a .env file in the folder you run from
 croissantminer extract paper.pdf
 ```
 
@@ -113,8 +114,8 @@ result.fields["rai:dataCollection"]      # one extracted value
 result.croissant                         # the Croissant 1.1 file as a dict
 ```
 
-A release on PyPI (`pip install "croissantminer[validate]"`) follows soon; until then, install from a clone as
-above.
+To change the code, install from a clone instead: `git clone https://github.com/berkearda/croissantminer`, then
+`pip install -e ".[validate]"` in that folder.
 
 ## Which method to choose
 

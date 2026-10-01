@@ -33,9 +33,7 @@ the data yourself, the guidelines suggest tools that create this file from your 
 ## 2. Install CroissantMiner
 
 ```bash
-git clone https://github.com/berkearda/croissantminer
-cd croissantminer
-pip install -e ".[validate]"
+pip install "croissantminer[validate]"
 export ANTHROPIC_API_KEY=...      # or put it in a .env file in the folder you run from
 ```
 
