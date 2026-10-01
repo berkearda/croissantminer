@@ -30,7 +30,6 @@ pip install -r requirements.txt      # the paper's pinned environment, for the e
   overwritten.
 - **A new method for the tool:** add a `Method` to `METHODS` and a branch to `run()` in
   `croissantminer/methods.py`, give it a name in `METHOD_NAMES` (`croissantminer/api.py`), and add a test.
-- **New systems:** write one JSON file per paper with the 30 fields to `data/extractions/<name>/`, register
-  it in `evaluation/score_against_gold.py` (`STRATEGY_DIRS`), and judge its RAI fields with the GLM-5 prompt and
-  call code in `scripts/judge_rerun_test88.py`, writing the verdicts to a new file
-  (`scripts/camera_ready/judge_gapfill.py` is a worked example). The scoring rules are in [docs/reproducing.md](docs/reproducing.md#how-scoring-works).
+- **New systems:** `make evaluate OUTPUTS=folder NAME=name` scores a system with the paper's scorer and judge,
+  without changing the scoring files; [leaderboard/README.md](leaderboard/README.md) describes the output format
+  and how to add an entry. The scoring rules are in [docs/reproducing.md](docs/reproducing.md#how-scoring-works).

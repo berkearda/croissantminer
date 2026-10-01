@@ -1,4 +1,4 @@
-.PHONY: help install test reproduce table2 significance
+.PHONY: help install test reproduce table2 significance evaluate
 
 help:  ## Show this help
 	@grep -E '^[a-z0-9_-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-10s %s\n", $$1, $$2}'
@@ -18,3 +18,6 @@ table2:  ## Print Table 2 with Core, RAI, Composite and 95% CIs
 
 significance:  ## Pairwise significance tests between the Table 2 systems (about 1 minute)
 	python scripts/figures/pairwise_significance.py
+
+evaluate:  ## Score your own system: make evaluate OUTPUTS=folder NAME=name (see leaderboard/README.md)
+	python scripts/evaluate_system.py $(OUTPUTS) --name $(NAME)

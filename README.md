@@ -33,7 +33,8 @@ known biases, limitations, intended uses and others). You check the draft and pu
 
 - **For dataset authors:** one command turns a paper into a Croissant file that passes the MLCommons validator.
 - **For researchers:** a benchmark of 602 dataset papers with human gold annotations for 102 of them, the outputs
-  and scores of 24 extraction systems, and the code to evaluate new ones.
+  and scores of 24 extraction systems, and a [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) that scores new ones with the
+  paper's scorer.
 
 ## Try it in your browser
 
@@ -277,7 +278,8 @@ GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3
 - **A new method or model for the tool:** methods are registered in `croissantminer/methods.py` (`METHODS` and
   `run`), model backbones in `croissantminer/systems/helpers.py` (`MODELS`), and the Croissant file is built in
   `croissantminer/croissant.py`.
-- **A new system on the benchmark:** see [CONTRIBUTING.md](https://github.com/berkearda/croissantminer/blob/main/CONTRIBUTING.md) for the output format and the scoring.
+- **A new system on the benchmark:** `make evaluate OUTPUTS=folder NAME=name` scores it with the paper's scorer and
+  judge; the [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) explains the format and how to add your entry.
 - **A wrong extraction, a bug or an idea:** open an [issue](https://github.com/berkearda/croissantminer/issues/new/choose)
   or a [discussion](https://github.com/berkearda/croissantminer/discussions).
 
