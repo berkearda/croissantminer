@@ -37,7 +37,7 @@ known biases, limitations, intended uses and others). You check the draft and pu
 The [demo](https://huggingface.co/spaces/bearda/croissantminer) runs the six systems below on a PDF you upload.
 It needs your own Anthropic or OpenAI API key, which is sent only to that provider and not stored.
 
-<p align="center"><img src="docs/figures/demo.png" width="760" alt="The demo after extracting the GSM8K paper with Triage + Critique: 21 of 30 fields, each with a supporting quote from the paper"></p>
+<p align="center"><img src="docs/figures/demo.png" width="760" alt="The demo after extracting the GSM8K paper with Triage + Critique: 19 of 30 fields, each with a supporting quote from the paper"></p>
 
 ## Quick start
 
