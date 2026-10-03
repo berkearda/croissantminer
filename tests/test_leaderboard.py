@@ -48,7 +48,19 @@ def test_the_readme_table_is_the_csv():
 def test_the_paper_column_is_table2():
     board = pd.read_csv(REPO / "leaderboard/leaderboard.csv")
     expected = pd.read_csv(REPO / "tests/expected/table2_camera_ready.csv").set_index("label")
-    ranked = board[board.role == "ranked"].set_index("system")
-    assert sorted(ranked.index) == sorted(expected.index)
-    for name, row in ranked.iterrows():
+    paper = board[(board.role == "ranked") & (board.source == "paper")].set_index("system")
+    assert sorted(paper.index) == sorted(expected.index)
+    for name, row in paper.iterrows():
         assert abs(row.paper_composite - expected.loc[name, "composite"]) < 1e-9, name
+
+
+def test_rows_added_after_the_paper_match_their_scores():
+    board = pd.read_csv(REPO / "leaderboard/leaderboard.csv")
+    for _, row in board[(board.role == "ranked") & (board.source != "paper")].iterrows():
+        assert pd.isna(row.paper_composite), row.system
+        scores = json.loads((REPO / "leaderboard" / row.results / "scores.json").read_text())
+        assert scores["split"] == "test" and scores["papers"] == 88 and scores["unjudged_answers"] == 0, row.system
+        for key in ("core", "rai", "composite"):
+            assert abs(row[key] - scores[key]) < 1e-12, (row.system, key)
+        assert abs(row.ci_low - scores["ci95"][0]) < 1e-12 and abs(row.ci_high - scores["ci95"][1]) < 1e-12, row.system
+        assert row.judge == scores["judge"] and row.judged_on == scores["scored_on"], row.system

@@ -33,7 +33,7 @@ def table(path: Path = CSV) -> str:
         cost = r["cost_per_paper_usd"] if r["cost_per_paper_usd"] == "self-hosted" else f"{float(r['cost_per_paper_usd']):.2f}"
         cells = [name, r["design"], f"{float(r['core']):.3f}", f"{float(r['rai']):.3f}",
                  f"{float(r['composite']):.3f} [{float(r['ci_low']):.3f}, {float(r['ci_high']):.3f}]",
-                 f"{float(r['paper_composite']):.3f}", cost]
+                 f"{float(r['paper_composite']):.3f}" if r["paper_composite"] else "", cost]
         if r["role"] == "reference":
             lines.append("| | " + " | ".join(f"*{c} (reference)*" if i == 0 else f"*{c}*" for i, c in enumerate(cells)) + " |")
         else:
