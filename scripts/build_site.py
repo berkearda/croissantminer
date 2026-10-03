@@ -329,8 +329,8 @@ gold = datasets.load_dataset(
       scored by rules; RAI the 20 Responsible AI fields, scored by {e(judge)}, which judged every row in
       {e(month(judged))}. Paper is the composite in the paper, from the judge run of May 2026. The panel of each system
       also shows its interval and when its outputs were made. Cost per paper at list prices of April and May 2026.</p>
-      <p>* Built on a Claude model, which may have an advantage because Claude Sonnet 4.5 drafted the gold answers;
-      that model is shown for reference and not ranked.</p></div>
+      <p>* Built on a Claude model, which may have an advantage because Claude Sonnet 4.5 drafted the gold answers.
+      Claude Sonnet 4.5 itself is not listed: it is scored against its own drafts, so its score is not comparable.</p></div>
     </div>
   </section>
 </main>

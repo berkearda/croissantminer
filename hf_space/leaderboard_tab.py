@@ -50,7 +50,7 @@ def texts(df: pd.DataFrame) -> tuple[str, str]:
     )
     notes = (
         "\\* Built on a Claude model. Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, "
-        "so it is shown for reference and not ranked, and systems built on Claude models may have an advantage.  \n"
+        "so it is not listed (its score is not comparable), and systems built on Claude models may have an advantage.  \n"
         + ("**Paper** is the composite in the paper, judged by GLM-5 on DeepInfra in May 2026; DeepInfra has since "
            f"retired that model, and today's judge scores {abs(shift):.3f} lower on average.  \n" if abs(shift) > 0 else "")
         + "Cost per paper at list prices of April and May 2026 (the paper's Table 8); self-hosted models ran on our "

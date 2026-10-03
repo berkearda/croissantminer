@@ -6,14 +6,13 @@ averages the 10 core fields (scored by rules), *RAI* the 20 Responsible AI field
 [how scoring works](../docs/reproducing.md#how-scoring-works)). The [leaderboard website](https://berkearda.github.io/croissantminer/) shows the same
 table with each system's score on all 30 fields; it is built from `leaderboard.csv` whenever that file changes.
 
-Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, so it is shown for reference and not
-ranked, and systems built on Claude models are marked with \*. *US$ per paper* is the API cost at list prices of
+Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, so its score is not comparable and it
+is not listed (0.861 in the paper); systems built on Claude models are marked with \*. *US$ per paper* is the API cost at list prices of
 April and May 2026 (the paper's Table 8); self-hosted models ran on our own GPUs.
 
 <!-- table:start -->
 | Rank | System | Design | Core | RAI | Composite [95% CI] | Paper | US$ per paper |
 |---|---|---|---|---|---|---|---|
-| | *Claude Sonnet 4.5\* (reference)* | *Single-pass* | *0.903* | *0.836* | *0.859 [0.827, 0.890]* | *0.861* | *0.12* |
 | 1 | Claude Sonnet 4.6\* | Single-pass | 0.752 | 0.661 | 0.692 [0.670, 0.712] | 0.709 | 0.13 |
 | 2 | Claude Opus 4.7\* | Single-pass | 0.676 | 0.682 | 0.680 [0.647, 0.714] | 0.699 | 0.27 |
 | 3 | GPT-5.4 | Single-pass | 0.653 | 0.653 | 0.653 [0.637, 0.680] | 0.665 | 0.09 |
