@@ -14,6 +14,10 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
   (`--model all` still runs only the paper's models), takes `--split dev|test|both`, and records thinking and reasoning
   tokens.
 
+- The PDF parser ablation of the paper (Appendix C.3): `scripts/parser_ablation/` (parse, extract, score), the
+  outputs of its eight runs and their judge verdicts; `score.py` reproduces the scores. `extract_text_from_pdf` takes a
+  `backend` (`pypdf2`, the default and unchanged; `pymupdf`; `docling`; `docling_full`).
+
 ### Changed
 - Leaderboard: Claude Sonnet 4.5 is no longer listed. It drafted the gold annotations, so its score is not comparable;
   it stays in the paper's results table in `README.md`.
