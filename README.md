@@ -38,6 +38,25 @@ known biases, limitations, intended uses and others). You check the draft and pu
   and scores of 24 extraction systems, and a [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) that scores new ones with the
   paper's scorer.
 
+## Table of Contents
+- [Try it in your browser](#try-it-in-your-browser)
+- [Quick start](#quick-start)
+- [Which method to choose](#which-method-to-choose)
+- [Using the file](#using-the-file)
+- [Before you publish the file](#before-you-publish-the-file)
+- [The benchmark](#the-benchmark)
+  - [Results](#results)
+- [Reproducing the paper](#reproducing-the-paper)
+  - [Installation](#installation)
+  - [Checking the numbers](#checking-the-numbers)
+  - [Running the systems and the scoring rules](#running-the-systems-and-the-scoring-rules)
+  - [Tests](#tests)
+- [Extending CroissantMiner](#extending-croissantminer)
+- [Repository layout](#repository-layout)
+- [Community](#community)
+- [Citation](#citation)
+- [License](#license)
+
 ## Try it in your browser
 
 The [demo](https://huggingface.co/spaces/bearda/croissantminer) runs the six systems below on a PDF you upload.
