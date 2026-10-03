@@ -8,6 +8,7 @@ from the paper that introduces an ML dataset.
 <p align="center">
 <a href="https://huggingface.co/spaces/bearda/croissantminer"><img alt="Demo" src="https://img.shields.io/badge/demo-Hugging%20Face%20Space-ffcc4d"></a>
 <a href="https://huggingface.co/datasets/bearda/croissantminer"><img alt="Dataset" src="https://img.shields.io/badge/dataset-Hugging%20Face-ffcc4d"></a>
+<a href="https://arxiv.org/"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-paper-b31b1b"></a>
 <a href="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Python 3.10 to 3.13" src="https://img.shields.io/badge/python-3.10%20to%203.13-3776ab">
 <a href="https://github.com/berkearda/croissantminer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
