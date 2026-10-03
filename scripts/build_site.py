@@ -188,7 +188,7 @@ def table_row(r: dict, key: str) -> str:
     groups = [g for g, ok in (("single", r["design"] == "Single-pass"), ("agents", r["design"] in AGENTS),
                               ("open", r["open_weights"] == "yes")) if ok]
     cost = "self-hosted" if r["cost"] is None else f'${r["cost"]:.2f}'
-    paper = f'{r["paper_composite"]:.3f}' if r["paper_composite"] is not None else "&ndash;"
+    paper = f'{r["paper_composite"]:.3f}' if r["paper_composite"] is not None else ""
     paper_value = "" if r["paper_composite"] is None else f'{r["paper_composite"]:.6f}'
     cost_value = "" if r["cost"] is None else r["cost"]          # empty values sort last
     attrs = (f'data-key="{key}" data-slug="{slug(r["system"])}" data-system="{e(r["system"])}" '
@@ -324,13 +324,14 @@ gold = datasets.load_dataset(
     <div class="lb">
       <div class="scroll"><table id="board"><thead>{sort_head}</thead><tbody>{body}</tbody></table></div>
       <div class="lb-foot"><p>Click a row to see the system's score on each of the 30 fields; the page address
-      then links straight to it. The systems listed so far are the paper's.</p>
+      then links straight to it. Systems added after the paper show who ran them under their name.</p>
       <p>Composite weights all 30 fields equally; point at it for its 95% interval. Core covers the 10 core fields,
       scored by rules; RAI the 20 Responsible AI fields, scored by {e(judge)}, which judged every row in
-      {e(month(judged))}. Paper is the composite in the paper, from the judge run of May 2026. The panel of each system
-      also shows its interval and when its outputs were made. Cost per paper at list prices of April and May 2026.</p>
-      <p>* Built on a Claude model, which may have an advantage because Claude Sonnet 4.5 drafted the gold answers;
-      that model is shown for reference and not ranked.</p></div>
+      {e(month(judged))}. Paper is the composite in the paper, from the judge run of May 2026 (empty for systems added
+      later). The panel of each system also shows its interval and when its outputs were made. Cost per paper at list
+      prices of April and May 2026 for the paper's systems, and of the day the outputs were made for later ones.</p>
+      <p>* Built on a Claude model, which may have an advantage because Claude Sonnet 4.5 drafted the gold answers.
+      Claude Sonnet 4.5 itself is not listed: it is scored against its own drafts, so its score is not comparable.</p></div>
     </div>
   </section>
 </main>

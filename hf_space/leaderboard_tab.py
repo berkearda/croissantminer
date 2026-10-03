@@ -40,21 +40,22 @@ def texts(df: pd.DataFrame) -> tuple[str, str]:
     ranked = df[df.role == "ranked"]
     shift = (ranked.composite - ranked.paper_composite).mean()
     judge = df.judge.iloc[0] if "judge" in df else "GLM-5"
-    when = df.judged_on.iloc[0] if "judged_on" in df else ""
+    when = df.judged_on.max() if "judged_on" in df else ""
     intro = (
         f"Extraction systems scored on the 88 test papers of the CroissantMiner benchmark with the paper's scorer. "
         f"**Composite** weights all 30 fields equally, **Core** averages the 10 core fields and **RAI** the 20 "
         f"Responsible AI fields, scored by {judge}"
-        + (f", which judged every row on {pd.Timestamp(when).strftime('%-d %B %Y')}" if when else "")
+        + (f", which judged every row in {pd.Timestamp(when).strftime('%B %Y')}" if when else "")
         + ". The 95% confidence interval comes from 2,000 bootstrap samples over papers."
     )
     notes = (
         "\\* Built on a Claude model. Claude Sonnet 4.5 drafted the gold annotations before annotators checked them, "
-        "so it is shown for reference and not ranked, and systems built on Claude models may have an advantage.  \n"
+        "so it is not listed (its score is not comparable), and systems built on Claude models may have an advantage.  \n"
         + ("**Paper** is the composite in the paper, judged by GLM-5 on DeepInfra in May 2026; DeepInfra has since "
            f"retired that model, and today's judge scores {abs(shift):.3f} lower on average.  \n" if abs(shift) > 0 else "")
-        + "Cost per paper at list prices of April and May 2026 (the paper's Table 8); self-hosted models ran on our "
-          "own GPUs and have no API cost."
+        + "Systems added after the paper have no **Paper** score.  \n"
+        + "Cost per paper at list prices of April and May 2026 for the paper's systems (the paper's Table 8), and of "
+          "the day the outputs were made for later ones; self-hosted models ran on our own GPUs and have no API cost."
     )
     return intro, notes
 
@@ -92,7 +93,8 @@ def _row(r) -> str:
         f'<td class="num"><b>{r.composite:.3f}</b><span class="lb-ci">{r.ci_low:.3f} to {r.ci_high:.3f}</span>'
         f'<div class="lb-bar"><span style="width: {100 * r.composite:.1f}%"></span></div></td>'
         f'<td class="num">{r.core:.3f}</td><td class="num">{r.rai:.3f}</td>'
-        f'<td class="num lb-paper">{r.paper_composite:.3f}</td><td class="num">{cost}</td></tr>'
+        f'<td class="num lb-paper">{"" if pd.isna(r.paper_composite) else f"{r.paper_composite:.3f}"}</td>'
+        f'<td class="num">{cost}</td></tr>'
     )
 
 

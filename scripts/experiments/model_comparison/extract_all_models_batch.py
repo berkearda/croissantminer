@@ -114,6 +114,29 @@ MODELS = {
         "output_dir": "gemini_3.1_pro",
     },
 }
+PAPER_MODELS = list(MODELS)  # `--model all` runs these, the paper's models, and nothing added below
+
+# Newer Gemini models for the leaderboard (2026-10-02): the paper's prompt and temperature 0, with room for the
+# thinking tokens these models spend before answering. The "-t1" entries use temperature 1.0, the value Google
+# recommends for all Gemini 3 models (ai.google.dev/gemini-api/docs/gemini-3), to test that setting.
+for _key, _name, _model_id in [("gemini-3-flash", "Gemini 3 Flash Preview", "gemini-3-flash-preview"),
+                               ("gemini-3.5-flash", "Gemini 3.5 Flash", "gemini-3.5-flash"),
+                               ("gemini-3.6-flash", "Gemini 3.6 Flash", "gemini-3.6-flash"),
+                               ("gemini-3.7-flash", "Gemini 3.7 Flash", "gemini-3.7-flash"),
+                               ("gemini-3.8-flash", "Gemini 3.8 Flash", "gemini-3.8-flash")]:
+    MODELS[_key] = {"name": _name, "model_id": _model_id, "provider": "google",
+                    "output_dir": _model_id.replace("-", "_").replace(".", "_"), "max_output_tokens": 16384}
+MODELS["gemini-3.8-flash-t1"] = {**MODELS["gemini-3.8-flash"], "name": "Gemini 3.8 Flash (temperature 1)",
+                                 "output_dir": "gemini_3_8_flash_t1", "temperature": 1.0}
+MODELS["gemini-pro-t1"] = {**MODELS["gemini-pro"], "name": "Gemini 3.1 Pro Preview (temperature 1)",
+                           "output_dir": "gemini_3_1_pro_t1", "temperature": 1.0, "max_output_tokens": 16384}
+# Newer OpenAI models (2026-10-02). They accept only their default temperature (1), so it is left out, as for Claude
+# Opus 4.7 in the paper; their reasoning tokens count toward the output limit, hence 16,384.
+for _key, _name, _model_id in [("gpt-6-luna", "GPT-6 Luna", "gpt-6-luna"), ("gpt-6.1-sol", "GPT-6.1 Sol", "gpt-6.1-sol"),
+                               ("gpt-5.5", "GPT-5.5", "gpt-5.5-2026-04-23")]:
+    MODELS[_key] = {"name": _name, "model_id": _model_id, "provider": "openai", "max_tokens_param": "max_completion_tokens",
+                    "output_dir": _key.replace("-", "_").replace(".", "_"), "skip_temperature": True,
+                    "max_output_tokens": 16384}
 
 TEST_PAPERS = ["AI4Math_MathVista", "openai_gsm8k", "rajpurkar_squad"]
 MAX_OUTPUT_TOKENS = 8192  # 4096 truncated Gemini 3.1 Pro (~42% of papers); 8192 gives headroom + handles Opus 4.7 extended-thinking budget
@@ -186,7 +209,7 @@ def _meta_block(cfg: dict) -> dict:
         "prompt_chars": len(SYSTEM_PROMPT),
         "model_id": cfg["model_id"],
         "provider": cfg["provider"],
-        "temperature": None if cfg.get("skip_temperature") else 0.0,
+        "temperature": None if cfg.get("skip_temperature") else cfg.get("temperature", 0.0),
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "git_commit": _GIT_COMMIT,
         "paper_set": "102_dev_test_split",
@@ -231,13 +254,13 @@ def _write_output(cfg: dict, ds_id: str, raw_text: str, usage: dict, out_dir: Pa
 
 # ── paper-set helpers ──
 
-def load_paper_ids(test: bool) -> list:
+def load_paper_ids(test: bool, split_name: str = "both") -> list:
     if test:
         return TEST_PAPERS
     split_path = ROOT / "data" / "agentic" / "dev_test_split.json"
     with open(split_path) as f:
         split = json.load(f)
-    return sorted(split["dev"] + split["test"])
+    return sorted(split["dev"] + split["test"] if split_name == "both" else split[split_name])
 
 
 def pending_papers(cfg: dict, ds_ids: list) -> list:
@@ -393,15 +416,14 @@ def _build_openai_request_lines(cfg: dict, ds_ids: list):
             continue
         cid = _sanitize_custom_id(ds_id)
         id_map[cid] = ds_id
-        body = {
-            "model": cfg["model_id"],
-            "temperature": 0.0,
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": USER_PROMPT_TEMPLATE % text},
-            ],
-        }
-        body[cfg.get("max_tokens_param", "max_completion_tokens")] = MAX_OUTPUT_TOKENS
+        body = {"model": cfg["model_id"]}
+        if not cfg.get("skip_temperature"):  # newer reasoning models accept only their default temperature
+            body["temperature"] = cfg.get("temperature", 0.0)
+        body["messages"] = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": USER_PROMPT_TEMPLATE % text},
+        ]
+        body[cfg.get("max_tokens_param", "max_completion_tokens")] = cfg.get("max_output_tokens", MAX_OUTPUT_TOKENS)
         line = json.dumps({
             "custom_id": cid,
             "method": "POST",
@@ -409,7 +431,7 @@ def _build_openai_request_lines(cfg: dict, ds_ids: list):
             "body": body,
         })
         lines.append(line)
-        token_costs.append(_estimate_request_tokens(body) + MAX_OUTPUT_TOKENS)
+        token_costs.append(_estimate_request_tokens(body) + cfg.get("max_output_tokens", MAX_OUTPUT_TOKENS))
     return lines, token_costs, id_map
 
 
@@ -591,6 +613,7 @@ def openai_fetch(cfg: dict, info: dict) -> int:
                 usage = {
                     "input_tokens": u.get("prompt_tokens", 0),
                     "output_tokens": u.get("completion_tokens", 0),
+                    "reasoning_tokens": (u.get("completion_tokens_details") or {}).get("reasoning_tokens", 0),
                 }
                 if _write_output(cfg, ds_id, raw_text, usage, out_dir, fail_dir):
                     written += 1
@@ -627,8 +650,8 @@ def gemini_submit(cfg: dict, ds_ids: list) -> dict:
             "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
             "contents": [{"role": "user", "parts": [{"text": USER_PROMPT_TEMPLATE % text}]}],
             "generationConfig": {
-                "temperature": 0.0,
-                "maxOutputTokens": MAX_OUTPUT_TOKENS,
+                "temperature": cfg.get("temperature", 0.0),
+                "maxOutputTokens": cfg.get("max_output_tokens", MAX_OUTPUT_TOKENS),
             },
         }
         lines.append(json.dumps({"key": cid, "request": request_body}))
@@ -729,6 +752,15 @@ def gemini_status(info: dict) -> dict:
     }
 
 
+def _gemini_text(resp_body: dict) -> str:
+    """The answer text of a Gemini response: its text parts, without thought summaries (raises if there is none)."""
+    parts = resp_body["candidates"][0]["content"]["parts"]
+    texts = [p["text"] for p in parts if "text" in p and not p.get("thought")]
+    if not texts:
+        raise KeyError("no text part")
+    return "".join(texts)
+
+
 def gemini_fetch(cfg: dict, info: dict) -> int:
     import requests
     api_key = _gemini_api_key()
@@ -772,7 +804,7 @@ def gemini_fetch(cfg: dict, info: dict) -> int:
                 (fail_dir / f"{ds_id.replace('/', '__')}_error.json").write_text(json.dumps(row, indent=2))
                 continue
             try:
-                raw_text = resp_body["candidates"][0]["content"]["parts"][0]["text"]
+                raw_text = _gemini_text(resp_body)
             except (KeyError, IndexError) as e:
                 log.error(f"  {ds_id}: malformed response ({e})")
                 (fail_dir / f"{ds_id.replace('/', '__')}_error.json").write_text(json.dumps(row, indent=2))
@@ -781,6 +813,7 @@ def gemini_fetch(cfg: dict, info: dict) -> int:
             usage = {
                 "input_tokens": u.get("promptTokenCount", 0),
                 "output_tokens": u.get("candidatesTokenCount", 0),
+                "thinking_tokens": u.get("thoughtsTokenCount", 0),
             }
             if _write_output(cfg, ds_id, raw_text, usage, out_dir, fail_dir):
                 written += 1
@@ -793,13 +826,14 @@ def gemini_fetch(cfg: dict, info: dict) -> int:
                 log.error(f"  {ds_id}: {item.get('error') or 'no response'}")
                 continue
             try:
-                raw_text = resp_body["candidates"][0]["content"]["parts"][0]["text"]
+                raw_text = _gemini_text(resp_body)
             except (KeyError, IndexError):
                 continue
             u = resp_body.get("usageMetadata", {})
             usage = {
                 "input_tokens": u.get("promptTokenCount", 0),
                 "output_tokens": u.get("candidatesTokenCount", 0),
+                "thinking_tokens": u.get("thoughtsTokenCount", 0),
             }
             if _write_output(cfg, ds_id, raw_text, usage, out_dir, fail_dir):
                 written += 1
@@ -895,11 +929,13 @@ def main():
     parser.add_argument("--model", choices=list(MODELS.keys()) + ["all"], default="all")
     parser.add_argument("--test", action="store_true", help="3-paper dry-run")
     parser.add_argument("--force", action="store_true", help="Re-submit even if batch handle exists")
+    parser.add_argument("--split", choices=["both", "dev", "test"], default="both",
+                        help="papers: dev + test (default), or only the 14 dev or the 88 test papers")
     parser.add_argument("--poll-interval", type=int, default=120, help="Seconds between status polls in `all` mode")
     args = parser.parse_args()
 
-    model_keys = list(MODELS.keys()) if args.model == "all" else [args.model]
-    ds_ids = load_paper_ids(args.test)
+    model_keys = PAPER_MODELS if args.model == "all" else [args.model]
+    ds_ids = load_paper_ids(args.test, args.split)
     log.info(f"Paper set: {len(ds_ids)} papers, models: {model_keys}")
 
     if args.cmd == "submit":

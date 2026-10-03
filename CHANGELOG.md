@@ -9,8 +9,14 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
   published on GitHub Pages whenever the leaderboard changes. It shows each system's score on all 30 fields and
   which fields are hardest. The leaderboard file gains the columns `team`, `date` and `results`; the paper's
   systems' field scores are in `leaderboard/paper/per_field.csv`.
+- Three systems on the leaderboard, run after the paper with its prompt and scorer: Gemini 3.8 Flash at temperature 0
+  and 1, and GPT-6.1 Sol. `extract_all_models_batch.py` supports these and other newer Gemini and OpenAI models
+  (`--model all` still runs only the paper's models), takes `--split dev|test|both`, and records thinking and reasoning
+  tokens.
 
 ### Changed
+- Leaderboard: Claude Sonnet 4.5 is no longer listed. It drafted the gold annotations, so its score is not comparable;
+  it stays in the paper's results table in `README.md`.
 - `data/annotations/gold.parquet`: the adjudicator ids are coded (`A_senior_01`, `A_senior_02`) as in the reviewed
   dataset, matching dataset v1.2 on Hugging Face; all values are unchanged and Table 2 reproduces exactly.
 
