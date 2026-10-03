@@ -8,6 +8,8 @@ from the paper that introduces an ML dataset.
 <p align="center">
 <a href="https://huggingface.co/spaces/bearda/croissantminer"><img alt="Demo" src="https://img.shields.io/badge/demo-Hugging%20Face%20Space-ffcc4d"></a>
 <a href="https://huggingface.co/datasets/bearda/croissantminer"><img alt="Dataset" src="https://img.shields.io/badge/dataset-Hugging%20Face-ffcc4d"></a>
+<a href="https://arxiv.org/"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-paper-b31b1b"></a>
+<a href="https://berkearda.github.io/croissantminer/"><img alt="Leaderboard" src="https://img.shields.io/badge/leaderboard-live-ffcc4d"></a>
 <a href="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Python 3.10 to 3.13" src="https://img.shields.io/badge/python-3.10%20to%203.13-3776ab">
 <a href="https://github.com/berkearda/croissantminer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
@@ -36,6 +38,25 @@ known biases, limitations, intended uses and others). You check the draft and pu
 - **For researchers:** a benchmark of 602 dataset papers with human gold annotations for 102 of them, the outputs
   and scores of 24 extraction systems, and a [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) that scores new ones with the
   paper's scorer.
+
+## Table of Contents
+- [Try it in your browser](#try-it-in-your-browser)
+- [Quick start](#quick-start)
+- [Which method to choose](#which-method-to-choose)
+- [Using the file](#using-the-file)
+- [Before you publish the file](#before-you-publish-the-file)
+- [The benchmark](#the-benchmark)
+  - [Results](#results)
+- [Reproducing the paper](#reproducing-the-paper)
+  - [Installation](#installation)
+  - [Checking the numbers](#checking-the-numbers)
+  - [Running the systems and the scoring rules](#running-the-systems-and-the-scoring-rules)
+  - [Tests](#tests)
+- [Extending CroissantMiner](#extending-croissantminer)
+- [Repository layout](#repository-layout)
+- [Community](#community)
+- [Citation](#citation)
+- [License](#license)
 
 ## Try it in your browser
 
