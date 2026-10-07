@@ -28,7 +28,7 @@ SITE_URL = "https://berkearda.github.io/croissantminer/"
 REPO = "https://github.com/berkearda/croissantminer"
 DATASET = "https://huggingface.co/datasets/bearda/croissantminer"
 DEMO = "https://huggingface.co/spaces/bearda/croissantminer"
-PAPER = ""                      # the arXiv link, once it exists
+PAPER = "https://arxiv.org/abs/2610.07132"
 SUBMIT = f"{REPO}/blob/main/leaderboard/README.md#add-your-system"
 
 AUTHORS = [("Berke Arda", "1*"), ("Ahmetcan Yavuz", "1*"), ("Paul Gerry", "1,3"), ("Sebastian Lobentanzer", "4"),
