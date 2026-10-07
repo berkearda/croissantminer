@@ -14,9 +14,10 @@ from the paper that introduces an ML dataset.
 </p>
 
 Code, benchmark and systems of **CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML
-Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: arXiv link follows.
+Datasets** (NeurIPS 2026, Evaluations and Datasets Track). Paper: [arXiv:2610.07132](https://arxiv.org/abs/2610.07132).
 
 **News**
+- **7 Oct 2026:** the paper is on arXiv: [2610.07132](https://arxiv.org/abs/2610.07132).
 - **1 Oct 2026:** on PyPI (`pip install croissantminer`), with `--merge-into` to add the fields to a dataset's
   Croissant file on Hugging Face, a
   [guide for NeurIPS dataset submissions](https://github.com/berkearda/croissantminer/blob/main/docs/neurips.md) and a
