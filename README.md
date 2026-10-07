@@ -8,6 +8,8 @@ from the paper that introduces an ML dataset.
 <p align="center">
 <a href="https://huggingface.co/spaces/bearda/croissantminer"><img alt="Demo" src="https://img.shields.io/badge/demo-Hugging%20Face%20Space-ffcc4d"></a>
 <a href="https://huggingface.co/datasets/bearda/croissantminer"><img alt="Dataset" src="https://img.shields.io/badge/dataset-Hugging%20Face-ffcc4d"></a>
+<a href="https://arxiv.org/abs/2610.07132"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2610.07132-b31b1b"></a>
+<a href="https://berkearda.github.io/croissantminer/"><img alt="Leaderboard" src="https://img.shields.io/badge/leaderboard-live-ffcc4d"></a>
 <a href="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/berkearda/croissantminer/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Python 3.10 to 3.13" src="https://img.shields.io/badge/python-3.10%20to%203.13-3776ab">
 <a href="https://github.com/berkearda/croissantminer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f"></a>
@@ -37,6 +39,25 @@ known biases, limitations, intended uses and others). You check the draft and pu
 - **For researchers:** a benchmark of 602 dataset papers with human gold annotations for 102 of them, the outputs
   and scores of 24 extraction systems, and a [leaderboard](https://github.com/berkearda/croissantminer/blob/main/leaderboard/README.md) that scores new ones with the
   paper's scorer.
+
+## Table of Contents
+- [Try it in your browser](https://github.com/berkearda/croissantminer#try-it-in-your-browser)
+- [Quick start](https://github.com/berkearda/croissantminer#quick-start)
+- [Which method to choose](https://github.com/berkearda/croissantminer#which-method-to-choose)
+- [Using the file](https://github.com/berkearda/croissantminer#using-the-file)
+- [Before you publish the file](https://github.com/berkearda/croissantminer#before-you-publish-the-file)
+- [The benchmark](https://github.com/berkearda/croissantminer#the-benchmark)
+  - [Results](https://github.com/berkearda/croissantminer#results)
+- [Reproducing the paper](https://github.com/berkearda/croissantminer#reproducing-the-paper)
+  - [Installation](https://github.com/berkearda/croissantminer#installation)
+  - [Checking the numbers](https://github.com/berkearda/croissantminer#checking-the-numbers)
+  - [Running the systems and the scoring rules](https://github.com/berkearda/croissantminer#running-the-systems-and-the-scoring-rules)
+  - [Tests](https://github.com/berkearda/croissantminer#tests)
+- [Extending CroissantMiner](https://github.com/berkearda/croissantminer#extending-croissantminer)
+- [Repository layout](https://github.com/berkearda/croissantminer#repository-layout)
+- [Community](https://github.com/berkearda/croissantminer#community)
+- [Citation](https://github.com/berkearda/croissantminer#citation)
+- [License](https://github.com/berkearda/croissantminer#license)
 
 ## Try it in your browser
 
