@@ -292,7 +292,7 @@ for the 20 RAI fields, and how empty values are scored.
 make test
 ```
 
-About 120 tests, about 10 seconds, no API keys. They cover the scoring rules, the handling of model output, the
+About 130 tests, about 10 seconds, no API keys. They cover the scoring rules, the handling of model output, the
 command line and the Croissant output, and the check that Table 2 and Tables 5 and 6 are reproduced exactly.
 GitHub Actions runs them on every push, and the tool's tests on Python 3.10 to 3.13.
 
