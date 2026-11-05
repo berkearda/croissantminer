@@ -10,6 +10,11 @@ The output covers Croissant Core 1.1 + RAI 1.0 (mandatory at NeurIPS
 2026 E&D submission per the call for papers).
 
 Run: python scripts/annotations/build_croissant.py
+
+This script builds the review-time (v1.0) description of the six annotation
+tables. The file now in data/annotations/croissant.json is a copy of the
+Hugging Face v1.2 file (13 tables), which this script does not rebuild;
+running it replaces that copy with the v1.0 form.
 """
 
 from __future__ import annotations

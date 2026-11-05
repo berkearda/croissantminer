@@ -45,12 +45,12 @@
     "transform": "cr:transform"
   },
   "@type": "sc:Dataset",
-  "@id": "https://anonymous.4open.science/r/croissantminer-F87C/tree/main/data/annotations",
+  "@id": "https://huggingface.co/datasets/bearda/croissantminer",
   "conformsTo": "http://mlcommons.org/croissant/1.1",
-  "name": "CroissantMiner Annotations",
-  "description": "Human-validated annotation dataset accompanying the CroissantMiner benchmark for automated extraction of MLCommons Croissant Responsible AI metadata from ML dataset papers. Contains 9595 ratings and 267 calibration ratings from 22 annotators across 102 papers and 30 Croissant Core + RAI fields, with derived gold values, per-field inter-annotator agreement metrics, and pseudonymized annotator demographics. Released under CC-BY-4.0; LLM-generated extractions referenced by the ratings are subject to their respective providers' terms.",
-  "url": "https://anonymous.4open.science/r/croissantminer-F87C",
-  "version": "1.0.0",
+  "name": "CroissantMiner",
+  "description": "CroissantMiner is a benchmark for extracting MLCommons Croissant metadata from ML dataset papers. It contains human-validated gold values for 102 datasets x 30 Croissant fields (3,060 cells) from 9,595 ratings by 22 annotators, with the raw ratings, calibration ratings, per-field agreement and a pseudonymized annotator roster; LLM-generated silver annotations for 500 further papers; the outputs of the 24 extraction systems and the reference system in the paper, with the GLM-5 judge verdicts behind its results; the judge audit (selection on 60 cells and a 200-cell human audit); and the re-annotation pilot used to check the effect of the seed model. This is version 1.2.0, the version the paper's results use; the version reviewed at NeurIPS 2026 (1.0.0) is tag v1.0 of this repository and is also kept unchanged at huggingface.co/datasets/croissantminer/croissantminer. Released under CC BY 4.0; LLM-generated text is subject to the providers' terms.",
+  "url": "https://huggingface.co/datasets/bearda/croissantminer",
+  "version": "1.2.0",
   "datePublished": "2026-05-07",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "inLanguage": "en",
@@ -62,36 +62,81 @@
     "LLM evaluation",
     "human annotation",
     "inter-annotator agreement",
-    "benchmark"
+    "benchmark",
+    "LLM-as-a-judge",
+    "NeurIPS 2026"
   ],
   "creator": [
     {
       "@type": "sc:Person",
-      "name": "Anonymous Author(s)",
-      "affiliation": "Anonymous"
+      "name": "Berke Arda",
+      "affiliation": "ETH Zurich"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Ahmetcan Yavuz",
+      "affiliation": "ETH Zurich"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Paul Gerry",
+      "affiliation": "ETH Zurich, CSAIL MIT"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Sebastian Lobentanzer",
+      "affiliation": "Helmholtz Zentrum München"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Nobin Sarwar",
+      "affiliation": "University of Maryland, Baltimore County"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Joan Giner-Miguelez",
+      "affiliation": "Barcelona Supercomputing Center"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Kongtao Chen",
+      "affiliation": "Google"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Luyao Zhang",
+      "affiliation": "Duke Kunshan University"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Mrinmaya Sachan",
+      "affiliation": "ETH Zurich, ETH AI Center"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Mubashara Akhtar",
+      "affiliation": "ETH Zurich, ETH AI Center"
     }
   ],
   "publisher": {
     "@type": "sc:Organization",
-    "name": "Anonymous"
+    "name": "ETH Zurich"
   },
-  "citeAs": "Anonymous Authors. CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets. NeurIPS 2026 Evaluations and Datasets Track (under review).",
+  "citeAs": "@inproceedings{arda2026croissantminer, title={CroissantMiner: Automated Extraction and Validation of Croissant Metadata for ML Datasets}, author={Arda, Berke and Yavuz, Ahmetcan and Gerry, Paul and Lobentanzer, Sebastian and Sarwar, Nobin and Giner-Miguelez, Joan and Chen, Kongtao and Zhang, Luyao and Sachan, Mrinmaya and Akhtar, Mubashara}, booktitle={Advances in Neural Information Processing Systems (Evaluations and Datasets Track)}, year={2026}}",
   "distribution": [
     {
       "@type": "cr:FileObject",
-      "@id": "ratings-parquet",
-      "name": "ratings.parquet",
-      "description": "Long-format raw human ratings, one row per (paper, field, annotator). Annotators were instructed to rate each LLM-extracted Croissant metadata value as Correct (1), Partially Correct (2), or Not Correct (3); for ratings of 2 or 3, an optional corrected_value and free-text notes were collected, plus a confidence label (High / Medium / Low) and a failure-mode category.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/ratings.parquet",
+      "@id": "annotators-parquet",
+      "name": "annotators.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/annotators.parquet",
       "encodingFormat": "application/x-parquet",
-      "sha256": "0eec928fba8da7df52ab87da403f2448189106252c35222da05d2553c6ed5f1f"
+      "sha256": "1336d7f931ad5d54b94d773a5800efcf3271294840653653ac59157f2fea787d"
     },
     {
       "@type": "cr:FileObject",
       "@id": "calibration-parquet",
       "name": "calibration.parquet",
-      "description": "Pilot ratings collected before the main collection began. Used a binary TRUE/FALSE rubric (mapped to rating 1 or 3 in this file) on a 15-cell sample. Released for transparency; downstream evaluation should use ratings.parquet.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/calibration.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/calibration.parquet",
       "encodingFormat": "application/x-parquet",
       "sha256": "669e670951f8514d23603caccfd6f230bce2919bf20edc58425fbdf4a1ba8b3e"
     },
@@ -99,197 +144,207 @@
       "@type": "cr:FileObject",
       "@id": "gold-parquet",
       "name": "gold.parquet",
-      "description": "Derived gold values, one row per (paper, field). Computed by majority vote across raters (3 to 4 raters per cell, see n_raters column); cells where no rating reached majority (gold_method = 'tie_split') were sent to senior adjudication and the gold_value/gold_rating were filled by the adjudicator.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/gold.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/gold.parquet",
       "encodingFormat": "application/x-parquet",
-      "sha256": "b510bf7a81a163a434ac5ec55af0c136c5e97da6c2e0e3807e7b0270bdde8fcd"
+      "sha256": "6ccade63fd0b0a358c86c7a2c37c543348ed93b55c91b27093af5958db00f451"
     },
     {
       "@type": "cr:FileObject",
       "@id": "iaa-parquet",
       "name": "iaa.parquet",
-      "description": "Per-field inter-annotator agreement metrics with bootstrap 95 percent confidence intervals. Reports Krippendorff's alpha (ordinal), Gwet's AC1 (chance-corrected, prevalence-robust), raw pairwise agreement, and percent unanimous cells. The AC1 + pairwise pair triangulates against the prevalence paradox in alpha when ratings cluster on one category.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/iaa.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/iaa.parquet",
       "encodingFormat": "application/x-parquet",
       "sha256": "affcab7689b48213dce2de0a2a2ad686805d2b0f04a51f23f8079afdeea43520"
     },
     {
       "@type": "cr:FileObject",
-      "@id": "annotators-parquet",
-      "name": "annotators.parquet",
-      "description": "Pseudonymized roster of the 22 annotators who contributed to the main set. Demographics aggregated from the recruitment registration form: role, affiliation, ML familiarity, paper-experience frequency, hours dedicated. No personally identifying information beyond what annotators publicly associate with their professional profiles.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/annotators.parquet",
+      "@id": "judge_audit_200-parquet",
+      "name": "judge_audit_200.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/judge_audit_200.parquet",
       "encodingFormat": "application/x-parquet",
-      "sha256": "f9c107a576b569a00bb92a2579ada8b53abd1834e3d25dd409f668a0c98287f2"
+      "sha256": "7d703d763f76b436ea3f118c57099e57cc34cca16eb9966ead4523db07cc650c"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "judge_selection-parquet",
+      "name": "judge_selection.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/judge_selection.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "b99d0bcddbbd1e7f91d0bc922f12749866f99a4aa70cf36951521c70d2e9c1cd"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "judge_verdicts-parquet",
+      "name": "judge_verdicts.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/judge_verdicts.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "93f6ec56b6da0ae376857274027a004a8cf8fd253cdf7f96999c3a3113f10777"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "pilot_gold-parquet",
+      "name": "pilot_gold.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/pilot_gold.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "38cc7366848afc19770e84cc1c3c9eadb780115d82b465bd9d80e3572705ca34"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "pilot_ratings-parquet",
+      "name": "pilot_ratings.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/pilot_ratings.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "fd2d692d7854ee510c064e48c39678fce7cf8f2fd26317d9f0c594e8d40bbabc"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "ratings-parquet",
+      "name": "ratings.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/ratings.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "0eec928fba8da7df52ab87da403f2448189106252c35222da05d2553c6ed5f1f"
     },
     {
       "@type": "cr:FileObject",
       "@id": "silver-parquet",
       "name": "silver.parquet",
-      "description": "Silver split: 500 ML dataset papers with paper-level metadata (arXiv ID, downloads, domain, license, tasks, language, datePublished, dataCollectionType). LLM-derived from arXiv metadata + Claude Sonnet 4.5 pre-fill at temperature 0; not human-validated. Used for scale studies and silver-vs-gold validation in the paper.",
-      "contentUrl": "https://huggingface.co/datasets/croissantminer/croissantminer/resolve/main/silver.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/silver.parquet",
       "encodingFormat": "application/x-parquet",
       "sha256": "5b77b10bf683e2c05b1a03887f0ab92adebf595df7d78d28dacf8cea30e2f581"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "silver_annotations-parquet",
+      "name": "silver_annotations.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/silver_annotations.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "e3e43757b1ad9ad90a7df83c0e614c33e1f97ffdb20efed0c220cd37bbce3f00"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "system_outputs-parquet",
+      "name": "system_outputs.parquet",
+      "contentUrl": "https://huggingface.co/datasets/bearda/croissantminer/resolve/main/system_outputs.parquet",
+      "encodingFormat": "application/x-parquet",
+      "sha256": "740e8de09815d4fee7d3ecd99294c7c30d8e15febe43171a709b0eb9044ef2ed"
     }
   ],
   "recordSet": [
     {
       "@type": "cr:RecordSet",
-      "@id": "ratings",
-      "name": "ratings",
-      "description": "Long-format raw human ratings, one row per (paper, field, annotator). Annotators were instructed to rate each LLM-extracted Croissant metadata value as Correct (1), Partially Correct (2), or Not Correct (3); for ratings of 2 or 3, an optional corrected_value and free-text notes were collected, plus a confidence label (High / Medium / Low) and a failure-mode category.",
+      "@id": "annotators",
+      "name": "annotators",
+      "description": "Pseudonymized roster of the 22 annotators who contributed to the main set. Demographics aggregated from the recruitment registration form: coarse role, ML familiarity, paper-experience frequency, hours dedicated. No personally identifying information beyond what annotators publicly associate with their professional profiles.",
       "field": [
         {
           "@type": "cr:Field",
-          "@id": "ratings/paper_id",
-          "name": "paper_id",
+          "@id": "annotators/annotator_id",
+          "name": "annotator_id",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "paper_id"
+              "column": "annotator_id"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/field_id",
-          "name": "field_id",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "ratings-parquet"
-            },
-            "extract": {
-              "column": "field_id"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "ratings/annotator",
-          "name": "annotator",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "ratings-parquet"
-            },
-            "extract": {
-              "column": "annotator"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "ratings/phase",
-          "name": "phase",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "ratings-parquet"
-            },
-            "extract": {
-              "column": "phase"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "ratings/rating",
-          "name": "rating",
+          "@id": "annotators/n_ratings",
+          "name": "n_ratings",
           "dataType": "sc:Integer",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "rating"
+              "column": "n_ratings"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/extracted_value",
-          "name": "extracted_value",
+          "@id": "annotators/phases_active",
+          "name": "phases_active",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "extracted_value"
+              "column": "phases_active"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/corrected_value",
-          "name": "corrected_value",
+          "@id": "annotators/role",
+          "name": "role",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "corrected_value"
+              "column": "role"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/failure_mode",
-          "name": "failure_mode",
+          "@id": "annotators/ml_familiarity",
+          "name": "ml_familiarity",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "failure_mode"
+              "column": "ml_familiarity"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/confidence",
-          "name": "confidence",
+          "@id": "annotators/paper_experience",
+          "name": "paper_experience",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "confidence"
+              "column": "paper_experience"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/notes",
-          "name": "notes",
+          "@id": "annotators/hours_dedicated",
+          "name": "hours_dedicated",
           "dataType": "sc:Text",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "notes"
+              "column": "hours_dedicated"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "ratings/source_file",
-          "name": "source_file",
-          "dataType": "sc:Text",
+          "@id": "annotators/registered",
+          "name": "registered",
+          "dataType": "sc:Boolean",
           "source": {
             "fileObject": {
-              "@id": "ratings-parquet"
+              "@id": "annotators-parquet"
             },
             "extract": {
-              "column": "source_file"
+              "column": "registered"
             }
           }
         }
@@ -839,32 +894,602 @@
     },
     {
       "@type": "cr:RecordSet",
-      "@id": "annotators",
-      "name": "annotators",
-      "description": "Pseudonymized roster of the 22 annotators who contributed to the main set. Demographics aggregated from the recruitment registration form: role, affiliation, ML familiarity, paper-experience frequency, hours dedicated. No personally identifying information beyond what annotators publicly associate with their professional profiles.",
+      "@id": "judge_audit_200",
+      "name": "judge_audit_200",
+      "description": "Human audit of the deployed judge on 200 RAI cells: ratings by two authors (R1, R2), the third author's rating on their disagreements (R3), the human consensus and the GLM-5 score.",
       "field": [
         {
           "@type": "cr:Field",
-          "@id": "annotators/annotator_id",
-          "name": "annotator_id",
-          "dataType": "sc:Text",
+          "@id": "judge_audit_200/row_id",
+          "name": "row_id",
+          "dataType": "sc:Integer",
           "source": {
             "fileObject": {
-              "@id": "annotators-parquet"
+              "@id": "judge_audit_200-parquet"
             },
             "extract": {
-              "column": "annotator_id"
+              "column": "row_id"
             }
           }
         },
         {
           "@type": "cr:Field",
-          "@id": "annotators/n_ratings",
+          "@id": "judge_audit_200/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/system_id",
+          "name": "system_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "system_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/gold_value",
+          "name": "gold_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "gold_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/gold_value_audited",
+          "name": "gold_value_audited",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "gold_value_audited"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/candidate_value",
+          "name": "candidate_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "candidate_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/rating_R1",
+          "name": "rating_R1",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "rating_R1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/rating_R2",
+          "name": "rating_R2",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "rating_R2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/rating_R3",
+          "name": "rating_R3",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "rating_R3"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/human_consensus",
+          "name": "human_consensus",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "human_consensus"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_audit_200/judge_score",
+          "name": "judge_score",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_audit_200-parquet"
+            },
+            "extract": {
+              "column": "judge_score"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "judge_selection",
+      "name": "judge_selection",
+      "description": "Judge selection: 60 development cells (30 calibration, 30 validation) with the human consensus rating and the scores of the six candidate judges under the initial rubric, plus GLM-5 under the final rubric on audited gold.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/split",
+          "name": "split",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "split"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/row_id",
+          "name": "row_id",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "row_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/system_id",
+          "name": "system_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "system_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/gold_value",
+          "name": "gold_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "gold_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/candidate_value",
+          "name": "candidate_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "candidate_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/human_rating",
+          "name": "human_rating",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "human_rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_glm_5",
+          "name": "score_glm_5",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_glm_5"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_deepseek_v3_2",
+          "name": "score_deepseek_v3_2",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_deepseek_v3_2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_gpt5_5",
+          "name": "score_gpt5_5",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_gpt5_5"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_gemini_2_5_pro",
+          "name": "score_gemini_2_5_pro",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_gemini_2_5_pro"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_qwen_3_max",
+          "name": "score_qwen_3_max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_qwen_3_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_llama_4_maverick",
+          "name": "score_llama_4_maverick",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_llama_4_maverick"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/gold_value_audited",
+          "name": "gold_value_audited",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "gold_value_audited"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_selection/score_glm_5_final_rubric",
+          "name": "score_glm_5_final_rubric",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "judge_selection-parquet"
+            },
+            "extract": {
+              "column": "score_glm_5_final_rubric"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "judge_verdicts",
+      "name": "judge_verdicts",
+      "description": "GLM-5 judge verdicts on the RAI fields behind the paper's results (score 1 = correct, 2 = partially correct, 3 = wrong), with the judge's reason; source marks verdicts added for the camera-ready.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/system_id",
+          "name": "system_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "system_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/gold_value",
+          "name": "gold_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "gold_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/candidate",
+          "name": "candidate",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "candidate"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/score",
+          "name": "score",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "score"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/reason",
+          "name": "reason",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "reason"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "judge_verdicts/source",
+          "name": "source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "judge_verdicts-parquet"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "pilot_gold",
+      "name": "pilot_gold",
+      "description": "Re-annotation pilot: gold values from a GPT-5.4 pre-fill rated by three raters, for 15 papers; in_paper_analysis marks the 10 papers with three ratings on every field, used in the paper.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_gold/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_gold-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_gold/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_gold-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_gold/gold_value",
+          "name": "gold_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_gold-parquet"
+            },
+            "extract": {
+              "column": "gold_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_gold/method",
+          "name": "method",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_gold-parquet"
+            },
+            "extract": {
+              "column": "method"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_gold/n_ratings",
           "name": "n_ratings",
           "dataType": "sc:Integer",
           "source": {
             "fileObject": {
-              "@id": "annotators-parquet"
+              "@id": "pilot_gold-parquet"
             },
             "extract": {
               "column": "n_ratings"
@@ -873,99 +1498,325 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "annotators/phases_active",
-          "name": "phases_active",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "phases_active"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/role",
-          "name": "role",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "role"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/affiliation",
-          "name": "affiliation",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "affiliation"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/ml_familiarity",
-          "name": "ml_familiarity",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "ml_familiarity"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/paper_experience",
-          "name": "paper_experience",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "paper_experience"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/hours_dedicated",
-          "name": "hours_dedicated",
-          "dataType": "sc:Text",
-          "source": {
-            "fileObject": {
-              "@id": "annotators-parquet"
-            },
-            "extract": {
-              "column": "hours_dedicated"
-            }
-          }
-        },
-        {
-          "@type": "cr:Field",
-          "@id": "annotators/registered",
-          "name": "registered",
+          "@id": "pilot_gold/in_paper_analysis",
+          "name": "in_paper_analysis",
           "dataType": "sc:Boolean",
           "source": {
             "fileObject": {
-              "@id": "annotators-parquet"
+              "@id": "pilot_gold-parquet"
             },
             "extract": {
-              "column": "registered"
+              "column": "in_paper_analysis"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "pilot_ratings",
+      "name": "pilot_ratings",
+      "description": "Re-annotation pilot: individual ratings (slot A, B or C per paper) with failure modes, corrections, confidence and notes.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/slot",
+          "name": "slot",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "slot"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/field",
+          "name": "field",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "field"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/prefill",
+          "name": "prefill",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "prefill"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/rating",
+          "name": "rating",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/failure_mode",
+          "name": "failure_mode",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "failure_mode"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/corrected_value",
+          "name": "corrected_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "corrected_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/confidence",
+          "name": "confidence",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "confidence"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/notes",
+          "name": "notes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "notes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pilot_ratings/in_paper_analysis",
+          "name": "in_paper_analysis",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "pilot_ratings-parquet"
+            },
+            "extract": {
+              "column": "in_paper_analysis"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "ratings",
+      "name": "ratings",
+      "description": "Long-format raw human ratings, one row per (paper, field, annotator). Annotators were instructed to rate each LLM-extracted Croissant metadata value as Correct (1), Partially Correct (2), or Not Correct (3); for ratings of 2 or 3, an optional corrected_value and free-text notes were collected, plus a confidence label (High / Medium / Low) and a failure-mode category.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/annotator",
+          "name": "annotator",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "annotator"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/rating",
+          "name": "rating",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/extracted_value",
+          "name": "extracted_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "extracted_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/corrected_value",
+          "name": "corrected_value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "corrected_value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/failure_mode",
+          "name": "failure_mode",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "failure_mode"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/confidence",
+          "name": "confidence",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "confidence"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/notes",
+          "name": "notes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "notes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ratings/source_file",
+          "name": "source_file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ratings-parquet"
+            },
+            "extract": {
+              "column": "source_file"
             }
           }
         }
@@ -1104,27 +1955,183 @@
           }
         }
       ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "silver_annotations",
+      "name": "silver_annotations",
+      "description": "LLM-generated silver annotations: the Claude Sonnet 4.5 pre-fill for 500 ML dataset papers x 30 Croissant fields (one row per paper and field). Not human-validated.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "silver_annotations/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "silver_annotations-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "silver_annotations/field",
+          "name": "field",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "silver_annotations-parquet"
+            },
+            "extract": {
+              "column": "field"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "silver_annotations/value",
+          "name": "value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "silver_annotations-parquet"
+            },
+            "extract": {
+              "column": "value"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "silver_annotations/model",
+          "name": "model",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "silver_annotations-parquet"
+            },
+            "extract": {
+              "column": "model"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "system_outputs",
+      "name": "system_outputs",
+      "description": "Outputs of the 24 extraction systems ranked in the paper and the Claude Sonnet 4.5 reference, one row per system, paper and field, on the 14 development and 88 test datasets.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/system_id",
+          "name": "system_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "system_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/system",
+          "name": "system",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "system"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/paper_id",
+          "name": "paper_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "paper_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/split",
+          "name": "split",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "split"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/field_id",
+          "name": "field_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "field_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "system_outputs/value",
+          "name": "value",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "system_outputs-parquet"
+            },
+            "extract": {
+              "column": "value"
+            }
+          }
+        }
+      ]
     }
   ],
-  "rai:dataCollection": "Human ratings of LLM-extracted Croissant metadata across 102 ML dataset papers and 30 RAI fields. Collected over seven phases between March and April 2026: pilot calibration, Phase 2 main collection, mid-project redistribution to balance coverage, a round-3 top-up, two final sweeps for cells under the three-rater target, and an orphan top-up to bring every cell to at least three distinct annotators. Senior adjudication resolved cells where no rating reached majority.",
+  "rai:dataCollection": "Human ratings of LLM-extracted Croissant metadata across 102 ML datasets and 30 Croissant fields (10 core and 20 RAI). Collected over seven phases between March and April 2026: pilot calibration, Phase 2 main collection, mid-project redistribution to balance coverage, a round-3 top-up, two final sweeps for cells under the three-rater target, and an orphan top-up to bring every cell to at least three distinct annotators. Senior adjudication resolved cells where no rating reached majority.",
   "rai:dataCollectionType": "Manual Human Curator. Annotators were instructed not to use AI tools while rating.",
   "rai:dataCollectionTimeframe": "2026-03-10 to 2026-04-25",
   "rai:dataCollectionRawData": "AI-extracted Croissant metadata values produced by Claude Sonnet 4.5 on 102 arXiv-published ML dataset papers, plus the papers themselves (read by annotators when validating each value).",
-  "rai:dataAnnotationProtocol": "Each (paper, field) cell received three independent ratings on a three-level rubric (Correct / Partially Correct / Not Correct) with six failure-mode categories (Incomplete, Hallucination, Wrong Section, Granularity Mismatch, Format Error, Other) and an optional corrected value plus free-text notes. Confidence (High / Medium / Low) was recorded per rating.",
-  "rai:dataAnnotationPlatform": "Excel files distributed via shared cloud storage; one workbook per annotator with separate sheets for Instructions, Field Definitions, Calibration Examples, and Annotations.",
+  "rai:dataAnnotationProtocol": "Each (paper, field) cell received at least three independent ratings (four for 415 cells) on a three-level rubric (Correct / Partially Correct / Not Correct) with six failure-mode categories (Incomplete, Hallucination, Wrong Section, Granularity Mismatch, Format Error, Other) and an optional corrected value plus free-text notes. Confidence (High / Medium / Low) was recorded per rating.",
+  "rai:dataAnnotationPlatform": "Shared online spreadsheets, one per annotator and phase, with the rating instructions included.",
   "rai:dataAnnotationAnalysis": "Krippendorff's alpha (ordinal, primary), Gwet's AC1 (chance-corrected, prevalence-robust), raw pairwise agreement, and percent unanimous cells, all computed per field with 1000-iteration bootstrap 95 percent confidence intervals. Triangulation across alpha and AC1 is necessary because alpha collapses under skewed marginals (Feinstein-Cicchetti paradox).",
-  "rai:annotationsPerItem": "3",
-  "rai:annotatorDemographics": "22 distinct annotators after deduplicating two who registered twice and merging name variants. Roles spanned PhD students, postdoctoral researchers, faculty, and industry professionals across academic and external institutions. Aggregate demographics in annotators.parquet (role, affiliation, ML familiarity tier, paper-experience frequency, hours dedicated). No personally identifying demographic data (age, gender, ethnicity, geography) was collected.",
+  "rai:annotationsPerItem": "3 ratings per cell; 4 for 415 of the 3,060 gold cells",
+  "rai:annotatorDemographics": "22 distinct annotators after deduplicating two who registered twice and merging name variants. Roles spanned PhD students, postdoctoral researchers, faculty, and industry professionals across academic and external institutions. Aggregate demographics in annotators.parquet (coarse role, ML familiarity tier, paper-experience frequency, hours dedicated). No personally identifying demographic data (age, gender, ethnicity, geography) was collected.",
   "rai:machineAnnotationTools": "None. Annotators were instructed not to use AI tools while rating. The pre-filled metadata values rated by annotators were generated by Claude Sonnet 4.5 (not part of the rating step itself).",
-  "rai:dataReleaseMaintenancePlan": "Released alongside the CroissantMiner NeurIPS 2026 E&D paper. Maintained at https://anonymous.4open.science/r/croissantminer-F87C. Versioning via Git tags. Bug-fix updates expected through 2027; substantive schema changes deprecated rather than silently overwritten.",
-  "rai:personalSensitiveInformation": "None collected. Annotator names appear in the local raw ratings.parquet for build provenance and are replaced with pseudonymous integer IDs (A01..A22) before public release; the raw-name version is gitignored.",
+  "rai:dataReleaseMaintenancePlan": "Maintained by the authors at https://huggingface.co/datasets/bearda/croissantminer, with code at https://github.com/berkearda/croissantminer. Each version is a Git tag of this Hugging Face repository and can be loaded with revision=\"<tag>\". v1.0 (7 May 2026) is the version reviewed at NeurIPS 2026; it is also kept unchanged at https://huggingface.co/datasets/croissantminer/croissantminer. v1.1 (28 September 2026) added the system outputs, judge verdicts, judge selection and audit, silver annotations and the re-annotation pilot. v1.2 (1 October 2026) is the version on the main branch and the one the paper's results use; its gold values are the same as in v1.0. Corrections to the data are released as new tagged versions and never overwrite an earlier version. Changes that touch only descriptions in this file or in the dataset card are made on the main branch without a new version. Documentation update of 5 November 2026: the descriptions, source papers and provenance in this file and the dataset card were corrected against the original records; the data files are unchanged and are still v1.2. Problems can be reported as GitHub issues.",
+  "rai:personalSensitiveInformation": "Annotators appear only as pseudonyms (A01 to A22). annotators.parquet gives, for each pseudonym, a coarse role, familiarity with ML datasets, paper-experience frequency, hours dedicated, the phases they took part in and their number of ratings; this is experience and seniority information. No annotator names, e-mail addresses, affiliations, age, gender, ethnicity or location are released. The judge-audit raters are three of the authors, labelled R1 to R3, and pilot raters appear only as slots A, B and C. Adjudicators are coded (A_senior_01, A_senior_02). Metadata values quote or summarise the public source papers, so they contain the names of those papers' authors (for example in creator and citeAs values) and a few contact e-mail addresses printed in the papers. No other personal or sensitive information is included.",
   "rai:dataSocialImpact": "Enables study of LLM extraction quality on Responsible AI metadata. Permits downstream research into RAI-field difficulty, extraction-distillation, and disagreement-aware fine-tuning. Limitation: source papers are arXiv-published English-language ML dataset papers, so coverage is biased toward the English-speaking ML research community.",
   "rai:dataBiases": "Annotator pool is biased toward ML/AI researchers (recruited via an open call to NeurIPS-track-adjacent researchers); ratings reflect this group's interpretation of the Croissant RAI rubric. Source-paper sample is biased toward Vision and NLP domains (the two largest fractions of the 102-paper benchmark). Field difficulty is non-uniform: short-text fields (sc:license, sc:datePublished) saw substantially higher pairwise agreement than long-form RAI fields (rai:dataBiases, rai:dataSocialImpact).",
   "rai:dataLimitations": "Three RAI field definitions (rai:dataCollectionMissingData, rai:dataManipulationProtocol, rai:dataBiases) were tightened in the annotator rubric beyond the canonical Croissant RAI 1.0 specification, which contributes to definitional asymmetry on rai:dataBiases between LLM extractions and human ratings. Annotator demographics are aggregate-only; no per-annotator demographic stratification of agreement is released. Source-paper PDFs are not redistributed; downstream users must obtain them from the original publishers.",
   "rai:dataUseCases": "Training, Testing, Validation, and Benchmarking of LLM-based metadata extraction systems for Responsible AI documentation. Suitable for evaluating extraction accuracy, abstention calibration (when fields are absent from a paper), and field-specific difficulty profiles.",
   "rai:isSyntheticData": "False. Annotations are human ratings produced by 22 annotators on real LLM-generated extractions of real published academic papers; no synthetic generation step is part of the annotation pipeline. The 500-paper silver split contains LLM-generated metadata, but the metadata itself is grounded in real source papers rather than synthesised from scratch.",
-  "rai:sourceDatasets": "The 102 gold papers and 500 silver papers are drawn from publicly available academic publications associated with Hugging Face datasets, ranked by download count. Source datasets are listed in the released paper-link manifest (data/paper_links.json) by arXiv identifier; individual paper PDFs are not redistributed and must be obtained from the original publishers (typically arXiv).",
-  "rai:provenanceActivities": "Provenance: (1) Source-paper PDFs were downloaded from arXiv between November 2025 and January 2026 and parsed with PyPDF2 3.0.1. (2) Pre-fill extractions were generated by Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) at temperature 0 with a canonical prompt (SHA-256 prefix 1e1cfdd99246bbf5). (3) Human ratings were collected from 22 annotators between March and April 2026 across seven phases. (4) Gold values were derived by majority vote per (paper, field) cell, with senior-author adjudication for tie-split cells. (5) An end-to-end author audit in May 2026 corrected 191 of 3,060 gold cells (gold_method = 'audit_corrected_2026-05-04'). Each pre-fill extraction's _meta block records the model identifier, prompt SHA-256 prefix, and parser version.",
+  "rai:sourceDatasets": "The 102 gold entries and the 500 silver entries are Hugging Face datasets, prioritising highly downloaded ones, each with a publicly available ML dataset paper: the gold entries were curated by hand, and the silver entries were selected automatically by download count. Some gold entries are different Hugging Face datasets described by the same paper. Each source paper is listed in prov:wasDerivedFrom with the entries it covers; the silver papers' arXiv identifiers are also in silver.parquet (arxiv_id). Paper PDFs are not redistributed and must be obtained from the original publishers (mostly arXiv).",
+  "rai:provenanceActivities": "Provenance: (1) The gold source papers were picked by hand and their PDFs obtained between October 2025 and January 2026; the silver papers were selected automatically and their PDFs obtained in April 2026. (2) Claude Sonnet 4.5 pre-filled all 30 fields, for the gold entries in January 2026 and for the silver entries in April 2026 (claude-sonnet-4-5-20250929, temperature 0, canonical prompt with SHA-256 prefix 1e1cfdd99246bbf5); the January run did not log its settings. (3) Human ratings were collected from 22 annotators between March and April 2026 across seven phases. (4) Gold values were derived by majority vote per (paper, field) cell, with senior-author adjudication for tie-split cells. (5) An end-to-end author audit in May 2026 corrected 191 of 3,060 gold cells (gold_method = 'audit_corrected_2026-05-04').",
   "rai:hasSyntheticData": false,
   "prov:wasDerivedFrom": [
     {
@@ -1137,13 +2144,2364 @@
       }
     },
     {
-      "@id": "https://arxiv.org",
-      "prov:label": "arXiv",
-      "sc:license": "Per-paper (arXiv non-exclusive license to distribute)",
-      "prov:wasAttributedTo": {
-        "@id": "https://ror.org/05bnh6r87",
-        "prov:label": "arXiv (Cornell University)"
-      }
+      "@id": "https://arxiv.org/abs/2310.02255",
+      "prov:label": "Source paper of the gold entries AI4Math_MathVista, MathVista_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.20888",
+      "prov:label": "Source paper of the gold entry BianYx_VAP-Data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2404.00498",
+      "prov:label": "Source paper of the gold entry CIFAR_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.15562",
+      "prov:label": "Source paper of the gold entry ChongyanChen_VQAonline"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.11828",
+      "prov:label": "Source paper of the gold entry Cnam-LMSSC_vibravox"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2103.03874",
+      "prov:label": "Source paper of the gold entries DigitalLearningGmbH_MATH-lighteval, EleutherAI_hendrycks_math, hiyouga_math12k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1606.06031",
+      "prov:label": "Source paper of the gold entry EleutherAI_lambada_openai"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1609.07843",
+      "prov:label": "Source paper of the gold entry EleutherAI_wikitext_document_level"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2106.03193",
+      "prov:label": "Source paper of the gold entry FLORES_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.14432",
+      "prov:label": "Source paper of the gold entry FOMO-MRI_FOMO60K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2107.07933",
+      "prov:label": "Source paper of the gold entry IGNF_PASTIS-HD"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.12022",
+      "prov:label": "Source paper of the gold entry Idavidrein_gpqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.17801",
+      "prov:label": "Source paper of the gold entry LeoFan01_RoboBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.20330",
+      "prov:label": "Source paper of the gold entry Lin-Chen_MMStar"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.12224",
+      "prov:label": "Source paper of the gold entry MINT-SJTU_RoboFAC-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2012.03411",
+      "prov:label": "Source paper of the gold entry MLS_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2009.03300",
+      "prov:label": "Source paper of the gold entries MMLU_30field, NLPCoreTeam_mmlu_ru, hails_mmlu_no_train, ncoop57_mmmlu"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.16502",
+      "prov:label": "Source paper of the gold entries MMMU_30field, MMMU_MMMU, lmms-lab_MMMU, ziyjiang_MMEB_Test_Instruct"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1405.0312",
+      "prov:label": "Source paper of the gold entry MSCOCO_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.22651",
+      "prov:label": "Source paper of the gold entry MathLLMs_VoiceAssistant-Eval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.17835",
+      "prov:label": "Source paper of the gold entry MohamedRashad_arabic-books"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.17005",
+      "prov:label": "Source paper of the gold entry OpenGVLab_MVBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.00574",
+      "prov:label": "Source paper of the gold entry OpenGVLab_VideoChat-Flash-Training-Data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.01732",
+      "prov:label": "Source paper of the gold entry PleIAs_common_corpus"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1905.07830",
+      "prov:label": "Source paper of the gold entry Rowan_hellaswag"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.21139",
+      "prov:label": "Source paper of the gold entry SWE-Gym_SWE-Gym"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.06770",
+      "prov:label": "Source paper of the gold entries SWE-bench_SWE-bench_Verified, princeton-nlp_SWE-bench, princeton-nlp_SWE-bench_Lite"
+    },
+    {
+      "@id": "https://static.scale.com/uploads/654197dc94d34f66c0f5184e/SWEAP_Eval_Scale%20(9).pdf",
+      "prov:label": "Source paper of the gold entry ScaleAI_SWE-bench_Pro"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.01574",
+      "prov:label": "Source paper of the gold entry TIGER-Lab_MMLU-Pro"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1602.07332",
+      "prov:label": "Source paper of the gold entry Visual_Genome_30field"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.14996",
+      "prov:label": "Source paper of the gold entry WINGNUS_ACL-OCL"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1803.05457",
+      "prov:label": "Source paper of the gold entry allenai_ai2_arc"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1905.13319",
+      "prov:label": "Source paper of the gold entry allenai_math_qa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1809.02789",
+      "prov:label": "Source paper of the gold entry allenai_openbookqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1707.06209",
+      "prov:label": "Source paper of the gold entry allenai_sciq"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1907.10641",
+      "prov:label": "Source paper of the gold entry allenai_winogrande"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.11596",
+      "prov:label": "Source paper of the gold entry asahi417_seamless-align-enA-hiA.speaker-embedding.xlsr-2b"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1911.11641",
+      "prov:label": "Source paper of the gold entries baber_piqa, ybisk_piqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.09864",
+      "prov:label": "Source paper of the gold entry bezirganyan_LUMA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.15877",
+      "prov:label": "Source paper of the gold entry bigcode_bigcodebench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.07572",
+      "prov:label": "Source paper of the gold entry callanwu_WebWalkerQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.08322",
+      "prov:label": "Source paper of the gold entry ceval_ceval-exam"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.18335",
+      "prov:label": "Source paper of the gold entry chcorbi_helvipad"
+    },
+    {
+      "@id": "http://www.aclweb.org/anthology/P16-1144",
+      "prov:label": "Source paper of the gold entry cimec_lambada"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.16825",
+      "prov:label": "Source paper of the gold entry common-canvas_commoncatalog-cc-by"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.07814",
+      "prov:label": "Source paper of the gold entry deepmind_code_contests"
+    },
+    {
+      "@id": "https://arxiv.org/abs/cs/0306050",
+      "prov:label": "Source paper of the gold entry eriktks_conll2003"
+    },
+    {
+      "@id": "https://www.isca-archive.org/interspeech_2025/peng25c_interspeech.pdf",
+      "prov:label": "Source paper of the gold entry espnet_yodas_owsmv4"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1904.03278",
+      "prov:label": "Source paper of the gold entry fleaven_Retargeted_AMASS_for_robotics"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2108.07732",
+      "prov:label": "Source paper of the gold entry google-research-datasets_mbpp"
+    },
+    {
+      "@id": "https://aclanthology.org/Q19-1026/",
+      "prov:label": "Source paper of the gold entry google-research-datasets_natural_questions"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.07911",
+      "prov:label": "Source paper of the gold entry google_IFEval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1905.10044",
+      "prov:label": "Source paper of the gold entry google_boolq"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2205.12446",
+      "prov:label": "Source paper of the gold entry google_fleurs"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.10752",
+      "prov:label": "Source paper of the gold entry google_xtreme_s"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2105.04165",
+      "prov:label": "Source paper of the gold entry hiyouga_geometry3k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.17834",
+      "prov:label": "Source paper of the gold entry ibrahimhamamci_CT-RATE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.07974",
+      "prov:label": "Source paper of the gold entry livecodebench_code_generation_lite"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.10244",
+      "prov:label": "Source paper of the gold entry lmms-lab_ChartQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2007.00398",
+      "prov:label": "Source paper of the gold entry lmms-lab_DocVQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.03803",
+      "prov:label": "Source paper of the gold entry lmms-lab_EgoLife"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.10355",
+      "prov:label": "Source paper of the gold entry lmms-lab_POPE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2209.09513",
+      "prov:label": "Source paper of the gold entry lmms-lab_ScienceQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2405.21075",
+      "prov:label": "Source paper of the gold entry lmms-lab_Video-MME"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1904.08920",
+      "prov:label": "Source paper of the gold entry lmms-lab_textvqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2401.06121",
+      "prov:label": "Source paper of the gold entry locuslab_TOFU"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2210.09261",
+      "prov:label": "Source paper of the gold entry lukaemon_bbh"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.11271",
+      "prov:label": "Source paper of the gold entry mlfoundations_MINT-1T-PDF-CC-2024-18"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.22953",
+      "prov:label": "Source paper of the gold entry mrmrx_CADS-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2210.07316",
+      "prov:label": "Source paper of the gold entry mteb_sts22-crosslingual-sts"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.20411",
+      "prov:label": "Source paper of the gold entry nebius_SWE-rebench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2208.08227",
+      "prov:label": "Source paper of the gold entry nuprl_MultiPL-E"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2110.14168",
+      "prov:label": "Source paper of the gold entry openai_gsm8k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2107.03374",
+      "prov:label": "Source paper of the gold entry openai_openai_humaneval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.11963",
+      "prov:label": "Source paper of the gold entry opencompass_NeedleBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.01622",
+      "prov:label": "Source paper of the gold entry osunlp_TravelPlanner"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.06992",
+      "prov:label": "Source paper of the gold entry princeton-nlp_SWE-bench_Verified"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1606.05250",
+      "prov:label": "Source paper of the gold entry rajpurkar_squad"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1610.01465",
+      "prov:label": "Source paper of the gold entry russellyq_VQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.04178",
+      "prov:label": "Source paper of the gold entry ryanmarten_OpenThoughts-1k-sample"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.01091",
+      "prov:label": "Source paper of the gold entry sci-benchmark_self-contradictory"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.10297",
+      "prov:label": "Source paper of the gold entry tanganke_dtd"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1709.00029",
+      "prov:label": "Source paper of the gold entry tanganke_eurosat"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1703.00121",
+      "prov:label": "Source paper of the gold entry tanganke_resisc45"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1811.00937",
+      "prov:label": "Source paper of the gold entry tau_commonsense_qa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.04952",
+      "prov:label": "Source paper of the gold entry tencent_ArtifactsBenchmark"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2109.07958",
+      "prov:label": "Source paper of the gold entry truthfulqa_truthful_qa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2401.13311",
+      "prov:label": "Source paper of the gold entry ucla-contextual_contextual_test"
+    },
+    {
+      "@id": "https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf",
+      "prov:label": "Source paper of the gold entry uoft-cs_cifar100"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.14508",
+      "prov:label": "Source paper of the gold entry zai-org_LongBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.13154",
+      "prov:label": "Source paper of the silver entry 3DTopia/4DNeX-10M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.06967",
+      "prov:label": "Source paper of the silver entry A5hbr1ng3r/ModSCAN"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.13539",
+      "prov:label": "Source paper of the silver entry AIDC-AI/Marco_Longspeech"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.28714",
+      "prov:label": "Source paper of the silver entry ARTPARK-IISc/Vaani"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.02797",
+      "prov:label": "Source paper of the silver entry ASLP-lab/SongFormDB"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.02866",
+      "prov:label": "Source paper of the silver entry AhsanBB/Maritime_Visual_Tracking_Dataset_MVTD"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.15882",
+      "prov:label": "Source paper of the silver entry AmazonScience/document-haystack"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2204.08582",
+      "prov:label": "Source paper of the silver entry AmazonScience/massive"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.04761",
+      "prov:label": "Source paper of the silver entry Anthropic/EconomicIndex"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2204.05862",
+      "prov:label": "Source paper of the silver entry Anthropic/hh-rlhf"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.15711",
+      "prov:label": "Source paper of the silver entry AssistantBench/AssistantBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.08842",
+      "prov:label": "Source paper of the silver entry AstroMLCore/AstroM3Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.18558",
+      "prov:label": "Source paper of the silver entry BAAI/Infinity-MM"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.19187",
+      "prov:label": "Source paper of the silver entry BBEH/bbeh"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2404.12390",
+      "prov:label": "Source paper of the silver entry BLINK-Benchmark/BLINK"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.15597",
+      "prov:label": "Source paper of the silver entry BeingBeyond/PND_Adam-U_pick-simple"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.20292",
+      "prov:label": "Source paper of the silver entry BestWishYsh/OpenS2V-5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.20883",
+      "prov:label": "Source paper of the silver entry BharathK333/VoxMorph-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.02605",
+      "prov:label": "Source paper of the silver entry ByteDance-Seed/Multi-SWE-bench_trajs"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.07999",
+      "prov:label": "Source paper of the silver entry ByteDance-Seed/WideSearch"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.20903",
+      "prov:label": "Source paper of the silver entry CIawevy/TextPecker-1.5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.07870",
+      "prov:label": "Source paper of the silver entry CSU-JPG/TextAtlas5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.00738",
+      "prov:label": "Source paper of the silver entry CTPLab-DBE-UniBas/staining-robustness-evaluation"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.09018",
+      "prov:label": "Source paper of the silver entry CYX1998/Meissa-SFT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.01548",
+      "prov:label": "Source paper of the silver entry Chrisathy/BRENet-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.12263",
+      "prov:label": "Source paper of the silver entry Chuntianli/CrossVid"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.20751",
+      "prov:label": "Source paper of the silver entry CodeGoat24/UniGenBench-Eval-Images"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.03304",
+      "prov:label": "Source paper of the silver entry CohereLabs/Global-MMLU"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.06619",
+      "prov:label": "Source paper of the silver entry CohereLabs/aya_collection_language_split"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.09495",
+      "prov:label": "Source paper of the silver entry ComplexDataLab/OpenFake"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.11647",
+      "prov:label": "Source paper of the silver entry Coraxor/IVEBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.24265",
+      "prov:label": "Source paper of the silver entry DATA-MASK/FineWeb-Mask"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.10380",
+      "prov:label": "Source paper of the silver entry DBD-research-group/BirdSet"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.05891",
+      "prov:label": "Source paper of the silver entry DannHiroaki/China-Building-Footprints-CMAB-Mirror"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.01569",
+      "prov:label": "Source paper of the silver entry Dragonjinny/FiFA-pickapic-v2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1808.08745",
+      "prov:label": "Source paper of the silver entry EdinburghNLP/xsum"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1808.07042",
+      "prov:label": "Source paper of the silver entry EleutherAI/coqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1704.04683",
+      "prov:label": "Source paper of the silver entry EleutherAI/race"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1707.06347",
+      "prov:label": "Source paper of the silver entry EpicPinkPenguin/procgen"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.14111",
+      "prov:label": "Source paper of the silver entry EssentialAI/essential-web-v1.0"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.01188",
+      "prov:label": "Source paper of the silver entry Everloom/AAWR-DROID"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.20315",
+      "prov:label": "Source paper of the silver entry Exploration-Lab/dim-discovery-archive"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.10274",
+      "prov:label": "Source paper of the silver entry Facebear/XVLA-Soft-Fold"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.04507",
+      "prov:label": "Source paper of the silver entry FastVideo/Wan2.2-Syn-121x704x1280_32k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2010.00475",
+      "prov:label": "Source paper of the silver entry Fhrozen/FSD50k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.13168",
+      "prov:label": "Source paper of the silver entry FinWorkBench/Finch"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.14370",
+      "prov:label": "Source paper of the silver entry Fleyderer/FastTracker-Benchmark-MOT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.09570",
+      "prov:label": "Source paper of the silver entry G4KMU/LEMUR"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.12071",
+      "prov:label": "Source paper of the silver entry G4KMU/t2-ragbench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.13759",
+      "prov:label": "Source paper of the silver entry GAASH-Lab/RMOT26"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2009.13081",
+      "prov:label": "Source paper of the silver entry GBaker/MedQA-USMLE-4-options"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2202.09583",
+      "prov:label": "Source paper of the silver entry GEM/xwikis"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.04620",
+      "prov:label": "Source paper of the silver entry General-Level/General-Bench-Closeset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.06982",
+      "prov:label": "Source paper of the silver entry GilgameshYX/WeatherSynthetic"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.16584",
+      "prov:label": "Source paper of the silver entry HKUSTAudio/Audio-FLAN-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.10267",
+      "prov:label": "Source paper of the silver entry HPLT/HPLT2.0_cleaned"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.21161",
+      "prov:label": "Source paper of the silver entry HXX/MarketGen"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2004.11867",
+      "prov:label": "Source paper of the silver entry Helsinki-NLP/opus-100"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.17650",
+      "prov:label": "Source paper of the silver entry HiDream-ai/ReCo-Data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2109.07445",
+      "prov:label": "Source paper of the silver entry HuggingFaceFW/fineweb-edu"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.05685",
+      "prov:label": "Source paper of the silver entry HuggingFaceH4/mt_bench_prompts"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2112.00861",
+      "prov:label": "Source paper of the silver entry HuggingFaceH4/stack-exchange-preferences"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.14233",
+      "prov:label": "Source paper of the silver entry HuggingFaceH4/ultrachat_200k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.01377",
+      "prov:label": "Source paper of the silver entry HuggingFaceH4/ultrafeedback_binarized"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.12637",
+      "prov:label": "Source paper of the silver entry HuggingFaceM4/Docmatix"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.17269",
+      "prov:label": "Source paper of the silver entry HuggingFaceM4/FineVision"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.16527",
+      "prov:label": "Source paper of the silver entry HuggingFaceM4/OBELICS"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1603.07396",
+      "prov:label": "Source paper of the silver entry HuggingFaceM4/the_cauldron"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.11644",
+      "prov:label": "Source paper of the silver entry HuggingFaceTB/cosmopedia"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.02737",
+      "prov:label": "Source paper of the silver entry HuggingFaceTB/finemath"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.15553",
+      "prov:label": "Source paper of the silver entry HuggingFaceTB/smoltalk2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.01844",
+      "prov:label": "Source paper of the silver entry HuggingFaceVLA/community_dataset_v3"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.07803",
+      "prov:label": "Source paper of the silver entry ICTNLP/StreamUni"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1409.0575",
+      "prov:label": "Source paper of the silver entry ILSVRC/imagenet-1k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.17171",
+      "prov:label": "Source paper of the silver entry INSAIT-Institute/FireScope-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.21112",
+      "prov:label": "Source paper of the silver entry IPEC-COMMUNITY/EO-Data1.5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.11178",
+      "prov:label": "Source paper of the silver entry Incomple/BLEnD-Vis"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.19325",
+      "prov:label": "Source paper of the silver entry InnovatorLab/Innovator-VL-Instruct-46M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.16651",
+      "prov:label": "Source paper of the silver entry InternRobotics/InternData-A1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.12201",
+      "prov:label": "Source paper of the silver entry InternRobotics/OmniWorld"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.22232",
+      "prov:label": "Source paper of the silver entry JQL-AI/hplt2_embeddings"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.15043",
+      "prov:label": "Source paper of the silver entry JailbreakBench/JBB-Behaviors"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.07332",
+      "prov:label": "Source paper of the silver entry JasonMun7/GroundCUA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.14443",
+      "prov:label": "Source paper of the silver entry JetBrains-Research/EnvBench-trajectories"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.04497",
+      "prov:label": "Source paper of the silver entry JimmyBrocko/LEVIR-MCI-Trees"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.16098",
+      "prov:label": "Source paper of the silver entry JinyuanQu/SegDINO3D"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.06741",
+      "prov:label": "Source paper of the silver entry Jouesmak/DiTFake"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.03516",
+      "prov:label": "Source paper of the silver entry Jouesmak/T2I-CoReBench-Images"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.00716",
+      "prov:label": "Source paper of the silver entry JourneyDB/JourneyDB"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.11218",
+      "prov:label": "Source paper of the silver entry KechunXu1/BayesVLA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.15675",
+      "prov:label": "Source paper of the silver entry KickItLikeShika/NileTTS-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.10891",
+      "prov:label": "Source paper of the silver entry Kimhi/viper"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.18633",
+      "prov:label": "Source paper of the silver entry Kunbyte/ROSE-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.08754",
+      "prov:label": "Source paper of the silver entry LEAP/ClimSim_low-res_aqua-planet"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.04233",
+      "prov:label": "Source paper of the silver entry LEMAS-Project/LEMAS-Dataset-train"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.02807",
+      "prov:label": "Source paper of the silver entry LLM360/MegaMath"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.05397",
+      "prov:label": "Source paper of the silver entry Lance1573/L-Mind"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.14496",
+      "prov:label": "Source paper of the silver entry Laplas-JY/bridge-net"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.07826",
+      "prov:label": "Source paper of the silver entry Lewandofski/OpenVE-3M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.20702",
+      "prov:label": "Source paper of the silver entry LiLabUNC/Variant-Foundation-Embeddings"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2211.13523",
+      "prov:label": "Source paper of the silver entry LibreYOLO/brain-tumor-m2pbp"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.01034",
+      "prov:label": "Source paper of the silver entry MERaLiON/Multitask-National-Speech-Corpus-v1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2111.09344",
+      "prov:label": "Source paper of the silver entry MLCommons/peoples_speech"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.04264",
+      "prov:label": "Source paper of the silver entry MLVU/MVLU"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.00231",
+      "prov:label": "Source paper of the silver entry MMInstruction/ArxivCap"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.04387",
+      "prov:label": "Source paper of the silver entry MMInstruction/M3IT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.02813",
+      "prov:label": "Source paper of the silver entry MMMU/MMMU_Pro"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.16192",
+      "prov:label": "Source paper of the silver entry MahmoodLab/hest"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.05600",
+      "prov:label": "Source paper of the silver entry Major-TOM/Core-AlphaEarth-Embeddings"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.16866",
+      "prov:label": "Source paper of the silver entry ManiTwin/ManiTwin-100K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.28545",
+      "prov:label": "Source paper of the silver entry ManipArena/maniparena-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.14804",
+      "prov:label": "Source paper of the silver entry MathLLMs/MathVision"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.03952",
+      "prov:label": "Source paper of the silver entry McAuley-Lab/Amazon-Reviews-2023"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.05930",
+      "prov:label": "Source paper of the silver entry McGill-NLP/WebLINX-full"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.13178",
+      "prov:label": "Source paper of the silver entry MedRAG/pubmed"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.10068",
+      "prov:label": "Source paper of the silver entry Meehai/dronescapes"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.11485",
+      "prov:label": "Source paper of the silver entry MultiSense/MNL_Mind2Web_APPWorld"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2208.00211",
+      "prov:label": "Source paper of the silver entry MultimodalUniverse/gaia"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.03004",
+      "prov:label": "Source paper of the silver entry NTU-NLP-sg/xCodeEval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.00912",
+      "prov:label": "Source paper of the silver entry Noel87Seet/blackjack"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.20614",
+      "prov:label": "Source paper of the silver entry OJ-1/Critic-10K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.15018",
+      "prov:label": "Source paper of the silver entry Oatmealliu/UrbanVerse-100K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.18871",
+      "prov:label": "Source paper of the silver entry OmniGen2/X2I2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.13795",
+      "prov:label": "Source paper of the silver entry Open-Bee/Honey-Data-15M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2109.01652",
+      "prov:label": "Source paper of the silver entry Open-Orca/FLAN"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2301.13688",
+      "prov:label": "Source paper of the silver entry Open-Orca/OpenOrca"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2304.07327",
+      "prov:label": "Source paper of the silver entry OpenAssistant/oasst2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.16952",
+      "prov:label": "Source paper of the silver entry OpenDFM/AirQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.01941",
+      "prov:label": "Source paper of the silver entry OpenDriveLab/FreeTacMan"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.08418",
+      "prov:label": "Source paper of the silver entry OpenGVLab/OmniCorpus-CC"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.00576",
+      "prov:label": "Source paper of the silver entry OpenGalaxea/Galaxea-Open-World-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.23763",
+      "prov:label": "Source paper of the silver entry OpenMOSS-Team/OmniAction"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.23152",
+      "prov:label": "Source paper of the silver entry OpenRaiser/CoW-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.07625",
+      "prov:label": "Source paper of the silver entry OpenSQZ/AutoMathText-V2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.13161",
+      "prov:label": "Source paper of the silver entry OptimalScale/ClimbMix"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2111.02114",
+      "prov:label": "Source paper of the silver entry OwensLab/CommunityForensics-Eval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.04657",
+      "prov:label": "Source paper of the silver entry PKU-Alignment/BeaverTails"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.15513",
+      "prov:label": "Source paper of the silver entry PKU-Alignment/PKU-SafeRLHF"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.17499",
+      "prov:label": "Source paper of the silver entry PKUDigitalHealth/MEETI"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.04205",
+      "prov:label": "Source paper of the silver entry PaddlePaddle/Real5-OmniDocBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.01541",
+      "prov:label": "Source paper of the silver entry PediaMedAI/CogSense-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2104.08524",
+      "prov:label": "Source paper of the silver entry PolyAI/minds14"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2405.17202",
+      "prov:label": "Source paper of the silver entry PromptEval/PromptEval_MMLU_full"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.10744",
+      "prov:label": "Source paper of the silver entry QMX548682/LMEE-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.05948",
+      "prov:label": "Source paper of the silver entry QuanzhuNiu/OVIS_RGBD"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.06559",
+      "prov:label": "Source paper of the silver entry Qwen/ProcessBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2405.13576",
+      "prov:label": "Source paper of the silver entry RUC-NLPIR/FlashRAG_datasets"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.10775",
+      "prov:label": "Source paper of the silver entry RiceD2KLab/SWiM-SpacecraftWithMasks"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.00801",
+      "prov:label": "Source paper of the silver entry RichardChenZH/Med-Banana-50K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.18123",
+      "prov:label": "Source paper of the silver entry RoboArena/DataDump_02-03-2026"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.18904",
+      "prov:label": "Source paper of the silver entry RoboVerseOrg/roboverse_data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.13441",
+      "prov:label": "Source paper of the silver entry RogerQi/PH2D"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.21798",
+      "prov:label": "Source paper of the silver entry SWE-bench/SWE-smith"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.10393",
+      "prov:label": "Source paper of the silver entry Salesforce/GiftEvalPretrain"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.02592",
+      "prov:label": "Source paper of the silver entry Salesforce/lotsa_data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.18518",
+      "prov:label": "Source paper of the silver entry Salesforce/xlam-function-calling-60k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.23070",
+      "prov:label": "Source paper of the silver entry Sanjidh090/Lipi-Ghor-bn-882-SSTT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.19461",
+      "prov:label": "Source paper of the silver entry ScaleAI/mrt"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.04626",
+      "prov:label": "Source paper of the silver entry ServiceNow/BigDocs-7.5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.18795",
+      "prov:label": "Source paper of the silver entry Seuilping/FORGE-Curated"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.01056",
+      "prov:label": "Source paper of the silver entry ShengyouDuan/SwarmEvo"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1803.10794",
+      "prov:label": "Source paper of the silver entry SilvioGiancola/TrackingNet"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.01078",
+      "prov:label": "Source paper of the silver entry SimWorld-AI/SimWorld"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2212.02842",
+      "prov:label": "Source paper of the silver entry SimulaMet-HOST/visem-tracking-graphs"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.09958",
+      "prov:label": "Source paper of the silver entry SimulaMet/Kvasir-VQA-x1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.19341",
+      "prov:label": "Source paper of the silver entry Skywork/SkyPile-150B"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.02527",
+      "prov:label": "Source paper of the silver entry Smith42/sdss_gaia_crossmatched"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.01710",
+      "prov:label": "Source paper of the silver entry SparkAudio/voxbox"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.09676",
+      "prov:label": "Source paper of the silver entry SpatialVID/SpatialVID"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.01939",
+      "prov:label": "Source paper of the silver entry Stardust-hyx/BAPData"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.10129",
+      "prov:label": "Source paper of the silver entry Svard/LaViT-15k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.17387",
+      "prov:label": "Source paper of the silver entry SynthLabsAI/Big-Math-RL-Verified"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.16049",
+      "prov:label": "Source paper of the silver entry TAUR-Lab/MuSR"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.05160",
+      "prov:label": "Source paper of the silver entry TIGER-Lab/MMEB-train"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.05653",
+      "prov:label": "Source paper of the silver entry TIGER-Lab/MathInstruct"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.07199",
+      "prov:label": "Source paper of the silver entry TIGER-Lab/OmniEdit-Filtered-1.2M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2105.07624",
+      "prov:label": "Source paper of the silver entry TheFinAI/FinCoT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.19445",
+      "prov:label": "Source paper of the silver entry Thomas880423/SloMoBlur"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.21033",
+      "prov:label": "Source paper of the silver entry UCSC-VLAA/GPT-Image-Edit-1.5M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.08478",
+      "prov:label": "Source paper of the silver entry UCSC-VLAA/Recap-DataComp-1B"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.08807",
+      "prov:label": "Source paper of the silver entry USC-PSI-Lab/humanoid-everyday"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.08453",
+      "prov:label": "Source paper of the silver entry Vchitect/Vchitect_T2V_DataVerse"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2202.06511",
+      "prov:label": "Source paper of the silver entry Vincent08426/GAMMA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.16973",
+      "prov:label": "Source paper of the silver entry VisGym/visgym_data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.05403",
+      "prov:label": "Source paper of the silver entry Voxel51/PALM"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1910.11006",
+      "prov:label": "Source paper of the silver entry Voxel51/WLASL"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.08451",
+      "prov:label": "Source paper of the silver entry Voxel51/gui-odyssey-train"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.07491",
+      "prov:label": "Source paper of the silver entry Voxel51/spatial_lm_dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.12135",
+      "prov:label": "Source paper of the silver entry WavBench/WavBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.11434",
+      "prov:label": "Source paper of the silver entry WeiChow/WEAVE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.04126",
+      "prov:label": "Source paper of the silver entry WhiteFlamesCN/InfiniteWeb-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.04941",
+      "prov:label": "Source paper of the silver entry X-Humanoid/ArtVIP"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.05019",
+      "prov:label": "Source paper of the silver entry Y123-wed/Multimodal-Dataset-Image_Text_Table_TimeSeries-for-Financial-Time-Series-Forecasting"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.13832",
+      "prov:label": "Source paper of the silver entry YGGYY/GTSinger"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1509.01626",
+      "prov:label": "Source paper of the silver entry Yelp/yelp_review_full"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.10868",
+      "prov:label": "Source paper of the silver entry YiboZhang2001/TexVerse"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.04639",
+      "prov:label": "Source paper of the silver entry Yinpei/robomme_preprocessed_data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.15418",
+      "prov:label": "Source paper of the silver entry YirongSun/LLaSO-Align"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.09487",
+      "prov:label": "Source paper of the silver entry Yqy6/Slides-Align"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.06226",
+      "prov:label": "Source paper of the silver entry YuantaoChen/ForeHOI"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.20653",
+      "prov:label": "Source paper of the silver entry Yuchang-Zhao/ECFM"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2204.06535",
+      "prov:label": "Source paper of the silver entry adithya7/xlel_wd"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.02078",
+      "prov:label": "Source paper of the silver entry agibot-world/GenieSimAssets"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.22685",
+      "prov:label": "Source paper of the silver entry aharoon/fpp-ml-bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.05257",
+      "prov:label": "Source paper of the silver entry ai-hyz/MemoryAgentBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.01926",
+      "prov:label": "Source paper of the silver entry ai4bharat/IndicVoices"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.06350",
+      "prov:label": "Source paper of the silver entry ai4bharat/sangraha"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.10161",
+      "prov:label": "Source paper of the silver entry ailor/AdvBench-omni"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.20817",
+      "prov:label": "Source paper of the silver entry alitourani/Popcorn_Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2010.14571",
+      "prov:label": "Source paper of the silver entry allenai/MADLAD-400"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.07917",
+      "prov:label": "Source paper of the silver entry allenai/MolmoAct-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2405.01470",
+      "prov:label": "Source paper of the silver entry allenai/WildChat-1M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1910.10683",
+      "prov:label": "Source paper of the silver entry allenai/c4"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.13961",
+      "prov:label": "Source paper of the silver entry allenai/dolma3_mix-6T-1025-7B"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2212.08051",
+      "prov:label": "Source paper of the silver entry allenai/objaverse"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2009.11462",
+      "prov:label": "Source paper of the silver entry allenai/real-toxicity-prompts"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.15958",
+      "prov:label": "Source paper of the silver entry amazon/doc_split"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.02660",
+      "prov:label": "Source paper of the silver entry amd/Instella-Long"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.13462",
+      "prov:label": "Source paper of the silver entry aminerostane/spatialbench-uc"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2010.14678",
+      "prov:label": "Source paper of the silver entry amirveyseh/acronym_identification"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.05361",
+      "prov:label": "Source paper of the silver entry amphion/Emilia-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.17049",
+      "prov:label": "Source paper of the silver entry apple/DataCompDR-1B"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1905.00537",
+      "prov:label": "Source paper of the silver entry aps/super_glue"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.20094",
+      "prov:label": "Source paper of the silver entry argilla/FinePersonas-v0.1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.14187",
+      "prov:label": "Source paper of the silver entry ashiq24/Multi_Scale_ImageNet"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.02563",
+      "prov:label": "Source paper of the silver entry asvishal/UVH-26"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.01549",
+      "prov:label": "Source paper of the silver entry atad-tokyo/GST_EGOSERVE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.07815",
+      "prov:label": "Source paper of the silver entry autogluon/chronos_datasets"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2012.07436",
+      "prov:label": "Source paper of the silver entry autogluon/fev_datasets"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.12558",
+      "prov:label": "Source paper of the silver entry avery00/MomentSeeker"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.09227",
+      "prov:label": "Source paper of the silver entry behavior-1k/2025-challenge-demos"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.20643",
+      "prov:label": "Source paper of the silver entry bethgelab/dataconcept_128M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.07124",
+      "prov:label": "Source paper of the silver entry bigcode/commitpackft"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2110.08207",
+      "prov:label": "Source paper of the silver entry bigscience/P3"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2211.01786",
+      "prov:label": "Source paper of the silver entry bigscience/xP3"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.15161",
+      "prov:label": "Source paper of the silver entry blsmash044/SA-Med3D-140K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2105.05241",
+      "prov:label": "Source paper of the silver entry bookcorpus/bookcorpus"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.19167",
+      "prov:label": "Source paper of the silver entry bop-benchmark/hot3d"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2206.01205",
+      "prov:label": "Source paper of the silver entry bridgeconn/snow-mountain"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.19878",
+      "prov:label": "Source paper of the silver entry brittleru/nser-ibvs-mask-splitter-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.22154",
+      "prov:label": "Source paper of the silver entry bunny127/Reagent-RL-709K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.12945",
+      "prov:label": "Source paper of the silver entry cadene/droid"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2403.03218",
+      "prov:label": "Source paper of the silver entry cais/wmdp"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.17760",
+      "prov:label": "Source paper of the silver entry camel-ai/math"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2010.12421",
+      "prov:label": "Source paper of the silver entry cardiffnlp/tweet_eval"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.10441",
+      "prov:label": "Source paper of the silver entry catherinearnett/montok"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.09987",
+      "prov:label": "Source paper of the silver entry chenhn02/MetaFold"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.12182",
+      "prov:label": "Source paper of the silver entry cis-lmu/Glot500"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1906.05849",
+      "prov:label": "Source paper of the silver entry clane9/imagenet-100"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.24386",
+      "prov:label": "Source paper of the silver entry claude1234/MoreSMIRK"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2109.12870",
+      "prov:label": "Source paper of the silver entry clips/mfaq"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1805.01217",
+      "prov:label": "Source paper of the silver entry coastalcph/lex_glue"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1909.09436",
+      "prov:label": "Source paper of the silver entry code-search-net/code_search_net"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1511.08060",
+      "prov:label": "Source paper of the silver entry codraja2006/tomato-leaves-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.14794",
+      "prov:label": "Source paper of the silver entry compsciencelab/mdCATH"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.03381",
+      "prov:label": "Source paper of the silver entry cschell/xr-motion-dataset-catalogue"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1607.01759",
+      "prov:label": "Source paper of the silver entry csebuetnlp/xlsum"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.07744",
+      "prov:label": "Source paper of the silver entry cublya/jam-alt-lines"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.17395",
+      "prov:label": "Source paper of the silver entry cvssp/WavCaps"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2108.01249",
+      "prov:label": "Source paper of the silver entry cyberagent/crello"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.23219",
+      "prov:label": "Source paper of the silver entry daisq/MM-UAVBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.02155",
+      "prov:label": "Source paper of the silver entry databricks/databricks-dolly-15k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1507.03228",
+      "prov:label": "Source paper of the silver entry ddrg/MUSES"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1712.07040",
+      "prov:label": "Source paper of the silver entry deepmind/narrativeqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1904.04047",
+      "prov:label": "Source paper of the silver entry defunct-datasets/eli5"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.12477",
+      "prov:label": "Source paper of the silver entry dell-research-harvard/AmericanStories"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2201.0986",
+      "prov:label": "Source paper of the silver entry diffusers/community-pipelines-mirror"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.00514",
+      "prov:label": "Source paper of the silver entry disco-eth/EuroSpeech"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.17316",
+      "prov:label": "Source paper of the silver entry dongguazi/Defect_Spectrum"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.02201",
+      "prov:label": "Source paper of the silver entry dsfsi-anv/za-african-next-voices"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2003.10778",
+      "prov:label": "Source paper of the silver entry dszohib/graph-pannuke"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.04880",
+      "prov:label": "Source paper of the silver entry dtudk/MozzaVID_Large"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.07895",
+      "prov:label": "Source paper of the silver entry echo840/OCRBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.04127",
+      "prov:label": "Source paper of the silver entry edinburgh-dawg/mmlu-redux-2.0"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1906.11047",
+      "prov:label": "Source paper of the silver entry edinburghcstr/ami"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.04225",
+      "prov:label": "Source paper of the silver entry edwinmeriaux/AMP2026"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.04575",
+      "prov:label": "Source paper of the silver entry elefantai/p2p-full-data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.02126",
+      "prov:label": "Source paper of the silver entry elliotvincent/b-IAILD"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.00168",
+      "prov:label": "Source paper of the silver entry embed2scale/SSL4EO-S12-v1.1-Zarr"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.10361",
+      "prov:label": "Source paper of the silver entry epfml/FineWeb-HQ"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.00899",
+      "prov:label": "Source paper of the silver entry espnet/yodas"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.13404",
+      "prov:label": "Source paper of the silver entry espnet/yodas-granary"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.11831",
+      "prov:label": "Source paper of the silver entry facebook/CoTracker3_Kubric"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1910.14599",
+      "prov:label": "Source paper of the silver entry facebook/anli"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.13741",
+      "prov:label": "Source paper of the silver entry facebook/ego-1k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1902.01382",
+      "prov:label": "Source paper of the silver entry facebook/flores"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2101.00390",
+      "prov:label": "Source paper of the silver entry facebook/voxpopuli"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2004.04906",
+      "prov:label": "Source paper of the silver entry facebook/wiki_dpr"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.13657",
+      "prov:label": "Source paper of the silver entry faur-ai/fulg"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.14042",
+      "prov:label": "Source paper of the silver entry filapro/cad-recode"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2003.10286",
+      "prov:label": "Source paper of the silver entry flaviagiammarino/path-vqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.06404",
+      "prov:label": "Source paper of the silver entry fushuai0823/InfoAffect"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.10362",
+      "prov:label": "Source paper of the silver entry futurehouse/lab-bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.12983",
+      "prov:label": "Source paper of the silver entry gaia-benchmark/GAIA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.13992",
+      "prov:label": "Source paper of the silver entry gamma-lab-umd/MMAU-Pro"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.12524",
+      "prov:label": "Source paper of the silver entry garage-bAInd/Open-Platypus"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2005.00547",
+      "prov:label": "Source paper of the silver entry google-research-datasets/go_emotions"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1904.01130",
+      "prov:label": "Source paper of the silver entry google-research-datasets/paws"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.02734",
+      "prov:label": "Source paper of the silver entry google/WaxalNLP"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.12941",
+      "prov:label": "Source paper of the silver entry google/frames-benchmark"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1910.11856",
+      "prov:label": "Source paper of the silver entry google/xquad"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.07776",
+      "prov:label": "Source paper of the silver entry gorilla-watch/Gorilla-SPAC-MoT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2401.06056",
+      "prov:label": "Source paper of the silver entry gvecchio/MatSynth"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2304.06364",
+      "prov:label": "Source paper of the silver entry hails/agieval-lsat-ar"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.02528",
+      "prov:label": "Source paper of the silver entry handsomeWilliam/Relation252K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.15003",
+      "prov:label": "Source paper of the silver entry hao-li/AIDev"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.18668",
+      "prov:label": "Source paper of the silver entry hazyresearch/based-squad"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.06961",
+      "prov:label": "Source paper of the silver entry hf-audio/open-asr-leaderboard"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.21318",
+      "prov:label": "Source paper of the silver entry hiepp2/tvp4"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.11187",
+      "prov:label": "Source paper of the silver entry hishab/titulm-bangla-mmlu"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.07049",
+      "prov:label": "Source paper of the silver entry hltcoe/megawika"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.23045",
+      "prov:label": "Source paper of the silver entry hot-mess/hot-mess-data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1809.09600",
+      "prov:label": "Source paper of the silver entry hotpotqa/hotpot_qa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.02450",
+      "prov:label": "Source paper of the silver entry houselayout3d/HouseLayout3D"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.07737",
+      "prov:label": "Source paper of the silver entry hpprc/emb"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.09685",
+      "prov:label": "Source paper of the silver entry htriedman/grokipedia-v0.1-dump"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2110.15343",
+      "prov:label": "Source paper of the silver entry huaXiaKyrie/up"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.13830",
+      "prov:label": "Source paper of the silver entry huni1115/BreastDividerDataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.11172",
+      "prov:label": "Source paper of the silver entry ibm-esa-geospatial/TerraMesh"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.07667",
+      "prov:label": "Source paper of the silver entry iimmortall/S2R-HDR-2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.09530",
+      "prov:label": "Source paper of the silver entry instruction-pretrain/general-instruction-augmented-corpora"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.03915",
+      "prov:label": "Source paper of the silver entry jat-project/jat-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2301.13126",
+      "prov:label": "Source paper of the silver entry joelniklaus/lextreme"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.22027",
+      "prov:label": "Source paper of the silver entry johanneskirmayr/car-bench-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.16039",
+      "prov:label": "Source paper of the silver entry jon-tow/okapi_arc_challenge"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.07095",
+      "prov:label": "Source paper of the silver entry josancamon/paperbench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2112.10668",
+      "prov:label": "Source paper of the silver entry juletxara/xstory_cloze"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.08016",
+      "prov:label": "Source paper of the silver entry knowledge-computing/FRIEDA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.02357",
+      "prov:label": "Source paper of the silver entry kucklily/Q-Eval-100K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.04029",
+      "prov:label": "Source paper of the silver entry kvignesh1420/plurel"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.09042",
+      "prov:label": "Source paper of the silver entry kze193825/PhysicalAI-Autonomous-Vehicle-Cosmos-Drive-Dreams"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.13924",
+      "prov:label": "Source paper of the silver entry labelmaker/arkit_labelmaker"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.10941",
+      "prov:label": "Source paper of the silver entry leigangqu/VINCIE-10M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2304.13705",
+      "prov:label": "Source paper of the silver entry lerobot/aloha_sim_transfer_cube_human"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.04137",
+      "prov:label": "Source paper of the silver entry lerobot/pusht"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.04955",
+      "prov:label": "Source paper of the silver entry lerobot/xarm_lift_medium"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1805.09817",
+      "prov:label": "Source paper of the silver entry lhmd/re10k_torch"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.10497",
+      "prov:label": "Source paper of the silver entry li-lab/MMLU-ProX"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.19247",
+      "prov:label": "Source paper of the silver entry linknoise/Edit3D-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.19314",
+      "prov:label": "Source paper of the silver entry livebench/coding"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.09212",
+      "prov:label": "Source paper of the silver entry lmlmcat/cmmlu"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.05126",
+      "prov:label": "Source paper of the silver entry lmms-lab/LLaVA-OneVision-Data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.02713",
+      "prov:label": "Source paper of the silver entry lmms-lab/LLaVA-Video-178K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.16125",
+      "prov:label": "Source paper of the silver entry lmms-lab/SEED-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2210.03992",
+      "prov:label": "Source paper of the silver entry lmqg/qa_squadshifts_synthetic"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.11998",
+      "prov:label": "Source paper of the silver entry lmsys/lmsys-chat-1m"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.00920",
+      "prov:label": "Source paper of the silver entry lockon/ToolACE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.15754",
+      "prov:label": "Source paper of the silver entry longvideobench/LongVideoBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.00072",
+      "prov:label": "Source paper of the silver entry lucas-ventura/chapter-llama"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.00747",
+      "prov:label": "Source paper of the silver entry lucius1022/DeMix_Corpora"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2304.07987",
+      "prov:label": "Source paper of the silver entry m-a-p/COIG-CQIA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.14658",
+      "prov:label": "Source paper of the silver entry m-a-p/CodeFeedback-Filtered-Instruction"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.13923",
+      "prov:label": "Source paper of the silver entry m-a-p/PIN-200M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.09439",
+      "prov:label": "Source paper of the silver entry ma-xu/fine-t2i"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.12524",
+      "prov:label": "Source paper of the silver entry maazxo1/Food_Portion_Benchmark"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.23232",
+      "prov:label": "Source paper of the silver entry machine-unlearning-bench/data-unlearning-bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2005.13981",
+      "prov:label": "Source paper of the silver entry majestical1/DNS-Challenge"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1705.03551",
+      "prov:label": "Source paper of the silver entry mandarjoshi/trivia_qa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.18917",
+      "prov:label": "Source paper of the silver entry mandipgoswami/rir-mega-speech"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.13431",
+      "prov:label": "Source paper of the silver entry mansoorbaloch/chimera-bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2303.17003",
+      "prov:label": "Source paper of the silver entry maritaca-ai/enem"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2502.11431",
+      "prov:label": "Source paper of the silver entry marsh123/VIRA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.14242",
+      "prov:label": "Source paper of the silver entry mercor/apex-agents"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.17158",
+      "prov:label": "Source paper of the silver entry meta-agents-research-environments/gaia2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.12284",
+      "prov:label": "Source paper of the silver entry meta-math/MetaMathQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.21778",
+      "prov:label": "Source paper of the silver entry metazlb/PhysicTran38K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.21571",
+      "prov:label": "Source paper of the silver entry microsoft/VITRA-TeleData"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1611.09268",
+      "prov:label": "Source paper of the silver entry microsoft/ms_marco"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.14830",
+      "prov:label": "Source paper of the silver entry microsoft/orca-math-word-problems-200k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.10113",
+      "prov:label": "Source paper of the silver entry mingyang-wu/ConsIDVid"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.11794",
+      "prov:label": "Source paper of the silver entry mlfoundations/dclm-baseline-1.0"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.09058",
+      "prov:label": "Source paper of the silver entry mlinhbng/viet-cultural-vqa"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2101.00027",
+      "prov:label": "Source paper of the silver entry monology/pile-uncopyrighted"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2401.09512",
+      "prov:label": "Source paper of the silver entry mueller91/MLAAD"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.23661",
+      "prov:label": "Source paper of the silver entry mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.11969",
+      "prov:label": "Source paper of the silver entry neashton/drivaerml"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.19320",
+      "prov:label": "Source paper of the silver entry neashton/windsorml"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.14736",
+      "prov:label": "Source paper of the silver entry ngaggion/UnsupervisedRootVideos"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1911.00841",
+      "prov:label": "Source paper of the silver entry nguha/legalbench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1911.08434",
+      "prov:label": "Source paper of the silver entry nielsRocholl/universal-lesion-segmentation"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.08864",
+      "prov:label": "Source paper of the silver entry ningweicn/ShareRobot"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.01674",
+      "prov:label": "Source paper of the silver entry nkp37/MotionSight"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.02371",
+      "prov:label": "Source paper of the silver entry nkp37/OpenVid-1M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.19357",
+      "prov:label": "Source paper of the silver entry nlylmz/MentalBlackboard"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.12881",
+      "prov:label": "Source paper of the silver entry nvidia/Nemotron-CC-Math-v1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.14444",
+      "prov:label": "Source paper of the silver entry nvidia/Nemotron-CC-v2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.02595",
+      "prov:label": "Source paper of the silver entry nvidia/Nemotron-CC-v2.1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.01560",
+      "prov:label": "Source paper of the silver entry nvidia/OpenMathInstruct-2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.16891",
+      "prov:label": "Source paper of the silver entry nvidia/OpenMathReasoning"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.06949",
+      "prov:label": "Source paper of the silver entry nvidia/PhysicalAI-Robotics-GR00T-Teleop-GR1"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.00692",
+      "prov:label": "Source paper of the silver entry nvidia/PhysicalAI-SmartSpaces"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.10116",
+      "prov:label": "Source paper of the silver entry nvidia/SAGE-10k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.10934",
+      "prov:label": "Source paper of the silver entry nvidia/vipe-wild-sdg-1m"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1912.00582",
+      "prov:label": "Source paper of the silver entry nyu-mll/blimp"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1804.07461",
+      "prov:label": "Source paper of the silver entry nyu-mll/glue"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.04670",
+      "prov:label": "Source paper of the silver entry nyu-visionx/Cambrian-S-3M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.14171",
+      "prov:label": "Source paper of the silver entry nyu-visionx/VSI-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.16208",
+      "prov:label": "Source paper of the silver entry nyu-visionx/scale-rae-data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2012.15613",
+      "prov:label": "Source paper of the silver entry occiglot/tokenizer-wiki-bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1804.03209",
+      "prov:label": "Source paper of the silver entry odunola/speech-commands"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.00143",
+      "prov:label": "Source paper of the silver entry ogutsevda/graph-bracs"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1911.10683",
+      "prov:label": "Source paper of the silver entry omarelsherif010/glm-ocr-bnk-finetuning"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.07888",
+      "prov:label": "Source paper of the silver entry omni-research/Tarsier2-Recap-585K"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.23159",
+      "prov:label": "Source paper of the silver entry onandon/SEAL"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.02817",
+      "prov:label": "Source paper of the silver entry oolongbench/oolong-synth"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.06786",
+      "prov:label": "Source paper of the silver entry open-web-math/open-web-math"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.04315",
+      "prov:label": "Source paper of the silver entry openbmb/Ultra-FineWeb"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.09003",
+      "prov:label": "Source paper of the silver entry openbmb/UltraData-Math"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.11206",
+      "prov:label": "Source paper of the silver entry opencsg/Fineweb-Edu-Chinese-V2.2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2501.08197",
+      "prov:label": "Source paper of the silver entry opencsg/chinese-fineweb-edu"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.16397",
+      "prov:label": "Source paper of the silver entry opendatalab/AICC"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.07626",
+      "prov:label": "Source paper of the silver entry opendatalab/OmniDocBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.14194",
+      "prov:label": "Source paper of the silver entry opendatalab/SlimPajama-Meta-rater"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2207.04672",
+      "prov:label": "Source paper of the silver entry openlanguagedata/flores_plus"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.09246",
+      "prov:label": "Source paper of the silver entry openvla/modified_libero_rlds"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.15887",
+      "prov:label": "Source paper of the silver entry oripress/AlgoTune"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.03310",
+      "prov:label": "Source paper of the silver entry physical-intelligence/libero"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.04327",
+      "prov:label": "Source paper of the silver entry pietrolesci/pythia-deduped-stats-raw"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2102.08981",
+      "prov:label": "Source paper of the silver entry pixparse/cc12m-wds"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.18254",
+      "prov:label": "Source paper of the silver entry plantian/Loom_01"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2210.14896",
+      "prov:label": "Source paper of the silver entry poloclub/diffusiondb"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.11960",
+      "prov:label": "Source paper of the silver entry pulsia/fr-bench-pdf2md"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1909.06146",
+      "prov:label": "Source paper of the silver entry qiaojin/PubMedQA"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2408.01437",
+      "prov:label": "Source paper of the silver entry qq456cvb/img2cad-dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1805.00713",
+      "prov:label": "Source paper of the silver entry quanml0703/CrisisMMD_v2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.11421",
+      "prov:label": "Source paper of the silver entry rhos-ai/gm100-cobotmagic-lerobot"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2305.07759",
+      "prov:label": "Source paper of the silver entry roneneldan/TinyStories"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.15379",
+      "prov:label": "Source paper of the silver entry rsi/PixelsPointsPolygons"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.18660",
+      "prov:label": "Source paper of the silver entry saberzl/So-Fake-Set"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.15015",
+      "prov:label": "Source paper of the silver entry safe-autonomous-systems/fluidgym-experiments"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2507.16725",
+      "prov:label": "Source paper of the silver entry sapphirex/RAVine-logs"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2509.17052",
+      "prov:label": "Source paper of the silver entry sarulab-speech/yodas2_sidon"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.10747",
+      "prov:label": "Source paper of the silver entry sdialog/voices-asrfairness"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.02920",
+      "prov:label": "Source paper of the silver entry sdvkasc/robotwin"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.13440",
+      "prov:label": "Source paper of the silver entry sebnae/UAV-IndoorCL"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2404.15574",
+      "prov:label": "Source paper of the silver entry shaswat123/NIAH"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.12952",
+      "prov:label": "Source paper of the silver entry shihao1895/bridge-rlds"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.02787",
+      "prov:label": "Source paper of the silver entry sii-rhos-ai/ViFailback-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.20206",
+      "prov:label": "Source paper of the silver entry sky014/sky03"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.13964",
+      "prov:label": "Source paper of the silver entry skylenage/HLE-Verified"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2106.06909",
+      "prov:label": "Source paper of the silver entry speechcolab/gigaspeech"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1508.05326",
+      "prov:label": "Source paper of the silver entry stanfordnlp/snli"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.20275",
+      "prov:label": "Source paper of the silver entry sysuyy/ImgEdit"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1307.5336",
+      "prov:label": "Source paper of the silver entry takala/financial_phrasebank"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2310.02575",
+      "prov:label": "Source paper of the silver entry tanganke/gtsrb"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.00059",
+      "prov:label": "Source paper of the silver entry taohan10200/CRA5-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.24381",
+      "prov:label": "Source paper of the silver entry tasl-lab/uniocc"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2411.02293",
+      "prov:label": "Source paper of the silver entry tencent/HY3D-Bench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2307.01909",
+      "prov:label": "Source paper of the silver entry thainamhoang/era5-climate-learn"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.10696",
+      "prov:label": "Source paper of the silver entry theairlabcmu/TartanGround"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.04605",
+      "prov:label": "Source paper of the silver entry thebajajra/Ecom-niverse"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1906.01265",
+      "prov:label": "Source paper of the silver entry thu-coai/chid"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.13278",
+      "prov:label": "Source paper of the silver entry thuml/Time-Series-Library"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1512.03012",
+      "prov:label": "Source paper of the silver entry tiange/Cap3D"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1911.00359",
+      "prov:label": "Source paper of the silver entry tiiuae/falcon-refinedweb"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.02881",
+      "prov:label": "Source paper of the silver entry tokyotech-llm/swallow-code-v2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2005.04790",
+      "prov:label": "Source paper of the silver entry tomsqh/hateful_memes"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2203.09509",
+      "prov:label": "Source paper of the silver entry toxigen/toxigen-data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.18175",
+      "prov:label": "Source paper of the silver entry transferable-samplers/many-peptides-md"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.19951",
+      "prov:label": "Source paper of the silver entry tsinghua-ee/AVUTBenchmark"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.23499",
+      "prov:label": "Source paper of the silver entry tugrul93/TaCarla"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2406.07476",
+      "prov:label": "Source paper of the silver entry turing-motors/CoVLA-Dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2603.00206",
+      "prov:label": "Source paper of the silver entry tylerxdurden/TACIT-benchmark"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1903.00161",
+      "prov:label": "Source paper of the silver entry ucinlp/drop"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1902.00193",
+      "prov:label": "Source paper of the silver entry unimelb-nlp/wikiann"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.09400",
+      "prov:label": "Source paper of the silver entry uonlp/CulturaX"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2311.08695",
+      "prov:label": "Source paper of the silver entry user9000/CLEVR-HOPE"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.05879",
+      "prov:label": "Source paper of the silver entry utter-project/EuroWeb-2512"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.13930",
+      "prov:label": "Source paper of the silver entry uwipl/RT-Pose"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.23359",
+      "prov:label": "Source paper of the silver entry va1bhavagrawa1/seethrough3d-data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.01449",
+      "prov:label": "Source paper of the silver entry vidore/colpali_train_set"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2602.12877",
+      "prov:label": "Source paper of the silver entry vijpandaturtle/roadscapes"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.05209",
+      "prov:label": "Source paper of the silver entry vsevolodpl/REPID"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.04307",
+      "prov:label": "Source paper of the silver entry vyokky/GUI-360"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2402.04249",
+      "prov:label": "Source paper of the silver entry walledai/HarmBench"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2308.01263",
+      "prov:label": "Source paper of the silver entry walledai/XSTest"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.09033",
+      "prov:label": "Source paper of the silver entry wenshengdfgsf/RFUAV"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.15516",
+      "prov:label": "Source paper of the silver entry whuang37/egodorsal"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2410.01744",
+      "prov:label": "Source paper of the silver entry wyu1/Leopard-Instruct"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.13877",
+      "prov:label": "Source paper of the silver entry x-humanoid-robomind/RoboMIND"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.02790",
+      "prov:label": "Source paper of the silver entry xiaotanhua/UnicEdit-10M"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2309.14509",
+      "prov:label": "Source paper of the silver entry xingzhaohu/agentshot"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2407.12883",
+      "prov:label": "Source paper of the silver entry xlangai/BRIGHT"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2404.07972",
+      "prov:label": "Source paper of the silver entry xlangai/ubuntu_osworld_file_cache"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2504.03600",
+      "prov:label": "Source paper of the silver entry xu1233456/CT_DeepLesion-MedSAM2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2404.10595",
+      "prov:label": "Source paper of the silver entry xy050721/coda-lm"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2511.04678",
+      "prov:label": "Source paper of the silver entry yihongs/VOST-TAS"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.12245",
+      "prov:label": "Source paper of the silver entry yinanli1215/Sound2Hap"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2508.01112",
+      "prov:label": "Source paper of the silver entry yizhouz/MASIV"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2306.10097",
+      "prov:label": "Source paper of the silver entry ylacombe/cml-tts"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2505.21089",
+      "prov:label": "Source paper of the silver entry yufaxia/DisasterM3"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2503.09032",
+      "prov:label": "Source paper of the silver entry ywchoi/OpenMedText"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2409.11340",
+      "prov:label": "Source paper of the silver entry yzwang/X2I-subject-driven"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2412.15204",
+      "prov:label": "Source paper of the silver entry zai-org/LongBench-v2"
+    },
+    {
+      "@id": "https://arxiv.org/abs/1708.07747",
+      "prov:label": "Source paper of the silver entry zalando-datasets/fashion_mnist"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2405.14838",
+      "prov:label": "Source paper of the silver entry zen-E/GSM8k-Aug"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2506.17612",
+      "prov:label": "Source paper of the silver entry zhang118970/MMArt-PPR10k"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2510.23930",
+      "prov:label": "Source paper of the silver entry zhenzhi937/PlanarGS_dataset"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2512.14477",
+      "prov:label": "Source paper of the silver entry zjuerzzy/TACK_Tunnel_Data"
+    },
+    {
+      "@id": "https://arxiv.org/abs/2601.05930",
+      "prov:label": "Source paper of the silver entry zjunlp/PredictBeforeExecute"
     }
   ],
   "prov:wasGeneratedBy": [
@@ -1152,27 +4510,159 @@
       "prov:type": {
         "@id": "https://www.wikidata.org/wiki/Q4929239"
       },
-      "prov:label": "Source paper acquisition",
-      "sc:description": "Source-paper PDFs (102 gold + 500 silver) downloaded from arXiv between November 2025 and January 2026, seeded by the HuggingFace top-downloaded ML datasets list. PDFs parsed with PyPDF2 3.0.1.",
-      "prov:atTime": "2025-11-01T00:00:00Z"
-    },
-    {
-      "@type": "prov:Activity",
-      "prov:type": {
-        "@id": "https://www.wikidata.org/wiki/Q5227332"
-      },
-      "prov:label": "LLM pre-fill extraction",
-      "sc:description": "Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) generated initial metadata extractions at temperature 0 using a canonical prompt (SHA-256 prefix 1e1cfdd99246bbf5). These pre-fills served as the rating substrate for human annotators.",
-      "prov:atTime": "2026-02-15T00:00:00Z"
+      "prov:label": "Source paper selection",
+      "sc:description": "The corpus was built from publicly available ML dataset papers linked from Hugging Face datasets, prioritising highly downloaded datasets. The 102 gold entries were curated by hand across modalities and formats; some of them are different datasets described by the same paper. Their PDFs were obtained between October 2025 and January 2026 from arXiv and, for a few entries, from the publisher (ACL Anthology, ISCA Archive, a University of Toronto technical report and a Scale AI report). The 500 silver entries were selected automatically in April 2026 from Hugging Face datasets that link to an arXiv paper, ranked by download count, deduplicated by arXiv identifier and filtered to remove overlap with the gold split; their PDFs were obtained from arXiv in April 2026. The PDFs are not redistributed.",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:Agent",
+          "@id": "croissantminer_authors",
+          "prov:label": "CroissantMiner authors"
+        }
+      ]
     },
     {
       "@type": "prov:Activity",
       "prov:type": {
         "@id": "https://www.wikidata.org/wiki/Q109719325"
       },
-      "prov:label": "Human rating + adjudication",
-      "sc:description": "22 annotators rated LLM-generated extractions across 7 phases (March – April 2026). Gold derived by majority rule (>=3 raters) with senior adjudication on disagreements. Final pipeline: 9,595 deduplicated ratings to 3,060 gold cells.",
-      "prov:atTime": "2026-03-01T00:00:00Z"
+      "prov:label": "LLM pre-fill of the gold entries",
+      "sc:description": "Claude Sonnet 4.5 filled all 30 fields of each of the 102 gold entries on 7 and 13 January 2026; the run did not log its settings. These pre-fills are the values the annotators rated.",
+      "prov:atTime": "2026-01-07T00:00:00Z",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:SoftwareAgent",
+          "@id": "claude_sonnet_4_5",
+          "prov:label": "Claude Sonnet 4.5"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
+      "prov:label": "LLM pre-fill of the silver entries",
+      "sc:description": "Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) filled all 30 fields of each of the 500 silver entries on 3 April 2026, at temperature 0 with the canonical prompt (SHA-256 prefix 1e1cfdd99246bbf5). These pre-fills are released as silver_annotations and are not human-validated.",
+      "prov:atTime": "2026-04-03T00:00:00Z",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:SoftwareAgent",
+          "@id": "claude_sonnet_4_5_silver",
+          "prov:label": "Claude Sonnet 4.5",
+          "sc:description": "claude-sonnet-4-5-20250929, temperature 0, canonical prompt"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
+      "prov:label": "Human rating",
+      "sc:description": "22 annotators, 8 of them authors of the paper, joined through an open research call and took part voluntarily without payment. They rated each pre-filled value as Correct, Partially Correct or Not Correct, with failure-mode labels, an optional corrected value, notes and a confidence level, using the paper as the source. Every cell received at least three ratings (four for 415 cells) over seven phases between 10 March and 25 April 2026, from a calibration pilot to clean-up sweeps. Ratings were collected in shared online spreadsheets, one per annotator and phase, and annotators were instructed not to use AI tools. After deduplication there are 9,595 ratings. Per-field agreement (Krippendorff's alpha, Gwet's AC1, raw agreement) is in iaa.parquet.",
+      "prov:atTime": "2026-03-10T00:00:00Z",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:Agent",
+          "@id": "annotators_a01_a22",
+          "prov:label": "22 human annotators (pseudonyms A01 to A22)",
+          "sc:description": "Master's and PhD students, postdoctoral researchers, faculty and industry or independent researchers; roster in annotators.parquet"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q3306762"
+      },
+      "prov:label": "Gold derivation and adjudication",
+      "sc:description": "Gold values were taken from the majority vote in each cell. A senior author adjudicated the 140 cells without a majority (gold_method adjudicated), and a second senior author resolved 14 cells whose last ratings arrived too late for the majority vote.",
+      "prov:atTime": "2026-04-29T00:00:00Z",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:Agent",
+          "@id": "a_senior_01",
+          "prov:label": "Senior author (adjudicator_id A_senior_01)"
+        },
+        {
+          "@type": "prov:Agent",
+          "@id": "a_senior_02",
+          "prov:label": "Senior author (adjudicator_id A_senior_02)"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q3306762"
+      },
+      "prov:label": "Author audit",
+      "sc:description": "An end-to-end author audit corrected 191 of the 3,060 gold cells, across 78 of the 102 entries and 25 of the 30 fields (gold_method audit_corrected_2026-05-04; adjudication_notes give the reason for each correction). The audit label replaces the earlier label of each corrected cell, including some adjudicated cells.",
+      "prov:atTime": "2026-05-04T00:00:00Z",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:Agent",
+          "@id": "croissantminer_authors",
+          "prov:label": "CroissantMiner authors"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q4929239"
+      },
+      "prov:label": "System outputs",
+      "sc:description": "The 24 extraction systems ranked in the paper and the Claude Sonnet 4.5 reference were run on the 14 development and 88 test entries (system_outputs).",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:SoftwareAgent",
+          "@id": "extraction_systems",
+          "prov:label": "24 extraction systems and the Claude Sonnet 4.5 reference",
+          "sc:description": "frontier and open-weight LLMs in single-pass extraction and four agentic architectures"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
+      "prov:label": "LLM judging and judge audit",
+      "sc:description": "System outputs on the Responsible AI fields of the 88 test entries were scored by a GLM-5 judge on a three-level rubric (judge_verdicts). The judge was selected from six candidates on 60 cells, 30 for calibration and 30 for validation (judge_selection), and three authors audited it on 200 cells (judge_audit_200).",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:SoftwareAgent",
+          "@id": "glm_5_judge",
+          "prov:label": "GLM-5 judge"
+        },
+        {
+          "@type": "prov:Agent",
+          "@id": "judge_audit_raters",
+          "prov:label": "Three authors (R1 to R3)"
+        }
+      ]
+    },
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q109719325"
+      },
+      "prov:label": "Re-annotation pilot",
+      "sc:description": "To check the effect of the seed model, papers were re-annotated from GPT-5.4 pre-fills with the original protocol (three raters per cell, the same rubric and majority vote); the 10 test entries analysed in the paper are marked by in_paper_analysis (pilot_gold, pilot_ratings).",
+      "prov:wasAttributedTo": [
+        {
+          "@type": "prov:SoftwareAgent",
+          "@id": "gpt_5_4",
+          "prov:label": "GPT-5.4"
+        },
+        {
+          "@type": "prov:Agent",
+          "@id": "pilot_raters",
+          "prov:label": "Pilot raters (slots A, B and C per paper)"
+        }
+      ]
     }
-  ]
+  ],
+  "dateModified": "2026-11-05"
 }

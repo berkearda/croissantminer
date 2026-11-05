@@ -34,4 +34,4 @@ old commands and imports working.
 | `pilot_aggregate_and_score.py`, `pilot_ranking_stability.py`, `pilot_table2_style.py`, `judge_pilot_gold.py` | Re-annotation pilot for the seed-model check (appendix; its data will be released with the dataset) |
 | `compare_judges_test88.py` | Composite scores under different judge versions |
 | `audit/` | Judge audit sheets and rubric calibration |
-| `annotations/build_croissant.py` | Croissant JSON-LD description of the dataset |
+| `annotations/build_croissant.py` | Review-time (v1.0) Croissant description of the six annotation tables; `data/annotations/croissant.json` is now the Hugging Face v1.2 file |

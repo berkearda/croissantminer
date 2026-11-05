@@ -19,6 +19,8 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
   it stays in the paper's results table in `README.md`.
 - `data/annotations/gold.parquet`: the adjudicator ids are coded (`A_senior_01`, `A_senior_02`) as in the reviewed
   dataset, matching dataset v1.2 on Hugging Face; all values are unchanged and Table 2 reproduces exactly.
+- `data/annotations/croissant.json` is now a copy of the Hugging Face file (v1.2, with corrected descriptions)
+  instead of the anonymized review-time file, whose code link has expired. The package links to the paper on arXiv.
 
 ## 0.2.0 (1 October 2026)
 
