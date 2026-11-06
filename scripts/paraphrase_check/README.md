@@ -31,5 +31,6 @@ python scripts/paraphrase_check/paraphrase_gt.py --model gpt-5.4      # needs OP
 
 ## Result
 
-Across the 10 systems the composite moves by at most 0.020 (mean 0.006), and the ranking is preserved: Spearman
-correlation with the original-gold ranking is 0.976 for the Sonnet 4.6 gold and 0.988 for the GPT-5.4 gold.
+Scored against the original-gold verdicts in `data/judged/judge_scores_glm_5.parquet`, the composite of the 10 systems
+moves by at most 0.046 (mean about 0.02), and the ranking is nearly unchanged: Spearman correlation with the
+original-gold ranking is 0.964 for the Sonnet 4.6 gold and 0.976 for the GPT-5.4 gold.
