@@ -115,6 +115,33 @@ def _fields_html(metadata: dict | None = None, evidence: dict | None = None,
                    for title, fields in groups)
 
 
+def _review_values(metadata: dict | None = None) -> list[str]:
+    """The review boxes: each field's value as text (empty when nothing was found)."""
+    metadata = metadata or {}
+    return [_value_text(metadata[key]) if _is_valid(metadata.get(key)) else "" for key in ALL_FIELD_KEYS]
+
+
+def apply_review(run: dict | None, *texts):
+    """Rebuild the field cards and the Croissant file from the reviewed values.
+    A value left as extracted keeps its original form (for example a list of
+    creators), an edited value is used as typed, and a cleared value is left out."""
+    if not run:
+        raise gr.Error("Extract metadata first, then review the fields.")
+    extracted = run["metadata"]
+    shown = dict(zip(ALL_FIELD_KEYS, _review_values(extracted)))
+    reviewed, edited = dict(extracted), []
+    for key, text in zip(ALL_FIELD_KEYS, texts):
+        text = "" if text is None else str(text).strip()
+        if text != shown[key].strip():
+            reviewed[key] = text or None
+            edited.append(key)
+    evidence = {k: v for k, v in run["evidence"].items() if k not in edited}
+    null_reasons = {k: v for k, v in run["null_reasons"].items() if k not in edited}
+    note = (f"Croissant file updated: {len(edited)} field{'' if len(edited) == 1 else 's'} changed in your review."
+            if edited else "Croissant file updated: no field changed.")
+    return (_fields_html(reviewed, evidence, null_reasons),
+            _build_croissant(reviewed, run["hf_dataset_id"]), note)
+
 
 # ---------------------------------------------------------------------------
 # Core extraction function
@@ -157,10 +184,15 @@ def extract_metadata(pdf_file, paper_text: str, card_text: str, method_label: st
 
     progress(0.9, desc="Building outputs...")
     metadata = {k: result.fields.get(k) for k in ALL_FIELD_KEYS}
+    run = {"metadata": metadata, "evidence": result.evidence or {},
+           "null_reasons": result.null_reasons or {}, "hf_dataset_id": hf_dataset_id}
     return (
         _summary_md(metadata, method, result),
         _fields_html(metadata, result.evidence, result.null_reasons),
         _build_croissant(metadata, hf_dataset_id),
+        run,
+        "",
+        *_review_values(metadata),
     )
 
 
@@ -205,6 +237,12 @@ The score in the paper is the composite score over all 30 fields on the 88 test 
 | Method | Score in the paper |
 |---|---|
 {_SCORE_ROWS}
+
+### Review
+
+The extracted fields are drafts. In the Review and Edit tab you check each value against the paper, correct or
+clear it, or fill a field the method left empty; **Update Croissant file** then rebuilds the Croissant file from
+your reviewed values.
 
 Uploaded PDFs go through the benchmark's preprocessing (PyPDF2 text extraction and cleaning).
 Triage + Critique runs its triage step with Claude Sonnet 4.6 so that one key covers the method;
@@ -300,7 +338,7 @@ with gr.Blocks(title="CroissantMiner") as demo:
     gr.HTML(f'<h1 class="app-title">{_logo}CroissantMiner</h1>', padding=False, elem_id="app-title")
     gr.Markdown(
         "*Extract Croissant metadata from ML dataset papers.* "
-        "Research demo: review the extracted metadata before use. "
+        "Research demo: check and correct the fields in the Review and Edit tab before you use the file. "
         "Your API key is sent only to the model provider and is not stored.\n\n"
         "[Code](https://github.com/berkearda/croissantminer) · "
         "[Dataset](https://huggingface.co/datasets/bearda/croissantminer)"
@@ -359,6 +397,17 @@ with gr.Blocks(title="CroissantMiner") as demo:
                 with gr.Tab("Extracted Fields"):
                     fields_box = gr.HTML(_fields_html(), padding=False, elem_id="fields-box")
 
+                with gr.Tab("Review and Edit"):
+                    gr.Markdown("Check each value against the paper. Correct a value, clear it, or fill an "
+                                "empty field, then click **Update Croissant file**. The Croissant JSON-LD tab "
+                                "and its download then use your reviewed values.")
+                    # text boxes rather than a gr.Dataframe: a Dataframe in this tab froze
+                    # the browser in Gradio 6.14
+                    review_boxes = [gr.Textbox(label=key, info=desc, lines=1, max_lines=12)
+                                    for key, desc in GENERAL_FIELDS + RAI_FIELDS]
+                    review_btn = gr.Button("Update Croissant file", variant="primary")
+                    review_status = gr.Markdown()
+
                 with gr.Tab("Croissant JSON-LD"):
                     croissant_output = gr.JSON(label="Croissant JSON-LD", value=None)
                     download_btn = gr.DownloadButton(label="Download Croissant JSON-LD", visible=False)
@@ -374,10 +423,18 @@ with gr.Blocks(title="CroissantMiner") as demo:
         outputs=[method_info, api_key_input],
     )
 
+    run_state = gr.State(None)
+
     extract_btn.click(
         fn=extract_metadata,
         inputs=[pdf_input, paper_input, card_input, method_selector, api_key_input, hf_id_input],
-        outputs=[summary_output, fields_box, croissant_output],
+        outputs=[summary_output, fields_box, croissant_output, run_state, review_status, *review_boxes],
+    )
+
+    review_btn.click(
+        fn=apply_review,
+        inputs=[run_state, *review_boxes],
+        outputs=[fields_box, croissant_output, review_status],
     )
 
     def _make_download(croissant_dict):
