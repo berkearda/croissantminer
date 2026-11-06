@@ -17,7 +17,7 @@ Notable changes to CroissantMiner. Versions follow [semantic versioning](https:/
 - The PDF parser ablation of the paper (Appendix C.3): `scripts/parser_ablation/` (parse, extract, score), the
   outputs of its eight runs and their judge verdicts; `score.py` reproduces the scores. `extract_text_from_pdf` takes a
   `backend` (`pypdf2`, the default and unchanged; `pymupdf`; `docling`; `docling_full`).
-- The paraphrased-gold check of the paper: `scripts/paraphrase_check/` (paraphraser and README), the two reworded
+- The paraphrased-gold check of the paper: `scripts/paraphrase_check/` (paraphraser, scorer and README), the two reworded
   golds (`data/annotations/gold_paraphrased_{sonnet_4_6,gpt_5_4}.parquet`) and the per-cell GLM-5 verdicts of the 10
   single-pass systems against each (`data/judged/paraphrase_check_glm5_*.parquet`).
 

@@ -27,10 +27,29 @@ fields are scored by token-F1 against the reworded gold, as in the main results.
 ```bash
 python scripts/paraphrase_check/paraphrase_gt.py --model sonnet-4-6   # needs ANTHROPIC_API_KEY
 python scripts/paraphrase_check/paraphrase_gt.py --model gpt-5.4      # needs OPENAI_API_KEY
+python scripts/paraphrase_check/score.py                              # writes results/paraphrase_check/scores.csv
 ```
+
+The reworded golds are on hand, so `score.py` works without re-running the paraphraser. It uses the paper's scorer
+(`scripts/figures/build_test88_headline_table.py`) unchanged. The reworded files were made from the gold of 30 April
+2026, so `score.py` compares them with that same gold, read from git history (commit `aea3b7a`); comparing with
+today's `gold.parquet` would mix in the audit corrections made since. Responsible AI fields use the stored GLM-5
+verdicts: `data/judged/judge_scores_glm_5.parquet` for the original gold and the files above for the reworded golds.
 
 ## Result
 
-Scored against the original-gold verdicts in `data/judged/judge_scores_glm_5.parquet`, the composite of the 10 systems
-moves by at most 0.046 (mean about 0.02), and the ranking is nearly unchanged: Spearman correlation with the
-original-gold ranking is 0.964 for the Sonnet 4.6 gold and 0.976 for the GPT-5.4 gold.
+| System | Original gold | Sonnet 4.6 reworded | GPT-5.4 reworded |
+|---|---|---|---|
+| Claude Sonnet 4.6 | 0.609 | 0.610 | 0.610 |
+| GPT-5.4 | 0.603 | 0.591 | 0.601 |
+| Claude Opus 4.7 | 0.592 | 0.573 | 0.590 |
+| Qwen3.6 35B-A3B | 0.553 | 0.544 | 0.548 |
+| GLM-5.1 | 0.547 | 0.540 | 0.539 |
+| GPT-5.4 Mini | 0.519 | 0.516 | 0.518 |
+| Gemini 3.1 Pro | 0.509 | 0.507 | 0.512 |
+| DeepSeek V3.2 | 0.497 | 0.498 | 0.498 |
+| Mistral Small 4 | 0.458 | 0.458 | 0.466 |
+| Llama 4 Scout 17B | 0.342 | 0.340 | 0.343 |
+
+The ranking is unchanged under both reworded golds (Spearman 1.00). Composites move by at most 0.019 (mean 0.006)
+with the Sonnet 4.6 gold and at most 0.008 (mean 0.003) with the GPT-5.4 gold.
